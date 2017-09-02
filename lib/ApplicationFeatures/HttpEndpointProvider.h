@@ -20,8 +20,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_APPLICATION_FEATURES_HTTP_ENDPOINT_PROVIDER_H
-#define ARANGODB_APPLICATION_FEATURES_HTTP_ENDPOINT_PROVIDER_H 1
+#ifndef AVOCADODB_APPLICATION_FEATURES_HTTP_ENDPOINT_PROVIDER_H
+#define AVOCADODB_APPLICATION_FEATURES_HTTP_ENDPOINT_PROVIDER_H 1
 
 #include "Basics/Common.h"
 

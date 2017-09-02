@@ -45,8 +45,8 @@ RestStatus RestDatabaseHandler::execute() {
     return getDatabases();
   } else if (type == rest::RequestType::POST) {
     if (!_vocbase->isSystem()) {
-      generateError(GeneralResponse::responseCode(TRI_ERROR_ARANGO_USE_SYSTEM_DATABASE),
-                    TRI_ERROR_ARANGO_USE_SYSTEM_DATABASE);
+      generateError(GeneralResponse::responseCode(TRI_ERROR_AVOCADO_USE_SYSTEM_DATABASE),
+                    TRI_ERROR_AVOCADO_USE_SYSTEM_DATABASE);
       return RestStatus::DONE;
     }
     return createDatabase();
@@ -114,7 +114,7 @@ RestStatus RestDatabaseHandler::createDatabase() {
   VPackSlice nameVal = parsedBody->slice().get("name");
   if (!nameVal.isString()) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_DATABASE_NAME_INVALID);
+                  TRI_ERROR_AVOCADO_DATABASE_NAME_INVALID);
     return RestStatus::DONE;
   }
   std::string dbName = nameVal.copyString();
@@ -127,7 +127,7 @@ RestStatus RestDatabaseHandler::createDatabase() {
     generateSuccess(rest::ResponseCode::CREATED, VPackSlice::trueSlice());
   } else {
     if (res.errorNumber() == TRI_ERROR_FORBIDDEN ||
-        res.errorNumber() == TRI_ERROR_ARANGO_DUPLICATE_NAME) {
+        res.errorNumber() == TRI_ERROR_AVOCADO_DUPLICATE_NAME) {
       generateError(res);
     } else {// http_server compatibility
       generateError(rest::ResponseCode::BAD, res.errorNumber(), res.errorMessage());
@@ -141,8 +141,8 @@ RestStatus RestDatabaseHandler::createDatabase() {
 // //////////////////////////////////////////////////////////////////////////////
 RestStatus RestDatabaseHandler::deleteDatabase() {
   if (!_vocbase->isSystem()) {
-    generateError(GeneralResponse::responseCode(TRI_ERROR_ARANGO_USE_SYSTEM_DATABASE),
-                  TRI_ERROR_ARANGO_USE_SYSTEM_DATABASE);
+    generateError(GeneralResponse::responseCode(TRI_ERROR_AVOCADO_USE_SYSTEM_DATABASE),
+                  TRI_ERROR_AVOCADO_USE_SYSTEM_DATABASE);
     return RestStatus::DONE;
   }
   std::vector<std::string> const& suffixes = _request->suffixes();

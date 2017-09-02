@@ -72,13 +72,13 @@ BaseOptions::LookupInfo::LookupInfo(avocadodb::aql::Query* query,
 
   VPackSlice read = info.get("handle");
   if (!read.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER, "Each lookup requires handle to be an object");
   }
 
   read = read.get("id");
   if (!read.isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Each handle requires id to be a string");
   }
   std::string idxId = read.copyString();
@@ -86,7 +86,7 @@ BaseOptions::LookupInfo::LookupInfo(avocadodb::aql::Query* query,
 
   for (auto const& it : VPackArrayIterator(shards)) {
     if (!it.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "Shards have to be a list of strings");
     }
     idxHandles.emplace_back(trx->getIndexByIdentifier(it.copyString(), idxId));
@@ -102,7 +102,7 @@ BaseOptions::LookupInfo::LookupInfo(avocadodb::aql::Query* query,
 
   read = info.get("condition");
   if (!read.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "Each lookup requires condition to be an object");
   }
@@ -193,14 +193,14 @@ BaseOptions::BaseOptions(avocadodb::aql::Query* query, VPackSlice info,
       _cache(nullptr) {
   VPackSlice read = info.get("tmpVar");
   if (!read.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a tmpVar");
   }
   _tmpVar = query->ast()->variables()->createVariable(read);
 
   read = info.get("baseLookupInfos");
   if (!read.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a baseLookupInfos");
   }
 
@@ -250,7 +250,7 @@ void BaseOptions::injectLookupInfoInList(std::vector<LookupInfo>& list,
   TRI_ASSERT(res);  // Right now we have an enforced edge index which will
                     // always fit.
   if (!res) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "expected edge index not found");
   }
 

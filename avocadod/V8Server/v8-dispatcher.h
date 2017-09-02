@@ -22,8 +22,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_V8_SERVER_V8_DISPATCHER_H
-#define ARANGOD_V8_SERVER_V8_DISPATCHER_H 1
+#ifndef AVOCADOD_V8_SERVER_V8_DISPATCHER_H
+#define AVOCADOD_V8_SERVER_V8_DISPATCHER_H 1
 
 #include "Basics/Common.h"
 

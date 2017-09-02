@@ -61,7 +61,7 @@ ViewCreator& ViewTypesFeature::creator(std::string const& type) const {
   auto it = _viewCreators.find(type);
 
   if (it == _viewCreators.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "no handler found for view type");
   }
   return (*it).second;

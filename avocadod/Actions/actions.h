@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ACTIONS_ACTIONS_H
-#define ARANGOD_ACTIONS_ACTIONS_H 1
+#ifndef AVOCADOD_ACTIONS_ACTIONS_H
+#define AVOCADOD_ACTIONS_ACTIONS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Mutex.h"

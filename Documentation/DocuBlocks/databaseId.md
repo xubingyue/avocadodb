@@ -7,7 +7,7 @@ Returns the id of the current database as a string.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{dbId}
+@EXAMPLE_AVOCADOSH_OUTPUT{dbId}
   require("@avocadodb").db._id();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

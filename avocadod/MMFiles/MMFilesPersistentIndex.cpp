@@ -347,7 +347,7 @@ Result MMFilesPersistentIndex::insert(transaction::Methods* trx,
 
       if (uniqueConstraintViolated) {
         // duplicate key
-        res = TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+        res = TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
         auto physical =
             static_cast<MMFilesCollection*>(_collection->getPhysical());
         TRI_ASSERT(physical != nullptr);
@@ -371,7 +371,7 @@ Result MMFilesPersistentIndex::insert(transaction::Methods* trx,
         rocksTransaction->Delete(values[i]);
       }
 
-      if (res == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED && !_unique) {
+      if (res == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED && !_unique) {
         // We ignore unique_constraint violated if we are not unique
         res = TRI_ERROR_NO_ERROR;
       }
@@ -658,7 +658,7 @@ bool MMFilesPersistentIndex::accessFitsIndex(
         (*it).second.emplace_back(op);
       }
       TRI_IF_FAILURE("PersistentIndex::accessFitsIndex") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       return true;
@@ -867,7 +867,7 @@ IndexIterator* MMFilesPersistentIndex::iteratorForCondition(
     VPackArrayBuilder guard(&searchValues);
 
     TRI_IF_FAILURE("PersistentIndex::noSortIterator") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
   } else {
     // Create the search Values for the lookup
@@ -930,14 +930,14 @@ IndexIterator* MMFilesPersistentIndex::iteratorForCondition(
         searchValues.openObject();
         searchValues.add(VPackValue(StaticStrings::IndexEq));
         TRI_IF_FAILURE("PersistentIndex::permutationEQ") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
       } else if (comp->type == avocadodb::aql::NODE_TYPE_OPERATOR_BINARY_IN) {
         if (isAttributeExpanded(usedFields)) {
           searchValues.openObject();
           searchValues.add(VPackValue(StaticStrings::IndexEq));
           TRI_IF_FAILURE("PersistentIndex::permutationArrayIN") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
         } else {
           needNormalize = true;
@@ -1009,7 +1009,7 @@ IndexIterator* MMFilesPersistentIndex::iteratorForCondition(
   searchValues.close();
 
   TRI_IF_FAILURE("PersistentIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (needNormalize) {

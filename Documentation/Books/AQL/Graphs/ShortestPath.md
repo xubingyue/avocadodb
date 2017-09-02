@@ -126,23 +126,23 @@ We will create a simple symmetric traversal demonstration graph:
 ![traversal graph](traversal_graph.png)
 
     @startDocuBlockInline GRAPHSP_01_create_graph
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_01_create_graph}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHSP_01_create_graph}
     ~addIgnoreCollection("circles");
     ~addIgnoreCollection("edges");
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("traversalGraph");
     db.circles.toArray();
     db.edges.toArray();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHSP_01_create_graph
 
 We start with the shortest path from **A** to **D** as above:
 
     @startDocuBlockInline GRAPHSP_02_A_to_D
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_02_A_to_D}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHSP_02_A_to_D}
     db._query("FOR v, e IN OUTBOUND SHORTEST_PATH 'circles/A' TO 'circles/D' GRAPH 'traversalGraph' RETURN [v._key, e._key]");
     db._query("FOR v, e IN OUTBOUND SHORTEST_PATH 'circles/A' TO 'circles/D' edges RETURN [v._key, e._key]");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHSP_02_A_to_D
 
 We can see our expectations are fulfilled. We find the vertices in the correct ordering and
@@ -151,20 +151,20 @@ the first edge is *null*, because no edge is pointing to the start vertex on t h
 We can also compute shortest paths based on documents found in collections:
 
     @startDocuBlockInline GRAPHSP_03_A_to_D
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_03_A_to_D}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHSP_03_A_to_D}
     db._query("FOR a IN circles FILTER a._key == 'A' FOR d IN circles FILTER d._key == 'D' FOR v, e IN OUTBOUND SHORTEST_PATH a TO d GRAPH 'traversalGraph' RETURN [v._key, e._key]");
     db._query("FOR a IN circles FILTER a._key == 'A' FOR d IN circles FILTER d._key == 'D' FOR v, e IN OUTBOUND SHORTEST_PATH a TO d edges RETURN [v._key, e._key]");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHSP_03_A_to_D
 
 
 And finally clean it up again:
 
     @startDocuBlockInline GRAPHSP_99_drop_graph
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_99_drop_graph}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHSP_99_drop_graph}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     examples.dropGraph("traversalGraph");
     ~removeIgnoreCollection("circles");
     ~removeIgnoreCollection("edges");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHSP_99_drop_graph

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_TRANSACTION_CONTEXT_DATA_H
-#define ARANGOD_ROCKSDB_ROCKSDB_TRANSACTION_CONTEXT_DATA_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_TRANSACTION_CONTEXT_DATA_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_TRANSACTION_CONTEXT_DATA_H 1
 
 #include "Basics/Common.h"
 #include "Transaction/ContextData.h"

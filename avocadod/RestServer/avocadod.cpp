@@ -185,7 +185,7 @@ static int runServer(int argc, char** argv, AvocadoGlobalContext &context) {
     server.addFeature(new WorkMonitorFeature(&server));
     server.addFeature(new RocksDBOptionFeature(&server));
 
-#ifdef ARANGODB_HAVE_FORK
+#ifdef AVOCADODB_HAVE_FORK
     server.addFeature(new DaemonFeature(&server));
     server.addFeature(new SupervisorFeature(&server));
 #endif

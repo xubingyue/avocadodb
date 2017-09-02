@@ -89,7 +89,7 @@ RestStatus RestIndexHandler::getIndexes() {
     LogicalCollection* coll = collection(cName, tmpColl);
     if (coll == nullptr) {
       generateError(rest::ResponseCode::NOT_FOUND,
-                    TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                    TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
       return RestStatus::DONE;
     }
 
@@ -132,7 +132,7 @@ RestStatus RestIndexHandler::getIndexes() {
     LogicalCollection* coll = collection(cName, tmpColl);
     if (coll == nullptr) {
       generateError(rest::ResponseCode::NOT_FOUND,
-                    TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                    TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
       return RestStatus::DONE;
     }
 
@@ -177,7 +177,7 @@ RestStatus RestIndexHandler::createIndex() {
   std::string cName = _request->value("collection", found);
   if (!found) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return RestStatus::DONE;
   }
 
@@ -185,7 +185,7 @@ RestStatus RestIndexHandler::createIndex() {
   LogicalCollection* coll = collection(cName, tmpColl);
   if (coll == nullptr) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return RestStatus::DONE;
   }
 
@@ -216,7 +216,7 @@ RestStatus RestIndexHandler::createIndex() {
     generateResult(r, output.slice());
   } else {
     if (res.errorNumber() == TRI_ERROR_FORBIDDEN ||
-        res.errorNumber() == TRI_ERROR_ARANGO_INDEX_NOT_FOUND) {
+        res.errorNumber() == TRI_ERROR_AVOCADO_INDEX_NOT_FOUND) {
       generateError(res);
     } else {  // http_server compatibility
       generateError(rest::ResponseCode::BAD, res.errorNumber(),
@@ -242,7 +242,7 @@ RestStatus RestIndexHandler::dropIndex() {
   LogicalCollection* coll = collection(cName, tmpColl);
   if (coll == nullptr) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return RestStatus::DONE;
   }
 

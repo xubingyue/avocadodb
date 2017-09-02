@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_CLUSTER_BLOCKS_H
-#define ARANGOD_AQL_CLUSTER_BLOCKS_H 1
+#ifndef AVOCADOD_AQL_CLUSTER_BLOCKS_H
+#define AVOCADOD_AQL_CLUSTER_BLOCKS_H 1
 
 #include "Basics/Common.h"
 #include "Aql/ClusterNodes.h"
@@ -136,25 +136,25 @@ class BlockWithClients : public ExecutionBlock {
   /// @brief getSome: shouldn't be used, use skipSomeForShard
   AqlItemBlock* getSome(size_t atLeast, size_t atMost) override final {
     TRI_ASSERT(false);
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
   }
 
   /// @brief skipSome: shouldn't be used, use skipSomeForShard
   size_t skipSome(size_t atLeast, size_t atMost) override final {
     TRI_ASSERT(false);
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
   }
 
   /// @brief remaining
   int64_t remaining() override final {
     TRI_ASSERT(false);
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
   }
 
   /// @brief hasMore
   bool hasMore() override final {
     TRI_ASSERT(false);
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
   }
 
   /// @brief getSomeForShard

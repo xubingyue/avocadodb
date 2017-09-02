@@ -203,7 +203,7 @@ void BootstrapFeature::start() {
   // Start service properly:
   rest::RestHandlerFactory::setMaintenance(false);
 
-  LOG_TOPIC(INFO, avocadodb::Logger::FIXME) << "AvocadoDB (version " << ARANGODB_VERSION_FULL
+  LOG_TOPIC(INFO, avocadodb::Logger::FIXME) << "AvocadoDB (version " << AVOCADODB_VERSION_FULL
             << ") is ready for business. Have fun!";
 
   if (_bark) {

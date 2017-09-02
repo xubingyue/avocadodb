@@ -21,8 +21,8 @@
 /// @author Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_SIMPLE_HTTP_CLIENT_COMMUNICATOR_H
-#define ARANGODB_SIMPLE_HTTP_CLIENT_COMMUNICATOR_H 1
+#ifndef AVOCADODB_SIMPLE_HTTP_CLIENT_COMMUNICATOR_H
+#define AVOCADODB_SIMPLE_HTTP_CLIENT_COMMUNICATOR_H 1
 
 #include "curl/curl.h"
 
@@ -83,7 +83,7 @@ struct CurlHandle {
   explicit CurlHandle(RequestInProgress* rip) : _handle(nullptr), _rip(rip) {
     _handle = curl_easy_init();
     if (_handle == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
     curl_easy_setopt(_handle, CURLOPT_PRIVATE, _rip.get());
     curl_easy_setopt(_handle, CURLOPT_PATH_AS_IS, 1L); 

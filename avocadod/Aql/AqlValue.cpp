@@ -830,7 +830,7 @@ v8::Handle<v8::Value> AqlValue::toV8(
           result->Set(j++, it->getValueReference(i, 0).toV8(isolate, trx));
 
           if (V8PlatformFeature::isOutOfMemory(isolate)) {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
           }
         }
       }
@@ -849,7 +849,7 @@ v8::Handle<v8::Value> AqlValue::toV8(
 
         if (i % 1000 == 0) {
           if (V8PlatformFeature::isOutOfMemory(isolate)) {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
           }
         }
       }
@@ -1047,7 +1047,7 @@ VPackSlice AqlValue::slice() const {
     }
   }
 
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
 }
 
 /// @brief create an AqlValue from a vector of AqlItemBlock*s

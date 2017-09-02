@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_VOCBASE_H
-#define ARANGOD_VOC_BASE_VOCBASE_H 1
+#ifndef AVOCADOD_VOC_BASE_VOCBASE_H
+#define AVOCADOD_VOC_BASE_VOCBASE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ConditionVariable.h"
@@ -75,7 +75,7 @@ constexpr size_t TRI_JOURNAL_DEFAULT_SIZE = 1024 * 1024 * 32;  // 32 MB
 /// file sizes in maintainer mode)
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 
 constexpr size_t TRI_JOURNAL_MINIMAL_SIZE = 16 * 1024;  // 16 KB
 
@@ -397,7 +397,7 @@ class VocbaseGuard {
   explicit VocbaseGuard(TRI_vocbase_t* vocbase) : _vocbase(vocbase) {
     if (!_vocbase->use()) {
       // database already dropped
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
     }
   }
   ~VocbaseGuard() { _vocbase->release(); }

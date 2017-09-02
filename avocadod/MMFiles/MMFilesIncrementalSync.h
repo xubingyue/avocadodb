@@ -21,8 +21,8 @@
 /// @author Simon Graetzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_INCREMENTAL_SYNC_H
-#define ARANGOD_MMFILES_INCREMENTAL_SYNC_H 1
+#ifndef AVOCADOD_MMFILES_INCREMENTAL_SYNC_H
+#define AVOCADOD_MMFILES_INCREMENTAL_SYNC_H 1
 
 #include "Basics/StaticStrings.h"
 #include "Basics/StringUtils.h"

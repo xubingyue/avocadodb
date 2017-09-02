@@ -180,7 +180,7 @@ RocksDBKeyBounds& RocksDBKeyBounds::operator=(RocksDBKeyBounds&& other) {
 }
 
 uint64_t RocksDBKeyBounds::objectId() const {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   switch (_type) {
     case RocksDBEntryType::Document:
     case RocksDBEntryType::PrimaryIndexValue:
@@ -194,7 +194,7 @@ uint64_t RocksDBKeyBounds::objectId() const {
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
   }
 #else
   return uint64FromPersistent(_internals.buffer().data());
@@ -226,7 +226,7 @@ rocksdb::ColumnFamilyHandle* RocksDBKeyBounds::columnFamily() const {
     case RocksDBEntryType::View:
       return RocksDBColumnFamily::definitions();
   }
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
 }
 
 // constructor for an empty bound. do not use for anything but to
@@ -262,7 +262,7 @@ RocksDBKeyBounds::RocksDBKeyBounds(RocksDBEntryType type) : _type(type) {
       break;
       
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -338,7 +338,7 @@ RocksDBKeyBounds::RocksDBKeyBounds(RocksDBEntryType type, uint64_t first)
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -367,7 +367,7 @@ RocksDBKeyBounds::RocksDBKeyBounds(RocksDBEntryType type, uint64_t first,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -399,7 +399,7 @@ RocksDBKeyBounds::RocksDBKeyBounds(RocksDBEntryType type, uint64_t first,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 

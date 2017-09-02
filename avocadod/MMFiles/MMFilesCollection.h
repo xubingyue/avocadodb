@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_COLLECTION_H
-#define ARANGOD_MMFILES_MMFILES_COLLECTION_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_COLLECTION_H
+#define AVOCADOD_MMFILES_MMFILES_COLLECTION_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Mutex.h"

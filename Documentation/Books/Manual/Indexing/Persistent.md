@@ -49,27 +49,27 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensureUniquePersistentSingle
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentSingle}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureUniquePersistentSingle}
     ~db._create("ids");
     db.ids.ensureIndex({ type: "persistent", fields: [ "myId" ], unique: true });
     db.ids.save({ "myId": 123 });
     db.ids.save({ "myId": 456 });
     db.ids.save({ "myId": 789 });
-    db.ids.save({ "myId": 123 });  // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    db.ids.save({ "myId": 123 });  // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
     ~db._drop("ids");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentSingle
     
     @startDocuBlockInline ensureUniquePersistentMultiColmun
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentMultiColmun}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureUniquePersistentMultiColmun}
     ~db._create("ids");
     db.ids.ensureIndex({ type: "persistent", fields: [ "name.first", "name.last" ], unique: true });
     db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }});
     db.ids.save({ "name" : { "first" : "jens", "last": "jensen" }});
     db.ids.save({ "name" : { "first" : "hans", "last": "jensen" }});
-    db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }});  // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }});  // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
     ~db._drop("ids");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentMultiColmun
 
 
@@ -90,7 +90,7 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensurePersistent
-    @EXAMPLE_ARANGOSH_OUTPUT{ensurePersistent}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensurePersistent}
     ~db._create("names");
     db.names.ensureIndex({ type: "persistent", fields: [ "first" ] });
     db.names.save({ "first" : "Tim" });
@@ -99,7 +99,7 @@ details, including the index-identifier, is returned.
     db.names.save({ "first" : "Tim" });
     db.names.save({ "first" : "Tom" });
     ~db._drop("names");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensurePersistent
 
 

@@ -66,7 +66,7 @@ void RestExplainHandler::explainQuery() {
 
   if (_vocbase == nullptr) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
     return;
   }
 
@@ -124,7 +124,7 @@ void RestExplainHandler::explainQuery() {
     auto code = rest::ResponseCode::BAD;
 
     switch (queryResult.code) {
-      case TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND:
+      case TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND:
         code = rest::ResponseCode::NOT_FOUND;
         break;
     }

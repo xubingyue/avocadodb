@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_TRI__ZIP_H
-#define ARANGODB_BASICS_TRI__ZIP_H 1
+#ifndef AVOCADODB_BASICS_TRI__ZIP_H
+#define AVOCADODB_BASICS_TRI__ZIP_H 1
 
 #ifdef _WIN32
 #include "Basics/win-utils.h"

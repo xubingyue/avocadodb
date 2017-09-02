@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_TRANSACTION_HELPERS_H
-#define ARANGOD_TRANSACTION_HELPERS_H 1
+#ifndef AVOCADOD_TRANSACTION_HELPERS_H
+#define AVOCADOD_TRANSACTION_HELPERS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/StringRef.h"

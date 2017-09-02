@@ -82,7 +82,7 @@ static void JS_FlushWal(v8::FunctionCallbackInfo<v8::Value> const& args) {
       static_cast<RocksDBEngine*>(EngineSelectorFeature::ENGINE)->syncWal(
           waitForSync, waitForCollector, writeShutdownFile);
   if (!ret.ok()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(ret.errorNumber(), ret.errorMessage());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(ret.errorNumber(), ret.errorMessage());
   }
   TRI_V8_RETURN_TRUE();
   TRI_V8_TRY_CATCH_END

@@ -35,9 +35,9 @@ array with the following attributes:
 
 
     @startDocuBlockInline WalPropertiesGet
-    @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesGet}
+    @EXAMPLE_AVOCADOSH_OUTPUT{WalPropertiesGet}
       require("internal").wal.properties();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock WalPropertiesGet
 
 
@@ -69,11 +69,11 @@ will be ignored and the configuration for them will not be modified.
 
 
     @startDocuBlockInline WalPropertiesSet
-    @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesSet}
+    @EXAMPLE_AVOCADOSH_OUTPUT{WalPropertiesSet}
     | require("internal").wal.properties({ 
     |    allowOverSizeEntries: true,
         logfileSize: 32 * 1024 * 1024 });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock WalPropertiesSet
 
 
@@ -106,9 +106,9 @@ the write-ahead log garbage collector cannot finish garbage collection.
 
 
     @startDocuBlockInline WalFlush
-    @EXAMPLE_ARANGOSH_OUTPUT{WalFlush}
+    @EXAMPLE_AVOCADOSH_OUTPUT{WalFlush}
       require("internal").wal.flush();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock WalFlush
 
 

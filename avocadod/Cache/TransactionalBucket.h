@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_CACHE_TRANSACTIONAL_BUCKET_H
-#define ARANGODB_CACHE_TRANSACTIONAL_BUCKET_H
+#ifndef AVOCADODB_CACHE_TRANSACTIONAL_BUCKET_H
+#define AVOCADODB_CACHE_TRANSACTIONAL_BUCKET_H
 
 #include "Basics/Common.h"
 #include "Cache/CachedValue.h"

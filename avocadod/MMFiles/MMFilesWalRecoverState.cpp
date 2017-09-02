@@ -60,7 +60,7 @@ static inline T numericValue(VPackSlice const& slice, char const* attribute) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "invalid value type when looking for attribute '" << attribute
         << "': expecting object";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "invalid attribute value: expecting object");
   }
   VPackSlice v = slice.get(attribute);
@@ -73,7 +73,7 @@ static inline T numericValue(VPackSlice const& slice, char const* attribute) {
 
   LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "invalid value for attribute '"
                                           << attribute << "'";
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                  "invalid attribute value");
 }
 }
@@ -213,7 +213,7 @@ avocadodb::LogicalCollection* MMFilesWalRecoverState::useCollection(
   if (collection == nullptr) {
     res = TRI_errno();
 
-    if (res == TRI_ERROR_ARANGO_CORRUPTED_COLLECTION) {
+    if (res == TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION) {
       LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
           << "unable to open collection " << collectionId
           << ". Please check the logs above for errors.";
@@ -271,7 +271,7 @@ int MMFilesWalRecoverState::executeSingleOperation(
   if (vocbase == nullptr) {
     LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "database " << databaseId
                                               << " not found";
-    return TRI_ERROR_ARANGO_DATABASE_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND;
   }
 
   Result res;
@@ -281,10 +281,10 @@ int MMFilesWalRecoverState::executeSingleOperation(
   res.reset(tmpres);
 
   if (collection == nullptr) {
-    if (res.errorNumber() == TRI_ERROR_ARANGO_CORRUPTED_COLLECTION) {
+    if (res.errorNumber() == TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION) {
       return res.errorNumber();
     }
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   auto mmfiles = static_cast<MMFilesCollection*>(collection->getPhysical());
@@ -313,7 +313,7 @@ int MMFilesWalRecoverState::executeSingleOperation(
     res = trx.begin();
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     MMFilesMarkerEnvelope envelope(marker, fid);
@@ -322,7 +322,7 @@ int MMFilesWalRecoverState::executeSingleOperation(
     res = func(&trx, &envelope);
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     // commit the operation
@@ -450,7 +450,7 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
   MMFilesWalRecoverState* state =
       reinterpret_cast<MMFilesWalRecoverState*>(data);
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "replaying marker of type "
                                             << TRI_NameMarkerDatafile(marker);
 #endif
@@ -530,7 +530,7 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
                   trx->insert(collectionName, VPackSlice(ptr), options);
               int res = opRes.code;
 
-              if (res == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED) {
+              if (res == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED) {
                 // document/edge already exists, now make it a replace
                 opRes = trx->replace(collectionName, VPackSlice(ptr), options);
                 res = opRes.code;
@@ -539,9 +539,9 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
               return res;
             });
 
-        if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_ARANGO_CONFLICT &&
-            res != TRI_ERROR_ARANGO_DATABASE_NOT_FOUND &&
-            res != TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
+        if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_AVOCADO_CONFLICT &&
+            res != TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND &&
+            res != TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
           LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
               << "unable to insert document in collection " << collectionId
               << " of database " << databaseId << ": " << TRI_errno_string(res);
@@ -603,14 +603,14 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
               try {
                 OperationResult opRes =
                     trx->remove(collectionName, VPackSlice(ptr), options);
-                if (opRes.code == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+                if (opRes.code == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
                   // document to delete is not present. this error can be
                   // ignored
                   return TRI_ERROR_NO_ERROR;
                 }
                 return opRes.code;
               } catch (avocadodb::basics::Exception const& ex) {
-                if (ex.code() == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+                if (ex.code() == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
                   // document to delete is not present. this error can be
                   // ignored
                   return TRI_ERROR_NO_ERROR;
@@ -621,10 +621,10 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
               return TRI_ERROR_INTERNAL;
             });
 
-        if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_ARANGO_CONFLICT &&
-            res != TRI_ERROR_ARANGO_DATABASE_NOT_FOUND &&
-            res != TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND &&
-            res != TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+        if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_AVOCADO_CONFLICT &&
+            res != TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND &&
+            res != TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND &&
+            res != TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
           LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
               << "unable to remove document in collection " << collectionId
               << " of database " << databaseId << ": " << TRI_errno_string(res);
@@ -756,7 +756,7 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
           LOG_TOPIC(TRACE, avocadodb::Logger::FIXME)
               << "cannot change properties of collection " << collectionId
               << " in database " << databaseId << ": "
-              << TRI_errno_string(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+              << TRI_errno_string(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
           return true;
         }
 
@@ -816,7 +816,7 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
           LOG_TOPIC(TRACE, avocadodb::Logger::FIXME)
               << "cannot change properties of view " << viewId
               << " in database " << databaseId << ": "
-              << TRI_errno_string(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+              << TRI_errno_string(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
           return true;
         }
 
@@ -870,7 +870,7 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
           LOG_TOPIC(TRACE, avocadodb::Logger::FIXME)
               << "cannot create index for collection " << collectionId
               << " in database " << databaseId << ": "
-              << TRI_errno_string(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+              << TRI_errno_string(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
           return true;
         }
 
@@ -882,7 +882,7 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
           LOG_TOPIC(TRACE, avocadodb::Logger::FIXME)
               << "cannot create index for collection " << collectionId
               << " in database " << databaseId << ": "
-              << TRI_errno_string(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+              << TRI_errno_string(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
           return true;
         }
 
@@ -1191,9 +1191,9 @@ bool MMFilesWalRecoverState::ReplayMarker(MMFilesMarker const* marker,
         MMFilesPersistentIndexFeature::dropDatabase(databaseId);
 
         vocbase = nullptr;
-        /* TODO: check what TRI_ERROR_ARANGO_DATABASE_NOT_FOUND means here
+        /* TODO: check what TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND means here
         WaitForDeletion(state->server, databaseId,
-                        TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+                        TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
         */
         int res = state->databaseFeature->createDatabase(databaseId, nameString,
                                                          vocbase);
@@ -1400,7 +1400,7 @@ int MMFilesWalRecoverState::replayLogfile(MMFilesWalLogfile* logfile,
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
         << "WAL inspection failed when scanning logfile '" << logfileName
         << "'";
-    return TRI_ERROR_ARANGO_RECOVERY;
+    return TRI_ERROR_AVOCADO_RECOVERY;
   }
 
   // Advise on random access use:
@@ -1459,7 +1459,7 @@ int MMFilesWalRecoverState::abortOpenTransactions() {
           MMFilesLogfileManager::instance()->allocateAndWrite(marker, false);
 
       if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+        THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
       }
 
       // recycle builder

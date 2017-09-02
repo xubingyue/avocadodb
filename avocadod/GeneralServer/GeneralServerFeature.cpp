@@ -478,7 +478,7 @@ void GeneralServerFeature::defineHandlers() {
   _handlerFactory->addHandler(
       "/_api/transaction", RestHandlerCreator<RestTransactionHandler>::createNoData);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   _handlerFactory->addHandler(
       "/_admin/demo-engine", RestHandlerCreator<RestDemoHandler>::createNoData);
 #endif
@@ -511,7 +511,7 @@ void GeneralServerFeature::defineHandlers() {
   _handlerFactory->addHandler(
       "/_admin/json-echo", RestHandlerCreator<RestEchoHandler>::createNoData);
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   // This handler is to activate SYS_DEBUG_FAILAT on DB servers
   _handlerFactory->addPrefixHandler(
       "/_admin/debug", RestHandlerCreator<RestDebugHandler>::createNoData);

@@ -22,8 +22,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_EXCEPTIONS_H
-#define ARANGODB_BASICS_EXCEPTIONS_H 1
+#ifndef AVOCADODB_BASICS_EXCEPTIONS_H
+#define AVOCADODB_BASICS_EXCEPTIONS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Result.h"
@@ -34,12 +34,12 @@
 #define DIAGNOSTIC_INFORMATION(e) e.what()
 
 /// @brief throws an avocado exception with an error code
-#define THROW_ARANGO_EXCEPTION(code) \
+#define THROW_AVOCADO_EXCEPTION(code) \
   throw avocadodb::basics::Exception(code, __FILE__, __LINE__)
 
 /// @brief throws an avocado exception with an error code and arbitrary
 /// arguments (to be inserted in printf-style manner)
-#define THROW_ARANGO_EXCEPTION_PARAMS(code, ...)                           \
+#define THROW_AVOCADO_EXCEPTION_PARAMS(code, ...)                           \
   throw avocadodb::basics::Exception(                                       \
       code,                                                                \
       avocadodb::basics::Exception::FillExceptionString(code, __VA_ARGS__), \
@@ -47,7 +47,7 @@
 
 /// @brief throws an avocado exception with an error code and arbitrary
 /// arguments (to be inserted in printf-style manner)
-#define THROW_ARANGO_EXCEPTION_FORMAT(code, format, ...)             \
+#define THROW_AVOCADO_EXCEPTION_FORMAT(code, format, ...)             \
   throw avocadodb::basics::Exception(                                 \
       code, avocadodb::basics::Exception::FillFormatExceptionString(  \
                 "%s: " format, TRI_errno_string(code), __VA_ARGS__), \
@@ -55,7 +55,7 @@
 
 /// @brief throws an avocado exception with an error code and an already-built
 /// error message
-#define THROW_ARANGO_EXCEPTION_MESSAGE(code, message) \
+#define THROW_AVOCADO_EXCEPTION_MESSAGE(code, message) \
   throw avocadodb::basics::Exception(code, message, __FILE__, __LINE__)
 
 namespace avocadodb {

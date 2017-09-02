@@ -16,7 +16,7 @@ The requested task
 @EXAMPLES
 
 Fetching a single task by its id
-@EXAMPLE_ARANGOSH_RUN{RestTasksListOne}
+@EXAMPLE_AVOCADOSH_RUN{RestTasksListOne}
     var url = "/_api/tasks/statistics-average-collector";
 
     var response = logCurlRequest('GET', url);
@@ -24,10 +24,10 @@ Fetching a single task by its id
     assert(response.code === 200);
     logJsonResponse(response);
 
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 trying to fetch a non-existing task
-@EXAMPLE_ARANGOSH_RUN{RestTasksListNonExisting}
+@EXAMPLE_AVOCADOSH_RUN{RestTasksListNonExisting}
     var url = "/_api/tasks/non-existing-task";
 
     var response = logCurlRequest('GET', url);
@@ -35,6 +35,6 @@ trying to fetch a non-existing task
     assert(response.code === 404);
     logJsonResponse(response);
 
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

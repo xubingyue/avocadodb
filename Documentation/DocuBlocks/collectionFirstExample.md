@@ -14,13 +14,13 @@ As alternative you can supply an array of paths and values.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionFirstExample}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionFirstExample}
 ~ db._create("users");
 ~ db.users.save({ name: "Gerhard" });
 ~ db.users.save({ name: "Helmut" });
 ~ db.users.save({ name: "Angela" });
   db.users.firstExample("name", "Angela");
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

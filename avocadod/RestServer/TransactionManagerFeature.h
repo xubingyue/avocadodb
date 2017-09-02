@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_SERVER_TRANSACTION_MANAGER_FEATURE_H
-#define ARANGODB_REST_SERVER_TRANSACTION_MANAGER_FEATURE_H 1
+#ifndef AVOCADODB_REST_SERVER_TRANSACTION_MANAGER_FEATURE_H
+#define AVOCADODB_REST_SERVER_TRANSACTION_MANAGER_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

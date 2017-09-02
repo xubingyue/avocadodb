@@ -21,8 +21,8 @@
 /// @author Esteban Lombeyda
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_UTILITIES_LINENOISE_SHELL_H
-#define ARANGODB_UTILITIES_LINENOISE_SHELL_H 1
+#ifndef AVOCADODB_UTILITIES_LINENOISE_SHELL_H
+#define AVOCADODB_UTILITIES_LINENOISE_SHELL_H 1
 
 #include "ShellBase.h"
 

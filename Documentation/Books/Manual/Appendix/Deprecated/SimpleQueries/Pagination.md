@@ -36,7 +36,7 @@ unclear which documents will be included in the result set.
 
 
     @startDocuBlockInline queryLimit
-    @EXAMPLE_ARANGOSH_OUTPUT{queryLimit}
+    @EXAMPLE_AVOCADOSH_OUTPUT{queryLimit}
     ~ db._create("five");
     ~ db.five.save({ name : "one" });
     ~ db.five.save({ name : "two" });
@@ -46,7 +46,7 @@ unclear which documents will be included in the result set.
       db.five.all().toArray();
       db.five.all().limit(2).toArray();
     ~ db._drop("five")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock queryLimit
 
 
@@ -72,7 +72,7 @@ will not be supported in future versions of AvocadoDB.
 
 
     @startDocuBlockInline querySkip
-    @EXAMPLE_ARANGOSH_OUTPUT{querySkip}
+    @EXAMPLE_AVOCADOSH_OUTPUT{querySkip}
     ~ db._create("five");
     ~ db.five.save({ name : "one" });
     ~ db.five.save({ name : "two" });
@@ -82,7 +82,7 @@ will not be supported in future versions of AvocadoDB.
       db.five.all().toArray();
       db.five.all().skip(3).toArray();
     ~ db._drop("five")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock querySkip
 
 

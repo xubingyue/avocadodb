@@ -71,7 +71,7 @@ bool Parser::configureWriteQuery(AstNode const* collectionNode,
 /// @brief parse the query
 QueryResult Parser::parse(bool withDetails) {
   if (queryString().empty() || remainingLength() == 0) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_QUERY_EMPTY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_QUERY_EMPTY);
   }
 
   // start main scope
@@ -80,7 +80,7 @@ QueryResult Parser::parse(bool withDetails) {
 
   TRI_ASSERT(_scanner == nullptr);
   if (Aqllex_init(&_scanner) != 0) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   TRI_ASSERT(_scanner != nullptr);
@@ -90,7 +90,7 @@ QueryResult Parser::parse(bool withDetails) {
     // parse the query string
     if (Aqlparse(this)) {
       // lexing/parsing failed
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_QUERY_PARSE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_QUERY_PARSE);
     }
 
     Aqllex_destroy(_scanner);

@@ -110,7 +110,7 @@ bool State::persist(index_t index, term_t term,
   trx.addHint(transaction::Hints::Hint::SINGLE_OPERATION);
   Result res = trx.begin();
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   OperationResult result;
@@ -142,7 +142,7 @@ std::vector<index_t> State::log(
   auto const& slice = transactions->slice();
 
   if (!slice.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
       30000, "Agency syntax requires array of transactions [[<queries>]]");
   }
 
@@ -152,7 +152,7 @@ std::vector<index_t> State::log(
   for (auto const& i : VPackArrayIterator(slice)) {
 
     if (!i.isArray()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
         30000,
         "Transaction syntax is [{<operations>}, {<preconditions>}, \"clientId\"]"
         );
@@ -323,7 +323,7 @@ size_t State::removeConflicts(query_t const& transactions,
         auto queryResult = query.execute(_queryRegistry);
 
         if (queryResult.code != TRI_ERROR_NO_ERROR) {
-          THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code,
+          THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code,
                                          queryResult.details);
         }
 
@@ -535,7 +535,7 @@ bool State::createCollection(std::string const& name) {
       _vocbase->createCollection(body.slice());
 
   if (collection == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_errno(), "cannot create collection");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_errno(), "cannot create collection");
   }
 
   return true;
@@ -610,7 +610,7 @@ bool State::loadLastCompactedSnapshot(Store& store, index_t& index,
   auto queryResult = query.execute(QueryRegistryFeature::QUERY_REGISTRY);
 
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
 
   VPackSlice result = queryResult.result->slice();
@@ -658,7 +658,7 @@ bool State::loadCompacted() {
   auto queryResult = query.execute(QueryRegistryFeature::QUERY_REGISTRY);
 
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
 
   VPackSlice result = queryResult.result->slice();
@@ -703,7 +703,7 @@ bool State::loadOrPersistConfiguration() {
   auto queryResult = query.execute(QueryRegistryFeature::QUERY_REGISTRY);
 
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
 
   VPackSlice result = queryResult.result->slice();
@@ -742,7 +742,7 @@ bool State::loadOrPersistConfiguration() {
     OperationResult result;
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     Builder doc;
@@ -779,7 +779,7 @@ bool State::loadRemaining() {
   auto queryResult = query.execute(QueryRegistryFeature::QUERY_REGISTRY);
       
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
       
   auto result = queryResult.result->slice();
@@ -915,11 +915,11 @@ bool State::compactPersisted(index_t cind) {
   auto queryResult = query.execute(QueryRegistryFeature::QUERY_REGISTRY);
 
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
 
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
 
   return true;
@@ -944,7 +944,7 @@ bool State::removeObsolete(index_t cind) {
 
     auto queryResult = query.execute(QueryRegistryFeature::QUERY_REGISTRY);
     if (queryResult.code != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
     }
   }
   return true;
@@ -973,7 +973,7 @@ bool State::persistReadDB(index_t cind) {
     Result res = trx.begin();
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     auto result = trx.insert("compact", store.slice(), _options);
@@ -1011,7 +1011,7 @@ bool State::persistCompactionSnapshot(index_t cind,
     Result res = trx.begin();
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     auto result = trx.insert("compact", store.slice(), _options);
@@ -1081,16 +1081,16 @@ void State::persistActiveAgents(query_t const& active, query_t const& pool) {
 
   Result res = trx.begin();
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   auto result = trx.update("configuration", builder.slice(), _options);
   if (!result.successful()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(result.code, result.errorMessage);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(result.code, result.errorMessage);
   }
   res = trx.finish(result.code);
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
   }
 }
 
@@ -1110,11 +1110,11 @@ query_t State::allLogs() const {
 
   auto compqResult = compq.execute(QueryRegistryFeature::QUERY_REGISTRY);
   if (compqResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(compqResult.code, compqResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(compqResult.code, compqResult.details);
   }
   auto logsqResult = logsq.execute(QueryRegistryFeature::QUERY_REGISTRY);
   if (logsqResult.code != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(logsqResult.code, logsqResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(logsqResult.code, logsqResult.details);
   }
 
   auto everything = std::make_shared<VPackBuilder>();
@@ -1142,7 +1142,7 @@ std::vector<std::vector<log_t>> State::inquire(query_t const& query) const {
   MUTEX_LOCKER(mutexLocker, _logLock); // Cannot be read lock (Compaction)
 
   if (!query->slice().isArray()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
         210002,
         std::string("Inquiry handles a list of string clientIds: [<clientId>] ")
         + ". We got " + query->toJson());
@@ -1153,7 +1153,7 @@ std::vector<std::vector<log_t>> State::inquire(query_t const& query) const {
   for (auto const& i : VPackArrayIterator(query->slice())) {
 
     if (!i.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
         210002, std::string("ClientIds must be strings. On position ")
         + std::to_string(pos) + " we got " + i.toJson());
     }

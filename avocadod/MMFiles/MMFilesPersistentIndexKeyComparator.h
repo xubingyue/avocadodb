@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_PERSISTENT_INDEX_KEY_COMPARATOR_H
-#define ARANGOD_MMFILES_MMFILES_PERSISTENT_INDEX_KEY_COMPARATOR_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_PERSISTENT_INDEX_KEY_COMPARATOR_H
+#define AVOCADOD_MMFILES_MMFILES_PERSISTENT_INDEX_KEY_COMPARATOR_H 1
 
 #include "Basics/Common.h"
 #include "MMFiles/MMFilesPersistentIndex.h"

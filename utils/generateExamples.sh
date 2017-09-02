@@ -19,17 +19,17 @@ mkdir -p ${DBDIR}
 echo Database has its data in ${DBDIR}
 echo Logfile is in ${LOGFILE}
 
-if [ -z "${ARANGOSH}" ];  then
+if [ -z "${AVOCADOSH}" ];  then
   if [ -x build/bin/avocadosh ];  then
-    ARANGOSH=build/bin/avocadosh
+    AVOCADOSH=build/bin/avocadosh
   elif [ -x bin/avocadosh ];  then
-    ARANGOSH=bin/avocadosh
+    AVOCADOSH=bin/avocadosh
   else
     echo "$0: cannot locate avocadosh"
   fi
 fi
 
-${ARANGOSH} \
+${AVOCADOSH} \
     --configuration none \
     --server.endpoint none \
     --log.file ${LOGFILE} \

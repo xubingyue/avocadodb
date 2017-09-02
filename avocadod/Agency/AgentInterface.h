@@ -21,8 +21,8 @@
 /// @author Andreas Streichardt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_AGENT_INTERFACE_H
-#define ARANGOD_CONSENSUS_AGENT_INTERFACE_H 1
+#ifndef AVOCADOD_CONSENSUS_AGENT_INTERFACE_H
+#define AVOCADOD_CONSENSUS_AGENT_INTERFACE_H 1
 
 #include "Agency/AgencyCommon.h"
 

@@ -26,8 +26,8 @@
 // This file has only been added to keep Richards code clean. So it is easier
 // for him to spot relevant changes.
 
-#ifndef ARANGOD_ROCKSDB_GEO_INDEX_IMPL_HELPER_H
-#define ARANGOD_ROCKSDB_GEO_INDEX_IMPL_HELPER_H 1
+#ifndef AVOCADOD_ROCKSDB_GEO_INDEX_IMPL_HELPER_H
+#define AVOCADOD_ROCKSDB_GEO_INDEX_IMPL_HELPER_H 1
 
 #include <RocksDBEngine/RocksDBGeoIndexImpl.h>
 

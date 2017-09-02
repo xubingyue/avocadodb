@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_WORKER_CONTEXT_H
-#define ARANGODB_PREGEL_WORKER_CONTEXT_H 1
+#ifndef AVOCADODB_PREGEL_WORKER_CONTEXT_H
+#define AVOCADODB_PREGEL_WORKER_CONTEXT_H 1
 
 #include <velocypack/Slice.h>
 #include <velocypack/velocypack-aliases.h>

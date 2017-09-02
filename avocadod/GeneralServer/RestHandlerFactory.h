@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_HTTP_SERVER_HTTP_HANDLER_FACTORY_H
-#define ARANGOD_HTTP_SERVER_HTTP_HANDLER_FACTORY_H 1
+#ifndef AVOCADOD_HTTP_SERVER_HTTP_HANDLER_FACTORY_H
+#define AVOCADOD_HTTP_SERVER_HTTP_HANDLER_FACTORY_H 1
 
 #include "Basics/Common.h"
 

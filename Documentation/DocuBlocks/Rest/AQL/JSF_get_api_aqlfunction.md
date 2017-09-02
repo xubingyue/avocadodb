@@ -26,7 +26,7 @@ if success *HTTP 200* is returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestAqlfunctionsGetAll}
+@EXAMPLE_AVOCADOSH_RUN{RestAqlfunctionsGetAll}
   var url = "/_api/aqlfunction";
 
   var response = logCurlRequest('GET', url);
@@ -34,6 +34,6 @@ if success *HTTP 200* is returned.
   assert(response.code === 200);
 
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

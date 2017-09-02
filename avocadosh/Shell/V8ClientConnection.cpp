@@ -1759,6 +1759,6 @@ void V8ClientConnection::initServer(v8::Isolate* isolate,
 
   // add the client connection to the context:
   TRI_AddGlobalVariableVocbase(isolate,
-                               TRI_V8_ASCII_STRING("SYS_ARANGO"),
+                               TRI_V8_ASCII_STRING("SYS_AVOCADO"),
                                WrapV8ClientConnection(isolate, this));
 }

@@ -20,10 +20,10 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_APPLICATION_FEATURES_JEMALLOC_FEATURE_H
-#define ARANGODB_APPLICATION_FEATURES_JEMALLOC_FEATURE_H 1
+#ifndef AVOCADODB_APPLICATION_FEATURES_JEMALLOC_FEATURE_H
+#define AVOCADODB_APPLICATION_FEATURES_JEMALLOC_FEATURE_H 1
 
-#undef ARANGODB_MMAP_JEMALLOC
+#undef AVOCADODB_MMAP_JEMALLOC
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 
@@ -41,13 +41,13 @@ class JemallocFeature final : public application_features::ApplicationFeature {
   void setDefaultPath(std::string const&);
 
  private:
-#if ARANGODB_MMAP_JEMALLOC
+#if AVOCADODB_MMAP_JEMALLOC
   int64_t _residentLimit = 0;
   std::string _path;
 #endif
   std::string _defaultPath;
 
-#if ARANGODB_MMAP_JEMALLOC
+#if AVOCADODB_MMAP_JEMALLOC
   static char _staticPath[PATH_MAX + 1];
 #endif
 };

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_QUERY_STRING_H
-#define ARANGOD_AQL_QUERY_STRING_H 1
+#ifndef AVOCADOD_AQL_QUERY_STRING_H
+#define AVOCADOD_AQL_QUERY_STRING_H 1
 
 #include "Basics/Common.h"
 #include "Basics/StringRef.h"

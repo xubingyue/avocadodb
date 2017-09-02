@@ -91,14 +91,14 @@ MMFilesFulltextIndex::MMFilesFulltextIndex(TRI_idx_iid_t iid,
     }
   } else if (!value.isNone()) {
     // minLength defined but no number
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "<minLength> must be a number");
   }
   _unique = false;
   _sparse = true;
   if (_fields.size() != 1) {
     // We need exactly 1 attribute
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "fulltext index definition should have exactly one attribute");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "fulltext index definition should have exactly one attribute");
   }
   auto& attribute = _fields[0];
   _attr.reserve(attribute.size());
@@ -109,7 +109,7 @@ MMFilesFulltextIndex::MMFilesFulltextIndex(TRI_idx_iid_t iid,
   _fulltextIndex = TRI_CreateFtsIndex(2048, 1, 1);
 
   if (_fulltextIndex == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 }
 
@@ -138,7 +138,7 @@ void MMFilesFulltextIndex::toVelocyPack(VPackBuilder& builder,
 /// @brief Test if this index matches the definition
 bool MMFilesFulltextIndex::matchesDefinition(VPackSlice const& info) const {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice typeSlice = info.get("type");
   TRI_ASSERT(typeSlice.isString());
   StringRef typeStr(typeSlice);

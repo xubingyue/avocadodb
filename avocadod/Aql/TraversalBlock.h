@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_TRAVERSAL_BLOCK_H
-#define ARANGOD_AQL_TRAVERSAL_BLOCK_H 1
+#ifndef AVOCADOD_AQL_TRAVERSAL_BLOCK_H
+#define AVOCADOD_AQL_TRAVERSAL_BLOCK_H 1
 
 #include "Aql/ExecutionBlock.h"
 #include "Aql/TraversalNode.h"

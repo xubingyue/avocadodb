@@ -22,8 +22,8 @@
 /// @author Esteban Lombeyda
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_UTILITIES_SHELL_BASE_H
-#define ARANGODB_UTILITIES_SHELL_BASE_H 1
+#ifndef AVOCADODB_UTILITIES_SHELL_BASE_H
+#define AVOCADODB_UTILITIES_SHELL_BASE_H 1
 
 #include "Basics/Common.h"
 

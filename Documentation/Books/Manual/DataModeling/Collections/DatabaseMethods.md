@@ -24,9 +24,9 @@ end users. End users should access collections using the collection name.
 Get a collection by name:
 
     @startDocuBlockInline collectionDatabaseNameKnown
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameKnown}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseNameKnown}
       db._collection("demo");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameKnown
 
 Get a collection by id:
@@ -39,9 +39,9 @@ avocadosh> db._collection(123456);
 Unknown collection:
 
     @startDocuBlockInline collectionDatabaseNameUnknown
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameUnknown}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseNameUnknown}
       db._collection("unknown");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameUnknown
 
 
@@ -166,47 +166,47 @@ or *edge*. On default it is document. Instead of giving a type you can also use
 With defaults:
 
     @startDocuBlockInline collectionDatabaseCreateSuccess
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSuccess}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreateSuccess}
       c = db._create("users");
       c.properties();
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSuccess
 
 With properties:
 
     @startDocuBlockInline collectionDatabaseCreateProperties
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreateProperties}
       |c = db._create("users", { waitForSync : true,
                journalSize : 1024 * 1204});
       c.properties();
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateProperties
 
 With a key generator:
 
     @startDocuBlockInline collectionDatabaseCreateKey
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateKey}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreateKey}
     | db._create("users",
          { keyOptions: { type: "autoincrement", offset: 10, increment: 5 } });
       db.users.save({ name: "user 1" });
       db.users.save({ name: "user 2" });
       db.users.save({ name: "user 3" });
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateKey
 
 With a special key option:
 
     @startDocuBlockInline collectionDatabaseCreateSpecialKey
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
       db._create("users", { keyOptions: { allowUserKeys: false } });
       db.users.save({ name: "user 1" });
-      db.users.save({ name: "user 2", _key: "myuser" }); // xpError(ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED)
+      db.users.save({ name: "user 2", _key: "myuser" }); // xpError(ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED)
       db.users.save({ name: "user 3" });
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSpecialKey
 
 
@@ -257,11 +257,11 @@ Returns all collections of the given database.
 
 
     @startDocuBlockInline collectionsDatabaseName
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionsDatabaseName}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionsDatabaseName}
     ~ db._create("example");
       db._collections();
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionsDatabaseName
 
 
@@ -282,11 +282,11 @@ default properties.
 
 
     @startDocuBlockInline collectionDatabaseCollectionName
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCollectionName}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCollectionName}
     ~ db._create("example");
       db.example;
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseCollectionName
 
 
@@ -324,35 +324,35 @@ with *distributeShardsLike* parameter, cannot be dropped.
 Drops a collection:
 
     @startDocuBlockInline collectionDatabaseDropByObject
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropByObject}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseDropByObject}
     ~ db._create("example");
       col = db.example;
       db._drop(col);
       col;
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropByObject
 
 Drops a collection identified by name:
 
     @startDocuBlockInline collectionDatabaseDropName
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropName}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseDropName}
     ~ db._create("example");
       col = db.example;
       db._drop("example");
       col;
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropName
 
 Drops a system collection
 
     @startDocuBlockInline collectionDatabaseDropSystem
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropSystem}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseDropSystem}
     ~ db._create("_example", { isSystem: true });
       col = db._example;
       db._drop("_example", { isSystem: true });
       col;
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropSystem
 
 ### Truncate
@@ -382,7 +382,7 @@ there is no such collection.
 Truncates a collection:
 
     @startDocuBlockInline collectionDatabaseTruncateByObject
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateByObject}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseTruncateByObject}
     ~ db._create("example");
       col = db.example;
       col.save({ "Hello" : "World" });
@@ -390,13 +390,13 @@ Truncates a collection:
       db._truncate(col);
       col.count();
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateByObject
 
 Truncates a collection identified by name:
 
     @startDocuBlockInline collectionDatabaseTruncateName
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateName}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseTruncateName}
     ~ db._create("example");
       col = db.example;
       col.save({ "Hello" : "World" });
@@ -404,7 +404,7 @@ Truncates a collection identified by name:
       db._truncate("example");
       col.count();
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateName
 
 

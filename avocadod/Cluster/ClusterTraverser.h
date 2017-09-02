@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_CLUSTER_TRAVERSER_H
-#define ARANGOD_CLUSTER_CLUSTER_TRAVERSER_H 1
+#ifndef AVOCADOD_CLUSTER_CLUSTER_TRAVERSER_H
+#define AVOCADOD_CLUSTER_CLUSTER_TRAVERSER_H 1
 
 #include "Cluster/TraverserEngineRegistry.h"
 #include "VocBase/LogicalCollection.h"

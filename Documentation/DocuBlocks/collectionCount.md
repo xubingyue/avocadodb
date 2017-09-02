@@ -9,8 +9,8 @@ Returns the number of living documents in the collection.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionCount}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionCount}
 ~ db._create("users");
   db.users.count();
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT

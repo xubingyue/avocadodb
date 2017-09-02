@@ -1222,7 +1222,7 @@ function transactionServerFailuresSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_NO_JOURNAL.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_NO_JOURNAL.code, err.errorNum);
       }
 
       assertEqual(100, c.count());

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REST_OPERATION_MODE_H
-#define ARANGOD_REST_OPERATION_MODE_H 1
+#ifndef AVOCADOD_REST_OPERATION_MODE_H
+#define AVOCADOD_REST_OPERATION_MODE_H 1
 
 #include "Basics/Common.h"
 

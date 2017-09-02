@@ -31,25 +31,25 @@ const scriptArguments = {
   'outputFile': fs.join(fs.makeAbsolute(''), "avocadosh.examples.js")
 };
 
-let ARANGOD;
-let ARANGOSH;
+let AVOCADOD;
+let AVOCADOSH;
 
 function locateAvocadod() {
-  ARANGOD = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/avocadod");
-  if(!fs.isFile(ARANGOD) && !fs.isFile(ARANGOD + ".exe")) {
-    ARANGOD = fs.join(fs.join(fs.makeAbsolute('')), "bin/avocadod");
+  AVOCADOD = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/avocadod");
+  if(!fs.isFile(AVOCADOD) && !fs.isFile(AVOCADOD + ".exe")) {
+    AVOCADOD = fs.join(fs.join(fs.makeAbsolute('')), "bin/avocadod");
   }
-  if(!fs.isFile(ARANGOD) && !fs.isFile(ARANGOD + ".exe")) {
+  if(!fs.isFile(AVOCADOD) && !fs.isFile(AVOCADOD + ".exe")) {
     throw "Cannot find Aavocadod to execute tests against";
   }
 }
 
 function locateAvocadosh() {
-  ARANGOSH = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/avocadosh");
-  if(!fs.isFile(ARANGOSH) && !fs.isFile(ARANGOSH + ".exe")) {
-    ARANGOSH = fs.join(fs.join(fs.makeAbsolute('')), "bin/avocadosh");
+  AVOCADOSH = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/avocadosh");
+  if(!fs.isFile(AVOCADOSH) && !fs.isFile(AVOCADOSH + ".exe")) {
+    AVOCADOSH = fs.join(fs.join(fs.makeAbsolute('')), "bin/avocadosh");
   }
-  if(!fs.isFile(ARANGOSH) && !fs.isFile(ARANGOSH + ".exe")) {
+  if(!fs.isFile(AVOCADOSH) && !fs.isFile(AVOCADOSH + ".exe")) {
     throw "Cannot find avocadosh to run tests with";
   }
 }
@@ -154,10 +154,10 @@ function main(argv) {
     serverArgs["server.threads"] = "3";
 
     print("================================================================================");
-    print(ARANGOD);
+    print(AVOCADOD);
     print(toArgv(serverArgs));
     locateAvocadod();
-    instanceInfo.pid = executeExternal(ARANGOD, toArgv(serverArgs)).pid;
+    instanceInfo.pid = executeExternal(AVOCADOD, toArgv(serverArgs)).pid;
 
     // Wait until the server is up:
     count = 0;
@@ -193,9 +193,9 @@ function main(argv) {
 
   locateAvocadosh();
   print("--------------------------------------------------------------------------------");
-  print(ARANGOSH);
+  print(AVOCADOSH);
   print(internal.toArgv(avocadoshArgs));
-  res = executeExternalAndWait(ARANGOSH, internal.toArgv(avocadoshArgs));
+  res = executeExternalAndWait(AVOCADOSH, internal.toArgv(avocadoshArgs));
 
   if (startServer) {
     if (typeof(instanceInfo.exitStatus) === 'undefined') {

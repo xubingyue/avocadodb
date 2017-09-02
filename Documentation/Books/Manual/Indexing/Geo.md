@@ -59,7 +59,7 @@ details, including the index-identifier, is returned.
 Create a geo index for an array attribute:
 
     @startDocuBlockInline geoIndexCreateForArrayAttribute1
-    @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
     ~db._create("geo")
      db.geo.ensureIndex({ type: "geo", fields: [ "loc" ] });
     | for (i = -90;  i <= 90;  i += 10) {
@@ -71,13 +71,13 @@ Create a geo index for an array attribute:
     db.geo.near(0, 0).limit(3).toArray();
     db.geo.near(0, 0).count();
     ~db._drop("geo")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute1
 
 Create a geo index for a hash array attribute:
 
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
-    @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
     ~db._drop("geo2")
     ~db._create("geo2")
     db.geo2.ensureIndex({ type: "geo", fields: [ "location.latitude", "location.longitude" ] });
@@ -88,13 +88,13 @@ Create a geo index for a hash array attribute:
       }
     db.geo2.near(0, 0).limit(3).toArray();
     ~db._drop("geo2")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute2
 
 Use GeoIndex with AQL SORT statement:
 
     @startDocuBlockInline geoIndexSortOptimization
-    @EXAMPLE_ARANGOSH_OUTPUT{geoIndexSortOptimization}
+    @EXAMPLE_AVOCADOSH_OUTPUT{geoIndexSortOptimization}
     ~db._create("geoSort")
     db.geoSort.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
     | for (i = -90;  i <= 90;  i += 10) {
@@ -106,13 +106,13 @@ Use GeoIndex with AQL SORT statement:
     db._explain(query, {}, {colors: false});
     db._query(query);
     ~db._drop("geoSort")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock geoIndexSortOptimization
 
 Use GeoIndex with AQL FILTER statement:
 
     @startDocuBlockInline geoIndexFilterOptimization
-    @EXAMPLE_ARANGOSH_OUTPUT{geoIndexFilterOptimization}
+    @EXAMPLE_AVOCADOSH_OUTPUT{geoIndexFilterOptimization}
     ~db._create("geoFilter")
     db.geoFilter.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
     | for (i = -90;  i <= 90;  i += 10) {
@@ -124,7 +124,7 @@ Use GeoIndex with AQL FILTER statement:
     db._explain(query, {}, {colors: false});
     db._query(query);
     ~db._drop("geoFilter")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock geoIndexFilterOptimization
 
 

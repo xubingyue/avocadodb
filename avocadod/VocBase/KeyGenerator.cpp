@@ -101,7 +101,7 @@ KeyGenerator* KeyGenerator::factory(VPackSlice const& options) {
   }
 
   if (type == TYPE_UNKNOWN) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INVALID_KEY_GENERATOR, "invalid key generator type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INVALID_KEY_GENERATOR, "invalid key generator type");
   }
 
   bool allowUserKeys = true;
@@ -127,13 +127,13 @@ KeyGenerator* KeyGenerator::factory(VPackSlice const& options) {
         double v = incrementSlice.getNumericValue<double>();
         if (v <= 0.0) {
           // negative or 0 increment is not allowed
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INVALID_KEY_GENERATOR, "increment value must be greater than zero");
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INVALID_KEY_GENERATOR, "increment value must be greater than zero");
         }
 
         increment = incrementSlice.getNumericValue<uint64_t>();
 
         if (increment == 0 || increment >= (1ULL << 16)) {
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INVALID_KEY_GENERATOR, "increment value must be greater than zero");
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INVALID_KEY_GENERATOR, "increment value must be greater than zero");
         }
       }
 
@@ -143,13 +143,13 @@ KeyGenerator* KeyGenerator::factory(VPackSlice const& options) {
         double v = offsetSlice.getNumericValue<double>();
         if (v < 0.0) {
           // negative or 0 offset is not allowed
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INVALID_KEY_GENERATOR, "offset value must be zero or greater");
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INVALID_KEY_GENERATOR, "offset value must be zero or greater");
         }
 
         offset = offsetSlice.getNumericValue<uint64_t>();
 
         if (offset >= UINT64_MAX) {
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INVALID_KEY_GENERATOR, "offset value is too high");
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INVALID_KEY_GENERATOR, "offset value is too high");
         }
       }
     }
@@ -158,7 +158,7 @@ KeyGenerator* KeyGenerator::factory(VPackSlice const& options) {
   }
 
   // unknown key generator type
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INVALID_KEY_GENERATOR, "invalid key generator type");
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INVALID_KEY_GENERATOR, "invalid key generator type");
 }
 
 /// @brief check global key attributes
@@ -166,17 +166,17 @@ int KeyGenerator::globalCheck(char const* p, size_t length, bool isRestore) {
   // user has specified a key
   if (length > 0 && !_allowUserKeys && !isRestore) {
     // we do not allow user-generated keys
-    return TRI_ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED;
+    return TRI_ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED;
   }
 
   if (length == 0) {
     // user key is empty
-    return TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD;
   }
 
   if (length > TRI_VOC_KEY_MAX_LENGTH) {
     // user key is too long
-    return TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD;
   }
 
   return TRI_ERROR_NO_ERROR;
@@ -248,7 +248,7 @@ int TraditionalKeyGenerator::validate(char const* p, size_t length, bool isResto
 
   // validate user-supplied key
   if (!validateKey(p, length)) {
-    return TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD;
   }
 
   return TRI_ERROR_NO_ERROR;
@@ -347,7 +347,7 @@ int AutoIncrementKeyGenerator::validate(char const* p, size_t length, bool isRes
 
   // validate user-supplied key
   if (!validateKey(p, length)) {
-    return TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD;
   }
 
   uint64_t intValue = avocadodb::basics::StringUtils::uint64(p, length);

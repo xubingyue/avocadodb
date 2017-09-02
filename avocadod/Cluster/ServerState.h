@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_SERVER_STATE_H
-#define ARANGOD_CLUSTER_SERVER_STATE_H 1
+#ifndef AVOCADOD_CLUSTER_SERVER_STATE_H
+#define AVOCADOD_CLUSTER_SERVER_STATE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadWriteLock.h"

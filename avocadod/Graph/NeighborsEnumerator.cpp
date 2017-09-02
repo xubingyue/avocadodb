@@ -112,12 +112,12 @@ avocadodb::aql::AqlValue NeighborsEnumerator::lastEdgeToAqlValue() {
   // If we get here the optimizer decided we do NOT need edges.
   // But the Block asks for it.
   TRI_ASSERT(false);
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 avocadodb::aql::AqlValue NeighborsEnumerator::pathToAqlValue(avocadodb::velocypack::Builder& result) {
   // If we get here the optimizer decided we do NOT need paths
   // But the Block asks for it.
   TRI_ASSERT(false);
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }

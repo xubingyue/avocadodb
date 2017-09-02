@@ -22,8 +22,8 @@
 
 #include <cstdint>
 
-#ifndef ARANGODB_PREGEL_COMBINER_H
-#define ARANGODB_PREGEL_COMBINER_H 1
+#ifndef AVOCADODB_PREGEL_COMBINER_H
+#define AVOCADODB_PREGEL_COMBINER_H 1
 namespace avocadodb {
 namespace pregel {
 

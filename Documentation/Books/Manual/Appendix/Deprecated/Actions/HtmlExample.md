@@ -30,7 +30,7 @@ describes how to deal with a particular request path.
 For the above example, add the following document to the _routing collection:
 
     @startDocuBlockInline HTML_01_routingCreateHtml
-    @EXAMPLE_ARANGOSH_OUTPUT{HTML_01_routingCreateHtml}
+    @EXAMPLE_AVOCADOSH_OUTPUT{HTML_01_routingCreateHtml}
     |db._routing.save({ 
     |  url: { 
     |    match: "/hello/world" 
@@ -40,16 +40,16 @@ For the above example, add the following document to the _routing collection:
     |    body: "<html><body>Hello World</body></html>" 
     |  }
     });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock HTML_01_routingCreateHtml
 
 In order to activate the new routing, you must either restart the server or call
 the internal reload function.
 
     @startDocuBlockInline HTML_02_routingReload
-    @EXAMPLE_ARANGOSH_OUTPUT{HTML_02_routingReload}
+    @EXAMPLE_AVOCADOSH_OUTPUT{HTML_02_routingReload}
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock HTML_02_routingReload
 
 Now use the browser and access http:// localhost:8529/hello/world
@@ -57,14 +57,14 @@ Now use the browser and access http:// localhost:8529/hello/world
 You should see the *Hello World* in our browser:
 
     @startDocuBlockInline HTML_03_routingCurlHtml
-    @EXAMPLE_ARANGOSH_RUN{HTML_03_routingCurlHtml}
+    @EXAMPLE_AVOCADOSH_RUN{HTML_03_routingCurlHtml}
     var url = "/hello/world";
     var response = logCurlRequest('GET', url);
     assert(response.code === 200);
     logRawResponse(response);
     db._query("FOR route IN _routing FILTER route.url.match == '/hello/world' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock HTML_03_routingCurlHtml
 
 
@@ -248,7 +248,7 @@ Remember that the more specific match wins.
 Consider the following definitions
 
     @startDocuBlockInline HTML_04_routingCreateMultiPath
-    @EXAMPLE_ARANGOSH_OUTPUT{HTML_04_routingCreateMultiPath}
+    @EXAMPLE_AVOCADOSH_OUTPUT{HTML_04_routingCreateMultiPath}
     |db._routing.save({ 
     |  url: { match: "/hello/world" },
        content: { contentType: "text/plain", body: "Match No 1"} });
@@ -262,13 +262,13 @@ Consider the following definitions
     |  url: { match: "/hi/*" },
        content: { contentType: "text/plain", body: "Match No 4"} });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock HTML_04_routingCreateMultiPath
 
 Then
 
     @startDocuBlockInline HTML_05_routingGetMultiPath
-    @EXAMPLE_ARANGOSH_RUN{HTML_05_routingGetMultiPath}
+    @EXAMPLE_AVOCADOSH_RUN{HTML_05_routingGetMultiPath}
     | var url = ["/hello/world",
     | "/hello/emil",
     | "/your/world",
@@ -281,7 +281,7 @@ Then
     }
     db._query("FOR route IN _routing FILTER route.content.contentType == 'text/plain' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock HTML_05_routingGetMultiPath
 
 

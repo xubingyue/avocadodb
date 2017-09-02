@@ -91,15 +91,15 @@ function rubyTests (options, ssl) {
   const tmpname = fs.getTempFile() + '.rb';
 
   let rspecConfig = 'RSpec.configure do |c|\n' +
-                    '  c.add_setting :ARANGO_SERVER\n' +
-                    '  c.ARANGO_SERVER = "' +
+                    '  c.add_setting :AVOCADO_SERVER\n' +
+                    '  c.AVOCADO_SERVER = "' +
                     instanceInfo.endpoint.substr(6) + '"\n' +
-                    '  c.add_setting :ARANGO_SSL\n' +
-                    '  c.ARANGO_SSL = "' + (ssl ? '1' : '0') + '"\n' +
-                    '  c.add_setting :ARANGO_USER\n' +
-                    '  c.ARANGO_USER = "' + options.username + '"\n' +
-                    '  c.add_setting :ARANGO_PASSWORD\n' +
-                    '  c.ARANGO_PASSWORD = "' + options.password + '"\n' +
+                    '  c.add_setting :AVOCADO_SSL\n' +
+                    '  c.AVOCADO_SSL = "' + (ssl ? '1' : '0') + '"\n' +
+                    '  c.add_setting :AVOCADO_USER\n' +
+                    '  c.AVOCADO_USER = "' + options.username + '"\n' +
+                    '  c.add_setting :AVOCADO_PASSWORD\n' +
+                    '  c.AVOCADO_PASSWORD = "' + options.password + '"\n' +
                     '  c.add_setting :SKIP_TIMECRITICAL\n' +
                     '  c.SKIP_TIMECRITICAL = ' + JSON.stringify(options.skipTimeCritical) + '\n' +
                     'end\n';

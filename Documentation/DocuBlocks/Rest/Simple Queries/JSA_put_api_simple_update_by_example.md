@@ -69,7 +69,7 @@ response body contains an error document in this case.
 
 using old syntax for options
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleUpdateByExample}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleUpdateByExample}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -91,11 +91,11 @@ using old syntax for options
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 using new signature for options
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleUpdateByExample_1}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleUpdateByExample_1}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -117,6 +117,6 @@ using new signature for options
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

@@ -38,7 +38,7 @@ response body contains an error document in this case.
 
 If a matching document was found
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleFirstExample}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleFirstExample}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -55,11 +55,11 @@ If a matching document was found
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 If no document was found
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleFirstExampleNotFound}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleFirstExampleNotFound}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -76,6 +76,6 @@ If no document was found
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

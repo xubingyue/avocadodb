@@ -65,13 +65,13 @@ AqlItemBlock::AqlItemBlock(ResourceMonitor* resourceMonitor, VPackSlice const sl
   bool exhausted = VelocyPackHelper::getBooleanValue(slice, "exhausted", false);
 
   if (exhausted) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "exhausted must be false");
   }
 
   int64_t nrItems = VelocyPackHelper::getNumericValue<int64_t>(slice, "nrItems", 0);
   if (nrItems <= 0) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "nrItems must be > 0");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "nrItems must be > 0");
   }
   _nrItems = static_cast<size_t>(nrItems);
 
@@ -114,7 +114,7 @@ AqlItemBlock::AqlItemBlock(ResourceMonitor* resourceMonitor, VPackSlice const sl
           VPackSlice dataEntry = dataIterator.value();
           dataIterator.next();
           if (!dataEntry.isNumber()) {
-            THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+            THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                            "data must contain only numbers");
           }
           int64_t n = dataEntry.getNumericValue<int64_t>();
@@ -161,7 +161,7 @@ AqlItemBlock::AqlItemBlock(ResourceMonitor* resourceMonitor, VPackSlice const sl
             // If this throws, all is OK, because it was already put into
             // the block elsewhere.
           } else {
-            THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+            THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                            "found undefined data value");
           }
         }
@@ -220,7 +220,7 @@ void AqlItemBlock::shrink(size_t nrItems, bool sweep) {
 
   if (nrItems > _nrItems) {
     // cannot use shrink() to increase the size of the block
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot use shrink() to increase block");
   }
 

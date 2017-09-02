@@ -36,7 +36,7 @@ is returned if the edge collection was not found.
 
 Any direction
 
-@EXAMPLE_ARANGOSH_RUN{RestEdgesReadEdgesAny}
+@EXAMPLE_AVOCADOSH_RUN{RestEdgesReadEdgesAny}
     var db = require("@avocadodb").db;
     db._create("vertices");
     db._createEdgeCollection("edges");
@@ -58,11 +58,11 @@ Any direction
     logJsonResponse(response);
     db._drop("edges");
     db._drop("vertices");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 In edges
 
-@EXAMPLE_ARANGOSH_RUN{RestEdgesReadEdgesIn}
+@EXAMPLE_AVOCADOSH_RUN{RestEdgesReadEdgesIn}
     var db = require("@avocadodb").db;
     db._create("vertices");
     db._createEdgeCollection("edges");
@@ -84,11 +84,11 @@ In edges
     logJsonResponse(response);
     db._drop("edges");
     db._drop("vertices");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Out edges
 
-@EXAMPLE_ARANGOSH_RUN{RestEdgesReadEdgesOut}
+@EXAMPLE_AVOCADOSH_RUN{RestEdgesReadEdgesOut}
     var db = require("@avocadodb").db;
     db._create("vertices");
     db._createEdgeCollection("edges");
@@ -110,6 +110,6 @@ Out edges
     logJsonResponse(response);
     db._drop("edges");
     db._drop("vertices");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

@@ -46,7 +46,7 @@ void WorkerConfig::updateConfig(VPackSlice params) {
   if (!coordID.isString() || !edgeShardMap.isObject() ||
       !vertexShardMap.isObject() || !execNum.isInteger() ||
       !collectionPlanIdMap.isObject() || !globalShards.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Supplied bad parameters to worker");
   }
   _executionNumber = execNum.getUInt();
@@ -108,7 +108,7 @@ void WorkerConfig::updateConfig(VPackSlice params) {
 PregelID WorkerConfig::documentIdToPregel(std::string const& documentID) const {
   size_t pos = documentID.find("/");
   if (pos == std::string::npos) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
                                    "not a valid document id");
   }
   CollectionID coll = documentID.substr(0, pos);

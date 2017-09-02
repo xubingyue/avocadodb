@@ -21,12 +21,12 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_ENDPOINT_ENDPOINT_UNIX_DOMAIN_H
-#define ARANGODB_ENDPOINT_ENDPOINT_UNIX_DOMAIN_H 1
+#ifndef AVOCADODB_ENDPOINT_ENDPOINT_UNIX_DOMAIN_H
+#define AVOCADODB_ENDPOINT_ENDPOINT_UNIX_DOMAIN_H 1
 
 #include "Endpoint/Endpoint.h"
 
-#ifdef ARANGODB_HAVE_DOMAIN_SOCKETS
+#ifdef AVOCADODB_HAVE_DOMAIN_SOCKETS
 
 #include <arpa/inet.h>
 #include <sys/un.h>

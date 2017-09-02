@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_INDEXES_INDEX_LOOKUP_CONTEXT_H
-#define ARANGOD_INDEXES_INDEX_LOOKUP_CONTEXT_H 1
+#ifndef AVOCADOD_INDEXES_INDEX_LOOKUP_CONTEXT_H
+#define AVOCADOD_INDEXES_INDEX_LOOKUP_CONTEXT_H 1
 
 #include "Basics/Common.h"
 #include "StorageEngine/DocumentIdentifierToken.h"

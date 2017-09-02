@@ -62,7 +62,7 @@ TraverserOptions::TraverserOptions(transaction::Methods* trx,
       uniqueEdges(UniquenessLevel::PATH) {
   TRI_ASSERT(obj.isObject());
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice type = obj.get("type");
   TRI_ASSERT(type.isString());
   TRI_ASSERT(type.isEqualString("traversal"));
@@ -77,7 +77,7 @@ TraverserOptions::TraverserOptions(transaction::Methods* trx,
     uniqueVertices = TraverserOptions::UniquenessLevel::PATH;
   } else if (tmp == "global") {
     if (!useBreadthFirst) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "uniqueVertices: 'global' is only "
                                      "supported, with bfs: true due to "
                                      "unpredictable results.");
@@ -91,7 +91,7 @@ TraverserOptions::TraverserOptions(transaction::Methods* trx,
   if (tmp == "none") {
     uniqueEdges = TraverserOptions::UniquenessLevel::NONE;
   } else if (tmp == "global") {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "uniqueEdges: 'global' is not supported, "
                                    "due to unpredictable results. Use 'path' "
                                    "or 'none' instead");
@@ -110,7 +110,7 @@ avocadodb::traverser::TraverserOptions::TraverserOptions(
       useBreadthFirst(false),
       uniqueVertices(UniquenessLevel::NONE),
       uniqueEdges(UniquenessLevel::PATH) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice type = info.get("type");
   TRI_ASSERT(type.isString());
   TRI_ASSERT(type.isEqualString("traversal"));
@@ -119,28 +119,28 @@ avocadodb::traverser::TraverserOptions::TraverserOptions(
   // NOTE collections is an array of arrays of strings
   VPackSlice read = info.get("minDepth");
   if (!read.isInteger()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a minDepth");
   }
   minDepth = read.getNumber<uint64_t>();
 
   read = info.get("maxDepth");
   if (!read.isInteger()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a maxDepth");
   }
   maxDepth = read.getNumber<uint64_t>();
 
   read = info.get("bfs");
   if (!read.isBoolean()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a bfs");
   }
   useBreadthFirst = read.getBool();
 
   read = info.get("uniqueVertices");
   if (!read.isInteger()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a uniqueVertices");
   }
   size_t i = read.getNumber<size_t>();
@@ -155,13 +155,13 @@ avocadodb::traverser::TraverserOptions::TraverserOptions(
       uniqueVertices = UniquenessLevel::GLOBAL;
       break;
     default:
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "The options require a uniqueVertices");
   }
 
   read = info.get("uniqueEdges");
   if (!read.isInteger()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a uniqueEdges");
   }
   i = read.getNumber<size_t>();
@@ -173,14 +173,14 @@ avocadodb::traverser::TraverserOptions::TraverserOptions(
       uniqueEdges = UniquenessLevel::PATH;
       break;
     default:
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "The options require a uniqueEdges");
   }
 
   read = info.get("depthLookupInfo");
   if (!read.isNone()) {
     if (!read.isObject()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_BAD_PARAMETER,
           "The options require depthLookupInfo to be an object");
     }
@@ -202,7 +202,7 @@ avocadodb::traverser::TraverserOptions::TraverserOptions(
   read = info.get("vertexExpressions");
   if (!read.isNone()) {
     if (!read.isObject()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_BAD_PARAMETER,
           "The options require vertexExpressions to be an object");
     }
@@ -210,7 +210,7 @@ avocadodb::traverser::TraverserOptions::TraverserOptions(
     _vertexExpressions.reserve(read.length());
     for (auto const& info : VPackObjectIterator(read)) {
       uint64_t d = basics::StringUtils::uint64(info.key.copyString());
-#ifdef ARANGODB_ENABLE_MAINAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINAINER_MODE
       auto it = _vertexExpressions.emplace(
           d, new aql::Expression(query->ast(), info.value));
       TRI_ASSERT(it.second);
@@ -224,7 +224,7 @@ avocadodb::traverser::TraverserOptions::TraverserOptions(
   read = info.get("baseVertexExpression");
   if (!read.isNone()) {
     if (!read.isObject()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_BAD_PARAMETER,
           "The options require vertexExpressions to be an object");
     }

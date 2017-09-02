@@ -57,7 +57,7 @@ using namespace avocadodb::options;
 // the logfile manager singleton
 MMFilesLogfileManager* MMFilesLogfileManager::Instance = nullptr;
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 bool MMFilesLogfileManager::SafeToUseInstance = false;
 #endif
 
@@ -74,7 +74,7 @@ static constexpr uint64_t MinSyncInterval() { return 5; }
 
 // minimum value for --wal.logfile-size
 static constexpr uint32_t MinFileSize() {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   // this allows testing with smaller logfile-sizes
   return 1 * 1024 * 1024;
 #else
@@ -282,7 +282,7 @@ void MMFilesLogfileManager::prepare() {
 }
 
 void MMFilesLogfileManager::start() {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   SafeToUseInstance = true;
 #endif
 
@@ -684,17 +684,17 @@ MMFilesWalSlotInfo MMFilesLogfileManager::allocate(uint32_t size) {
 
   if (!_allowWrites) {
     // no writes allowed
-    return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_READ_ONLY);
+    return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_READ_ONLY);
   }
 
   if (size > MaxEntrySize()) {
     // entry is too big
-    return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_DOCUMENT_TOO_LARGE);
+    return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_DOCUMENT_TOO_LARGE);
   }
 
   if (size > _filesize && !_allowOversizeEntries) {
     // entry is too big for a logfile
-    return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_DOCUMENT_TOO_LARGE);
+    return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_DOCUMENT_TOO_LARGE);
   }
 
   return _slots->nextUnused(size);
@@ -707,17 +707,17 @@ MMFilesWalSlotInfo MMFilesLogfileManager::allocate(TRI_voc_tick_t databaseId,
 
   if (!_allowWrites) {
     // no writes allowed
-    return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_READ_ONLY);
+    return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_READ_ONLY);
   }
 
   if (size > MaxEntrySize()) {
     // entry is too big
-    return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_DOCUMENT_TOO_LARGE);
+    return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_DOCUMENT_TOO_LARGE);
   }
 
   if (size > _filesize && !_allowOversizeEntries) {
     // entry is too big for a logfile
-    return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_DOCUMENT_TOO_LARGE);
+    return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_DOCUMENT_TOO_LARGE);
   }
 
   return _slots->nextUnused(databaseId, collectionId, size);
@@ -853,7 +853,7 @@ int MMFilesLogfileManager::flush(bool waitForSync, bool waitForCollector,
 
   int res = _slots->flush(waitForSync);
 
-  if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_ARANGO_DATAFILE_EMPTY) {
+  if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_AVOCADO_DATAFILE_EMPTY) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "unexpected error in WAL flush request: "
              << TRI_errno_string(res);
     return res;
@@ -873,7 +873,7 @@ int MMFilesLogfileManager::flush(bool waitForSync, bool waitForCollector,
       if (res == TRI_ERROR_LOCK_TIMEOUT) {
         LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "got lock timeout when waiting for WAL flush. lastOpenLogfileId: " << lastOpenLogfileId;
       }
-    } else if (res == TRI_ERROR_ARANGO_DATAFILE_EMPTY) {
+    } else if (res == TRI_ERROR_AVOCADO_DATAFILE_EMPTY) {
       // current logfile is empty and cannot be collected
       // we need to wait for the collector to collect the previously sealed
       // datafile
@@ -889,7 +889,7 @@ int MMFilesLogfileManager::flush(bool waitForSync, bool waitForCollector,
   }
 
   if (writeShutdownFile &&
-      (res == TRI_ERROR_NO_ERROR || res == TRI_ERROR_ARANGO_DATAFILE_EMPTY)) {
+      (res == TRI_ERROR_NO_ERROR || res == TRI_ERROR_AVOCADO_DATAFILE_EMPTY)) {
     // update the file with the last tick, last sealed etc.
     return writeShutdownInfo(false);
   }
@@ -2108,7 +2108,7 @@ int MMFilesLogfileManager::inspectLogfiles() {
 
   WRITE_LOCKER(writeLocker, _logfilesLock);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   // print an inventory
   for (auto it = _logfiles.begin(); it != _logfiles.end(); ++it) {
     MMFilesWalLogfile* logfile = (*it).second;
@@ -2128,7 +2128,7 @@ int MMFilesLogfileManager::inspectLogfiles() {
 
     int res = MMFilesDatafile::judge(filename);
 
-    if (res == TRI_ERROR_ARANGO_DATAFILE_EMPTY) {
+    if (res == TRI_ERROR_AVOCADO_DATAFILE_EMPTY) {
       _recoverState->emptyLogfiles.push_back(filename);
       _logfiles.erase(it++);
       continue;
@@ -2145,7 +2145,7 @@ int MMFilesLogfileManager::inspectLogfiles() {
 
         if (res == TRI_ERROR_NO_ERROR) {
           // must have an error!
-          res = TRI_ERROR_ARANGO_DATAFILE_UNREADABLE;
+          res = TRI_ERROR_AVOCADO_DATAFILE_UNREADABLE;
         }
         return res;
       }
@@ -2171,7 +2171,7 @@ int MMFilesLogfileManager::inspectLogfiles() {
       std::string const logfileName = logfile->filename();
       LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "WAL inspection failed when scanning logfile '"
                 << logfileName << "'";
-      return TRI_ERROR_ARANGO_RECOVERY;
+      return TRI_ERROR_AVOCADO_RECOVERY;
     }
 
     LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "inspected logfile " << logfile->id() << " ("

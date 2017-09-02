@@ -130,14 +130,14 @@ avocadodb::Result MMFilesCollection::updateProperties(VPackSlice const& slice,
       avocadodb::basics::VelocyPackHelper::getBooleanValue(
           slice, "waitForSync", _logicalCollection->waitForSync())) {
     // the combination of waitForSync and isVolatile makes no sense
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "volatile collections do not support the waitForSync option");
   }
 
   if (isVolatile() != avocadodb::basics::VelocyPackHelper::getBooleanValue(
                           slice, "isVolatile", isVolatile())) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "isVolatile option cannot be changed at runtime");
   }
@@ -488,13 +488,13 @@ MMFilesCollection::MMFilesCollection(LogicalCollection* collection,
       _maxTick(0) {
   if (_isVolatile && _logicalCollection->waitForSync()) {
     // Illegal collection configuration
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "volatile collections do not support the waitForSync option");
   }
 
   if (_journalSize < TRI_JOURNAL_MINIMAL_SIZE) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "<properties>.journalSize too small");
   }
 
@@ -686,7 +686,7 @@ int MMFilesCollection::rotateActiveJournal() {
   // only place that's ever written to. if a journal is full, it will have been
   // sealed and synced already
   if (_journals.empty()) {
-    return TRI_ERROR_ARANGO_NO_JOURNAL;
+    return TRI_ERROR_AVOCADO_NO_JOURNAL;
   }
 
   if (_journals.size() > 1) {
@@ -801,7 +801,7 @@ int MMFilesCollection::reserveJournalSpace(TRI_voc_tick_t tick,
   while (true) {
     // no need to go on if the collection is already deleted
     if (_logicalCollection->status() == TRI_VOC_COL_STATUS_DELETED) {
-      return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
     }
 
     MMFilesDatafile* datafile = nullptr;
@@ -854,14 +854,14 @@ int MMFilesCollection::reserveJournalSpace(TRI_voc_tick_t tick,
       return TRI_ERROR_NO_ERROR;
     }
 
-    if (res != TRI_ERROR_ARANGO_DATAFILE_FULL) {
+    if (res != TRI_ERROR_AVOCADO_DATAFILE_FULL) {
       // some other error
       LOG_TOPIC(ERR, Logger::COLLECTOR) << "cannot select journal: '"
                                         << TRI_last_error() << "'";
       return res;
     }
 
-    // TRI_ERROR_ARANGO_DATAFILE_FULL...
+    // TRI_ERROR_AVOCADO_DATAFILE_FULL...
     // journal is full, close it and sync
     LOG_TOPIC(DEBUG, Logger::COLLECTOR) << "closing full journal '"
                                         << datafile->getName() << "'";
@@ -887,7 +887,7 @@ int MMFilesCollection::reserveJournalSpace(TRI_voc_tick_t tick,
     }
   }  // otherwise, next iteration!
 
-  return TRI_ERROR_ARANGO_NO_JOURNAL;
+  return TRI_ERROR_AVOCADO_NO_JOURNAL;
 }
 
 /// @brief create compactor file
@@ -913,7 +913,7 @@ int MMFilesCollection::closeCompactor(MMFilesDatafile* datafile) {
   WRITE_LOCKER(writeLocker, _filesLock);
 
   if (_compactors.size() != 1) {
-    return TRI_ERROR_ARANGO_NO_JOURNAL;
+    return TRI_ERROR_AVOCADO_NO_JOURNAL;
   }
 
   MMFilesDatafile* compactor = _compactors[0];
@@ -966,12 +966,12 @@ MMFilesDatafile* MMFilesCollection::createDatafile(TRI_voc_fid_t fid,
   try {
     _datafileStatistics.create(fid);
   } catch (basics::Exception const& ex) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(ex.code(), ex.what());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(ex.code(), ex.what());
   } catch (std::exception const& ex) {
     // rethrow but do not change error code
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, ex.what());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, ex.what());
   } catch (...) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   std::unique_ptr<MMFilesDatafile> datafile;
@@ -995,7 +995,7 @@ MMFilesDatafile* MMFilesCollection::createDatafile(TRI_voc_fid_t fid,
 
     TRI_IF_FAILURE("CreateJournalDocumentCollection") {
       // simulate disk full
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_FILESYSTEM_FULL);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_FILESYSTEM_FULL);
     }
 
     // remove an existing temporary file first
@@ -1009,9 +1009,9 @@ MMFilesDatafile* MMFilesCollection::createDatafile(TRI_voc_fid_t fid,
 
   if (datafile == nullptr) {
     if (TRI_errno() == TRI_ERROR_OUT_OF_MEMORY_MMAP) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY_MMAP);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY_MMAP);
     }
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_NO_JOURNAL);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_NO_JOURNAL);
   }
 
   // datafile is there now
@@ -1044,7 +1044,7 @@ MMFilesDatafile* MMFilesCollection::createDatafile(TRI_voc_fid_t fid,
     datafile.reset();
     TRI_UnlinkFile(temp.c_str());
 
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   MMFilesCollectionHeaderMarker cm;
@@ -1070,7 +1070,7 @@ MMFilesDatafile* MMFilesCollection::createDatafile(TRI_voc_fid_t fid,
     datafile.reset();
     TRI_UnlinkFile(temp.c_str());
 
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   TRI_ASSERT(fid == datafile->fid());
@@ -1094,7 +1094,7 @@ MMFilesDatafile* MMFilesCollection::createDatafile(TRI_voc_fid_t fid,
       datafile.reset();
       TRI_UnlinkFile(temp.c_str());
 
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "renamed journal from '"
@@ -1552,7 +1552,7 @@ avocadodb::MMFilesPrimaryIndex* MMFilesCollection::primaryIndex() const {
   auto primary = _logicalCollection->lookupIndex(0);
   TRI_ASSERT(primary != nullptr);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (primary->type() != Index::IndexType::TRI_IDX_TYPE_PRIMARY_INDEX) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "got invalid indexes for collection '" << _logicalCollection->name()
@@ -1773,7 +1773,7 @@ void MMFilesCollection::open(bool ignoreErrors) {
   int res = openWorker(ignoreErrors);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         res,
         std::string("cannot open document collection from path '") + path() +
             "': " + TRI_errno_string(res));
@@ -1794,7 +1794,7 @@ void MMFilesCollection::open(bool ignoreErrors) {
     res = iterateMarkersOnLoad(&trx);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           res,
           std::string("cannot iterate data of document collection: ") +
               TRI_errno_string(res));
@@ -1815,17 +1815,17 @@ void MMFilesCollection::open(bool ignoreErrors) {
       useSecondaryIndexes(old);
     } catch (basics::Exception const& ex) {
       useSecondaryIndexes(old);
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           ex.code(),
           std::string("cannot initialize collection indexes: ") + ex.what());
     } catch (std::exception const& ex) {
       useSecondaryIndexes(old);
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_INTERNAL,
           std::string("cannot initialize collection indexes: ") + ex.what());
     } catch (...) {
       useSecondaryIndexes(old);
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_INTERNAL,
           "cannot initialize collection indexes: unknown exception");
     }
@@ -1900,8 +1900,8 @@ int MMFilesCollection::iterateMarkersOnLoad(transaction::Methods* trx) {
     if (application_features::ApplicationServer::server
             ->getFeature<DatabaseFeature>("Database")
             ->fail30Revisions()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
-          TRI_ERROR_ARANGO_CORRUPTED_DATAFILE,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
+          TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE,
           std::string("collection '") + _logicalCollection->name() +
               "' contains _rev values from 3.0 and needs to be migrated using "
               "dump/restore");
@@ -1937,7 +1937,7 @@ Result MMFilesCollection::read(transaction::Methods* trx, VPackSlice const key,
   }
 
   TRI_IF_FAILURE("ReadDocumentNoLockExcept") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   bool const useDeadlockDetector =
@@ -2058,7 +2058,7 @@ void MMFilesCollection::prepareIndexes(VPackSlice indexesSlice) {
   if (_indexes[0]->type() != Index::IndexType::TRI_IDX_TYPE_PRIMARY_INDEX ||
       (_logicalCollection->type() == TRI_COL_TYPE_EDGE && 
        (_indexes.size() < 2 || _indexes[1]->type() != Index::IndexType::TRI_IDX_TYPE_EDGE_INDEX))) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     for (auto const& it : _indexes) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "- " << it.get();
     }
@@ -2066,10 +2066,10 @@ void MMFilesCollection::prepareIndexes(VPackSlice indexesSlice) {
     std::string errorMsg("got invalid indexes for collection '");
     errorMsg.append(_logicalCollection->name());
     errorMsg.push_back('\'');
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
   }
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   {
     bool foundPrimary = false;
     for (auto const& it : _indexes) {
@@ -2078,7 +2078,7 @@ void MMFilesCollection::prepareIndexes(VPackSlice indexesSlice) {
           std::string errorMsg("found multiple primary indexes for collection '");
           errorMsg.append(_logicalCollection->name());
           errorMsg.push_back('\'');
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
         } 
         foundPrimary = true;
       }
@@ -2113,7 +2113,7 @@ std::shared_ptr<Index> MMFilesCollection::lookupIndex(
 
   if (!value.isString()) {
     // Compatibility with old v8-vocindex.
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid index definition");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid index definition");
   }
 
   std::string tmp = value.copyString();
@@ -2164,7 +2164,7 @@ std::shared_ptr<Index> MMFilesCollection::createIndex(transaction::Methods* trx,
   int res = saveIndex(trx, idx);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   avocadodb::aql::PlanCache::instance()->invalidate(
@@ -2338,7 +2338,7 @@ bool MMFilesCollection::dropIndex(TRI_idx_iid_t iid) {
   if (!removeIndex(iid)) {
     // We tried to remove an index that does not exist
     events::DropIndex("", std::to_string(iid),
-                      TRI_ERROR_ARANGO_INDEX_NOT_FOUND);
+                      TRI_ERROR_AVOCADO_INDEX_NOT_FOUND);
     return false;
   }
 
@@ -2734,7 +2734,7 @@ void MMFilesCollection::truncate(transaction::Methods* trx,
                                   options, revisionId, builder->slice());
 
       if (res.fail()) {
-        THROW_ARANGO_EXCEPTION(res.errorNumber());
+        THROW_AVOCADO_EXCEPTION(res.errorNumber());
       }
     }
 
@@ -2758,24 +2758,24 @@ Result MMFilesCollection::insert(transaction::Methods* trx,
     // _from:
     fromSlice = slice.get(StaticStrings::FromString);
     if (!fromSlice.isString()) {
-      return Result(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      return Result(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
     }
     VPackValueLength len;
     char const* docId = fromSlice.getString(len);
     size_t split;
     if (!TRI_ValidateDocumentIdKeyGenerator(docId, static_cast<size_t>(len),
                                             &split)) {
-      return Result(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      return Result(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
     }
     // _to:
     toSlice = slice.get(StaticStrings::ToString);
     if (!toSlice.isString()) {
-      return Result(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      return Result(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
     }
     docId = toSlice.getString(len);
     if (!TRI_ValidateDocumentIdKeyGenerator(docId, static_cast<size_t>(len),
                                             &split)) {
-      return Result(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      return Result(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
     }
   }
 
@@ -2834,7 +2834,7 @@ Result MMFilesCollection::insert(transaction::Methods* trx,
 
   TRI_IF_FAILURE("InsertDocumentNoHeaderExcept") {
     // test what happens if no header can be acquired
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   TRI_voc_rid_t revisionId =
@@ -2927,7 +2927,7 @@ MMFilesDocumentPosition MMFilesCollection::lookupRevision(
   if (old) {
     return old;
   }
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "got invalid revision value on lookup");
 }
 
@@ -2941,7 +2941,7 @@ uint8_t const* MMFilesCollection::lookupRevisionVPack(
     TRI_ASSERT(VPackSlice(vpack).isObject());
     return vpack;
   }
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "got invalid vpack value on lookup");
 }
 
@@ -3072,7 +3072,7 @@ Result MMFilesCollection::insertSecondaryIndexes(
       return res;
     }
     if (!res.ok()) {
-      if (res.errorNumber() == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED ||
+      if (res.errorNumber() == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED ||
           result.ok()) {
         // "prefer" unique constraint violated
         result = res;
@@ -3187,7 +3187,7 @@ Result MMFilesCollection::insertDocument(avocadodb::transaction::Methods* trx,
   TRI_IF_FAILURE("InsertDocumentNoOperation") { return Result(TRI_ERROR_DEBUG); }
 
   TRI_IF_FAILURE("InsertDocumentNoOperationExcept") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   return Result(static_cast<MMFilesTransactionState*>(trx->state())
@@ -3229,7 +3229,7 @@ Result MMFilesCollection::update(
 
   TRI_IF_FAILURE("UpdateDocumentNoMarkerExcept") {
     // test what happens when no marker can be created
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   // Check old revision:
@@ -3341,7 +3341,7 @@ Result MMFilesCollection::replace(
   // get the previous revision
   VPackSlice key = newSlice.get(StaticStrings::KeyString);
   if (key.isNone()) {
-    return TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD;
   }
 
   bool const useDeadlockDetector =
@@ -3363,7 +3363,7 @@ Result MMFilesCollection::replace(
 
   TRI_IF_FAILURE("ReplaceDocumentNoMarkerExcept") {
     // test what happens when no marker can be created
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   uint8_t const* vpack = previous.vpack();
@@ -3481,7 +3481,7 @@ Result MMFilesCollection::remove(avocadodb::transaction::Methods* trx,
 
   TRI_IF_FAILURE("RemoveDocumentNoMarkerExcept") {
     // test what happens if no marker can be created
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   // create marker
@@ -3551,20 +3551,20 @@ Result MMFilesCollection::remove(avocadodb::transaction::Methods* trx,
 
     if (res.fail()) {
       insertSecondaryIndexes(trx, oldRevisionId, oldDoc, true);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     res = deletePrimaryIndex(trx, oldRevisionId, oldDoc);
 
     if (res.fail()) {
       insertSecondaryIndexes(trx, oldRevisionId, oldDoc, true);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     operation.indexed();
 
     TRI_IF_FAILURE("RemoveDocumentNoOperation") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     try {
@@ -3573,7 +3573,7 @@ Result MMFilesCollection::remove(avocadodb::transaction::Methods* trx,
     }
 
     TRI_IF_FAILURE("RemoveDocumentNoOperationExcept") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     res =
@@ -3659,7 +3659,7 @@ Result MMFilesCollection::rollbackOperation(transaction::Methods* trx,
     return res;
   }
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
       << "logic error. invalid operation type on rollback";
 #endif
@@ -3680,7 +3680,7 @@ Result MMFilesCollection::removeFastPath(avocadodb::transaction::Methods* trx,
 
   TRI_IF_FAILURE("RemoveDocumentNoMarkerExcept") {
     // test what happens if no marker can be created
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   // create marker
@@ -3713,14 +3713,14 @@ Result MMFilesCollection::removeFastPath(avocadodb::transaction::Methods* trx,
 
     if (res.fail()) {
       insertSecondaryIndexes(trx, oldRevisionId, oldDoc, true);
-      THROW_ARANGO_EXCEPTION(res.errorNumber());
+      THROW_AVOCADO_EXCEPTION(res.errorNumber());
     }
 
     res = deletePrimaryIndex(trx, oldRevisionId, oldDoc);
 
     if (res.fail()) {
       insertSecondaryIndexes(trx, oldRevisionId, oldDoc, true);
-      THROW_ARANGO_EXCEPTION(res.errorNumber());
+      THROW_AVOCADO_EXCEPTION(res.errorNumber());
     }
 
     operation.indexed();
@@ -3731,11 +3731,11 @@ Result MMFilesCollection::removeFastPath(avocadodb::transaction::Methods* trx,
     }
 
     TRI_IF_FAILURE("RemoveDocumentNoOperation") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     TRI_IF_FAILURE("RemoveDocumentNoOperationExcept") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     res =
@@ -3765,7 +3765,7 @@ Result MMFilesCollection::lookupDocument(transaction::Methods* trx,
                                          VPackSlice key,
                                          ManagedDocumentResult& result) {
   if (!key.isString()) {
-    return Result(TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD);
+    return Result(TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD);
   }
 
   MMFilesSimpleIndexElement element =
@@ -3779,7 +3779,7 @@ Result MMFilesCollection::lookupDocument(transaction::Methods* trx,
     return Result(TRI_ERROR_NO_ERROR);
   }
 
-  return Result(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+  return Result(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
 }
 
 /// @brief updates an existing document, low level worker
@@ -3834,7 +3834,7 @@ Result MMFilesCollection::updateDocument(
   }
 
   TRI_IF_FAILURE("UpdateDocumentNoOperationExcept") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   return Result(static_cast<MMFilesTransactionState*>(trx->state())

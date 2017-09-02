@@ -129,7 +129,7 @@ function UniqueConstraintSuite() {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       collection.save({ a : 1 });

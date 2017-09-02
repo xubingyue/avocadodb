@@ -565,7 +565,7 @@ void V8DealerFeature::loadJavaScriptFileInDefaultContext(TRI_vocbase_t* vocbase,
   V8Context* context = enterContext(vocbase, true, 0);
   
   if (context == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "could not acquire default V8 context");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "could not acquire default V8 context");
   }
 
   TRI_DEFER(exitContext(context));

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_RESOURCE_USAGE_H
-#define ARANGOD_AQL_RESOURCE_USAGE_H 1
+#ifndef AVOCADOD_AQL_RESOURCE_USAGE_H
+#define AVOCADOD_AQL_RESOURCE_USAGE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -50,7 +50,7 @@ struct ResourceMonitor {
   void increaseMemoryUsage(size_t value) {
     if (maxResources.memoryUsage > 0 && 
         currentResources.memoryUsage + value > maxResources.memoryUsage) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_RESOURCE_LIMIT, "query would use more memory than allowed");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_RESOURCE_LIMIT, "query would use more memory than allowed");
     }
     currentResources.memoryUsage += value;
   }

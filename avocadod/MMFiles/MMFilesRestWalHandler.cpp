@@ -197,7 +197,7 @@ void MMFilesRestWalHandler::flush() {
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   generateResult(rest::ResponseCode::OK, basics::VelocyPackHelper::EmptyObjectValue());

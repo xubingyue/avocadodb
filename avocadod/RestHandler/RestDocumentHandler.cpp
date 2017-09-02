@@ -99,7 +99,7 @@ bool RestDocumentHandler::createDocument() {
 
   if (!found || collectionName.empty()) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_COLLECTION_PARAMETER_MISSING,
+                  TRI_ERROR_AVOCADO_COLLECTION_PARAMETER_MISSING,
                   "'collection' is missing, expecting " + DOCUMENT_PATH +
                       "/<collectionname> or query parameter 'collection'");
     return false;
@@ -179,7 +179,7 @@ bool RestDocumentHandler::readDocument() {
     case 0:
     case 1:
       generateError(rest::ResponseCode::NOT_FOUND,
-                    TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+                    TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                     "expecting GET /_api/document/<document-handle>");
       return false;
     case 2:
@@ -254,10 +254,10 @@ bool RestDocumentHandler::readSingleDocument(bool generateBody) {
   res = trx.finish(result.code);
 
   if (!result.successful()) {
-    if (result.code == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+    if (result.code == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
       generateDocumentNotFound(collection, key);
       return false;
-    } else if (ifRid != 0 && result.code == TRI_ERROR_ARANGO_CONFLICT) {
+    } else if (ifRid != 0 && result.code == TRI_ERROR_AVOCADO_CONFLICT) {
       generatePreconditionFailed(result.slice());
     } else {
       generateTransactionError(collection, res, key);
@@ -373,7 +373,7 @@ bool RestDocumentHandler::modifyDocument(bool isPatch) {
 
   if ((!isArrayCase && !body.isObject()) || (isArrayCase && !body.isArray())) {
     generateTransactionError(collectionName,
-        OperationResult(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID), "");
+        OperationResult(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID), "");
     return false;
   }
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-ARANGODB="/usr/sbin/avocadod"
+AVOCADODB="/usr/sbin/avocadod"
 
 # source debconf library
 . /usr/share/debconf/confmodule
@@ -15,7 +15,7 @@ if [ "$1" = "configure" -a -z "$2" ]; then
     db_get @CPACK_PACKAGE_NAME@/password
     # Escape backslashes and quotes 
     if [ -n "$RET" ]; then
-        ARANGODB_DEFAULT_ROOT_PASSWORD=`echo "$RET"|sed -e 's;\\\\;\\\\\\\\;g' -e 's;";\\\\";g'` \
+        AVOCADODB_DEFAULT_ROOT_PASSWORD=`echo "$RET"|sed -e 's;\\\\;\\\\\\\\;g' -e 's;";\\\\";g'` \
                                       /usr/sbin/avocado-init-database \
 	                              --server.rest-server false \
 				      --server.statistics false --foxx.queues false \
@@ -29,7 +29,7 @@ fi
 # check if we should upgrade the database directory
 
 UPGRADE=false
-$ARANGODB --uid avocadodb --gid avocadodb --server.rest-server false --log.foreground-tty false --database.check-version \
+$AVOCADODB --uid avocadodb --gid avocadodb --server.rest-server false --log.foreground-tty false --database.check-version \
     || UPGRADE=true
 
 db_get @CPACK_PACKAGE_NAME@/upgrade
@@ -44,7 +44,7 @@ if [ "$RET" = "true" ];  then
         fi
 
         echo "Upgrading database files."
-        $ARANGODB --uid avocadodb --gid avocadodb --server.rest-server false --log.level error --database.auto-upgrade true
+        $AVOCADODB --uid avocadodb --gid avocadodb --server.rest-server false --log.level error --database.auto-upgrade true
     else
         echo "Database files are up-to-date."
     fi

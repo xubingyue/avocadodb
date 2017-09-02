@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_VERSION_H
-#define ARANGODB_REST_VERSION_H 1
+#ifndef AVOCADODB_REST_VERSION_H
+#define AVOCADODB_REST_VERSION_H 1
 
 #include "Basics/Common.h"
 
@@ -31,26 +31,26 @@
 #ifdef USE_ENTERPRISE
 #include "Enterprise/Basics/Version.h"
 
-#ifndef ARANGODB_ENTERPRISE_VERSION
+#ifndef AVOCADODB_ENTERPRISE_VERSION
 #error "enterprise version number is not defined"
 #endif
 
 #ifdef _DEBUG
-#define ARANGODB_VERSION_FULL ARANGODB_VERSION " " ARANGODB_ENTERPRISE_VERSION " [" TRI_PLATFORM "-DEBUG]"
+#define AVOCADODB_VERSION_FULL AVOCADODB_VERSION " " AVOCADODB_ENTERPRISE_VERSION " [" TRI_PLATFORM "-DEBUG]"
 #else
-#define ARANGODB_VERSION_FULL ARANGODB_VERSION " " ARANGODB_ENTERPRISE_VERSION " [" TRI_PLATFORM "]"
+#define AVOCADODB_VERSION_FULL AVOCADODB_VERSION " " AVOCADODB_ENTERPRISE_VERSION " [" TRI_PLATFORM "]"
 #endif
 
 #else
 
-#ifdef ARANGODB_ENTERPRISE_VERSION
+#ifdef AVOCADODB_ENTERPRISE_VERSION
 #error "enterprise version number should not be defined"
 #endif
 
 #ifdef _DEBUG
-#define ARANGODB_VERSION_FULL ARANGODB_VERSION " [" TRI_PLATFORM "-DEBUG]"
+#define AVOCADODB_VERSION_FULL AVOCADODB_VERSION " [" TRI_PLATFORM "-DEBUG]"
 #else
-#define ARANGODB_VERSION_FULL ARANGODB_VERSION " [" TRI_PLATFORM "]"
+#define AVOCADODB_VERSION_FULL AVOCADODB_VERSION " [" TRI_PLATFORM "]"
 #endif
 
 #endif

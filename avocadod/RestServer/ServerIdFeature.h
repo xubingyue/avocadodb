@@ -20,8 +20,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_SERVER_SERVER_ID_FEATURE_H
-#define ARANGODB_REST_SERVER_SERVER_ID_FEATURE_H 1
+#ifndef AVOCADODB_REST_SERVER_SERVER_ID_FEATURE_H
+#define AVOCADODB_REST_SERVER_SERVER_ID_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 #include "ProgramOptions/ProgramOptions.h"

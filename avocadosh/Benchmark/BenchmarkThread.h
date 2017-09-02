@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BENCHMARK_BENCHMARK_THREAD_H
-#define ARANGODB_BENCHMARK_BENCHMARK_THREAD_H 1
+#ifndef AVOCADODB_BENCHMARK_BENCHMARK_THREAD_H
+#define AVOCADODB_BENCHMARK_BENCHMARK_THREAD_H 1
 
 #include "Basics/Common.h"
 
@@ -280,7 +280,7 @@ class BenchmarkThread : public avocadodb::Thread {
         LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "batch operation failed with HTTP code "
                   << result->getHttpReturnCode() << " - "
                   << result->getHttpReturnMessage() << " ";
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
         LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "We tried to send this:\n "
                   << std::string(batchPayload.c_str(), batchPayload.length());
 #endif
@@ -301,7 +301,7 @@ class BenchmarkThread : public avocadodb::Thread {
             LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Server side warning count: " << errorCount;
             if (_verbose) {
               LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Server reply: " << result->getBody().c_str();
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
               LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "We tried to send this:\n "
                         << std::string(batchPayload.c_str(),
                                        batchPayload.length());

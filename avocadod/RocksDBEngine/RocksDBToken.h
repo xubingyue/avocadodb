@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ENGINE_ROCKSDB_TOKEN_H
-#define ARANGOD_ROCKSDB_ENGINE_ROCKSDB_TOKEN_H 1
+#ifndef AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_TOKEN_H
+#define AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_TOKEN_H 1
 
 #include "StorageEngine/DocumentIdentifierToken.h"
 #include "VocBase/voc-types.h"

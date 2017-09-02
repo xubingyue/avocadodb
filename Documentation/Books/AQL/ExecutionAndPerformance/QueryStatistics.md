@@ -6,7 +6,7 @@ can be retrieved by calling `getExtra()` on the cursor. The statistics are retur
 return value's `stats` attribute:
 
     @startDocuBlockInline 06_workWithAQL_statementsExtra
-    @EXAMPLE_ARANGOSH_OUTPUT{06_workWithAQL_statementsExtra}
+    @EXAMPLE_AVOCADOSH_OUTPUT{06_workWithAQL_statementsExtra}
     |db._query(`
     |   FOR i IN 1..@count INSERT
     |     { _key: CONCAT('anothertest', TO_STRING(i)) }
@@ -22,7 +22,7 @@ return value's `stats` attribute:
     |  "bindVars": {count: 300},
     |  "options": { fullCount: true}
       }).getExtra();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 06_workWithAQL_statementsExtra
 
 The meaning of the statistics attributes is as follows:

@@ -74,13 +74,13 @@ ApplicationServer::~ApplicationServer() {
 }
 
 void ApplicationServer::throwFeatureNotFoundException(std::string const& name) {
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "unknown feature '" + name + "'");
 }
 
 void ApplicationServer::throwFeatureNotEnabledException(
     std::string const& name) {
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "feature '" + name + "' is not enabled");
 }
 
@@ -639,7 +639,7 @@ void ApplicationServer::start() {
       }
       shutdownFatalError();
       // throw exception so the startup aborts
-      THROW_ARANGO_EXCEPTION_MESSAGE(res, std::string("startup aborted: ") + TRI_errno_string(res));
+      THROW_AVOCADO_EXCEPTION_MESSAGE(res, std::string("startup aborted: ") + TRI_errno_string(res));
     }
   }
 
@@ -703,7 +703,7 @@ void ApplicationServer::wait() {
 // temporarily raise privileges
 void ApplicationServer::raisePrivilegesTemporarily() {
   if (_privilegesDropped) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "must not raise privileges after dropping them");
   }
 
@@ -715,7 +715,7 @@ void ApplicationServer::raisePrivilegesTemporarily() {
 // temporarily drop privileges
 void ApplicationServer::dropPrivilegesTemporarily() {
   if (_privilegesDropped) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "must not try to drop privileges after dropping them");
   }
@@ -728,7 +728,7 @@ void ApplicationServer::dropPrivilegesTemporarily() {
 // permanently dropped privileges
 void ApplicationServer::dropPrivilegesPermanently() {
   if (_privilegesDropped) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "must not try to drop privileges after dropping them");
   }

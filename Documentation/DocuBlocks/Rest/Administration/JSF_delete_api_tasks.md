@@ -19,7 +19,7 @@ If the task *id* is unknown, then an *HTTP 404* is returned.
 
 trying to delete non existing task
 
-@EXAMPLE_ARANGOSH_RUN{RestTasksDeleteFail}
+@EXAMPLE_AVOCADOSH_RUN{RestTasksDeleteFail}
     var url = "/_api/tasks/NoTaskWithThatName";
 
     var response = logCurlRequest('DELETE', url);
@@ -27,11 +27,11 @@ trying to delete non existing task
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Remove existing Task
 
-@EXAMPLE_ARANGOSH_RUN{RestTasksDelete}
+@EXAMPLE_AVOCADOSH_RUN{RestTasksDelete}
     var url = "/_api/tasks/";
 
     var sampleTask = {
@@ -51,6 +51,6 @@ Remove existing Task
     assert(response.code === 200);
     logJsonResponse(response);
 
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

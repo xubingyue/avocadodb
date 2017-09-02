@@ -21,8 +21,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_SUPERVISION_H
-#define ARANGOD_CONSENSUS_SUPERVISION_H 1
+#ifndef AVOCADOD_CONSENSUS_SUPERVISION_H
+#define AVOCADOD_CONSENSUS_SUPERVISION_H 1
 
 #include "Agency/Node.h"
 #include "AgencyCommon.h"

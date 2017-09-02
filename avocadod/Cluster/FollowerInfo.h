@@ -22,8 +22,8 @@
 /// @author Andreas Streichardt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_FOLLOWER_INFO_H
-#define ARANGOD_CLUSTER_FOLLOWER_INFO_H 1
+#ifndef AVOCADOD_CLUSTER_FOLLOWER_INFO_H
+#define AVOCADOD_CLUSTER_FOLLOWER_INFO_H 1
 
 #include "ClusterInfo.h"
 
@@ -98,4 +98,4 @@ class FollowerInfo {
 }  // end namespace avocadodb
 
 #endif
-#define ARANGOD_CLUSTER_CLUSTER_INFO_H 1
+#define AVOCADOD_CLUSTER_CLUSTER_INFO_H 1

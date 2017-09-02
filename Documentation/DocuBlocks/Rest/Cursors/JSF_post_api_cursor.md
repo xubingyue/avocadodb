@@ -187,7 +187,7 @@ The server will respond with *HTTP 405* if an unsupported HTTP method is used.
 
 Execute a query and extract the result in a single go
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorCreateCursorForLimitReturnSingle}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorCreateCursorForLimitReturnSingle}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -208,11 +208,11 @@ Execute a query and extract the result in a single go
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Execute a query and extract a part of the result
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorCreateCursorForLimitReturn}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorCreateCursorForLimitReturn}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -236,11 +236,11 @@ Execute a query and extract a part of the result
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using the query option "fullCount"
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorCreateCursorOption}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorCreateCursorOption}
     var url = "/_api/cursor";
     var body = {
       query: "FOR i IN 1..1000 FILTER i > 500 LIMIT 10 RETURN i",
@@ -255,11 +255,11 @@ Using the query option "fullCount"
     assert(response.code === 201);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Enabling and disabling optimizer rules
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorOptimizerRules}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorOptimizerRules}
     var url = "/_api/cursor";
     var body = {
       query: "FOR i IN 1..10 LET a = 1 LET b = 2 FILTER a + b == 3 RETURN i",
@@ -277,12 +277,12 @@ Enabling and disabling optimizer rules
     assert(response.code === 201);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Execute a data-modification query and retrieve the number of
 modified documents
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorDeleteQuery}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorDeleteQuery}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -303,11 +303,11 @@ modified documents
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Execute a data-modification query with option *ignoreErrors*
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorDeleteIgnore}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorDeleteIgnore}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -327,11 +327,11 @@ Execute a data-modification query with option *ignoreErrors*
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Bad query - Missing body
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorCreateCursorMissingBody}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorCreateCursorMissingBody}
     var url = "/_api/cursor";
 
     var response = logCurlRequest('POST', url, '');
@@ -339,11 +339,11 @@ Bad query - Missing body
     assert(response.code === 400);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Bad query - Unknown collection
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorCreateCursorUnknownCollection}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorCreateCursorUnknownCollection}
     var url = "/_api/cursor";
     var body = {
       query: "FOR u IN unknowncoll LIMIT 2 RETURN u",
@@ -356,12 +356,12 @@ Bad query - Unknown collection
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Bad query - Execute a data-modification query that attempts to remove a non-existing
 document
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorDeleteQueryFail}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorDeleteQueryFail}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -379,7 +379,7 @@ document
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 

@@ -52,7 +52,7 @@ trap "$PORTTRAP" EXIT
     MIN_PORT=`expr $PORT01 + 0` \
     MAX_PORT=`expr $PORT01 + 1999` \
     PORT_OFFSET=10 \
-    RESILIENCE_ARANGO_BASEPATH=. \
-    ARANGO_STORAGE_ENGINE=$engine \
+    RESILIENCE_AVOCADO_BASEPATH=. \
+    AVOCADO_STORAGE_ENGINE=$engine \
             npm run test-jenkins -- $TESTS
 )

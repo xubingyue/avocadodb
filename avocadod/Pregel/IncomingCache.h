@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_IN_MESSAGE_CACHE_H
-#define ARANGODB_IN_MESSAGE_CACHE_H 1
+#ifndef AVOCADODB_IN_MESSAGE_CACHE_H
+#define AVOCADODB_IN_MESSAGE_CACHE_H 1
 
 #include <velocypack/velocypack-aliases.h>
 #include <velocypack/vpack.h>

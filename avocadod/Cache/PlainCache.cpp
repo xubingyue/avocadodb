@@ -82,7 +82,7 @@ Result PlainCache::insert(CachedValue* value) {
       candidate = bucket->evictionCandidate();
       if (candidate == nullptr) {
         allowed = false;
-        status.reset(TRI_ERROR_ARANGO_BUSY);
+        status.reset(TRI_ERROR_AVOCADO_BUSY);
       }
     }
 

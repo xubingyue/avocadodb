@@ -45,22 +45,22 @@ first argument.
 
 Create and update a document:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplace}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionReplace}
 ~ db._create("example");
   a1 = db.example.insert({ a : 1 });
   a2 = db.example.replace(a1, { a : 2 });
-  a3 = db.example.replace(a1, { a : 3 }); // xpError(ERROR_ARANGO_CONFLICT);
+  a3 = db.example.replace(a1, { a : 3 }); // xpError(ERROR_AVOCADO_CONFLICT);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Use a document handle:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplaceHandle}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionReplaceHandle}
 ~ db._create("example");
 ~ var myid = db.example.insert({_key: "3903044"});
   a1 = db.example.insert({ a : 1 });
   a2 = db.example.replace("example/3903044", { a : 2 });
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

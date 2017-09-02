@@ -35,9 +35,9 @@ const wait = require('internal').wait;
 const extend = require('lodash').extend;
 
 const errorHeader = 'x-avocado-error-codes';
-const uniqueCode = ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code;
-const invalidCode = ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code;
-const keyBadCode = ERRORS.ERROR_ARANGO_DOCUMENT_KEY_BAD.code;
+const uniqueCode = ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code;
+const invalidCode = ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code;
+const keyBadCode = ERRORS.ERROR_AVOCADO_DOCUMENT_KEY_BAD.code;
 
 let endpoint = {};
 
@@ -452,7 +452,7 @@ describe('babies collection document', function () {
       expect(docs4.length).to.equal(3);
       for (let i = 0; i < docs3.length; i++) {
         expect(docs4[i].error).to.equal(true);
-        expect(docs4[i].errorNum).to.equal(ERRORS.ERROR_ARANGO_CONFLICT.code);
+        expect(docs4[i].errorNum).to.equal(ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
 
       expect(collection.count()).to.equal(3);
@@ -513,7 +513,7 @@ describe('babies collection document', function () {
       expect(docs4.length).to.equal(3);
       for (let i = 0; i < docs3.length; i++) {
         expect(docs4[i].error).to.equal(true);
-        expect(docs4[i].errorNum).to.equal(ERRORS.ERROR_ARANGO_CONFLICT.code);
+        expect(docs4[i].errorNum).to.equal(ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
 
       expect(collection.count()).to.equal(3);
@@ -585,7 +585,7 @@ describe('babies collection document', function () {
       let b3 = JSON.parse(req3.rawBody);
       for (let i = 0; i < l3.length; ++i) {
         expect(b3[i].error).to.equal(true);
-        expect(b3[i].errorNum).to.equal(ERRORS.ERROR_ARANGO_CONFLICT.code);
+        expect(b3[i].errorNum).to.equal(ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
 
       expect(collection.count()).to.equal(l1.length);
@@ -656,7 +656,7 @@ describe('babies collection document', function () {
       let b3 = JSON.parse(req3.rawBody);
       for (let i = 0; i < l3.length; ++i) {
         expect(b3[i].error).to.equal(true);
-        expect(b3[i].errorNum).to.equal(ERRORS.ERROR_ARANGO_CONFLICT.code);
+        expect(b3[i].errorNum).to.equal(ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
       expect(collection.count()).to.equal(l1.length);
     });

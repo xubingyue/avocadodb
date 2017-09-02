@@ -21,8 +21,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_FAILED_FOLLOWER_H
-#define ARANGOD_CONSENSUS_FAILED_FOLLOWER_H 1
+#ifndef AVOCADOD_CONSENSUS_FAILED_FOLLOWER_H
+#define AVOCADOD_CONSENSUS_FAILED_FOLLOWER_H 1
 
 #include "Job.h"
 #include "Supervision.h"

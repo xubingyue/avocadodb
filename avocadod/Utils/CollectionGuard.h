@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_COLLECTION_GUARD_H
-#define ARANGOD_UTILS_COLLECTION_GUARD_H 1
+#ifndef AVOCADOD_UTILS_COLLECTION_GUARD_H
+#define AVOCADOD_UTILS_COLLECTION_GUARD_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -46,7 +46,7 @@ class CollectionGuard {
     _collection = _vocbase->useCollection(id, _originalStatus);
 
     if (_collection == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     }
   }
 
@@ -62,7 +62,7 @@ class CollectionGuard {
     }
 
     if (_collection == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     }
   }
 
@@ -81,7 +81,7 @@ class CollectionGuard {
     }
 
     if (_collection == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     }
   }
 

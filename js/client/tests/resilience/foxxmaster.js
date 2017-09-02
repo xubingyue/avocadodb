@@ -41,7 +41,7 @@ const download = require('internal').download;
 const instanceInfo = JSON.parse(fs.read('instanceinfo.json'));
 
 try {
-  let globals = JSON.parse(process.env.ARANGOSH_GLOBALS);
+  let globals = JSON.parse(process.env.AVOCADOSH_GLOBALS);
   Object.keys(globals).forEach(g => {
     global[g] = globals[g];
   });

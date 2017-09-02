@@ -64,7 +64,7 @@ static AstNodeType BuildSingleComparatorType (AstNode const* condition) {
       type = NODE_TYPE_OPERATOR_BINARY_NIN;
       break;
     default:
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unsupported operator type");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unsupported operator type");
   }
   auto quantifier = condition->getMemberUnchecked(2);
   TRI_ASSERT(quantifier->type == NODE_TYPE_QUANTIFIER);
@@ -73,7 +73,7 @@ static AstNodeType BuildSingleComparatorType (AstNode const* condition) {
   if (val == Quantifier::NONE) {
     auto it = Ast::NegatedOperators.find(type);
     if (it == Ast::NegatedOperators.end()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unsupported operator type");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unsupported operator type");
     }
     type = it->second;
   }
@@ -211,7 +211,7 @@ static bool IsSupportedNode(Variable const* pathVar, AstNode const* node) {
       TRI_ASSERT(false);
       return false;
     default:
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Traversal Optimizer encountered node: " << node->getTypeString();
 #endif
       return false;
@@ -305,7 +305,7 @@ static bool checkPathVariableAccessFeasible(Ast* ast, AstNode* parent,
             break;
           default:
             // Other types cannot be optimized
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
             LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Failed type: " << node->getTypeString();
             node->dump(0);
 #endif
@@ -540,7 +540,7 @@ bool TraversalConditionFinder::before(ExecutionNode* en) {
         // This calculationNode is directly part of a filter condition
         // So we have to iterate through it.
         TRI_IF_FAILURE("ConditionFinder::variableDefinition") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         _condition->andCombine(calcNode->expression()->node());
       }
@@ -571,7 +571,7 @@ bool TraversalConditionFinder::before(ExecutionNode* en) {
       _condition->normalize();
 
       TRI_IF_FAILURE("ConditionFinder::normalizePlan") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       // _condition is now in disjunctive normal form

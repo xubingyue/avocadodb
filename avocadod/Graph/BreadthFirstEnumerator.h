@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_GRAPH_BREADTHFIRSTENUMERATOR_H
-#define ARANGODB_GRAPH_BREADTHFIRSTENUMERATOR_H 1
+#ifndef AVOCADODB_GRAPH_BREADTHFIRSTENUMERATOR_H
+#define AVOCADODB_GRAPH_BREADTHFIRSTENUMERATOR_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/PathEnumerator.h"

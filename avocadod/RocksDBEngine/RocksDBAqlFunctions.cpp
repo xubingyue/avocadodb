@@ -55,7 +55,7 @@ AqlValue RocksDBAqlFunctions::Fulltext(
   AqlValue collectionValue = ExtractFunctionParameterValue(trx, parameters, 0);
 
   if (!collectionValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
   }
 
@@ -64,7 +64,7 @@ AqlValue RocksDBAqlFunctions::Fulltext(
   AqlValue attribute = ExtractFunctionParameterValue(trx, parameters, 1);
 
   if (!attribute.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
   }
 
@@ -73,7 +73,7 @@ AqlValue RocksDBAqlFunctions::Fulltext(
   AqlValue queryValue = ExtractFunctionParameterValue(trx, parameters, 2);
 
   if (!queryValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
   }
 
@@ -83,7 +83,7 @@ AqlValue RocksDBAqlFunctions::Fulltext(
   if (parameters.size() >= 4) {
     AqlValue limit = ExtractFunctionParameterValue(trx, parameters, 3);
     if (!limit.isNull(true) && !limit.isNumber()) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
     }
     if (limit.isNumber()) {
@@ -101,7 +101,7 @@ AqlValue RocksDBAqlFunctions::Fulltext(
   LogicalCollection* collection = trx->documentCollection(cid);
 
   if (collection == nullptr) {
-    THROW_ARANGO_EXCEPTION_FORMAT(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND, "",
+    THROW_AVOCADO_EXCEPTION_FORMAT(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND, "",
                                   collectionName.c_str());
   }
 
@@ -132,7 +132,7 @@ AqlValue RocksDBAqlFunctions::Fulltext(
 
   if (fulltextIndex == nullptr) {
     // fiddle collection name into error message
-    THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_FULLTEXT_INDEX_MISSING,
+    THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_FULLTEXT_INDEX_MISSING,
                                   collectionName.c_str());
   }
   // do we need this in rocksdb?
@@ -142,12 +142,12 @@ AqlValue RocksDBAqlFunctions::Fulltext(
   FulltextQuery parsedQuery;
   Result res = fulltextIndex->parseQueryString(queryString, parsedQuery);
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
   }
   res = fulltextIndex->executeQuery(trx, parsedQuery, maxResults,
                                     *(builder.get()));
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
   }
   return AqlValue(builder.get());
 }
@@ -164,12 +164,12 @@ static avocadodb::RocksDBGeoIndex* getGeoIndex(
   trx->addCollectionAtRuntime(cid, collectionName);
   Result res = trx->state()->ensureCollections();
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage());
   }
 
   auto document = trx->documentCollection(cid);
   if (document == nullptr) {
-    THROW_ARANGO_EXCEPTION_FORMAT(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND, "'%s'",
+    THROW_AVOCADO_EXCEPTION_FORMAT(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND, "'%s'",
                                   collectionName.c_str());
   }
 
@@ -183,7 +183,7 @@ static avocadodb::RocksDBGeoIndex* getGeoIndex(
   }
 
   if (index == nullptr) {
-    THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_GEO_INDEX_MISSING,
+    THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_GEO_INDEX_MISSING,
                                   collectionName.c_str());
   }
 
@@ -275,7 +275,7 @@ AqlValue RocksDBAqlFunctions::Near(avocadodb::aql::Query* query,
 
   AqlValue collectionValue = ExtractFunctionParameterValue(trx, parameters, 0);
   if (!collectionValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
   }
 
@@ -285,7 +285,7 @@ AqlValue RocksDBAqlFunctions::Near(avocadodb::aql::Query* query,
   AqlValue longitude = ExtractFunctionParameterValue(trx, parameters, 2);
 
   if (!latitude.isNumber() || !longitude.isNumber()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
   }
 
@@ -298,7 +298,7 @@ AqlValue RocksDBAqlFunctions::Near(avocadodb::aql::Query* query,
     if (limit.isNumber()) {
       limitValue = limit.toInt64(trx);
     } else if (!limit.isNull(true)) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
     }
   }
@@ -309,7 +309,7 @@ AqlValue RocksDBAqlFunctions::Near(avocadodb::aql::Query* query,
     AqlValue distanceValue = ExtractFunctionParameterValue(trx, parameters, 4);
 
     if (!distanceValue.isNull(true) && !distanceValue.isString()) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
     }
 
@@ -341,7 +341,7 @@ AqlValue RocksDBAqlFunctions::Within(
   AqlValue collectionValue = ExtractFunctionParameterValue(trx, parameters, 0);
 
   if (!collectionValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "WITHIN");
   }
 
@@ -353,7 +353,7 @@ AqlValue RocksDBAqlFunctions::Within(
 
   if (!latitudeValue.isNumber() || !longitudeValue.isNumber() ||
       !radiusValue.isNumber()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "WITHIN");
   }
 
@@ -363,7 +363,7 @@ AqlValue RocksDBAqlFunctions::Within(
     AqlValue distanceValue = ExtractFunctionParameterValue(trx, parameters, 4);
 
     if (!distanceValue.isNull(true) && !distanceValue.isString()) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "WITHIN");
     }
 

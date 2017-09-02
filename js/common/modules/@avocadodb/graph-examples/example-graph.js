@@ -436,7 +436,7 @@ var loadGraph = function (name, prefixed) {
 
     if (dependencies.length > 0) {
       var err = new AvocadoError();
-      err.errorNum = avocadodb.ERROR_ARANGO_DUPLICATE_NAME;
+      err.errorNum = avocadodb.ERROR_AVOCADO_DUPLICATE_NAME;
       if (dependencies.loadGraph > 1) {
         err.errorMessage = 'the collections: ' + JSON.stringify(dependencies) + ' already exist. Please clean up and try again.';
       } else {

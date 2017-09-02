@@ -93,7 +93,7 @@ RocksDBCollection::RocksDBCollection(LogicalCollection* collection,
   
   VPackSlice s = info.get("isVolatile");
   if (s.isBoolean() && s.getBoolean()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_BAD_PARAMETER,
           "volatile collections are unsupported in the RocksDB engine");
   }
@@ -363,7 +363,7 @@ void RocksDBCollection::prepareIndexes(
     }
   }
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (_indexes[0]->type() != Index::IndexType::TRI_IDX_TYPE_PRIMARY_INDEX ||
       (_logicalCollection->type() == TRI_COL_TYPE_EDGE &&
        (_indexes[1]->type() != Index::IndexType::TRI_IDX_TYPE_EDGE_INDEX ||
@@ -388,7 +388,7 @@ static std::shared_ptr<Index> findIndex(
 
   if (!value.isString()) {
     // Compatibility with old v8-vocindex.
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid index type definition");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid index type definition");
   }
 
   std::string tmp = value.copyString();
@@ -453,7 +453,7 @@ std::shared_ptr<Index> RocksDBCollection::createIndex(
   int res = saveIndex(trx, idx);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   avocadodb::aql::PlanCache::instance()->invalidate(
@@ -486,7 +486,7 @@ std::shared_ptr<Index> RocksDBCollection::createIndex(
       }
       ++i;
     }
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
   created = true;
   return idx;
@@ -624,7 +624,7 @@ bool RocksDBCollection::dropIndex(TRI_idx_iid_t iid) {
   }
 
   // We tried to remove an index that does not exist
-  events::DropIndex("", std::to_string(iid), TRI_ERROR_ARANGO_INDEX_NOT_FOUND);
+  events::DropIndex("", std::to_string(iid), TRI_ERROR_AVOCADO_INDEX_NOT_FOUND);
   return false;
 }
 
@@ -704,7 +704,7 @@ void RocksDBCollection::truncate(transaction::Methods* trx,
     Result r =
         mthd->Delete(RocksDBColumnFamily::documents(), RocksDBKey(iter->key()));
     if (!r.ok()) {
-      THROW_ARANGO_EXCEPTION(r);
+      THROW_AVOCADO_EXCEPTION(r);
     }
     // report size of key
     RocksDBOperationResult result = state->addOperation(
@@ -712,7 +712,7 @@ void RocksDBCollection::truncate(transaction::Methods* trx,
 
     // transaction size limit reached -- fail
     if (result.fail()) {
-      THROW_ARANGO_EXCEPTION(result);
+      THROW_AVOCADO_EXCEPTION(result);
     }
     iter->Next();
   }
@@ -726,16 +726,16 @@ void RocksDBCollection::truncate(transaction::Methods* trx,
   _needToPersistIndexEstimates = true;
   
   
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   //check if documents have been deleted
   if (mthd->countInBounds(documentBounds, true)) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in collection truncate failed - not all documents have been deleted");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in collection truncate failed - not all documents have been deleted");
   }
   
   for (std::shared_ptr<Index> const& index : _indexes) {
     RocksDBIndex* rindex = static_cast<RocksDBIndex*>(index.get());
     if (mthd->countInBounds(rindex->getBounds(),true)) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in collection truncate failed - not all documents in an index have been deleted");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in collection truncate failed - not all documents in an index have been deleted");
     }
   }
 #endif
@@ -761,7 +761,7 @@ Result RocksDBCollection::read(transaction::Methods* trx,
   }
 
   // not found
-  return TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+  return TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
 }
 
 // read using a token!
@@ -811,7 +811,7 @@ Result RocksDBCollection::insert(avocadodb::transaction::Methods* trx,
     // _from:
     fromSlice = slice.get(StaticStrings::FromString);
     if (!fromSlice.isString()) {
-      res.reset(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      res.reset(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
       return res.errorNumber();
     }
     VPackValueLength len;
@@ -819,19 +819,19 @@ Result RocksDBCollection::insert(avocadodb::transaction::Methods* trx,
     size_t split;
     if (!TRI_ValidateDocumentIdKeyGenerator(docId, static_cast<size_t>(len),
                                             &split)) {
-      res.reset(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      res.reset(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
       return res.errorNumber();
     }
     // _to:
     toSlice = slice.get(StaticStrings::ToString);
     if (!toSlice.isString()) {
-      res.reset(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      res.reset(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
       return res.errorNumber();
     }
     docId = toSlice.getString(len);
     if (!TRI_ValidateDocumentIdKeyGenerator(docId, static_cast<size_t>(len),
                                             &split)) {
-      res.reset(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      res.reset(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
       return res.errorNumber();
     }
   }
@@ -871,7 +871,7 @@ Result RocksDBCollection::insert(avocadodb::transaction::Methods* trx,
 
     // transaction size limit reached -- fail
     if (result.fail()) {
-      THROW_ARANGO_EXCEPTION(result);
+      THROW_AVOCADO_EXCEPTION(result);
     }
 
     guard.commit();
@@ -970,7 +970,7 @@ Result RocksDBCollection::update(avocadodb::transaction::Methods* trx,
 
     // transaction size limit reached -- fail
     if (result.fail()) {
-      THROW_ARANGO_EXCEPTION(result);
+      THROW_AVOCADO_EXCEPTION(result);
     }
 
     guard.commit();
@@ -994,7 +994,7 @@ Result RocksDBCollection::replace(
   // get the previous revision
   VPackSlice key = newSlice.get(StaticStrings::KeyString);
   if (key.isNone()) {
-    return TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD;
   }
 
   // get the previous revision
@@ -1064,7 +1064,7 @@ Result RocksDBCollection::replace(
 
     // transaction size limit reached -- fail
     if (result.fail()) {
-      THROW_ARANGO_EXCEPTION(result);
+      THROW_AVOCADO_EXCEPTION(result);
     }
 
     guard.commit();
@@ -1136,7 +1136,7 @@ Result RocksDBCollection::remove(avocadodb::transaction::Methods* trx,
                               res.keySize());
     // transaction size limit reached -- fail
     if (res.fail()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     guard.commit();
@@ -1349,7 +1349,7 @@ avocadodb::RocksDBPrimaryIndex* RocksDBCollection::primaryIndex() const {
   auto primary = PhysicalCollection::lookupIndex(0);
   TRI_ASSERT(primary != nullptr);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (primary->type() != Index::IndexType::TRI_IDX_TYPE_PRIMARY_INDEX) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "got invalid indexes for collection '" << _logicalCollection->name()
@@ -1403,7 +1403,7 @@ RocksDBOperationResult RocksDBCollection::insertDocument(
 
     if (innerRes.fail()) {
       // "prefer" unique constraint violated over other errors
-      if (innerRes.is(TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED) ||
+      if (innerRes.is(TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED) ||
           res.ok()) {
         res = innerRes;
       }
@@ -1492,7 +1492,7 @@ RocksDBOperationResult RocksDBCollection::lookupDocument(
     ManagedDocumentResult& mdr) const {
   RocksDBOperationResult res;
   if (!key.isString()) {
-    res.reset(TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD);
+    res.reset(TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD);
     return res;
   }
 
@@ -1502,7 +1502,7 @@ RocksDBOperationResult RocksDBCollection::lookupDocument(
   if (revisionId > 0) {
     res = lookupRevisionVPack(revisionId, trx, mdr, true);
   } else {
-    res.reset(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+    res.reset(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
   }
   return res;
 }
@@ -1536,7 +1536,7 @@ Result RocksDBCollection::lookupDocumentToken(transaction::Methods* trx,
   outToken = primaryIndex()->lookupKey(trx, key);
   return outToken.revisionId() > 0
              ? Result()
-             : Result(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+             : Result(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
 }
 
 avocadodb::Result RocksDBCollection::lookupRevisionVPack(
@@ -1757,7 +1757,7 @@ uint64_t RocksDBCollection::recalculateCounts() {
       _logicalCollection->cid(), AccessMode::Type::EXCLUSIVE);
   auto res = trx.begin();
   if (res.fail()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   rocksdb::ReadOptions readOptions;
@@ -1883,7 +1883,7 @@ void RocksDBCollection::recalculateIndexEstimates(
       _logicalCollection->cid(), AccessMode::Type::EXCLUSIVE);
   auto res = trx.begin();
   if (res.fail()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   for (auto const& it : indexes) {

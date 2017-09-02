@@ -642,7 +642,7 @@ function transactionCollectionsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(avocadodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code, err.errorNum);
       }
     },
 
@@ -665,7 +665,7 @@ function transactionCollectionsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(avocadodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code, err.errorNum);
       }
     },
 
@@ -3783,7 +3783,7 @@ function transactionConstraintsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(10, c.count());
@@ -3811,7 +3811,7 @@ function transactionConstraintsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(10, c.count());
@@ -3839,7 +3839,7 @@ function transactionConstraintsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(10, c.count());
@@ -3867,7 +3867,7 @@ function transactionConstraintsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(10, c.count());

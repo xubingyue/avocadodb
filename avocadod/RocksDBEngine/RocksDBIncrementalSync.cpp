@@ -510,7 +510,7 @@ int handleSyncKeysRocksDB(InitialSyncer& syncer,
       if (!chunk.isObject()) {
         errorMsg = "got invalid response from master at " +
                    syncer._masterInfo._endpoint + ": chunk is no object";
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_REPLICATION_INVALID_RESPONSE);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_REPLICATION_INVALID_RESPONSE);
       }
 
       VPackSlice const lowSlice = chunk.get("low");
@@ -521,7 +521,7 @@ int handleSyncKeysRocksDB(InitialSyncer& syncer,
         errorMsg = "got invalid response from master at " +
                    syncer._masterInfo._endpoint +
                    ": chunks in response have an invalid format";
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_REPLICATION_INVALID_RESPONSE);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_REPLICATION_INVALID_RESPONSE);
       }
 
       // now reset chunk information
@@ -582,7 +582,7 @@ int handleSyncKeysRocksDB(InitialSyncer& syncer,
           int res = syncChunkRocksDB(syncer, &trx, keysId, currentChunkId,
                                      lowKey, highKey, markers, errorMsg);
           if (res != TRI_ERROR_NO_ERROR) {
-            THROW_ARANGO_EXCEPTION(res);
+            THROW_AVOCADO_EXCEPTION(res);
           }
         }
         currentChunkId++;
@@ -615,7 +615,7 @@ int handleSyncKeysRocksDB(InitialSyncer& syncer,
       int res = syncChunkRocksDB(syncer, &trx, keysId, currentChunkId, lowKey,
                                  highKey, markers, errorMsg);
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
       currentChunkId++;
       if (currentChunkId < numChunks) {

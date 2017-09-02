@@ -33,11 +33,11 @@ size_t FixedVarExpressionContext::numRegisters() const {
 }
 
 AqlValue const& FixedVarExpressionContext::getRegisterValue(size_t i) const {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 Variable const* FixedVarExpressionContext::getVariable(size_t i) const {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 AqlValue FixedVarExpressionContext::getVariableValue(Variable const* variable, bool doCopy, bool& mustDestroy) const {

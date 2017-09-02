@@ -76,14 +76,14 @@ RocksDBFulltextIndex::RocksDBFulltextIndex(
     }
   } else if (!value.isNone()) {
     // minLength defined but no number
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "<minLength> must be a number");
   }
   _unique = false;
   _sparse = true;
   if (_fields.size() != 1) {
     // We need exactly 1 attribute
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "fulltext index definition should have exactly one attribute");
   }
@@ -110,7 +110,7 @@ void RocksDBFulltextIndex::toVelocyPack(VPackBuilder& builder, bool withFigures,
 /// @brief Test if this index matches the definition
 bool RocksDBFulltextIndex::matchesDefinition(VPackSlice const& info) const {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice typeSlice = info.get("type");
   TRI_ASSERT(typeSlice.isString());
   StringRef typeStr(typeSlice);
@@ -425,7 +425,7 @@ static RocksDBKeyBounds MakeBounds(uint64_t oid,
   } else if (token.matchType == FulltextQueryToken::PREFIX) {
     return RocksDBKeyBounds::FulltextIndexPrefix(oid, StringRef(token.value));
   }
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 Result RocksDBFulltextIndex::applyQueryToken(

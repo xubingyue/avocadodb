@@ -64,7 +64,7 @@ std::unique_ptr<Aggregator> Aggregator::fromTypeString(transaction::Methods* trx
   }
 
   // aggregator function name should have been validated before
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid aggregator type");
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid aggregator type");
 }
 
 std::unique_ptr<Aggregator> Aggregator::fromVPack(transaction::Methods* trx,
@@ -76,7 +76,7 @@ std::unique_ptr<Aggregator> Aggregator::fromVPack(transaction::Methods* trx,
     return fromTypeString(trx, variable.copyString());
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "invalid aggregate function");
 }
 

@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_EDGE_COLLECTION_INFO_H
-#define ARANGOD_EDGE_COLLECTION_INFO_H 1
+#ifndef AVOCADOD_EDGE_COLLECTION_INFO_H
+#define AVOCADOD_EDGE_COLLECTION_INFO_H 1
 
 #include "Aql/Graphs.h"
 #include "VocBase/Traverser.h"

@@ -153,7 +153,7 @@ bool RocksDBGeoIndexIterator::next(TokenCallback const& cb, size_t limit) {
 
     if (!_cursor) {
       // actually validate that we got a valid cursor
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
   }
 
@@ -228,7 +228,7 @@ IndexIterator* RocksDBGeoIndex::iteratorForCondition(
     avocadodb::aql::AstNode const* node,
     avocadodb::aql::Variable const* reference, bool) {
   TRI_IF_FAILURE("GeoIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   return new RocksDBGeoIndexIterator(_collection, trx, mmdr, this, node,
                                      reference);
@@ -270,7 +270,7 @@ RocksDBGeoIndex::RocksDBGeoIndex(TRI_idx_iid_t iid,
       _longitude.emplace_back(it.name);
     }
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "RocksDBGeoIndex can only be created with one or two fields.");
   }
@@ -306,7 +306,7 @@ RocksDBGeoIndex::RocksDBGeoIndex(TRI_idx_iid_t iid,
 
   _geoIndex = GeoIndex_new(_objectId, numPots, numSlots);
   if (_geoIndex == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 }
 
@@ -344,7 +344,7 @@ void RocksDBGeoIndex::toVelocyPack(VPackBuilder& builder, bool withFigures,
 /// @brief Test if this index matches the definition
 bool RocksDBGeoIndex::matchesDefinition(VPackSlice const& info) const {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice typeSlice = info.get("type");
   TRI_ASSERT(typeSlice.isString());
   StringRef typeStr(typeSlice);

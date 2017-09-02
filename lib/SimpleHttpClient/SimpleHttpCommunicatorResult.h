@@ -20,8 +20,8 @@
 /// @author Andreas Streichardt <andreas@avocadodb.com>
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_SIMPLE_HTTP_CLIENT_SIMPLE_HTTP_COMMUNICATOR_RESULT_H
-#define ARANGODB_SIMPLE_HTTP_CLIENT_SIMPLE_HTTP_COMMUNICATOR_RESULT_H 1
+#ifndef AVOCADODB_SIMPLE_HTTP_CLIENT_SIMPLE_HTTP_COMMUNICATOR_RESULT_H
+#define AVOCADODB_SIMPLE_HTTP_CLIENT_SIMPLE_HTTP_COMMUNICATOR_RESULT_H 1
 
 #include "SimpleHttpClient/SimpleHttpResult.h"
 

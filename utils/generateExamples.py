@@ -111,15 +111,15 @@ FilterForTestcase = None
 ################################################################################
 
 STATE_BEGIN = 0
-STATE_ARANGOSH_OUTPUT = 'HTTP_LOUTPUT'
-STATE_ARANGOSH_RUN = 'ARANGOSH_OUTPUT'
+STATE_AVOCADOSH_OUTPUT = 'HTTP_LOUTPUT'
+STATE_AVOCADOSH_RUN = 'AVOCADOSH_OUTPUT'
 
 ################################################################################
 ### @brief option states
 ################################################################################
 
 OPTION_NORMAL = 0
-OPTION_ARANGOSH_SETUP = 1
+OPTION_AVOCADOSH_SETUP = 1
 OPTION_OUTPUT_DIR = 2
 OPTION_FILTER = 3
 OPTION_OUTPUT_FILE = 4
@@ -140,8 +140,8 @@ def generateAvocadoshHeader():
 ### @brief Try to match the start of a command section
 ################################################################################
 
-regularStartLine = re.compile(r'^(/// )? *@EXAMPLE_ARANGOSH_OUTPUT{([^}]*)}')
-runLine = re.compile(r'^(/// )? *@EXAMPLE_ARANGOSH_RUN{([^}]*)}')
+regularStartLine = re.compile(r'^(/// )? *@EXAMPLE_AVOCADOSH_OUTPUT{([^}]*)}')
+runLine = re.compile(r'^(/// )? *@EXAMPLE_AVOCADOSH_RUN{([^}]*)}')
     
 def matchStartLine(line, filename):
     global regularStartLine, errorStartLine, runLine, FilterForTestcase, filterTestList
@@ -162,7 +162,7 @@ def matchStartLine(line, filename):
             filterTestList.append(name)
             return("", STATE_BEGIN);
 
-        return (name, STATE_ARANGOSH_OUTPUT)
+        return (name, STATE_AVOCADOSH_OUTPUT)
 
     m = runLine.match(line)
 
@@ -180,7 +180,7 @@ def matchStartLine(line, filename):
             return("", STATE_BEGIN);
 
         AvocadoshFiles[name] = True
-        return (name, STATE_ARANGOSH_RUN)
+        return (name, STATE_AVOCADOSH_RUN)
 
     # Not found, remain in STATE_BEGIN
     return ("", STATE_BEGIN)
@@ -226,7 +226,7 @@ def analyzeFile(f, filename):
                 RunTests[name][TYPE] = state
                 RunTests[name][TESTLINES] = []
 
-            if state == STATE_ARANGOSH_RUN:
+            if state == STATE_AVOCADOSH_RUN:
                 RunTests[name][LINE_NO] = lineNo;
                 RunTests[name][STRING] = "";
             continue
@@ -247,7 +247,7 @@ def analyzeFile(f, filename):
 
         line = line.lstrip('/');
         line = line.lstrip(' ');
-        if state == STATE_ARANGOSH_OUTPUT:
+        if state == STATE_AVOCADOSH_OUTPUT:
             line = line.replace("\\", "\\\\").replace("'", "\\'")
         #print line
         # handle any continued line magic
@@ -264,7 +264,7 @@ def analyzeFile(f, filename):
                 else:
                     line = line[1:]
 
-                if state == STATE_ARANGOSH_OUTPUT:
+                if state == STATE_AVOCADOSH_OUTPUT:
                     partialLine = partialLine + line + "\\n"
                 else:
                     partialLine = partialLine + line + "\n"
@@ -283,9 +283,9 @@ def analyzeFile(f, filename):
         line = partialLine + line
         partialLine = ""
 
-        if state == STATE_ARANGOSH_OUTPUT:
+        if state == STATE_AVOCADOSH_OUTPUT:
             RunTests[name][TESTLINES].append([line, showCmd, lineNo])
-        elif state == STATE_ARANGOSH_RUN:
+        elif state == STATE_AVOCADOSH_RUN:
             RunTests[name][STRING] += line + "\n"
 
 
@@ -378,7 +378,7 @@ def generateAvocadoshRun(testName):
 
     if JS_DEBUG:
         print "internal.output('%s\\n');" % ('=' * 80)
-        print "internal.output('ARANGOSH RUN\\n');"
+        print "internal.output('AVOCADOSH RUN\\n');"
         print "internal.output('%s\\n');" % ('=' * 80)
 
     value = RunTests[testName]
@@ -451,7 +451,7 @@ def loopDirectories():
     
     for filename in argv:
         if filename == "--avocadoshSetup":
-            fstate = OPTION_ARANGOSH_SETUP
+            fstate = OPTION_AVOCADOSH_SETUP
             continue
 
         if filename == "--onlyThisOne": 
@@ -480,7 +480,7 @@ def loopDirectories():
             if (len(filename) > 0): 
                 FilterForTestcase = re.compile(filename);
 
-        elif fstate == OPTION_ARANGOSH_SETUP:
+        elif fstate == OPTION_AVOCADOSH_SETUP:
             fstate = OPTION_NORMAL
             f = open(filename, "r")
     
@@ -514,9 +514,9 @@ def generateTestCases():
     testNames = RunTests.keys()
     testNames.sort()
     for thisTest in testNames:
-        if RunTests[thisTest][TYPE] == STATE_ARANGOSH_OUTPUT:
+        if RunTests[thisTest][TYPE] == STATE_AVOCADOSH_OUTPUT:
             generateAvocadoshOutput(thisTest)
-        elif RunTests[thisTest][TYPE] == STATE_ARANGOSH_RUN:
+        elif RunTests[thisTest][TYPE] == STATE_AVOCADOSH_RUN:
             generateAvocadoshRun(thisTest)
 
 ################################################################################

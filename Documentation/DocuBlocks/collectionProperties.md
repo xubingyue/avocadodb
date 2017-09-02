@@ -78,19 +78,19 @@ or *keyOptions* cannot be changed once the collection is created.
 
 Read all properties
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionProperties}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionProperties}
 ~ db._create("example");
   db.example.properties();
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Change a property
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionProperty}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionProperty}
 ~ db._create("example");
   db.example.properties({ waitForSync : true });
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 @endDocuBlock
 

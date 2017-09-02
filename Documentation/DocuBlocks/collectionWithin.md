@@ -39,7 +39,7 @@ FOR doc IN WITHIN(@@collection, @latitude, @longitude, @radius, @distanceAttribu
 
 To find all documents within a radius of 2000 km use:
 
-@EXAMPLE_ARANGOSH_OUTPUT{009_collectionWithin}
+@EXAMPLE_AVOCADOSH_OUTPUT{009_collectionWithin}
 ~ db._create("geo");
 ~ db.geo.ensureIndex({ type: "geo", fields: [ "loc" ] });
 |~ for (var i = -90;  i <= 90;  i += 10) {
@@ -47,6 +47,6 @@ To find all documents within a radius of 2000 km use:
       db.geo.save({ name : "Name/" + i + "/" + j, loc: [ i, j ] }); } }
   db.geo.within(0, 0, 2000 * 1000).distance().toArray();
 ~ db._drop("geo");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 @endDocuBlock

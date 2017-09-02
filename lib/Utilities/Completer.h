@@ -21,8 +21,8 @@
 /// @author Esteban Lombeyda
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_UTILITIES_COMPLETER_H
-#define ARANGODB_UTILITIES_COMPLETER_H 1
+#ifndef AVOCADODB_UTILITIES_COMPLETER_H
+#define AVOCADODB_UTILITIES_COMPLETER_H 1
 
 #include "Basics/Common.h"
 

@@ -1182,7 +1182,7 @@ void TRI_InitializeErrorMessages ();
 #define TRI_ERROR_HTTP_SUPERFLUOUS_SUFFICES                               (601)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1000: ERROR_ARANGO_ILLEGAL_STATE
+/// @brief 1000: ERROR_AVOCADO_ILLEGAL_STATE
 ///
 /// illegal state
 ///
@@ -1190,20 +1190,20 @@ void TRI_InitializeErrorMessages ();
 /// state.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_ILLEGAL_STATE                                    (1000)
+#define TRI_ERROR_AVOCADO_ILLEGAL_STATE                                    (1000)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1002: ERROR_ARANGO_DATAFILE_SEALED
+/// @brief 1002: ERROR_AVOCADO_DATAFILE_SEALED
 ///
 /// datafile sealed
 ///
 /// Internal error that will be raised when trying to write to a datafile.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATAFILE_SEALED                                  (1002)
+#define TRI_ERROR_AVOCADO_DATAFILE_SEALED                                  (1002)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1004: ERROR_ARANGO_READ_ONLY
+/// @brief 1004: ERROR_AVOCADO_READ_ONLY
 ///
 /// read only
 ///
@@ -1211,120 +1211,120 @@ void TRI_InitializeErrorMessages ();
 /// datafile or collection.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_READ_ONLY                                        (1004)
+#define TRI_ERROR_AVOCADO_READ_ONLY                                        (1004)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1005: ERROR_ARANGO_DUPLICATE_IDENTIFIER
+/// @brief 1005: ERROR_AVOCADO_DUPLICATE_IDENTIFIER
 ///
 /// duplicate identifier
 ///
 /// Internal error that will be raised when a identifier duplicate is detected.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DUPLICATE_IDENTIFIER                             (1005)
+#define TRI_ERROR_AVOCADO_DUPLICATE_IDENTIFIER                             (1005)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1006: ERROR_ARANGO_DATAFILE_UNREADABLE
+/// @brief 1006: ERROR_AVOCADO_DATAFILE_UNREADABLE
 ///
 /// datafile unreadable
 ///
 /// Internal error that will be raised when a datafile is unreadable.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATAFILE_UNREADABLE                              (1006)
+#define TRI_ERROR_AVOCADO_DATAFILE_UNREADABLE                              (1006)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1007: ERROR_ARANGO_DATAFILE_EMPTY
+/// @brief 1007: ERROR_AVOCADO_DATAFILE_EMPTY
 ///
 /// datafile empty
 ///
 /// Internal error that will be raised when a datafile is empty.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATAFILE_EMPTY                                   (1007)
+#define TRI_ERROR_AVOCADO_DATAFILE_EMPTY                                   (1007)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1008: ERROR_ARANGO_RECOVERY
+/// @brief 1008: ERROR_AVOCADO_RECOVERY
 ///
 /// logfile recovery error
 ///
 /// Will be raised when an error occurred during WAL log file recovery.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_RECOVERY                                         (1008)
+#define TRI_ERROR_AVOCADO_RECOVERY                                         (1008)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1009: ERROR_ARANGO_DATAFILE_STATISTICS_NOT_FOUND
+/// @brief 1009: ERROR_AVOCADO_DATAFILE_STATISTICS_NOT_FOUND
 ///
 /// datafile statistics not found
 ///
 /// Will be raised when a required datafile statistics object was not found.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATAFILE_STATISTICS_NOT_FOUND                    (1009)
+#define TRI_ERROR_AVOCADO_DATAFILE_STATISTICS_NOT_FOUND                    (1009)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1100: ERROR_ARANGO_CORRUPTED_DATAFILE
+/// @brief 1100: ERROR_AVOCADO_CORRUPTED_DATAFILE
 ///
 /// corrupted datafile
 ///
 /// Will be raised when a corruption is detected in a datafile.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_CORRUPTED_DATAFILE                               (1100)
+#define TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE                               (1100)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1101: ERROR_ARANGO_ILLEGAL_PARAMETER_FILE
+/// @brief 1101: ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE
 ///
 /// illegal or unreadable parameter file
 ///
 /// Will be raised if a parameter file is corrupted or cannot be read.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE                           (1101)
+#define TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE                           (1101)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1102: ERROR_ARANGO_CORRUPTED_COLLECTION
+/// @brief 1102: ERROR_AVOCADO_CORRUPTED_COLLECTION
 ///
 /// corrupted collection
 ///
 /// Will be raised when a collection contains one or more corrupted data files.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_CORRUPTED_COLLECTION                             (1102)
+#define TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION                             (1102)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1103: ERROR_ARANGO_MMAP_FAILED
+/// @brief 1103: ERROR_AVOCADO_MMAP_FAILED
 ///
 /// mmap failed
 ///
 /// Will be raised when the system call mmap failed.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_MMAP_FAILED                                      (1103)
+#define TRI_ERROR_AVOCADO_MMAP_FAILED                                      (1103)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1104: ERROR_ARANGO_FILESYSTEM_FULL
+/// @brief 1104: ERROR_AVOCADO_FILESYSTEM_FULL
 ///
 /// filesystem full
 ///
 /// Will be raised when the filesystem is full.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_FILESYSTEM_FULL                                  (1104)
+#define TRI_ERROR_AVOCADO_FILESYSTEM_FULL                                  (1104)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1105: ERROR_ARANGO_NO_JOURNAL
+/// @brief 1105: ERROR_AVOCADO_NO_JOURNAL
 ///
 /// no journal
 ///
 /// Will be raised when a journal cannot be created.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_NO_JOURNAL                                       (1105)
+#define TRI_ERROR_AVOCADO_NO_JOURNAL                                       (1105)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1106: ERROR_ARANGO_DATAFILE_ALREADY_EXISTS
+/// @brief 1106: ERROR_AVOCADO_DATAFILE_ALREADY_EXISTS
 ///
 /// cannot create/rename datafile because it already exists
 ///
@@ -1332,20 +1332,20 @@ void TRI_InitializeErrorMessages ();
 /// file of the same name already exists.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATAFILE_ALREADY_EXISTS                          (1106)
+#define TRI_ERROR_AVOCADO_DATAFILE_ALREADY_EXISTS                          (1106)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1107: ERROR_ARANGO_DATADIR_LOCKED
+/// @brief 1107: ERROR_AVOCADO_DATADIR_LOCKED
 ///
 /// database directory is locked
 ///
 /// Will be raised when the database directory is locked by a different process.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATADIR_LOCKED                                   (1107)
+#define TRI_ERROR_AVOCADO_DATADIR_LOCKED                                   (1107)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1108: ERROR_ARANGO_COLLECTION_DIRECTORY_ALREADY_EXISTS
+/// @brief 1108: ERROR_AVOCADO_COLLECTION_DIRECTORY_ALREADY_EXISTS
 ///
 /// cannot create/rename collection because directory already exists
 ///
@@ -1353,20 +1353,20 @@ void TRI_InitializeErrorMessages ();
 /// the same name already exists.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_COLLECTION_DIRECTORY_ALREADY_EXISTS              (1108)
+#define TRI_ERROR_AVOCADO_COLLECTION_DIRECTORY_ALREADY_EXISTS              (1108)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1109: ERROR_ARANGO_MSYNC_FAILED
+/// @brief 1109: ERROR_AVOCADO_MSYNC_FAILED
 ///
 /// msync failed
 ///
 /// Will be raised when the system call msync failed.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_MSYNC_FAILED                                     (1109)
+#define TRI_ERROR_AVOCADO_MSYNC_FAILED                                     (1109)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1110: ERROR_ARANGO_DATADIR_UNLOCKABLE
+/// @brief 1110: ERROR_AVOCADO_DATADIR_UNLOCKABLE
 ///
 /// cannot lock database directory
 ///
@@ -1374,10 +1374,10 @@ void TRI_InitializeErrorMessages ();
 /// startup.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATADIR_UNLOCKABLE                               (1110)
+#define TRI_ERROR_AVOCADO_DATADIR_UNLOCKABLE                               (1110)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1111: ERROR_ARANGO_SYNC_TIMEOUT
+/// @brief 1111: ERROR_AVOCADO_SYNC_TIMEOUT
 ///
 /// sync timeout
 ///
@@ -1385,10 +1385,10 @@ void TRI_InitializeErrorMessages ();
 /// to disk.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_SYNC_TIMEOUT                                     (1111)
+#define TRI_ERROR_AVOCADO_SYNC_TIMEOUT                                     (1111)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1200: ERROR_ARANGO_CONFLICT
+/// @brief 1200: ERROR_AVOCADO_CONFLICT
 ///
 /// conflict
 ///
@@ -1396,10 +1396,10 @@ void TRI_InitializeErrorMessages ();
 /// detected.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_CONFLICT                                         (1200)
+#define TRI_ERROR_AVOCADO_CONFLICT                                         (1200)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1201: ERROR_ARANGO_DATADIR_INVALID
+/// @brief 1201: ERROR_AVOCADO_DATADIR_INVALID
 ///
 /// invalid database directory
 ///
@@ -1407,20 +1407,20 @@ void TRI_InitializeErrorMessages ();
 /// starting the database.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATADIR_INVALID                                  (1201)
+#define TRI_ERROR_AVOCADO_DATADIR_INVALID                                  (1201)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1202: ERROR_ARANGO_DOCUMENT_NOT_FOUND
+/// @brief 1202: ERROR_AVOCADO_DOCUMENT_NOT_FOUND
 ///
 /// document not found
 ///
 /// Will be raised when a document with a given identifier or handle is unknown.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND                               (1202)
+#define TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND                               (1202)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1203: ERROR_ARANGO_COLLECTION_NOT_FOUND
+/// @brief 1203: ERROR_AVOCADO_COLLECTION_NOT_FOUND
 ///
 /// collection not found
 ///
@@ -1428,120 +1428,120 @@ void TRI_InitializeErrorMessages ();
 /// unknown.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND                             (1203)
+#define TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND                             (1203)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1204: ERROR_ARANGO_COLLECTION_PARAMETER_MISSING
+/// @brief 1204: ERROR_AVOCADO_COLLECTION_PARAMETER_MISSING
 ///
 /// parameter 'collection' not found
 ///
 /// Will be raised when the collection parameter is missing.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_COLLECTION_PARAMETER_MISSING                     (1204)
+#define TRI_ERROR_AVOCADO_COLLECTION_PARAMETER_MISSING                     (1204)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1205: ERROR_ARANGO_DOCUMENT_HANDLE_BAD
+/// @brief 1205: ERROR_AVOCADO_DOCUMENT_HANDLE_BAD
 ///
 /// illegal document handle
 ///
 /// Will be raised when a document handle is corrupt.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD                              (1205)
+#define TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD                              (1205)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1206: ERROR_ARANGO_MAXIMAL_SIZE_TOO_SMALL
+/// @brief 1206: ERROR_AVOCADO_MAXIMAL_SIZE_TOO_SMALL
 ///
 /// maximal size of journal too small
 ///
 /// Will be raised when the maximal size of the journal is too small.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_MAXIMAL_SIZE_TOO_SMALL                           (1206)
+#define TRI_ERROR_AVOCADO_MAXIMAL_SIZE_TOO_SMALL                           (1206)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1207: ERROR_ARANGO_DUPLICATE_NAME
+/// @brief 1207: ERROR_AVOCADO_DUPLICATE_NAME
 ///
 /// duplicate name
 ///
 /// Will be raised when a name duplicate is detected.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DUPLICATE_NAME                                   (1207)
+#define TRI_ERROR_AVOCADO_DUPLICATE_NAME                                   (1207)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1208: ERROR_ARANGO_ILLEGAL_NAME
+/// @brief 1208: ERROR_AVOCADO_ILLEGAL_NAME
 ///
 /// illegal name
 ///
 /// Will be raised when an illegal name is detected.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_ILLEGAL_NAME                                     (1208)
+#define TRI_ERROR_AVOCADO_ILLEGAL_NAME                                     (1208)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1209: ERROR_ARANGO_NO_INDEX
+/// @brief 1209: ERROR_AVOCADO_NO_INDEX
 ///
 /// no suitable index known
 ///
 /// Will be raised when no suitable index for the query is known.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_NO_INDEX                                         (1209)
+#define TRI_ERROR_AVOCADO_NO_INDEX                                         (1209)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1210: ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED
+/// @brief 1210: ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED
 ///
 /// unique constraint violated
 ///
 /// Will be raised when there is a unique constraint violation.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED                       (1210)
+#define TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED                       (1210)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1211: ERROR_ARANGO_VIEW_NOT_FOUND
+/// @brief 1211: ERROR_AVOCADO_VIEW_NOT_FOUND
 ///
 /// view not found
 ///
 /// Will be raised when a view with the given identifier or name is unknown.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_VIEW_NOT_FOUND                                   (1211)
+#define TRI_ERROR_AVOCADO_VIEW_NOT_FOUND                                   (1211)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1212: ERROR_ARANGO_INDEX_NOT_FOUND
+/// @brief 1212: ERROR_AVOCADO_INDEX_NOT_FOUND
 ///
 /// index not found
 ///
 /// Will be raised when an index with a given identifier is unknown.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_INDEX_NOT_FOUND                                  (1212)
+#define TRI_ERROR_AVOCADO_INDEX_NOT_FOUND                                  (1212)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1213: ERROR_ARANGO_CROSS_COLLECTION_REQUEST
+/// @brief 1213: ERROR_AVOCADO_CROSS_COLLECTION_REQUEST
 ///
 /// cross collection request not allowed
 ///
 /// Will be raised when a cross-collection is requested.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_CROSS_COLLECTION_REQUEST                         (1213)
+#define TRI_ERROR_AVOCADO_CROSS_COLLECTION_REQUEST                         (1213)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1214: ERROR_ARANGO_INDEX_HANDLE_BAD
+/// @brief 1214: ERROR_AVOCADO_INDEX_HANDLE_BAD
 ///
 /// illegal index handle
 ///
 /// Will be raised when a index handle is corrupt.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_INDEX_HANDLE_BAD                                 (1214)
+#define TRI_ERROR_AVOCADO_INDEX_HANDLE_BAD                                 (1214)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1216: ERROR_ARANGO_DOCUMENT_TOO_LARGE
+/// @brief 1216: ERROR_AVOCADO_DOCUMENT_TOO_LARGE
 ///
 /// document too large
 ///
@@ -1549,10 +1549,10 @@ void TRI_InitializeErrorMessages ();
 /// is too large.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_TOO_LARGE                               (1216)
+#define TRI_ERROR_AVOCADO_DOCUMENT_TOO_LARGE                               (1216)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1217: ERROR_ARANGO_COLLECTION_NOT_UNLOADED
+/// @brief 1217: ERROR_AVOCADO_COLLECTION_NOT_UNLOADED
 ///
 /// collection must be unloaded
 ///
@@ -1560,50 +1560,50 @@ void TRI_InitializeErrorMessages ();
 /// status.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_COLLECTION_NOT_UNLOADED                          (1217)
+#define TRI_ERROR_AVOCADO_COLLECTION_NOT_UNLOADED                          (1217)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1218: ERROR_ARANGO_COLLECTION_TYPE_INVALID
+/// @brief 1218: ERROR_AVOCADO_COLLECTION_TYPE_INVALID
 ///
 /// collection type invalid
 ///
 /// Will be raised when an invalid collection type is used in a request.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_COLLECTION_TYPE_INVALID                          (1218)
+#define TRI_ERROR_AVOCADO_COLLECTION_TYPE_INVALID                          (1218)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1219: ERROR_ARANGO_VALIDATION_FAILED
+/// @brief 1219: ERROR_AVOCADO_VALIDATION_FAILED
 ///
 /// validator failed
 ///
 /// Will be raised when the validation of an attribute of a structure failed.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_VALIDATION_FAILED                                (1219)
+#define TRI_ERROR_AVOCADO_VALIDATION_FAILED                                (1219)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1220: ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED
+/// @brief 1220: ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED
 ///
 /// parsing attribute name definition failed
 ///
 /// Will be raised when parsing an attribute name definition failed.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED                          (1220)
+#define TRI_ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED                          (1220)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1221: ERROR_ARANGO_DOCUMENT_KEY_BAD
+/// @brief 1221: ERROR_AVOCADO_DOCUMENT_KEY_BAD
 ///
 /// illegal document key
 ///
 /// Will be raised when a document key is corrupt.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD                                 (1221)
+#define TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD                                 (1221)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1222: ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED
+/// @brief 1222: ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED
 ///
 /// unexpected document key
 ///
@@ -1611,10 +1611,10 @@ void TRI_InitializeErrorMessages ();
 /// with auto key generation.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED                          (1222)
+#define TRI_ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED                          (1222)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1224: ERROR_ARANGO_DATADIR_NOT_WRITABLE
+/// @brief 1224: ERROR_AVOCADO_DATADIR_NOT_WRITABLE
 ///
 /// server database directory not writable
 ///
@@ -1622,30 +1622,30 @@ void TRI_InitializeErrorMessages ();
 /// current user.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATADIR_NOT_WRITABLE                             (1224)
+#define TRI_ERROR_AVOCADO_DATADIR_NOT_WRITABLE                             (1224)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1225: ERROR_ARANGO_OUT_OF_KEYS
+/// @brief 1225: ERROR_AVOCADO_OUT_OF_KEYS
 ///
 /// out of keys
 ///
 /// Will be raised when a key generator runs out of keys.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_OUT_OF_KEYS                                      (1225)
+#define TRI_ERROR_AVOCADO_OUT_OF_KEYS                                      (1225)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1226: ERROR_ARANGO_DOCUMENT_KEY_MISSING
+/// @brief 1226: ERROR_AVOCADO_DOCUMENT_KEY_MISSING
 ///
 /// missing document key
 ///
 /// Will be raised when a document key is missing.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_KEY_MISSING                             (1226)
+#define TRI_ERROR_AVOCADO_DOCUMENT_KEY_MISSING                             (1226)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1227: ERROR_ARANGO_DOCUMENT_TYPE_INVALID
+/// @brief 1227: ERROR_AVOCADO_DOCUMENT_TYPE_INVALID
 ///
 /// invalid document type
 ///
@@ -1653,30 +1653,30 @@ void TRI_InitializeErrorMessages ();
 /// invalid type.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID                            (1227)
+#define TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID                            (1227)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1228: ERROR_ARANGO_DATABASE_NOT_FOUND
+/// @brief 1228: ERROR_AVOCADO_DATABASE_NOT_FOUND
 ///
 /// database not found
 ///
 /// Will be raised when a non-existing database is accessed.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATABASE_NOT_FOUND                               (1228)
+#define TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND                               (1228)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1229: ERROR_ARANGO_DATABASE_NAME_INVALID
+/// @brief 1229: ERROR_AVOCADO_DATABASE_NAME_INVALID
 ///
 /// database name invalid
 ///
 /// Will be raised when an invalid database name is used.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATABASE_NAME_INVALID                            (1229)
+#define TRI_ERROR_AVOCADO_DATABASE_NAME_INVALID                            (1229)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1230: ERROR_ARANGO_USE_SYSTEM_DATABASE
+/// @brief 1230: ERROR_AVOCADO_USE_SYSTEM_DATABASE
 ///
 /// operation only allowed in system database
 ///
@@ -1684,30 +1684,30 @@ void TRI_InitializeErrorMessages ();
 /// system database.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_USE_SYSTEM_DATABASE                              (1230)
+#define TRI_ERROR_AVOCADO_USE_SYSTEM_DATABASE                              (1230)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1231: ERROR_ARANGO_ENDPOINT_NOT_FOUND
+/// @brief 1231: ERROR_AVOCADO_ENDPOINT_NOT_FOUND
 ///
 /// endpoint not found
 ///
 /// Will be raised when there is an attempt to delete a non-existing endpoint.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_ENDPOINT_NOT_FOUND                               (1231)
+#define TRI_ERROR_AVOCADO_ENDPOINT_NOT_FOUND                               (1231)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1232: ERROR_ARANGO_INVALID_KEY_GENERATOR
+/// @brief 1232: ERROR_AVOCADO_INVALID_KEY_GENERATOR
 ///
 /// invalid key generator
 ///
 /// Will be raised when an invalid key generator description is used.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_INVALID_KEY_GENERATOR                            (1232)
+#define TRI_ERROR_AVOCADO_INVALID_KEY_GENERATOR                            (1232)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1233: ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE
+/// @brief 1233: ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE
 ///
 /// edge attribute missing or invalid
 ///
@@ -1715,10 +1715,10 @@ void TRI_InitializeErrorMessages ();
 /// contain an invalid value.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE                           (1233)
+#define TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE                           (1233)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1234: ERROR_ARANGO_INDEX_DOCUMENT_ATTRIBUTE_MISSING
+/// @brief 1234: ERROR_AVOCADO_INDEX_DOCUMENT_ATTRIBUTE_MISSING
 ///
 /// index insertion warning - attribute missing in document
 ///
@@ -1727,20 +1727,20 @@ void TRI_InitializeErrorMessages ();
 /// built on.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_INDEX_DOCUMENT_ATTRIBUTE_MISSING                 (1234)
+#define TRI_ERROR_AVOCADO_INDEX_DOCUMENT_ATTRIBUTE_MISSING                 (1234)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1235: ERROR_ARANGO_INDEX_CREATION_FAILED
+/// @brief 1235: ERROR_AVOCADO_INDEX_CREATION_FAILED
 ///
 /// index creation failed
 ///
 /// Will be raised when an attempt to create an index has failed.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_INDEX_CREATION_FAILED                            (1235)
+#define TRI_ERROR_AVOCADO_INDEX_CREATION_FAILED                            (1235)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1236: ERROR_ARANGO_WRITE_THROTTLE_TIMEOUT
+/// @brief 1236: ERROR_AVOCADO_WRITE_THROTTLE_TIMEOUT
 ///
 /// write-throttling timeout
 ///
@@ -1748,10 +1748,10 @@ void TRI_InitializeErrorMessages ();
 /// waited too long for the server to process queued operations.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_WRITE_THROTTLE_TIMEOUT                           (1236)
+#define TRI_ERROR_AVOCADO_WRITE_THROTTLE_TIMEOUT                           (1236)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1237: ERROR_ARANGO_COLLECTION_TYPE_MISMATCH
+/// @brief 1237: ERROR_AVOCADO_COLLECTION_TYPE_MISMATCH
 ///
 /// collection type mismatch
 ///
@@ -1759,20 +1759,20 @@ void TRI_InitializeErrorMessages ();
 /// expected.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_COLLECTION_TYPE_MISMATCH                         (1237)
+#define TRI_ERROR_AVOCADO_COLLECTION_TYPE_MISMATCH                         (1237)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1238: ERROR_ARANGO_COLLECTION_NOT_LOADED
+/// @brief 1238: ERROR_AVOCADO_COLLECTION_NOT_LOADED
 ///
 /// collection not loaded
 ///
 /// Will be raised when a collection is accessed that is not yet loaded.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_COLLECTION_NOT_LOADED                            (1238)
+#define TRI_ERROR_AVOCADO_COLLECTION_NOT_LOADED                            (1238)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1239: ERROR_ARANGO_DOCUMENT_REV_BAD
+/// @brief 1239: ERROR_AVOCADO_DOCUMENT_REV_BAD
 ///
 /// illegal document revision
 ///
@@ -1780,50 +1780,50 @@ void TRI_InitializeErrorMessages ();
 /// needed.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_REV_BAD                                 (1239)
+#define TRI_ERROR_AVOCADO_DOCUMENT_REV_BAD                                 (1239)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1300: ERROR_ARANGO_DATAFILE_FULL
+/// @brief 1300: ERROR_AVOCADO_DATAFILE_FULL
 ///
 /// datafile full
 ///
 /// Will be raised when the datafile reaches its limit.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DATAFILE_FULL                                    (1300)
+#define TRI_ERROR_AVOCADO_DATAFILE_FULL                                    (1300)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1301: ERROR_ARANGO_EMPTY_DATADIR
+/// @brief 1301: ERROR_AVOCADO_EMPTY_DATADIR
 ///
 /// server database directory is empty
 ///
 /// Will be raised when encountering an empty server database directory.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_EMPTY_DATADIR                                    (1301)
+#define TRI_ERROR_AVOCADO_EMPTY_DATADIR                                    (1301)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1302: ERROR_ARANGO_TRY_AGAIN
+/// @brief 1302: ERROR_AVOCADO_TRY_AGAIN
 ///
 /// operation should be tried again
 ///
 /// Will be raised when an operation should be retried.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_TRY_AGAIN                                        (1302)
+#define TRI_ERROR_AVOCADO_TRY_AGAIN                                        (1302)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1303: ERROR_ARANGO_BUSY
+/// @brief 1303: ERROR_AVOCADO_BUSY
 ///
 /// engine is busy
 ///
 /// Will be raised when storage engine is busy.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_BUSY                                             (1303)
+#define TRI_ERROR_AVOCADO_BUSY                                             (1303)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1304: ERROR_ARANGO_MERGE_IN_PROGRESS
+/// @brief 1304: ERROR_AVOCADO_MERGE_IN_PROGRESS
 ///
 /// merge in progress
 ///
@@ -1831,17 +1831,17 @@ void TRI_InitializeErrorMessages ();
 /// cannot complete the operation.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_MERGE_IN_PROGRESS                                (1304)
+#define TRI_ERROR_AVOCADO_MERGE_IN_PROGRESS                                (1304)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1305: ERROR_ARANGO_IO_ERROR
+/// @brief 1305: ERROR_AVOCADO_IO_ERROR
 ///
 /// storage engine I/O error
 ///
 /// Will be raised when storage engine encounters an I/O error.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_IO_ERROR                                         (1305)
+#define TRI_ERROR_AVOCADO_IO_ERROR                                         (1305)
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief 1400: ERROR_REPLICATION_NO_RESPONSE
@@ -2292,7 +2292,7 @@ void TRI_InitializeErrorMessages ();
 #define TRI_ERROR_CLUSTER_AQL_COMMUNICATION                               (1474)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1475: ERROR_ARANGO_DOCUMENT_NOT_FOUND_OR_SHARDING_ATTRIBUTES_CHANGED
+/// @brief 1475: ERROR_AVOCADO_DOCUMENT_NOT_FOUND_OR_SHARDING_ATTRIBUTES_CHANGED
 ///
 /// document not found or sharding attributes changed
 ///
@@ -2301,7 +2301,7 @@ void TRI_InitializeErrorMessages ();
 /// operation in the cluster.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND_OR_SHARDING_ATTRIBUTES_CHANGED (1475)
+#define TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND_OR_SHARDING_ATTRIBUTES_CHANGED (1475)
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief 1476: ERROR_CLUSTER_COULD_NOT_DETERMINE_ID
@@ -3449,14 +3449,14 @@ void TRI_InitializeErrorMessages ();
 #define TRI_ERROR_GRAPH_EDGE_COLLECTION_NOT_USED                          (1930)
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief 1931: ERROR_GRAPH_NOT_AN_ARANGO_COLLECTION
+/// @brief 1931: ERROR_GRAPH_NOT_AN_AVOCADO_COLLECTION
 ///
 ///  is not an AvocadoCollection
 ///
 /// The collection is not an AvocadoCollection.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define TRI_ERROR_GRAPH_NOT_AN_ARANGO_COLLECTION                          (1931)
+#define TRI_ERROR_GRAPH_NOT_AN_AVOCADO_COLLECTION                          (1931)
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief 1932: ERROR_GRAPH_NO_GRAPH_COLLECTION

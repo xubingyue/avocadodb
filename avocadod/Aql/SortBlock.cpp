@@ -90,7 +90,7 @@ void SortBlock::doSorting() {
   }
 
   TRI_IF_FAILURE("SortBlock::doSorting") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   
   // coords[i][j] is the <j>th row of the <i>th block
@@ -136,7 +136,7 @@ void SortBlock::doSorting() {
 
       try {
         TRI_IF_FAILURE("SortBlock::doSortingInner") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         newbuffer.emplace_back(next);
       } catch (...) {
@@ -173,7 +173,7 @@ void SortBlock::doSorting() {
                 AqlValue b = a.clone();
                 try {
                   TRI_IF_FAILURE("SortBlock::doSortingCache") {
-                    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+                    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
                   }
                   cache.emplace(a, b);
                 } catch (...) {
@@ -183,7 +183,7 @@ void SortBlock::doSorting() {
 
                 try {
                   TRI_IF_FAILURE("SortBlock::doSortingNext1") {
-                    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+                    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
                   }
                   next->setValue(i, j, b);
                 } catch (...) {
@@ -204,7 +204,7 @@ void SortBlock::doSorting() {
                 // new block or indeed with us!
                 try {
                   TRI_IF_FAILURE("SortBlock::doSortingNext2") {
-                    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+                    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
                   }
                   next->setValue(i, j, a);
                 } catch (...) {

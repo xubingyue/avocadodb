@@ -46,7 +46,7 @@ Returned if if-match header is given, but the documents revision is different.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialDeleteEdge}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialDeleteEdge}
   var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   examples.loadGraph("social");
@@ -58,6 +58,6 @@ Returned if if-match header is given, but the documents revision is different.
 
   logJsonResponse(response);
   examples.dropGraph("social");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

@@ -21,8 +21,8 @@
 /// @author Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_SIMPLE_HTTP_CLIENT_OPTIONS_H
-#define ARANGODB_SIMPLE_HTTP_CLIENT_OPTIONS_H 1
+#ifndef AVOCADODB_SIMPLE_HTTP_CLIENT_OPTIONS_H
+#define AVOCADODB_SIMPLE_HTTP_CLIENT_OPTIONS_H 1
 
 namespace avocadodb {
 namespace communicator {

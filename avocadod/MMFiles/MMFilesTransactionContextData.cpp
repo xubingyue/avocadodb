@@ -63,7 +63,7 @@ void MMFilesTransactionContextData::pinData(LogicalCollection* collection) {
   auto ditch = avocadodb::MMFilesCollection::toMMFilesCollection(collection)->ditches()->createMMFilesDocumentDitch(true, __FILE__, __LINE__);
 
   if (ditch == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   try {

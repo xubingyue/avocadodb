@@ -102,7 +102,7 @@ function config (options) {
     print(CYAN + 'checking "' + test + '"' + RESET);
 
     const args = {
-      'configuration': fs.join(pu.CONFIG_ARANGODB_DIR, test + '.conf'),
+      'configuration': fs.join(pu.CONFIG_AVOCADODB_DIR, test + '.conf'),
       'flatCommands': ['--check-configuration']
     };
 

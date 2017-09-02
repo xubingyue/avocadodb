@@ -283,7 +283,7 @@ bool HttpCommTask::processRead(double startTime) {
           ? ProtocolVersion::VST_1_0 : ProtocolVersion::VST_1_1;
 
       if (!abandon()) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "task is already abandoned");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "task is already abandoned");
       }
       
       std::shared_ptr<GeneralCommTask> commTask = std::make_shared<VstCommTask>(
@@ -584,8 +584,8 @@ bool HttpCommTask::processRead(double startTime) {
   }
   // not found
   else if (authResult == rest::ResponseCode::NOT_FOUND) {
-    handleSimpleError(authResult, *_incompleteRequest, TRI_ERROR_ARANGO_DATABASE_NOT_FOUND,
-                      TRI_errno_string(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND), 1);
+    handleSimpleError(authResult, *_incompleteRequest, TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND,
+                      TRI_errno_string(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND), 1);
   }
   // forbidden
   else if (authResult == rest::ResponseCode::FORBIDDEN) {

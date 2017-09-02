@@ -208,8 +208,8 @@ def fetch_comments(dirpath):
                 if ("@startDocuBlock" in _text) or \
                   ("@endDocuBlock" in _text):
                   fh.write("%s\n\n" % _text)
-                elif ("@EXAMPLE_ARANGOSH_OUTPUT" in _text or \
-                  "@EXAMPLE_ARANGOSH_RUN" in _text):
+                elif ("@EXAMPLE_AVOCADOSH_OUTPUT" in _text or \
+                  "@EXAMPLE_AVOCADOSH_RUN" in _text):
                   shouldIgnoreLine = True
                   try:
                     _filename = re.search("{(.*)}", _text).group(1)
@@ -224,8 +224,8 @@ def fetch_comments(dirpath):
                     print "Could not find the generated example for " + _filename + " found in " + filepath
                 else:
                   fh.write("%s\n" % _text)
-              elif ("@END_EXAMPLE_ARANGOSH_OUTPUT" in _text or \
-                "@END_EXAMPLE_ARANGOSH_RUN" in _text):
+              elif ("@END_EXAMPLE_AVOCADOSH_OUTPUT" in _text or \
+                "@END_EXAMPLE_AVOCADOSH_RUN" in _text):
                 shouldIgnoreLine = False
   fh.close()
 

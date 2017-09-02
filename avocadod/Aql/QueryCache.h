@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_QUERY_CACHE_H
-#define ARANGOD_AQL_QUERY_CACHE_H 1
+#ifndef AVOCADOD_AQL_QUERY_CACHE_H
+#define AVOCADOD_AQL_QUERY_CACHE_H 1
 
 #include "Aql/QueryString.h"
 #include "Basics/Common.h"

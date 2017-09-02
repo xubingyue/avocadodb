@@ -25,8 +25,8 @@
 // these classes are only here in order to shutup compiler warning
 // DO NOT USE THEM!
 
-#ifndef ARANGODB_BASICS_ASIO_HELPER_H_1
-#define ARANGODB_BASICS_ASIO_HELPER_H_1 1
+#ifndef AVOCADODB_BASICS_ASIO_HELPER_H_1
+#define AVOCADODB_BASICS_ASIO_HELPER_H_1 1
 namespace {
 class Unused1 {
  protected:
@@ -55,8 +55,8 @@ class Unused1 {
 #endif
 
 #ifdef BOOST_ASIO_SSL_HPP
-#ifndef ARANGODB_BASICS_ASIO_HELPER_H_2
-#define ARANGODB_BASICS_ASIO_HELPER_H_2 1
+#ifndef AVOCADODB_BASICS_ASIO_HELPER_H_2
+#define AVOCADODB_BASICS_ASIO_HELPER_H_2 1
 namespace {
 class Unused2 {
  protected:

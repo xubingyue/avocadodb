@@ -168,7 +168,7 @@ void VariableGenerator::fromVelocyPack(VPackSlice const& query) {
   VPackSlice allVariablesList = query.get("variables");
 
   if (!allVariablesList.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "variables needs to be an array");
   }
 

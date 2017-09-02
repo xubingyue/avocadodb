@@ -32,7 +32,7 @@ job result list.
 
 Querying the status of a done job:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_getStatusById_01}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_getStatusById_01}
   var url = "/_api/version";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
@@ -45,12 +45,12 @@ Querying the status of a done job:
   var response = logCurlRequest('PUT', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Querying the status of a pending job:
 (we create a sleep job therefore...)
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_getStatusById_02}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_getStatusById_02}
   var url = "/_admin/sleep?duration=30";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('GET', url, "", headers);
@@ -63,6 +63,6 @@ Querying the status of a pending job:
   var response = logCurlRequest('GET', url);
   assert(response.code === 204);
   logRawResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

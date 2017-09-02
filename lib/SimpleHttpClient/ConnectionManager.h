@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_SIMPLE_HTTP_CLIENT_CONNECTION_MANAGER_H
-#define ARANGODB_SIMPLE_HTTP_CLIENT_CONNECTION_MANAGER_H 1
+#ifndef AVOCADODB_SIMPLE_HTTP_CLIENT_CONNECTION_MANAGER_H
+#define AVOCADODB_SIMPLE_HTTP_CLIENT_CONNECTION_MANAGER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadWriteLock.h"

@@ -61,7 +61,7 @@ is returned.
 
 Using an identifier:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetCollectionIdentifier}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetCollectionIdentifier}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn, { waitForSync: true });
@@ -73,11 +73,11 @@ Using an identifier:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a name:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetCollectionName}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetCollectionName}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: true });
@@ -89,6 +89,6 @@ Using a name:
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

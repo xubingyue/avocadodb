@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_VOCBASE_PATHENUMERATOR_H
-#define ARANGODB_VOCBASE_PATHENUMERATOR_H 1
+#ifndef AVOCADODB_VOCBASE_PATHENUMERATOR_H
+#define AVOCADODB_VOCBASE_PATHENUMERATOR_H 1
 
 #include "Basics/Common.h"
 #include "Graph/EdgeDocumentToken.h"

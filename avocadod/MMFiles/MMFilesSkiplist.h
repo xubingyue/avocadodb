@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_SKIP_LIST_H
-#define ARANGOD_MMFILES_SKIP_LIST_H 1
+#ifndef AVOCADOD_MMFILES_SKIP_LIST_H
+#define AVOCADOD_MMFILES_SKIP_LIST_H 1
 
 #include "Basics/Common.h"
 #include "Random/RandomGenerator.h"
@@ -243,7 +243,7 @@ class MMFilesSkiplist {
   /// is unique then no two documents that compare equal in the
   /// preorder can be inserted. Returns TRI_ERROR_NO_ERROR if all
   /// is well, TRI_ERROR_OUT_OF_MEMORY if allocation failed and
-  /// TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED if the unique constraint
+  /// TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED if the unique constraint
   /// would have been violated by the insert or if there is already a
   /// document in the skip list that compares equal to doc in the proper
   /// total order. In the latter two cases nothing is inserted.
@@ -263,7 +263,7 @@ class MMFilesSkiplist {
     // is stored at the node next.
     if (nullptr != next && 0 == cmp) {
       // We have found a duplicate in the proper total order!
-      return TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+      return TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
     }
 
     // Uniqueness test if wanted:
@@ -272,7 +272,7 @@ class MMFilesSkiplist {
            0 == _cmp_elm_elm(userData, doc, pos[0]->_doc, SKIPLIST_CMP_PREORDER)) ||
           (nullptr != next &&
            0 == _cmp_elm_elm(userData, doc, next->_doc, SKIPLIST_CMP_PREORDER))) {
-        return TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+        return TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
       }
     }
 
@@ -322,7 +322,7 @@ class MMFilesSkiplist {
   ///
   /// Comparison is done using proper order comparison.
   /// Returns TRI_ERROR_NO_ERROR if all is well and
-  /// TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND if the document was not found.
+  /// TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND if the document was not found.
   /// In the latter two cases nothing is removed.
   //////////////////////////////////////////////////////////////////////////////
 
@@ -339,7 +339,7 @@ class MMFilesSkiplist {
     // case it is stored at the node next.
 
     if (nullptr == next || 0 != cmp) {
-      return TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
     }
 
     if (nullptr != _free) {
@@ -515,7 +515,7 @@ class MMFilesSkiplist {
                              sizeof(Node) + sizeof(Node*) * height);
 
     if (ptr == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     Node* newNode;

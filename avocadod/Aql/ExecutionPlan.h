@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_EXECUTION_PLAN_H
-#define ARANGOD_AQL_EXECUTION_PLAN_H 1
+#ifndef AVOCADOD_AQL_EXECUTION_PLAN_H
+#define AVOCADOD_AQL_EXECUTION_PLAN_H 1
 
 #include "Basics/Common.h"
 #include "Aql/CollectOptions.h"
@@ -127,7 +127,7 @@ class ExecutionPlan {
   bool isDeadSimple() const;
 
 /// @brief show an overview over the plan
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   void show();
 #endif
 

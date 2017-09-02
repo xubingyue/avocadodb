@@ -33,13 +33,13 @@ Description was returned successfully.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestAdminStatisticsDescription1}
+@EXAMPLE_AVOCADOSH_RUN{RestAdminStatisticsDescription1}
     var url = "/_admin/statistics-description";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

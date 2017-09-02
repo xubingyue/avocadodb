@@ -9,7 +9,7 @@ documents. In this case the next document can be accessed using the
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{cursorHasNext}
+@EXAMPLE_AVOCADOSH_OUTPUT{cursorHasNext}
 ~ db._create("five");
 ~ db.five.save({ name : "one" });
 ~ db.five.save({ name : "two" });
@@ -19,5 +19,5 @@ documents. In this case the next document can be accessed using the
   var a = db.five.all();
   while (a.hasNext()) print(a.next());
 ~ db._drop("five")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

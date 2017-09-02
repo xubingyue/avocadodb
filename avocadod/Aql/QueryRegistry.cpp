@@ -106,7 +106,7 @@ void QueryRegistry::insert(QueryId id, Query* query, double ttl) {
       // }
     }
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "query with given vocbase and id already there");
   }
 }
@@ -126,7 +126,7 @@ Query* QueryRegistry::open(TRI_vocbase_t* vocbase, QueryId id) {
   }
   QueryInfo* qi = q->second;
   if (qi->_isOpen) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "query with given vocbase and id is already open");
   }
   qi->_isOpen = true;
@@ -156,12 +156,12 @@ void QueryRegistry::close(TRI_vocbase_t* vocbase, QueryId id, double ttl) {
   }
   auto q = m->second.find(id);
   if (q == m->second.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "query with given vocbase and id not found");
   }
   QueryInfo* qi = q->second;
   if (!qi->_isOpen) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "query with given vocbase and id is not open");
   }
 
@@ -201,7 +201,7 @@ void QueryRegistry::destroy(std::string const& vocbase, QueryId id,
   }
   auto q = m->second.find(id);
   if (q == m->second.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "query with given vocbase and id not found");
   }
   QueryInfo* qi = q->second;

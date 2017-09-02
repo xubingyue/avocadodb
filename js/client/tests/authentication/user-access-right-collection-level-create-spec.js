@@ -146,7 +146,7 @@ describe('User Rights Management', () => {
                     expect(true).to.be(false, `${name} created a document with insufficient rights.`);
                   } catch (e) {
                     if (hasReadAccess) {
-                      expect(e.errorNum).to.equal(errors.ERROR_ARANGO_READ_ONLY.code);
+                      expect(e.errorNum).to.equal(errors.ERROR_AVOCADO_READ_ONLY.code);
                     } else {
                       expect(e.errorNum).to.equal(errors.ERROR_FORBIDDEN.code);
                     }
@@ -181,7 +181,7 @@ describe('User Rights Management', () => {
                     expect(res[0].foo).to.not.equal('bar', `${name} did create the document with insufficient rights`);
                   } catch (e) {
                     if (hasReadAccess) {
-                      expect(e.errorNum).to.equal(errors.ERROR_ARANGO_READ_ONLY.code);
+                      expect(e.errorNum).to.equal(errors.ERROR_AVOCADO_READ_ONLY.code);
                     } else {
                       expect(e.errorNum).to.equal(errors.ERROR_FORBIDDEN.code);
                     }

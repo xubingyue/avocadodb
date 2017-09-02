@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_TRANSACTION_MANAGER_H
-#define ARANGOD_ROCKSDB_ROCKSDB_TRANSACTION_MANAGER_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_TRANSACTION_MANAGER_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_TRANSACTION_MANAGER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadWriteLock.h"

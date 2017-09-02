@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_INDEXES_SIMPLE_ATTRIBUTE_EQUALITY_MATCHER_H
-#define ARANGOD_INDEXES_SIMPLE_ATTRIBUTE_EQUALITY_MATCHER_H 1
+#ifndef AVOCADOD_INDEXES_SIMPLE_ATTRIBUTE_EQUALITY_MATCHER_H
+#define AVOCADOD_INDEXES_SIMPLE_ATTRIBUTE_EQUALITY_MATCHER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/AttributeNameParser.h"

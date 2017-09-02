@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_EXECUTION_BLOCK_H
-#define ARANGOD_AQL_EXECUTION_BLOCK_H 1
+#ifndef AVOCADOD_AQL_EXECUTION_BLOCK_H
+#define AVOCADOD_AQL_EXECUTION_BLOCK_H 1
 
 #include "Aql/ExecutionNode.h"
 #include "Aql/Variable.h"

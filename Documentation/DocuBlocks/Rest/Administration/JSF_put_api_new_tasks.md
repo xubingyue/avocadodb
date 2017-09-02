@@ -32,7 +32,7 @@ If the task *id* already exists or the rest body is not accurate, *HTTP 400* is 
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestTasksPutWithId}
+@EXAMPLE_AVOCADOSH_RUN{RestTasksPutWithId}
     var url = "/_api/tasks/";
 
     // Note: prints stuff if server is running in non-daemon mode.
@@ -51,6 +51,6 @@ If the task *id* already exists or the rest body is not accurate, *HTTP 400* is 
 
     // Cleanup:
     curlRequest('DELETE', url + 'sampleTask');
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

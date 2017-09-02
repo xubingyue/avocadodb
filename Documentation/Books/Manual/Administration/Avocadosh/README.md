@@ -40,12 +40,12 @@ To change the current database after the connection has been made, you
 can use the `db._useDatabase()` command in avocadosh:
 
     @startDocuBlockInline shellUseDB
-    @EXAMPLE_ARANGOSH_OUTPUT{shellUseDB}
+    @EXAMPLE_AVOCADOSH_OUTPUT{shellUseDB}
     db._createDatabase("myapp");
     db._useDatabase("myapp");
     db._useDatabase("_system");
     db._dropDatabase("myapp");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock shellUseDB
 
 To get a list of available commands, avocadosh provides a *help()* function.
@@ -63,20 +63,20 @@ current database.
 For a list of available methods for the *db* object, type 
     
     @startDocuBlockInline shellHelp
-    @EXAMPLE_ARANGOSH_OUTPUT{shellHelp}
+    @EXAMPLE_AVOCADOSH_OUTPUT{shellHelp}
     db._help(); 
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock shellHelp
 
 you can paste multiple lines into avocadosh, given the first line ends with an
 opening brace:
 
     @startDocuBlockInline shellPaste
-    @EXAMPLE_ARANGOSH_OUTPUT{shellPaste}
+    @EXAMPLE_AVOCADOSH_OUTPUT{shellPaste}
     |for (var i = 0; i < 10; i ++) {
     |         require("@avocadodb").print("Hello world " + i + "!\n");
     }
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock shellPaste
 
 

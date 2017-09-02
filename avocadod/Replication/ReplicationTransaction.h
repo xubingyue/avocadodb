@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REPLICATION_REPLICATION_TRANSACTION_H
-#define ARANGOD_REPLICATION_REPLICATION_TRANSACTION_H 1
+#ifndef AVOCADOD_REPLICATION_REPLICATION_TRANSACTION_H
+#define AVOCADOD_REPLICATION_REPLICATION_TRANSACTION_H 1
 
 #include "Basics/Common.h"
 #include "StorageEngine/TransactionState.h"

@@ -24,8 +24,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_ASSOC_MULTI_HELPERS_H
-#define ARANGODB_BASICS_ASSOC_MULTI_HELPERS_H 1
+#ifndef AVOCADODB_BASICS_ASSOC_MULTI_HELPERS_H
+#define AVOCADODB_BASICS_ASSOC_MULTI_HELPERS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/IndexBucket.h"

@@ -44,7 +44,7 @@ If the *collection-name* is unknown, then a *HTTP 404*
 is returned.
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionIdentifierRename}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionIdentifierRename}
     var cn = "products1";
     var cnn = "newname";
     db._drop(cn);
@@ -59,6 +59,6 @@ is returned.
     db._drop(cnn);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

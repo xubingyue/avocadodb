@@ -40,7 +40,7 @@ std::unique_ptr<BaseEngine> BaseEngine::BuildEngine(TRI_vocbase_t* vocbase,
                                                     VPackSlice info) {
   VPackSlice type = info.get(std::vector<std::string>({"options", "type"}));
   if (!type.isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The body requires an 'options.type' attribute.");
   }
@@ -49,7 +49,7 @@ std::unique_ptr<BaseEngine> BaseEngine::BuildEngine(TRI_vocbase_t* vocbase,
   } else if (type.isEqualString("shortestPath")) {
     return std::make_unique<ShortestPathEngine>(vocbase, info);
   }
-  THROW_ARANGO_EXCEPTION_MESSAGE(
+  THROW_AVOCADO_EXCEPTION_MESSAGE(
       TRI_ERROR_BAD_PARAMETER,
       "The 'options.type' attribute either has to be traversal or shortestPath");
 }

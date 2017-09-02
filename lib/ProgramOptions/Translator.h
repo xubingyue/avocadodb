@@ -20,8 +20,8 @@
 /// @author Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PROGRAM_OPTIONS_TRANSLATOR_H
-#define ARANGODB_PROGRAM_OPTIONS_TRANSLATOR_H 1
+#ifndef AVOCADODB_PROGRAM_OPTIONS_TRANSLATOR_H
+#define AVOCADODB_PROGRAM_OPTIONS_TRANSLATOR_H 1
 
 #include "Basics/Common.h"
 

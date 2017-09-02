@@ -44,10 +44,10 @@ main(){
     export VERBOSE=1
     shift
   fi
-  local ARANGOD_EXECUTABLE=${1-build/bin/avocadod}
+  local AVOCADOD_EXECUTABLE=${1-build/bin/avocadod}
 
   #delete all existing events
-  perf probe -x $ARANGOD_EXECUTABLE -d "probe_avocadod:*"
+  perf probe -x $AVOCADOD_EXECUTABLE -d "probe_avocadod:*"
 
   echo "Adding events, this takes a few seconds..."
 
@@ -112,14 +112,14 @@ addEvent() {
 
   echo "setting up $name for function: $func"
   if [ "$VERBOSE" == "1" ] ; then
-    perf probe -x $ARANGOD_EXECUTABLE -a $name=$func                #enter function
+    perf probe -x $AVOCADOD_EXECUTABLE -a $name=$func                #enter function
     if [ "$withRet" == 1 ]; then
-        perf probe -x $ARANGOD_EXECUTABLE -a ${name}Ret=$func%return    #return form function
+        perf probe -x $AVOCADOD_EXECUTABLE -a ${name}Ret=$func%return    #return form function
     fi
   else
-    perf probe -x $ARANGOD_EXECUTABLE -a $name=$func 2> /dev/null             #enter function
+    perf probe -x $AVOCADOD_EXECUTABLE -a $name=$func 2> /dev/null             #enter function
     if [ "$withRet" == 1 ]; then
-        perf probe -x $ARANGOD_EXECUTABLE -a ${name}Ret=$func%return 2> /dev/null #return form function
+        perf probe -x $AVOCADOD_EXECUTABLE -a ${name}Ret=$func%return 2> /dev/null #return form function
     fi
   fi
   if [ "$?" != "0" ] ; then

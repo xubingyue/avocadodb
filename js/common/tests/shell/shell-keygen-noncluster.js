@@ -65,7 +65,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_INVALID_KEY_GENERATOR.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_INVALID_KEY_GENERATOR.code, err.errorNum);
       }
     },
 
@@ -79,7 +79,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_INVALID_KEY_GENERATOR.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_INVALID_KEY_GENERATOR.code, err.errorNum);
       }
     },
 
@@ -93,7 +93,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_INVALID_KEY_GENERATOR.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_INVALID_KEY_GENERATOR.code, err.errorNum);
       }
     },
 
@@ -107,7 +107,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_INVALID_KEY_GENERATOR.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_INVALID_KEY_GENERATOR.code, err.errorNum);
       }
     },
 
@@ -123,7 +123,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED.code, err.errorNum);
       }
     },
 
@@ -139,7 +139,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_KEY_BAD.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_KEY_BAD.code, err.errorNum);
       }
     },
 
@@ -399,7 +399,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
     },
 
@@ -418,7 +418,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_OUT_OF_KEYS.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_OUT_OF_KEYS.code, err.errorNum);
       }
     },
 
@@ -437,7 +437,7 @@ function AutoIncrementSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_OUT_OF_KEYS.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_OUT_OF_KEYS.code, err.errorNum);
       }
     }
 

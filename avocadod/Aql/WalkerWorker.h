@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_WALKER_WORKER_H
-#define ARANGOD_AQL_WALKER_WORKER_H 1
+#ifndef AVOCADOD_AQL_WALKER_WORKER_H
+#define AVOCADOD_AQL_WALKER_WORKER_H 1
 
 #include "Basics/Common.h"
 
@@ -51,7 +51,7 @@ class WalkerWorker {
                              T*   // sub
                              ) {}
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 
   bool done(T* en) {
     // make sure a node is only processed once
@@ -78,7 +78,7 @@ class WalkerWorker {
 #endif
 
  private:
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   std::unordered_set<T*> _done;
 #endif
 };

@@ -3106,9 +3106,9 @@ v2.7.0 (2015-10-09)
   read-access a collection that was not explicitly declared in the *collections*
   array of the transaction.
 
-* added "special" password ARANGODB_DEFAULT_ROOT_PASSWORD. If you pass
-  ARANGODB_DEFAULT_ROOT_PASSWORD as password, it will read the password
-  from the environment variable ARANGODB_DEFAULT_ROOT_PASSWORD
+* added "special" password AVOCADODB_DEFAULT_ROOT_PASSWORD. If you pass
+  AVOCADODB_DEFAULT_ROOT_PASSWORD as password, it will read the password
+  from the environment variable AVOCADODB_DEFAULT_ROOT_PASSWORD
 
 
 v2.7.0-rc2 (2015-09-22)
@@ -3612,9 +3612,9 @@ v2.6.10 (2015-11-10)
 v2.6.9 (2015-09-29)
 -------------------
 
-* added "special" password ARANGODB_DEFAULT_ROOT_PASSWORD. If you pass
-  ARANGODB_DEFAULT_ROOT_PASSWORD as password, it will read the password
-  from the environment variable ARANGODB_DEFAULT_ROOT_PASSWORD
+* added "special" password AVOCADODB_DEFAULT_ROOT_PASSWORD. If you pass
+  AVOCADODB_DEFAULT_ROOT_PASSWORD as password, it will read the password
+  from the environment variable AVOCADODB_DEFAULT_ROOT_PASSWORD
 
 * fixed failing AQL skiplist, sort and limit combination
 
@@ -9557,7 +9557,7 @@ v1.0.alpha3 (2012-06-30)
 
 * fixed issue #111: crash during "make unittests"
 
-* fixed issue #104: client.js -> ARANGO_QUIET is not defined
+* fixed issue #104: client.js -> AVOCADO_QUIET is not defined
 
 
 v1.0.alpha2 (2012-06-24)

@@ -32,7 +32,7 @@ Returned if no graph with this name could be found.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialDrop}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialDrop}
   var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   examples.loadGraph("social");
@@ -43,5 +43,5 @@ Returned if no graph with this name could be found.
 
   logJsonResponse(response);
 ~ examples.dropGraph("social");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock

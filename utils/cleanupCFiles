@@ -134,7 +134,7 @@ sub formatFile ($$$) {
       $c = $absParts[@absParts - 3];
     }
 
-    $guardName = "ARANGODB_" . $m . "_" . $u;
+    $guardName = "AVOCADODB_" . $m . "_" . $u;
 
     print STDERR "INFO guard name is $guardName\n";
   }

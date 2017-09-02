@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_STORAGE_ENGINE_TRANSACTION_MANAGER_H
-#define ARANGOD_STORAGE_ENGINE_TRANSACTION_MANAGER_H 1
+#ifndef AVOCADOD_STORAGE_ENGINE_TRANSACTION_MANAGER_H
+#define AVOCADOD_STORAGE_ENGINE_TRANSACTION_MANAGER_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/voc-types.h"

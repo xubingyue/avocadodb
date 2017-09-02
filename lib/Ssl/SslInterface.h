@@ -21,8 +21,8 @@
 /// @author Dr. Oreste Costa-Panaia
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_SSL_INTERFACE_H
-#define ARANGODB_REST_SSL_INTERFACE_H 1
+#ifndef AVOCADODB_REST_SSL_INTERFACE_H
+#define AVOCADODB_REST_SSL_INTERFACE_H 1
 
 #include "Basics/Common.h"
 

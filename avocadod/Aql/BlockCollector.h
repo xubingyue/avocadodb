@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_BLOCK_COLLECTOR_H
-#define ARANGOD_AQL_BLOCK_COLLECTOR_H 1
+#ifndef AVOCADOD_AQL_BLOCK_COLLECTOR_H
+#define AVOCADOD_AQL_BLOCK_COLLECTOR_H 1
 
 #include "Basics/Common.h"
 #include "Basics/SmallVector.h"

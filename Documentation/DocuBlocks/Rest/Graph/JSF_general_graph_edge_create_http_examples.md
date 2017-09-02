@@ -43,7 +43,7 @@ Returned if no graph with this name, no edge collection or no edge with this id 
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialAddEdge}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialAddEdge}
   var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
 ~ require("internal").db._drop("relation");
@@ -62,6 +62,6 @@ Returned if no graph with this name, no edge collection or no edge with this id 
 
   logJsonResponse(response);
   examples.dropGraph("social");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

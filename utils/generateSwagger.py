@@ -373,9 +373,9 @@ class Regexen:
         self.DESCRIPTION_BL = re.compile('^\s*$')
         self.EMPTY_LINE = re.compile('^\s*$')
         self.START_DOCUBLOCK = re.compile('.*@startDocuBlock ')
-        self.END_EXAMPLE_ARANGOSH_RUN = re.compile('.*@END_EXAMPLE_ARANGOSH_RUN')
+        self.END_EXAMPLE_AVOCADOSH_RUN = re.compile('.*@END_EXAMPLE_AVOCADOSH_RUN')
         self.EXAMPLES = re.compile('.*@EXAMPLES')
-        self.EXAMPLE_ARANGOSH_RUN = re.compile('.*@EXAMPLE_ARANGOSH_RUN{')
+        self.EXAMPLE_AVOCADOSH_RUN = re.compile('.*@EXAMPLE_AVOCADOSH_RUN{')
         self.RESTBODYPARAM = re.compile('.*@RESTBODYPARAM')
         self.RESTSTRUCT = re.compile('.*@RESTSTRUCT')
         self.RESTALLBODYPARAM = re.compile('.*@RESTALLBODYPARAM')
@@ -409,7 +409,7 @@ def next_step(fp, line, r):
     if not line:                              return eof, (fp, line)
     elif check_end_of_comment(line, r):       return skip_code, (fp, line)
     elif r.START_DOCUBLOCK.match(line):       return start_docublock, (fp, line)
-    elif r.EXAMPLE_ARANGOSH_RUN.match(line):  return example_avocadosh_run, (fp, line)
+    elif r.EXAMPLE_AVOCADOSH_RUN.match(line):  return example_avocadosh_run, (fp, line)
     elif r.RESTBODYPARAM.match(line):         return restbodyparam, (fp, line)
     elif r.RESTSTRUCT.match(line):            return reststruct, (fp, line)
     elif r.RESTALLBODYPARAM.match(line):      return restallbodyparam, (fp, line)
@@ -1024,7 +1024,7 @@ def example_avocadosh_run(cargo, r=Regexen()):
 
     line = ""
 
-    while not r.END_EXAMPLE_ARANGOSH_RUN.match(line):
+    while not r.END_EXAMPLE_AVOCADOSH_RUN.match(line):
         line = fp.readline()
 
         if not line:

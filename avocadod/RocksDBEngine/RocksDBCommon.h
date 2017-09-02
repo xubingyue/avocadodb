@@ -23,8 +23,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_COMMON_H
-#define ARANGO_ROCKSDB_ROCKSDB_COMMON_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_COMMON_H
+#define AVOCADO_ROCKSDB_ROCKSDB_COMMON_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Endian.h"

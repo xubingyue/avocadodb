@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_EXECUTION_ENGINE_H
-#define ARANGOD_AQL_EXECUTION_ENGINE_H 1
+#ifndef AVOCADOD_AQL_EXECUTION_ENGINE_H
+#define AVOCADOD_AQL_EXECUTION_ENGINE_H 1
 
 #include "Basics/Common.h"
 #include "Aql/AqlItemBlockManager.h"

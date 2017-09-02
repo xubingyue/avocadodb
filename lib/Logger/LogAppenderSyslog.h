@@ -21,13 +21,13 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_LOGGER_LOG_APPENDER_SYSLOG_H
-#define ARANGODB_LOGGER_LOG_APPENDER_SYSLOG_H 1
+#ifndef AVOCADODB_LOGGER_LOG_APPENDER_SYSLOG_H
+#define AVOCADODB_LOGGER_LOG_APPENDER_SYSLOG_H 1
 
 #include "Logger/LogAppender.h"
 
 namespace avocadodb {
-#ifdef ARANGODB_ENABLE_SYSLOG
+#ifdef AVOCADODB_ENABLE_SYSLOG
 
 class LogAppenderSyslog : public LogAppender {
  public:

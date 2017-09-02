@@ -541,7 +541,7 @@ bool Manager::rebalance(bool onlyCalculate) {
     std::tie(cache, weight) = pair;
     uint64_t newDeserved = static_cast<uint64_t>(
         std::ceil(weight * static_cast<double>(_globalHighwaterMark)));
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     if (newDeserved < Manager::minCacheAllocation) {
       LOG_TOPIC(FATAL, Logger::FIXME)
           << "Deserved limit of " << newDeserved << " from weight " << weight
@@ -743,7 +743,7 @@ std::shared_ptr<Manager::PriorityList> Manager::priorityList() {
   }
   double uniformMarginalWeight = 0.5 / static_cast<double>(_caches.size());
   double baseWeight = std::max(minimumWeight, uniformMarginalWeight);
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (1.0 < (baseWeight * static_cast<double>(_caches.size()))) {
     LOG_TOPIC(FATAL, Logger::FIXME)
         << "weight: " << baseWeight << ", count: " << _caches.size();

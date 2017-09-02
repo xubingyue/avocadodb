@@ -88,7 +88,7 @@ int EnumerateCollectionBlock::initialize() {
     }
 
     if (!inSync) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_CLUSTER_AQL_COLLECTION_OUT_OF_SYNC,
           "collection " + _collection->name + " did not come into sync in time (" + std::to_string(maxWait) +")");
     }
@@ -188,7 +188,7 @@ AqlItemBlock* EnumerateCollectionBlock::getSome(size_t,  // atLeast,
     throwIfKilled();  // check if we were aborted
     
     TRI_IF_FAILURE("EnumerateCollectionBlock::moreDocuments") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
    
     bool tmp;
@@ -258,7 +258,7 @@ size_t EnumerateCollectionBlock::skipSome(size_t atLeast, size_t atMost) {
       int res = _cursor->skip(atMost - skipped, skippedHere);
 
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
     }
 

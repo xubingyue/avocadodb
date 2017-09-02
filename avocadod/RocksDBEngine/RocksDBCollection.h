@@ -21,8 +21,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ENGINE_ROCKSDB_COLLECTION_H
-#define ARANGOD_ROCKSDB_ENGINE_ROCKSDB_COLLECTION_H 1
+#ifndef AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_COLLECTION_H
+#define AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_COLLECTION_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadWriteLock.h"

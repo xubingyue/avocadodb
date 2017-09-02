@@ -24,8 +24,8 @@
 /* GeoIdx.h - header file for GeoIdx algorithms  */
 /* Version 2.2  25.11.2015  R. A. Parker             */
 
-#ifndef ARANGOD_ROCKSDB_GEO_INDEX_IMPL_H
-#define ARANGOD_ROCKSDB_GEO_INDEX_IMPL_H 1
+#ifndef AVOCADOD_ROCKSDB_GEO_INDEX_IMPL_H
+#define AVOCADOD_ROCKSDB_GEO_INDEX_IMPL_H 1
 
 #include <cstdint>
 #include "Basics/Common.h"

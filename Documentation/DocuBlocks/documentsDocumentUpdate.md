@@ -47,12 +47,12 @@ first argument.
 
 Create and update a document:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentDocumentUpdate}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentDocumentUpdate}
 ~ db._create("example");
   a1 = db.example.insert({ a : 1 });
   a2 = db._update(a1, { b : 2 });
-  a3 = db._update(a1, { c : 3 }); // xpError(ERROR_ARANGO_CONFLICT);
+  a3 = db._update(a1, { c : 3 }); // xpError(ERROR_AVOCADO_CONFLICT);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

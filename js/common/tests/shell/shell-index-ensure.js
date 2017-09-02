@@ -793,7 +793,7 @@ function ensureIndexSuite() {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
       }
     },
 
@@ -807,7 +807,7 @@ function ensureIndexSuite() {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
       }
     },
 
@@ -857,7 +857,7 @@ function ensureIndexSuite() {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
       }
     },
 
@@ -871,7 +871,7 @@ function ensureIndexSuite() {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED.code, err.errorNum);
       }
     },
 

@@ -151,11 +151,11 @@ MMFilesSkiplistLookupBuilder::MMFilesSkiplistLookupBuilder(
     }
 
     TRI_IF_FAILURE("SkiplistIndex::permutationEQ") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     TRI_IF_FAILURE("SkiplistIndex::permutationArrayIN") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     auto const& last = ops.back();
@@ -227,11 +227,11 @@ MMFilesSkiplistLookupBuilder::MMFilesSkiplistLookupBuilder(
     }
 
     TRI_IF_FAILURE("SkiplistIndex::permutationEQ") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     TRI_IF_FAILURE("SkiplistIndex::permutationArrayIN") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
     _lowerBuilder->close();
     _lowerSlice = _lowerBuilder->slice();
@@ -292,7 +292,7 @@ MMFilesSkiplistInLookupBuilder::MMFilesSkiplistInLookupBuilder(
           unique_set.emplace(it);
         }
         TRI_IF_FAILURE("SkiplistIndex::permutationIN") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         _inPositions.emplace_back(i, 0, unique_set.size());
         _dataBuilder->openArray();
@@ -369,7 +369,7 @@ MMFilesSkiplistInLookupBuilder::MMFilesSkiplistInLookupBuilder(
           unique_set.emplace(it);
         }
         TRI_IF_FAILURE("Index::permutationIN") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         _inPositions.emplace_back(ops.size() - 1, 0, unique_set.size());
         _dataBuilder->openArray();
@@ -752,7 +752,7 @@ Result MMFilesSkiplistIndex::insert(transaction::Methods* trx,
         // No need to free elements[j] skiplist has taken over already
       }
 
-      if (res == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED && !_unique) {
+      if (res == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED && !_unique) {
         // We ignore unique_constraint violated if we are not unique
         res = TRI_ERROR_NO_ERROR;
       }
@@ -997,7 +997,7 @@ bool MMFilesSkiplistIndex::accessFitsIndex(
         (*it).second.emplace_back(op);
       }
       TRI_IF_FAILURE("SkiplistIndex::accessFitsIndex") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       return true;
@@ -1131,7 +1131,7 @@ bool MMFilesSkiplistIndex::accessFitsIndex(
       found[i].emplace_back(op);
 
       TRI_IF_FAILURE("SkiplistIndex::accessFitsIndex") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       return true;
@@ -1216,7 +1216,7 @@ bool MMFilesSkiplistIndex::findMatchingConditions(
       }
     }
   }
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   for (auto const& it : mapping) {
     TRI_ASSERT(!it.empty());
   }
@@ -1240,12 +1240,12 @@ IndexIterator* MMFilesSkiplistIndex::iteratorForCondition(
     }
   } else {
     TRI_IF_FAILURE("SkiplistIndex::noSortIterator") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
   }
 
   TRI_IF_FAILURE("SkiplistIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (usesIn) {

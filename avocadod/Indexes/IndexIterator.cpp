@@ -66,7 +66,7 @@ bool IndexIterator::nextDocument(DocumentCallback const& cb, size_t limit) {
 /// @brief default implementation for next
 bool IndexIterator::nextExtra(ExtraCallback const&, size_t) {
   TRI_ASSERT(!hasExtra());
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                  "Requested extra values from an index that "
                                  "does not support it. This seems to be a bug "
                                  "in AvocadoDB. Please report the query you are "

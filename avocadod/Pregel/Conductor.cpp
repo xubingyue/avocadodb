@@ -68,7 +68,7 @@ Conductor::Conductor(uint64_t executionNumber, TRI_vocbase_t* vocbase,
   }
 
   if (!_algorithm) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Algorithm not found");
   }
   _masterContext.reset(_algorithm->masterContext(config));
@@ -470,7 +470,7 @@ static void resolveInfo(
   if (!ss->isRunningInCluster()) {  // single server mode
     LogicalCollection* lc = vocbase->lookupCollection(collectionID);
     if (lc == nullptr || lc->deleted()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                                      collectionID);
     }
 
@@ -484,7 +484,7 @@ static void resolveInfo(
     std::shared_ptr<LogicalCollection> lc =
         ci->getCollection(vocbase->name(), collectionID);
     if (!lc || lc->deleted()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                                      collectionID);
     }
     collectionPlanIdMap.emplace(collectionID, lc->planId_as_string());
@@ -501,7 +501,7 @@ static void resolveInfo(
       }
     }
   } else {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_COORDINATOR);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_COORDINATOR);
   }
 }
 
@@ -602,7 +602,7 @@ int Conductor::_initializeWorkers(std::string const& suffix,
             AlgoRegistry::createWorker(_vocbaseGuard.vocbase(), b.slice()),
             _executionNumber);
       } else {
-        THROW_ARANGO_EXCEPTION_MESSAGE(
+        THROW_AVOCADO_EXCEPTION_MESSAGE(
             TRI_ERROR_INTERNAL,
             "Worker with this execution number already exists.");
       }
@@ -685,7 +685,7 @@ VPackBuilder Conductor::collectAQLResults() {
                                   }
                                 });
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
   return messages;
 }
@@ -770,7 +770,7 @@ void Conductor::_ensureUniqueResponse(VPackSlice body) {
   if (_respondedServers.find(sender) != _respondedServers.end()) {
     LOG_TOPIC(ERR, Logger::PREGEL) << "Received response already from "
                                    << sender;
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_CONFLICT);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_CONFLICT);
   }
   _respondedServers.insert(sender);
 }

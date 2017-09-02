@@ -174,7 +174,7 @@ void PregelFeature::handleConductorRequest(std::string const& path,
   uint64_t exeNum = sExecutionNum.getUInt();
   std::shared_ptr<Conductor> co = Instance->conductor(exeNum);
   if (!co) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "Conductor not found, invalid execution number");
   }
 
@@ -193,7 +193,7 @@ void PregelFeature::handleWorkerRequest(TRI_vocbase_t* vocbase,
                                         VPackBuilder& outBuilder) {
   VPackSlice sExecutionNum = body.get(Utils::executionNumberKey);
   if (!sExecutionNum.isInteger()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "Worker not found, invalid execution number");
   }
   uint64_t exeNum = sExecutionNum.getUInt();
@@ -204,7 +204,7 @@ void PregelFeature::handleWorkerRequest(TRI_vocbase_t* vocbase,
     if (!w) {
       Instance->addWorker(AlgoRegistry::createWorker(vocbase, body), exeNum);
     } else if (path == Utils::startExecutionPath) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_INTERNAL,
           "Worker with this execution number already exists.");
     }
@@ -216,7 +216,7 @@ void PregelFeature::handleWorkerRequest(TRI_vocbase_t* vocbase,
   if (!w) {
     LOG_TOPIC(WARN, Logger::PREGEL) << "Handling " << path << "worker "
                                     << exeNum << " does not exist";
-    THROW_ARANGO_EXCEPTION_FORMAT(
+    THROW_AVOCADO_EXCEPTION_FORMAT(
         TRI_ERROR_INTERNAL,
         "Handling request %s, but worker %lld does not exist.", path.c_str(),
         exeNum);

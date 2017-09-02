@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_ITERATOR_H
-#define ARANGODB_PREGEL_ITERATOR_H 1
+#ifndef AVOCADODB_PREGEL_ITERATOR_H
+#define AVOCADODB_PREGEL_ITERATOR_H 1
 
 namespace avocadodb {
 namespace pregel {

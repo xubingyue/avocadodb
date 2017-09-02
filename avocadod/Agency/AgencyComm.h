@@ -22,8 +22,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_AGENCY_COMM_H
-#define ARANGOD_CLUSTER_AGENCY_COMM_H 1
+#ifndef AVOCADOD_CLUSTER_AGENCY_COMM_H
+#define AVOCADOD_CLUSTER_AGENCY_COMM_H 1
 
 #include "Basics/Common.h"
 

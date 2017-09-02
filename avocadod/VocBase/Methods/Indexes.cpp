@@ -81,7 +81,7 @@ Result Indexes::getIndex(avocadodb::LogicalCollection const* collection,
   } else if (id.isInteger()) {
     name = collection->name() + "/" + StringUtils::itoa(id.getUInt());
   } else {
-    return Result(TRI_ERROR_ARANGO_INDEX_NOT_FOUND);
+    return Result(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND);
   }
 
   VPackBuilder tmp;
@@ -94,7 +94,7 @@ Result Indexes::getIndex(avocadodb::LogicalCollection const* collection,
       }
     }
   }
-  return Result(TRI_ERROR_ARANGO_INDEX_NOT_FOUND);
+  return Result(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND);
 }
 
 avocadodb::Result Indexes::getAll(avocadodb::LogicalCollection const* collection,
@@ -265,7 +265,7 @@ static Result EnsureIndexLocal(avocadodb::LogicalCollection* collection,
   // disallow index creation in read-only mode
   if (!collection->isSystem() && create &&
       TRI_GetOperationModeServer() == TRI_VOCBASE_MODE_NO_CREATE) {
-    return Result(TRI_ERROR_ARANGO_READ_ONLY);
+    return Result(TRI_ERROR_AVOCADO_READ_ONLY);
   }
 
   bool created = false;
@@ -286,7 +286,7 @@ static Result EnsureIndexLocal(avocadodb::LogicalCollection* collection,
     idx = collection->lookupIndex(definition);
     if (idx == nullptr) {
       // Index not found
-      return Result(TRI_ERROR_ARANGO_INDEX_NOT_FOUND);
+      return Result(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND);
     }
   }
 
@@ -428,7 +428,7 @@ Result Indexes::ensureIndex(avocadodb::LogicalCollection* collection,
     } else if (tmp.slice().isNone()) {
       // did not find a suitable index
       return Result(create ? TRI_ERROR_OUT_OF_MEMORY
-                           : TRI_ERROR_ARANGO_INDEX_NOT_FOUND);
+                           : TRI_ERROR_AVOCADO_INDEX_NOT_FOUND);
     }
     // the cluster won't set a proper id value
     std::string iid = tmp.slice().get("id").copyString();
@@ -495,7 +495,7 @@ Result Indexes::extractHandle(avocadodb::LogicalCollection const* collection,
   // extract the index identifier from a string
   if (val.isString() || val.isNumber()) {
     if (!ExtractIndexHandle(val, collectionName, iid)) {
-      return Result(TRI_ERROR_ARANGO_INDEX_HANDLE_BAD);
+      return Result(TRI_ERROR_AVOCADO_INDEX_HANDLE_BAD);
     }
   }
 
@@ -504,7 +504,7 @@ Result Indexes::extractHandle(avocadodb::LogicalCollection const* collection,
     VPackSlice iidVal = val.get("id");
 
     if (!ExtractIndexHandle(iidVal, collectionName, iid)) {
-      return Result(TRI_ERROR_ARANGO_INDEX_HANDLE_BAD);
+      return Result(TRI_ERROR_AVOCADO_INDEX_HANDLE_BAD);
     }
   }
 
@@ -512,7 +512,7 @@ Result Indexes::extractHandle(avocadodb::LogicalCollection const* collection,
     if (!EqualCollection(resolver, collectionName, collection)) {
       // I wish this error provided me with more information!
       // e.g. 'cannot access index outside the collection it was defined in'
-      return Result(TRI_ERROR_ARANGO_CROSS_COLLECTION_REQUEST);
+      return Result(TRI_ERROR_AVOCADO_CROSS_COLLECTION_REQUEST);
     }
   }
   return Result();
@@ -569,7 +569,7 @@ avocadodb::Result Indexes::drop(avocadodb::LogicalCollection const* collection,
 
     std::shared_ptr<Index> idx = collection->lookupIndex(iid);
     if (!idx || idx->id() == 0) {
-      return Result(TRI_ERROR_ARANGO_INDEX_NOT_FOUND);
+      return Result(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND);
     }
     if (!idx->canBeDropped()) {
       return Result(TRI_ERROR_FORBIDDEN);

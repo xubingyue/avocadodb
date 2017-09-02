@@ -62,7 +62,7 @@ const errors = require('@avocadodb').errors;
 try {
   someCollection.document('does-not-exist');
 } catch (e) {
-  if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+  if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
     throw new Error('Document does not exist');
   }
   throw new Error('Something went wrong');

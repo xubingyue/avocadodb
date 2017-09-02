@@ -393,7 +393,7 @@ void RocksDBEngine::start() {
     if (!status.ok()) {
       // check if we have found the database directory or not
       Result res = rocksutils::convertStatus(status);
-      if (res.errorNumber() != TRI_ERROR_ARANGO_IO_ERROR) {
+      if (res.errorNumber() != TRI_ERROR_AVOCADO_IO_ERROR) {
         // not an I/O error. so we better report the error and abort here
         LOG_TOPIC(FATAL, avocadodb::Logger::STARTUP)
             << "unable to initialize RocksDB engine: " << status.ToString();
@@ -629,7 +629,7 @@ void RocksDBEngine::getDatabases(avocadodb::velocypack::Builder& result) {
       LOG_TOPIC(ERR, avocadodb::Logger::STARTUP)
           << "found invalid database declaration with non-string id: "
           << slice.toJson();
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
 
     // deleted
@@ -652,7 +652,7 @@ void RocksDBEngine::getDatabases(avocadodb::velocypack::Builder& result) {
       LOG_TOPIC(ERR, avocadodb::Logger::STARTUP)
           << "found invalid database declaration with non-string name: "
           << slice.toJson();
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
 
     result.add(slice);
@@ -675,7 +675,7 @@ void RocksDBEngine::getCollectionInfo(TRI_vocbase_t* vocbase, TRI_voc_cid_t cid,
   auto result = rocksutils::convertStatus(res);
 
   if (result.errorNumber() != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(result.errorNumber());
+    THROW_AVOCADO_EXCEPTION(result.errorNumber());
   }
 
   VPackSlice fullParameters = RocksDBValue::data(value);
@@ -931,7 +931,7 @@ std::string RocksDBEngine::createCollection(
       RocksDBLogValue::CollectionCreate(vocbase->id(), cid));
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   return std::string();  // no need to return a path
@@ -959,7 +959,7 @@ avocadodb::Result RocksDBEngine::persistCollection(
       RocksDBLogValue::CollectionCreate(vocbase->id(), cid));
   result.reset(res);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (result.ok()) {
     RocksDBCollection* rcoll = toRocksDBCollection(collection->getPhysical());
     TRI_ASSERT(rcoll->numberDocuments() == 0);
@@ -1033,13 +1033,13 @@ avocadodb::Result RocksDBEngine::dropCollection(
     return TRI_ERROR_NO_ERROR;
   }
   
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   //check if documents have been deleted
   rocksdb::ReadOptions readOptions;
   readOptions.fill_cache = false;
   size_t numDocs = rocksutils::countKeyRange(rocksutils::globalRocksDB(), readOptions, bounds);
   if (numDocs) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in drop collection failed - not all documents have been deleted");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in drop collection failed - not all documents have been deleted");
   }
 #endif
 
@@ -1088,7 +1088,7 @@ void RocksDBEngine::changeCollection(
       RocksDBLogValue::CollectionChange(vocbase->id(), id));
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 }
 
@@ -1123,7 +1123,7 @@ void RocksDBEngine::createView(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
   auto status = rocksutils::globalRocksDBPut(RocksDBColumnFamily::definitions(),
                                              key.string(), value.string());
   if (!status.ok()) {
-    THROW_ARANGO_EXCEPTION(status.errorNumber());
+    THROW_AVOCADO_EXCEPTION(status.errorNumber());
   }
 }
 
@@ -1240,7 +1240,7 @@ Result RocksDBEngine::createLoggerState(TRI_vocbase_t* vocbase,
 
   // "server" part
   builder.add("server", VPackValue(VPackValueType::Object));  // open
-  builder.add("version", VPackValue(ARANGODB_VERSION));
+  builder.add("version", VPackValue(AVOCADODB_VERSION));
   builder.add("serverId", VPackValue(std::to_string(ServerIdFeature::getId())));
   builder.close();
 
@@ -1380,13 +1380,13 @@ Result RocksDBEngine::dropDatabase(TRI_voc_tick_t id) {
         if (res.fail()) {
           return res;
         }
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
         //check if documents have been deleted
         rocksdb::ReadOptions readOptions;
         readOptions.fill_cache = false;
         size_t numDocs = rocksutils::countKeyRange(rocksutils::globalRocksDB(), readOptions, bounds);
         if (numDocs) {
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in drop collection failed - not all index documents have been deleted");
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in drop collection failed - not all index documents have been deleted");
         }
 #endif
       }
@@ -1408,13 +1408,13 @@ Result RocksDBEngine::dropDatabase(TRI_voc_tick_t id) {
       return res;
     }
     
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     //check if documents have been deleted
     rocksdb::ReadOptions readOptions;
     readOptions.fill_cache = false;
     size_t numDocs = rocksutils::countKeyRange(rocksutils::globalRocksDB(), readOptions, bounds);
     if (numDocs) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in drop collection failed - not all documents have been deleted");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in drop collection failed - not all documents have been deleted");
     }
 #endif
   }
@@ -1479,7 +1479,7 @@ TRI_vocbase_t* RocksDBEngine::openExistingDatabase(TRI_voc_tick_t id,
     int res = getViews(vocbase.get(), builder);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     VPackSlice slice = builder.slice();
@@ -1526,7 +1526,7 @@ TRI_vocbase_t* RocksDBEngine::openExistingDatabase(TRI_voc_tick_t id,
                                        isUpgrade);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     VPackSlice slice = builder.slice();

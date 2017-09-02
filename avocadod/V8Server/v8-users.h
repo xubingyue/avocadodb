@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_V8_SERVER_V8_USERS_H
-#define ARANGOD_V8_SERVER_V8_USERS_H 1
+#ifndef AVOCADOD_V8_SERVER_V8_USERS_H
+#define AVOCADOD_V8_SERVER_V8_USERS_H 1
 
 #include <v8.h>
 

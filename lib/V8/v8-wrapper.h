@@ -46,8 +46,8 @@
 /// USE OR OTHER DEALINGS IN THE SOFTWARE.
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_V8_V8__WRAPPER_H
-#define ARANGODB_V8_V8__WRAPPER_H 1
+#ifndef AVOCADODB_V8_V8__WRAPPER_H
+#define AVOCADODB_V8_V8__WRAPPER_H 1
 
 #include "Basics/Common.h"
 

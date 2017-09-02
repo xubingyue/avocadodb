@@ -373,8 +373,8 @@ bool VstCommTask::processRead(double startTime) {
       if (request->requestContext() == nullptr) {
         handleSimpleError(
                           rest::ResponseCode::NOT_FOUND, *request,
-                          TRI_ERROR_ARANGO_DATABASE_NOT_FOUND,
-                          TRI_errno_string(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND),
+                          TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND,
+                          TRI_errno_string(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND),
                           chunkHeader._messageID);
       } else {
         request->setClientTaskId(_taskId);
@@ -394,8 +394,8 @@ bool VstCommTask::processRead(double startTime) {
           if (request->requestContext() == nullptr) {
             handleSimpleError(
                               rest::ResponseCode::NOT_FOUND, *request,
-                              TRI_ERROR_ARANGO_DATABASE_NOT_FOUND,
-                              TRI_errno_string(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND),
+                              TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND,
+                              TRI_errno_string(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND),
                               chunkHeader._messageID);
           } else {
             request->setClientTaskId(_taskId);
@@ -485,7 +485,7 @@ bool VstCommTask::getMessageFromSingleChunk(
   } catch (std::exception const& e) {
     VstRequest fakeRequest( _connectionInfo, VstInputMessage{}, 0, true /*isFake*/);
     handleSimpleError(rest::ResponseCode::BAD, fakeRequest,
-                      TRI_ERROR_ARANGO_DATABASE_NOT_FOUND, e.what(),
+                      TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND, e.what(),
                       chunkHeader._messageID);
     LOG_TOPIC(DEBUG, Logger::COMMUNICATION)
         << "VstCommTask: "
@@ -578,7 +578,7 @@ bool VstCommTask::getMessageFromMultiChunks(
       } catch (std::exception const& e) {
         VstRequest fakeRequest( _connectionInfo, VstInputMessage{}, 0, true /*isFake*/);
         handleSimpleError(rest::ResponseCode::BAD, fakeRequest,
-                          TRI_ERROR_ARANGO_DATABASE_NOT_FOUND, e.what(),
+                          TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND, e.what(),
                           chunkHeader._messageID);
         LOG_TOPIC(DEBUG, Logger::COMMUNICATION)
             << "VstCommTask: "

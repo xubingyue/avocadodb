@@ -4,16 +4,16 @@ if test "`git status --short | grep '^\(.[MAU]\|[MAU].\) .*js$' | wc -l`" -eq 0;
   exit 0;
 fi
 
-if [ -z "${ARANGOSH}" ];  then
+if [ -z "${AVOCADOSH}" ];  then
   if [ -x build/bin/avocadosh ];  then
-    ARANGOSH=build/bin/avocadosh
+    AVOCADOSH=build/bin/avocadosh
   elif [ -x bin/avocadosh ];  then
-    ARANGOSH=bin/avocadosh
+    AVOCADOSH=bin/avocadosh
   else
     echo "$0: cannot locate avocadosh"
   fi
 fi
 
 for file in ` git status --short | grep '^\(.[MAU]\|[MAU].\) .*js$' | cut -d " " -f 3`; do
-  ${ARANGOSH} -c etc/relative/avocadosh.conf --log.level error --jslint $file || exit 1
+  ${AVOCADOSH} -c etc/relative/avocadosh.conf --log.level error --jslint $file || exit 1
 done

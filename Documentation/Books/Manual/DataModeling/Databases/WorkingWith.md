@@ -21,9 +21,9 @@ Returns the name of the current database as a string.
 
 
 @startDocuBlockInline dbName
-@EXAMPLE_ARANGOSH_OUTPUT{dbName}
+@EXAMPLE_AVOCADOSH_OUTPUT{dbName}
   require("@avocadodb").db._name();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 @endDocuBlock dbName
 
 
@@ -41,9 +41,9 @@ Returns the id of the current database as a string.
 
 
 @startDocuBlockInline dbId
-@EXAMPLE_ARANGOSH_OUTPUT{dbId}
+@EXAMPLE_AVOCADOSH_OUTPUT{dbId}
   require("@avocadodb").db._id();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 @endDocuBlock dbId
 
 
@@ -61,9 +61,9 @@ Returns the filesystem path of the current database as a string.
 
 
 @startDocuBlockInline dbPath
-@EXAMPLE_ARANGOSH_OUTPUT{dbPath}
+@EXAMPLE_AVOCADOSH_OUTPUT{dbPath}
   require("@avocadodb").db._path();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 @endDocuBlock dbPath
 
 

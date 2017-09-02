@@ -172,7 +172,7 @@ function indexSuite() {
           fail();
         }
         catch (err) {
-          assertEqual(errors.ERROR_ARANGO_INDEX_NOT_FOUND.code, err.errorNum);
+          assertEqual(errors.ERROR_AVOCADO_INDEX_NOT_FOUND.code, err.errorNum);
         }
       });
     },
@@ -207,7 +207,7 @@ function indexSuite() {
         fail();
       }
       catch (e1) {
-        assertEqual(errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, e1.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code, e1.errorNum);
       }
 
       try {
@@ -215,7 +215,7 @@ function indexSuite() {
         fail();
       }
       catch (e2) {
-        assertEqual(errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, e2.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code, e2.errorNum);
       }
     }
 
@@ -1106,7 +1106,7 @@ function multiIndexRollbackSuite() {
         internal.db._query('FOR doc IN [ {_from: "fromC/a", _to: "toC/1", link: "one", ext: 2337789}, {_from: "fromC/b", _to: "toC/1", link: "two", ext: 2337799}, {_from: "fromC/c", _to: "toC/1", link: "one", ext: 2337789} ] UPSERT {_from: doc._from, _to: doc._to, link: doc.link} INSERT { _from: doc._from, _to: doc._to, link: doc.link, ext: doc.ext} UPDATE {ext: doc.ext} IN ' + collection.name());
         fail();
       } catch (err) {
-        assertEqual(errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       res = internal.db._query("FOR doc IN " + collection.name() + " FILTER doc._to == 'toC/1' RETURN doc._from").toArray();

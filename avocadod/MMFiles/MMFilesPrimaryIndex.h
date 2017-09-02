@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_PRIMARY_INDEX_H
-#define ARANGOD_MMFILES_PRIMARY_INDEX_H 1
+#ifndef AVOCADOD_MMFILES_PRIMARY_INDEX_H
+#define AVOCADOD_MMFILES_PRIMARY_INDEX_H 1
 
 #include "Basics/AssocUnique.h"
 #include "Basics/Common.h"

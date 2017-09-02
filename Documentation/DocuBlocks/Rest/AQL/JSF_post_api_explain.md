@@ -98,7 +98,7 @@ accessed in the query.
 
 Valid query
 
-@EXAMPLE_ARANGOSH_RUN{RestExplainValid}
+@EXAMPLE_AVOCADOSH_RUN{RestExplainValid}
     var url = "/_api/explain";
     var cn = "products";
     db._drop(cn);
@@ -114,11 +114,11 @@ Valid query
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 A plan with some optimizer rules applied
 
-@EXAMPLE_ARANGOSH_RUN{RestExplainOptimizerRules}
+@EXAMPLE_AVOCADOSH_RUN{RestExplainOptimizerRules}
     var url = "/_api/explain";
     var cn = "products";
     db._drop(cn);
@@ -135,11 +135,11 @@ A plan with some optimizer rules applied
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using some options
 
-@EXAMPLE_ARANGOSH_RUN{RestExplainOptions}
+@EXAMPLE_AVOCADOSH_RUN{RestExplainOptions}
     var url = "/_api/explain";
     var cn = "products";
     db._drop(cn);
@@ -163,11 +163,11 @@ Using some options
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Returning all plans
 
-@EXAMPLE_ARANGOSH_RUN{RestExplainAllPlans}
+@EXAMPLE_AVOCADOSH_RUN{RestExplainAllPlans}
     var url = "/_api/explain";
     var cn = "products";
     db._drop(cn);
@@ -186,11 +186,11 @@ Returning all plans
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 A query that produces a warning
 
-@EXAMPLE_ARANGOSH_RUN{RestExplainWarning}
+@EXAMPLE_AVOCADOSH_RUN{RestExplainWarning}
     var url = "/_api/explain";
     body = { 
       query : "FOR i IN 1..10 RETURN 1 / 0"
@@ -201,11 +201,11 @@ A query that produces a warning
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Invalid query (missing bind parameter)
 
-@EXAMPLE_ARANGOSH_RUN{RestExplainInvalid}
+@EXAMPLE_AVOCADOSH_RUN{RestExplainInvalid}
     var url = "/_api/explain";
     var cn = "products";
     db._drop(cn);
@@ -220,7 +220,7 @@ Invalid query (missing bind parameter)
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 The data returned in the **plan** attribute of the result contains one element per AQL top-level statement
 (i.e. `FOR`, `RETURN`, `FILTER` etc.). If the query optimizer removed some unnecessary statements,
@@ -229,7 +229,7 @@ the result might also contain less elements than there were top-level statements
 The following example shows a query with a non-sensible filter condition that
 the optimizer has removed so that there are less top-level statements.
 
-@EXAMPLE_ARANGOSH_RUN{RestExplainEmpty}
+@EXAMPLE_AVOCADOSH_RUN{RestExplainEmpty}
     var url = "/_api/explain";
     var cn = "products";
     db._drop(cn);
@@ -242,6 +242,6 @@ the optimizer has removed so that there are less top-level statements.
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

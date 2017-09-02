@@ -56,7 +56,7 @@ is returned if the logger state could not be determined.
 
 Returns the state of the replication logger.
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerStateActive}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationLoggerStateActive}
     var re = require("@avocadodb/replication");
 
     var url = "/_api/replication/logger-state";
@@ -66,6 +66,6 @@ Returns the state of the replication logger.
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

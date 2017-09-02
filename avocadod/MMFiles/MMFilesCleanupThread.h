@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_CLEANUP_THREAD_H
-#define ARANGOD_MMFILES_MMFILES_CLEANUP_THREAD_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_CLEANUP_THREAD_H
+#define AVOCADOD_MMFILES_MMFILES_CLEANUP_THREAD_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ConditionVariable.h"

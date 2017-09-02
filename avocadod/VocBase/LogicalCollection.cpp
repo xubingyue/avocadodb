@@ -217,7 +217,7 @@ LogicalCollection::LogicalCollection(TRI_vocbase_t* vocbase,
 
   TRI_ASSERT(_physical != nullptr);
   if (!IsAllowedName(info)) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_NAME);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_NAME);
   }
 
   // This has to be called AFTER _phyiscal and _logical are properly linked
@@ -230,7 +230,7 @@ LogicalCollection::LogicalCollection(TRI_vocbase_t* vocbase,
                          "' has a too old version. Please start the server "
                          "with the --database.auto-upgrade option.");
 
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FAILED, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FAILED, errorMsg);
   }
 
   VPackSlice shardKeysSlice = info.get("shardKeys");
@@ -239,7 +239,7 @@ LogicalCollection::LogicalCollection(TRI_vocbase_t* vocbase,
   // Cluster only tests
   if (ServerState::instance()->isCoordinator()) {
     if ((_numberOfShards == 0 && !_isSmart) || _numberOfShards > 1000) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "invalid number of shards");
     }
 
@@ -249,7 +249,7 @@ LogicalCollection::LogicalCollection(TRI_vocbase_t* vocbase,
       if (keyGenSlice.isString()) {
         StringRef tmp(keyGenSlice);
         if (!tmp.empty() && tmp != "traditional") {
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_CLUSTER_UNSUPPORTED,
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_CLUSTER_UNSUPPORTED,
                                          "non-traditional key generators are "
                                          "not supported for sharded "
                                          "collections");
@@ -283,7 +283,7 @@ LogicalCollection::LogicalCollection(TRI_vocbase_t* vocbase,
     }
 #endif
     if (isError) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "invalid replicationFactor");
     }
   }
@@ -324,7 +324,7 @@ LogicalCollection::LogicalCollection(TRI_vocbase_t* vocbase,
   }
 
   if (_shardKeys.empty() || _shardKeys.size() > 8) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "invalid number of shard keys");
   }
 
@@ -715,9 +715,9 @@ int LogicalCollection::rename(std::string const& newName) {
   // Check for illegal states.
   switch (_status) {
     case TRI_VOC_COL_STATUS_CORRUPTED:
-      return TRI_ERROR_ARANGO_CORRUPTED_COLLECTION;
+      return TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION;
     case TRI_VOC_COL_STATUS_DELETED:
-      return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
     default:
       // Fall through intentional
       break;
@@ -988,7 +988,7 @@ std::shared_ptr<avocadodb::velocypack::Builder> LogicalCollection::figures() {
     int res = figuresOnCoordinator(dbName(), cid_as_string(), builder);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
     return builder;
   }
@@ -1012,7 +1012,7 @@ std::shared_ptr<Index> LogicalCollection::lookupIndex(
     VPackSlice const& info) const {
   if (!info.isObject()) {
     // Compatibility with old v8-vocindex.
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   return getPhysical()->lookupIndex(info);
 }
@@ -1103,7 +1103,7 @@ Result LogicalCollection::update(transaction::Methods* trx,
   resultMarkerTick = 0;
 
   if (!newSlice.isObject()) {
-    return Result(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    return Result(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
 
   prevRev = 0;
@@ -1112,7 +1112,7 @@ Result LogicalCollection::update(transaction::Methods* trx,
   if (options.isRestore) {
     VPackSlice oldRev = TRI_ExtractRevisionIdAsSlice(newSlice);
     if (!oldRev.isString()) {
-      return Result(TRI_ERROR_ARANGO_DOCUMENT_REV_BAD);
+      return Result(TRI_ERROR_AVOCADO_DOCUMENT_REV_BAD);
     }
     bool isOld;
     VPackValueLength l;
@@ -1128,7 +1128,7 @@ Result LogicalCollection::update(transaction::Methods* trx,
 
   VPackSlice key = newSlice.get(StaticStrings::KeyString);
   if (key.isNone()) {
-    return Result(TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD);
+    return Result(TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD);
   }
 
   return getPhysical()->update(trx, newSlice, result, options, resultMarkerTick,
@@ -1146,7 +1146,7 @@ Result LogicalCollection::replace(transaction::Methods* trx,
   resultMarkerTick = 0;
 
   if (!newSlice.isObject()) {
-    return Result(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    return Result(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
 
   prevRev = 0;
@@ -1156,11 +1156,11 @@ Result LogicalCollection::replace(transaction::Methods* trx,
   if (type() == TRI_COL_TYPE_EDGE) {
     fromSlice = newSlice.get(StaticStrings::FromString);
     if (!fromSlice.isString()) {
-      return Result(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      return Result(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
     }
     toSlice = newSlice.get(StaticStrings::ToString);
     if (!toSlice.isString()) {
-      return Result(TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE);
+      return Result(TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE);
     }
   }
 
@@ -1168,7 +1168,7 @@ Result LogicalCollection::replace(transaction::Methods* trx,
   if (options.isRestore) {
     VPackSlice oldRev = TRI_ExtractRevisionIdAsSlice(newSlice);
     if (!oldRev.isString()) {
-      return Result(TRI_ERROR_ARANGO_DOCUMENT_REV_BAD);
+      return Result(TRI_ERROR_AVOCADO_DOCUMENT_REV_BAD);
     }
     bool isOld;
     VPackValueLength l;

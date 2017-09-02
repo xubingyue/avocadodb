@@ -42,7 +42,7 @@ Returned if no graph with this name could be found.
 
 You can remove vertex collections that are not used in any edge collection:
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialRemoveVertexCollection}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialRemoveVertexCollection}
   var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   var g = examples.loadGraph("social");
@@ -55,11 +55,11 @@ You can remove vertex collections that are not used in any edge collection:
   logJsonResponse(response);
 ~ examples.dropGraph("social");
 ~ db._drop("otherVertices");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 You cannot remove vertex collections that are used in edge collections:
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialRemoveVertexCollectionFailed}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialRemoveVertexCollectionFailed}
   var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   var g = examples.loadGraph("social");
@@ -73,6 +73,6 @@ You cannot remove vertex collections that are used in edge collections:
   db._drop("female");
   db._drop("relation");
 ~ examples.dropGraph("social");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock

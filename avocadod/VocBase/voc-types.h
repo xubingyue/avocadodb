@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_VOC_TYPES_H
-#define ARANGOD_VOC_BASE_VOC_TYPES_H 1
+#ifndef AVOCADOD_VOC_BASE_VOC_TYPES_H
+#define AVOCADOD_VOC_BASE_VOC_TYPES_H 1
 
 #include "Basics/Common.h"
 

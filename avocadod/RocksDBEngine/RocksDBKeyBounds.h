@@ -22,8 +22,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_KEY_BOUNDS_H
-#define ARANGO_ROCKSDB_ROCKSDB_KEY_BOUNDS_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_KEY_BOUNDS_H
+#define AVOCADO_ROCKSDB_ROCKSDB_KEY_BOUNDS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/StringRef.h"

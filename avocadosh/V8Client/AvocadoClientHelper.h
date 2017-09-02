@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_V8CLIENT_ARANGO_CLIENT_HELPER_H
-#define ARANGODB_V8CLIENT_ARANGO_CLIENT_HELPER_H 1
+#ifndef AVOCADODB_V8CLIENT_AVOCADO_CLIENT_HELPER_H
+#define AVOCADODB_V8CLIENT_AVOCADO_CLIENT_HELPER_H 1
 
 #include "Basics/Common.h"
 

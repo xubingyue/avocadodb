@@ -175,7 +175,7 @@ int MMFilesSynchronizerThread::doSync(bool& checkMore) {
   if (!result) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "unable to sync wal logfile region";
 
-    return TRI_ERROR_ARANGO_MSYNC_FAILED;
+    return TRI_ERROR_AVOCADO_MSYNC_FAILED;
   }
 
   // all ok

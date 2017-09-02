@@ -56,7 +56,7 @@ response body contains an error document in this case.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleWithinRectangle}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleWithinRectangle}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -82,6 +82,6 @@ response body contains an error document in this case.
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_DATAFILE_HELPER_H
-#define ARANGOD_MMFILES_MMFILES_DATAFILE_HELPER_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_DATAFILE_HELPER_H
+#define AVOCADOD_MMFILES_MMFILES_DATAFILE_HELPER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/encoding.h"

@@ -117,7 +117,7 @@ Create a document in a collection named *products*. Note that the
 revision identifier might or might not by equal to the auto-generated
 key.
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPostCreate1}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPostCreate1}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: true });
@@ -131,12 +131,12 @@ key.
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Create a document in a collection named *products* with a collection-level
 *waitForSync* value of *false*.
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPostAccept1}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPostAccept1}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: false });
@@ -150,12 +150,12 @@ Create a document in a collection named *products* with a collection-level
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Create a document in a collection with a collection-level *waitForSync*
 value of *false*, but using the *waitForSync* query parameter.
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPostWait1}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPostWait1}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: false });
@@ -169,11 +169,11 @@ value of *false*, but using the *waitForSync* query parameter.
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Unknown collection name
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPostUnknownCollection1}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPostUnknownCollection1}
     var cn = "products";
 
     var url = "/_api/document/" + cn;
@@ -184,11 +184,11 @@ Unknown collection name
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Illegal document
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPostBadJson1}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPostBadJson1}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -202,11 +202,11 @@ Illegal document
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Insert multiple documents:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPostMulti1}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPostMulti1}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -220,11 +220,11 @@ Insert multiple documents:
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Use of returnNew:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPostMulti2}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPostMulti2}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -238,6 +238,6 @@ Use of returnNew:
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

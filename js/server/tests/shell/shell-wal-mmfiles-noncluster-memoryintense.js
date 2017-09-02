@@ -141,7 +141,7 @@ function walFailureSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_NO_JOURNAL.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_NO_JOURNAL.code, err.errorNum);
       }
 
       internal.debugClearFailAt();
@@ -205,7 +205,7 @@ function walFailureSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_WRITE_THROTTLE_TIMEOUT.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_WRITE_THROTTLE_TIMEOUT.code, err.errorNum);
       }
 
       internal.debugClearFailAt();
@@ -512,7 +512,7 @@ function walSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_DOCUMENT_TOO_LARGE.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_DOCUMENT_TOO_LARGE.code, err.errorNum);
       }
     },
 

@@ -41,9 +41,9 @@
     exports.AvocadoConnection = global.AvocadoConnection;
   }
 
-  if (global.SYS_ARANGO) {
-    exports.avocado = global.SYS_ARANGO;
-    delete global.SYS_ARANGO;
+  if (global.SYS_AVOCADO) {
+    exports.avocado = global.SYS_AVOCADO;
+    delete global.SYS_AVOCADO;
   }
 
   // //////////////////////////////////////////////////////////////////////////////

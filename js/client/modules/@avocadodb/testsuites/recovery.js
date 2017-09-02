@@ -85,10 +85,10 @@ function runAvocadodRecovery (instanceInfo, options, script, setup) {
     '--javascript.script', script
   ]);
 
-  let binary = pu.ARANGOD_BIN;
+  let binary = pu.AVOCADOD_BIN;
   if (setup) {
     binary = pu.TOP_DIR + '/scripts/disable-cores.sh';
-    argv.unshift(pu.ARANGOD_BIN);
+    argv.unshift(pu.AVOCADOD_BIN);
   }
 
   instanceInfo.pid = pu.executeAndWait(binary, argv, options, 'recovery', instanceInfo.rootDir, setup);
@@ -97,8 +97,8 @@ function runAvocadodRecovery (instanceInfo, options, script, setup) {
 function recovery (options) {
   let results = {};
 
-  if (!global.ARANGODB_CLIENT_VERSION(true)['failure-tests'] ||
-      global.ARANGODB_CLIENT_VERSION(true)['failure-tests'] === 'false') {
+  if (!global.AVOCADODB_CLIENT_VERSION(true)['failure-tests'] ||
+      global.AVOCADODB_CLIENT_VERSION(true)['failure-tests'] === 'false') {
     results.recovery = {
       status: false,
       message: 'failure-tests not enabled. please recompile with -DUSE_FAILURE_TESTS=On'

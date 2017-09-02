@@ -54,7 +54,7 @@ BaseEngine::BaseEngine(TRI_vocbase_t* vocbase, VPackSlice info)
     : _query(nullptr), _trx(nullptr), _collections(vocbase) {
   VPackSlice shardsSlice = info.get(SHARDS);
   if (shardsSlice.isNone() || !shardsSlice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The body requires a " + SHARDS + " attribute.");
   }
@@ -62,7 +62,7 @@ BaseEngine::BaseEngine(TRI_vocbase_t* vocbase, VPackSlice info)
   VPackSlice edgesSlice = shardsSlice.get(EDGES);
 
   if (edgesSlice.isNone() || !edgesSlice.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The " + SHARDS + " object requires an " + EDGES + " attribute.");
   }
@@ -70,7 +70,7 @@ BaseEngine::BaseEngine(TRI_vocbase_t* vocbase, VPackSlice info)
   VPackSlice vertexSlice = shardsSlice.get(VERTICES);
 
   if (vertexSlice.isNone() || !vertexSlice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The " + SHARDS + " object requires a " + VERTICES + " attribute.");
   }
@@ -112,7 +112,7 @@ BaseEngine::BaseEngine(TRI_vocbase_t* vocbase, VPackSlice info)
   VPackSlice variablesSlice = info.get(VARIABLES);
   if (!variablesSlice.isNone()) {
     if (!variablesSlice.isArray()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_BAD_PARAMETER,
           "The optional " + VARIABLES + " has to be an array.");
     }
@@ -171,7 +171,7 @@ void BaseEngine::getVertexData(VPackSlice vertex, VPackBuilder& builder) {
     std::string name = id.substr(0, id.find('/')).toString();
     auto shards = _vertexShards.find(name);
     if (shards == _vertexShards.end()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_QUERY_COLLECTION_LOCK_FAILED,
           "collection not known to traversal: '" + name +
               "'. please add 'WITH " + name +
@@ -187,9 +187,9 @@ void BaseEngine::getVertexData(VPackSlice vertex, VPackBuilder& builder) {
         // FOUND short circuit.
         break;
       }
-      if (res.isNot(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND)) {
+      if (res.isNot(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND)) {
         // We are in a very bad condition here...
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
     }
     if (!found) {
@@ -258,7 +258,7 @@ void BaseTraverserEngine::getEdges(VPackSlice vertex, size_t depth,
         });
     // Result now contains all valid edges, probably multiples.
   } else {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
   builder.close();
   builder.add("readIndex",
@@ -285,7 +285,7 @@ void BaseTraverserEngine::getVertexData(VPackSlice vertex, size_t depth,
     std::string name = id.substr(0, id.find('/')).toString();
     auto shards = _vertexShards.find(name);
     if (shards == _vertexShards.end()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_QUERY_COLLECTION_LOCK_FAILED,
           "collection not known to traversal: '" + name +
               "'. please add 'WITH " + name +
@@ -300,9 +300,9 @@ void BaseTraverserEngine::getVertexData(VPackSlice vertex, size_t depth,
         // FOUND short circuit.
         break;
       }
-      if (res.isNot(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND)) {
+      if (res.isNot(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND)) {
         // We are in a very bad condition here...
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
     }
     // TODO FILTERING!
@@ -331,7 +331,7 @@ ShortestPathEngine::ShortestPathEngine(TRI_vocbase_t* vocbase,
     : BaseEngine(vocbase, info) {
   VPackSlice optsSlice = info.get(OPTIONS);
   if (optsSlice.isNone() || !optsSlice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The body requires an " + OPTIONS + " attribute.");
   }
@@ -339,7 +339,7 @@ ShortestPathEngine::ShortestPathEngine(TRI_vocbase_t* vocbase,
   VPackSlice edgesSlice = shardsSlice.get(EDGES);
   VPackSlice type = optsSlice.get(TYPE);
   if (!type.isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The " + OPTIONS + " require a " + TYPE + " attribute.");
   }
@@ -349,7 +349,7 @@ ShortestPathEngine::ShortestPathEngine(TRI_vocbase_t* vocbase,
   if (_opts == nullptr) {
     // It seems we could not generate the options
     // without throwing an error. Must by OOM.
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   // We create the cache, but we do not need any engines.
   _opts->activateCache(false, nullptr);
@@ -405,7 +405,7 @@ void ShortestPathEngine::getEdges(VPackSlice vertex, bool backward,
     });
     // Result now contains all valid edges, probably multiples.
   } else {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
   builder.close();
   builder.add("readIndex",
@@ -419,7 +419,7 @@ TraverserEngine::TraverserEngine(TRI_vocbase_t* vocbase,
     : BaseTraverserEngine(vocbase, info) {
   VPackSlice optsSlice = info.get(OPTIONS);
   if (!optsSlice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The body requires an " + OPTIONS + " attribute.");
   }
@@ -427,7 +427,7 @@ TraverserEngine::TraverserEngine(TRI_vocbase_t* vocbase,
   VPackSlice edgesSlice = shardsSlice.get(EDGES);
   VPackSlice type = optsSlice.get(TYPE);
   if (!type.isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "The " + OPTIONS + " require a " + TYPE + " attribute.");
   }
@@ -437,7 +437,7 @@ TraverserEngine::TraverserEngine(TRI_vocbase_t* vocbase,
   if (_opts == nullptr) {
     // It seems we could not generate the options
     // without throwing an error. Must by OOM.
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   // We create the cache, but we do not need any engines.
   _opts->activateCache(false, nullptr);
@@ -446,9 +446,9 @@ TraverserEngine::TraverserEngine(TRI_vocbase_t* vocbase,
 TraverserEngine::~TraverserEngine() {}
 
 void TraverserEngine::smartSearch(VPackSlice, VPackBuilder&) {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_ONLY_ENTERPRISE);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_ONLY_ENTERPRISE);
 }
 
 void TraverserEngine::smartSearchBFS(VPackSlice, VPackBuilder&) {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_ONLY_ENTERPRISE);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_ONLY_ENTERPRISE);
 }

@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_CACHE_FREQUENCY_BUFFER_H
-#define ARANGODB_CACHE_FREQUENCY_BUFFER_H
+#ifndef AVOCADODB_CACHE_FREQUENCY_BUFFER_H
+#define AVOCADODB_CACHE_FREQUENCY_BUFFER_H
 
 #include "Basics/Common.h"
 

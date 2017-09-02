@@ -57,13 +57,13 @@ using namespace avocadodb::basics;
 
 static uint64_t checkTraversalDepthValue(AstNode const* node) {
   if (!node->isNumericValue()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                    "invalid traversal depth");
   }
   double v = node->getDoubleValue();
   double intpart;
   if (modf(v, &intpart) != 0.0 || v < 0.0) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                    "invalid traversal depth");
   }
   return static_cast<uint64_t>(v);
@@ -90,11 +90,11 @@ static std::unique_ptr<graph::BaseOptions> CreateTraversalOptions(
     options->maxDepth = checkTraversalDepthValue(steps->getMember(1));
 
     if (options->maxDepth < options->minDepth) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                      "invalid traversal depth");
     }
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                    "invalid traversal depth");
   }
 
@@ -125,7 +125,7 @@ static std::unique_ptr<graph::BaseOptions> CreateTraversalOptions(
             options->uniqueEdges =
                 avocadodb::traverser::TraverserOptions::UniquenessLevel::NONE;
           } else if (value->stringEquals("global", true)) {
-            THROW_ARANGO_EXCEPTION_MESSAGE(
+            THROW_AVOCADO_EXCEPTION_MESSAGE(
                 TRI_ERROR_BAD_PARAMETER,
                 "uniqueEdges: 'global' is not supported, "
                 "due to unpredictable results. Use 'path' "
@@ -138,7 +138,7 @@ static std::unique_ptr<graph::BaseOptions> CreateTraversalOptions(
   if (options->uniqueVertices ==
           avocadodb::traverser::TraverserOptions::UniquenessLevel::GLOBAL &&
       !options->useBreadthFirst) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "uniqueVertices: 'global' is only "
                                    "supported, with bfs: true due to "
                                    "unpredictable results.");
@@ -227,7 +227,7 @@ void ExecutionPlan::getCollectionsFromVelocyPack(Ast* ast,
   VPackSlice collectionsSlice = slice.get("collections");
 
   if (!collectionsSlice.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "json node \"collections\" not found or not an array");
   }
@@ -291,7 +291,7 @@ ExecutionPlan* ExecutionPlan::clone(Ast* ast) {
   plan->_root->walk(&adder);
 
   if (!adder.success) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "Could not clone plan");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "Could not clone plan");
   }
   // plan->findVarUsage();
   // Let's not do it here, because supposedly the plan is modified as
@@ -382,7 +382,7 @@ ExecutionNode* ExecutionPlan::getNodeById(size_t id) const {
   std::string msg = std::string("node [") + std::to_string(id) +
                     std::string("] wasn't found");
   // node unknown
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
 }
 
 /// @brief creates a calculation node for an arbitrary expression
@@ -480,7 +480,7 @@ Variable const* ExecutionPlan::getOutVariable(ExecutionNode const* node) const {
     return v;
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "invalid node type in getOutVariable");
 }
 
@@ -668,7 +668,7 @@ ExecutionNode* ExecutionPlan::fromNodeFor(ExecutionNode* previous,
     auto collection = collections->get(collectionName);
 
     if (collection == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "no collection for EnumerateCollection");
     }
     en = registerNode(new EnumerateCollectionNode(
@@ -887,7 +887,7 @@ ExecutionNode* ExecutionPlan::fromNodeLet(ExecutionNode* previous,
     auto subquery = fromNode(expression);
 
     if (subquery == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     en = registerNode(new SubqueryNode(this, nextId(), subquery, v));
@@ -1241,7 +1241,7 @@ ExecutionNode* ExecutionPlan::fromNodeLimit(ExecutionNode* previous,
     if ((offset->value.type != VALUE_TYPE_INT &&
          offset->value.type != VALUE_TYPE_DOUBLE) ||
         offset->getIntValue() < 0) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_QUERY_NUMBER_OUT_OF_RANGE,
           "LIMIT offset value is not a number or out of range");
     }
@@ -1255,7 +1255,7 @@ ExecutionNode* ExecutionPlan::fromNodeLimit(ExecutionNode* previous,
     if ((count->value.type != VALUE_TYPE_INT &&
          count->value.type != VALUE_TYPE_DOUBLE) ||
         count->getIntValue() < 0) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_QUERY_NUMBER_OUT_OF_RANGE,
           "LIMIT count value is not a number or out of range");
     }
@@ -1308,7 +1308,7 @@ ExecutionNode* ExecutionPlan::fromNodeRemove(ExecutionNode* previous,
   auto collection = collections->get(collectionName);
 
   if (collection == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "no collection for RemoveNode");
   }
 
@@ -1647,7 +1647,7 @@ ExecutionNode* ExecutionPlan::fromNode(AstNode const* node) {
     }
 
     if (en == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "type not handled");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "type not handled");
     }
   }
 
@@ -1815,7 +1815,7 @@ void ExecutionPlan::unlinkNode(ExecutionNode* node, bool allowUnlinkingRoot) {
 
   if (parents.empty()) {
     if (!allowUnlinkingRoot) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "Cannot unlink root node of plan");
     }
     // adjust root node. the caller needs to make sure that a new root node gets
@@ -1866,7 +1866,7 @@ void ExecutionPlan::replaceNode(ExecutionNode* oldNode,
 
   for (auto* oldNodeParent : oldNodeParents) {
     if (!oldNodeParent->replaceDependency(oldNode, newNode)) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_INTERNAL, "Could not replace dependencies of an old node");
     }
   }
@@ -1888,7 +1888,7 @@ void ExecutionPlan::insertDependency(ExecutionNode* oldNode,
   TRI_ASSERT(!oldDeps.empty());
 
   if (!oldNode->replaceDependency(oldDeps[0], newNode)) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "Could not replace dependencies of an old node");
   }
 
@@ -1901,7 +1901,7 @@ void ExecutionPlan::insertDependency(ExecutionNode* oldNode,
 /// @brief create a plan from VPack
 ExecutionNode* ExecutionPlan::fromSlice(VPackSlice const& slice) {
   if (!slice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "plan slice is not an object");
   }
 
@@ -1914,7 +1914,7 @@ ExecutionNode* ExecutionPlan::fromSlice(VPackSlice const& slice) {
   VPackSlice nodes = slice.get("nodes");
 
   if (!nodes.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "plan \"nodes\" attribute is not an array");
   }
 
@@ -1924,7 +1924,7 @@ ExecutionNode* ExecutionPlan::fromSlice(VPackSlice const& slice) {
   // no dependency links will be set up in this step
   for (auto const& it : VPackArrayIterator(nodes)) {
     if (!it.isObject()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "node entry in plan is not an object");
     }
 
@@ -1995,7 +1995,7 @@ bool ExecutionPlan::isDeadSimple() const {
   return true;
 }
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 
 #include <iostream>
 

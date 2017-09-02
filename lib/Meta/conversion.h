@@ -21,8 +21,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_META_CONVERSION_H
-#define ARANGODB_META_CONVERSION_H 1
+#ifndef AVOCADODB_META_CONVERSION_H
+#define AVOCADODB_META_CONVERSION_H 1
 
 #include <type_traits>
 

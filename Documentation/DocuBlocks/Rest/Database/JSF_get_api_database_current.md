@@ -30,13 +30,13 @@ is returned if the database could not be found.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestDatabaseGetInfo}
+@EXAMPLE_AVOCADOSH_RUN{RestDatabaseGetInfo}
     var url = "/_api/database/current";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

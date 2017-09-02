@@ -31,7 +31,7 @@ is to use an AQL query as follows:
 
 Use *toArray* to get all documents at once:
 
-@EXAMPLE_ARANGOSH_OUTPUT{005_collectionRange}
+@EXAMPLE_AVOCADOSH_OUTPUT{005_collectionRange}
 ~ db._create("old");
   db.old.ensureIndex({ type: "skiplist", fields: [ "age" ] });
   db.old.save({ age: 15 });
@@ -39,6 +39,6 @@ Use *toArray* to get all documents at once:
   db.old.save({ age: 30 });
   db.old.range("age", 10, 30).toArray();
 ~ db._drop("old")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

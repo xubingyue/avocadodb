@@ -132,7 +132,7 @@ void Constituent::termNoLock(term_t t) {
       auto res = trx.begin();
       
       if (!res.ok()) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
       
       OperationOptions options;
@@ -609,7 +609,7 @@ void Constituent::run() {
 
     auto queryResult = query.execute(_queryRegistry);
     if (queryResult.code != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
     }
 
     VPackSlice result = queryResult.result->slice();

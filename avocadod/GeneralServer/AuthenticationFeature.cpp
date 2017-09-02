@@ -84,7 +84,7 @@ void AuthenticationFeature::collectOptions(
       "use HTTP authentication only for requests to /_api and /_admin",
       new BooleanParameter(&_authenticationSystemOnly));
 
-#ifdef ARANGODB_HAVE_DOMAIN_SOCKETS
+#ifdef AVOCADODB_HAVE_DOMAIN_SOCKETS
   options->addOption("--server.authentication-unix-sockets",
                      "authentication for requests via UNIX domain sockets",
                      new BooleanParameter(&_authenticationUnixSockets));
@@ -155,7 +155,7 @@ void AuthenticationFeature::start() {
       out << " (system only)";
     }
 
-#ifdef ARANGODB_HAVE_DOMAIN_SOCKETS
+#ifdef AVOCADODB_HAVE_DOMAIN_SOCKETS
     out << ", authentication for unix sockets is turned "
         << (_authenticationUnixSockets ? "on" : "off");
 #endif

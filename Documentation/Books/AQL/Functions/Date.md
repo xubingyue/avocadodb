@@ -635,14 +635,14 @@ greater than etc.) to express time ranges in your queries while still utilizing
 skiplist indices:
 
     @startDocuBlockInline working_with_date_time
-    @EXAMPLE_ARANGOSH_OUTPUT{working_with_date_time}
+    @EXAMPLE_AVOCADOSH_OUTPUT{working_with_date_time}
     db._create("exampleTime");
     var timestamps = ["2014-05-07T14:19:09.522","2014-05-07T21:19:09.522","2014-05-08T04:19:09.522","2014-05-08T11:19:09.522","2014-05-08T18:19:09.522"];
     for (i = 0; i < 5; i++) db.exampleTime.save({value:i, ts: timestamps[i]})
     db._query("FOR d IN exampleTime FILTER d.ts > '2014-05-07T14:19:09.522' and d.ts < '2014-05-08T18:19:09.522' RETURN d").toArray()
     ~addIgnoreCollection("example")
     ~db._drop("exampleTime")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock working_with_date_time
 
 The first and the last timestamp in the array are excluded from the result by the `FILTER`.

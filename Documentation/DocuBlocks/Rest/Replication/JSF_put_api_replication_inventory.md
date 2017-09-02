@@ -87,18 +87,18 @@ is returned if an error occurred while assembling the response.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationInventory}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationInventory}
     var url = "/_api/replication/inventory";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 With some additional indexes:
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationInventoryIndexes}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationInventoryIndexes}
     db._drop("IndexedCollection1");
     var c1 = db._create("IndexedCollection1");
     c1.ensureHashIndex("name");
@@ -118,6 +118,6 @@ With some additional indexes:
     db._flushCache();
     db._drop("IndexedCollection1");
     db._drop("IndexedCollection2");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

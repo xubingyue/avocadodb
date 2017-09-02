@@ -10,9 +10,9 @@ The name of the user as a string. This is mandatory.
 
 @RESTBODYPARAM{passwd,string,required,string}
 The user password as a string. If no password is specified, the empty string
-will be used. If you pass the special value *ARANGODB_DEFAULT_ROOT_PASSWORD*,
+will be used. If you pass the special value *AVOCADODB_DEFAULT_ROOT_PASSWORD*,
 then the password will be set the value stored in the environment variable
-`ARANGODB_DEFAULT_ROOT_PASSWORD`. This can be used to pass an instance
+`AVOCADODB_DEFAULT_ROOT_PASSWORD`. This can be used to pass an instance
 variable into AvocadoDB. For example, the instance identifier from Amazon.
 
 @RESTBODYPARAM{active,boolean,optional,boolean}
@@ -48,7 +48,7 @@ Returned if a user with the same name already exists.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestCreateUser}
+@EXAMPLE_AVOCADOSH_RUN{RestCreateUser}
     ~try { require("@avocadodb/users").remove("admin@example"); } catch (err) {}
     var url = "/_api/user";
     var data = { user: "admin@example", passwd: "secure" };
@@ -58,7 +58,7 @@ Returned if a user with the same name already exists.
 
     logJsonResponse(response);
     ~require("@avocadodb/users").remove("admin@example");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -108,7 +108,7 @@ Returned if you have *No access* server access level.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestGrantDatabase}
+@EXAMPLE_AVOCADOSH_RUN{RestGrantDatabase}
     var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
@@ -121,7 +121,7 @@ Returned if you have *No access* server access level.
 
     logJsonResponse(response);
     users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -158,7 +158,7 @@ from the request.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestRevokeDatabase}
+@EXAMPLE_AVOCADOSH_RUN{RestRevokeDatabase}
 var users = require("@avocadodb/users");
 var theUser = "admin@myapp";
 try { users.remove(theUser); } catch (err) {}
@@ -171,7 +171,7 @@ assert(response.code === 202);
 
 logRawResponse(response);
 users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -224,7 +224,7 @@ Returned if you have *No access* server access level.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestGrantCollection}
+@EXAMPLE_AVOCADOSH_RUN{RestGrantCollection}
     var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     try { users.remove(theUser); } catch (err) {}
@@ -238,7 +238,7 @@ Returned if you have *No access* server access level.
 
     logJsonResponse(response);
     users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -278,7 +278,7 @@ If there was an error
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestRevokeCollection}
+@EXAMPLE_AVOCADOSH_RUN{RestRevokeCollection}
 var users = require("@avocadodb/users");
 var theUser = "admin@myapp";
 try { users.remove(theUser); } catch (err) {}
@@ -292,7 +292,7 @@ assert(response.code === 202);
 
 logRawResponse(response);
 users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -343,7 +343,7 @@ Returned if you have *No access* server access level.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestFetchUserDatabaseList}
+@EXAMPLE_AVOCADOSH_RUN{RestFetchUserDatabaseList}
     var users = require("@avocadodb/users");
     var theUser="anotherAdmin@secapp";
     users.save(theUser, "secret");
@@ -356,11 +356,11 @@ Returned if you have *No access* server access level.
 
     logJsonResponse(response);
     users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 With the full response format:
 
-@EXAMPLE_ARANGOSH_RUN{RestFetchUserDatabaseListFull}
+@EXAMPLE_AVOCADOSH_RUN{RestFetchUserDatabaseListFull}
 var users = require("@avocadodb/users");
 var theUser="anotherAdmin@secapp";
 users.save(theUser, "secret");
@@ -373,7 +373,7 @@ assert(response.code === 200);
 
 logJsonResponse(response);
 users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -413,7 +413,7 @@ Returned if you have *No access* server access level.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestFetchUserDatabasePermission}
+@EXAMPLE_AVOCADOSH_RUN{RestFetchUserDatabasePermission}
 var users = require("@avocadodb/users");
 var theUser="anotherAdmin@secapp";
 users.save(theUser, "secret");
@@ -426,7 +426,7 @@ assert(response.code === 200);
 
 logJsonResponse(response);
 users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -469,7 +469,7 @@ Returned if you have *No access* server access level.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestFetchUserCollectionPermission}
+@EXAMPLE_AVOCADOSH_RUN{RestFetchUserCollectionPermission}
 var users = require("@avocadodb/users");
 var theUser="anotherAdmin@secapp";
 users.save(theUser, "secret");
@@ -482,7 +482,7 @@ assert(response.code === 200);
 
 logJsonResponse(response);
 users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -535,7 +535,7 @@ The specified user does not exist
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestReplaceUser}
+@EXAMPLE_AVOCADOSH_RUN{RestReplaceUser}
     var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
@@ -548,7 +548,7 @@ The specified user does not exist
 
     logJsonResponse(response);
     users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -602,7 +602,7 @@ The specified user does not exist
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestUpdateUser}
+@EXAMPLE_AVOCADOSH_RUN{RestUpdateUser}
     var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
@@ -615,7 +615,7 @@ The specified user does not exist
 
     logJsonResponse(response);
     users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -655,7 +655,7 @@ The specified user does not exist
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestDeleteUser}
+@EXAMPLE_AVOCADOSH_RUN{RestDeleteUser}
     var users = require("@avocadodb/users");
     var theUser = "userToDelete@myapp";
     users.save(theUser, "secret")
@@ -666,7 +666,7 @@ The specified user does not exist
     assert(response.code === 202);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -705,7 +705,7 @@ The user with the specified name does not exist.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestFetchUser}
+@EXAMPLE_AVOCADOSH_RUN{RestFetchUser}
     var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
@@ -717,7 +717,7 @@ The user with the specified name does not exist.
 
     logJsonResponse(response);
     users.remove(theUser);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 
@@ -755,13 +755,13 @@ Returned if you have *No access* server access level.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestFetchAllUser}
+@EXAMPLE_AVOCADOSH_RUN{RestFetchAllUser}
     var url = "/_api/user";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock

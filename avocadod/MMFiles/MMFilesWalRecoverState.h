@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_WAL_RECOVER_STATE_H
-#define ARANGOD_MMFILES_WAL_RECOVER_STATE_H 1
+#ifndef AVOCADOD_MMFILES_WAL_RECOVER_STATE_H
+#define AVOCADOD_MMFILES_WAL_RECOVER_STATE_H 1
 
 #include "Basics/Common.h"
 #include "MMFiles/MMFilesDatafile.h"

@@ -24,8 +24,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_ASSOC_UNIQUE_H
-#define ARANGODB_BASICS_ASSOC_UNIQUE_H 1
+#ifndef AVOCADODB_BASICS_ASSOC_UNIQUE_H
+#define AVOCADODB_BASICS_ASSOC_UNIQUE_H 1
 
 #include "Basics/AssocUniqueHelpers.h"
 #include "Basics/Common.h"
@@ -264,7 +264,7 @@ class AssocUnique {
     Element const& arrayElement = b._table[i];
 
     if (arrayElement) {
-      return TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+      return TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
     }
 
     b._table[i] = element;
@@ -533,7 +533,7 @@ class AssocUnique {
     Element const& arrayElement = b._table[position.position];
 
     if (arrayElement) {
-      return TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+      return TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
     }
 
     b._table[position.position] = element;

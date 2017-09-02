@@ -39,29 +39,29 @@ be returned.
 @EXAMPLES
 Not providing a job-id:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_fetch_result_01}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_fetch_result_01}
   var url = "/_api/job";
   var response = logCurlRequest('PUT', url, "");
 
   assert(response.code === 400);
 
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Providing a job-id for a non-existing job:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_fetch_result_02}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_fetch_result_02}
   var url = "/_api/job/notthere";
   var response = logCurlRequest('PUT', url, "");
 
   assert(response.code === 404);
 
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Fetching the result of an HTTP GET job:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_fetch_result_03}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_fetch_result_03}
   var url = "/_api/version";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
@@ -74,11 +74,11 @@ Fetching the result of an HTTP GET job:
   var response = logCurlRequest('PUT', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Fetching the result of an HTTP POST job that failed:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_fetch_result_04}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_fetch_result_04}
   var url = "/_api/collection";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, {"name":" this name is invalid "}, headers);
@@ -91,6 +91,6 @@ Fetching the result of an HTTP POST job that failed:
   var response = logCurlRequest('PUT', url, "");
   assert(response.code === 400);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

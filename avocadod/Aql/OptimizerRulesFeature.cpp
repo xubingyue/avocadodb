@@ -62,14 +62,14 @@ void OptimizerRulesFeature::registerRule(std::string const& name, RuleFunction f
                                          bool canBeDisabled, bool isHidden) {
   if (_ruleLookup.find(name) != _ruleLookup.end()) {
     // duplicate rule names are not allowed
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                     "duplicate optimizer rule name");
   }
 
   _ruleLookup.emplace(name, level);
 
   if (_rules.find(level) != _rules.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                     "duplicate optimizer rule level");
   }
 

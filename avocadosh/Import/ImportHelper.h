@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_IMPORT_IMPORT_HELPER_H
-#define ARANGODB_IMPORT_IMPORT_HELPER_H 1
+#ifndef AVOCADODB_IMPORT_IMPORT_HELPER_H
+#define AVOCADODB_IMPORT_IMPORT_HELPER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Mutex.h"

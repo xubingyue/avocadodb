@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_V8_V8LINE_EDITOR_H
-#define ARANGODB_V8_V8LINE_EDITOR_H 1
+#ifndef AVOCADODB_V8_V8LINE_EDITOR_H
+#define AVOCADODB_V8_V8LINE_EDITOR_H 1
 
 #include "Utilities/LineEditor.h"
 

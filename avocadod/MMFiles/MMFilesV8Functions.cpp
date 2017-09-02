@@ -111,7 +111,7 @@ static void JS_DatafilesVocbaseCol(
   TRI_vocbase_col_status_e status = collection->getStatusLocked();
   if (status != TRI_VOC_COL_STATUS_UNLOADED &&
       status != TRI_VOC_COL_STATUS_CORRUPTED) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_UNLOADED);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_UNLOADED);
   }
 
   MMFilesEngineCollectionFiles structure = dynamic_cast<MMFilesEngine*>(engine)->scanCollectionDirectory(collection->getPhysical()->path());
@@ -178,7 +178,7 @@ static void JS_DatafileScanVocbaseCol(
     TRI_vocbase_col_status_e status = collection->getStatusLocked();
     if (status != TRI_VOC_COL_STATUS_UNLOADED &&
         status != TRI_VOC_COL_STATUS_CORRUPTED) {
-      TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_UNLOADED);
+      TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_UNLOADED);
     }
 
     DatafileScan scan = MMFilesDatafile::scan(path);
@@ -264,7 +264,7 @@ static void JS_TryRepairDatafileVocbaseCol(
   TRI_vocbase_col_status_e status = collection->getStatusLocked();
   if (status != TRI_VOC_COL_STATUS_UNLOADED &&
       status != TRI_VOC_COL_STATUS_CORRUPTED) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_UNLOADED);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_UNLOADED);
   }
 
   bool result = MMFilesDatafile::tryRepair(path);
@@ -303,7 +303,7 @@ static void JS_TruncateDatafileVocbaseCol(
 
   if (status != TRI_VOC_COL_STATUS_UNLOADED &&
       status != TRI_VOC_COL_STATUS_CORRUPTED) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_UNLOADED);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_UNLOADED);
   }
 
   int res = MMFilesDatafile::truncate(path, static_cast<TRI_voc_size_t>(size));
@@ -462,7 +462,7 @@ static void JS_WaitCollectorWal(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (args.Length() < 1) {
@@ -475,7 +475,7 @@ static void JS_WaitCollectorWal(
   avocadodb::LogicalCollection* col = vocbase->lookupCollection(name);
 
   if (col == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
   }
 
   double timeout = 30.0;

@@ -127,7 +127,7 @@ TraversalNode::TraversalNode(ExecutionPlan* plan, size_t id,
       break;
     case NODE_TYPE_VALUE:
       if (start->value.type != VALUE_TYPE_STRING) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                        "invalid start vertex. Must either be "
                                        "an _id string or an object with _id.");
       }
@@ -135,7 +135,7 @@ TraversalNode::TraversalNode(ExecutionPlan* plan, size_t id,
       _vertexId = start->getString();
       break;
     default:
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                      "invalid start vertex. Must either be an "
                                      "_id string or an object with _id.");
   }
@@ -175,12 +175,12 @@ TraversalNode::TraversalNode(ExecutionPlan* plan,
   } else {
     VPackSlice v = base.get("vertexId");
     if (!v.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "start vertex must be a string");
     }
     _vertexId = v.copyString();
     if (_vertexId.empty()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "start vertex mustn't be empty");
     }
   }
@@ -188,7 +188,7 @@ TraversalNode::TraversalNode(ExecutionPlan* plan,
   if (base.hasKey("condition")) {
     VPackSlice condition = base.get("condition");
     if (!condition.isObject()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "condition must be an object");
     }
     _condition = Condition::fromVPack(plan, condition);

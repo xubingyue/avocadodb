@@ -29,7 +29,7 @@ is returned.
 
 Requesting the number of documents:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetCollectionCount}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetCollectionCount}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn, { waitForSync: true });
@@ -44,6 +44,6 @@ Requesting the number of documents:
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

@@ -242,8 +242,8 @@ exports.setup = function (testFns, defaultFns, opts, fnDocs, optionsDoc) {
   opts['skipLdap'] = true;
 
   let version = {};
-  if (global.ARANGODB_CLIENT_VERSION) {
-    version = global.ARANGODB_CLIENT_VERSION(true);
+  if (global.AVOCADODB_CLIENT_VERSION) {
+    version = global.AVOCADODB_CLIENT_VERSION(true);
     if (version['enterprise-version']) {
       opts['skipLdap'] = false;
     }

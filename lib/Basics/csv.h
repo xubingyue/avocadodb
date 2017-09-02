@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_CSV_H
-#define ARANGODB_BASICS_CSV_H 1
+#ifndef AVOCADODB_BASICS_CSV_H
+#define AVOCADODB_BASICS_CSV_H 1
 
 #include "Basics/Common.h"
 

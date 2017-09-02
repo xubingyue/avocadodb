@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ENGINE_COLUMN_FAMILY_H
-#define ARANGOD_ROCKSDB_ENGINE_COLUMN_FAMILY_H 1
+#ifndef AVOCADOD_ROCKSDB_ENGINE_COLUMN_FAMILY_H
+#define AVOCADOD_ROCKSDB_ENGINE_COLUMN_FAMILY_H 1
 
 #include <rocksdb/db.h>
 

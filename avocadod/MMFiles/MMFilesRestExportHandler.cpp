@@ -95,7 +95,7 @@ VPackBuilder MMFilesRestExportHandler::buildOptions(VPackSlice const& slice) {
   if (batchSize.isNumber()) {
     if ((batchSize.isInteger() && batchSize.getUInt() == 0) ||
         (batchSize.isDouble() && batchSize.getDouble() == 0.0)) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_TYPE_ERROR, "expecting non-zero value for 'batchSize'");
     }
     options.add("batchSize", batchSize);
@@ -134,14 +134,14 @@ VPackBuilder MMFilesRestExportHandler::buildOptions(VPackSlice const& slice) {
   VPackSlice restrct = slice.get("restrict");
   if (!restrct.isObject()) {
     if (!restrct.isNone()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_TYPE_ERROR,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_TYPE_ERROR,
                                      "expecting object for 'restrict'");
     }
   } else {
     // "restrict"."type"
     VPackSlice type = restrct.get("type");
     if (!type.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "expecting string for 'restrict.type'");
     }
     std::string typeString = type.copyString();
@@ -151,7 +151,7 @@ VPackBuilder MMFilesRestExportHandler::buildOptions(VPackSlice const& slice) {
     } else if (typeString == "exclude") {
       _restrictions.type = CollectionExport::Restrictions::RESTRICTION_EXCLUDE;
     } else {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_BAD_PARAMETER,
           "expecting either 'include' or 'exclude' for 'restrict.type'");
     }
@@ -159,7 +159,7 @@ VPackBuilder MMFilesRestExportHandler::buildOptions(VPackSlice const& slice) {
     // "restrict"."fields"
     VPackSlice fields = restrct.get("fields");
     if (!fields.isArray()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "expecting array for 'restrict.fields'");
     }
     for (auto const& name : VPackArrayIterator(fields)) {
@@ -191,7 +191,7 @@ void MMFilesRestExportHandler::createCursor() {
 
   if (!found || name.empty()) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_COLLECTION_PARAMETER_MISSING,
+                  TRI_ERROR_AVOCADO_COLLECTION_PARAMETER_MISSING,
                   "'collection' is missing, expecting /_api/export?collection=<identifier>");
     return;
   }
@@ -231,7 +231,7 @@ void MMFilesRestExportHandler::createCursor() {
         MMFilesLogfileManager::instance()->flush(true, true, false);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     double flushWait =

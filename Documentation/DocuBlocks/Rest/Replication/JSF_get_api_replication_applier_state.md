@@ -90,7 +90,7 @@ is returned if an error occurred while assembling the response.
 
 Fetching the state of an inactive applier:
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationApplierStateNotRunning}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationApplierStateNotRunning}
     var re = require("@avocadodb/replication");
     re.applier.shutdown();
 
@@ -99,11 +99,11 @@ Fetching the state of an inactive applier:
 
     assert(response.code === 200);
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Fetching the state of an active applier:
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationApplierStateRunning}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationApplierStateRunning}
     var re = require("@avocadodb/replication");
     re.applier.shutdown();
     re.applier.start();
@@ -114,6 +114,6 @@ Fetching the state of an active applier:
 
     assert(response.code === 200);
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

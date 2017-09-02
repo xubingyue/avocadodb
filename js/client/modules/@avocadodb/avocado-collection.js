@@ -446,7 +446,7 @@ AvocadoCollection.prototype.drop = function (options) {
 
   if (requestResult !== null
     && requestResult.error === true
-    && requestResult.errorNum !== internal.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code) {
+    && requestResult.errorNum !== internal.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code) {
     // check error in case we got anything else but "collection not found"
     avocadosh.checkRequestResult(requestResult);
   }
@@ -587,7 +587,7 @@ AvocadoCollection.prototype.dropIndex = function (id) {
   if (requestResult !== null
     && requestResult.error === true
     && requestResult.errorNum
-    === internal.errors.ERROR_ARANGO_INDEX_NOT_FOUND.code) {
+    === internal.errors.ERROR_AVOCADO_INDEX_NOT_FOUND.code) {
     return false;
   }
 
@@ -638,8 +638,8 @@ AvocadoCollection.prototype.document = function (id) {
 
   if (id === undefined || id === null) {
     throw new AvocadoError({
-      errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+      errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
     });
   }
 
@@ -668,7 +668,7 @@ AvocadoCollection.prototype.document = function (id) {
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -687,8 +687,8 @@ AvocadoCollection.prototype.exists = function (id) {
 
   if (id === undefined || id === null) {
     throw new AvocadoError({
-      errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+      errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
     });
   }
 
@@ -711,11 +711,11 @@ AvocadoCollection.prototype.exists = function (id) {
   }
 
   if (requestResult !== null && requestResult.error === true) {
-    if (requestResult.errorNum === internal.errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (requestResult.errorNum === internal.errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       return false;
     }
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -805,14 +805,14 @@ AvocadoCollection.prototype.save =
     else if (type === AvocadoCollection.TYPE_EDGE) {
       if (typeof data === 'object' && Array.isArray(data)) {
         throw new AvocadoError({
-          errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-          errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message
+          errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+          errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message
         });
       }
       if (data === undefined || data === null || typeof data !== 'object') {
         throw new AvocadoError({
-          errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-          errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message
+          errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+          errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message
         });
       }
 
@@ -847,8 +847,8 @@ AvocadoCollection.prototype.save =
 
     if (data === undefined || typeof data !== 'object') {
       throw new AvocadoError({
-        errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-        errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message
+        errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+        errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message
       });
     }
 
@@ -878,8 +878,8 @@ AvocadoCollection.prototype.remove = function (id, overwrite, waitForSync) {
 
   if (id === undefined || id === null) {
     throw new AvocadoError({
-      errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+      errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
     });
   }
 
@@ -946,7 +946,7 @@ AvocadoCollection.prototype.remove = function (id, overwrite, waitForSync) {
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -1014,9 +1014,9 @@ AvocadoCollection.prototype.replace = function (id, data, overwrite, waitForSync
   if (id === undefined || id === null) {
     throw new AvocadoError({
       error: true,
-      errorCode: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+      errorCode: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
     });
   }
 
@@ -1046,9 +1046,9 @@ AvocadoCollection.prototype.replace = function (id, data, overwrite, waitForSync
     if (!Array.isArray(data) || id.length !== data.length) {
       throw new AvocadoError({
         error: true,
-        errorCode: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-        errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-        errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message
+        errorCode: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+        errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+        errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message
       });
     }
     for (var i = 0; i < id.length; i++) {
@@ -1093,7 +1093,7 @@ AvocadoCollection.prototype.replace = function (id, data, overwrite, waitForSync
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -1121,8 +1121,8 @@ AvocadoCollection.prototype.update = function (id, data, overwrite, keepNull, wa
 
   if (id === undefined || id === null) {
     throw new AvocadoError({
-      errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+      errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
     });
   }
 
@@ -1164,8 +1164,8 @@ AvocadoCollection.prototype.update = function (id, data, overwrite, keepNull, wa
   if (Array.isArray(id)) {
     if (!Array.isArray(data) || id.length !== data.length) {
       throw new AvocadoError({
-        errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-        errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message
+        errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+        errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message
       });
     }
     for (var i = 0; i < id.length; i++) {
@@ -1210,7 +1210,7 @@ AvocadoCollection.prototype.update = function (id, data, overwrite, keepNull, wa
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 

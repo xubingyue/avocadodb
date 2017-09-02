@@ -21,8 +21,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_INCEPTION_H
-#define ARANGOD_CONSENSUS_INCEPTION_H 1
+#ifndef AVOCADOD_CONSENSUS_INCEPTION_H
+#define AVOCADOD_CONSENSUS_INCEPTION_H 1
 
 #include <memory>
 

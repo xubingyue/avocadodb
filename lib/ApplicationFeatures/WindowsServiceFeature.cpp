@@ -288,7 +288,7 @@ void WindowsServiceFeature::installService() {
   }
 
   SERVICE_DESCRIPTION description = {
-      "multi-model NoSQL database (version " ARANGODB_VERSION_FULL ")"};
+      "multi-model NoSQL database (version " AVOCADODB_VERSION_FULL ")"};
   ChangeServiceConfig2(schService, SERVICE_CONFIG_DESCRIPTION, &description);
 
   std::cout << "INFO: added service with command line '" << command << "'"

@@ -149,7 +149,7 @@ function CollectionSuite () {
         c1.rename(cn2);
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DUPLICATE_NAME.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DUPLICATE_NAME.code, err.errorNum);
       }
       db._drop(cn1);
       db._drop(cn2);

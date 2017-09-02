@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CACHE_CACHE_MANAGER_FEATURE_H
-#define ARANGOD_CACHE_CACHE_MANAGER_FEATURE_H 1
+#ifndef AVOCADOD_CACHE_CACHE_MANAGER_FEATURE_H
+#define AVOCADOD_CACHE_CACHE_MANAGER_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

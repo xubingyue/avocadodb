@@ -368,7 +368,7 @@ Condition* Condition::clone() const {
 void Condition::andCombine(AstNode const* node) {
   if (_isNormalized) {
     // already normalized
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot and-combine normalized condition");
   }
 
@@ -474,7 +474,7 @@ void Condition::normalize(ExecutionPlan* plan) {
 
   optimize(plan);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (_root != nullptr) {
     // _root->dump(0);
     validateAst(_root, 0);
@@ -495,7 +495,7 @@ void Condition::normalize() {
   _root = transformNode(_root);
   _root = fixRoot(_root, 0);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (_root != nullptr) {
     // _root->dump(0);
     validateAst(_root, 0);
@@ -1054,7 +1054,7 @@ void Condition::storeAttributeAccess(
 }
 
 /// @brief validate the condition's AST
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 void Condition::validateAst(AstNode const* node, int level) {
   if (level == 0) {
     TRI_ASSERT(node->type == NODE_TYPE_OPERATOR_NARY_OR);

@@ -22,7 +22,7 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#define ARANGODB_JEMALLOC 1
+#define AVOCADODB_JEMALLOC 1
 
 // jemalloc needs to be configured such that
 //

@@ -378,7 +378,7 @@ rest::ResponseCode GeneralCommTask::canAccessPath(GeneralRequest* request) const
   
   if (!request->authorized()) {
     
-#ifdef ARANGODB_HAVE_DOMAIN_SOCKETS
+#ifdef AVOCADODB_HAVE_DOMAIN_SOCKETS
     // check if we need to run authentication for this type of
     // endpoint
     ConnectionInfo const& ci = request->connectionInfo();

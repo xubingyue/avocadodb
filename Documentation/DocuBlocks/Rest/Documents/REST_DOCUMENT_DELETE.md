@@ -69,7 +69,7 @@ attributes *_id* and *_key* will be returned.
 
 Using document handle:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerDeleteDocument}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerDeleteDocument}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: true });
@@ -83,11 +83,11 @@ Using document handle:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Unknown document handle:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerDeleteDocumentUnknownHandle}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerDeleteDocumentUnknownHandle}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: true });
@@ -102,11 +102,11 @@ Unknown document handle:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Revision conflict:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerDeleteDocumentIfMatchOther}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerDeleteDocumentIfMatchOther}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -122,5 +122,5 @@ Revision conflict:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock

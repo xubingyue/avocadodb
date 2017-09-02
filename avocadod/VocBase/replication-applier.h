@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_REPLICATION_APPLIER_H
-#define ARANGOD_VOC_BASE_REPLICATION_APPLIER_H 1
+#ifndef AVOCADOD_VOC_BASE_REPLICATION_APPLIER_H
+#define AVOCADOD_VOC_BASE_REPLICATION_APPLIER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadWriteLock.h"

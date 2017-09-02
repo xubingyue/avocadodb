@@ -157,7 +157,7 @@ AuthUserEntry AuthUserEntry::newUser(std::string const& user,
   std::string hash;
   int res = HexHashFromData("sha256", salt + password, hash);
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res,
                                    "Could not calculate hex-hash from data");
   }
 
@@ -170,27 +170,27 @@ AuthUserEntry AuthUserEntry::newUser(std::string const& user,
 
 AuthUserEntry AuthUserEntry::fromDocument(VPackSlice const& slice) {
   if (slice.isNone() || !slice.isObject()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 
   VPackSlice const keySlice =
       transaction::helpers::extractKeyFromDocument(slice);
   if (!keySlice.isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "cannot extract key");
   }
 
   // extract "user" attribute
   VPackSlice const userSlice = slice.get("user");
   if (!userSlice.isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "cannot extract username");
   }
 
   VPackSlice const authDataSlice = slice.get("authData");
 
   if (!authDataSlice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "cannot extract authData");
   }
 
@@ -296,7 +296,7 @@ bool AuthUserEntry::checkPassword(std::string const& password) const {
   std::string hash;
   int res = HexHashFromData(_passwordMethod, _passwordSalt + password, hash);
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res,
                                    "Could not calculate hex-hash from input");
   }
   return _passwordHash == hash;
@@ -306,7 +306,7 @@ void AuthUserEntry::updatePassword(std::string const& password) {
   std::string hash;
   int res = HexHashFromData(_passwordMethod, _passwordSalt + password, hash);
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res,
                                    "Could not calculate hex-hash from input");
   }
   _passwordHash = hash;
@@ -358,12 +358,12 @@ VPackBuilder AuthUserEntry::toVPackBuilder() const {
 
 void AuthUserEntry::grantDatabase(std::string const& dbname, AuthLevel level) {
   if (dbname.empty()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Cannot set rights for empty db name");
   }
   if (_username == "root" && dbname == StaticStrings::SystemDatabase &&
       level != AuthLevel::RW) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_FORBIDDEN, "Cannot lower access level of 'root' to _system");
   }
 
@@ -382,11 +382,11 @@ void AuthUserEntry::grantDatabase(std::string const& dbname, AuthLevel level) {
 
 void AuthUserEntry::removeDatabase(std::string const& dbname) {
   if (dbname.empty()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Cannot remove rights for empty db name");
   }
   if (_username == "root" && dbname == StaticStrings::SystemDatabase) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_FORBIDDEN, "Cannot remove access level of 'root' to _system");
   }
   _dbAccess.erase(dbname);
@@ -396,14 +396,14 @@ void AuthUserEntry::grantCollection(std::string const& dbname,
                                     std::string const& coll,
                                     AuthLevel const level) {
   if (dbname.empty() || coll.empty()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
         "Cannot set rights for empty db / collection name");
   } else if (coll[0] == '_') {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
         "Cannot set rights for system collections");
   } else if (_username == "root" && dbname == StaticStrings::SystemDatabase &&
       coll == "*" && level != AuthLevel::RW) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
                                    "Cannot lower access level of 'root' to "
                                    " a system collection");
   }
@@ -427,13 +427,13 @@ void AuthUserEntry::grantCollection(std::string const& dbname,
 void AuthUserEntry::removeCollection(std::string const& dbname,
                                      std::string const& coll) {
   if (dbname.empty() || coll.empty()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "Cannot set rights for empty db / collection name");
   }
   if (_username == "root" && dbname == StaticStrings::SystemDatabase &&
       (coll == "*")) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
                                    "Cannot lower access level of 'root' to "
                                    " a collection in _system");
   }

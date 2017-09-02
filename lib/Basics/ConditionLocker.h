@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_CONDITION_LOCKER_H
-#define ARANGODB_BASICS_CONDITION_LOCKER_H 1
+#ifndef AVOCADODB_BASICS_CONDITION_LOCKER_H
+#define AVOCADODB_BASICS_CONDITION_LOCKER_H 1
 
 #include "Basics/Common.h"
 

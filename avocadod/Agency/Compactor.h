@@ -21,8 +21,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_COMPACTOR_H
-#define ARANGOD_CONSENSUS_COMPACTOR_H 1
+#ifndef AVOCADOD_CONSENSUS_COMPACTOR_H
+#define AVOCADOD_CONSENSUS_COMPACTOR_H 1
 
 #include "Agency/AgencyCommon.h"
 #include "Basics/ConditionVariable.h"

@@ -55,7 +55,7 @@ RestStatus RestDemoHandler::evenMoreWork() {
   VPackBuilder result;
   result.add(VPackValue(VPackValueType::Object));
   result.add("server", VPackValue("avocado"));
-  result.add("version", VPackValue(ARANGODB_VERSION));
+  result.add("version", VPackValue(AVOCADODB_VERSION));
   result.close();
 
   generateResult(rest::ResponseCode::OK, result.slice());

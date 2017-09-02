@@ -270,7 +270,7 @@ bool V8ShellFeature::printHello(V8ClientConnection* v8connection) {
   return promptError;
 }
 
-// the result is wrapped in a Javascript variable SYS_ARANGO
+// the result is wrapped in a Javascript variable SYS_AVOCADO
 V8ClientConnection* V8ShellFeature::setup(
     v8::Local<v8::Context>& context, bool createConnection,
     std::vector<std::string> const& positionals, bool* promptError) {
@@ -821,7 +821,7 @@ static void JS_VersionClient(v8::FunctionCallbackInfo<v8::Value> const& args) {
 
   if (!details) {
     // return version string
-    TRI_V8_RETURN(TRI_V8_ASCII_STRING(ARANGODB_VERSION));
+    TRI_V8_RETURN(TRI_V8_ASCII_STRING(AVOCADODB_VERSION));
   }
 
   // return version details
@@ -862,12 +862,12 @@ void V8ShellFeature::initGlobals() {
 
   TRI_AddGlobalVariableVocbase(
       _isolate, 
-      TRI_V8_ASCII_STRING2(_isolate, "ARANGODB_CLIENT_VERSION"),
+      TRI_V8_ASCII_STRING2(_isolate, "AVOCADODB_CLIENT_VERSION"),
       v8::FunctionTemplate::New(_isolate, JS_VersionClient)->GetFunction());
 
   // is quite
   TRI_AddGlobalVariableVocbase(_isolate, 
-                               TRI_V8_ASCII_STRING2(_isolate, "ARANGO_QUIET"),
+                               TRI_V8_ASCII_STRING2(_isolate, "AVOCADO_QUIET"),
                                v8::Boolean::New(_isolate, _console->quiet()));
 
   auto ctx = AvocadoGlobalContext::CONTEXT;

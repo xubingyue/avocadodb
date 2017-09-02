@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_SHELL_V8CLIENT_CONNECTION_H
-#define ARANGODB_SHELL_V8CLIENT_CONNECTION_H 1
+#ifndef AVOCADODB_SHELL_V8CLIENT_CONNECTION_H
+#define AVOCADODB_SHELL_V8CLIENT_CONNECTION_H 1
 
 #include "Basics/Common.h"
 

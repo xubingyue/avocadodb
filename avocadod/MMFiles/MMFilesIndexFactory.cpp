@@ -373,7 +373,7 @@ std::shared_ptr<Index> MMFilesIndexFactory::prepareIndexFromSlice(
     VPackSlice info, bool generateKey, LogicalCollection* col,
     bool isClusterConstructor) const {
   if (!info.isObject()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 
   // extract type
@@ -382,9 +382,9 @@ std::shared_ptr<Index> MMFilesIndexFactory::prepareIndexFromSlice(
   if (!value.isString()) {
     // Compatibility with old v8-vocindex.
     if (generateKey) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     } else {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "invalid index type definition");
     }
   }
@@ -403,7 +403,7 @@ std::shared_ptr<Index> MMFilesIndexFactory::prepareIndexFromSlice(
         basics::VelocyPackHelper::getNumericValue<TRI_idx_iid_t>(info, "id", 0);
   } else if (!generateKey) {
     // In the restore case it is forbidden to NOT have id
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "cannot restore index without index identifier");
   }
 
@@ -417,7 +417,7 @@ std::shared_ptr<Index> MMFilesIndexFactory::prepareIndexFromSlice(
     case avocadodb::Index::TRI_IDX_TYPE_PRIMARY_INDEX: {
       if (!isClusterConstructor) {
         // this indexes cannot be created directly
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "cannot create primary index");
       }
       newIdx.reset(new avocadodb::MMFilesPrimaryIndex(col));
@@ -426,7 +426,7 @@ std::shared_ptr<Index> MMFilesIndexFactory::prepareIndexFromSlice(
     case avocadodb::Index::TRI_IDX_TYPE_EDGE_INDEX: {
       if (!isClusterConstructor) {
         // this indexes cannot be created directly
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "cannot create edge index");
       }
       newIdx.reset(new avocadodb::MMFilesEdgeIndex(iid, col));
@@ -456,7 +456,7 @@ std::shared_ptr<Index> MMFilesIndexFactory::prepareIndexFromSlice(
     
     case avocadodb::Index::TRI_IDX_TYPE_UNKNOWN: 
     default: {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid index type");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid index type");
     }
   }
 

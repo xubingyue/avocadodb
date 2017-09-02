@@ -87,7 +87,7 @@ GraphStore<V, E>::~GraphStore() {
 template <typename V, typename E>
 std::unordered_map<ShardID, uint64_t> GraphStore<V, E>::_preallocateMemory() {
   if (_vertexData || _edges) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "Only allocate messages once");
     //_edges->resize(count);
   }
@@ -103,7 +103,7 @@ std::unordered_map<ShardID, uint64_t> GraphStore<V, E>::_preallocateMemory() {
   for (auto const& shard : _config->localVertexShardIDs()) {
     OperationResult opResult = countTrx->count(shard, true);
     if (opResult.failed() || _destroyed) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
     }
     shardSizes[shard] = opResult.slice().getUInt();
     vCount += opResult.slice().getUInt();
@@ -114,7 +114,7 @@ std::unordered_map<ShardID, uint64_t> GraphStore<V, E>::_preallocateMemory() {
   for (auto const& shard : _config->localEdgeShardIDs()) {
     OperationResult opResult = countTrx->count(shard, true);
     if (opResult.failed() || _destroyed) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
     }
     shardSizes[shard] = opResult.slice().getUInt();
     eCount += opResult.slice().getUInt();
@@ -193,7 +193,7 @@ void GraphStore<V, E>::loadShards(WorkerConfig* config,
         for (auto const& pair2 : edgeCollMap) {
           std::vector<ShardID> const& edgeShards = pair2.second;
           if (vertexShards.size() != edgeShards.size()) {
-            THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+            THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                            "Collections need to have the same number of shards");
           }
           edgeLookups.push_back(edgeShards[i]);
@@ -255,7 +255,7 @@ void GraphStore<V, E>::loadDocument(WorkerConfig* config,
   OperationResult opResult =
       trx->document(vertexShard, builder.slice(), options);
   if (!opResult.successful()) {
-    THROW_ARANGO_EXCEPTION(opResult.code);
+    THROW_AVOCADO_EXCEPTION(opResult.code);
   }
 
   std::string documentId = trx->extractIdString(opResult.slice());
@@ -273,7 +273,7 @@ void GraphStore<V, E>::loadDocument(WorkerConfig* config,
                                        << "space for all vertices. This hints "
                                        << "at a bug with collection count()";
         TRI_ASSERT(false);
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
       }
       // lazy loading always uses vector backed storage
       ((VectorTypedBuffer<V>*)_vertexData)->appendEmptyElement();
@@ -349,7 +349,7 @@ std::unique_ptr<transaction::Methods> GraphStore<V, E>::_createTransaction() {
       new transaction::UserTransaction(ctx, {}, {}, {}, transactionOptions));
   Result res = trx->begin();
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
   return trx;
 }
@@ -371,7 +371,7 @@ void GraphStore<V, E>::_loadVertices(size_t i,
       trx->indexScan(vertexShard, transaction::Methods::CursorType::ALL, &mmdr,
                      0, UINT64_MAX, 1000, false);
   if (cursor->failed()) {
-    THROW_ARANGO_EXCEPTION_FORMAT(cursor->code, "while looking up shard '%s'",
+    THROW_AVOCADO_EXCEPTION_FORMAT(cursor->code, "while looking up shard '%s'",
                                   vertexShard.c_str());
   }
 
@@ -433,7 +433,7 @@ void GraphStore<V, E>::_loadEdges(transaction::Methods* trx,
   ManagedDocumentResult mmdr;
   std::unique_ptr<OperationCursor> cursor = info.getEdges(documentID, &mmdr);
   if (cursor->failed()) {
-    THROW_ARANGO_EXCEPTION_FORMAT(cursor->code,
+    THROW_AVOCADO_EXCEPTION_FORMAT(cursor->code,
                                   "while looking up edges '%s' from %s",
                                   documentID.c_str(), edgeShard.c_str());
   }
@@ -450,7 +450,7 @@ void GraphStore<V, E>::_loadEdges(transaction::Methods* trx,
                                        << "space for all edges. This hints "
                                        << "at a bug with collection count()";
         TRI_ASSERT(false);
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
       }
       // lazy loading always uses vector backed storage
       ((VectorTypedBuffer<Edge<E>>*)_edges)->appendEmptyElement();
@@ -514,7 +514,7 @@ void GraphStore<V, E>::_storeVertices(std::vector<ShardID> const& globalShards,
       if (trx) {
         res = trx->finish(res);
         if (!res.ok()) {
-          THROW_ARANGO_EXCEPTION(res);
+          THROW_AVOCADO_EXCEPTION(res);
         }
       }
       currentShard = it->shard();
@@ -527,7 +527,7 @@ void GraphStore<V, E>::_storeVertices(std::vector<ShardID> const& globalShards,
           {shard}, {}, transactionOptions));
       res = trx->begin();
       if (!res.ok()) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
     }
 
@@ -561,14 +561,14 @@ void GraphStore<V, E>::_storeVertices(std::vector<ShardID> const& globalShards,
     OperationOptions options;
     OperationResult result = trx->update(shard, b->slice(), options);
     if (result.code != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(result.code);
+      THROW_AVOCADO_EXCEPTION(result.code);
     }
   }
 
   if (trx) {
     res = trx->finish(res);
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   }
 }

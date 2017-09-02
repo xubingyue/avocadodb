@@ -23,8 +23,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_HTTP_SERVER_HTTP_SERVER_H
-#define ARANGOD_HTTP_SERVER_HTTP_SERVER_H 1
+#ifndef AVOCADOD_HTTP_SERVER_HTTP_SERVER_H
+#define AVOCADOD_HTTP_SERVER_HTTP_SERVER_H 1
 
 #include "Basics/Common.h"
 

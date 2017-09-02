@@ -166,7 +166,7 @@ int IndexBlock::initialize() {
     auto e = std::make_unique<Expression>(ast, a);
 
     TRI_IF_FAILURE("IndexBlock::initialize") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     _hasV8Expression |= e->isV8();
@@ -224,7 +224,7 @@ int IndexBlock::initialize() {
           }
           instantiateExpression(i, j, 1, rhs);
           TRI_IF_FAILURE("IndexBlock::initializeExpressions") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
         }
       } else {
@@ -233,7 +233,7 @@ int IndexBlock::initialize() {
         if (!lhs->isConstant()) {
           instantiateExpression(i, j, 0, lhs);
           TRI_IF_FAILURE("IndexBlock::initializeExpressions") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
         }
       }
@@ -297,7 +297,7 @@ bool IndexBlock::initIndexes() {
 
       executeExpressions();
       TRI_IF_FAILURE("IndexBlock::executeV8") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
     } else {
       // no V8 context required!
@@ -306,7 +306,7 @@ bool IndexBlock::initIndexes() {
       try {
         executeExpressions();
         TRI_IF_FAILURE("IndexBlock::executeExpression") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         Functions::DestroyThreadContext();
       } catch (...) {
@@ -324,7 +324,7 @@ bool IndexBlock::initIndexes() {
 
   createCursor();
   if (_cursor->failed()) {
-    THROW_ARANGO_EXCEPTION(_cursor->code);
+    THROW_AVOCADO_EXCEPTION(_cursor->code);
   }
 
   while (!_cursor->hasMore()) {
@@ -337,7 +337,7 @@ bool IndexBlock::initIndexes() {
       // This check will work as long as _indexes.size() < MAX_SIZE_T
       createCursor();
       if (_cursor->failed()) {
-        THROW_ARANGO_EXCEPTION(_cursor->code);
+        THROW_AVOCADO_EXCEPTION(_cursor->code);
       }
     } else {
       _cursor = nullptr;
@@ -402,7 +402,7 @@ bool IndexBlock::skipIndex(size_t atMost) {
     }
 
     TRI_IF_FAILURE("IndexBlock::readIndex") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     uint64_t returned = (uint64_t) _returned;
@@ -451,7 +451,7 @@ bool IndexBlock::readIndex(
     }
 
     TRI_IF_FAILURE("IndexBlock::readIndex") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     TRI_ASSERT(atMost >= _returned);

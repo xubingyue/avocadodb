@@ -163,7 +163,7 @@ AqlValue V8Expression::execute(v8::Isolate* isolate, Query* query,
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   mustDestroy = true; // builder = dynamic data

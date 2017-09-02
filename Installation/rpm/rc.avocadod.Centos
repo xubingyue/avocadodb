@@ -11,18 +11,18 @@
 . /etc/rc.d/init.d/functions
 
 # Path to the server binary
-ARANGO_BIN=/usr/sbin/avocadod
-test -x $ARANGO_BIN || exit 5
+AVOCADO_BIN=/usr/sbin/avocadod
+test -x $AVOCADO_BIN || exit 5
 
-ARANGO_SYSCONFIG=/etc/avocadodb3/avocadod.conf
-test -r $ARANGO_SYSCONFIG || exit 6
+AVOCADO_SYSCONFIG=/etc/avocadodb3/avocadod.conf
+test -r $AVOCADO_SYSCONFIG || exit 6
 
 pidfile=/var/run/avocadodb/avocadod.pid
 
 RETVAL=0
 
 start() {
-  echo -n $"Starting $ARANGO_BIN: "
+  echo -n $"Starting $AVOCADO_BIN: "
 
   PIDDIR=`dirname $pidfile`
   [ -d $PIDDIR ] || mkdir $PIDDIR || exit 1
@@ -40,7 +40,7 @@ start() {
   case "$1" in
       "--upgrade")
           shift
-          $ARANGO_BIN --uid avocadodb --gid avocadodb --server.rest-server false --database.auto-upgrade true $@
+          $AVOCADO_BIN --uid avocadodb --gid avocadodb --server.rest-server false --database.auto-upgrade true $@
           RETVAL=$?
           ;;
       "--reopen-logs")
@@ -52,11 +52,11 @@ start() {
           log_end_msg $RETVAL
           ;;
       *)
-          $ARANGO_BIN --uid avocadodb --gid avocadodb --server.rest-server false --log.foreground-tty false --database.check-version
+          $AVOCADO_BIN --uid avocadodb --gid avocadodb --server.rest-server false --log.foreground-tty false --database.check-version
           RETVAL=$?
 
           if [ "$RETVAL" -eq 0 ];  then
-              $ARANGO_BIN --uid avocadodb --gid avocadodb --log.foreground-tty false --pid-file "$pidfile" --temp.path "/var/tmp/avocadod"  --supervisor $@
+              $AVOCADO_BIN --uid avocadodb --gid avocadodb --log.foreground-tty false --pid-file "$pidfile" --temp.path "/var/tmp/avocadod"  --supervisor $@
 	      RETVAL=$?
           else
 	      echo "database version check failed, maybe you need to run 'upgrade'?"
@@ -71,8 +71,8 @@ start() {
 
 
 stop() {
-  echo -n $"Stopping $ARANGO_BIN: "
-  killproc -p "${pidfile}" -d 10 $ARANGO_BIN
+  echo -n $"Stopping $AVOCADO_BIN: "
+  killproc -p "${pidfile}" -d 10 $AVOCADO_BIN
 
   RETVAL=$?
   echo "$RETVAL"
@@ -93,7 +93,7 @@ case "$1" in
     ;;
 
   status)
-    status -p ${pidfile} $ARANGO_BIN
+    status -p ${pidfile} $AVOCADO_BIN
     RETVAL=$?
     ;;
 

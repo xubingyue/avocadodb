@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_STRING_BUFFER_H
-#define ARANGODB_BASICS_STRING_BUFFER_H 1
+#ifndef AVOCADODB_BASICS_STRING_BUFFER_H
+#define AVOCADODB_BASICS_STRING_BUFFER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -132,7 +132,7 @@ int TRI_AppendString2StringBuffer(TRI_string_buffer_t* self, char const* str,
 
 /// @brief appends characters but does not check buffer bounds
 static inline void TRI_AppendCharUnsafeStringBuffer(TRI_string_buffer_t* self, char chr) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   TRI_ASSERT(self->_len - static_cast<size_t>(self->_current - self->_buffer) > 0);
 #endif
   *self->_current++ = chr;
@@ -140,7 +140,7 @@ static inline void TRI_AppendCharUnsafeStringBuffer(TRI_string_buffer_t* self, c
 
 static inline void TRI_AppendStringUnsafeStringBuffer(TRI_string_buffer_t* self, char const* str) {
   size_t len = strlen(str);
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   TRI_ASSERT(self->_len - static_cast<size_t>(self->_current - self->_buffer) >= len);
 #endif
   memcpy(self->_current, str, len);
@@ -149,7 +149,7 @@ static inline void TRI_AppendStringUnsafeStringBuffer(TRI_string_buffer_t* self,
 
 static inline void TRI_AppendStringUnsafeStringBuffer(TRI_string_buffer_t* self, char const* str,
                                                       size_t len) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   TRI_ASSERT(self->_len - static_cast<size_t>(self->_current - self->_buffer) >= len);
 #endif
   memcpy(self->_current, str, len);
@@ -157,7 +157,7 @@ static inline void TRI_AppendStringUnsafeStringBuffer(TRI_string_buffer_t* self,
 }
 
 static inline void TRI_AppendStringUnsafeStringBuffer(TRI_string_buffer_t* self, std::string const& str) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   TRI_ASSERT(self->_len - static_cast<size_t>(self->_current - self->_buffer) >= str.size());
 #endif
   memcpy(self->_current, str.c_str(), str.size());
@@ -253,7 +253,7 @@ class StringBuffer {
     TRI_InitStringBuffer(&_buffer, zone, initializeMemory);
 
     if (_buffer._buffer == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
   }
 
@@ -262,7 +262,7 @@ class StringBuffer {
     TRI_InitSizedStringBuffer(&_buffer, zone, initialSize, initializeMemory);
     
     if (_buffer._buffer == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
   }
 

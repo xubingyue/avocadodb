@@ -12,7 +12,7 @@ unclear which documents will be included in the result set.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{queryLimit}
+@EXAMPLE_AVOCADOSH_OUTPUT{queryLimit}
 ~ db._create("five");
 ~ db.five.save({ name : "one" });
 ~ db.five.save({ name : "two" });
@@ -22,6 +22,6 @@ unclear which documents will be included in the result set.
   db.five.all().toArray();
   db.five.all().limit(2).toArray();
 ~ db._drop("five")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

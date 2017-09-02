@@ -107,7 +107,7 @@ int SingletonBlock::getOrSkipSome(size_t,  // atLeast,
             continue;
           }
           TRI_IF_FAILURE("SingletonBlock::getOrSkipSome") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
 
           AqlValue a = _inputRegisterValues->getValue(0, reg);
@@ -118,7 +118,7 @@ int SingletonBlock::getOrSkipSome(size_t,  // atLeast,
 
           try {
             TRI_IF_FAILURE("SingletonBlock::getOrSkipSomeSet") {
-              THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+              THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
             }
 
             result->setValue(0, reg, a);
@@ -185,7 +185,7 @@ bool FilterBlock::getBlock(size_t atLeast, size_t atMost) {
     for (size_t i = 0; i < cur->size(); ++i) {
       if (takeItem(cur, i)) {
         TRI_IF_FAILURE("FilterBlock::getBlock") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         _chosen.emplace_back(i);
@@ -241,7 +241,7 @@ int FilterBlock::getOrSkipSome(size_t atLeast, size_t atMost, bool skipping,
             cur->slice(_chosen, _pos, _pos + (atMost - skipped)));
 
         TRI_IF_FAILURE("FilterBlock::getOrSkipSome1") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         _collector.add(std::move(more));
@@ -256,7 +256,7 @@ int FilterBlock::getOrSkipSome(size_t atLeast, size_t atMost, bool skipping,
             cur->steal(_chosen, _pos, _chosen.size()));
 
         TRI_IF_FAILURE("FilterBlock::getOrSkipSome2") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         _collector.add(std::move(more));
@@ -274,7 +274,7 @@ int FilterBlock::getOrSkipSome(size_t atLeast, size_t atMost, bool skipping,
         // if any of the following statements throw, then cur is not lost,
         // as it is still contained in _buffer
         TRI_IF_FAILURE("FilterBlock::getOrSkipSome3") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         _collector.add(cur);
       } else {
@@ -461,7 +461,7 @@ AqlItemBlock* ReturnBlock::getSome(size_t atLeast, size_t atMost) {
 
         try {
           TRI_IF_FAILURE("ReturnBlock::getSome") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
 
           stripped->setValue(i, 0, a);

@@ -77,7 +77,7 @@ The response body contains an error document in this case.
 
 Using document handle:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerDeleteDocumentMulti}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerDeleteDocumentMulti}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: true });
@@ -91,11 +91,11 @@ Using document handle:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Unknown document handle:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerDeleteDocumentUnknownHandleMulti}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerDeleteDocumentUnknownHandleMulti}
     var cn = "products";
     db._drop(cn);
     db._create(cn, { waitForSync: true });
@@ -110,11 +110,11 @@ Unknown document handle:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Revision conflict:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerDeleteDocumentIfMatchOtherMulti}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerDeleteDocumentIfMatchOtherMulti}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -130,5 +130,5 @@ Revision conflict:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock

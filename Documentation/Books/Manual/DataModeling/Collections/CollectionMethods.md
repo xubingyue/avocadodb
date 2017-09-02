@@ -20,23 +20,23 @@ first.
 **Examples**
 
     @startDocuBlockInline collectionDrop
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDrop}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDrop}
     ~ db._create("example");
       col = db.example;
       col.drop();
       col;
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDrop
 
     @startDocuBlockInline collectionDropSystem
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionDropSystem}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionDropSystem}
     ~ db._create("_example", { isSystem: true });
       col = db._example;
       col.drop({ isSystem: true });
       col;
     ~ db._drop("example", { isSystem: true });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionDropSystem
 
 
@@ -57,7 +57,7 @@ indexes.
 Truncates a collection:
 
     @startDocuBlockInline collectionTruncate
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionTruncate}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionTruncate}
     ~ db._create("example");
       col = db.example;
       col.save({ "Hello" : "World" });
@@ -65,7 +65,7 @@ Truncates a collection:
       col.truncate();
       col.count();
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionTruncate
 
 
@@ -172,10 +172,10 @@ used as a lower bound approximation of the disk usage.
 
 
     @startDocuBlockInline collectionFigures
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionFigures}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionFigures}
     ~ require("internal").wal.flush(true, true);
       db.demo.figures()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionFigures
 
 
@@ -195,13 +195,13 @@ Loads a collection into memory.
 
 
     @startDocuBlockInline collectionLoad
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionLoad}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionLoad}
     ~ db._create("example");
       col = db.example;
       col.load();
       col;
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionLoad
 
 
@@ -279,13 +279,13 @@ until all query have finished.
 
 
     @startDocuBlockInline CollectionUnload
-    @EXAMPLE_ARANGOSH_OUTPUT{CollectionUnload}
+    @EXAMPLE_AVOCADOSH_OUTPUT{CollectionUnload}
     ~ db._create("example");
       col = db.example;
       col.unload();
       col;
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock CollectionUnload
 
 
@@ -313,13 +313,13 @@ database.
 
 
     @startDocuBlockInline collectionRename
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionRename}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionRename}
     ~ db._create("example");
       c = db.example;
       c.rename("better-example");
       c;
     ~ db._drop("better-example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionRename
 
 

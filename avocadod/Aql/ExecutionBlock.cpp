@@ -112,7 +112,7 @@ bool ExecutionBlock::isKilled() const { return _engine->getQuery()->killed(); }
 /// @brief whether or not the query was killed
 void ExecutionBlock::throwIfKilled() {
   if (isKilled()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_QUERY_KILLED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_QUERY_KILLED);
   }
 }
 
@@ -256,7 +256,7 @@ void ExecutionBlock::inheritRegisters(AqlItemBlock const* src,
         AqlValueGuard guard(a, true);
 
         TRI_IF_FAILURE("ExecutionBlock::inheritRegisters") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         dst->setValue(0, i, a);
@@ -283,7 +283,7 @@ bool ExecutionBlock::getBlock(size_t atLeast, size_t atMost) {
   }
 
   TRI_IF_FAILURE("ExecutionBlock::getBlock") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   _buffer.emplace_back(docs.get());
@@ -308,7 +308,7 @@ AqlItemBlock* ExecutionBlock::getSomeWithoutRegisterClearout(size_t atLeast,
   int out = getOrSkipSome(atLeast, atMost, false, result, skipped);
 
   if (out != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(out);
+    THROW_AVOCADO_EXCEPTION(out);
   }
 
   return result;
@@ -335,7 +335,7 @@ size_t ExecutionBlock::skipSome(size_t atLeast, size_t atMost) {
   TRI_ASSERT(result == nullptr);
 
   if (out != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(out);
+    THROW_AVOCADO_EXCEPTION(out);
   }
 
   return skipped;
@@ -421,7 +421,7 @@ int ExecutionBlock::getOrSkipSome(size_t atLeast, size_t atMost, bool skipping,
             cur->slice(_pos, _pos + (atMost - skipped)));
 
         TRI_IF_FAILURE("ExecutionBlock::getOrSkipSome1") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         collector.add(std::move(more));
@@ -435,7 +435,7 @@ int ExecutionBlock::getOrSkipSome(size_t atLeast, size_t atMost, bool skipping,
         std::unique_ptr<AqlItemBlock> more(cur->slice(_pos, cur->size()));
 
         TRI_IF_FAILURE("ExecutionBlock::getOrSkipSome2") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         collector.add(std::move(more));
@@ -451,7 +451,7 @@ int ExecutionBlock::getOrSkipSome(size_t atLeast, size_t atMost, bool skipping,
         // if any of the following statements throw, then cur is not lost,
         // as it is still contained in _buffer
         TRI_IF_FAILURE("ExecutionBlock::getOrSkipSome3") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         collector.add(cur);
       } else {

@@ -42,8 +42,8 @@
 // So a there is a way to create an iterator for the index
 
 
-#ifndef ARANGOD_INDEXES_INDEX_ITERATOR_H
-#define ARANGOD_INDEXES_INDEX_ITERATOR_H 1
+#ifndef AVOCADOD_INDEXES_INDEX_ITERATOR_H
+#define AVOCADOD_INDEXES_INDEX_ITERATOR_H 1
 
 #include "Basics/Common.h"
 #include "Indexes/IndexLookupContext.h"

@@ -46,7 +46,7 @@ using namespace avocadodb::basics;
 
 static thread_local uint64_t LOCAL_THREAD_NUMBER = 0;
 
-#if !defined(ARANGODB_HAVE_GETTID) && !defined(_WIN32)
+#if !defined(AVOCADODB_HAVE_GETTID) && !defined(_WIN32)
 
 namespace {
 std::atomic<uint64_t> NEXT_THREAD_ID(1);
@@ -65,7 +65,7 @@ thread_local Thread* Thread::CURRENT_THREAD = nullptr;
 ////////////////////////////////////////////////////////////////////////////////
 
 void Thread::startThread(void* arg) {
-#if defined(ARANGODB_HAVE_GETTID)
+#if defined(AVOCADODB_HAVE_GETTID)
   LOCAL_THREAD_NUMBER = (uint64_t)gettid();
 #elif defined(_WIN32)
   LOCAL_THREAD_NUMBER = (uint64_t)GetCurrentThreadId();

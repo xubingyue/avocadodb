@@ -108,7 +108,7 @@ V8Expression* V8Executor::generateExpression(AstNode const* node) {
     HandleV8Error(tryCatch, empty,  _buffer, true);
     
     // well we're almost sure we never reach this since the above call should throw:
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unable to compile AQL script code");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unable to compile AQL script code");
   }
 }
 
@@ -175,7 +175,7 @@ int V8Executor::executeExpression(Query* query, AstNode const* node,
     HandleV8Error(tryCatch, empty, _buffer, true);
 
     // well we're almost sure we never reach this since the above call should throw:
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unable to compile AQL script code");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unable to compile AQL script code");
   }
 }
 
@@ -308,7 +308,7 @@ void V8Executor::HandleV8Error(v8::TryCatch& tryCatch,
       TRI_GET_GLOBALS();
       v8g->_canceled = true;
 
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
     }
 
     // request was not canceled, but some other error occurred
@@ -340,7 +340,7 @@ void V8Executor::HandleV8Error(v8::TryCatch& tryCatch,
             errorMessage += *stacktrace;
           }
 
-          THROW_ARANGO_EXCEPTION_MESSAGE(errorCode, errorMessage);
+          THROW_AVOCADO_EXCEPTION_MESSAGE(errorCode, errorMessage);
         }
       }
 
@@ -357,7 +357,7 @@ void V8Executor::HandleV8Error(v8::TryCatch& tryCatch,
         details += *stacktrace;
       }
 
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_SCRIPT, details);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_SCRIPT, details);
     }
 
     std::string msg("unknown error in scripting");
@@ -370,7 +370,7 @@ void V8Executor::HandleV8Error(v8::TryCatch& tryCatch,
       msg += " See log for details";
     }
     // we can't figure out what kind of error occurred and throw a generic error
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
   }
 
   if (result.IsEmpty()) {
@@ -384,7 +384,7 @@ void V8Executor::HandleV8Error(v8::TryCatch& tryCatch,
       msg += " See log for details";
     }
 
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
   }
 
   // if we get here, no exception has been raised
@@ -763,7 +763,7 @@ void V8Executor::generateCodeFunctionCall(AstNode const* node) {
       generateCodeString(member->getStringValue(), member->getStringLength());
     } else if (conversion == Function::CONVERSION_REQUIRED) {
       // the parameter at the position is not a collection name... fail
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH,
           func->externalName.c_str());
     } else {
@@ -786,7 +786,7 @@ void V8Executor::generateCodeUserFunctionCall(AstNode const* node) {
   auto it = _userFunctions.find(node->getString());
 
   if (it == _userFunctions.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "user function not found");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "user function not found");
   }
 
   _buffer->appendText(TRI_CHAR_LENGTH_PAIR("state.e"));
@@ -1016,13 +1016,13 @@ void V8Executor::generateCodeNode(AstNode const* node) {
       // we're not expecting these types here
       std::string message("unexpected node type in generateCodeNode: ");
       message.append(node->getTypeString());
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, message);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, message);
     }
 
     default: {
       std::string message("node type not implemented in generateCodeNode: ");
       message.append(node->getTypeString());
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, message);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, message);
     }
   }
 }
@@ -1033,7 +1033,7 @@ avocadodb::basics::StringBuffer* V8Executor::initializeBuffer() {
     _buffer = new avocadodb::basics::StringBuffer(TRI_UNKNOWN_MEM_ZONE, 512, false);
 
     if (_buffer->stringBuffer()->_buffer == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
   } else {
     _buffer->clear();

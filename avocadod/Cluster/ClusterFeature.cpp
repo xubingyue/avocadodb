@@ -366,7 +366,7 @@ void ClusterFeature::prepare() {
   
 }
 
-// YYY #ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+// YYY #ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 // YYY #warning FRANK split into methods
 // YYY #endif
 

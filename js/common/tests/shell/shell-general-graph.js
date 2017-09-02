@@ -1359,7 +1359,7 @@ function EdgesAndVerticesSuite() {
         catch (e) {
           assertEqual(
             e.errorMessage,
-            avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+            avocadodb.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
           );
         }
       });
@@ -1384,7 +1384,7 @@ function EdgesAndVerticesSuite() {
         g._fromVertex("foobar");
       }
       catch (e) {
-        assertEqual(e.errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code);
+        assertEqual(e.errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code);
       }
     },
 

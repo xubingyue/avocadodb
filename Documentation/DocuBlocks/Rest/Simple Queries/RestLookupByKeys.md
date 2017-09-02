@@ -38,7 +38,7 @@ is returned if the operation was called with a different HTTP METHOD than PUT.
 
 Looking up existing documents
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleLookup}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleLookup}
     var cn = "test";
   ~ db._drop(cn);
     db._create(cn);
@@ -56,11 +56,11 @@ Looking up existing documents
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Looking up non-existing documents
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleLookupNotFound}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleLookupNotFound}
     var cn = "test";
   ~ db._drop(cn);
     db._create(cn);
@@ -77,7 +77,7 @@ Looking up non-existing documents
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 

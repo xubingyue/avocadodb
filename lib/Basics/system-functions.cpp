@@ -89,10 +89,10 @@ int gettimeofday(struct timeval* tv, void* tz) {
 #endif
 
 void TRI_localtime(time_t tt, struct tm* tb) {
-#ifdef ARANGODB_HAVE_LOCALTIME_R
+#ifdef AVOCADODB_HAVE_LOCALTIME_R
   localtime_r(&tt, tb);
 #else
-#ifdef ARANGODB_HAVE_LOCALTIME_S
+#ifdef AVOCADODB_HAVE_LOCALTIME_S
   localtime_s(tb, &tt);
 #else
   struct tm* tp = localtime(&tt);
@@ -105,10 +105,10 @@ void TRI_localtime(time_t tt, struct tm* tb) {
 }
 
 void TRI_gmtime(time_t tt, struct tm* tb) {
-#ifdef ARANGODB_HAVE_GMTIME_R
+#ifdef AVOCADODB_HAVE_GMTIME_R
   gmtime_r(&tt, tb);
 #else
-#ifdef ARANGODB_HAVE_GMTIME_S
+#ifdef AVOCADODB_HAVE_GMTIME_S
   gmtime_s(tb, &tt);
 #else
   struct tm* tp = gmtime(&tt);

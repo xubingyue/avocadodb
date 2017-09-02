@@ -50,15 +50,15 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensureUniqueConstraint
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueConstraint}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureUniqueConstraint}
     ~db._create("test");
     db.test.ensureIndex({ type: "hash", fields: [ "a", "b.c" ], unique: true });
     db.test.save({ a : 1, b : { c : 1 } });
-    db.test.save({ a : 1, b : { c : 1 } }); // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    db.test.save({ a : 1, b : { c : 1 } }); // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
     db.test.save({ a : 1, b : { c : null } });
-    db.test.save({ a : 1 });  // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    db.test.save({ a : 1 });  // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
     ~db._drop("test");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureUniqueConstraint
 
 ### Non-unique Hash Indexes
@@ -80,14 +80,14 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensureHashIndex
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureHashIndex}
     ~db._create("test");
     db.test.ensureIndex({ type: "hash", fields: [ "a" ] });
     db.test.save({ a : 1 });
     db.test.save({ a : 1 });
     db.test.save({ a : null });
     ~db._drop("test");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureHashIndex
 
 ### Hash Array Indexes
@@ -107,14 +107,14 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensureHashIndexArray
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndexArray}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureHashIndexArray}
     ~db._create("test");
     db.test.ensureIndex({ type: "hash", fields: [ "a[*]" ] });
     db.test.save({ a : [ 1, 2 ] });
     db.test.save({ a : [ 1, 3 ] });
     db.test.save({ a : null });
     ~db._drop("test");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureHashIndexArray
 
 

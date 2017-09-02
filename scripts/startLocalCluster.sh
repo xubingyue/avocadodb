@@ -67,24 +67,24 @@ fi
 
 if [ ! -z "$INTERACTIVE_MODE" ] ; then
     if [ "$INTERACTIVE_MODE" == "C" ] ; then
-        ARANGOD="${BUILD}/bin/avocadod "
-        CO_ARANGOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/avocadod --console "
+        AVOCADOD="${BUILD}/bin/avocadod "
+        CO_AVOCADOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/avocadod --console "
         echo "Starting one coordinator in terminal with --console"
     elif [ "$INTERACTIVE_MODE" == "R" ] ; then
-        ARANGOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/avocadod --console "
-        CO_ARANGOD=$ARANGOD
+        AVOCADOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/avocadod --console "
+        CO_AVOCADOD=$AVOCADOD
         echo Running cluster in rr with --console.
     fi
 else
-    ARANGOD="${BUILD}/bin/avocadod "
-    CO_ARANGOD=$ARANGOD
+    AVOCADOD="${BUILD}/bin/avocadod "
+    CO_AVOCADOD=$AVOCADOD
 fi
 
 echo Starting agency ... 
 for aid in `seq 0 $(( $NRAGENTS - 1 ))`; do
     port=$(( $AG_BASE + $aid ))
     AGENCY_ENDPOINTS+="--cluster.agency-endpoint $TRANSPORT://$ADDRESS:$port "
-    $ARANGOD \
+    $AVOCADOD \
         -c none \
         --agency.activate true \
         --agency.compaction-step-size $COMP \
@@ -123,9 +123,9 @@ start() {
     fi
 
     if [ "$1" == "coordinator" ]; then
-        CMD=$CO_ARANGOD
+        CMD=$CO_AVOCADOD
     else
-        CMD=$ARANGOD
+        CMD=$AVOCADOD
     fi
 
     TYPE=$1

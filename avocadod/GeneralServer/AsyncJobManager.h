@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_HTTP_SERVER_ASYNC_JOB_MANAGER_H
-#define ARANGOD_HTTP_SERVER_ASYNC_JOB_MANAGER_H 1
+#ifndef AVOCADOD_HTTP_SERVER_ASYNC_JOB_MANAGER_H
+#define AVOCADOD_HTTP_SERVER_ASYNC_JOB_MANAGER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Result.h"

@@ -73,52 +73,52 @@ endif ()
 # VERSION information
 # ------------------------------------------------------------------------------
 
-set(ARANGODB_VERSION_MAJOR      "3")
-set(ARANGODB_VERSION_MINOR      "2")
-set(ARANGODB_VERSION_REVISION   "2")
-set(ARANGODB_PACKAGE_REVISION   "1")
+set(AVOCADODB_VERSION_MAJOR      "3")
+set(AVOCADODB_VERSION_MINOR      "2")
+set(AVOCADODB_VERSION_REVISION   "2")
+set(AVOCADODB_PACKAGE_REVISION   "1")
 
 # version for the windows rc file needs to be numeric:
-if (ARANGODB_VERSION_REVISION GREATER -1)
-  set(ARANGODB_NUMERIC_VERSION_REVISION "${ARANGODB_VERSION_REVISION}")
+if (AVOCADODB_VERSION_REVISION GREATER -1)
+  set(AVOCADODB_NUMERIC_VERSION_REVISION "${AVOCADODB_VERSION_REVISION}")
 else()
-  set(ARANGODB_NUMERIC_VERSION_REVISION 1337)
+  set(AVOCADODB_NUMERIC_VERSION_REVISION 1337)
 endif()
 
-set(ARANGODB_VERSION
-    "${ARANGODB_VERSION_MAJOR}.${ARANGODB_VERSION_MINOR}.${ARANGODB_VERSION_REVISION}")
+set(AVOCADODB_VERSION
+    "${AVOCADODB_VERSION_MAJOR}.${AVOCADODB_VERSION_MINOR}.${AVOCADODB_VERSION_REVISION}")
 
 # for the packages
-set(ARANGODB_PACKAGE_VENDOR  "AvocadoDB GmbH")
-set(ARANGODB_PACKAGE_CONTACT "info@avocadodb.com")
-set(ARANGODB_DISPLAY_NAME    "AvocadoDB")
-set(ARANGODB_URL_INFO_ABOUT  "https://www.avocadodb.com")
-set(ARANGODB_HELP_LINK       "https://docs.avocadodb.com/${ARANGODB_VERSION_MAJOR}.${ARANGODB_VERSION_MINOR}/")
-set(ARANGODB_CONTACT         "hackers@avocadodb.com")
-set(ARANGODB_FRIENDLY_STRING "AvocadoDB - the native multi-model NoSQL database")
+set(AVOCADODB_PACKAGE_VENDOR  "AvocadoDB GmbH")
+set(AVOCADODB_PACKAGE_CONTACT "info@avocadodb.com")
+set(AVOCADODB_DISPLAY_NAME    "AvocadoDB")
+set(AVOCADODB_URL_INFO_ABOUT  "https://www.avocadodb.com")
+set(AVOCADODB_HELP_LINK       "https://docs.avocadodb.com/${AVOCADODB_VERSION_MAJOR}.${AVOCADODB_VERSION_MINOR}/")
+set(AVOCADODB_CONTACT         "hackers@avocadodb.com")
+set(AVOCADODB_FRIENDLY_STRING "AvocadoDB - the native multi-model NoSQL database")
 
 # MSVC
-set(ARANGO_BENCH_FRIENDLY_STRING   "avocadobench - stress test program")
-set(ARANGO_DUMP_FRIENDLY_STRING    "avocadodump - export")
-set(ARANGO_RESTORE_FRIENDLY_STRING "arangrestore - importer")
-set(ARANGO_EXPORT_FRIENDLY_STRING  "avocadoexport - datae xporter")
-set(ARANGO_IMP_FRIENDLY_STRING     "avocadoimp - TSV/CSV/JSON importer")
-set(ARANGOSH_FRIENDLY_STRING       "avocadosh - commandline client")
-set(ARANGO_VPACK_FRIENDLY_STRING   "avocadovpack - vpack printer")
+set(AVOCADO_BENCH_FRIENDLY_STRING   "avocadobench - stress test program")
+set(AVOCADO_DUMP_FRIENDLY_STRING    "avocadodump - export")
+set(AVOCADO_RESTORE_FRIENDLY_STRING "arangrestore - importer")
+set(AVOCADO_EXPORT_FRIENDLY_STRING  "avocadoexport - datae xporter")
+set(AVOCADO_IMP_FRIENDLY_STRING     "avocadoimp - TSV/CSV/JSON importer")
+set(AVOCADOSH_FRIENDLY_STRING       "avocadosh - commandline client")
+set(AVOCADO_VPACK_FRIENDLY_STRING   "avocadovpack - vpack printer")
 
 # libraries
-set(LIB_ARANGO        avocado)
-set(LIB_ARANGO_V8     avocado_v8)
+set(LIB_AVOCADO        avocado)
+set(LIB_AVOCADO_V8     avocado_v8)
 
 # binaries
-set(BIN_ARANGOBENCH   avocadobench)
-set(BIN_ARANGOD       avocadod)
-set(BIN_ARANGODUMP    avocadodump)
-set(BIN_ARANGOEXPORT  avocadoexport)
-set(BIN_ARANGOIMP     avocadoimp)
-set(BIN_ARANGORESTORE avocadorestore)
-set(BIN_ARANGOSH      avocadosh)
-set(BIN_ARANGOVPACK   avocadovpack)
+set(BIN_AVOCADOBENCH   avocadobench)
+set(BIN_AVOCADOD       avocadod)
+set(BIN_AVOCADODUMP    avocadodump)
+set(BIN_AVOCADOEXPORT  avocadoexport)
+set(BIN_AVOCADOIMP     avocadoimp)
+set(BIN_AVOCADORESTORE avocadorestore)
+set(BIN_AVOCADOSH      avocadosh)
+set(BIN_AVOCADOVPACK   avocadovpack)
 
 # test binaries
 set(TEST_BASICS_SUITE basics_suite)
@@ -135,9 +135,9 @@ set(INSTALL_CONFIGFILES_LIST)
 # ------------------------------------------------------------------------------
 
 if (${CMAKE_MAJOR_VERSION} EQUAL 2)
-  set(ARANGODB_BUILD_DATE "YYYY-MM-DD HH:MM:SS")
+  set(AVOCADODB_BUILD_DATE "YYYY-MM-DD HH:MM:SS")
 else ()
-  string(TIMESTAMP ARANGODB_BUILD_DATE "%Y-%m-%d %H:%M:%S")
+  string(TIMESTAMP AVOCADODB_BUILD_DATE "%Y-%m-%d %H:%M:%S")
 endif ()
 
 configure_file (
@@ -179,16 +179,16 @@ if (DEFINED GIT_EXE AND IS_DIRECTORY "${CMAKE_SOURCE_DIR}/.git")
   # this may fail on shallow clones that only knows about a limited number of commits.
   # if there is an older merged revision the head, it may not be available to git.
   if (NOT GIT_OUTPUT)
-      set(ARANGODB_BUILD_REPOSITORY "GIT FAILED TO RETRIEVE THE VERSION - SHALLOW CLONE?")
-      set(HAVE_ARANGODB_BUILD_REPOSITORY "1")
+      set(AVOCADODB_BUILD_REPOSITORY "GIT FAILED TO RETRIEVE THE VERSION - SHALLOW CLONE?")
+      set(HAVE_AVOCADODB_BUILD_REPOSITORY "1")
     else()
       string(STRIP ${GIT_OUTPUT} REPOSITORY_VERSION)
-      set(ARANGODB_BUILD_REPOSITORY ${REPOSITORY_VERSION})
-      set(HAVE_ARANGODB_BUILD_REPOSITORY "1")
+      set(AVOCADODB_BUILD_REPOSITORY ${REPOSITORY_VERSION})
+      set(HAVE_AVOCADODB_BUILD_REPOSITORY "1")
     endif()
 else ()
-  set(ARANGODB_BUILD_REPOSITORY "")
-  set(HAVE_ARANGODB_BUILD_REPOSITORY "0")
+  set(AVOCADODB_BUILD_REPOSITORY "")
+  set(HAVE_AVOCADODB_BUILD_REPOSITORY "0")
 endif()
 
 configure_file (
@@ -198,7 +198,7 @@ configure_file (
 )
 
 if (VERBOSE)
-  message(STATUS "ARANGODB_BUILD_REPOSITORY=\"${ARANGODB_BUILD_REPOSITORY}\"")
+  message(STATUS "AVOCADODB_BUILD_REPOSITORY=\"${AVOCADODB_BUILD_REPOSITORY}\"")
 endif ()
 
 ################################################################################
@@ -297,7 +297,7 @@ if (SOLARIS OR NOT CMAKE_SIZEOF_VOID_P)
 endif ()
 
 math(EXPR BITS "8*${CMAKE_SIZEOF_VOID_P}")
-add_definitions("-DARANGODB_BITS=${BITS}")
+add_definitions("-DAVOCADODB_BITS=${BITS}")
 
 ################################################################################
 ## COMPILER FEATURES
@@ -434,7 +434,7 @@ endif ()
 ## TARGET ARCHITECTURE
 ################################################################################
 
-set(ARANGODB_SSE42_FLAGS "")
+set(AVOCADODB_SSE42_FLAGS "")
 if (WINDOWS)
   add_definitions("-DNO_SSE42")
 else ()
@@ -463,7 +463,7 @@ else ()
   endif ()
 
   if (USE_SSE4_2)
-    set(ARANGODB_SSE42_FLAGS "-msse4.2")
+    set(AVOCADODB_SSE42_FLAGS "-msse4.2")
   endif ()
 
   set(BASE_FLAGS "${Vc_COMPILE_FLAGS} ${BASE_FLAGS}")
@@ -485,7 +485,7 @@ if (USE_BACKTRACE)
     set(BT_LIBS "" CACHE path "Debug Helper libraries")
   endif ()
 
-  add_definitions("-DARANGODB_ENABLE_BACKTRACE=1")
+  add_definitions("-DAVOCADODB_ENABLE_BACKTRACE=1")
 else ()
   set(BT_LIBS "" CACHE path "Debug Helper libraries")
 endif ()
@@ -520,7 +520,7 @@ option(USE_MAINTAINER_MODE
 )
 
 if (USE_MAINTAINER_MODE)
-  add_definitions("-DARANGODB_ENABLE_MAINTAINER_MODE=1")
+  add_definitions("-DAVOCADODB_ENABLE_MAINTAINER_MODE=1")
   if (CMAKE_COMPILER_IS_GNUCC)
     add_definitions("-D_FORTIFY_SOURCE=2")
   endif()
@@ -549,7 +549,7 @@ option(USE_FAILURE_TESTS
 )
 
 if (USE_FAILURE_TESTS)
-  add_definitions("-DARANGODB_ENABLE_FAILURE_TESTS=1")
+  add_definitions("-DAVOCADODB_ENABLE_FAILURE_TESTS=1")
 endif ()
 
 ################################################################################
@@ -587,7 +587,7 @@ endfunction()
 
 if (USE_JEMALLOC)
   add_subdirectory(3rdParty/jemalloc)
-  add_definitions("-DARANGODB_HAVE_JEMALLOC=1")
+  add_definitions("-DAVOCADODB_HAVE_JEMALLOC=1")
 
   include_directories("${JEMALLOC_HOME}/include")
   link_directories("${JEMALLOC_HOME}/lib")
@@ -595,7 +595,7 @@ if (USE_JEMALLOC)
   set(SYS_LIBS ${SYS_LIBS} ${JEMALLOC_LIB})
 
   if (LINUX OR DARWIN)
-    add_definitions("-DARANGODB_MMAP_JEMALLOC=1")
+    add_definitions("-DAVOCADODB_MMAP_JEMALLOC=1")
   endif ()
 endif ()
 
@@ -727,7 +727,7 @@ if (VERBOSE)
   message(STATUS)
 endif ()
 
-if(ARANGODB_DEBUG_CMAKE)
+if(AVOCADODB_DEBUG_CMAKE)
   get_directory_property( DirDefs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} COMPILE_DEFINITIONS )
   foreach( d ${DirDefs} )
     message( STATUS "Found Define: " ${d} )
@@ -756,7 +756,7 @@ add_definitions(-DBOOST_ALL_NO_LIB=1) #disable boost autolink on windows
 add_subdirectory(3rdParty)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/boost)
-add_definitions("-DARANGODB_BOOST_VERSION=\"${BOOST_VERSION}\"")
+add_definitions("-DAVOCADODB_BOOST_VERSION=\"${BOOST_VERSION}\"")
 
 # ------------------------------------------------------------------------------
 # RocksDB
@@ -764,7 +764,7 @@ add_definitions("-DARANGODB_BOOST_VERSION=\"${BOOST_VERSION}\"")
 
 add_subdirectory(3rdParty/rocksdb)
 
-add_definitions(-DARANGODB_ROCKSDB_VERSION=\"${ROCKSDB_VERSION}\")
+add_definitions(-DAVOCADODB_ROCKSDB_VERSION=\"${ROCKSDB_VERSION}\")
 include_directories(${ROCKSDB_INCLUDE_DIR})
 
 set(ROCKSDB_LIBS rocksdb;snappystatic)
@@ -799,7 +799,7 @@ include_directories(${ICU_INCLUDE_DIR})
 find_package(OpenSSL REQUIRED)
 
 include_directories(${OPENSSL_INCLUDE_DIR})
-add_definitions(-DARANGODB_OPENSSL_VERSION=\"${OPENSSL_VERSION}\")
+add_definitions(-DAVOCADODB_OPENSSL_VERSION=\"${OPENSSL_VERSION}\")
 add_definitions(-DOPENSSL_VERSION_MAJOR=${OPENSSL_VERSION_MAJOR})
 add_definitions(-DOPENSSL_VERSION_MINOR=${OPENSSL_VERSION_MINOR})
 
@@ -829,14 +829,14 @@ endif ()
 ################################################################################
 
 include_directories(${V8_INCLUDE_DIR})
-add_definitions("-DARANGODB_V8_VERSION=\"${V8_VERSION}\"")
+add_definitions("-DAVOCADODB_V8_VERSION=\"${V8_VERSION}\"")
 
 ################################################################################
 ## ZLIB
 ################################################################################
 
 include_directories(${ZLIB_INCLUDE_DIR})
-add_definitions("-DARANGODB_ZLIB_VERSION=\"${ZLIB_VERSION}\"")
+add_definitions("-DAVOCADODB_ZLIB_VERSION=\"${ZLIB_VERSION}\"")
 
 ################################################################################
 ## cURL
@@ -1007,7 +1007,7 @@ add_custom_target(clean_autogenerated_files
   DEPENDS ${CLEAN_AUTOGENERATED_FILES}
   )
 
-message(STATUS "building for git revision: ${ARANGODB_BUILD_REPOSITORY}")
+message(STATUS "building for git revision: ${AVOCADODB_BUILD_REPOSITORY}")
 
 # if (VERBOSE)
 #   get_cmake_property(_variableNames VARIABLES)

@@ -41,7 +41,7 @@ EnumerateListBlock::EnumerateListBlock(ExecutionEngine* engine,
   auto it = en->getRegisterPlan()->varInfo.find(en->_inVariable->id);
 
   if (it == en->getRegisterPlan()->varInfo.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "variable not found");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "variable not found");
   }
 
   _inVarRegId = (*it).second.registerId;
@@ -136,7 +136,7 @@ AqlItemBlock* EnumerateListBlock::getSome(size_t, size_t atMost) {
         // requirements
         // Note that _index has been increased by 1 by getAqlValue!
         TRI_IF_FAILURE("EnumerateListBlock::getSome") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         res->setValue(j, cur->getNrRegs(), a);
         guard.steal(); // itemblock is now responsible for value
@@ -234,7 +234,7 @@ size_t EnumerateListBlock::skipSome(size_t atLeast, size_t atMost) {
 AqlValue EnumerateListBlock::getAqlValue(AqlValue const& inVarReg, bool& mustDestroy) {
   DEBUG_BEGIN_BLOCK();  
   TRI_IF_FAILURE("EnumerateListBlock::getAqlValue") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (inVarReg.isDocvec()) {
@@ -254,7 +254,7 @@ AqlValue EnumerateListBlock::getAqlValue(AqlValue const& inVarReg, bool& mustDes
 }
 
 void EnumerateListBlock::throwArrayExpectedException(AqlValue const& value) {
-  THROW_ARANGO_EXCEPTION_MESSAGE(
+  THROW_AVOCADO_EXCEPTION_MESSAGE(
       TRI_ERROR_QUERY_ARRAY_EXPECTED,
       std::string("collection or ") +
       TRI_errno_string(TRI_ERROR_QUERY_ARRAY_EXPECTED) +

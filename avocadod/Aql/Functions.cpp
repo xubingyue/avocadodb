@@ -88,7 +88,7 @@ void Functions::ValidateParameters(VPackFunctionParameters const& parameters,
                                    int maxParams) {
   if (parameters.size() < static_cast<size_t>(minParams) || 
       parameters.size() > static_cast<size_t>(maxParams)) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH, function, minParams, maxParams);
   }
 }
@@ -581,7 +581,7 @@ static void GetDocumentByIdentifier(transaction::Methods* trx,
       if (ignoreError) {
         return;
       }
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_CROSS_COLLECTION_REQUEST);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_CROSS_COLLECTION_REQUEST);
     } else {
       searchBuilder->add(VPackValue(identifier.substr(pos + 1)));
     }
@@ -597,17 +597,17 @@ static void GetDocumentByIdentifier(transaction::Methods* trx,
 
   if (!res.ok()) {
     if (ignoreError) {
-      if (res.errorNumber() == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND || 
-          res.errorNumber() == TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND ||
-          res.errorNumber() == TRI_ERROR_ARANGO_CROSS_COLLECTION_REQUEST) {
+      if (res.errorNumber() == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND || 
+          res.errorNumber() == TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND ||
+          res.errorNumber() == TRI_ERROR_AVOCADO_CROSS_COLLECTION_REQUEST) {
         return;
       }
     }
     if (res.errorNumber() == TRI_ERROR_TRANSACTION_UNREGISTERED_COLLECTION) {
       // special error message to indicate which collection was undeclared
-      THROW_ARANGO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage() + ": " + collectionName + " [" + AccessMode::typeString(AccessMode::Type::READ) + "]");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(res.errorNumber(), res.errorMessage() + ": " + collectionName + " [" + AccessMode::typeString(AccessMode::Type::READ) + "]");
     }
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 }
 
@@ -1827,9 +1827,9 @@ AqlValue Functions::Sleep(avocadodb::aql::Query* query,
     usleep(25000);
 
     if (query->killed()) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_QUERY_KILLED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_QUERY_KILLED);
     } else if (application_features::ApplicationServer::isStopping()) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
     }
   }
   return AqlValue(avocadodb::basics::VelocyPackHelper::NullValue());
@@ -1843,7 +1843,7 @@ AqlValue Functions::RandomToken(avocadodb::aql::Query* query,
 
   int64_t const length = value.toInt64(trx);
   if (length <= 0 || length > 65536) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "RANDOM_TOKEN");
   }
 
@@ -2008,7 +2008,7 @@ AqlValue Functions::Union(avocadodb::aql::Query* query,
     }
 
     TRI_IF_FAILURE("AqlFunctions::OutOfMemory1") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     AqlValueMaterializer materializer(trx);
@@ -2018,13 +2018,13 @@ AqlValue Functions::Union(avocadodb::aql::Query* query,
     for (auto const& it : VPackArrayIterator(slice)) {
       builder->add(it);
       TRI_IF_FAILURE("AqlFunctions::OutOfMemory2") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
     }
   }
   builder->close();
   TRI_IF_FAILURE("AqlFunctions::OutOfMemory3") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   return AqlValue(builder.get());
@@ -2060,7 +2060,7 @@ AqlValue Functions::UnionDistinct(avocadodb::aql::Query* query,
     for (auto const& v : VPackArrayIterator(slice)) {
       if (values.find(v) == values.end()) {
         TRI_IF_FAILURE("AqlFunctions::OutOfMemory1") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         values.emplace(v);
@@ -2069,7 +2069,7 @@ AqlValue Functions::UnionDistinct(avocadodb::aql::Query* query,
   }
 
   TRI_IF_FAILURE("AqlFunctions::OutOfMemory2") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
     
   transaction::BuilderLeaser builder(trx);
@@ -2080,7 +2080,7 @@ AqlValue Functions::UnionDistinct(avocadodb::aql::Query* query,
   builder->close();
 
   TRI_IF_FAILURE("AqlFunctions::OutOfMemory3") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   return AqlValue(builder.get());
@@ -2119,7 +2119,7 @@ AqlValue Functions::Intersection(avocadodb::aql::Query* query,
         // round one
 
         TRI_IF_FAILURE("AqlFunctions::OutOfMemory1") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         values.emplace(it, 1);
@@ -2139,7 +2139,7 @@ AqlValue Functions::Intersection(avocadodb::aql::Query* query,
   }
 
   TRI_IF_FAILURE("AqlFunctions::OutOfMemory2") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   transaction::BuilderLeaser builder(trx);
@@ -2152,7 +2152,7 @@ AqlValue Functions::Intersection(avocadodb::aql::Query* query,
   builder->close();
 
   TRI_IF_FAILURE("AqlFunctions::OutOfMemory3") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   return AqlValue(builder.get());
 }
@@ -2199,7 +2199,7 @@ AqlValue Functions::Outersection(avocadodb::aql::Query* query,
   }
 
   TRI_IF_FAILURE("AqlFunctions::OutOfMemory2") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   transaction::BuilderLeaser builder(trx);
@@ -2212,7 +2212,7 @@ AqlValue Functions::Outersection(avocadodb::aql::Query* query,
   builder->close();
 
   TRI_IF_FAILURE("AqlFunctions::OutOfMemory3") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   return AqlValue(builder.get());
 }
@@ -3347,7 +3347,7 @@ AqlValue Functions::CollectionCount(
 
   AqlValue element = ExtractFunctionParameterValue(trx, parameters, 0);
   if (!element.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "COLLECTION_COUNT");
   }
 
@@ -3359,7 +3359,7 @@ AqlValue Functions::CollectionCount(
   auto collection = trx->documentCollection(cid);
 
   if (collection == nullptr) {
-    THROW_ARANGO_EXCEPTION_FORMAT(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+    THROW_AVOCADO_EXCEPTION_FORMAT(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                                   "'%s'", collectionName.c_str());
   }
 
@@ -3733,7 +3733,7 @@ AqlValue Functions::PregelResult(avocadodb::aql::Query* query, transaction::Meth
   
   AqlValue arg1 = ExtractFunctionParameterValue(trx, parameters, 0);
   if (!arg1.isNumber()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
                                   TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "PREGEL_RESULT");
   }
   

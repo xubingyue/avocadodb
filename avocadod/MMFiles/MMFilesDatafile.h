@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_DATAFILE_H
-#define ARANGOD_MMFILES_MMFILES_DATAFILE_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_DATAFILE_H
+#define AVOCADOD_MMFILES_MMFILES_DATAFILE_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/vocbase.h"
@@ -445,7 +445,7 @@ static_assert(sizeof(MMFilesMarker) == 16, "invalid size for MMFilesMarker");
 ///     <td>_maximalSize</td>
 ///     <td>The maximal size to which a datafile can grow. If you
 ///         attempt to add more datafile to a datafile, then an
-///         error TRI_ERROR_ARANGO_DATAFILE_FULL is returned.</td>
+///         error TRI_ERROR_AVOCADO_DATAFILE_FULL is returned.</td>
 ///   </tr>
 ///   <tr>
 ///     <td>TRI_voc_tick_t</td>

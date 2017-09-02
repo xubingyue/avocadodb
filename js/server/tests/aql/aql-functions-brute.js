@@ -200,7 +200,7 @@ function ahuacatlFunctionsBruteTestSuite () {
     }
     
     return [
-      errors.ERROR_ARANGO_CROSS_COLLECTION_REQUEST.code,
+      errors.ERROR_AVOCADO_CROSS_COLLECTION_REQUEST.code,
       errors.ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH.code,
       errors.ERROR_QUERY_FUNCTION_NOT_FOUND.code,
       errors.ERROR_GRAPH_NOT_FOUND.code,

@@ -150,7 +150,7 @@ AvocadoDatabase.prototype._drop = function (name, options) {
   } catch (err) {
     // ignore if the collection does not exist
     if (err instanceof AvocadoError &&
-      err.errorNum === internal.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code) {
+      err.errorNum === internal.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code) {
       return;
     }
     // rethrow exception
@@ -200,8 +200,8 @@ AvocadoDatabase.prototype._index = function (id) {
 
   if (pa === null) {
     err = new AvocadoError();
-    err.errorNum = internal.errors.ERROR_ARANGO_INDEX_HANDLE_BAD.code;
-    err.errorMessage = internal.errors.ERROR_ARANGO_INDEX_HANDLE_BAD.message;
+    err.errorNum = internal.errors.ERROR_AVOCADO_INDEX_HANDLE_BAD.code;
+    err.errorMessage = internal.errors.ERROR_AVOCADO_INDEX_HANDLE_BAD.message;
     throw err;
   }
 
@@ -209,8 +209,8 @@ AvocadoDatabase.prototype._index = function (id) {
 
   if (col === null) {
     err = new AvocadoError();
-    err.errorNum = internal.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code;
-    err.errorMessage = internal.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.message;
+    err.errorNum = internal.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code;
+    err.errorMessage = internal.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.message;
     throw err;
   }
 
@@ -242,8 +242,8 @@ AvocadoDatabase.prototype._dropIndex = function (id) {
 
   if (pa === null) {
     err = new AvocadoError();
-    err.errorNum = internal.errors.ERROR_ARANGO_INDEX_HANDLE_BAD.code;
-    err.errorMessage = internal.errors.ERROR_ARANGO_INDEX_HANDLE_BAD.message;
+    err.errorNum = internal.errors.ERROR_AVOCADO_INDEX_HANDLE_BAD.code;
+    err.errorMessage = internal.errors.ERROR_AVOCADO_INDEX_HANDLE_BAD.message;
     throw err;
   }
 
@@ -251,8 +251,8 @@ AvocadoDatabase.prototype._dropIndex = function (id) {
 
   if (col === null) {
     err = new AvocadoError();
-    err.errorNum = internal.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code;
-    err.errorMessage = internal.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.message;
+    err.errorNum = internal.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code;
+    err.errorMessage = internal.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.message;
     throw err;
   }
 

@@ -22,8 +22,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_COMPARATOR_H
-#define ARANGO_ROCKSDB_ROCKSDB_COMPARATOR_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_COMPARATOR_H
+#define AVOCADO_ROCKSDB_ROCKSDB_COMPARATOR_H 1
 
 #include "Basics/Common.h"
 

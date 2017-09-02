@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_MFORMAT_H
-#define ARANGODB_PREGEL_MFORMAT_H 1
+#ifndef AVOCADODB_PREGEL_MFORMAT_H
+#define AVOCADODB_PREGEL_MFORMAT_H 1
 
 #include <cstddef>
 #include "Basics/Common.h"

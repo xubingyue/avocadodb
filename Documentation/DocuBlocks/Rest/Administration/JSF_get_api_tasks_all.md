@@ -13,7 +13,7 @@ The list of tasks
 @EXAMPLES
 
 Fetching all tasks
-@EXAMPLE_ARANGOSH_RUN{RestTasksListAll}
+@EXAMPLE_AVOCADOSH_RUN{RestTasksListAll}
     var url = "/_api/tasks";
 
     var response = logCurlRequest('GET', url);
@@ -22,6 +22,6 @@ Fetching all tasks
 
     logJsonResponse(response);
 
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

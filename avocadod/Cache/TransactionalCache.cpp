@@ -82,7 +82,7 @@ Result TransactionalCache::insert(CachedValue* value) {
         candidate = bucket->evictionCandidate();
         if (candidate == nullptr) {
           allowed = false;
-          status.reset(TRI_ERROR_ARANGO_BUSY);
+          status.reset(TRI_ERROR_AVOCADO_BUSY);
         }
       }
 
@@ -115,7 +115,7 @@ Result TransactionalCache::insert(CachedValue* value) {
         }
       }
     } else {
-      status.reset(TRI_ERROR_ARANGO_CONFLICT);
+      status.reset(TRI_ERROR_AVOCADO_CONFLICT);
     }
 
     bucket->unlock();

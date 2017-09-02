@@ -98,7 +98,7 @@ function QuickieSuite () {
         fail();
       }
       catch (e) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, e.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, e.errorNum);
       }
 
       // Drop the collection again:
@@ -149,7 +149,7 @@ function QuickieSuite () {
         fail();
       }
       catch (e) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, e.errorNum); 
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, e.errorNum); 
       }
 
       // Drop the collection again:

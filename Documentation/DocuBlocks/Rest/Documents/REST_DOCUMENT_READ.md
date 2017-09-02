@@ -49,7 +49,7 @@ attributes *_id* and *_key* will be returned.
 
 Use a document handle:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerReadDocument}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerReadDocument}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -63,11 +63,11 @@ Use a document handle:
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Use a document handle and an etag:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerReadDocumentIfNoneMatch}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerReadDocumentIfNoneMatch}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -80,11 +80,11 @@ Use a document handle and an etag:
 
     assert(response.code === 304);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Unknown document handle:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerReadDocumentUnknownHandle}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerReadDocumentUnknownHandle}
     var url = "/_api/document/products/unknownhandle";
 
     var response = logCurlRequest('GET', url);
@@ -92,6 +92,6 @@ Unknown document handle:
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

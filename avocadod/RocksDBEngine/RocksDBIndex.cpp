@@ -210,14 +210,14 @@ int RocksDBIndex::drop() {
     }
   }
   
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   //check if documents have been deleted
   rocksdb::ReadOptions readOptions;
   readOptions.fill_cache = false;
   size_t numDocs = rocksutils::countKeyRange(rocksutils::globalRocksDB(), readOptions,
                                              RocksDBKeyBounds::EdgeIndex(_objectId));
   if (numDocs) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in edge index drop failed "
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "deletion check in edge index drop failed "
                                    "- not all documents in the index have been deleted");
   }
 #endif
@@ -248,12 +248,12 @@ void RocksDBIndex::truncate(transaction::Methods* trx) {
 
     Result r = mthds->Delete(_cf, RocksDBKey(iter->key()));
     if (!r.ok()) {
-      THROW_ARANGO_EXCEPTION(r);
+      THROW_AVOCADO_EXCEPTION(r);
     }
 
     r = postprocessRemove(trx, iter->key(), iter->value());
     if (!r.ok()) {
-      THROW_ARANGO_EXCEPTION(r);
+      THROW_AVOCADO_EXCEPTION(r);
     }
 
     iter->Next();
@@ -328,6 +328,6 @@ RocksDBKeyBounds RocksDBIndex::getBounds(Index::IndexType type,
       return RocksDBKeyBounds::GeoIndex(objectId);
     case RocksDBIndex::TRI_IDX_TYPE_UNKNOWN:
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
   }
 }

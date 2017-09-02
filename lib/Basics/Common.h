@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_COMMON_H
-#define ARANGODB_BASICS_COMMON_H 1
+#ifndef AVOCADODB_BASICS_COMMON_H
+#define AVOCADODB_BASICS_COMMON_H 1
 
 #ifdef _WIN32
 
@@ -191,7 +191,7 @@ typedef long suseconds_t;
 /// @brief assert
 #ifndef TRI_ASSERT
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 
 #define TRI_ASSERT(expr)                             \
   do {                                               \

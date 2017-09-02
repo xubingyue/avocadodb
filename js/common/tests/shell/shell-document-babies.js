@@ -286,7 +286,7 @@ function CollectionDocumentSuiteBabies() {
       assertEqual(docs.length, 2);
       assertEqual(docs[0]._key, "b"); // The first is inserted
       assertTrue(docs[1].error);
-      assertEqual(docs[1].errorNum, ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code);
+      assertEqual(docs[1].errorNum, ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code);
       assertEqual(collection.count(), 2);
 
       docs = collection.insert([{
@@ -296,7 +296,7 @@ function CollectionDocumentSuiteBabies() {
       }]);
       assertEqual(docs.length, 2);
       assertTrue(docs[0].error);
-      assertEqual(docs[0].errorNum, ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code);
+      assertEqual(docs[0].errorNum, ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code);
       assertEqual(docs[1]._key, "c"); // The second is inserted
       assertEqual(collection.count(), 3);
     },
@@ -318,7 +318,7 @@ function CollectionDocumentSuiteBabies() {
         assertEqual(docs.length, 2);
         assertEqual(docs[0]._key, "a");
         assertTrue(docs[1].error);
-        assertEqual(docs[1].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_KEY_BAD.code);
+        assertEqual(docs[1].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_KEY_BAD.code);
         collection.remove("a");
       });
       assertEqual(collection.count(), 0);
@@ -339,7 +339,7 @@ function CollectionDocumentSuiteBabies() {
         }]);
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err.errorNum);
       }
       try {
@@ -349,14 +349,14 @@ function CollectionDocumentSuiteBabies() {
         }]);
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err.errorNum);
       }
       try {
         db._remove([cn + "/b"]);
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
           err.errorNum);
       }
       assertEqual(collection.count(), 1);
@@ -392,7 +392,7 @@ function CollectionDocumentSuiteBabies() {
       // All should conflict!
       for (i = 0; i < result.length; i++) {
         assertTrue(result[i].error);
-        assertEqual(result[i].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+        assertEqual(result[i].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
       assertEqual(collection.count(), 3);
       collection.remove(docs2);
@@ -429,7 +429,7 @@ function CollectionDocumentSuiteBabies() {
       // All should conflict!
       for (i = 0; i < result.length; i++) {
         assertTrue(result[i].error);
-        assertEqual(result[i].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+        assertEqual(result[i].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
       assertEqual(collection.count(), 3);
       collection.remove(docs2);
@@ -501,7 +501,7 @@ function CollectionDocumentSuiteBabies() {
       assertEqual(docs3.length, docs.length);
       for (var i = 0; i < docs3.length; ++i) {
         assertEqual(docs3[i].error, true);
-        assertEqual(docs3[i].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+        assertEqual(docs3[i].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
 
       // Only the third is not ok
@@ -519,7 +519,7 @@ function CollectionDocumentSuiteBabies() {
       assertEqual(docs3[1]._key, docs[1]._key);
 
       assertEqual(docs3[2].error, true);
-      assertEqual(docs3[2].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(docs3[2].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
 
       // Only the third is ok
       test = [docs[0], docs2[1], docs2[2]];
@@ -533,9 +533,9 @@ function CollectionDocumentSuiteBabies() {
       }]);
 
       assertEqual(docs3[0].error, true);
-      assertEqual(docs3[0].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(docs3[0].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       assertEqual(docs3[1].error, true);
-      assertEqual(docs3[1].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(docs3[1].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
 
       assertEqual(docs3[2]._key, docs[2]._key);
 
@@ -583,7 +583,7 @@ function CollectionDocumentSuiteBabies() {
       assertEqual(docs3.length, 3);
       for (var i = 0; i < docs3.length; ++i) {
         assertEqual(docs3[i].error, true);
-        assertEqual(docs3[i].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+        assertEqual(docs3[i].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
 
       // Only the third is not ok
@@ -601,7 +601,7 @@ function CollectionDocumentSuiteBabies() {
       assertEqual(docs3[1]._key, docs[1]._key);
 
       assertEqual(docs3[2].error, true);
-      assertEqual(docs3[2].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(docs3[2].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
 
       // Only the third is ok
       test = [docs[0], docs2[1], docs2[2]];
@@ -614,9 +614,9 @@ function CollectionDocumentSuiteBabies() {
       }]);
 
       assertEqual(docs3[0].error, true);
-      assertEqual(docs3[0].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(docs3[0].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       assertEqual(docs3[1].error, true);
-      assertEqual(docs3[1].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(docs3[1].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
 
       assertEqual(docs3[2]._key, docs[2]._key);
 
@@ -659,7 +659,7 @@ function CollectionDocumentSuiteBabies() {
       // All should conflict!
       for (var i = 0; i < docs.length; i++) {
         assertTrue(docs3[i].error);
-        assertEqual(docs3[i].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+        assertEqual(docs3[i].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       }
 
       var test = [docs2[0], docs2[1], docs[2]];
@@ -672,7 +672,7 @@ function CollectionDocumentSuiteBabies() {
       }
       // The third conflicts
       assertTrue(docs3[2].error);
-      assertEqual(docs3[2].errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(docs3[2].errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
       assertEqual(collection.count(), 1);
 
       test = [docs[0], docs2[1], docs2[2]];
@@ -681,9 +681,9 @@ function CollectionDocumentSuiteBabies() {
 
       // The first two do not exist
       assertTrue(docs3[0].error);
-      assertEqual(docs3[0].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code);
+      assertEqual(docs3[0].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code);
       assertTrue(docs3[1].error);
-      assertEqual(docs3[1].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code);
+      assertEqual(docs3[1].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code);
 
       // The third is removed
       assertFalse(docs3[2].hasOwnProperty("error"));
@@ -714,7 +714,7 @@ function CollectionDocumentSuiteBabies() {
       assertEqual(docs3.length, 3);
       for (var i = 0; i < docs3.length; ++i) {
         assertTrue(docs3[i].error);
-        assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, docs3[i].errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, docs3[i].errorNum);
       }
       // Only the third fails
       var test = [docs2[0], docs2[1], docs[2]];
@@ -723,14 +723,14 @@ function CollectionDocumentSuiteBabies() {
       assertEqual(docs3[0].value, 4);
       assertEqual(docs3[1].value, 5);
       assertTrue(docs3[2].error);
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, docs3[2].errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, docs3[2].errorNum);
 
       // Only the first fails
       test = [docs[0], docs2[1], docs2[2]];
       docs3 = collection.document(test);
       assertEqual(docs3.length, 3);
       assertTrue(docs3[0].error);
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, docs3[0].errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, docs3[0].errorNum);
       assertEqual(docs3[1].value, 5);
       assertEqual(docs3[2].value, 6);
     },
@@ -749,7 +749,7 @@ function CollectionDocumentSuiteBabies() {
         docs = collection.insert([x]);
         assertEqual(docs.length, 1);
         assertEqual(docs[0].error, true);
-        assertEqual(docs[0].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code);
+        assertEqual(docs[0].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code);
       });
       var origDocs = collection.insert([{}, {}, {}]);
       var expectedLength = origDocs.length;
@@ -759,7 +759,7 @@ function CollectionDocumentSuiteBabies() {
         assertEqual(docs.length, expectedLength);
         for (var i = 0; i < expectedLength; ++i) {
           assertEqual(docs[i].error, true);
-          assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code);
+          assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code);
         }
 
         // Replace
@@ -770,9 +770,9 @@ function CollectionDocumentSuiteBabies() {
             for (i = 0; i < expectedLength; ++i) {
               assertEqual(docs[i].error, true);
               if (typeof x === "string") {
-                assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code);
+                assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code);
               } else {
-                assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code);
+                assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code);
               }
             }
           } catch (err) {
@@ -788,7 +788,7 @@ function CollectionDocumentSuiteBabies() {
         assertEqual(docs.length, expectedLength);
         for (i = 0; i < expectedLength; ++i) {
           assertEqual(docs[i].error, true);
-          assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code);
+          assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code);
         }
 
         docs = collection.update([x, x, x], [{}, {}, {}]);
@@ -796,9 +796,9 @@ function CollectionDocumentSuiteBabies() {
         for (i = 0; i < expectedLength; ++i) {
           assertEqual(docs[i].error, true);
           if (typeof x === "string") {
-            assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code);
+            assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code);
           } else {
-            assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code);
+            assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code);
           }
         }
 
@@ -810,9 +810,9 @@ function CollectionDocumentSuiteBabies() {
         for (i = 0; i < expectedLength; ++i) {
           assertEqual(docs[i].error, true);
           if (typeof x === "string") {
-            assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code);
+            assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code);
           } else {
-            assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code);
+            assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code);
           }
         }
 
@@ -822,9 +822,9 @@ function CollectionDocumentSuiteBabies() {
         for (i = 0; i < expectedLength; ++i) {
           assertEqual(docs[i].error, true);
           if (typeof x === "string") {
-            assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code);
+            assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code);
           } else {
-            assertEqual(docs[i].errorNum, ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code);
+            assertEqual(docs[i].errorNum, ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code);
           }
         }
       });
@@ -843,21 +843,21 @@ function CollectionDocumentSuiteBabies() {
         docs = collection.replace(docs[0], [{}]);
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err.errorNum);
       }
       try {
         docs = collection.replace(docs, {});
         fail();
       } catch (err2) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err2.errorNum);
       }
       try {
         docs = collection.replace(docs, [{}]);
         fail();
       } catch (err3) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err3.errorNum);
       }
       // Update
@@ -865,21 +865,21 @@ function CollectionDocumentSuiteBabies() {
         docs = collection.update(docs[0], [{}]);
         fail();
       } catch (err4) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err4.errorNum);
       }
       try {
         docs = collection.update(docs, {});
         fail();
       } catch (err5) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err5.errorNum);
       }
       try {
         docs = collection.update(docs, [{}]);
         fail();
       } catch (err6) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
           err6.errorNum);
       }
     },

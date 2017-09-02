@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ENGINE_ROCKSDB_ITERATORS_H
-#define ARANGOD_ROCKSDB_ENGINE_ROCKSDB_ITERATORS_H 1
+#ifndef AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_ITERATORS_H
+#define AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_ITERATORS_H 1
 
 #include "Basics/Common.h"
 #include "Indexes/Index.h"
@@ -130,7 +130,7 @@ class RocksDBSortedAllIterator final : public IndexIterator {
 
   RocksDBKeyBounds const _bounds;
   std::unique_ptr<rocksdb::Iterator> _iterator;
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   RocksDBPrimaryIndex const* _index;
 #endif
   rocksdb::Comparator const* _cmp;

@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_TRI__STRINGS_H
-#define ARANGODB_BASICS_TRI__STRINGS_H 1
+#ifndef AVOCADODB_BASICS_TRI__STRINGS_H
+#define AVOCADODB_BASICS_TRI__STRINGS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/vector.h"
@@ -174,7 +174,7 @@ TRI_vector_string_t TRI_Split2String(char const* source, char const* delim);
 /// @brief frees a string
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 #define TRI_FreeString(a, b) TRI_FreeStringZ((a), (b), __FILE__, __LINE__)
 void TRI_FreeStringZ(TRI_memory_zone_t*, char*, char const* file, int line);
 #else

@@ -1,5 +1,5 @@
 /* jshint unused: false */
-/* global ARANGODB_CLIENT_VERSION */ 
+/* global AVOCADODB_CLIENT_VERSION */ 
 'use strict';
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ var help = function () {
   // extract current version
   var version;
   try {
-    version = ARANGODB_CLIENT_VERSION().replace(/^(\d+\.\d+).*/, "$1");
+    version = AVOCADODB_CLIENT_VERSION().replace(/^(\d+\.\d+).*/, "$1");
   } catch (err) {}
   if (!version.match(/^(\d+\.\d+)$/)) {
     version = 'latest';

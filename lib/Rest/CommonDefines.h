@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_COMMON_DEFINES_H
-#define ARANGODB_REST_COMMON_DEFINES_H 1
+#ifndef AVOCADODB_REST_COMMON_DEFINES_H
+#define AVOCADODB_REST_COMMON_DEFINES_H 1
 
 namespace avocadodb {
 namespace rest {

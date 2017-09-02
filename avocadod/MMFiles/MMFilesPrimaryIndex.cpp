@@ -260,21 +260,21 @@ void MMFilesPrimaryIndex::toVelocyPackFigures(VPackBuilder& builder) const {
 
 Result MMFilesPrimaryIndex::insert(transaction::Methods*, TRI_voc_rid_t,
                                    VPackSlice const&, bool) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
       << "insert() called for primary index";
 #endif
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "insert() called for primary index");
 }
 
 Result MMFilesPrimaryIndex::remove(transaction::Methods*, TRI_voc_rid_t,
                                    VPackSlice const&, bool) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
       << "remove() called for primary index";
 #endif
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "remove() called for primary index");
 }
 
@@ -407,7 +407,7 @@ Result MMFilesPrimaryIndex::removeKey(transaction::Methods* trx,
       _primaryIndex->removeByKey(&context, keySlice.begin());
 
   if (!found) {
-    return IndexResult(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND, this);
+    return IndexResult(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND, this);
   }
 
   return Result(TRI_ERROR_NO_ERROR);
@@ -424,7 +424,7 @@ Result MMFilesPrimaryIndex::removeKey(transaction::Methods* trx,
       _primaryIndex->removeByKey(&context, keySlice.begin());
 
   if (!found) {
-    return IndexResult(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND, this);
+    return IndexResult(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND, this);
   }
 
   return Result(TRI_ERROR_NO_ERROR);
@@ -528,12 +528,12 @@ IndexIterator* MMFilesPrimaryIndex::createInIterator(
   for (size_t i = 0; i < n; ++i) {
     handleValNode(trx, keys.get(), valNode->getMemberUnchecked(i), isId);
     TRI_IF_FAILURE("PrimaryIndex::iteratorValNodes") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
   }
 
   TRI_IF_FAILURE("PrimaryIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   keys->close();
   return new MMFilesPrimaryIndexIterator(_collection, trx, mmdr, this, keys);
@@ -556,7 +556,7 @@ IndexIterator* MMFilesPrimaryIndex::createEqIterator(
   handleValNode(trx, keys.get(), valNode, isId);
 
   TRI_IF_FAILURE("PrimaryIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   keys->close();
   return new MMFilesPrimaryIndexIterator(_collection, trx, mmdr, this, keys);

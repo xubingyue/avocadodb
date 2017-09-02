@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_MIMETYPES_H
-#define ARANGODB_BASICS_MIMETYPES_H 1
+#ifndef AVOCADODB_BASICS_MIMETYPES_H
+#define AVOCADODB_BASICS_MIMETYPES_H 1
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief register a mimetype for an extension

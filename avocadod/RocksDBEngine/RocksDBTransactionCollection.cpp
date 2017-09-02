@@ -182,22 +182,22 @@ int RocksDBTransactionCollection::use(int nestingLevel) {
       _collection = _transaction->vocbase()->lookupCollection(_cid);
 
       if (_collection == nullptr) {
-        return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+        return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
       }
     }
 
     if (_collection == nullptr) {
       int res = TRI_errno();
-      if (res == TRI_ERROR_ARANGO_COLLECTION_NOT_LOADED) {
+      if (res == TRI_ERROR_AVOCADO_COLLECTION_NOT_LOADED) {
         return res;
       }
-      return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
     }
 
     if (AccessMode::isWriteOrExclusive(_accessType) &&
         TRI_GetOperationModeServer() == TRI_VOCBASE_MODE_NO_CREATE &&
         !LogicalCollection::IsSystemName(_collection->name())) {
-      return TRI_ERROR_ARANGO_READ_ONLY;
+      return TRI_ERROR_AVOCADO_READ_ONLY;
     }
 
     doSetup = true;

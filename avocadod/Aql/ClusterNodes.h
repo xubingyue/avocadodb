@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_CLUSTER_NODES_H
-#define ARANGOD_AQL_CLUSTER_NODES_H 1
+#ifndef AVOCADOD_AQL_CLUSTER_NODES_H
+#define AVOCADOD_AQL_CLUSTER_NODES_H 1
 
 #include "Basics/Common.h"
 #include "Aql/Ast.h"

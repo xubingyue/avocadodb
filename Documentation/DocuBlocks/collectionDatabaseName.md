@@ -16,9 +16,9 @@ end users. End users should access collections using the collection name.
 
 Get a collection by name:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseName}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseName}
   db._collection("demo");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Get a collection by id:
 
@@ -29,7 +29,7 @@ avocadosh> db._collection(123456);
 
 Unknown collection:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameUnknown}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseNameUnknown}
   db._collection("unknown");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

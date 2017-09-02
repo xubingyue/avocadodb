@@ -171,17 +171,17 @@ fi
 
 if [ ! -z "$INTERACTIVE_MODE" ] ; then
     if [ "$INTERACTIVE_MODE" == "C" ] ; then
-        ARANGOD="${BUILD}/bin/avocadod "
-        CO_ARANGOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/avocadod --console "
+        AVOCADOD="${BUILD}/bin/avocadod "
+        CO_AVOCADOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/avocadod --console "
         echo "Starting one coordinator in terminal with --console"
     elif [ "$INTERACTIVE_MODE" == "R" ] ; then
-        ARANGOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/avocadod --console "
-        CO_ARANGOD=$ARANGOD
+        AVOCADOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/avocadod --console "
+        CO_AVOCADOD=$AVOCADOD
         echo Running cluster in rr with --console.
     fi
 else
-    ARANGOD="${BUILD}/bin/avocadod "
-    CO_ARANGOD=$ARANGOD
+    AVOCADOD="${BUILD}/bin/avocadod "
+    CO_AVOCADOD=$AVOCADOD
 fi
 
 SFRE=2.5
@@ -226,7 +226,7 @@ for aid in "${aaid[@]}"; do
   fi
   
   printf "    starting agent %s " "$aid"
-  $ARANGOD \
+  $AVOCADOD \
     -c none \
     --agency.activate true \
     $GOSSIP_PEERS \

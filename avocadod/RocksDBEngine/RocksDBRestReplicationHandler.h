@@ -22,8 +22,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_REST_REPLICATION_HANDLER_H
-#define ARANGOD_ROCKSDB_ROCKSDB_REST_REPLICATION_HANDLER_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_REST_REPLICATION_HANDLER_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_REST_REPLICATION_HANDLER_H 1
 
 #include "RestHandler/RestReplicationHandler.h"
 

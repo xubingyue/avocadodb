@@ -123,8 +123,8 @@ function collectionRepresentation (collection, showProperties, showCount, showFi
 function checkCollection (g, collection) {
   if (!g[collection]) {
     throw Object.assign(
-      new httperr.NotFound(errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.message),
-      {errorNum: errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code}
+      new httperr.NotFound(errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.message),
+      {errorNum: errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code}
     );
   }
 }
@@ -270,7 +270,7 @@ router.post('/', function (req, res) {
         case errors.ERROR_GRAPH_WRONG_COLLECTION_TYPE_VERTEX.code:
         case errors.ERROR_GRAPH_COLLECTION_USED_IN_EDGE_DEF.code:
         case errors.ERROR_GRAPH_COLLECTION_USED_IN_ORPHANS.code:
-        case errors.ERROR_ARANGO_DUPLICATE_NAME.code:
+        case errors.ERROR_AVOCADO_DUPLICATE_NAME.code:
           require('console').error("Message:", e.errorMessage);
           throw Object.assign(
             new httperr.BadRequest(e.errorMessage),
@@ -585,7 +585,7 @@ router.get('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -615,7 +615,7 @@ router.put('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -653,7 +653,7 @@ router.patch('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -691,7 +691,7 @@ router.delete('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -704,7 +704,7 @@ router.delete('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     didRemove = g[collection].remove(id, {waitForSync});
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -771,7 +771,7 @@ router.get('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -801,7 +801,7 @@ router.put('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -839,7 +839,7 @@ router.patch('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -877,7 +877,7 @@ router.delete('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -890,7 +890,7 @@ router.delete('/:graph/edge/:collection/:key', function (req, res) {
   try {
     didRemove = g[collection].remove(id, {waitForSync});
   } catch (e) {
-    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}

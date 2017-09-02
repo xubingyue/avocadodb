@@ -20,8 +20,8 @@
 /// @author Wilfried Goesgens
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_APPLICATION_FEATURES_WINDOWS_SERVICE_FEATURE_H
-#define ARANGODB_APPLICATION_FEATURES_WINDOWS_SERVICE_FEATURE_H 1
+#ifndef AVOCADODB_APPLICATION_FEATURES_WINDOWS_SERVICE_FEATURE_H
+#define AVOCADODB_APPLICATION_FEATURES_WINDOWS_SERVICE_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

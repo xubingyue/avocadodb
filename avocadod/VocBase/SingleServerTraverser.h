@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_SINGLE_SERVER_TRAVERSER_H
-#define ARANGOD_SINGLE_SERVER_TRAVERSER_H 1
+#ifndef AVOCADOD_SINGLE_SERVER_TRAVERSER_H
+#define AVOCADOD_SINGLE_SERVER_TRAVERSER_H 1
 
 #include "Aql/AqlValue.h"
 #include "VocBase/Traverser.h"

@@ -54,7 +54,7 @@ void BindParameters::process() {
   }
 
   if (!slice.isObject()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_QUERY_BIND_PARAMETERS_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_QUERY_BIND_PARAMETERS_INVALID);
   }
 
   for (auto const& it : VPackObjectIterator(slice, false)) {
@@ -62,13 +62,13 @@ void BindParameters::process() {
     VPackSlice const value(it.value);
     
     if (value.isNone()) {
-      THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_TYPE,
+      THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_TYPE,
                                     key.c_str());
     }
 
     if (key[0] == '@' && !value.isString()) {
       // collection bind parameter
-      THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_TYPE,
+      THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_TYPE,
                                     key.c_str());
     }
 

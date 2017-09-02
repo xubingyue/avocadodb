@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_LOGGER_LOG_THREAD_H
-#define ARANGODB_LOGGER_LOG_THREAD_H 1
+#ifndef AVOCADODB_LOGGER_LOG_THREAD_H
+#define AVOCADODB_LOGGER_LOG_THREAD_H 1
 
 #include "Basics/ConditionVariable.h"
 #include "Basics/Thread.h"

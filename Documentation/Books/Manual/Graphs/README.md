@@ -182,13 +182,13 @@ We will have the following directed relations:
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
     @startDocuBlockInline graph_create_knows_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{graph_create_knows_sample}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     db.persons.toArray()
     db.knows.toArray();
     examples.dropGraph("knows_graph");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock graph_create_knows_sample
 
 
@@ -202,14 +202,14 @@ This example has female and male persons as *vertices* in two *vertex collection
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
     @startDocuBlockInline graph_create_social_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{graph_create_social_sample}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("social");
     db.female.toArray()
     db.male.toArray()
     db.relation.toArray()
     examples.dropGraph("social");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock graph_create_social_sample
 
 
@@ -222,7 +222,7 @@ A set of european cities, and their fictional traveling distances as connections
 The example has the cities as *vertices* in several *vertex collections* - `germanCity` and `frenchCity`. The *edges* are their interconnections in several *edge collections* `french / german / international Highway`. This is how we create it, inspect its *edges* and *vertices*, and drop it again:
 
     @startDocuBlockInline graph_create_cities_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{graph_create_cities_sample}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("routeplanner");
     db.frenchCity.toArray();
@@ -231,7 +231,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     db.frenchHighway.toArray();
     db.internationalHighway.toArray();
     examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock graph_create_cities_sample
 
 #### The Traversal Graph
@@ -244,13 +244,13 @@ The example has all its vertices in the *circles* collection, and an *edges* edg
 Circles have unique numeric labels. Edges have two boolean attributes (*theFalse* always being false, *theTruth* always being true) and a label sorting *B* - *D* to the left side, *G* - *K* to the right side. Left and right side split into Paths - at *B* and *G* which are each direct neighbours of the root-node *A*. Starting from *A* the graph has a depth of 3 on all its paths.
 
     @startDocuBlockInline graph_create_traversal_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{graph_create_traversal_sample}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("traversalGraph");
     db.circles.toArray();
     db.edges.toArray();
     examples.dropGraph("traversalGraph");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock graph_create_traversal_sample
 
 #### The World Graph
@@ -259,7 +259,7 @@ The world country graph structures its nodes like that: world → continent → 
 It is used to demonstrate raw traversal operations.
 
     @startDocuBlockInline graph_create_world_sample
-    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{graph_create_world_sample}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("worldCountry");
     db.worldVertices.toArray();
@@ -267,7 +267,7 @@ It is used to demonstrate raw traversal operations.
     examples.dropGraph("worldCountry");
     var g = examples.loadGraph("worldCountryUnManaged");
     examples.dropGraph("worldCountryUnManaged");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock graph_create_world_sample
 
 

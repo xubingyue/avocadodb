@@ -71,7 +71,7 @@ is returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionIdentifierPropertiesSync}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionIdentifierPropertiesSync}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn, { waitForSync: true });
@@ -83,6 +83,6 @@ is returned.
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

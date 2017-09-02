@@ -286,7 +286,7 @@ function SynchronousReplicationSuite () {
       fail();
     }
     catch (e1) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, e1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, e1.errorNum);
     }
 
     if (healing.place === 15) { healFailure(healing); }

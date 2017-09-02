@@ -472,7 +472,7 @@ static void JS_RegisterTask(v8::FunctionCallbackInfo<v8::Value> const& args) {
 
   if (ExecContext::CURRENT != nullptr &&
       ExecContext::CURRENT->databaseAuthLevel() != AuthLevel::RW) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
                                    "registerTask() needs db RW permissions");
   }
 
@@ -620,7 +620,7 @@ static void JS_UnregisterTask(v8::FunctionCallbackInfo<v8::Value> const& args) {
 
   if (ExecContext::CURRENT != nullptr &&
       ExecContext::CURRENT->databaseAuthLevel() != AuthLevel::RW) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
                                    "unregisterTask() needs db RW permissions");
   }
 
@@ -674,7 +674,7 @@ static void JS_CreateQueue(v8::FunctionCallbackInfo<v8::Value> const& args) {
   std::string runAsUser;
   if (ExecContext::CURRENT != nullptr) {
     if (ExecContext::CURRENT->databaseAuthLevel() != AuthLevel::RW) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
                                      "createQueue() needs db RW permissions");
     }
     runAsUser = ExecContext::CURRENT->user();
@@ -707,7 +707,7 @@ static void JS_CreateQueue(v8::FunctionCallbackInfo<v8::Value> const& args) {
   OperationOptions opts;
   OperationResult result = trx.insert("_queues", docs.slice(), opts);
   if (!result.successful() &&
-      result.code == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED) {
+      result.code == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED) {
     result = trx.replace("_queues", docs.slice(), opts);
   }
   res = trx.finish(result.code);
@@ -732,7 +732,7 @@ static void JS_DeleteQueue(v8::FunctionCallbackInfo<v8::Value> const& args) {
 
   ExecContext *exe = ExecContext::CURRENT;
   if (exe != nullptr && exe->databaseAuthLevel() != AuthLevel::RW) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FORBIDDEN,
                                    "deleteQueue() needs db RW permissions");
   }
   // stupid trick to force superuser rights

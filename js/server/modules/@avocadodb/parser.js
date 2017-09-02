@@ -62,7 +62,7 @@ exports.number = function (value, info, lang) {
 
   if (result === null || result === undefined || isNaN(result)) {
     error = new avocadodb.AvocadoError();
-    error.errorNum = avocadodb.ERROR_ARANGO_PARSER_FAILED;
+    error.errorNum = avocadodb.ERROR_AVOCADO_PARSER_FAILED;
     error.errorMessage = "format '" + format + "' not implemented";
 
     throw error;

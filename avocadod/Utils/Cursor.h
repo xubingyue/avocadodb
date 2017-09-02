@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_CURSOR_H
-#define ARANGOD_UTILS_CURSOR_H 1
+#ifndef AVOCADOD_UTILS_CURSOR_H
+#define AVOCADOD_UTILS_CURSOR_H 1
 
 #include "Aql/QueryResult.h"
 #include "Basics/Common.h"

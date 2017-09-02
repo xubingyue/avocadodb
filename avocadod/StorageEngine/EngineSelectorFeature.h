@@ -20,8 +20,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_STORAGE_ENGINE_ENGINE_SELECTOR_FEATURE_H
-#define ARANGODB_STORAGE_ENGINE_ENGINE_SELECTOR_FEATURE_H 1
+#ifndef AVOCADODB_STORAGE_ENGINE_ENGINE_SELECTOR_FEATURE_H
+#define AVOCADODB_STORAGE_ENGINE_ENGINE_SELECTOR_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 #include "ProgramOptions/ProgramOptions.h"

@@ -54,7 +54,7 @@ void ServerIdFeature::start() {
   bool const checkVersion = database->checkVersion();
   int res = determineId(checkVersion);
 
-  if (res == TRI_ERROR_ARANGO_EMPTY_DATADIR) {
+  if (res == TRI_ERROR_AVOCADO_EMPTY_DATADIR) {
     if (checkVersion) {
       // when we are version checking, we will not fail here
       // additionally notify the database feature that we had no VERSION file
@@ -63,12 +63,12 @@ void ServerIdFeature::start() {
     }
 
     // otherwise fail
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "reading/creating server id file failed: " << TRI_errno_string(res);
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 }
 
@@ -165,7 +165,7 @@ int ServerIdFeature::determineId(bool checkVersion) {
 
   if (res == TRI_ERROR_FILE_NOT_FOUND) {
     if (checkVersion) {
-      return TRI_ERROR_ARANGO_EMPTY_DATADIR;
+      return TRI_ERROR_AVOCADO_EMPTY_DATADIR;
     }
 
     // id file does not yet exist. now create it

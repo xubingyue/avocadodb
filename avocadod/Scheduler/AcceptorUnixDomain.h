@@ -20,8 +20,8 @@
 /// @author Andreas Streichardt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_SCHEDULER_ACCEPTORUNIXDOMAIN_H
-#define ARANGOD_SCHEDULER_ACCEPTORUNIXDOMAIN_H 1
+#ifndef AVOCADOD_SCHEDULER_ACCEPTORUNIXDOMAIN_H
+#define AVOCADOD_SCHEDULER_ACCEPTORUNIXDOMAIN_H 1
 
 #include "Scheduler/Acceptor.h"
 

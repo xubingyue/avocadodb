@@ -41,7 +41,7 @@ is returned if type is not specified or has an invalid value.
 
 Fetching the list of done jobs:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_getByType_01}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_getByType_01}
   var url = "/_api/version";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
@@ -53,11 +53,11 @@ Fetching the list of done jobs:
   var response = logCurlRequest('GET', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Fetching the list of pending jobs:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_getByType_02}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_getByType_02}
   var url = "/_api/version";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
@@ -69,12 +69,12 @@ Fetching the list of pending jobs:
   var response = logCurlRequest('GET', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Querying the status of a pending job:
 (we create a sleep job therefore...)
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_getByType_03}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_getByType_03}
   var url = "/_admin/sleep?duration=30";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('GET', url, "", headers);
@@ -92,6 +92,6 @@ Querying the status of a pending job:
   var response = logCurlRequest('DELETE', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

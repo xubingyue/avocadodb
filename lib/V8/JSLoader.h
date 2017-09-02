@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_V8_JSLOADER_H
-#define ARANGODB_V8_JSLOADER_H 1
+#ifndef AVOCADODB_V8_JSLOADER_H
+#define AVOCADODB_V8_JSLOADER_H 1
 
 #include "Basics/Common.h"
 #include "Utilities/ScriptLoader.h"

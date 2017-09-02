@@ -52,7 +52,7 @@ static void parseNodeInput(AstNode const* node, std::string& id,
       break;
     case NODE_TYPE_VALUE:
       if (node->value.type != VALUE_TYPE_STRING) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                        "invalid start vertex. Must either be "
                                        "an _id string or an object with _id.");
       }
@@ -60,7 +60,7 @@ static void parseNodeInput(AstNode const* node, std::string& id,
       id = node->getString();
       break;
     default:
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                      "invalid start vertex. Must either be an "
                                      "_id string or an object with _id.");
   }
@@ -140,13 +140,13 @@ ShortestPathNode::ShortestPathNode(ExecutionPlan* plan,
   } else {
     VPackSlice v = base.get("startVertexId");
     if (!v.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "start vertex must be a string");
     }
     _startVertexId = v.copyString();
 
     if (_startVertexId.empty()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "start vertex mustn't be empty");
     }
   }
@@ -157,12 +157,12 @@ ShortestPathNode::ShortestPathNode(ExecutionPlan* plan,
   } else {
     VPackSlice v = base.get("targetVertexId");
     if (!v.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "target vertex must be a string");
     }
     _targetVertexId = v.copyString();
     if (_targetVertexId.empty()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "target vertex mustn't be empty");
     }
   }
@@ -176,7 +176,7 @@ ShortestPathNode::ShortestPathNode(ExecutionPlan* plan,
       _graphObj = plan->getAst()->query()->lookupGraphByName(graphName);
 
       if (_graphObj == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_GRAPH_NOT_FOUND);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_GRAPH_NOT_FOUND);
       }
 
       auto const& eColls = _graphObj->edgeCollections();
@@ -192,25 +192,25 @@ ShortestPathNode::ShortestPathNode(ExecutionPlan* plan,
         }
       }
     } else {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "missing graphDefinition.");
     }
   } else {
     _graphInfo.add(base.get("graph"));
     if (!_graphInfo.slice().isArray()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "graph has to be an array.");
     }
     // List of edge collection names
     for (auto const& it : VPackArrayIterator(_graphInfo.slice())) {
       if (!it.isString()) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                        "graph has to be an array of strings.");
       }
       _edgeColls.emplace_back(it.copyString());
     }
     if (_edgeColls.empty()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_QUERY_BAD_JSON_PLAN,
           "graph has to be a non empty array of strings.");
     }

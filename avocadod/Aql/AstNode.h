@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_AST_NODE_H
-#define ARANGOD_AQL_AST_NODE_H 1
+#ifndef AVOCADOD_AQL_AST_NODE_H
+#define AVOCADOD_AQL_AST_NODE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/AttributeNameParser.h"
@@ -242,7 +242,7 @@ struct AstNode {
   uint64_t hashValue(uint64_t) const;
 
 /// @brief dump the node (for debugging purposes)
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   void dump(int indent) const;
 #endif
 
@@ -506,13 +506,13 @@ struct AstNode {
   /// @brief add a member to the node
   void addMember(AstNode* node) {
     if (node == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     try {
       members.emplace_back(node);
     } catch (...) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
   }
 
@@ -524,7 +524,7 @@ struct AstNode {
   /// @brief change a member of the node
   void changeMember(size_t i, AstNode* node) {
     if (i >= members.size()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "member out of range");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "member out of range");
     }
     members.at(i) = node;
   }
@@ -537,7 +537,7 @@ struct AstNode {
   /// @brief return a member of the node
   inline AstNode* getMember(size_t i) const {
     if (i >= members.size()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "member out of range");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "member out of range");
     }
     return getMemberUnchecked(i);
   }
@@ -556,7 +556,7 @@ struct AstNode {
   /// @brief reduces the number of members of the node
   void reduceMembers(size_t i) {
     if (i > members.size()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "member out of range");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "member out of range");
     }
     members.erase(members.begin() + i, members.end());
   }

@@ -22,8 +22,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_KEY_H
-#define ARANGO_ROCKSDB_ROCKSDB_KEY_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_KEY_H
+#define AVOCADO_ROCKSDB_ROCKSDB_KEY_H 1
 
 #include "Basics/Common.h"
 #include "Basics/StringRef.h"
@@ -277,7 +277,7 @@ class RocksDBKey {
     TRI_ASSERT(size >= sizeof(char));
 
     const auto type = static_cast<RocksDBEntryType>(data[0]);
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     switch (type) {
       case RocksDBEntryType::Database:
       case RocksDBEntryType::Collection:

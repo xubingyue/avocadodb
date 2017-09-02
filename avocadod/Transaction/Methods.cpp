@@ -72,11 +72,11 @@ namespace {
 
 static void throwCollectionNotFound(char const* name) {
   if (name == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
   }
-  THROW_ARANGO_EXCEPTION_MESSAGE(
-      TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
-      std::string(TRI_errno_string(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND)) +
+  THROW_AVOCADO_EXCEPTION_MESSAGE(
+      TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
+      std::string(TRI_errno_string(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND)) +
           ": " + name);
 }
 
@@ -633,7 +633,7 @@ void transaction::Methods::pinData(TRI_voc_cid_t cid) {
       _state->collection(cid, AccessMode::Type::READ);
 
   if (trxCollection == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "unable to determine transaction collection");
   }
 
@@ -710,7 +710,7 @@ void transaction::Methods::buildDocumentIdentity(
 /// @brief begin the transaction
 Result transaction::Methods::begin() {
   if (_state == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "invalid transaction state");
   }
 
@@ -816,7 +816,7 @@ OperationResult transaction::Methods::any(std::string const& collectionName,
 /// @brief fetches documents in a collection in random order, coordinator
 OperationResult transaction::Methods::anyCoordinator(std::string const&,
                                                      uint64_t, uint64_t) {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 /// @brief fetches documents in a collection in random order, local
@@ -872,11 +872,11 @@ TRI_voc_cid_t transaction::Methods::addCollectionAtRuntime(
     if (res != TRI_ERROR_NO_ERROR) {
       if (res == TRI_ERROR_TRANSACTION_UNREGISTERED_COLLECTION) {
         // special error message to indicate which collection was undeclared
-        THROW_ARANGO_EXCEPTION_MESSAGE(
+        THROW_AVOCADO_EXCEPTION_MESSAGE(
             res, std::string(TRI_errno_string(res)) + ": " + collectionName +
                      " [" + AccessMode::typeString(type) + "]");
       }
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
     _state->ensureCollections(_state->nestingLevel());
     collection = trxCollection(cid);
@@ -938,7 +938,7 @@ void transaction::Methods::invokeOnAllElements(
     std::function<bool(DocumentIdentifierToken const&)> callback) {
   TRI_ASSERT(_state->status() == transaction::Status::RUNNING);
   if (_state->isCoordinator()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
   }
 
   TRI_voc_cid_t cid = addCollectionAtRuntime(collectionName);
@@ -950,7 +950,7 @@ void transaction::Methods::invokeOnAllElements(
   Result res = lock(trxCol, AccessMode::Type::READ);
 
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   logical->invokeOnAllElements(this, callback);
@@ -958,7 +958,7 @@ void transaction::Methods::invokeOnAllElements(
   res = unlock(trxCol, AccessMode::Type::READ);
 
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 }
 
@@ -977,7 +977,7 @@ Result transaction::Methods::documentFastPath(std::string const& collectionName,
   TRI_ASSERT(_state->status() == transaction::Status::RUNNING);
   if (!value.isObject() && !value.isString()) {
     // must provide a document object or string
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
 
   if (_state->isCoordinator()) {
@@ -999,7 +999,7 @@ Result transaction::Methods::documentFastPath(std::string const& collectionName,
 
   StringRef key(transaction::helpers::extractKeyPart(value));
   if (key.empty()) {
-    return Result(TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD);
+    return Result(TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD);
   }
 
   std::unique_ptr<ManagedDocumentResult> tmp;
@@ -1042,7 +1042,7 @@ Result transaction::Methods::documentFastPathLocal(
   pinData(cid);  // will throw when it fails
 
   if (key.empty()) {
-    return TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD;
   }
 
   Result res = collection->read(this, key, result,
@@ -1067,10 +1067,10 @@ OperationResult transaction::Methods::clusterResultDocument(
       return OperationResult(resultBody->steal(), nullptr, "",
                              responseCode == rest::ResponseCode::OK
                                  ? TRI_ERROR_NO_ERROR
-                                 : TRI_ERROR_ARANGO_CONFLICT,
+                                 : TRI_ERROR_AVOCADO_CONFLICT,
                              false, errorCounter);
     case rest::ResponseCode::NOT_FOUND:
-      return OperationResult(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+      return OperationResult(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
     default:
       return OperationResult(TRI_ERROR_INTERNAL);
   }
@@ -1088,13 +1088,13 @@ OperationResult transaction::Methods::clusterResultInsert(
           resultBody->steal(), nullptr, "", TRI_ERROR_NO_ERROR,
           responseCode == rest::ResponseCode::CREATED, errorCounter);
     case rest::ResponseCode::PRECONDITION_FAILED:
-      return OperationResult(TRI_ERROR_ARANGO_CONFLICT);
+      return OperationResult(TRI_ERROR_AVOCADO_CONFLICT);
     case rest::ResponseCode::BAD:
       return dbServerResponseBad(resultBody);
     case rest::ResponseCode::NOT_FOUND:
-      return OperationResult(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+      return OperationResult(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     case rest::ResponseCode::CONFLICT:
-      return OperationResult(TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED);
+      return OperationResult(TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED);
     default:
       return OperationResult(TRI_ERROR_INTERNAL);
   }
@@ -1108,11 +1108,11 @@ OperationResult transaction::Methods::clusterResultModify(
   int errorCode = TRI_ERROR_NO_ERROR;
   switch (responseCode) {
     case rest::ResponseCode::CONFLICT:
-      errorCode = TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+      errorCode = TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
     // Fall through
     case rest::ResponseCode::PRECONDITION_FAILED:
       if (errorCode == TRI_ERROR_NO_ERROR) {
-        errorCode = TRI_ERROR_ARANGO_CONFLICT;
+        errorCode = TRI_ERROR_AVOCADO_CONFLICT;
       }
     // Fall through
     case rest::ResponseCode::ACCEPTED:
@@ -1123,7 +1123,7 @@ OperationResult transaction::Methods::clusterResultModify(
     case rest::ResponseCode::BAD:
       return dbServerResponseBad(resultBody);
     case rest::ResponseCode::NOT_FOUND:
-      return OperationResult(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+      return OperationResult(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
     default:
       return OperationResult(TRI_ERROR_INTERNAL);
   }
@@ -1141,13 +1141,13 @@ OperationResult transaction::Methods::clusterResultRemove(
       return OperationResult(
           resultBody->steal(), nullptr, "",
           responseCode == rest::ResponseCode::PRECONDITION_FAILED
-              ? TRI_ERROR_ARANGO_CONFLICT
+              ? TRI_ERROR_AVOCADO_CONFLICT
               : TRI_ERROR_NO_ERROR,
           responseCode != rest::ResponseCode::ACCEPTED, errorCounter);
     case rest::ResponseCode::BAD:
       return dbServerResponseBad(resultBody);
     case rest::ResponseCode::NOT_FOUND:
-      return OperationResult(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+      return OperationResult(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
     default:
       return OperationResult(TRI_ERROR_INTERNAL);
   }
@@ -1161,7 +1161,7 @@ OperationResult transaction::Methods::document(
 
   if (!value.isObject() && !value.isArray()) {
     // must provide a document object or an array of documents
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
 
   if (_state->isCoordinator()) {
@@ -1185,7 +1185,7 @@ OperationResult transaction::Methods::documentCoordinator(
   if (!value.isArray()) {
     StringRef key(transaction::helpers::extractKeyPart(value));
     if (key.empty()) {
-      return OperationResult(TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD);
+      return OperationResult(TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD);
     }
   }
 
@@ -1217,7 +1217,7 @@ OperationResult transaction::Methods::documentLocal(
                                 bool isMultiple) -> Result {
     StringRef key(transaction::helpers::extractKeyPart(value));
     if (key.empty()) {
-      return TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD;
+      return TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD;
     }
 
     TRI_voc_rid_t expectedRevision = 0;
@@ -1245,7 +1245,7 @@ OperationResult transaction::Methods::documentLocal(
           buildDocumentIdentity(collection, resultBuilder, cid, key,
                                 foundRevision, 0, nullptr, nullptr);
         }
-        return TRI_ERROR_ARANGO_CONFLICT;
+        return TRI_ERROR_AVOCADO_CONFLICT;
       }
     }
 
@@ -1289,7 +1289,7 @@ OperationResult transaction::Methods::insert(std::string const& collectionName,
 
   if (!value.isObject() && !value.isArray()) {
     // must provide a document object or an array of documents
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
   if (value.isArray() && value.length() == 0) {
     return emptyResult(options.waitForSync);
@@ -1396,7 +1396,7 @@ OperationResult transaction::Methods::insertLocal(
 
   auto workForOneDocument = [&](VPackSlice const value) -> Result {
     if (!value.isObject()) {
-      return TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+      return TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
     }
 
     ManagedDocumentResult result;
@@ -1552,7 +1552,7 @@ OperationResult transaction::Methods::insertLocal(
                   LOG_TOPIC(ERR, Logger::REPLICATION)
                     << "insertLocal: could not drop follower "
                     << (*followers)[i] << " for shard " << collectionName;
-                  THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
+                  THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
                 }
               }
             }
@@ -1582,7 +1582,7 @@ OperationResult transaction::Methods::update(std::string const& collectionName,
 
   if (!newValue.isObject() && !newValue.isArray()) {
     // must provide a document object or an array of documents
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
   if (newValue.isArray() && newValue.length() == 0) {
     return emptyResult(options.waitForSync);
@@ -1632,7 +1632,7 @@ OperationResult transaction::Methods::replace(std::string const& collectionName,
 
   if (!newValue.isObject() && !newValue.isArray()) {
     // must provide a document object or an array of documents
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
   if (newValue.isArray() && newValue.length() == 0) {
     return emptyResult(options.waitForSync);
@@ -1721,7 +1721,7 @@ OperationResult transaction::Methods::modifyLocal(
                                                    bool isBabies) -> Result {
     Result res;
     if (!newVal.isObject()) {
-      res.reset(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+      res.reset(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
       return res;
     }
 
@@ -1744,7 +1744,7 @@ OperationResult transaction::Methods::modifyLocal(
       maxTick = resultMarkerTick;
     }
 
-    if (res.errorNumber() == TRI_ERROR_ARANGO_CONFLICT) {
+    if (res.errorNumber() == TRI_ERROR_AVOCADO_CONFLICT) {
       // still return
       if (!isBabies) {
         StringRef key(newVal.get(StaticStrings::KeyString));
@@ -1901,7 +1901,7 @@ OperationResult transaction::Methods::modifyLocal(
                   LOG_TOPIC(ERR, Logger::REPLICATION)
                     << "modifyLocal: could not drop follower "
                     << (*followers)[i] << " for shard " << collectionName;
-                  THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
+                  THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
                 }
                 LOG_TOPIC(ERR, Logger::REPLICATION)
                   << "modifyLocal: dropping follower " << (*followers)[i]
@@ -1933,7 +1933,7 @@ OperationResult transaction::Methods::remove(std::string const& collectionName,
 
   if (!value.isObject() && !value.isArray() && !value.isString()) {
     // must provide a document object or an array of documents
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
   if (value.isArray() && value.length() == 0) {
     return emptyResult(options.waitForSync);
@@ -2022,11 +2022,11 @@ OperationResult transaction::Methods::removeLocal(
     } else if (value.isObject()) {
       VPackSlice keySlice = value.get(StaticStrings::KeyString);
       if (!keySlice.isString()) {
-        return Result(TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD);
+        return Result(TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD);
       }
       key = keySlice;
     } else {
-      return Result(TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD);
+      return Result(TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD);
     }
 
     TRI_voc_tick_t resultMarkerTick = 0;
@@ -2040,7 +2040,7 @@ OperationResult transaction::Methods::removeLocal(
     }
 
     if (!res.ok()) {
-      if (res.errorNumber() == TRI_ERROR_ARANGO_CONFLICT && !isBabies) {
+      if (res.errorNumber() == TRI_ERROR_AVOCADO_CONFLICT && !isBabies) {
         buildDocumentIdentity(collection, resultBuilder, cid, key,
                               actualRevision, 0,
                               options.returnOld ? &previous : nullptr, nullptr);
@@ -2181,7 +2181,7 @@ OperationResult transaction::Methods::removeLocal(
                   LOG_TOPIC(ERR, Logger::REPLICATION)
                     << "removeLocal: could not drop follower "
                     << (*followers)[i] << " for shard " << collectionName;
-                  THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
+                  THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
                 }
               }
             }
@@ -2220,7 +2220,7 @@ OperationResult transaction::Methods::all(std::string const& collectionName,
 OperationResult transaction::Methods::allCoordinator(
     std::string const& collectionName, uint64_t skip, uint64_t limit,
     OperationOptions& options) {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 /// @brief fetches all documents in a collection, local
@@ -2390,7 +2390,7 @@ OperationResult transaction::Methods::truncateLocal(
                 LOG_TOPIC(ERR, Logger::REPLICATION)
                     << "truncateLocal: could not drop follower "
                     << (*followers)[i] << " for shard " << collectionName;
-                THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
+                THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_COULD_NOT_DROP_FOLLOWER);
               }
             }
           }
@@ -2552,7 +2552,7 @@ bool transaction::Methods::supportsFilterCondition(
     size_t& estimatedItems, double& estimatedCost) {
   auto idx = indexHandle.getIndex();
   if (nullptr == idx) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The index id cannot be empty.");
   }
 
@@ -2568,7 +2568,7 @@ transaction::Methods::getIndexFeatures(IndexHandle const& indexHandle,
                                        bool& isSorted, bool& isSparse) {
   auto idx = indexHandle.getIndex();
   if (nullptr == idx) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The index id cannot be empty.");
   }
 
@@ -2633,7 +2633,7 @@ OperationCursor* transaction::Methods::indexScanForCondition(
     uint64_t limit, uint64_t batchSize, bool reverse) {
   if (_state->isCoordinator()) {
     // The index scan is only available on DBServers and Single Server.
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_DBSERVER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_DBSERVER);
   }
 
   if (limit == 0) {
@@ -2643,7 +2643,7 @@ OperationCursor* transaction::Methods::indexScanForCondition(
 
   auto idx = indexId.getIndex();
   if (nullptr == idx) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The index id cannot be empty.");
   }
 
@@ -2670,7 +2670,7 @@ std::unique_ptr<OperationCursor> transaction::Methods::indexScan(
 
   if (_state->isCoordinator()) {
     // The index scan is only available on DBServers and Single Server.
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_DBSERVER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_DBSERVER);
   }
 
   if (limit == 0) {
@@ -2730,7 +2730,7 @@ avocadodb::LogicalCollection* transaction::Methods::documentCollection(
   auto trxCollection = _state->collection(cid, AccessMode::Type::READ);
 
   if (trxCollection == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "could not find collection");
   }
 
@@ -2743,7 +2743,7 @@ avocadodb::LogicalCollection* transaction::Methods::documentCollection(
 Result transaction::Methods::addCollection(TRI_voc_cid_t cid, char const* name,
                                            AccessMode::Type type) {
   if (_state == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot add collection without state");
   }
 
@@ -2752,7 +2752,7 @@ Result transaction::Methods::addCollection(TRI_voc_cid_t cid, char const* name,
   if (status == transaction::Status::COMMITTED ||
       status == transaction::Status::ABORTED) {
     // transaction already finished?
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "cannot add collection to committed or aborted transaction");
   }
@@ -2837,12 +2837,12 @@ std::vector<std::shared_ptr<Index>> transaction::Methods::indexesForCollection(
 
 /// @brief Lock all collections. Only works for selected sub-classes
 int transaction::Methods::lockCollections() {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 /// @brief Clone this transaction. Only works for selected sub-classes
 transaction::Methods* transaction::Methods::clone(transaction::Options const&) const {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 /// @brief Get all indexes for a collection name, coordinator case
@@ -2886,19 +2886,19 @@ transaction::Methods::IndexHandle transaction::Methods::getIndexByIdentifier(
     std::string const& collectionName, std::string const& indexHandle) {
   if (_state->isCoordinator()) {
     if (indexHandle.empty()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                      "The index id cannot be empty.");
     }
 
     if (!avocadodb::Index::validateId(indexHandle.c_str())) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_INDEX_HANDLE_BAD);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_INDEX_HANDLE_BAD);
     }
 
     std::shared_ptr<Index> idx =
         indexForCollectionCoordinator(collectionName, indexHandle);
 
     if (idx == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INDEX_NOT_FOUND,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND,
                                      "Could not find index '" + indexHandle +
                                          "' in collection '" + collectionName +
                                          "'.");
@@ -2912,18 +2912,18 @@ transaction::Methods::IndexHandle transaction::Methods::getIndexByIdentifier(
   LogicalCollection* document = documentCollection(trxCollection(cid));
 
   if (indexHandle.empty()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The index id cannot be empty.");
   }
 
   if (!avocadodb::Index::validateId(indexHandle.c_str())) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_INDEX_HANDLE_BAD);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_INDEX_HANDLE_BAD);
   }
   TRI_idx_iid_t iid = avocadodb::basics::StringUtils::uint64(indexHandle);
   std::shared_ptr<avocadodb::Index> idx = document->lookupIndex(iid);
 
   if (idx == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_INDEX_NOT_FOUND,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND,
                                    "Could not find index '" + indexHandle +
                                        "' in collection '" + collectionName +
                                        "'.");
@@ -2944,14 +2944,14 @@ Result transaction::Methods::addCollectionEmbedded(TRI_voc_cid_t cid,
   if (res != TRI_ERROR_NO_ERROR) {
     if (res == TRI_ERROR_TRANSACTION_UNREGISTERED_COLLECTION) {
       // special error message to indicate which collection was undeclared
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           res, std::string(TRI_errno_string(res)) + ": " +
                    resolver()->getCollectionNameCluster(cid) + " [" +
                    AccessMode::typeString(type) + "]");
-    } else if (res == TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
+    } else if (res == TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
       throwCollectionNotFound(name);
     }
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   return res;
@@ -2975,14 +2975,14 @@ Result transaction::Methods::addCollectionToplevel(TRI_voc_cid_t cid,
   if (res != TRI_ERROR_NO_ERROR) {
     if (res == TRI_ERROR_TRANSACTION_UNREGISTERED_COLLECTION) {
       // special error message to indicate which collection was undeclared
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           res, std::string(TRI_errno_string(res)) + ": " +
                    resolver()->getCollectionNameCluster(cid) + " [" +
                    AccessMode::typeString(type) + "]");
-    } else if (res == TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
+    } else if (res == TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
       throwCollectionNotFound(name);
     }
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   return res;
@@ -2992,7 +2992,7 @@ Result transaction::Methods::addCollectionToplevel(TRI_voc_cid_t cid,
 void transaction::Methods::setupEmbedded(TRI_vocbase_t*) {
   if (!_transactionContextPtr->isEmbeddable()) {
     // we are embedded but this is disallowed...
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_TRANSACTION_NESTED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_TRANSACTION_NESTED);
   }
 
   _state = _transactionContextPtr->getParentTransaction();
@@ -3020,7 +3020,7 @@ Result transaction::Methods::resolveId(char const* handle, size_t length,
       memchr(handle, TRI_DOCUMENT_HANDLE_SEPARATOR_CHR, length));
 
   if (p == nullptr || *p == '\0') {
-    return TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD;
   }
 
   if (*handle >= '0' && *handle <= '9') {
@@ -3031,7 +3031,7 @@ Result transaction::Methods::resolveId(char const* handle, size_t length,
   }
 
   if (cid == 0) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   key = p + 1;

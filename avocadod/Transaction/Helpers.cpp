@@ -136,7 +136,7 @@ std::string transaction::helpers::extractIdString(CollectionNameResolver const* 
   }
   if (!id.isCustom() || id.head() != 0xf3) {
     // invalid type for _id
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
 
   // we now need to extract the _key attribute
@@ -150,7 +150,7 @@ std::string transaction::helpers::extractIdString(CollectionNameResolver const* 
   }
 
   if (!key.isString()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
         
   return makeIdFromCustom(resolver, id, key);
@@ -407,7 +407,7 @@ std::string transaction::helpers::makeIdFromCustom(CollectionNameResolver const*
   VPackValueLength keyLength;
   char const* p = key.getString(keyLength);
   if (p == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid _key value");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid _key value");
   }
   resolved.reserve(resolved.size() + 1 + keyLength);
   resolved.push_back('/');

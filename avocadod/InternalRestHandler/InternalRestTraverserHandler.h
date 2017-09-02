@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_INTERNAL_REST_HANDLER_INTERNAL_TRAVERSER_HANDLER_H
-#define ARANGOD_INTERNAL_REST_HANDLER_INTERNAL_TRAVERSER_HANDLER_H 1
+#ifndef AVOCADOD_INTERNAL_REST_HANDLER_INTERNAL_TRAVERSER_HANDLER_H
+#define AVOCADOD_INTERNAL_REST_HANDLER_INTERNAL_TRAVERSER_HANDLER_H 1
 
 #include "RestHandler/RestVocbaseBaseHandler.h"
 

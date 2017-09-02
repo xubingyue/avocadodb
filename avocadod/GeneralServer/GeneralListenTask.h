@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_HTTP_SERVER_HTTP_LISTEN_TASK_H
-#define ARANGOD_HTTP_SERVER_HTTP_LISTEN_TASK_H 1
+#ifndef AVOCADOD_HTTP_SERVER_HTTP_LISTEN_TASK_H
+#define AVOCADOD_HTTP_SERVER_HTTP_LISTEN_TASK_H 1
 
 #include "Scheduler/ListenTask.h"
 

@@ -122,7 +122,7 @@ LogAppenderFile::LogAppenderFile(std::string const& filename,
         TRI_SYSTEM_ERROR();
         std::cerr << "cannot write to file '" << filename << "': " << TRI_GET_ERRORBUF << std::endl;
 
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_CANNOT_WRITE_FILE);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_CANNOT_WRITE_FILE);
       }
 
       if (pos == _fds.size()) {

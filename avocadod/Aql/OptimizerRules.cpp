@@ -2421,7 +2421,7 @@ void avocadodb::aql::distributeInClusterRule(Optimizer* opt,
 
       TRI_ASSERT(node != nullptr);
       if (node == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "logic error");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "logic error");
       }
 
       ExecutionNode* originalParent = nullptr;
@@ -2550,7 +2550,7 @@ void avocadodb::aql::distributeInClusterRule(Optimizer* opt,
         distNode = static_cast<ExecutionNode*>(d);
       } else {
         TRI_ASSERT(false);
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "logic error");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "logic error");
       }
 
       TRI_ASSERT(distNode != nullptr);
@@ -3385,7 +3385,7 @@ void avocadodb::aql::replaceOrWithInRule(Optimizer* opt,
 
       try {
         TRI_IF_FAILURE("OptimizerRules::replaceOrWithInRuleOom") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         newNode =

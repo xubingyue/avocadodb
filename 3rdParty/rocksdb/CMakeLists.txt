@@ -4,7 +4,7 @@ project(rocksdb C CXX)
 
 set(FAIL_ON_WARNINGS OFF CACHE BOOL "do not enable -Werror")
 
-set(ARANGO_ROCKSDB_VERSION "v5.6.X")
+set(AVOCADO_ROCKSDB_VERSION "v5.6.X")
 
 # jemalloc settings
 if (USE_JEMALLOC)
@@ -42,7 +42,7 @@ endif ()
 #
 #message(STATUS "WITH_SNAPPY ${WITH_SNAPPY}")
 #message(STATUS "AvocadoDB (3rdParty/rocksdb/CMakeLists.txt) Snappy path: ${SNAPPY_INCLUDE_DIR}")
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/${ARANGO_ROCKSDB_VERSION})
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/${AVOCADO_ROCKSDB_VERSION})
 
 # result
-list(APPEND LINK_DIRECTORIES "${CMAKE_CURRENT_BINARY_DIR}/rocksdb/${ARANGO_ROCKSDB_VERSION}")
+list(APPEND LINK_DIRECTORIES "${CMAKE_CURRENT_BINARY_DIR}/rocksdb/${AVOCADO_ROCKSDB_VERSION}")

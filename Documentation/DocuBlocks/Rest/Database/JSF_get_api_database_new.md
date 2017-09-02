@@ -56,7 +56,7 @@ is returned if a database with the specified name already exists.
 
 Creating a database named *example*.
 
-@EXAMPLE_ARANGOSH_RUN{RestDatabaseCreate}
+@EXAMPLE_AVOCADOSH_RUN{RestDatabaseCreate}
     var url = "/_api/database";
     var name = "example";
     try {
@@ -74,11 +74,11 @@ Creating a database named *example*.
     assert(response.code === 201);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Creating a database named *mydb* with two users.
 
-@EXAMPLE_ARANGOSH_RUN{RestDatabaseCreateUsers}
+@EXAMPLE_AVOCADOSH_RUN{RestDatabaseCreateUsers}
     var url = "/_api/database";
     var name = "mydb";
     try {
@@ -108,6 +108,6 @@ Creating a database named *mydb* with two users.
     assert(response.code === 201);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

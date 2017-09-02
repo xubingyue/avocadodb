@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_APPLICATION_FEATURES_NONCE_FEATURE_H
-#define ARANGODB_APPLICATION_FEATURES_NONCE_FEATURE_H 1
+#ifndef AVOCADODB_APPLICATION_FEATURES_NONCE_FEATURE_H
+#define AVOCADODB_APPLICATION_FEATURES_NONCE_FEATURE_H 1
 
 #include "Basics/Common.h"
 

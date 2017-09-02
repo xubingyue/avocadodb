@@ -22,8 +22,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_INDEX_BUCKET_H
-#define ARANGODB_BASICS_INDEX_BUCKET_H 1
+#ifndef AVOCADODB_BASICS_INDEX_BUCKET_H
+#define AVOCADODB_BASICS_INDEX_BUCKET_H 1
 
 #include "Basics/Common.h"
 #include "Basics/files.h"
@@ -172,7 +172,7 @@ struct IndexBucket {
     int res = TRI_MMFile(nullptr, totalSize, PROT_WRITE | PROT_READ, flags, _file, &_mmHandle, 0, &data);
     
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     TRI_ASSERT(data != nullptr);

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_LOGFILE_MANAGER_H
-#define ARANGOD_MMFILES_LOGFILE_MANAGER_H 1
+#ifndef AVOCADOD_MMFILES_LOGFILE_MANAGER_H
+#define AVOCADOD_MMFILES_LOGFILE_MANAGER_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 
@@ -78,7 +78,7 @@ class MMFilesLogfileManager final : public application_features::ApplicationFeat
   // get the logfile manager instance
   static MMFilesLogfileManager* instance() {
     TRI_ASSERT(Instance != nullptr);
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     TRI_ASSERT(SafeToUseInstance);
 #endif
     return Instance;
@@ -88,7 +88,7 @@ class MMFilesLogfileManager final : public application_features::ApplicationFeat
   // logfile manager instance
   static MMFilesLogfileManager* Instance;
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   // whether or not it is safe to retrieve the instance yet
   static bool SafeToUseInstance;
 #endif

@@ -179,7 +179,7 @@ void Scopes::addVariable(Variable* variable) {
 
     if (scope->existsVariable(variable->name)) {
       // duplicate variable name
-      THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_VARIABLE_REDECLARED,
+      THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_VARIABLE_REDECLARED,
                                     variable->name.c_str());
     }
   }
@@ -203,7 +203,7 @@ void Scopes::replaceVariable(Variable* variable) {
     }
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unable to find AQL variable in scopes");
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unable to find AQL variable in scopes");
 }
 
 /// @brief checks whether a variable exists in any scope
@@ -260,7 +260,7 @@ Variable const* Scopes::getVariable(char const* name, size_t nameLength,
 /// @brief get the $CURRENT variable
 Variable const* Scopes::getCurrentVariable() const {
   if (_currentVariables.empty()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_VARIABLE_NAME_UNKNOWN,
+    THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_VARIABLE_NAME_UNKNOWN,
                                   Variable::NAME_CURRENT);
   }
   auto result = _currentVariables.back();

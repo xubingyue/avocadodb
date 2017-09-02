@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_LOGGER_LOG_APPENDER_FILE_H
-#define ARANGODB_LOGGER_LOG_APPENDER_FILE_H 1
+#ifndef AVOCADODB_LOGGER_LOG_APPENDER_FILE_H
+#define AVOCADODB_LOGGER_LOG_APPENDER_FILE_H 1
 
 #include "Logger/LogAppender.h"
 

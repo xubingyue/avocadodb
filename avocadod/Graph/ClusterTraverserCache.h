@@ -20,8 +20,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_GRAPH_CLUSTER_TRAVERSER_CACHE_H
-#define ARANGOD_GRAPH_CLUSTER_TRAVERSER_CACHE_H 1
+#ifndef AVOCADOD_GRAPH_CLUSTER_TRAVERSER_CACHE_H
+#define AVOCADOD_GRAPH_CLUSTER_TRAVERSER_CACHE_H 1
 
 #include "Cluster/ClusterInfo.h"
 #include "Cluster/TraverserEngineRegistry.h"

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_TRANSACTION_STATE_H
-#define ARANGOD_ROCKSDB_ROCKSDB_TRANSACTION_STATE_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_TRANSACTION_STATE_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_TRANSACTION_STATE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/SmallVector.h"
@@ -147,7 +147,7 @@ class RocksDBTransactionState final : public TransactionState {
 
   /// Last collection used for transaction
   TRI_voc_cid_t _lastUsedCollection;
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   /// store the number of log entries in WAL
   uint64_t _numLogdata = 0;
 #endif

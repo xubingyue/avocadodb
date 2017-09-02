@@ -62,7 +62,7 @@ As alternative you can supply an array of paths and values.
 
 Use *toArray* to get all documents at once:
 
-@EXAMPLE_ARANGOSH_OUTPUT{003_collectionByExample}
+@EXAMPLE_AVOCADOSH_OUTPUT{003_collectionByExample}
 ~ db._create("users");
   db.users.save({ name: "Gerhard" });
   db.users.save({ name: "Helmut" });
@@ -72,11 +72,11 @@ Use *toArray* to get all documents at once:
   db.users.byExample({ "name" : "Gerhard" }).toArray();
   db.users.byExample({ "name" : "Helmut", "_id" : "users/15" }).toArray();
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Use *next* to loop over all documents:
 
-@EXAMPLE_ARANGOSH_OUTPUT{004_collectionByExampleNext}
+@EXAMPLE_AVOCADOSH_OUTPUT{004_collectionByExampleNext}
 ~ db._create("users");
   db.users.save({ name: "Gerhard" });
   db.users.save({ name: "Helmut" });
@@ -84,6 +84,6 @@ Use *next* to loop over all documents:
   var a = db.users.byExample( {"name" : "Angela" } );
   while (a.hasNext()) print(a.next());
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

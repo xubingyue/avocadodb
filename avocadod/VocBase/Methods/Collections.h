@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_API_COLLECTIONS_H
-#define ARANGOD_VOC_BASE_API_COLLECTIONS_H 1
+#ifndef AVOCADOD_VOC_BASE_API_COLLECTIONS_H
+#define AVOCADOD_VOC_BASE_API_COLLECTIONS_H 1
 
 #include <velocypack/Builder.h>
 #include <velocypack/Slice.h>

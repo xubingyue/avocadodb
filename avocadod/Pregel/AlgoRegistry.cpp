@@ -68,7 +68,7 @@ IAlgorithm* AlgoRegistry::createAlgorithm(std::string const& algorithm,
   } else if (algorithm == "dmid") {
     return new algos::DMID(userParams);
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Unsupported Algorithm");
   }
   return nullptr;
@@ -83,7 +83,7 @@ IWorker* AlgoRegistry::createWorker(TRI_vocbase_t* vocbase,
 IWorker* AlgoRegistry::createWorker(TRI_vocbase_t* vocbase, VPackSlice body) {
   VPackSlice algoSlice = body.get(Utils::algorithmKey);
   if (!algoSlice.isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Supplied bad parameters to worker");
   }
 
@@ -123,7 +123,7 @@ IWorker* AlgoRegistry::createWorker(TRI_vocbase_t* vocbase, VPackSlice body) {
   } else if (algorithm == "dmid") {
     return createWorker(vocbase, new algos::DMID(userParams), body);
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Unsupported Algorithm");
   }
   return nullptr;

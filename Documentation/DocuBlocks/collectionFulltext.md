@@ -20,7 +20,7 @@ way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionFulltext}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionFulltext}
 ~ db._drop("emails");
 ~ db._create("emails");
   db.emails.ensureFulltextIndex("content");
@@ -31,4 +31,4 @@ way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
   db.emails.save({ content: "I think they don't know. Regards, Eve" });
   db.emails.fulltext("content", "charlie,|eve").toArray();
 ~ db._drop("emails");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT

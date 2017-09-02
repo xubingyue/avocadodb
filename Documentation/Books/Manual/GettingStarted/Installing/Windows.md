@@ -109,7 +109,7 @@ Advanced Starting
 -----------------
 
 If you want to provide our own start scripts, you can set the environment
-variable *ARANGODB_CONFIG_PATH*. This variable should point to a directory
+variable *AVOCADODB_CONFIG_PATH*. This variable should point to a directory
 containing the configuration files.
 
 Using the Client

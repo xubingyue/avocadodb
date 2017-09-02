@@ -46,7 +46,7 @@ document's current revision in the *ETag* header.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerReadDocumentHead}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerReadDocumentHead}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -58,7 +58,7 @@ document's current revision in the *ETag* header.
 
     assert(response.code === 200);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 @endDocuBlock
 

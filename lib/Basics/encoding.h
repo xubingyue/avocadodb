@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_ENCODING_H
-#define ARANGODB_BASICS_ENCODING_H 1
+#ifndef AVOCADODB_BASICS_ENCODING_H
+#define AVOCADODB_BASICS_ENCODING_H 1
 
 #include "Basics/Common.h"
 

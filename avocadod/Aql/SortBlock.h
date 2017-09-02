@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_SORT_BLOCK_H
-#define ARANGOD_AQL_SORT_BLOCK_H 1
+#ifndef AVOCADOD_AQL_SORT_BLOCK_H
+#define AVOCADOD_AQL_SORT_BLOCK_H 1
 
 #include "Basics/Common.h"
 #include "Aql/ExecutionBlock.h"

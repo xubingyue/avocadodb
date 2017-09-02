@@ -97,9 +97,9 @@ global.DEFINE_MODULE('internal', (function () {
 
   exports.quiet = false;
 
-  if (global.ARANGO_QUIET) {
-    exports.quiet = global.ARANGO_QUIET;
-    delete global.ARANGO_QUIET;
+  if (global.AVOCADO_QUIET) {
+    exports.quiet = global.AVOCADO_QUIET;
+    delete global.AVOCADO_QUIET;
   }
 
   // //////////////////////////////////////////////////////////////////////////////

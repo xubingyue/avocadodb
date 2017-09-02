@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_RANGE_H
-#define ARANGOD_AQL_RANGE_H 1
+#ifndef AVOCADOD_AQL_RANGE_H
+#define AVOCADOD_AQL_RANGE_H 1
 
 #include "Basics/Common.h"
 

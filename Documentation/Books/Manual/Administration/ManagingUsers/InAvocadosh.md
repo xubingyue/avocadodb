@@ -53,9 +53,9 @@ This will create a new AvocadoDB user. The user name must be specified in *user*
 and must not be empty.
 
 The password must be given as a string, too, but can be left empty if
-required.  If you pass the special value *ARANGODB_DEFAULT_ROOT_PASSWORD*, the
+required.  If you pass the special value *AVOCADODB_DEFAULT_ROOT_PASSWORD*, the
 password will be set the value stored in the environment variable
-`ARANGODB_DEFAULT_ROOT_PASSWORD`. This can be used to pass an instance
+`AVOCADODB_DEFAULT_ROOT_PASSWORD`. This can be used to pass an instance
 variable into AvocadoDB. For example, the instance identifier from Amazon.
 
 If the *active* attribute is not specified, it defaults to *true*. The *extra*
@@ -72,9 +72,9 @@ to grant the access rights for one or more databases using
 *Examples*
 
     @startDocuBlockInline USER_02_saveUser
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_02_saveUser}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_02_saveUser}
     require('@avocadodb/users').save('my-user', 'my-secret-password');
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_02_saveUser
 
 Grant Database
@@ -142,9 +142,9 @@ database.
 *Examples*
 
     @startDocuBlockInline USER_03_replaceUser
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_03_replaceUser}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_03_replaceUser}
     require("@avocadodb/users").replace("my-user", "my-changed-password");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_03_replaceUser
 
 Update
@@ -169,9 +169,9 @@ database.
 *Examples*
 
     @startDocuBlockInline USER_04_updateUser
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_04_updateUser}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_04_updateUser}
     require("@avocadodb/users").update("my-user", "my-secret-password");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_04_updateUser
 
 isValid
@@ -189,9 +189,9 @@ amount of time.
 *Examples*
 
     @startDocuBlockInline USER_05_isValidUser
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_05_isValidUser}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_05_isValidUser}
     require("@avocadodb/users").isValid("my-user", "my-secret-password");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_05_isValidUser
 
 Remove
@@ -209,9 +209,9 @@ This method will fail if the user cannot be found in the database.
 *Examples*
 
     @startDocuBlockInline USER_07_removeUser
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_07_removeUser}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_07_removeUser}
     require("@avocadodb/users").remove("my-user");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_07_removeUser
 
 Document
@@ -228,9 +228,9 @@ This method will fail if the user cannot be found in the database.
 *Examples*
 
     @startDocuBlockInline USER_04_documentUser
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_04_documentUser}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_04_documentUser}
     require("@avocadodb/users").document("my-user");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_04_documentUser
 
 All
@@ -243,9 +243,9 @@ Fetches all existing AvocadoDB users from the database.
 *Examples*
 
     @startDocuBlockInline USER_06_AllUsers
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_06_AllUsers}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_06_AllUsers}
     require("@avocadodb/users").all();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_06_AllUsers
 
 Reload
@@ -262,9 +262,9 @@ automatically, and this can be performed by a call to this method.
 *Examples*
 
     @startDocuBlockInline USER_03_reloadUser
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_03_reloadUser}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_03_reloadUser}
     require("@avocadodb/users").reload();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_03_reloadUser
 
 
@@ -283,10 +283,10 @@ This method will fail if the user cannot be found in the database.
 *Examples*
 
     @startDocuBlockInline USER_05_permission
-    @EXAMPLE_ARANGOSH_OUTPUT{USER_05_permission}
+    @EXAMPLE_AVOCADOSH_OUTPUT{USER_05_permission}
     ~ require("@avocadodb/users").grantDatabase("my-user", "testdb");
     require("@avocadodb/users").permission("my-user", "testdb");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock USER_05_permission
 
 

@@ -12,7 +12,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
-@EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplist}
+@EXAMPLE_AVOCADOSH_OUTPUT{ensureSkiplist}
 ~db._create("names");
 db.names.ensureIndex({ type: "skiplist", fields: [ "first" ] });
 db.names.save({ "first" : "Tim" });
@@ -21,5 +21,5 @@ db.names.save({ "first" : "John" });
 db.names.save({ "first" : "Tim" });
 db.names.save({ "first" : "Tom" });
 ~db._drop("names");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

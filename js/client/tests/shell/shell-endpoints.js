@@ -89,7 +89,7 @@ function EndpointsSuite () {
         fail();
       }
       catch (err2) {
-        assertEqual(ERRORS.ERROR_ARANGO_USE_SYSTEM_DATABASE.code, err2.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_USE_SYSTEM_DATABASE.code, err2.errorNum);
       }
     }
 

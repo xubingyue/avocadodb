@@ -65,7 +65,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 Creating an unique constraint
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateNewUniqueConstraint}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateNewUniqueConstraint}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -83,11 +83,11 @@ Creating an unique constraint
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Creating a non-unique hash index
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateNewHashIndex}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateNewHashIndex}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -105,11 +105,11 @@ Creating a non-unique hash index
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Creating a sparse index
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateSparseHashIndex}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateSparseHashIndex}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -128,6 +128,6 @@ Creating a sparse index
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

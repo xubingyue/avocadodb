@@ -11,16 +11,16 @@ Move-Item ..\build\bin\RelWithDebInfo\* .\build\bin\ -Force
 Move-Item ..\etc . -Force
 Move-Item ..\js . -Force
 .\build\bin\avocadod --version
-$env:RESILIENCE_ARANGO_BASEPATH="."
+$env:RESILIENCE_AVOCADO_BASEPATH="."
 $env:multi='spec=- xunit=report.xml'
 $env:BLUEBIRD_DEBUG=1
 $env:MIN_PORT=$port
 $env:MAX_PORT=$port + 1999
 $env:PORT_OFFSET=10
-$env:ARANGO_STORAGE_ENGINE="rocksdb"
+$env:AVOCADO_STORAGE_ENGINE="rocksdb"
 $env:FORCE_WINDOWS_TTY="1"
 # $env:LOG_IMMEDIATE="1"
-# $env:ARANGO_EXTRA_ARGS="--log.level=cluster=trace --log.level=communication=trace --log.level=requests=debug"
+# $env:AVOCADO_EXTRA_ARGS="--log.level=cluster=trace --log.level=communication=trace --log.level=requests=debug"
 npm run test-jenkins-windows -- test\foxx*
 $result = $?
 

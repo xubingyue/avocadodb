@@ -22,8 +22,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_INDEXES_INDEX_H
-#define ARANGOD_INDEXES_INDEX_H 1
+#ifndef AVOCADOD_INDEXES_INDEX_H
+#define AVOCADOD_INDEXES_INDEX_H 1
 
 #include "Basics/AttributeNameParser.h"
 #include "Basics/Common.h"

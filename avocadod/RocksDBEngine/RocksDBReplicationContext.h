@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_REPLICATION_CONTEXT_H
-#define ARANGO_ROCKSDB_ROCKSDB_REPLICATION_CONTEXT_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_REPLICATION_CONTEXT_H
+#define AVOCADO_ROCKSDB_ROCKSDB_REPLICATION_CONTEXT_H 1
 
 #include "Basics/Common.h"
 #include "Indexes/IndexIterator.h"

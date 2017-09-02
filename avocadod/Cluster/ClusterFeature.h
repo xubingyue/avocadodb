@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_CLUSTER_FEATURE_H
-#define ARANGOD_CLUSTER_CLUSTER_FEATURE_H 1
+#ifndef AVOCADOD_CLUSTER_CLUSTER_FEATURE_H
+#define AVOCADOD_CLUSTER_CLUSTER_FEATURE_H 1
 
 #include "Basics/Common.h"
 

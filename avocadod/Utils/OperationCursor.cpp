@@ -67,7 +67,7 @@ bool OperationCursor::next(IndexIterator::TokenCallback const& callback, uint64_
 
   size_t atMost = static_cast<size_t>(batchSize > _limit ? _limit : batchSize);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   // We add wrapper around Callback that validates that
   // the callback has been called at least once.
   bool called = false;
@@ -106,7 +106,7 @@ bool OperationCursor::nextDocument(IndexIterator::DocumentCallback const& callba
   
   size_t atMost = static_cast<size_t>(batchSize > _limit ? _limit : batchSize);
   
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   // We add wrapper around Callback that validates that
   // the callback has been called at least once.
   bool called = false;
@@ -152,7 +152,7 @@ bool OperationCursor::nextWithExtra(IndexIterator::ExtraCallback const& callback
   }
   size_t atMost = static_cast<size_t>(batchSize > _limit ? _limit : batchSize);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   // We add wrapper around Callback that validates that
   // the callback has been called at least once.
   bool called = false;

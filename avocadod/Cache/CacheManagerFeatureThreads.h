@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_CACHE_MANAGER_FEATURE_THREADS_H
-#define ARANGODB_CACHE_MANAGER_FEATURE_THREADS_H
+#ifndef AVOCADODB_CACHE_MANAGER_FEATURE_THREADS_H
+#define AVOCADODB_CACHE_MANAGER_FEATURE_THREADS_H
 
 #include "Basics/Common.h"
 #include "Basics/ConditionVariable.h"

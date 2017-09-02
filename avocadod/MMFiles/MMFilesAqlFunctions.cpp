@@ -85,7 +85,7 @@ static AqlValue buildGeoResult(transaction::Methods* trx,
     }
   } catch (...) {
     GeoIndex_CoordinatesFree(cors);
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   GeoIndex_CoordinatesFree(cors);
@@ -127,7 +127,7 @@ static AqlValue buildGeoResult(transaction::Methods* trx,
     builder->close();
     return AqlValue(builder.get());
   } catch (...) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 }
 
@@ -146,7 +146,7 @@ static avocadodb::MMFilesGeoIndex* getGeoIndex(
   auto document = trx->documentCollection(cid);
 
   if (document == nullptr) {
-    THROW_ARANGO_EXCEPTION_FORMAT(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+    THROW_AVOCADO_EXCEPTION_FORMAT(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                                   "'%s'", collectionName.c_str());
   }
 
@@ -161,7 +161,7 @@ static avocadodb::MMFilesGeoIndex* getGeoIndex(
   }
 
   if (index == nullptr) {
-    THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_GEO_INDEX_MISSING,
+    THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_GEO_INDEX_MISSING,
                                   collectionName.c_str());
   }
 
@@ -179,7 +179,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
   AqlValue collectionValue = ExtractFunctionParameterValue(trx, parameters, 0);
 
   if (!collectionValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
   }
 
@@ -188,7 +188,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
   AqlValue attribute = ExtractFunctionParameterValue(trx, parameters, 1);
 
   if (!attribute.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
   }
 
@@ -197,7 +197,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
   AqlValue queryValue = ExtractFunctionParameterValue(trx, parameters, 2);
 
   if (!queryValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
   }
 
@@ -207,7 +207,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
   if (parameters.size() >= 4) {
     AqlValue limit = ExtractFunctionParameterValue(trx, parameters, 3);
     if (!limit.isNull(true) && !limit.isNumber()) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "FULLTEXT");
     } 
     if (limit.isNumber()) {
@@ -225,7 +225,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
   LogicalCollection* collection = trx->documentCollection(cid);
 
   if (collection == nullptr) {
-    THROW_ARANGO_EXCEPTION_FORMAT(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+    THROW_AVOCADO_EXCEPTION_FORMAT(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                                   "", collectionName.c_str());
   }
 
@@ -256,7 +256,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
 
   if (fulltextIndex == nullptr) {
     // fiddle collection name into error message
-    THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_FULLTEXT_INDEX_MISSING,
+    THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_FULLTEXT_INDEX_MISSING,
                                   collectionName.c_str());
   }
 
@@ -266,7 +266,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
       TRI_CreateQueryMMFilesFulltextIndex(TRI_FULLTEXT_SEARCH_MAX_WORDS, maxResults);
 
   if (ft == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   bool isSubstringQuery = false;
@@ -275,7 +275,7 @@ AqlValue MMFilesAqlFunctions::Fulltext(
 
   if (res != TRI_ERROR_NO_ERROR) {
     TRI_FreeQueryMMFilesFulltextIndex(ft);
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   // note: the following call will free "ft"!
@@ -305,7 +305,7 @@ AqlValue MMFilesAqlFunctions::Near(avocadodb::aql::Query* query,
 
   AqlValue collectionValue = ExtractFunctionParameterValue(trx, parameters, 0);
   if (!collectionValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
   }
 
@@ -315,7 +315,7 @@ AqlValue MMFilesAqlFunctions::Near(avocadodb::aql::Query* query,
   AqlValue longitude = ExtractFunctionParameterValue(trx, parameters, 2);
 
   if (!latitude.isNumber() || !longitude.isNumber()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
   }
 
@@ -328,7 +328,7 @@ AqlValue MMFilesAqlFunctions::Near(avocadodb::aql::Query* query,
     if (limit.isNumber()) {
       limitValue = limit.toInt64(trx);
     } else if (!limit.isNull(true)) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
     }
   }
@@ -339,7 +339,7 @@ AqlValue MMFilesAqlFunctions::Near(avocadodb::aql::Query* query,
     AqlValue distanceValue = ExtractFunctionParameterValue(trx, parameters, 4);
 
     if (!distanceValue.isNull(true) && !distanceValue.isString()) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "NEAR");
     }
 
@@ -369,7 +369,7 @@ AqlValue MMFilesAqlFunctions::Within(
   AqlValue collectionValue = ExtractFunctionParameterValue(trx, parameters, 0);
 
   if (!collectionValue.isString()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "WITHIN");
   }
 
@@ -380,7 +380,7 @@ AqlValue MMFilesAqlFunctions::Within(
   AqlValue radiusValue = ExtractFunctionParameterValue(trx, parameters, 3);
 
   if (!latitudeValue.isNumber() || !longitudeValue.isNumber() || !radiusValue.isNumber()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(
+    THROW_AVOCADO_EXCEPTION_PARAMS(
         TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "WITHIN");
   }
 
@@ -390,7 +390,7 @@ AqlValue MMFilesAqlFunctions::Within(
     AqlValue distanceValue = ExtractFunctionParameterValue(trx, parameters, 4);
 
     if (!distanceValue.isNull(true) && !distanceValue.isString()) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH, "WITHIN");
     }
 

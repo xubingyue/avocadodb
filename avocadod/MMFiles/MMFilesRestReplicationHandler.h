@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_REST_REPLICATION_HANDLER_H
-#define ARANGOD_MMFILES_MMFILES_REST_REPLICATION_HANDLER_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_REST_REPLICATION_HANDLER_H
+#define AVOCADOD_MMFILES_MMFILES_REST_REPLICATION_HANDLER_H 1
 
 #include "RestHandler/RestReplicationHandler.h"
 

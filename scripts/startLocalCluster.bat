@@ -28,10 +28,10 @@ FOR /F "usebackq tokens=4,* skip=2" %%L IN (
 CALL SET "KEY_NAME="%KEY_NAME:~1,41%\%tmp%""
 FOR /F "usebackq tokens=2,* skip=1" %%L IN (
     `REG QUERY %KEY_NAME% /v ""`
-) DO SET ARANGODB_PATH=%%M
+) DO SET AVOCADODB_PATH=%%M
 
-CALL SET JS_STARTUP_PATH="%ARANGODB_PATH%\share\avocadodb3\js"
-CALL SET JS_APP_PATH="%ARANGODB_PATH%\share\avocadodb3\js\apps"
+CALL SET JS_STARTUP_PATH="%AVOCADODB_PATH%\share\avocadodb3\js"
+CALL SET JS_APP_PATH="%AVOCADODB_PATH%\share\avocadodb3\js\apps"
 
 :: Agency
 SET MINP=2.0

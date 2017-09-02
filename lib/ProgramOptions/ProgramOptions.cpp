@@ -33,7 +33,7 @@
 
 #include <iostream>
 
-#define ARANGODB_PROGRAM_OPTIONS_PROGNAME "#progname#"
+#define AVOCADODB_PROGRAM_OPTIONS_PROGNAME "#progname#"
 
 using namespace avocadodb::options;
   
@@ -50,12 +50,12 @@ ProgramOptions::ProgramOptions(char const* progname, std::string const& usage,
       _overrideOptions(false),
       _binaryPath(binaryPath){
   // find progname wildcard in string
-  size_t const pos = _usage.find(ARANGODB_PROGRAM_OPTIONS_PROGNAME);
+  size_t const pos = _usage.find(AVOCADODB_PROGRAM_OPTIONS_PROGNAME);
 
   if (pos != std::string::npos) {
     // and replace it with actual program name
     _usage = usage.substr(0, pos) + _progname +
-              _usage.substr(pos + strlen(ARANGODB_PROGRAM_OPTIONS_PROGNAME));
+              _usage.substr(pos + strlen(AVOCADODB_PROGRAM_OPTIONS_PROGNAME));
   }
 
   _translator = EnvironmentTranslator;

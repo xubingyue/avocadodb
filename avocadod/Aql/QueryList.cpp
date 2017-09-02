@@ -73,7 +73,7 @@ bool QueryList::insert(Query* query) {
     WRITE_LOCKER(writeLocker, _lock);
 
     TRI_IF_FAILURE("QueryList::insert") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     auto it = _current.emplace(query->id(), query);
@@ -122,7 +122,7 @@ void QueryList::remove(Query* query) {
       // yes.
 
       TRI_IF_FAILURE("QueryList::remove") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       std::string q = extractQueryString(query, _maxQueryStringLength);

@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_BASIC_BLOCKS_H
-#define ARANGOD_AQL_BASIC_BLOCKS_H 1
+#ifndef AVOCADOD_AQL_BASIC_BLOCKS_H
+#define AVOCADOD_AQL_BASIC_BLOCKS_H 1
 
 #include "Aql/BlockCollector.h"
 #include "Aql/ExecutionBlock.h"

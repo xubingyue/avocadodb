@@ -37,7 +37,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionIdentifierUnload}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionIdentifierUnload}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn, { waitForSync: true });
@@ -49,6 +49,6 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

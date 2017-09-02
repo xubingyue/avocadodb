@@ -77,7 +77,7 @@ AqlItemBlock* BlockCollector::steal() {
   AqlItemBlock* result = nullptr;
         
   TRI_IF_FAILURE("BlockCollector::getOrSkipSomeConcatenate") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (_blocks.size() == 1) {

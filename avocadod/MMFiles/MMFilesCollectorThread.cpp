@@ -297,7 +297,7 @@ void MMFilesCollectorThread::run() {
 
         if (res == TRI_ERROR_NO_ERROR) {
           hasWorked |= worked;
-        } else if (res == TRI_ERROR_ARANGO_FILESYSTEM_FULL) {
+        } else if (res == TRI_ERROR_AVOCADO_FILESYSTEM_FULL) {
           doDelay = true;
         }
       }
@@ -308,7 +308,7 @@ void MMFilesCollectorThread::run() {
 
       if (res == TRI_ERROR_NO_ERROR) {
         hasWorked |= worked;
-      } else if (res == TRI_ERROR_ARANGO_FILESYSTEM_FULL) {
+      } else if (res == TRI_ERROR_AVOCADO_FILESYSTEM_FULL) {
         doDelay = true;
       }
     } catch (avocadodb::basics::Exception const& ex) {
@@ -500,8 +500,8 @@ int MMFilesCollectorThread::processQueuedOperations(bool& worked) {
 
         if (res == TRI_ERROR_NO_ERROR) {
           LOG_TOPIC(TRACE, Logger::COLLECTOR) << "queued operations applied successfully";
-        } else if (res == TRI_ERROR_ARANGO_DATABASE_NOT_FOUND ||
-                  res == TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
+        } else if (res == TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND ||
+                  res == TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
           // these are expected errors
           LOG_TOPIC(TRACE, Logger::COLLECTOR)
               << "removing queued operations for already deleted collection";
@@ -750,7 +750,7 @@ int MMFilesCollectorThread::collect(MMFilesWalLogfile* logfile) {
   TRI_ASSERT(df != nullptr);
 
   TRI_IF_FAILURE("CollectorThreadCollectException") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   // We will sequentially scan the logfile for collection:
@@ -848,7 +848,7 @@ int MMFilesCollectorThread::collect(MMFilesWalLogfile* logfile) {
                               state.operationsCount[cid], sortedOperations);
 
         TRI_IF_FAILURE("failDuringCollect") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
       } catch (avocadodb::basics::Exception const& ex) {
@@ -863,9 +863,9 @@ int MMFilesCollectorThread::collect(MMFilesWalLogfile* logfile) {
       }
 
       if (res != TRI_ERROR_NO_ERROR &&
-          res != TRI_ERROR_ARANGO_DATABASE_NOT_FOUND &&
-          res != TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
-        if (res != TRI_ERROR_ARANGO_FILESYSTEM_FULL) {
+          res != TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND &&
+          res != TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
+        if (res != TRI_ERROR_AVOCADO_FILESYSTEM_FULL) {
           // other places already log this error, and making the logging
           // conditional here
           // prevents the log message from being shown over and over again in
@@ -880,8 +880,8 @@ int MMFilesCollectorThread::collect(MMFilesWalLogfile* logfile) {
     }
   }
 
-  // Error conditions TRI_ERROR_ARANGO_DATABASE_NOT_FOUND and
-  // TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND are intentionally ignored
+  // Error conditions TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND and
+  // TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND are intentionally ignored
   // here since this can actually happen if someone has dropped things
   // in between.
 

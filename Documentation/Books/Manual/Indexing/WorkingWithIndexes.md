@@ -47,7 +47,7 @@ Returns an array of all indexes defined for the collection.
 Note that `_key` implicitly has an index assigned to it.
 
     @startDocuBlockInline collectionGetIndexes
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexes}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionGetIndexes}
     ~db._create("test");
     ~db.test.ensureUniqueSkiplist("skiplistAttribute");
     ~db.test.ensureUniqueSkiplist("skiplistUniqueAttribute");
@@ -55,7 +55,7 @@ Note that `_key` implicitly has an index assigned to it.
                               "hashListSecondAttribute.subAttribute");
     db.test.getIndexes();
     ~db._drop("test");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionGetIndexes
 
 
@@ -107,12 +107,12 @@ regardless of the value of this attribute.
 
 
     @startDocuBlockInline collectionEnsureIndex
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionEnsureIndex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionEnsureIndex}
     ~db._create("test");
     db.test.ensureIndex({ type: "hash", fields: [ "a" ], sparse: true });
     db.test.ensureIndex({ type: "hash", fields: [ "a", "b" ], unique: true });
     ~db._drop("test");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionEnsureIndex
 
 
@@ -134,7 +134,7 @@ index of a collection or the edge index of an edge collection).
 Same as above. Instead of an index an index handle can be given.
 
     @startDocuBlockInline col_dropIndex
-    @EXAMPLE_ARANGOSH_OUTPUT{col_dropIndex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{col_dropIndex}
     ~db._create("example");
     db.example.ensureSkiplist("a", "b");
     var indexInfo = db.example.getIndexes();
@@ -143,7 +143,7 @@ Same as above. Instead of an index an index handle can be given.
     db.example.dropIndex(indexInfo[1].id)
     indexInfo = db.example.getIndexes();
     ~db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock col_dropIndex
 
 
@@ -174,12 +174,12 @@ up to this limit and for the time being there is no way to control which indexes
 of the collection should have priority over others.
 
     @startDocuBlockInline LoadIndexesIntoMemory
-    @EXAMPLE_ARANGOSH_OUTPUT{loadIndexesIntoMemory}
+    @EXAMPLE_AVOCADOSH_OUTPUT{loadIndexesIntoMemory}
     ~db._drop("example");
     ~db._createEdgeCollection("example");
     db.example.loadIndexesIntoMemory();
     ~db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock LoadIndexesIntoMemory
 
 Database Methods
@@ -195,7 +195,7 @@ finds an index
 Returns the index with *index-handle* or null if no such index exists.
 
     @startDocuBlockInline IndexHandle
-    @EXAMPLE_ARANGOSH_OUTPUT{IndexHandle}
+    @EXAMPLE_AVOCADOSH_OUTPUT{IndexHandle}
     ~db._create("example");
     db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
     var indexInfo = db.example.getIndexes().map(function(x) { return x.id; });
@@ -203,7 +203,7 @@ Returns the index with *index-handle* or null if no such index exists.
     db._index(indexInfo[0])
     db._index(indexInfo[1])
     ~db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock IndexHandle
 
 
@@ -223,7 +223,7 @@ returned.
 Drops the index with *index-handle*.
 
     @startDocuBlockInline dropIndex
-    @EXAMPLE_ARANGOSH_OUTPUT{dropIndex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{dropIndex}
     ~db._create("example");
     db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
     var indexInfo = db.example.getIndexes();
@@ -232,7 +232,7 @@ Drops the index with *index-handle*.
     db._dropIndex(indexInfo[1].id)
     indexInfo = db.example.getIndexes();
     ~db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock dropIndex
 
 
@@ -249,12 +249,12 @@ You can use explain to verify whether **skiplists** or **hash indexes** are
 used (if you omit `colors: false` you will get nice colors in AvocadoShell):
 
     @startDocuBlockInline IndexVerify
-    @EXAMPLE_ARANGOSH_OUTPUT{IndexVerify}
+    @EXAMPLE_AVOCADOSH_OUTPUT{IndexVerify}
     ~db._create("example");
     var explain = require("@avocadodb/aql/explainer").explain;
     db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
     explain("FOR doc IN example FILTER doc.a < 23 RETURN doc", {colors:false});
     ~db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock IndexVerify
 

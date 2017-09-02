@@ -22,11 +22,11 @@
 
 #include "PrivilegeFeature.h"
 
-#ifdef ARANGODB_HAVE_GETGRGID
+#ifdef AVOCADODB_HAVE_GETGRGID
 #include <grp.h>
 #endif
 
-#ifdef ARANGODB_HAVE_GETPWUID
+#ifdef AVOCADODB_HAVE_GETPWUID
 #include <pwd.h>
 #endif
 
@@ -51,7 +51,7 @@ PrivilegeFeature::PrivilegeFeature(
 void PrivilegeFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
   options->addSection("server", "Server features");
 
-#ifdef ARANGODB_HAVE_SETUID
+#ifdef AVOCADODB_HAVE_SETUID
   options->addHiddenOption("--uid",
                            "switch to user-id after reading config files",
                            new StringParameter(&_uid));
@@ -61,7 +61,7 @@ void PrivilegeFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
                            new StringParameter(&_uid));
 #endif
 
-#ifdef ARANGODB_HAVE_SETGID
+#ifdef AVOCADODB_HAVE_SETGID
   options->addHiddenOption("--gid",
                            "switch to group-id after reading config files",
                            new StringParameter(&_gid));
@@ -77,14 +77,14 @@ void PrivilegeFeature::prepare() {
 }
 
 void PrivilegeFeature::extractPrivileges() {
-#ifdef ARANGODB_HAVE_SETGID
+#ifdef AVOCADODB_HAVE_SETGID
   if (_gid.empty()) {
     _numericGid = getgid();
   } else {
     int gidNumber = TRI_Int32String(_gid.c_str());
 
     if (TRI_errno() == TRI_ERROR_NO_ERROR && gidNumber >= 0) {
-#ifdef ARANGODB_HAVE_GETGRGID
+#ifdef AVOCADODB_HAVE_GETGRGID
       group* g = getgrgid(gidNumber);
 
       if (g == 0) {
@@ -93,7 +93,7 @@ void PrivilegeFeature::extractPrivileges() {
       }
 #endif
     } else {
-#ifdef ARANGODB_HAVE_GETGRNAM
+#ifdef AVOCADODB_HAVE_GETGRNAM
       std::string name = _gid;
       group* g = getgrnam(name.c_str());
 
@@ -114,14 +114,14 @@ void PrivilegeFeature::extractPrivileges() {
   }
 #endif
 
-#ifdef ARANGODB_HAVE_SETUID
+#ifdef AVOCADODB_HAVE_SETUID
   if (_uid.empty()) {
     _numericUid = getuid();
   } else {
     int uidNumber = TRI_Int32String(_uid.c_str());
 
     if (TRI_errno() == TRI_ERROR_NO_ERROR) {
-#ifdef ARANGODB_HAVE_GETPWUID
+#ifdef AVOCADODB_HAVE_GETPWUID
       passwd* p = getpwuid(uidNumber);
 
       if (p == 0) {
@@ -130,7 +130,7 @@ void PrivilegeFeature::extractPrivileges() {
       }
 #endif
     } else {
-#ifdef ARANGODB_HAVE_GETPWNAM
+#ifdef AVOCADODB_HAVE_GETPWNAM
       std::string name = _uid;
       passwd* p = getpwnam(name.c_str());
 
@@ -152,8 +152,8 @@ void PrivilegeFeature::extractPrivileges() {
 }
 
 void PrivilegeFeature::dropPrivilegesPermanently() {
-#if defined(ARANGODB_HAVE_INITGROUPS) && defined(ARANGODB_HAVE_SETGID) && \
-    defined(ARANGODB_HAVE_SETUID)
+#if defined(AVOCADODB_HAVE_INITGROUPS) && defined(AVOCADODB_HAVE_SETGID) && \
+    defined(AVOCADODB_HAVE_SETUID)
   // clear all supplementary groups
   if (!_gid.empty() && !_uid.empty()) {
     struct passwd* pwent = getpwuid(_numericUid);
@@ -164,7 +164,7 @@ void PrivilegeFeature::dropPrivilegesPermanently() {
   }
 #endif
 
-#ifdef ARANGODB_HAVE_SETGID
+#ifdef AVOCADODB_HAVE_SETGID
   // first GID
   if (!_gid.empty()) {
     LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "permanently changing the gid to " << _numericGid;
@@ -178,7 +178,7 @@ void PrivilegeFeature::dropPrivilegesPermanently() {
   }
 #endif
 
-#ifdef ARANGODB_HAVE_SETUID
+#ifdef AVOCADODB_HAVE_SETUID
   // then UID (because we are dropping)
   if (!_uid.empty()) {
     LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "permanently changing the uid to " << _numericUid;

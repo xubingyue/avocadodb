@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_COLLECTION_NAME_RESOLVER_H
-#define ARANGOD_UTILS_COLLECTION_NAME_RESOLVER_H 1
+#ifndef AVOCADOD_UTILS_COLLECTION_NAME_RESOLVER_H
+#define AVOCADOD_UTILS_COLLECTION_NAME_RESOLVER_H 1
 
 #include "Cluster/ServerState.h"
 #include "VocBase/voc-types.h"

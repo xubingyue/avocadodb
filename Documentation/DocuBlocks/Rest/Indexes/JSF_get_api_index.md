@@ -25,7 +25,7 @@ returns a JSON object containing a list of indexes on that collection.
 
 Return information about all indexes
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexAllIndexes}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexAllIndexes}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -40,6 +40,6 @@ Return information about all indexes
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

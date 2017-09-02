@@ -37,7 +37,7 @@ details, including the index-identifier, is returned.
 
 Create a geo index for an array attribute:
 
-@EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute}
+@EXAMPLE_AVOCADOSH_OUTPUT{geoIndexCreateForArrayAttribute}
 ~db._create("geo")
  db.geo.ensureIndex({ type: "geo", fields: [ "loc" ] });
 | for (i = -90;  i <= 90;  i += 10) {
@@ -49,11 +49,11 @@ db.geo.count();
 db.geo.near(0, 0).limit(3).toArray();
 db.geo.near(0, 0).count();
 ~db._drop("geo")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Create a geo index for a hash array attribute:
 
-@EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
+@EXAMPLE_AVOCADOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
 ~db._create("geo2")
 db.geo2.ensureIndex({ type: "geo", fields: [ "location.latitude", "location.longitude" ] });
 | for (i = -90;  i <= 90;  i += 10) {
@@ -63,4 +63,4 @@ db.geo2.ensureIndex({ type: "geo", fields: [ "location.latitude", "location.long
   }
 db.geo2.near(0, 0).limit(3).toArray();
 ~db._drop("geo2")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT

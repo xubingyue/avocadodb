@@ -21,8 +21,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_REST_WAL_HANDLER_H
-#define ARANGOD_MMFILES_MMFILES_REST_WAL_HANDLER_H 1
+#ifndef AVOCADOD_ROCKSDB_REST_WAL_HANDLER_H
+#define AVOCADOD_MMFILES_MMFILES_REST_WAL_HANDLER_H 1
 
 #include "Basics/Common.h"
 #include "RestHandler/RestVocbaseBaseHandler.h"

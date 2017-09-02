@@ -46,7 +46,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 Creating a fulltext index
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateNewFulltext}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateNewFulltext}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -63,6 +63,6 @@ Creating a fulltext index
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

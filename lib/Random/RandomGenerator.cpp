@@ -198,7 +198,7 @@ class RandomDeviceDirect : public RandomDevice {
 
     if (fd < 0) {
       std::string message("cannot open random source '" + path + "'");
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
     }
 
     fillBuffer();
@@ -267,7 +267,7 @@ class RandomDeviceCombined : public RandomDevice {
 
     if (fd < 0) {
       std::string message("cannot open random source '" + path + "'");
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
     }
 
     // Set the random number generator file to be non-blocking (not for windows)
@@ -281,7 +281,7 @@ class RandomDeviceCombined : public RandomDevice {
       if (!ok) {
         std::string message("cannot switch random source '" + path +
                             "' to non-blocking");
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
       }
     }
 
@@ -386,7 +386,7 @@ class RandomDeviceWin32 : public RandomDevice {
                                  CRYPT_VERIFYCONTEXT | CRYPT_SILENT);
     if (cryptoHandle == 0 || result == FALSE) {
       std::string message("cannot create cryptographic windows handle");
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
     }
 
     fillBuffer();
@@ -471,7 +471,7 @@ void RandomGenerator::initialize(RandomType type) {
 #endif
 
     default: {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "unknown random generator");
     }
   }
@@ -491,7 +491,7 @@ int32_t RandomGenerator::interval(int32_t left, int32_t right) {
   MUTEX_LOCKER(locker, _lock);
 
   if (_device == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "random generator not initialized");
   }
 
@@ -557,7 +557,7 @@ uint32_t RandomGenerator::interval(uint32_t right) {
   MUTEX_LOCKER(locker, _lock);
 
   if (_device == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "random generator not initialized");
   }
   

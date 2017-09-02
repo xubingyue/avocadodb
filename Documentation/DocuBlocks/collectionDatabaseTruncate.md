@@ -20,7 +20,7 @@ there is no such collection.
 
 Truncates a collection:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncate}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseTruncate}
 ~ db._create("example");
   col = db.example;
   col.save({ "Hello" : "World" });
@@ -28,11 +28,11 @@ Truncates a collection:
   db._truncate(col);
   col.count();
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Truncates a collection identified by name:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateName}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseTruncateName}
 ~ db._create("example");
   col = db.example;
   col.save({ "Hello" : "World" });
@@ -40,6 +40,6 @@ Truncates a collection identified by name:
   db._truncate("example");
   col.count();
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

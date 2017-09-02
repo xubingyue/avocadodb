@@ -121,7 +121,7 @@ error) for a document with no user-defined key.
 Importing two documents, with attributes `_key`, `value1` and `value2` each. One
 line in the import data is empty
 
-@EXAMPLE_ARANGOSH_RUN{RestImportCsvExample}
+@EXAMPLE_AVOCADOSH_RUN{RestImportCsvExample}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -140,11 +140,11 @@ line in the import data is empty
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Importing into an edge collection, with attributes `_from`, `_to` and `name`
 
-@EXAMPLE_ARANGOSH_RUN{RestImportCsvEdge}
+@EXAMPLE_AVOCADOSH_RUN{RestImportCsvEdge}
     var cn = "links";
     db._drop(cn);
     db._createEdgeCollection(cn);
@@ -166,11 +166,11 @@ Importing into an edge collection, with attributes `_from`, `_to` and `name`
     logJsonResponse(response);
     db._drop(cn);
     db._drop("products");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Importing into an edge collection, omitting `_from` or `_to`
 
-@EXAMPLE_ARANGOSH_RUN{RestImportCsvEdgeInvalid}
+@EXAMPLE_AVOCADOSH_RUN{RestImportCsvEdgeInvalid}
     var cn = "links";
     db._drop(cn);
     db._createEdgeCollection(cn);
@@ -187,11 +187,11 @@ Importing into an edge collection, omitting `_from` or `_to`
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Violating a unique constraint, but allow partial imports
 
-@EXAMPLE_ARANGOSH_RUN{RestImportCsvUniqueContinue}
+@EXAMPLE_AVOCADOSH_RUN{RestImportCsvUniqueContinue}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -210,11 +210,11 @@ Violating a unique constraint, but allow partial imports
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Violating a unique constraint, not allowing partial imports
 
-@EXAMPLE_ARANGOSH_RUN{RestImportCsvUniqueFail}
+@EXAMPLE_AVOCADOSH_RUN{RestImportCsvUniqueFail}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -229,11 +229,11 @@ Violating a unique constraint, not allowing partial imports
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a non-existing collection
 
-@EXAMPLE_ARANGOSH_RUN{RestImportCsvInvalidCollection}
+@EXAMPLE_AVOCADOSH_RUN{RestImportCsvInvalidCollection}
     var cn = "products";
     db._drop(cn);
 
@@ -246,11 +246,11 @@ Using a non-existing collection
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a malformed body
 
-@EXAMPLE_ARANGOSH_RUN{RestImportCsvInvalidBody}
+@EXAMPLE_AVOCADOSH_RUN{RestImportCsvInvalidBody}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -263,6 +263,6 @@ Using a malformed body
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

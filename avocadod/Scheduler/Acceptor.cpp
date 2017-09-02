@@ -25,7 +25,7 @@
 #include "Scheduler/AcceptorTcp.h"
 #include "Basics/operating-system.h"
 
-#ifdef ARANGODB_HAVE_DOMAIN_SOCKETS
+#ifdef AVOCADODB_HAVE_DOMAIN_SOCKETS
 #include "Scheduler/AcceptorUnixDomain.h"
 #endif
 
@@ -38,7 +38,7 @@ Acceptor::Acceptor(boost::asio::io_service& ioService, Endpoint* endpoint)
 
 std::unique_ptr<Acceptor> Acceptor::factory(
     boost::asio::io_service& ioService, Endpoint* endpoint) {
-#ifdef ARANGODB_HAVE_DOMAIN_SOCKETS
+#ifdef AVOCADODB_HAVE_DOMAIN_SOCKETS
   if (endpoint->domainType() == Endpoint::DomainType::UNIX) {
     return std::make_unique<AcceptorUnixDomain>(ioService, endpoint);
   }

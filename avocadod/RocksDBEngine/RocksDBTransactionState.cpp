@@ -173,7 +173,7 @@ void RocksDBTransactionState::createTransaction() {
     RocksDBLogValue header =
         RocksDBLogValue::BeginTransaction(_vocbase->id(), _id);
     _rocksTransaction->PutLogData(header.slice());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     ++_numLogdata;
 #endif
   }
@@ -332,7 +332,7 @@ void RocksDBTransactionState::prepareOperation(
         RocksDBLogValue logValue =
             RocksDBLogValue::DocumentOpsPrologue(collectionId);
         _rocksTransaction->PutLogData(logValue.slice());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
         ++_numLogdata;
 #endif
       }
@@ -340,7 +340,7 @@ void RocksDBTransactionState::prepareOperation(
       // singleOp => no modifications yet
       TRI_ASSERT(!singleOp || (_rocksTransaction->GetNumPuts() == 0 &&
                                _rocksTransaction->GetNumDeletes() == 0));
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
       TRI_ASSERT(_numLogdata == 0);
 #endif
 
@@ -351,7 +351,7 @@ void RocksDBTransactionState::prepareOperation(
           RocksDBLogValue logValue =
               RocksDBLogValue::SinglePut(_vocbase->id(), collectionId);
           _rocksTransaction->PutLogData(logValue.slice());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
           ++_numLogdata;
 #endif
           break;
@@ -361,7 +361,7 @@ void RocksDBTransactionState::prepareOperation(
           RocksDBLogValue logValue =
               RocksDBLogValue::SingleRemove(_vocbase->id(), collectionId, key);
           _rocksTransaction->PutLogData(logValue.slice());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
           ++_numLogdata;
 #endif
         } break;
@@ -375,7 +375,7 @@ void RocksDBTransactionState::prepareOperation(
   if (!singleOp && operationType == TRI_VOC_DOCUMENT_OPERATION_REMOVE) {
     RocksDBLogValue logValue = RocksDBLogValue::DocumentRemove(key);
     _rocksTransaction->PutLogData(logValue.slice());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     ++_numLogdata;
 #endif
   }
@@ -406,7 +406,7 @@ RocksDBOperationResult RocksDBTransactionState::addOperation(
   if (collection == nullptr) {
     std::string message = "collection '" + std::to_string(cid) +
                           "' not found in transaction state";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
   }
 
   // should not fail or fail with exception
@@ -444,7 +444,7 @@ RocksDBOperationResult RocksDBTransactionState::addOperation(
     _numInserts = 0;
     _numUpdates = 0;
     _numRemoves = 0;
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     _numLogdata = 0;
 #endif
     createTransaction();

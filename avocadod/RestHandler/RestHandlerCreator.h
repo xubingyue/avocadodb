@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REST_HANDLER_REST_HANDLER_CREATOR_H
-#define ARANGOD_REST_HANDLER_REST_HANDLER_CREATOR_H 1
+#ifndef AVOCADOD_REST_HANDLER_REST_HANDLER_CREATOR_H
+#define AVOCADOD_REST_HANDLER_REST_HANDLER_CREATOR_H 1
 
 #include "Basics/Common.h"
 

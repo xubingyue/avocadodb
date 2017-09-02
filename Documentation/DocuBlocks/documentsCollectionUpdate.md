@@ -49,31 +49,31 @@ first argument.
 
 Create and update a document:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionUpdate}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionUpdate}
 ~ db._create("example");
   a1 = db.example.insert({"a" : 1});
   a2 = db.example.update(a1, {"b" : 2, "c" : 3});
-  a3 = db.example.update(a1, {"d" : 4}); // xpError(ERROR_ARANGO_CONFLICT);
+  a3 = db.example.update(a1, {"d" : 4}); // xpError(ERROR_AVOCADO_CONFLICT);
   a4 = db.example.update(a2, {"e" : 5, "f" : 6 });
   db.example.document(a4);
   a5 = db.example.update(a4, {"a" : 1, c : 9, e : 42 });
   db.example.document(a5);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Use a document handle:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionUpdateHandle}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionUpdateHandle}
 ~ db._create("example");
 ~ var myid = db.example.insert({_key: "18612115"});
   a1 = db.example.insert({"a" : 1});
   a2 = db.example.update("example/18612115", { "x" : 1, "y" : 2 });
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Use the keepNull parameter to remove attributes with null values:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionUpdateHandleKeepNull}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionUpdateHandleKeepNull}
 ~ db._create("example");
 ~ var myid = db.example.insert({_key: "19988371"});
   db.example.insert({"a" : 1});
@@ -86,11 +86,11 @@ Use the keepNull parameter to remove attributes with null values:
                     { "b" : null, "c": null, "d" : null }, false, false);
   db.example.document("example/19988371");
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Patching array values:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionUpdateHandleArray}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionUpdateHandleArray}
 ~ db._create("example");
 ~ var myid = db.example.insert({_key: "20774803"});
 |  db.example.insert({"a" : { "one" : 1, "two" : 2, "three" : 3 },
@@ -103,6 +103,6 @@ Patching array values:
                     false, false);
   db.example.document("example/20774803");
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

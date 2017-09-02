@@ -24,8 +24,8 @@
 // in the
 // cpp files to do template specialization
 
-#ifndef ARANGODB_PREGEL_ALGO_DMID_MESSAGE_F_H
-#define ARANGODB_PREGEL_ALGO_DMID_MESSAGE_F_H 1
+#ifndef AVOCADODB_PREGEL_ALGO_DMID_MESSAGE_F_H
+#define AVOCADODB_PREGEL_ALGO_DMID_MESSAGE_F_H 1
 
 #include "Pregel/Graph.h"
 #include "Pregel/GraphFormat.h"

@@ -4,10 +4,10 @@
 
 install(
   DIRECTORY
-    ${ARANGODB_SOURCE_DIR}/js/common
-    ${ARANGODB_SOURCE_DIR}/js/client 
+    ${AVOCADODB_SOURCE_DIR}/js/common
+    ${AVOCADODB_SOURCE_DIR}/js/client 
   DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR_ARANGO}/js
+    ${CMAKE_INSTALL_DATAROOTDIR_AVOCADO}/js
   FILES_MATCHING
     PATTERN "*.js"
   REGEX
@@ -21,9 +21,9 @@ install(
 if (USE_ENTERPRISE)
   install(
     DIRECTORY
-      ${ARANGODB_SOURCE_DIR}/enterprise/js/common
-      ${ARANGODB_SOURCE_DIR}/enterprise/js/client 
-    DESTINATION    ${CMAKE_INSTALL_DATAROOTDIR_ARANGO}/js
+      ${AVOCADODB_SOURCE_DIR}/enterprise/js/common
+      ${AVOCADODB_SOURCE_DIR}/enterprise/js/client 
+    DESTINATION    ${CMAKE_INSTALL_DATAROOTDIR_AVOCADO}/js
     FILES_MATCHING PATTERN "*.js"
     REGEX          "^.*/common/test-data$"                 EXCLUDE
     REGEX          "^.*/common/tests$"                     EXCLUDE
@@ -33,8 +33,8 @@ endif ()
 
 # For the node modules we need all files:
 install(
-  DIRECTORY ${ARANGODB_SOURCE_DIR}/js/node
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR_ARANGO}/js
+  DIRECTORY ${AVOCADODB_SOURCE_DIR}/js/node
+  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR_AVOCADO}/js
   REGEX "^.*/eslint"                                       EXCLUDE
   REGEX "^.*/.npmignore"                                   EXCLUDE
   REGEX "^.*/expect.js$"                                   EXCLUDE

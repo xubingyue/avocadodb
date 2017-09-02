@@ -195,7 +195,7 @@ int RestImportHandler::handleSingleDocument(SingleCollectionTransaction& trx,
         "invalid JSON type (expecting object), offending document: " + part;
 
     registerError(result, errorMsg);
-    return TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+    return TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
   }
 
   if (!isEdgeCollection) {
@@ -265,7 +265,7 @@ int RestImportHandler::handleSingleDocument(SingleCollectionTransaction& trx,
         "missing '_from' or '_to' attribute, offending document: " + part;
 
     registerError(result, errorMsg);
-    return TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE;
+    return TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE;
   }
 
   babies.add(slice);
@@ -279,7 +279,7 @@ int RestImportHandler::handleSingleDocument(SingleCollectionTransaction& trx,
 
 bool RestImportHandler::createFromJson(std::string const& type) {
   if (_request == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
   }
 
   RestImportResult result;
@@ -304,7 +304,7 @@ bool RestImportHandler::createFromJson(std::string const& type) {
 
   if (!found || collectionName.empty()) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_COLLECTION_PARAMETER_MISSING,
+                  TRI_ERROR_AVOCADO_COLLECTION_PARAMETER_MISSING,
                   "'collection' is missing, expecting " + IMPORT_PATH +
                       "?collection=<identifier>");
     return false;
@@ -322,7 +322,7 @@ bool RestImportHandler::createFromJson(std::string const& type) {
     linewise = true;
 
     if (_response == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response");
     }
 
     // auto detect import type by peeking at first non-whitespace character
@@ -331,7 +331,7 @@ bool RestImportHandler::createFromJson(std::string const& type) {
     HttpRequest* req = dynamic_cast<HttpRequest*>(_request.get());
 
     if (req == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
     }
 
     std::string const& body = req->body();
@@ -393,7 +393,7 @@ bool RestImportHandler::createFromJson(std::string const& type) {
     HttpRequest* req = dynamic_cast<HttpRequest*>(_request.get());
 
     if (req == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
     }
 
     // each line is a separate JSON document
@@ -532,7 +532,7 @@ bool RestImportHandler::createFromJson(std::string const& type) {
 
 bool RestImportHandler::createFromVPack(std::string const& type) {
   if (_request == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
   }
 
   RestImportResult result;
@@ -557,7 +557,7 @@ bool RestImportHandler::createFromVPack(std::string const& type) {
 
   if (!found || collectionName.empty()) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_COLLECTION_PARAMETER_MISSING,
+                  TRI_ERROR_AVOCADO_COLLECTION_PARAMETER_MISSING,
                   "'collection' is missing, expecting " + IMPORT_PATH +
                       "?collection=<identifier>");
     return false;
@@ -641,7 +641,7 @@ bool RestImportHandler::createFromVPack(std::string const& type) {
 
 bool RestImportHandler::createFromKeyValueList() {
   if (_request == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
   }
 
   RestImportResult result;
@@ -666,7 +666,7 @@ bool RestImportHandler::createFromKeyValueList() {
 
   if (!found || collectionName.empty()) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_COLLECTION_PARAMETER_MISSING,
+                  TRI_ERROR_AVOCADO_COLLECTION_PARAMETER_MISSING,
                   "'collection' is missing, expecting " + IMPORT_PATH +
                       "?collection=<identifier>");
     return false;
@@ -683,7 +683,7 @@ bool RestImportHandler::createFromKeyValueList() {
   HttpRequest* httpRequest = dynamic_cast<HttpRequest*>(_request.get());
 
   if (httpRequest == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
   }
 
   std::string const& bodyStr = httpRequest->body();
@@ -914,7 +914,7 @@ int RestImportHandler::performImport(SingleCollectionTransaction& trx,
         int errorCode = it.get("errorNum").getNumber<int>();
         VPackSlice const which = babies.slice().at(pos);
         // special behavior in case of unique constraint violation . . .
-        if (errorCode == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED &&
+        if (errorCode == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED &&
             _onDuplicateAction != DUPLICATE_ERROR) {
           VPackSlice const keySlice = which.get(StaticStrings::KeyString);
 
@@ -973,11 +973,11 @@ int RestImportHandler::performImport(SingleCollectionTransaction& trx,
           } else {
             int errorCode = it.get("errorNum").getNumber<int>();
 
-            if (errorCode == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+            if (errorCode == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
               // "not found" can only occur when the original insert did not
               // succeed because of a unique key constraint violation 
               // otherwise the document should be there
-              errorCode = TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+              errorCode = TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
             }
             makeError(originalPositions[pos], errorCode,
                       babies.slice().at(originalPositions[pos]), result);
@@ -1065,7 +1065,7 @@ void RestImportHandler::createVelocyPackObject(
     size_t lineNumber) {
   if (!values.isArray()) {
     errorMsg = positionize(lineNumber) + "no valid JSON array data";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, errorMsg);
   }
 
   TRI_ASSERT(keys.isArray());
@@ -1076,7 +1076,7 @@ void RestImportHandler::createVelocyPackObject(
   if (itKeys.size() != itValues.size()) { 
     errorMsg = positionize(lineNumber) + "wrong number of JSON values (got " +
                std::to_string(itValues.size()) + ", expected " + std::to_string(itKeys.size()) + ")";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, errorMsg);
   }
 
   result.openObject();

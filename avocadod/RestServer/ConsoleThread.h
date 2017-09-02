@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REST_SERVER_CONSOLE_THREAD_H
-#define ARANGOD_REST_SERVER_CONSOLE_THREAD_H 1
+#ifndef AVOCADOD_REST_SERVER_CONSOLE_THREAD_H
+#define AVOCADOD_REST_SERVER_CONSOLE_THREAD_H 1
 
 #include "Basics/Thread.h"
 #include "V8Server/V8Context.h"

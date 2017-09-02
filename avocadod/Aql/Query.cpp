@@ -97,7 +97,7 @@ Query::Query(bool contextOwnedByExterior, TRI_vocbase_t* vocbase,
 
   AqlFeature* aql = AqlFeature::lease();
   if (aql == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
   }
 
   if (_contextOwnedByExterior) {
@@ -176,7 +176,7 @@ Query::Query(bool contextOwnedByExterior, TRI_vocbase_t* vocbase,
   
   AqlFeature* aql = AqlFeature::lease();
   if (aql == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
   }
   
   // populate query options
@@ -261,7 +261,7 @@ Query* Query::clone(QueryPart part, bool withPlan) {
   Result res = clone->_trx->begin();
 
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   return clone.release();
@@ -279,10 +279,10 @@ void Query::registerError(int code, char const* details) {
   TRI_ASSERT(code != TRI_ERROR_NO_ERROR);
 
   if (details == nullptr) {
-    THROW_ARANGO_EXCEPTION(code);
+    THROW_AVOCADO_EXCEPTION(code);
   }
 
-  THROW_ARANGO_EXCEPTION_PARAMS(code, details);
+  THROW_AVOCADO_EXCEPTION_PARAMS(code, details);
 }
 
 /// @brief register an error with a custom error message
@@ -291,14 +291,14 @@ void Query::registerErrorCustom(int code, char const* details) {
   TRI_ASSERT(code != TRI_ERROR_NO_ERROR);
 
   if (details == nullptr) {
-    THROW_ARANGO_EXCEPTION(code);
+    THROW_AVOCADO_EXCEPTION(code);
   }
 
   std::string errorMessage(TRI_errno_string(code));
   errorMessage.append(": ");
   errorMessage.append(details);
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(code, errorMessage);
+  THROW_AVOCADO_EXCEPTION_MESSAGE(code, errorMessage);
 }
 
 /// @brief register a warning
@@ -308,9 +308,9 @@ void Query::registerWarning(int code, char const* details) {
   if (_queryOptions.failOnWarning) {
     // make an error from each warning if requested
     if (details == nullptr) {
-      THROW_ARANGO_EXCEPTION(code);
+      THROW_AVOCADO_EXCEPTION(code);
     }
-    THROW_ARANGO_EXCEPTION_MESSAGE(code, details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(code, details);
   }
 
   if (_warnings.size() >= _queryOptions.maxWarningCount) {
@@ -367,7 +367,7 @@ void Query::prepare(QueryRegistry* registry, uint64_t queryHash) {
       }
     
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(res, buildErrorMessage(res));
+        THROW_AVOCADO_EXCEPTION_MESSAGE(res, buildErrorMessage(res));
       }
     
       enterState(QueryExecutionState::ValueType::PLAN_INSTANTIATION);
@@ -455,7 +455,7 @@ ExecutionPlan* Query::prepare() {
     Result res = _trx->begin();
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     enterState(QueryExecutionState::ValueType::PLAN_INSTANTIATION);
@@ -463,7 +463,7 @@ ExecutionPlan* Query::prepare() {
 
     if (plan.get() == nullptr) {
       // oops
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "failed to create query execution engine");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "failed to create query execution engine");
     }
 
     // Run the query optimizer:
@@ -492,7 +492,7 @@ ExecutionPlan* Query::prepare() {
     }
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
     
     enterState(QueryExecutionState::ValueType::PLAN_INSTANTIATION);
@@ -501,7 +501,7 @@ ExecutionPlan* Query::prepare() {
     plan.reset(ExecutionPlan::instantiateFromVelocyPack(_ast.get(), _queryBuilder->slice()));
     if (plan.get() == nullptr) {
       // oops
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "could not create plan from vpack");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "could not create plan from vpack");
     }
   }
 
@@ -543,7 +543,7 @@ QueryResult Query::execute(QueryRegistry* registry) {
             if (info->canUseCollection(ExecContext::CURRENT->user(),
                                        ExecContext::CURRENT->database(),
                                        collectionName) == AuthLevel::NONE) {
-              THROW_ARANGO_EXCEPTION(TRI_ERROR_FORBIDDEN);
+              THROW_AVOCADO_EXCEPTION(TRI_ERROR_FORBIDDEN);
             }
           }
         }
@@ -625,7 +625,7 @@ QueryResult Query::execute(QueryRegistry* registry) {
               resultBuilder, _trx->state()->collectionNames());
 
           if (result == nullptr) {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
           }
         }
       } else {
@@ -742,7 +742,7 @@ QueryResultV8 Query::executeV8(v8::Isolate* isolate, QueryRegistry* registry) {
             if (info->canUseCollection(ExecContext::CURRENT->user(),
                                        ExecContext::CURRENT->database(),
                                        collectionName) == AuthLevel::NONE) {
-              THROW_ARANGO_EXCEPTION(TRI_ERROR_FORBIDDEN);
+              THROW_AVOCADO_EXCEPTION(TRI_ERROR_FORBIDDEN);
             }
           }
         }
@@ -839,7 +839,7 @@ QueryResultV8 Query::executeV8(v8::Isolate* isolate, QueryRegistry* registry) {
               }
 
               if (V8PlatformFeature::isOutOfMemory(isolate)) {
-                THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+                THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
               }
             }
           }
@@ -960,7 +960,7 @@ QueryResult Query::explain() {
     Result res = _trx->begin();
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
     
     enterState(QueryExecutionState::ValueType::LOADING_COLLECTIONS);
@@ -1061,7 +1061,7 @@ void Query::enterContext() {
       _context = V8DealerFeature::DEALER->enterContext(_vocbase, false);
 
       if (_context == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "cannot enter V8 context");
       }
 

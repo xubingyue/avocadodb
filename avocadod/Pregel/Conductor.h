@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_CONDUCTOR_H
-#define ARANGODB_PREGEL_CONDUCTOR_H 1
+#ifndef AVOCADODB_PREGEL_CONDUCTOR_H
+#define AVOCADODB_PREGEL_CONDUCTOR_H 1
 
 #include <string>
 

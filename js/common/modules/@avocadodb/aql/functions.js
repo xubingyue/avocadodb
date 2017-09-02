@@ -44,7 +44,7 @@ var getStorage = function () {
 
   if (functions === null) {
     var err = new AvocadoError();
-    err.errorNum = avocadodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code;
+    err.errorNum = avocadodb.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code;
     err.errorMessage = "collection '_aqlfunctions' not found";
 
     throw err;

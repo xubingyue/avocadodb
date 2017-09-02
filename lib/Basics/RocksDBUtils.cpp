@@ -87,34 +87,34 @@ avocadodb::Result convertStatus(rocksdb::Status const& status, StatusHint hint) 
     case rocksdb::Status::Code::kNotFound:
       switch (hint) {
         case StatusHint::collection:
-          return {TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND, status.ToString()};
+          return {TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND, status.ToString()};
         case StatusHint::database:
-          return {TRI_ERROR_ARANGO_DATABASE_NOT_FOUND, status.ToString()};
+          return {TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND, status.ToString()};
         case StatusHint::document:
-          return {TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND, status.ToString()};
+          return {TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND, status.ToString()};
         case StatusHint::index:
-          return {TRI_ERROR_ARANGO_INDEX_NOT_FOUND, status.ToString()};
+          return {TRI_ERROR_AVOCADO_INDEX_NOT_FOUND, status.ToString()};
         case StatusHint::view:
-          return {TRI_ERROR_ARANGO_VIEW_NOT_FOUND, status.ToString()};
+          return {TRI_ERROR_AVOCADO_VIEW_NOT_FOUND, status.ToString()};
         case StatusHint::wal:
           // suppress this error if the WAL is queried for changes that are not available
           return {TRI_ERROR_NO_ERROR};
         default:
-          return {TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND, status.ToString()};
+          return {TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND, status.ToString()};
       }
     case rocksdb::Status::Code::kCorruption:
-      return {TRI_ERROR_ARANGO_CORRUPTED_DATAFILE, status.ToString()};
+      return {TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE, status.ToString()};
     case rocksdb::Status::Code::kNotSupported:
       return {TRI_ERROR_NOT_IMPLEMENTED, status.ToString()};
     case rocksdb::Status::Code::kInvalidArgument:
       return {TRI_ERROR_BAD_PARAMETER, status.ToString()};
     case rocksdb::Status::Code::kIOError:
       if (status.subcode() == rocksdb::Status::SubCode::kNoSpace) {
-        return {TRI_ERROR_ARANGO_FILESYSTEM_FULL, status.ToString()};
+        return {TRI_ERROR_AVOCADO_FILESYSTEM_FULL, status.ToString()};
       }
-      return {TRI_ERROR_ARANGO_IO_ERROR, status.ToString()};
+      return {TRI_ERROR_AVOCADO_IO_ERROR, status.ToString()};
     case rocksdb::Status::Code::kMergeInProgress:
-      return {TRI_ERROR_ARANGO_MERGE_IN_PROGRESS, status.ToString()};
+      return {TRI_ERROR_AVOCADO_MERGE_IN_PROGRESS, status.ToString()};
     case rocksdb::Status::Code::kIncomplete:
       return {TRI_ERROR_INTERNAL, "'incomplete' error in storage engine"};
     case rocksdb::Status::Code::kShutdownInProgress:
@@ -124,7 +124,7 @@ avocadodb::Result convertStatus(rocksdb::Status const& status, StatusHint hint) 
         return {TRI_ERROR_LOCK_TIMEOUT, status.ToString()};
       }
       if (status.subcode() == rocksdb::Status::SubCode::kLockTimeout) {
-        return {TRI_ERROR_ARANGO_CONFLICT, "timeout waiting to lock key"};
+        return {TRI_ERROR_AVOCADO_CONFLICT, "timeout waiting to lock key"};
       }
       return {TRI_ERROR_LOCK_TIMEOUT, status.ToString()};
     case rocksdb::Status::Code::kAborted:
@@ -137,11 +137,11 @@ avocadodb::Result convertStatus(rocksdb::Status const& status, StatusHint hint) 
         // should actually not occur with our RocksDB configuration
         return {TRI_ERROR_RESOURCE_LIMIT, "failed to acquire lock due to lock number limit"};
       }
-      return {TRI_ERROR_ARANGO_CONFLICT};
+      return {TRI_ERROR_AVOCADO_CONFLICT};
     case rocksdb::Status::Code::kExpired:
       return {TRI_ERROR_INTERNAL, "key expired; TTL was set in error"};
     case rocksdb::Status::Code::kTryAgain:
-      return {TRI_ERROR_ARANGO_TRY_AGAIN, status.ToString()};
+      return {TRI_ERROR_AVOCADO_TRY_AGAIN, status.ToString()};
     default:
       return {TRI_ERROR_INTERNAL, "unknown RocksDB status code"};
   }

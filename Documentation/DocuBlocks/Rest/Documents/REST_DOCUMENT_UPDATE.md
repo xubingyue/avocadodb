@@ -141,7 +141,7 @@ returned.
 
 Patches an existing document with new content.
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPatchDocument}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPatchDocument}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -167,11 +167,11 @@ Patches an existing document with new content.
     assert(response5.code === 200);
     logJsonResponse(response5);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Merging attributes of an object using `mergeObjects`:
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerPatchDocumentMerge}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerPatchDocumentMerge}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -198,6 +198,6 @@ Merging attributes of an object using `mergeObjects`:
     assert(response4.code === 200);
     logJsonResponse(response4);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

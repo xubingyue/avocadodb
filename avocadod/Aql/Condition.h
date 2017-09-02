@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_CONDITION_H
-#define ARANGOD_AQL_CONDITION_H 1
+#ifndef AVOCADOD_AQL_CONDITION_H
+#define AVOCADOD_AQL_CONDITION_H 1
 
 #include "Basics/Common.h"
 #include "Aql/AstNode.h"
@@ -264,7 +264,7 @@ class Condition {
       VariableUsageType&, AstNode const*, size_t, AttributeSideType);
 
 /// @brief validate the condition's AST
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   void validateAst(AstNode const*, int);
 #endif
 

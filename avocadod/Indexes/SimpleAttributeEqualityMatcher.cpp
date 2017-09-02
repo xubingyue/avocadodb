@@ -235,7 +235,7 @@ avocadodb::aql::AstNode* SimpleAttributeEqualityMatcher::specializeAll(
           accessFitsIndex(index, op->getMember(1), op->getMember(0), op,
                           reference, nonNullAttributes, false)) {
         TRI_IF_FAILURE("SimpleAttributeMatcher::specializeAllChildrenEQ") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         if (_found.size() == _attributes.size()) {
           // got enough attributes
@@ -247,7 +247,7 @@ avocadodb::aql::AstNode* SimpleAttributeEqualityMatcher::specializeAll(
       if (accessFitsIndex(index, op->getMember(0), op->getMember(1), op,
                           reference, nonNullAttributes, false)) {
         TRI_IF_FAILURE("SimpleAttributeMatcher::specializeAllChildrenIN") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         if (_found.size() == _attributes.size()) {
           // got enough attributes
@@ -428,7 +428,7 @@ bool SimpleAttributeEqualityMatcher::accessFitsIndex(
       // mark ith attribute as being covered
       _found.emplace(i, op);
       TRI_IF_FAILURE("SimpleAttributeMatcher::accessFitsIndex") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
       return true;
     }

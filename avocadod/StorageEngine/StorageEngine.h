@@ -22,8 +22,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_STORAGE_ENGINE_STORAGE_ENGINE_H
-#define ARANGOD_STORAGE_ENGINE_STORAGE_ENGINE_H 1
+#ifndef AVOCADOD_STORAGE_ENGINE_STORAGE_ENGINE_H
+#define AVOCADOD_STORAGE_ENGINE_STORAGE_ENGINE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Result.h"

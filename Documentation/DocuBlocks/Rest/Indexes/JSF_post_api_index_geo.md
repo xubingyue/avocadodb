@@ -63,7 +63,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 Creating a geo index with a location attribute
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateGeoLocation}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateGeoLocation}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -80,11 +80,11 @@ Creating a geo index with a location attribute
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Creating a geo index with latitude and longitude attributes
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateGeoLatitudeLongitude}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateGeoLatitudeLongitude}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -101,6 +101,6 @@ Creating a geo index with latitude and longitude attributes
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

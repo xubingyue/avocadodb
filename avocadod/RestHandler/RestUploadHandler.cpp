@@ -46,7 +46,7 @@ RestStatus RestUploadHandler::execute() {
   HttpRequest* request = dynamic_cast<HttpRequest*>(_request.get());
 
   if (request == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
   }
 
   // extract the request type
@@ -74,7 +74,7 @@ RestStatus RestUploadHandler::execute() {
     }
 
     if (filename == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     filenameString.append(filename);
@@ -86,7 +86,7 @@ RestStatus RestUploadHandler::execute() {
     char* relative = TRI_GetFilename(filenameString.c_str());
 
     if (relative == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     relativeString.append(relative);
@@ -152,7 +152,7 @@ bool RestUploadHandler::parseMultiPart(char const*& body, size_t& length) {
   HttpRequest* request = dynamic_cast<HttpRequest*>(_request.get());
 
   if (request == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
   }
 
   std::string const& bodyStr = request->body();

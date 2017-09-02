@@ -139,10 +139,10 @@ void VelocyPackCursor::dump(VPackBuilder& builder) {
     }
     builder.options = oldOptions;
   } catch (avocadodb::basics::Exception const& ex) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(ex.code(), ex.what());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(ex.code(), ex.what());
   } catch (std::exception const& ex) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, ex.what());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, ex.what());
   } catch (...) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "internal error during VPackCursor::dump");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "internal error during VPackCursor::dump");
   }
 }

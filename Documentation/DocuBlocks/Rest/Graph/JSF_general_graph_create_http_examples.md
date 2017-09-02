@@ -55,7 +55,7 @@ different signature used in any other graph.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialCreate}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialCreate}
   var graph = require("@avocadodb/general-graph");
 | if (graph._exists("myGraph")) {
 |    graph._drop("myGraph", true);
@@ -77,9 +77,9 @@ different signature used in any other graph.
   logJsonResponse(response);
 
   graph._drop("myGraph", true);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialCreate2}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialCreate2}
   var graph = require("@avocadodb/general-graph");
 | if (graph._exists("myGraph")) {
 |    graph._drop("myGraph", true);
@@ -106,6 +106,6 @@ different signature used in any other graph.
   logJsonResponse(response);
 
   graph._drop("myGraph", true);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock

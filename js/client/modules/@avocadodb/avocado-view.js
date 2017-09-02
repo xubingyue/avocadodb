@@ -204,7 +204,7 @@ AvocadoView.prototype.drop = function () {
 
   if (requestResult !== null
     && requestResult.error === true
-    && requestResult.errorNum !== internal.errors.ERROR_ARANGO_VIEW_NOT_FOUND.code) {
+    && requestResult.errorNum !== internal.errors.ERROR_AVOCADO_VIEW_NOT_FOUND.code) {
     // check error in case we got anything else but "view not found"
     avocadosh.checkRequestResult(requestResult);
   } else {

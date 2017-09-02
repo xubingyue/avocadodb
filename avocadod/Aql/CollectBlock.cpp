@@ -122,7 +122,7 @@ void SortedCollectBlock::CollectGroup::addValues(AqlItemBlock const* src,
       auto block = src->slice(firstRow, lastRow + 1);
       try {
         TRI_IF_FAILURE("CollectGroup::addValues") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         groupBlocks.emplace_back(block);
       } catch (...) {
@@ -318,7 +318,7 @@ int SortedCollectBlock::getOrSkipSome(size_t atLeast, size_t atMost,
   while (skipped < atMost) {
     // read the next input row
     TRI_IF_FAILURE("SortedCollectBlock::getOrSkipSomeOuter") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     throwIfKilled();  // check if we were aborted
@@ -391,7 +391,7 @@ int SortedCollectBlock::getOrSkipSome(size_t atLeast, size_t atMost,
       if (!hasMore) {
         try {
           TRI_IF_FAILURE("SortedCollectBlock::hasMore") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
           hasMore = ExecutionBlock::getBlock(atLeast, atMost);
         } catch (...) {
@@ -407,7 +407,7 @@ int SortedCollectBlock::getOrSkipSome(size_t atLeast, size_t atMost,
           // emit last buffered group
           if (!skipping) {
             TRI_IF_FAILURE("SortedCollectBlock::getOrSkipSome") {
-              THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+              THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
             }
 
             throwIfKilled();
@@ -700,7 +700,7 @@ int HashedCollectBlock::getOrSkipSome(size_t atLeast, size_t atMost,
   try {
     while (skipped < atMost) {
       TRI_IF_FAILURE("HashedCollectBlock::getOrSkipSomeOuter") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       throwIfKilled();  // check if we were aborted
@@ -790,7 +790,7 @@ int HashedCollectBlock::getOrSkipSome(size_t atLeast, size_t atMost,
             // emit last buffered group
             if (!skipping) {
               TRI_IF_FAILURE("HashedCollectBlock::getOrSkipSome") {
-                THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+                THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
               }
 
               throwIfKilled();

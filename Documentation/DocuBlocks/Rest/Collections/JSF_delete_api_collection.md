@@ -38,7 +38,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 Using an identifier:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionDeleteCollectionIdentifier}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionDeleteCollectionIdentifier}
     var cn = "products1";
     var coll = db._create(cn, { waitForSync: true });
     var url = "/_api/collection/"+ coll._id;
@@ -49,11 +49,11 @@ Using an identifier:
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a name:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionDeleteCollectionName}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionDeleteCollectionName}
     var cn = "products1";
     db._drop(cn);
     db._create(cn);
@@ -65,11 +65,11 @@ Using a name:
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Dropping a system collection
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionDeleteCollectionSystem}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionDeleteCollectionSystem}
     var cn = "_example";
     db._drop(cn, { isSystem: true });
     db._create(cn, { isSystem: true });
@@ -81,7 +81,7 @@ Dropping a system collection
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 

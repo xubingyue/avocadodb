@@ -30,7 +30,7 @@ The server will respond with *HTTP 405* if an unsupported HTTP method is used.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestEndpointGet}
+@EXAMPLE_AVOCADOSH_RUN{RestEndpointGet}
     var url = "/_api/endpoint";
 
     var response = logCurlRequest('GET', url);
@@ -38,6 +38,6 @@ The server will respond with *HTTP 405* if an unsupported HTTP method is used.
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

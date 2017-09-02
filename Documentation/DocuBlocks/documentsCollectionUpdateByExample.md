@@ -49,11 +49,11 @@ an object with the following sub-attributes:
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{012_documentsCollectionUpdateByExample}
+@EXAMPLE_AVOCADOSH_OUTPUT{012_documentsCollectionUpdateByExample}
 ~ db._create("example");
   db.example.save({ Hello : "world", foo : "bar" });
   db.example.updateByExample({ Hello: "world" }, { Hello: "foo", World: "bar" }, false);
   db.example.byExample({ Hello: "foo" }).toArray()
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

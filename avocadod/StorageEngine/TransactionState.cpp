@@ -124,7 +124,7 @@ int TransactionState::addCollection(TRI_voc_cid_t cid,
     if (level == AuthLevel::RO && collectionWillWrite) {
       LOG_TOPIC(TRACE, Logger::AUTHORIZATION) << "User " << ExecContext::CURRENT->user()
                                               << "has no write right for collection " << colName;
-      return TRI_ERROR_ARANGO_READ_ONLY;
+      return TRI_ERROR_AVOCADO_READ_ONLY;
     }
   }
 
@@ -286,12 +286,12 @@ void TransactionState::setType(AccessMode::Type type) {
   }
 
   if (AccessMode::isRead(type) && AccessMode::isWriteOrExclusive(_type)) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot make a write transaction read-only");
   }
   if (AccessMode::isWriteOrExclusive(type) && AccessMode::isRead(_type) &&
       _status != transaction::Status::CREATED) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "cannot make a running read transaction a write transaction");
   }

@@ -23,8 +23,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_UTILS_H
-#define ARANGO_ROCKSDB_UTILS_H 1
+#ifndef AVOCADO_ROCKSDB_UTILS_H
+#define AVOCADO_ROCKSDB_UTILS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Result.h"

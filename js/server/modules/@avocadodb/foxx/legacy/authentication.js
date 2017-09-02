@@ -780,7 +780,7 @@ Sessions.prototype.generate = function (identifier, data) {
     } catch (err) {
       // we might have generated the same key again
       if (err.hasOwnProperty('errorNum') &&
-        err.errorNum === internal.errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code) {
+        err.errorNum === internal.errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code) {
         // duplicate key, try again
         continue;
       }

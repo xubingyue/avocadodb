@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_EXPRESSION_H
-#define ARANGOD_AQL_EXPRESSION_H 1
+#ifndef AVOCADOD_AQL_EXPRESSION_H
+#define AVOCADOD_AQL_EXPRESSION_H 1
 
 #include "Basics/Common.h"
 #include "Aql/AstNode.h"

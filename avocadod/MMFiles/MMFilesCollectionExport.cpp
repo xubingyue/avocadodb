@@ -73,7 +73,7 @@ void MMFilesCollectionExport::run(uint64_t maxWaitTime, size_t limit) {
 
   // now we either have a ditch or not
   if (_ditch == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   {
@@ -101,7 +101,7 @@ void MMFilesCollectionExport::run(uint64_t maxWaitTime, size_t limit) {
     Result res = trx.begin();
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
     
     size_t maxDocuments = _collection->numberDocuments(&trx);

@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_GRAPHS_H
-#define ARANGOD_AQL_GRAPHS_H 1
+#ifndef AVOCADOD_AQL_GRAPHS_H
+#define AVOCADOD_AQL_GRAPHS_H 1
 
 #include "Basics/Common.h"
 #include "Aql/VariableGenerator.h"

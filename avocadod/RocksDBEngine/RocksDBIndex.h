@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ENGINE_ROCKSDB_INDEX_H
-#define ARANGOD_ROCKSDB_ENGINE_ROCKSDB_INDEX_H 1
+#ifndef AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_INDEX_H
+#define AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_INDEX_H 1
 
 #include <rocksdb/status.h>
 #include "Basics/AttributeNameParser.h"

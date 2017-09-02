@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_PERFORMANCE_LOG_SCOPE_H
-#define ARANGODB_BASICS_PERFORMANCE_LOG_SCOPE_H 1
+#ifndef AVOCADODB_BASICS_PERFORMANCE_LOG_SCOPE_H
+#define AVOCADODB_BASICS_PERFORMANCE_LOG_SCOPE_H 1
 
 #include "Basics/Common.h"
 #include "Logger/Logger.h"

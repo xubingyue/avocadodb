@@ -10,7 +10,7 @@ indexes.
 
 Truncates a collection:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionTruncate}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionTruncate}
 ~ db._create("example");
   col = db.example;
   col.save({ "Hello" : "World" });
@@ -18,5 +18,5 @@ Truncates a collection:
   col.truncate();
   col.count();
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

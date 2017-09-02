@@ -1,6 +1,6 @@
 
-#ifndef ARANGODB_TEST_ICU_HELPER
-#define ARANGODB_TEST_ICU_HELPER 1
+#ifndef AVOCADODB_TEST_ICU_HELPER
+#define AVOCADODB_TEST_ICU_HELPER 1
 
 #include "Basics/Common.h"
 

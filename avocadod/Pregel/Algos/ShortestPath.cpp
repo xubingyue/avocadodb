@@ -103,7 +103,7 @@ ShortestPathAlgorithm::ShortestPathAlgorithm(VPackSlice userParams)
   VPackSlice val1 = userParams.get("source");
   VPackSlice val2 = userParams.get("target");
   if (val1.isNone() || val2.isNone()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "You must specify source and target");
   }
   _source = val1.copyString();

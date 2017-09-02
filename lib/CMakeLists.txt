@@ -27,11 +27,11 @@ if (USE_MAINTAINER_MODE AND NOT MSVC)
 endif ()
 
 ################################################################################
-## LIB_ARANGO
+## LIB_AVOCADO
 ################################################################################
 
 if (MSVC)
-  set(LIB_ARANGO_MSVC
+  set(LIB_AVOCADO_MSVC
     Basics/locks-win32.cpp
     Basics/memory-map-win32.cpp
     Basics/terminal-utils-win32.cpp
@@ -41,7 +41,7 @@ if (MSVC)
     ApplicationFeatures/WindowsServiceFeature.cpp
   )
 else ()
-  set(LIB_ARANGO_POSIX
+  set(LIB_AVOCADO_POSIX
     ApplicationFeatures/DaemonFeature.cpp
     ApplicationFeatures/SupervisorFeature.cpp
     Basics/locks-posix.cpp
@@ -53,14 +53,14 @@ else ()
   )
 endif ()
 
-set(LIB_ARANGO_LINENOISE
+set(LIB_AVOCADO_LINENOISE
   ${PROJECT_SOURCE_DIR}/3rdParty/linenoise-ng/src/ConvertUTF.cpp
   ${PROJECT_SOURCE_DIR}/3rdParty/linenoise-ng/src/linenoise.cpp
   ${PROJECT_SOURCE_DIR}/3rdParty/linenoise-ng/src/wcwidth.cpp
   Utilities/LinenoiseShell.cpp
 )
 
-set(LIB_ARANGO_VPACK
+set(LIB_AVOCADO_VPACK
   ${PROJECT_SOURCE_DIR}/3rdParty/velocypack/src/AttributeTranslator.cpp
   ${PROJECT_SOURCE_DIR}/3rdParty/velocypack/src/Builder.cpp
   ${PROJECT_SOURCE_DIR}/3rdParty/velocypack/src/Collection.cpp
@@ -99,12 +99,12 @@ if (USE_LOCAL_CLOCK_GETTIME)
   set(LIB_CLOCK_GETTIME Utilities/clock_gettime.cpp)
 endif ()
 
-add_library(${LIB_ARANGO} STATIC
-  ${LIB_ARANGO_APPLE}
-  ${LIB_ARANGO_MSVC}
-  ${LIB_ARANGO_POSIX}
-  ${LIB_ARANGO_LINENOISE}
-  ${LIB_ARANGO_VPACK}
+add_library(${LIB_AVOCADO} STATIC
+  ${LIB_AVOCADO_APPLE}
+  ${LIB_AVOCADO_MSVC}
+  ${LIB_AVOCADO_POSIX}
+  ${LIB_AVOCADO_LINENOISE}
+  ${LIB_AVOCADO_VPACK}
   ${LIB_CLOCK_GETTIME}
   ${LIB_ASM_SOURCES}
   ApplicationFeatures/ApplicationFeature.cpp
@@ -224,16 +224,16 @@ add_library(${LIB_ARANGO} STATIC
   Zip/zip.cpp
 )
 
-target_link_libraries(${LIB_ARANGO}
+target_link_libraries(${LIB_AVOCADO}
     boost_system
     boost_boost
 )
 
 ################################################################################
-## LIB_ARANGO_V8
+## LIB_AVOCADO_V8
 ################################################################################
 
-add_library(${LIB_ARANGO_V8} STATIC
+add_library(${LIB_AVOCADO_V8} STATIC
   V8/JSLoader.cpp
   V8/V8LineEditor.cpp
   V8/v8-buffer.cpp
@@ -246,7 +246,7 @@ add_library(${LIB_ARANGO_V8} STATIC
   V8/v8-environment.cpp
 )
 
-target_link_libraries(${LIB_ARANGO_V8}
+target_link_libraries(${LIB_AVOCADO_V8}
     boost_system
     boost_boost
 )

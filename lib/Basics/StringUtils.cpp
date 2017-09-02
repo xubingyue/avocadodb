@@ -278,7 +278,7 @@ std::string capitalize(std::string const& name, bool first) {
 
   if (len == 0) {
     std::string message("name must not be empty");
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
   }
 
   char* buffer = new char[len + 1];
@@ -290,7 +290,7 @@ std::string capitalize(std::string const& name, bool first) {
 
   if (len == 0) {
     std::string message("object or attribute name must not be empty");
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
   }
 
   bool upper = first;
@@ -322,7 +322,7 @@ std::string separate(std::string const& name, char separator) {
 
   if (len == 0) {
     std::string message("name must not be empty");
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
   }
 
   char* buffer = new char[len + 1];
@@ -334,7 +334,7 @@ std::string separate(std::string const& name, char separator) {
 
   if (len == 0) {
     std::string message("name must not be empty");
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, message);
   }
 
   bool useSeparator = false;
@@ -373,7 +373,7 @@ std::string escapeUnicode(std::string const& name, bool escapeSlash) {
   }
 
   if (len >= (SIZE_MAX - 1) / 6) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   bool corrupted = false;
@@ -564,7 +564,7 @@ std::string escapeHtml(std::string const& name) {
   }
 
   if (len >= (SIZE_MAX - 1) / 8) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   char* buffer = new char[8 * len + 1];
@@ -620,7 +620,7 @@ std::string escapeHex(std::string const& name, char quote) {
   }
 
   if (len >= (SIZE_MAX - 1) / 3) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   char* buffer = new char[3 * len + 1];
@@ -660,7 +660,7 @@ std::string escapeHex(std::string const& name, std::string const& special,
   }
 
   if (len >= (SIZE_MAX - 1) / 3) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   char* buffer = new char[3 * len + 1];
@@ -731,7 +731,7 @@ std::string escapeC(std::string const& name) {
   }
 
   if (len >= (SIZE_MAX - 1) / 4) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   char* buffer = new char[4 * len + 1];
@@ -999,7 +999,7 @@ std::string replace(std::string const& sourceStr, std::string const& fromStr,
   size_t mt = (std::max)(static_cast<size_t>(1), toLength);
 
   if ((sourceLength / fromLength) + 1 >= (SIZE_MAX - toLength) / mt) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   size_t maxLength = (((sourceLength / fromLength) + 1) * mt) + toLength;
@@ -1263,7 +1263,7 @@ std::string urlEncode(char const* src, size_t const len) {
   char const* end = src + len;
 
   if (len >= (SIZE_MAX - 1) / 3) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   std::string result;

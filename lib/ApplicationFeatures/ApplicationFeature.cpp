@@ -121,7 +121,7 @@ void ApplicationFeature::determineAncestors() {
         if (_ancestors.emplace(ancestor).second) {
           if (ancestor == _name) {
             path.emplace_back(ancestor);
-            THROW_ARANGO_EXCEPTION_MESSAGE(
+            THROW_AVOCADO_EXCEPTION_MESSAGE(
               TRI_ERROR_INTERNAL,
               "dependencies for feature '" + _name + "' are cyclic: " + avocadodb::basics::StringUtils::join(path, " <= "));
           }

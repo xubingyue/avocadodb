@@ -259,7 +259,7 @@ static void ListTreeRecursively(char const* full, char const* path,
 ////////////////////////////////////////////////////////////////////////////////
 
 static char* LocateConfigDirectoryEnv(void) {
-  char const* v = getenv("ARANGODB_CONFIG_PATH");
+  char const* v = getenv("AVOCADODB_CONFIG_PATH");
 
   if (v == nullptr) {
     return nullptr;
@@ -1252,7 +1252,7 @@ int TRI_VerifyLockFile(char const* filename) {
 
   if (fd == INVALID_HANDLE_VALUE) {
     if (GetLastError() == ERROR_SHARING_VIOLATION) {
-      return TRI_ERROR_ARANGO_DATADIR_LOCKED;
+      return TRI_ERROR_AVOCADO_DATADIR_LOCKED;
     }
 
     return TRI_ERROR_NO_ERROR;
@@ -1367,7 +1367,7 @@ int TRI_VerifyLockFile(char const* filename) {
   
   TRI_TRACKED_CLOSE_FILE(fd);
 
-  return TRI_ERROR_ARANGO_DATADIR_LOCKED;
+  return TRI_ERROR_AVOCADO_DATADIR_LOCKED;
 }
 
 #endif
@@ -2218,21 +2218,21 @@ std::string TRI_GetTempPath() {
 
   if (tempFileHandle == INVALID_HANDLE_VALUE) {
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Cannot create temporary file '" << (LPTSTR) tempFileName;
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot create temporary file"); 
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot create temporary file"); 
   }
 
   ok = CloseHandle(tempFileHandle);
 
   if (!ok) {
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Cannot close handle of temporary file";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot close handle of temporary file"); 
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot close handle of temporary file"); 
   }
 
   ok = DeleteFile(tempFileName);
 
   if (!ok) {
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Cannot delete temporary file";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot delete temporary file"); 
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot delete temporary file"); 
   }
 
   // ...........................................................................
@@ -2247,7 +2247,7 @@ std::string TRI_GetTempPath() {
         TRI_Allocate(TRI_UNKNOWN_MEM_ZONE, pathSize + 1));
 
     if (temp == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     for (j = 0; j < pathSize; ++j) {
@@ -2270,7 +2270,7 @@ std::string TRI_GetTempPath() {
   }
 
   if (result == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   std::string r = result;
@@ -2474,7 +2474,7 @@ int TRI_CreateDatafile(std::string const& filename, size_t maximalSize) {
 
   if (fd < 0) {
     if (errno == ENOSPC) {
-      TRI_set_errno(TRI_ERROR_ARANGO_FILESYSTEM_FULL);
+      TRI_set_errno(TRI_ERROR_AVOCADO_FILESYSTEM_FULL);
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_last_error();
     } else {
       TRI_SYSTEM_ERROR();
@@ -2517,7 +2517,7 @@ int TRI_CreateDatafile(std::string const& filename, size_t maximalSize) {
 
       if (writeResult < 0) {
         if (errno == ENOSPC) {
-          TRI_set_errno(TRI_ERROR_ARANGO_FILESYSTEM_FULL);
+          TRI_set_errno(TRI_ERROR_AVOCADO_FILESYSTEM_FULL);
           LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_last_error();
         } else {
           TRI_SYSTEM_ERROR();

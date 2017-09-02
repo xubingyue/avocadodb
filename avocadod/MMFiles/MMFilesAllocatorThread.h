@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_ALLOCATOR_THREAD_H
-#define ARANGOD_MMFILES_ALLOCATOR_THREAD_H 1
+#ifndef AVOCADOD_MMFILES_ALLOCATOR_THREAD_H
+#define AVOCADOD_MMFILES_ALLOCATOR_THREAD_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ConditionVariable.h"

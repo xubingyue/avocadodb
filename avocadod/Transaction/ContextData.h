@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_TRANSACTION_CONTEXT_DATA_H
-#define ARANGOD_TRANSACTION_CONTEXT_DATA_H 1
+#ifndef AVOCADOD_TRANSACTION_CONTEXT_DATA_H
+#define AVOCADOD_TRANSACTION_CONTEXT_DATA_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/voc-types.h"

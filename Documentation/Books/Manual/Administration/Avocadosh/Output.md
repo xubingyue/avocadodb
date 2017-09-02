@@ -5,12 +5,12 @@ By default, the AvocadoDB shell uses a pretty printer when JSON documents are
 printed. This ensures documents are printed in a human-readable way:
 
     @startDocuBlockInline usingToArray
-    @EXAMPLE_ARANGOSH_OUTPUT{usingToArray}
+    @EXAMPLE_AVOCADOSH_OUTPUT{usingToArray}
     db._create("five")
     for (i = 0; i < 5; i++) db.five.save({value:i})
     db.five.toArray()
     ~db._drop("five");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock usingToArray
 
 While the pretty-printer produces nice looking results, it will need a lot of

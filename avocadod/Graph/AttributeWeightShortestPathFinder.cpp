@@ -199,7 +199,7 @@ bool AttributeWeightShortestPathFinder::shortestPath(
   }
 
   TRI_IF_FAILURE("TraversalOOMInitialize") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   int counter = 0;
@@ -246,7 +246,7 @@ bool AttributeWeightShortestPathFinder::shortestPath(
   }
 
   TRI_IF_FAILURE("TraversalOOMPath") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   _options->fetchVerticesCoordinator(result._vertices);
@@ -555,7 +555,7 @@ bool AttributeWeightShortestPathFinder::shortestPathTwoThreads(
   }
 
   TRI_IF_FAILURE("TraversalOOMInitialize") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   forwardSearcher.start();
@@ -572,7 +572,7 @@ bool AttributeWeightShortestPathFinder::shortestPathTwoThreads(
 
   if (res != TRI_ERROR_NO_ERROR) {
     // one of the threads caught an exception
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   if (!_bingo || _intermediateSet == false) {
@@ -602,7 +602,7 @@ bool AttributeWeightShortestPathFinder::shortestPathTwoThreads(
   }
 
   TRI_IF_FAILURE("TraversalOOMPath") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   return true;

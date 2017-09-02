@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_ROLLING_VECTOR_H
-#define ARANGODB_BASICS_ROLLING_VECTOR_H 1
+#ifndef AVOCADODB_BASICS_ROLLING_VECTOR_H
+#define AVOCADODB_BASICS_ROLLING_VECTOR_H 1
 
 #include "Common.h"
 

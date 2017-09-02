@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VIEWS_VIEW_ITERATOR_H
-#define ARANGOD_VIEWS_VIEW_ITERATOR_H 1
+#ifndef AVOCADOD_VIEWS_VIEW_ITERATOR_H
+#define AVOCADOD_VIEWS_VIEW_ITERATOR_H 1
 
 #include "Basics/Common.h"
 #include "StorageEngine/DocumentIdentifierToken.h"

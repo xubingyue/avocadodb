@@ -89,7 +89,7 @@ function HashIndexSuite() {
         collection.save({ a : 2 });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(4, collection.count());
@@ -115,7 +115,7 @@ function HashIndexSuite() {
         collection.save({ a : { b : 2 } });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(4, collection.count());
@@ -141,7 +141,7 @@ function HashIndexSuite() {
         collection.save({ a : { _key : 2 } });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(4, collection.count());
@@ -167,7 +167,7 @@ function HashIndexSuite() {
         collection.save({ a : [ { b : 2 } ] });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(4, collection.count());
@@ -193,7 +193,7 @@ function HashIndexSuite() {
         collection.save({ a : [ { _key : 2 } ] });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(4, collection.count());
@@ -219,7 +219,7 @@ function HashIndexSuite() {
         collection.save({ a : [ { b : 2 } ] });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(3, collection.count());
@@ -245,7 +245,7 @@ function HashIndexSuite() {
         collection.save({ a : [ { b : 2 } ] });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(3, collection.count());
@@ -271,7 +271,7 @@ function HashIndexSuite() {
         collection.save({ a : [ { b : 5 }, { b : 5 } ] });
         fail();
       } catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
 
       assertEqual(3, collection.count());

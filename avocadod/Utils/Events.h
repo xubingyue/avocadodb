@@ -20,8 +20,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_EVENTS_H
-#define ARANGOD_UTILS_EVENTS_H 1
+#ifndef AVOCADOD_UTILS_EVENTS_H
+#define AVOCADOD_UTILS_EVENTS_H 1
 
 #include "Basics/Common.h"
 

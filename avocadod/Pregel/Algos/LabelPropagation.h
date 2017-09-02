@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_ALGOS_LABELPROP_H
-#define ARANGODB_PREGEL_ALGOS_LABELPROP_H 1
+#ifndef AVOCADODB_PREGEL_ALGOS_LABELPROP_H
+#define AVOCADODB_PREGEL_ALGOS_LABELPROP_H 1
 
 #include "Pregel/Algorithm.h"
 #include "Pregel/CommonFormats.h"

@@ -21,8 +21,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_V8_AGENCY_H
-#define ARANGOD_CLUSTER_V8_AGENCY_H 1
+#ifndef AVOCADOD_CLUSTER_V8_AGENCY_H
+#define AVOCADOD_CLUSTER_V8_AGENCY_H 1
 
 #include "Basics/Common.h"
 

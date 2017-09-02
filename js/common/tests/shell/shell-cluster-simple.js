@@ -428,7 +428,7 @@ function ClusterCrudSimpleSuite () {
     }
     catch (err1) {
       if (ERRORS.ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES.code !== err1.errorNum) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
       }
     }
 
@@ -438,7 +438,7 @@ function ClusterCrudSimpleSuite () {
     }
     catch (err2) {
       if (ERRORS.ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES.code !== err2.errorNum) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
       }
     }
 
@@ -448,7 +448,7 @@ function ClusterCrudSimpleSuite () {
     }
     catch (err3) {
       if (ERRORS.ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES.code !== err3.errorNum) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
       }
     }
 

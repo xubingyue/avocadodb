@@ -488,7 +488,7 @@ int ContinuousSyncer::processDocument(TRI_replication_operation_e type,
   TRI_voc_cid_t cid = getCid(slice);
 
   if (cid == 0) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   // extract optional "cname"
@@ -568,7 +568,7 @@ int ContinuousSyncer::processDocument(TRI_replication_operation_e type,
     trx->addCollectionAtRuntime(cid, "", AccessMode::Type::EXCLUSIVE); 
     int res = applyCollectionDumpMarker(*trx, trx->name(cid), type, old, doc, errorMsg);
 
-    if (res == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED && isSystem) {
+    if (res == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED && isSystem) {
       // ignore unique constraint violations for system collections
       res = TRI_ERROR_NO_ERROR;
     }
@@ -594,7 +594,7 @@ int ContinuousSyncer::processDocument(TRI_replication_operation_e type,
       res.reset(res.errorNumber(),errorMsg);
     } else {
       res = applyCollectionDumpMarker(trx, trx.name(), type, old, doc, errorMsg); 
-      if (res.errorNumber() == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED && isSystem) {
+      if (res.errorNumber() == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED && isSystem) {
         // ignore unique constraint violations for system collections
         res.reset();
       }
@@ -764,7 +764,7 @@ int ContinuousSyncer::renameCollection(VPackSlice const& slice) {
   avocadodb::LogicalCollection* col = getCollectionByIdOrName(cid, cname);
 
   if (col == nullptr) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   return _vocbase->renameCollection(col, name, true);
@@ -785,7 +785,7 @@ int ContinuousSyncer::changeCollection(VPackSlice const& slice) {
   avocadodb::LogicalCollection* col = getCollectionByIdOrName(cid, cname);
   
   if (col == nullptr) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   VPackSlice data = slice.get("collection");
@@ -879,15 +879,15 @@ int ContinuousSyncer::applyLogMarker(VPackSlice const& slice,
   }
   
   else if (type == REPLICATION_VIEW_CREATE) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "view create not yet implemented");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "view create not yet implemented");
   }
   
   else if (type == REPLICATION_VIEW_DROP) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "view drop not yet implemented");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "view drop not yet implemented");
   }
   
   else if (type == REPLICATION_VIEW_CHANGE) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "view change not yet implemented");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "view change not yet implemented");
   }
 
   errorMsg = "unexpected marker type " + StringUtils::itoa(type);

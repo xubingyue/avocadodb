@@ -55,7 +55,7 @@ If the specified user user function does not exist, the server will respond with
 
 deletes a function:
 
-@EXAMPLE_ARANGOSH_RUN{RestAqlfunctionDelete}
+@EXAMPLE_AVOCADOSH_RUN{RestAqlfunctionDelete}
   var url = "/_api/aqlfunction/square::x::y";
 
   var body = { 
@@ -69,17 +69,17 @@ deletes a function:
   assert(response.code === 200);
 
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 function not found:
 
-@EXAMPLE_ARANGOSH_RUN{RestAqlfunctionDeleteFails}
+@EXAMPLE_AVOCADOSH_RUN{RestAqlfunctionDeleteFails}
   var url = "/_api/aqlfunction/myfunction::x::y";
   var response = logCurlRequest('DELETE', url);
 
   assert(response.code === 404);
 
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

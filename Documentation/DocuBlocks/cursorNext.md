@@ -11,7 +11,7 @@ exhausted cursor, then *undefined* is returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{cursorNext}
+@EXAMPLE_AVOCADOSH_OUTPUT{cursorNext}
 ~ db._create("five");
 ~ db.five.save({ name : "one" });
 ~ db.five.save({ name : "two" });
@@ -20,5 +20,5 @@ exhausted cursor, then *undefined* is returned.
 ~ db.five.save({ name : "five" });
   db.five.all().next();
 ~ db._drop("five")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

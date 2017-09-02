@@ -322,7 +322,7 @@ function SkipListCorrSuite() {
         coll.ensureUniqueSkiplist("v");
         fail();
       } catch (e) {
-        assertEqual(internal.errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, e.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, e.errorNum);
       }
     
       // should not have created an index

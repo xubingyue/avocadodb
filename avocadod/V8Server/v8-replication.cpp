@@ -129,7 +129,7 @@ static void JS_LastLoggerReplication( v8::FunctionCallbackInfo<v8::Value> const&
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (args.Length() != 2) {
@@ -207,7 +207,7 @@ static void JS_SynchronizeReplication(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   // treat the argument as an object from now on
@@ -419,7 +419,7 @@ static void JS_ConfigureApplierReplication(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (vocbase->replicationApplier() == nullptr) {
@@ -688,7 +688,7 @@ static void JS_StartApplierReplication(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (vocbase->replicationApplier() == nullptr) {
@@ -739,7 +739,7 @@ static void JS_ShutdownApplierReplication(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (vocbase->replicationApplier() == nullptr) {
@@ -772,7 +772,7 @@ static void JS_StateApplierReplication(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (vocbase->replicationApplier() == nullptr) {
@@ -803,7 +803,7 @@ static void JS_ForgetApplierReplication(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (vocbase->replicationApplier() == nullptr) {

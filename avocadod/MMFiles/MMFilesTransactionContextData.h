@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_TRANSACTION_CONTEXT_DATA_H
-#define ARANGOD_MMFILES_TRANSACTION_CONTEXT_DATA_H 1
+#ifndef AVOCADOD_MMFILES_TRANSACTION_CONTEXT_DATA_H
+#define AVOCADOD_MMFILES_TRANSACTION_CONTEXT_DATA_H 1
 
 #include "Basics/Common.h"
 #include "Transaction/ContextData.h"

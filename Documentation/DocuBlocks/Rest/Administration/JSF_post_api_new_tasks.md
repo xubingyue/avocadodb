@@ -29,7 +29,7 @@ If the post body is not accurate, a *HTTP 400* is returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestTasksCreate}
+@EXAMPLE_AVOCADOSH_RUN{RestTasksCreate}
     var url = "/_api/tasks/";
 
     // Note: prints stuff if server is running in non-daemon mode.
@@ -49,6 +49,6 @@ If the post body is not accurate, a *HTTP 400* is returned.
     // Cleanup:
     logCurlRequest('DELETE', url + JSON.parse(response.body).id);
 
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

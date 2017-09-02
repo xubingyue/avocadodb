@@ -31,7 +31,7 @@ is returned.
 
 Retrieving the revision of a collection
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetCollectionRevision}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetCollectionRevision}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn, { waitForSync: false });
@@ -43,6 +43,6 @@ Retrieving the revision of a collection
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

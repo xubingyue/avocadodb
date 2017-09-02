@@ -69,7 +69,7 @@ response body contains an error document in this case.
 
 Without distance
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleWithin}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleWithin}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -94,11 +94,11 @@ Without distance
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 With distance
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleWithinDistance}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleWithinDistance}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -117,6 +117,6 @@ With distance
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

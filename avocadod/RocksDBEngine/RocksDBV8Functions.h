@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_V8_FUNCTIONS_H
-#define ARANGOD_ROCKSDB_ROCKSDB_V8_FUNCTIONS_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_V8_FUNCTIONS_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_V8_FUNCTIONS_H 1
 
 #include "Basics/Common.h"
 

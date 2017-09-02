@@ -30,10 +30,10 @@ replaced.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{011_documentsCollectionReplaceByExample}
+@EXAMPLE_AVOCADOSH_OUTPUT{011_documentsCollectionReplaceByExample}
 ~ db._create("example");
   db.example.save({ Hello : "world" });
   db.example.replaceByExample({ Hello: "world" }, {Hello: "mars"}, false, 5);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

@@ -50,7 +50,7 @@ FOR doc IN NEAR(@@collection, @latitude, @longitude, @limit)
 
 To get the nearest two locations:
 
-@EXAMPLE_ARANGOSH_OUTPUT{007_collectionNear}
+@EXAMPLE_AVOCADOSH_OUTPUT{007_collectionNear}
 ~ db._drop("geo");
 ~ db._create("geo");
   db.geo.ensureIndex({ type: "geo", fields: [ "loc" ] });
@@ -62,12 +62,12 @@ To get the nearest two locations:
   } }
   db.geo.near(0, 0).limit(2).toArray();
 ~ db._drop("geo");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 If you need the distance as well, then you can use the `distance`
 operator:
 
-@EXAMPLE_ARANGOSH_OUTPUT{008_collectionNearDistance}
+@EXAMPLE_AVOCADOSH_OUTPUT{008_collectionNearDistance}
 ~ db._create("geo");
   db.geo.ensureIndex({ type: "geo", fields: [ "loc" ] });
   |for (var i = -90;  i <= 90;  i += 10) {
@@ -78,6 +78,6 @@ operator:
   } }
   db.geo.near(0, 0).distance().limit(2).toArray();
 ~ db._drop("geo");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 @endDocuBlock

@@ -111,7 +111,7 @@ describe('User Rights Management', () => {
                 `).toArray().length;
                 expect(size).to.equal(1, `${name} could not register foxx service with sufficient rights`);
               } catch (e) {
-                if (e.errorNum === errors.ERROR_ARANGO_READ_ONLY.code ||
+                if (e.errorNum === errors.ERROR_AVOCADO_READ_ONLY.code ||
                     e.errorNum === errors.ERROR_FORBIDDEN.code) {
                   expect(false).to.be.equal(true, `${name} could not register foxx service with sufficient rights`);
                 } // FIXME: workarkound ignore all other errors for now
@@ -120,7 +120,7 @@ describe('User Rights Management', () => {
               try {
                 foxxManager.install(fs.join(basePath, 'minimal-working-service'), mount);
               } catch (e) {
-                //expect(e.errorNum).to.equal(errors.ERROR_ARANGO_READ_ONLY.code);
+                //expect(e.errorNum).to.equal(errors.ERROR_AVOCADO_READ_ONLY.code);
                 // TODO should be forbidden rather than read only
                 // expect(e.errorNum).to.equal(errors.ERROR_FORBIDDEN.code);
               }

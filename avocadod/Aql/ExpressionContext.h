@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_EXPRESSION_CONTEXT_H
-#define ARANGOD_AQL_EXPRESSION_CONTEXT_H 1
+#ifndef AVOCADOD_AQL_EXPRESSION_CONTEXT_H
+#define AVOCADOD_AQL_EXPRESSION_CONTEXT_H 1
 
 #include "Basics/Common.h"
 #include "Aql/types.h"

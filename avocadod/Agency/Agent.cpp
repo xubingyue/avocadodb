@@ -1352,7 +1352,7 @@ void Agent::updatePeerEndpoint(query_t const& message) {
   VPackSlice slice = message->slice();
 
   if (!slice.isObject() || slice.length() == 0) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
       TRI_ERROR_AGENCY_INFORM_MUST_BE_OBJECT,
       std::string("Inproper greeting: ") + slice.toJson());
   }
@@ -1361,7 +1361,7 @@ void Agent::updatePeerEndpoint(query_t const& message) {
   try {
     uuid = slice.keyAt(0).copyString();
   } catch (std::exception const& e) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
       TRI_ERROR_AGENCY_INFORM_MUST_BE_OBJECT,
       std::string("Cannot deal with UUID: ") + e.what());
   }
@@ -1369,7 +1369,7 @@ void Agent::updatePeerEndpoint(query_t const& message) {
   try {
     endpoint = slice.valueAt(0).copyString();
   } catch (std::exception const& e) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
       TRI_ERROR_AGENCY_INFORM_MUST_BE_OBJECT,
       std::string("Cannot deal with UUID: ") + e.what());
   }
@@ -1393,35 +1393,35 @@ void Agent::notify(query_t const& message) {
   VPackSlice slice = message->slice();
 
   if (!slice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_AGENCY_INFORM_MUST_BE_OBJECT,
         std::string("Inform message must be an object. Incoming type is ") +
             slice.typeName());
   }
 
   if (!slice.hasKey("id") || !slice.get("id").isString()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_ID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_ID);
   }
   if (!slice.hasKey("term")) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_TERM);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_TERM);
   }
   _constituent.update(slice.get("id").copyString(),
                       slice.get("term").getUInt());
 
   if (!slice.hasKey("active") || !slice.get("active").isArray()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_ACTIVE);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_ACTIVE);
   }
   if (!slice.hasKey("pool") || !slice.get("pool").isObject()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_POOL);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_POOL);
   }
   if (!slice.hasKey("min ping") || !slice.get("min ping").isNumber()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_MIN_PING);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_MIN_PING);
   }
   if (!slice.hasKey("max ping") || !slice.get("max ping").isNumber()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_MAX_PING);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_MAX_PING);
   }
   if (!slice.hasKey("timeoutMult") || !slice.get("timeoutMult").isInteger()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_TIMEOUT_MULT);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_INFORM_MUST_CONTAIN_TIMEOUT_MULT);
   }
 
   _config.update(message);
@@ -1443,7 +1443,7 @@ avocadodb::consensus::index_t Agent::rebuildDBs() {
   _spearhead.clear();
   
   if (!_state.loadLastCompactedSnapshot(_readDB, lastCompactionIndex, term)) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_CANNOT_REBUILD_DBS);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_CANNOT_REBUILD_DBS);
   }
 
   // Apply logs from last applied index to leader's commit index
@@ -1565,19 +1565,19 @@ query_t Agent::gossip(query_t const& in, bool isCallback, size_t version) {
 
   VPackSlice slice = in->slice();
   if (!slice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         20001,
         std::string("Gossip message must be an object. Incoming type is ") +
             slice.typeName());
   }
 
   if (!slice.hasKey("id") || !slice.get("id").isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         20002, "Gossip message must contain string parameter 'id'");
   }
 
   if (!slice.hasKey("endpoint") || !slice.get("endpoint").isString()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         20003, "Gossip message must contain string parameter 'endpoint'");
   }
   std::string endpoint = slice.get("endpoint").copyString();
@@ -1590,7 +1590,7 @@ query_t Agent::gossip(query_t const& in, bool isCallback, size_t version) {
       << endpoint;
 
   if (!slice.hasKey("pool") || !slice.get("pool").isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         20003, "Gossip message must contain object parameter 'pool'");
   }
   VPackSlice pslice = slice.get("pool");
@@ -1606,7 +1606,7 @@ query_t Agent::gossip(query_t const& in, bool isCallback, size_t version) {
   std::map<std::string, std::string> incoming;
   for (auto const& pair : VPackObjectIterator(pslice)) {
     if (!pair.value.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           20004, "Gossip message pool must contain string parameters");
     }
     incoming[pair.key.copyString()] = pair.value.copyString();
@@ -1700,7 +1700,7 @@ query_t Agent::buildDB(avocadodb::consensus::index_t index) {
   index_t oldIndex;
   term_t term;
   if (!_state.loadLastCompactedSnapshot(store, oldIndex, term)) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_AGENCY_CANNOT_REBUILD_DBS);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AGENCY_CANNOT_REBUILD_DBS);
   }
   
   if (index > _commitIndex) {

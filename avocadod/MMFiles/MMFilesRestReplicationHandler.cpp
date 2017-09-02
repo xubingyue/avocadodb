@@ -421,7 +421,7 @@ void MMFilesRestReplicationHandler::handleCommandLoggerState() {
 
   // "server" part
   builder.add("server", VPackValue(VPackValueType::Object));
-  builder.add("version", VPackValue(ARANGODB_VERSION));
+  builder.add("version", VPackValue(AVOCADODB_VERSION));
   builder.add("serverId", VPackValue(std::to_string(ServerIdFeature::getId())));
   builder.close();
 
@@ -532,7 +532,7 @@ void MMFilesRestReplicationHandler::handleCommandBatch() {
     int res = engine->insertCompactionBlocker(_vocbase, expires, id);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     VPackBuilder b;
@@ -676,7 +676,7 @@ void MMFilesRestReplicationHandler::handleCommandBarrier() {
                                                                 minTick)) {
       resetResponse(rest::ResponseCode::NO_CONTENT);
     } else {
-      int res = TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+      int res = TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
       generateError(GeneralResponse::responseCode(res), res);
     }
     return;
@@ -689,7 +689,7 @@ void MMFilesRestReplicationHandler::handleCommandBarrier() {
     if (MMFilesLogfileManager::instance()->removeLogfileBarrier(id)) {
       resetResponse(rest::ResponseCode::NO_CONTENT);
     } else {
-      int res = TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+      int res = TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
       generateError(GeneralResponse::responseCode(res), res);
     }
     return;
@@ -813,7 +813,7 @@ void MMFilesRestReplicationHandler::handleCommandLoggerFollow() {
 
     if (c == nullptr) {
       generateError(rest::ResponseCode::NOT_FOUND,
-                    TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                    TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
       return;
     }
 
@@ -882,7 +882,7 @@ void MMFilesRestReplicationHandler::handleCommandLoggerFollow() {
           dynamic_cast<HttpResponse*>(_response.get());
 
       if (httpResponse == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "invalid response type");
       }
       // transfer ownership of the buffer contents
@@ -952,7 +952,7 @@ void MMFilesRestReplicationHandler::handleCommandDetermineOpenTransactions() {
 
     HttpResponse* httpResponse = dynamic_cast<HttpResponse*>(_response.get());
     if (_response == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "invalid response type");
     }
 
@@ -1096,7 +1096,7 @@ int MMFilesRestReplicationHandler::createCollection(
 
   /* Temporary ASSERTS to prove correctness of new constructor */
   TRI_ASSERT(col->isSystem() == (name[0] == '_'));
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   TRI_voc_cid_t planId = 0;
   VPackSlice const planIdSlice = slice.get("planId");
   if (planIdSlice.isNumber()) {
@@ -1197,7 +1197,7 @@ void MMFilesRestReplicationHandler::handleCommandRestoreCollection() {
   }
   
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   VPackBuilder result;
@@ -1308,7 +1308,7 @@ int MMFilesRestReplicationHandler::processRestoreCollection(
         return res.errorNumber();
       }
     } else {
-      Result res = TRI_ERROR_ARANGO_DUPLICATE_NAME;
+      Result res = TRI_ERROR_AVOCADO_DUPLICATE_NAME;
 
       errorMsg =
           "unable to create collection '" + name + "': " + res.errorMessage();
@@ -1398,7 +1398,7 @@ int MMFilesRestReplicationHandler::processRestoreCollectionCoordinator(
         return res;
       }
     } else {
-      int res = TRI_ERROR_ARANGO_DUPLICATE_NAME;
+      int res = TRI_ERROR_AVOCADO_DUPLICATE_NAME;
 
       errorMsg = "unable to create collection '" + name + "': " +
                  std::string(TRI_errno_string(res));
@@ -1555,7 +1555,7 @@ int MMFilesRestReplicationHandler::processRestoreIndexes(
     if (!res.ok()) {
       errorMsg = std::string("unable to start transaction (") + std::string(__FILE__) + std::string(":") + std::to_string(__LINE__) + std::string("): ") + res.errorMessage();
       res.reset(res.errorNumber(), errorMsg);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     auto physical = collection->getPhysical();
@@ -1653,7 +1653,7 @@ int MMFilesRestReplicationHandler::processRestoreIndexesCoordinator(
     col = ci->getCollection(dbName, name);
   } catch (...) {
     errorMsg = "could not find collection '" + name + "'";
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(col != nullptr);
 
@@ -1702,7 +1702,7 @@ int MMFilesRestReplicationHandler::applyCollectionDumpMarker(
     try {
       OperationResult opRes = trx.insert(collectionName, slice, options);
 
-      if (opRes.code == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED) {
+      if (opRes.code == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED) {
         // must update
         opRes = trx.update(collectionName, slice, options);
       }
@@ -1726,7 +1726,7 @@ int MMFilesRestReplicationHandler::applyCollectionDumpMarker(
       OperationResult opRes = trx.remove(collectionName, old, options);
 
       if (!opRes.successful() &&
-          opRes.code == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+          opRes.code == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
         // ignore this error
         return TRI_ERROR_NO_ERROR;
       }
@@ -1771,7 +1771,7 @@ void MMFilesRestReplicationHandler::handleCommandCreateKeys() {
 
   if (c == nullptr) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return;
   }
 
@@ -1786,7 +1786,7 @@ void MMFilesRestReplicationHandler::handleCommandCreateKeys() {
   int res = engine->insertCompactionBlocker(_vocbase, 1200.0, id);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   // initialize a container with the keys
@@ -2108,7 +2108,7 @@ void MMFilesRestReplicationHandler::handleCommandDump() {
 
   if (c == nullptr) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return;
   }
 
@@ -2147,7 +2147,7 @@ void MMFilesRestReplicationHandler::handleCommandDump() {
                                              withTicks);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   // generate the result
@@ -2163,7 +2163,7 @@ void MMFilesRestReplicationHandler::handleCommandDump() {
   auto response = dynamic_cast<HttpResponse*>(_response.get());
 
   if (response == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response type");
   }
 
   response->setContentType(rest::ContentType::DUMP);
@@ -2441,7 +2441,7 @@ void MMFilesRestReplicationHandler::handleCommandApplierSetConfig() {
       TRI_ConfigureReplicationApplier(_vocbase->replicationApplier(), &config);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   handleCommandApplierGetConfig();
@@ -2478,7 +2478,7 @@ void MMFilesRestReplicationHandler::handleCommandApplierStart() {
       _vocbase->replicationApplier()->start(initialTick, useTick, barrierId);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   handleCommandApplierGetState();
@@ -2494,7 +2494,7 @@ void MMFilesRestReplicationHandler::handleCommandApplierStop() {
   int res = _vocbase->replicationApplier()->stop(true, true);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   handleCommandApplierGetState();
@@ -2523,7 +2523,7 @@ void MMFilesRestReplicationHandler::handleCommandApplierDeleteState() {
 
   if (res != TRI_ERROR_NO_ERROR) {
     LOG_TOPIC(DEBUG, Logger::REPLICATION) << "unable to delete applier state";
-    THROW_ARANGO_EXCEPTION_MESSAGE(res,"unable to delete applier state");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res,"unable to delete applier state");
   }
 
   handleCommandApplierGetState();
@@ -2560,7 +2560,7 @@ void MMFilesRestReplicationHandler::handleCommandAddFollower() {
 
   if (col == nullptr) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                   "did not find collection");
     return;
   }
@@ -2654,7 +2654,7 @@ void MMFilesRestReplicationHandler::handleCommandRemoveFollower() {
 
   if (col == nullptr) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                   "did not find collection");
     return;
   }
@@ -2702,7 +2702,7 @@ void MMFilesRestReplicationHandler::handleCommandHoldReadLockCollection() {
 
   if (col == nullptr) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                   "did not find collection");
     return;
   }
@@ -2722,7 +2722,7 @@ void MMFilesRestReplicationHandler::handleCommandHoldReadLockCollection() {
 
   if (col->getStatusLocked() != TRI_VOC_COL_STATUS_LOADED) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_LOADED,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_LOADED,
                   "collection not loaded");
     return;
   }

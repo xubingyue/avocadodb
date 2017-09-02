@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_WAL_RECOVERY_FEATURE_H
-#define ARANGOD_MMFILES_WAL_RECOVERY_FEATURE_H 1
+#ifndef AVOCADOD_MMFILES_WAL_RECOVERY_FEATURE_H
+#define AVOCADOD_MMFILES_WAL_RECOVERY_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

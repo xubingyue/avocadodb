@@ -32,37 +32,37 @@ Each plan in the result is an object with the following attributes:
 Here is an example for retrieving the execution plan of a simple query:
 
     @startDocuBlockInline 07_workWithAQL_statementsExplain
-    @EXAMPLE_ARANGOSH_OUTPUT{07_workWithAQL_statementsExplain}
+    @EXAMPLE_AVOCADOSH_OUTPUT{07_workWithAQL_statementsExplain}
     |var stmt = db._createStatement(
      "FOR user IN _users RETURN user");
     stmt.explain();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 07_workWithAQL_statementsExplain
 
 As the output of `explain` is very detailed, it is recommended to use some
 scripting to make the output less verbose:
 
     @startDocuBlockInline 08_workWithAQL_statementsPlans
-    @EXAMPLE_ARANGOSH_OUTPUT{08_workWithAQL_statementsPlans}
+    @EXAMPLE_AVOCADOSH_OUTPUT{08_workWithAQL_statementsPlans}
     |var formatPlan = function (plan) {
     |    return { estimatedCost: plan.estimatedCost,
     |        nodes: plan.nodes.map(function(node) {
                 return node.type; }) }; };
     formatPlan(stmt.explain().plan);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 08_workWithAQL_statementsPlans
 
 If a query contains bind parameters, they must be added to the statement **before**
 `explain` is called:
 
     @startDocuBlockInline 09_workWithAQL_statementsPlansBind
-    @EXAMPLE_ARANGOSH_OUTPUT{09_workWithAQL_statementsPlansBind}
+    @EXAMPLE_AVOCADOSH_OUTPUT{09_workWithAQL_statementsPlansBind}
     |var stmt = db._createStatement(
     | `FOR doc IN @@collection FILTER doc.user == @user RETURN doc`
     );
     stmt.bind({ "@collection" : "_users", "user" : "root" });
     stmt.explain();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 09_workWithAQL_statementsPlansBind
 
 In some cases the AQL optimizer creates multiple plans for a single query. By default
@@ -73,21 +73,21 @@ with the option `allPlans` set to `true`.
 In the following example, the optimizer has created two plans:
 
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer0
-    @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer0}
+    @EXAMPLE_AVOCADOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer0}
     |var stmt = db._createStatement(
       "FOR user IN _users FILTER user.user == 'root' RETURN user");
     stmt.explain({ allPlans: true }).plans.length;
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer0
 
 To see a slightly more compact version of the plan, the following transformation can be applied:
 
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer1
-    @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer1}
     ~var stmt = db._createStatement("FOR user IN _users FILTER user.user == 'root' RETURN user");
     |stmt.explain({ allPlans: true }).plans.map(
         function(plan) { return formatPlan(plan); });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer1
 
 `explain` will also accept the following additional options:
@@ -100,11 +100,11 @@ To see a slightly more compact version of the plan, the following transformation
 The following example disables all optimizer rules but `remove-redundant-calculations`:
 
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer2
-    @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer2}
     ~var stmt = db._createStatement("FOR user IN _users FILTER user.user == 'root' RETURN user");
     |stmt.explain({ optimizer: {
        rules: [ "-all", "+remove-redundant-calculations" ] } });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer2
 
 
@@ -112,10 +112,10 @@ The contents of an execution plan are meant to be machine-readable. To get a hum
 version of a query's execution plan, the following commands can be used:
 
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer3
-    @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer3}
     var query = "FOR doc IN mycollection FILTER doc.value > 42 RETURN doc";
     require("@avocadodb/aql/explainer").explain(query, {colors:false});
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer3
 
 The above command prints the query's execution plan in the AvocadoShell directly, focusing

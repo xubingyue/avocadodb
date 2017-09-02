@@ -75,7 +75,7 @@ static void ReopenLog(int) { LogAppender::reopen(); }
 static std::string miniDumpFilename = "c:\\avocadodpanic.dmp";
 
 LONG CALLBACK unhandledExceptionHandler(EXCEPTION_POINTERS* e) {
-#if ARANGODB_ENABLE_BACKTRACE
+#if AVOCADODB_ENABLE_BACKTRACE
 
   if ((e != nullptr) && (e->ExceptionRecord != nullptr)) {
     LOG_FATAL_WINDOWS("Unhandled exception: %d",

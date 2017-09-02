@@ -28,8 +28,8 @@
 #include <vector>
 #include "Pregel/Graph.h"
 
-#ifndef ARANGODB_PREGEL_AGG_DENSE_VECTOR_H
-#define ARANGODB_PREGEL_AGG_DENSE_VECTOR_H 1
+#ifndef AVOCADODB_PREGEL_AGG_DENSE_VECTOR_H
+#define AVOCADODB_PREGEL_AGG_DENSE_VECTOR_H 1
 
 namespace avocadodb {
 namespace pregel {

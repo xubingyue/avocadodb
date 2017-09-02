@@ -146,15 +146,15 @@ AvocadoDatabase.prototype._documenturl = function (id, expectedName) {
     throw new AvocadoError({
       error: true,
       code: internal.errors.ERROR_HTTP_BAD_PARAMETER.code,
-      errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+      errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
     });
   } else if (expectedName !== undefined && expectedName !== '' && s[0] !== expectedName) {
     throw new AvocadoError({
       error: true,
       code: internal.errors.ERROR_HTTP_BAD_PARAMETER.code,
-      errorNum: internal.errors.ERROR_ARANGO_CROSS_COLLECTION_REQUEST.code,
-      errorMessage: internal.errors.ERROR_ARANGO_CROSS_COLLECTION_REQUEST.message
+      errorNum: internal.errors.ERROR_AVOCADO_CROSS_COLLECTION_REQUEST.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_CROSS_COLLECTION_REQUEST.message
     });
   }
 
@@ -162,8 +162,8 @@ AvocadoDatabase.prototype._documenturl = function (id, expectedName) {
     throw new AvocadoError({
       error: true,
       code: internal.errors.ERROR_HTTP_BAD_PARAMETER.code,
-      errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+      errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
     });
   }
 
@@ -193,16 +193,16 @@ AvocadoDatabase.prototype._indexurl = function (id, expectedName) {
     throw new AvocadoError({
       error: true,
       code: internal.errors.ERROR_HTTP_BAD_PARAMETER.code,
-      errorNum: internal.errors.ERROR_ARANGO_INDEX_HANDLE_BAD.code,
-      errorMessage: internal.errors.ERROR_ARANGO_INDEX_HANDLE_BAD.message
+      errorNum: internal.errors.ERROR_AVOCADO_INDEX_HANDLE_BAD.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_INDEX_HANDLE_BAD.message
     });
   } else if (expectedName !== undefined && expectedName !== '' && s[0] !== expectedName) {
     // index handle does not match collection name
     throw new AvocadoError({
       error: true,
       code: internal.errors.ERROR_HTTP_BAD_PARAMETER.code,
-      errorNum: internal.errors.ERROR_ARANGO_CROSS_COLLECTION_REQUEST.code,
-      errorMessage: internal.errors.ERROR_ARANGO_CROSS_COLLECTION_REQUEST.message
+      errorNum: internal.errors.ERROR_AVOCADO_CROSS_COLLECTION_REQUEST.code,
+      errorMessage: internal.errors.ERROR_AVOCADO_CROSS_COLLECTION_REQUEST.message
     });
   }
 
@@ -318,7 +318,7 @@ AvocadoDatabase.prototype._collection = function (id) {
   // return null in case of not found
   if (requestResult !== null
     && requestResult.error === true
-    && requestResult.errorNum === internal.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code) {
+    && requestResult.errorNum === internal.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code) {
     return null;
   }
 
@@ -559,7 +559,7 @@ AvocadoDatabase.prototype._dropIndex = function (id) {
 
   if (requestResult !== null
     && requestResult.error === true
-    && requestResult.errorNum === internal.errors.ERROR_ARANGO_INDEX_NOT_FOUND.code) {
+    && requestResult.errorNum === internal.errors.ERROR_AVOCADO_INDEX_NOT_FOUND.code) {
     return false;
   }
 
@@ -631,7 +631,7 @@ AvocadoDatabase.prototype._document = function (id) {
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -669,7 +669,7 @@ AvocadoDatabase.prototype._exists = function (id) {
       return false;
     }
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -690,9 +690,9 @@ AvocadoDatabase.prototype._remove = function (id, overwrite, waitForSync) {
     if (Array.isArray(id)) {
       throw new AvocadoError({
         error: true,
-        code: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-        errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code,
-        errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+        code: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+        errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code,
+        errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message
       });
     }
     if (id.hasOwnProperty('_rev')) {
@@ -740,7 +740,7 @@ AvocadoDatabase.prototype._remove = function (id, overwrite, waitForSync) {
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -761,9 +761,9 @@ AvocadoDatabase.prototype._replace = function (id, data, overwrite, waitForSync)
     if (Array.isArray(id)) {
       throw new AvocadoError({
         error: true,
-        code: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-        errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-        errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message
+        code: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+        errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+        errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message
       });
     }
     if (id.hasOwnProperty('_rev')) {
@@ -811,7 +811,7 @@ AvocadoDatabase.prototype._replace = function (id, data, overwrite, waitForSync)
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -832,9 +832,9 @@ AvocadoDatabase.prototype._update = function (id, data, overwrite, keepNull, wai
     if (Array.isArray(id)) {
       throw new AvocadoError({
         error: true,
-        code: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-        errorNum: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code,
-        errorMessage: internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message
+        code: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+        errorNum: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code,
+        errorMessage: internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message
       });
     }
     if (id.hasOwnProperty('_rev')) {
@@ -891,7 +891,7 @@ AvocadoDatabase.prototype._update = function (id, data, overwrite, keepNull, wai
 
   if (requestResult !== null && requestResult.error === true) {
     if (requestResult.errorNum === internal.errors.ERROR_HTTP_PRECONDITION_FAILED.code) {
-      requestResult.errorNum = internal.errors.ERROR_ARANGO_CONFLICT.code;
+      requestResult.errorNum = internal.errors.ERROR_AVOCADO_CONFLICT.code;
     }
   }
 
@@ -1211,7 +1211,7 @@ AvocadoDatabase.prototype._view = function (id) {
   // return null in case of not found
   if (requestResult !== null
     && requestResult.error === true
-    && requestResult.errorNum === internal.errors.ERROR_ARANGO_VIEW_NOT_FOUND.code) {
+    && requestResult.errorNum === internal.errors.ERROR_AVOCADO_VIEW_NOT_FOUND.code) {
     return null;
   }
 

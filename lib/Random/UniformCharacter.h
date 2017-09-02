@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_RANDOM_UNIFORM_CHARACTER_H
-#define ARANGODB_RANDOM_UNIFORM_CHARACTER_H 1
+#ifndef AVOCADODB_RANDOM_UNIFORM_CHARACTER_H
+#define AVOCADODB_RANDOM_UNIFORM_CHARACTER_H 1
 
 #include "Basics/Common.h"
 

@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_OUT_MESSAGE_CACHE_H
-#define ARANGODB_OUT_MESSAGE_CACHE_H 1
+#ifndef AVOCADODB_OUT_MESSAGE_CACHE_H
+#define AVOCADODB_OUT_MESSAGE_CACHE_H 1
 
 #include "Basics/Common.h"
 #include "Cluster/ClusterInfo.h"

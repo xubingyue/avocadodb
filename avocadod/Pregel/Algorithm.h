@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_ALGORITHM_H
-#define ARANGODB_PREGEL_ALGORITHM_H 1
+#ifndef AVOCADODB_PREGEL_ALGORITHM_H
+#define AVOCADODB_PREGEL_ALGORITHM_H 1
 
 #include <velocypack/Slice.h>
 #include <cstdint>

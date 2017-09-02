@@ -81,7 +81,7 @@ function recoverySuite () {
         db._useDatabase('UnitTestsRecovery');
         fail();
       } catch (err) {
-        assertEqual(internal.errors.ERROR_ARANGO_DATABASE_NOT_FOUND.code, err.errorNum);
+        assertEqual(internal.errors.ERROR_AVOCADO_DATABASE_NOT_FOUND.code, err.errorNum);
       }
     }
 

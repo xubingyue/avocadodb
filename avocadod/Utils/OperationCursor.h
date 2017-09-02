@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_OPERATION_CURSOR_H
-#define ARANGOD_UTILS_OPERATION_CURSOR_H 1
+#ifndef AVOCADOD_UTILS_OPERATION_CURSOR_H
+#define AVOCADOD_UTILS_OPERATION_CURSOR_H 1
 
 #include "Basics/Common.h"
 #include "Indexes/IndexIterator.h"

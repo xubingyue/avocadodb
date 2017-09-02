@@ -184,7 +184,7 @@ void LocalTaskQueue::dispatchAndWait() {
       if (_missing > 0 &&
           _started == 0 &&
           _ioService->stopped()) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
       }
 
       guard.wait(100000);
@@ -214,7 +214,7 @@ void LocalTaskQueue::dispatchAndWait() {
       if (_missing > 0 &&
           _started == 0 &&
           _ioService->stopped()) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
       }
 
       guard.wait(100000);

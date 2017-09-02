@@ -20,8 +20,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_HTTP_SERVER_REST_ENGINE_H
-#define ARANGOD_HTTP_SERVER_REST_ENGINE_H 1
+#ifndef AVOCADOD_HTTP_SERVER_REST_ENGINE_H
+#define AVOCADOD_HTTP_SERVER_REST_ENGINE_H 1
 
 #include "Basics/Common.h"
 

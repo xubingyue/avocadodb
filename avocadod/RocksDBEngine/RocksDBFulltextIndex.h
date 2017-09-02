@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ENGINE_FULLTEXT_INDEX_H
-#define ARANGOD_ROCKSDB_ENGINE_FULLTEXT_INDEX_H 1
+#ifndef AVOCADOD_ROCKSDB_ENGINE_FULLTEXT_INDEX_H
+#define AVOCADOD_ROCKSDB_ENGINE_FULLTEXT_INDEX_H 1
 
 #include "Basics/Common.h"
 #include "Indexes/Index.h"

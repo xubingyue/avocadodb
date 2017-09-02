@@ -35,12 +35,12 @@ first argument. No revision can be specified in this case.
 Returns the document:
 
     @startDocuBlockInline documentsDocumentName
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentName}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsDocumentName}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "12345"});
       db._document("example/12345");
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsDocumentName
 
 
@@ -138,13 +138,13 @@ first argument. No revision precondition is tested.
 Create and replace a document:
 
     @startDocuBlockInline documentsDocumentReplace
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentReplace}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsDocumentReplace}
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       a2 = db._replace(a1, { a : 2 });
-      a3 = db._replace(a1, { a : 3 });  // xpError(ERROR_ARANGO_CONFLICT);
+      a3 = db._replace(a1, { a : 3 });  // xpError(ERROR_AVOCADO_CONFLICT);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsDocumentReplace
 
 
@@ -223,13 +223,13 @@ first argument. No revision precondition is tested.
 Create and update a document:
 
     @startDocuBlockInline documentDocumentUpdate
-    @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentUpdate}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentDocumentUpdate}
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       a2 = db._update(a1, { b : 2 });
-      a3 = db._update(a1, { c : 3 }); // xpError(ERROR_ARANGO_CONFLICT);
+      a3 = db._update(a1, { c : 3 }); // xpError(ERROR_AVOCADO_CONFLICT);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentDocumentUpdate
 
 
@@ -293,40 +293,40 @@ first argument. No revision check is performed.
 Remove a document:
 
     @startDocuBlockInline documentsCollectionRemoveSuccess
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSuccess}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionRemoveSuccess}
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       db._remove(a1);
-      db._remove(a1);  // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
-      db._remove(a1, {overwrite: true}); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+      db._remove(a1);  // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
+      db._remove(a1, {overwrite: true}); // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveSuccess
 
 Remove the document in the revision `a1` with a conflict:
 
     @startDocuBlockInline documentsCollectionRemoveConflict
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveConflict}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionRemoveConflict}
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       a2 = db._replace(a1, { a : 2 });
-      db._remove(a1);       // xpError(ERROR_ARANGO_CONFLICT)
+      db._remove(a1);       // xpError(ERROR_AVOCADO_CONFLICT)
       db._remove(a1, {overwrite: true} );
-      db._document(a1);     // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
+      db._document(a1);     // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND)
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveConflict
 
 Remove a document using new signature:
 
     @startDocuBlockInline documentsCollectionRemoveSignature
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSignature}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionRemoveSignature}
     ~ db._create("example");
     db.example.insert({ _key: "11265325374", a:  1 } );
     | db.example.remove("example/11265325374",
            { overwrite: true, waitForSync: false})
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveSignature
 
 #### Changes in 3.0 from 2.8:

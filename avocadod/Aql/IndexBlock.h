@@ -22,8 +22,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_INDEX_BLOCK_H
-#define ARANGOD_AQL_INDEX_BLOCK_H 1
+#ifndef AVOCADOD_AQL_INDEX_BLOCK_H
+#define AVOCADOD_AQL_INDEX_BLOCK_H 1
 
 #include "Aql/BlockCollector.h"
 #include "Aql/DocumentProducingBlock.h"

@@ -27,24 +27,24 @@ account for uniqueness checks.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
-@EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplist}
+@EXAMPLE_AVOCADOSH_OUTPUT{ensureUniqueSkiplist}
 ~db._create("ids");
 db.ids.ensureIndex({ type: "skiplist", fields: [ "myId" ], unique: true });
 db.ids.save({ "myId": 123 });
 db.ids.save({ "myId": 456 });
 db.ids.save({ "myId": 789 });
-db.ids.save({ "myId": 123 });  // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+db.ids.save({ "myId": 123 });  // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
 ~db._drop("ids");
-@END_EXAMPLE_ARANGOSH_OUTPUT
-@EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistMultiColmun}
+@END_EXAMPLE_AVOCADOSH_OUTPUT
+@EXAMPLE_AVOCADOSH_OUTPUT{ensureUniqueSkiplistMultiColmun}
 ~db._create("ids");
 db.ids.ensureIndex({ type: "skiplist", fields: [ "name.first", "name.last" ], unique: true });
 db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }});
 db.ids.save({ "name" : { "first" : "jens", "last": "jensen" }});
 db.ids.save({ "name" : { "first" : "hans", "last": "jensen" }});
 | db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }}); 
-~ // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+~ // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
 ~db._drop("ids");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

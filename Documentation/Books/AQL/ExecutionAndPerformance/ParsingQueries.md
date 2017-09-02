@@ -15,11 +15,11 @@ be returned in the `AST` attribute of the result. Please note that the abstract 
 will be returned without any optimizations applied to it.
 
     @startDocuBlockInline 11_workWithAQL_parseQueries
-    @EXAMPLE_ARANGOSH_OUTPUT{11_workWithAQL_parseQueries}
+    @EXAMPLE_AVOCADOSH_OUTPUT{11_workWithAQL_parseQueries}
     |var stmt = db._createStatement(
       "FOR doc IN @@collection FILTER doc.foo == @bar RETURN doc");
     stmt.parse();
     ~removeIgnoreCollection("mycollection")
     ~db._drop("mycollection")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 11_workWithAQL_parseQueries

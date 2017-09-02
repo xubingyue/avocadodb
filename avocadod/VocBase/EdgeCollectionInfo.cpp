@@ -42,7 +42,7 @@ EdgeCollectionInfo::EdgeCollectionInfo(transaction::Methods* trx,
   TRI_ASSERT(_dir == TRI_EDGE_OUT || _dir == TRI_EDGE_IN);
 
   if (!trx->isEdgeCollection(collectionName)) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_TYPE_INVALID);
   }
 
   auto var = _searchBuilder.getVariable();

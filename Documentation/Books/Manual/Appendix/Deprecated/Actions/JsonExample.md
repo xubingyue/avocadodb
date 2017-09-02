@@ -4,7 +4,7 @@ A Hello World Example for JSON
 If you change the example slightly, then a JSON object will be delivered.
 
     @startDocuBlockInline JSON_01_routingCreateJsonHelloWorld
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_01_routingCreateJsonHelloWorld}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_01_routingCreateJsonHelloWorld}
     |db._routing.save({ 
     |  url: "/hello/json", 
     |  content: { 
@@ -13,7 +13,7 @@ If you change the example slightly, then a JSON object will be delivered.
     |  }
     });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_01_routingCreateJsonHelloWorld
 
 Again check with your browser or cURL http://localhost:8529/hello/json
@@ -25,19 +25,19 @@ application to display the JSON object, you can change the *contentType* to
 a browser. Or use *curl* to access the server.
 
     @startDocuBlockInline JSON_02_routingCurlJsonHelloWorld
-    @EXAMPLE_ARANGOSH_RUN{JSON_02_routingCurlJsonHelloWorld}
+    @EXAMPLE_AVOCADOSH_RUN{JSON_02_routingCurlJsonHelloWorld}
     var url = "/hello/json";
     var response = logCurlRequest('GET', url);
     assert(response.code === 200);
     logJsonResponse(response);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_02_routingCurlJsonHelloWorld
 
     @startDocuBlockInline JSON_03_routingCleanupJsonHelloWorld
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_03_routingCleanupJsonHelloWorld}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_03_routingCleanupJsonHelloWorld}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/json' REMOVE route in _routing")
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_03_routingCleanupJsonHelloWorld
 
 Delivering Content
@@ -52,7 +52,7 @@ starts when delivering dynamic content.
 You can specify a body and a content-type.
 
     @startDocuBlockInline JSON_05a_routingCreateContentTypeHelloWorld
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_05a_routingCreateContentTypeHelloWorld}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_05a_routingCreateContentTypeHelloWorld}
     |db._routing.save({
     |  url: "/hello/contentType",
     |  content: {
@@ -61,23 +61,23 @@ You can specify a body and a content-type.
     |  }
     });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_05a_routingCreateContentTypeHelloWorld
 
     @startDocuBlockInline JSON_05b_routingCurlContentTypeHelloWorld
-    @EXAMPLE_ARANGOSH_RUN{JSON_05b_routingCurlContentTypeHelloWorld}
+    @EXAMPLE_AVOCADOSH_RUN{JSON_05b_routingCurlContentTypeHelloWorld}
     var url = "/hello/contentType";
     var response = logCurlRequest('GET', url);
     assert(response.code === 200);
     logRawResponse(response);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_05b_routingCurlContentTypeHelloWorld
 
     @startDocuBlockInline JSON_05c_routingCleanupContentTypeHelloWorld
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_05c_routingCleanupContentTypeHelloWorld}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_05c_routingCleanupContentTypeHelloWorld}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/contentType' REMOVE route in _routing")
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_05c_routingCleanupContentTypeHelloWorld
 
 If the content type is *text/plain* then you can use the short-cut
@@ -119,7 +119,7 @@ function (req, res, options, next)
 *Examples*
 
     @startDocuBlockInline JSON_06_routingCreateHelloEcho
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_06_routingCreateHelloEcho}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_06_routingCreateHelloEcho}
     |db._routing.save({ 
     |    url: "/hello/echo",
     |    action: { 
@@ -127,7 +127,7 @@ function (req, res, options, next)
     |  } 
     });
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_06_routingCreateHelloEcho
 
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo
@@ -135,16 +135,16 @@ Reload the routing and check http:// 127.0.0.1:8529/hello/echo
 You should see something like
 
     @startDocuBlockInline JSON_07_fetchroutingCreateHelloEcho
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_07_fetchroutingCreateHelloEcho}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_07_fetchroutingCreateHelloEcho}
     avocado.GET("/hello/echo")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_07_fetchroutingCreateHelloEcho
 
     @startDocuBlockInline JSON_08_routingCleanupHelloEcho
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_08_routingCleanupHelloEcho}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_08_routingCleanupHelloEcho}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_08_routingCleanupHelloEcho
 
 The request might contain *path*, *prefix*, *suffix*, and *urlParameters*
@@ -184,7 +184,7 @@ called.
 *Examples*
 
     @startDocuBlockInline JSON_09_routingCreateEchoController
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_09_routingCreateEchoController}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_09_routingCreateEchoController}
     |db._routing.save({ 
     |  url: "/hello/echo",
     |  action: { 
@@ -192,22 +192,22 @@ called.
     |  } 
     });
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_09_routingCreateEchoController
 
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo:
 
     @startDocuBlockInline JSON_10_fetchroutingCreateEchoController
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_10_fetchroutingCreateEchoController}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_10_fetchroutingCreateEchoController}
     avocado.GET("/hello/echo")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_10_fetchroutingCreateEchoController
 
     @startDocuBlockInline JSON_11_routingCleanupEchoController
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_11_routingCleanupEchoController}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_11_routingCleanupEchoController}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_11_routingCleanupEchoController
 
 
@@ -258,7 +258,7 @@ You can also store a function directly in the routing table.
 *Examples*
 
     @startDocuBlockInline JSON_12a_routingCreateEchoFunction
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_12a_routingCreateEchoFunction}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_12a_routingCreateEchoFunction}
     |db._routing.save({ 
     |  url: "/hello/echo",
     |  action: { 
@@ -266,15 +266,15 @@ You can also store a function directly in the routing table.
     |  } 
     });
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_12a_routingCreateEchoFunction
 
     @startDocuBlockInline JSON_12b_fetchroutingEchoFunction
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_12b_fetchroutingEchoFunction}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_12b_fetchroutingEchoFunction}
     avocado.GET("hello/echo")
     db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_12b_fetchroutingEchoFunction
 
 ### Requests and Responses
@@ -300,7 +300,7 @@ function (req, res, options, next) {
 Install it via:
 
     @startDocuBlockInline JSON_13_routingCreateEchoAction
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_13_routingCreateEchoAction}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_13_routingCreateEchoAction}
     |db._routing.save({ 
     |  url: "/echo",
     |  action: { 
@@ -308,7 +308,7 @@ Install it via:
     |  }
     })
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_13_routingCreateEchoAction
 
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo
@@ -316,17 +316,17 @@ Reload the routing and check http:// 127.0.0.1:8529/hello/echo
 You should see something like
 
     @startDocuBlockInline JSON_14_fetchroutingRequestHelloEcho
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_14_fetchroutingRequestHelloEcho}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_14_fetchroutingRequestHelloEcho}
     avocado.GET("/hello/echo")
     db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_14_fetchroutingRequestHelloEcho
 
 You may also pass options to the called function:
 
     @startDocuBlockInline JSON_15_routingCreateEchoRequestOptions
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_15_routingCreateEchoRequestOptions}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_15_routingCreateEchoRequestOptions}
     |db._routing.save({ 
     |  url: "/echo",
     |  action: {
@@ -337,15 +337,15 @@ You may also pass options to the called function:
     |  } 
     });
     ~require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_15_routingCreateEchoRequestOptions
 
 You now see the options in the result:
 
     @startDocuBlockInline JSON_16_fetchroutingEchoRequestOptions
-    @EXAMPLE_ARANGOSH_OUTPUT{JSON_16_fetchroutingEchoRequestOptions}
+    @EXAMPLE_AVOCADOSH_OUTPUT{JSON_16_fetchroutingEchoRequestOptions}
     avocado.GET("/echo")
     db._query("FOR route IN _routing FILTER route.url == '/echo' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock JSON_16_fetchroutingEchoRequestOptions

@@ -212,7 +212,7 @@ RocksDBKey::RocksDBKey(RocksDBEntryType type,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -231,7 +231,7 @@ RocksDBKey::RocksDBKey(RocksDBEntryType type, uint64_t first)
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -249,7 +249,7 @@ RocksDBKey::RocksDBKey(RocksDBEntryType type, uint64_t first,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -274,7 +274,7 @@ RocksDBKey::RocksDBKey(RocksDBEntryType type, uint64_t first, uint64_t second)
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -296,7 +296,7 @@ RocksDBKey::RocksDBKey(RocksDBEntryType type, uint64_t first,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -312,7 +312,7 @@ RocksDBKey::RocksDBKey(RocksDBEntryType type, uint64_t first,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -340,7 +340,7 @@ RocksDBKey::RocksDBKey(RocksDBEntryType type, uint64_t first,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -360,7 +360,7 @@ TRI_voc_tick_t RocksDBKey::databaseId(char const* data, size_t size) {
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
   }
 }
 
@@ -376,7 +376,7 @@ TRI_voc_cid_t RocksDBKey::collectionId(char const* data, size_t size) {
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
   }
 }
 
@@ -391,7 +391,7 @@ TRI_voc_cid_t RocksDBKey::viewId(char const* data, size_t size) {
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
   }
 }
 
@@ -422,7 +422,7 @@ TRI_voc_rid_t RocksDBKey::revisionId(RocksDBEntryType type, char const* data,
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_TYPE_ERROR);
   }
 }
 

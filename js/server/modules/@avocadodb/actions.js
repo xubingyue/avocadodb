@@ -1740,7 +1740,7 @@ function collectionNotFound (req, res, collection, headers) {
       headers);
   } else {
     resultError(req, res,
-      exports.HTTP_NOT_FOUND, avocadodb.ERROR_ARANGO_COLLECTION_NOT_FOUND,
+      exports.HTTP_NOT_FOUND, avocadodb.ERROR_AVOCADO_COLLECTION_NOT_FOUND,
       "unknown collection '" + collection + "'", headers);
   }
 }
@@ -1764,7 +1764,7 @@ function indexNotFound (req, res, collection, index, headers) {
       headers);
   } else {
     resultError(req, res,
-      exports.HTTP_NOT_FOUND, avocadodb.ERROR_ARANGO_INDEX_NOT_FOUND,
+      exports.HTTP_NOT_FOUND, avocadodb.ERROR_AVOCADO_INDEX_NOT_FOUND,
       "unknown index '" + index + "'", headers);
   }
 }
@@ -1778,19 +1778,19 @@ function avocadoErrorToHttpCode (num) {
     case avocadodb.ERROR_INTERNAL:
     case avocadodb.ERROR_OUT_OF_MEMORY:
     case avocadodb.ERROR_GRAPH_TOO_MANY_ITERATIONS:
-    case avocadodb.ERROR_ARANGO_DOCUMENT_KEY_BAD:
+    case avocadodb.ERROR_AVOCADO_DOCUMENT_KEY_BAD:
       return exports.HTTP_SERVER_ERROR;
 
     case avocadodb.ERROR_FORBIDDEN:
-    case avocadodb.ERROR_ARANGO_USE_SYSTEM_DATABASE:
+    case avocadodb.ERROR_AVOCADO_USE_SYSTEM_DATABASE:
       return exports.HTTP_FORBIDDEN;
 
-    case avocadodb.ERROR_ARANGO_COLLECTION_NOT_FOUND:
-    case avocadodb.ERROR_ARANGO_DOCUMENT_NOT_FOUND:
-    case avocadodb.ERROR_ARANGO_DATABASE_NOT_FOUND:
-    case avocadodb.ERROR_ARANGO_ENDPOINT_NOT_FOUND:
-    case avocadodb.ERROR_ARANGO_NO_INDEX:
-    case avocadodb.ERROR_ARANGO_INDEX_NOT_FOUND:
+    case avocadodb.ERROR_AVOCADO_COLLECTION_NOT_FOUND:
+    case avocadodb.ERROR_AVOCADO_DOCUMENT_NOT_FOUND:
+    case avocadodb.ERROR_AVOCADO_DATABASE_NOT_FOUND:
+    case avocadodb.ERROR_AVOCADO_ENDPOINT_NOT_FOUND:
+    case avocadodb.ERROR_AVOCADO_NO_INDEX:
+    case avocadodb.ERROR_AVOCADO_INDEX_NOT_FOUND:
     case avocadodb.ERROR_CURSOR_NOT_FOUND:
     case avocadodb.ERROR_USER_NOT_FOUND:
     case avocadodb.ERROR_TASK_NOT_FOUND:
@@ -1801,8 +1801,8 @@ function avocadoErrorToHttpCode (num) {
     case avocadodb.ERROR_REQUEST_CANCELED:
       return exports.HTTP_REQUEST_TIMEOUT;
 
-    case avocadodb.ERROR_ARANGO_DUPLICATE_NAME:
-    case avocadodb.ERROR_ARANGO_DUPLICATE_IDENTIFIER:
+    case avocadodb.ERROR_AVOCADO_DUPLICATE_NAME:
+    case avocadodb.ERROR_AVOCADO_DUPLICATE_IDENTIFIER:
     case avocadodb.ERROR_USER_DUPLICATE:
     case avocadodb.ERROR_GRAPH_DUPLICATE:
     case avocadodb.ERROR_TASK_DUPLICATE_ID:
@@ -1812,23 +1812,23 @@ function avocadoErrorToHttpCode (num) {
     case avocadodb.ERROR_CLUSTER_UNSUPPORTED:
       return exports.HTTP_NOT_IMPLEMENTED;
 
-    case avocadodb.ERROR_ARANGO_ILLEGAL_NAME:
-    case avocadodb.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED:
-    case avocadodb.ERROR_ARANGO_CROSS_COLLECTION_REQUEST:
-    case avocadodb.ERROR_ARANGO_INDEX_HANDLE_BAD:
-    case avocadodb.ERROR_ARANGO_DOCUMENT_TOO_LARGE:
-    case avocadodb.ERROR_ARANGO_COLLECTION_NOT_UNLOADED:
-    case avocadodb.ERROR_ARANGO_COLLECTION_TYPE_INVALID:
-    case avocadodb.ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED:
-    case avocadodb.ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED:
-    case avocadodb.ERROR_ARANGO_DOCUMENT_KEY_MISSING:
-    case avocadodb.ERROR_ARANGO_DOCUMENT_TYPE_INVALID:
-    case avocadodb.ERROR_ARANGO_DATABASE_NAME_INVALID:
-    case avocadodb.ERROR_ARANGO_INVALID_KEY_GENERATOR:
-    case avocadodb.ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE:
-    case avocadodb.ERROR_ARANGO_COLLECTION_TYPE_MISMATCH:
-    case avocadodb.ERROR_ARANGO_COLLECTION_NOT_LOADED:
-    case avocadodb.ERROR_ARANGO_DOCUMENT_REV_BAD:
+    case avocadodb.ERROR_AVOCADO_ILLEGAL_NAME:
+    case avocadodb.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED:
+    case avocadodb.ERROR_AVOCADO_CROSS_COLLECTION_REQUEST:
+    case avocadodb.ERROR_AVOCADO_INDEX_HANDLE_BAD:
+    case avocadodb.ERROR_AVOCADO_DOCUMENT_TOO_LARGE:
+    case avocadodb.ERROR_AVOCADO_COLLECTION_NOT_UNLOADED:
+    case avocadodb.ERROR_AVOCADO_COLLECTION_TYPE_INVALID:
+    case avocadodb.ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED:
+    case avocadodb.ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED:
+    case avocadodb.ERROR_AVOCADO_DOCUMENT_KEY_MISSING:
+    case avocadodb.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID:
+    case avocadodb.ERROR_AVOCADO_DATABASE_NAME_INVALID:
+    case avocadodb.ERROR_AVOCADO_INVALID_KEY_GENERATOR:
+    case avocadodb.ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE:
+    case avocadodb.ERROR_AVOCADO_COLLECTION_TYPE_MISMATCH:
+    case avocadodb.ERROR_AVOCADO_COLLECTION_NOT_LOADED:
+    case avocadodb.ERROR_AVOCADO_DOCUMENT_REV_BAD:
       return exports.HTTP_BAD;
     case avocadodb.ERROR_CLUSTER_BACKEND_UNAVAILABLE:
     case avocadodb.ERROR_CLUSTER_SHARD_LEADER_RESIGNED:

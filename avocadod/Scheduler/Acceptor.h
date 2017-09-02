@@ -20,8 +20,8 @@
 /// @author Andreas Streichardt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_SCHEDULER_ACCEPTOR_H
-#define ARANGOD_SCHEDULER_ACCEPTOR_H 1
+#ifndef AVOCADOD_SCHEDULER_ACCEPTOR_H
+#define AVOCADOD_SCHEDULER_ACCEPTOR_H 1
 
 #include "Endpoint/Endpoint.h"
 #include "GeneralServer/GeneralServerFeature.h"

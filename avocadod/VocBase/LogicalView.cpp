@@ -119,7 +119,7 @@ LogicalView::LogicalView(TRI_vocbase_t* vocbase, VPackSlice const& info)
       _physical(EngineSelectorFeature::ENGINE->createPhysicalView(this, info)) {
   TRI_ASSERT(_physical != nullptr);
   if (!IsAllowedName(info)) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_NAME);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_NAME);
   }
 
   // update server's tick value

@@ -26,16 +26,16 @@ if $(which numactl > /dev/null 2>&1); then
     NUMA="numactl --interleave=all"
 fi
 
-if [ -z "${ARANGOSH}" ];  then
+if [ -z "${AVOCADOSH}" ];  then
     if [ -x build/bin/avocadosh ];  then
-        ARANGOSH="build/bin/avocadosh${EXT}"
+        AVOCADOSH="build/bin/avocadosh${EXT}"
     elif [ -x bin/avocadosh ];  then
-        ARANGOSH="bin/avocadosh${EXT}"
+        AVOCADOSH="bin/avocadosh${EXT}"
     elif [ -x usr/bin/avocadosh ];  then
-        ARANGOSH="usr/bin/avocadosh${EXT}"
+        AVOCADOSH="usr/bin/avocadosh${EXT}"
     else
-        ARANGOSH="$(find . -name "avocadosh${EXT}" -executable -type f | head -n 1)"
-        [ -x "${ARANGOSH}" ] || {
+        AVOCADOSH="$(find . -name "avocadosh${EXT}" -executable -type f | head -n 1)"
+        [ -x "${AVOCADOSH}" ] || {
           echo "$0: cannot locate avocadosh"
           exit 1
         }
@@ -48,11 +48,11 @@ if [ `uname -s` == "Darwin" ]; then
   EXEC_PATH="$(dirname "$(dirname "$0")")"
 else
   EXEC_PATH="$(dirname "$(dirname "$(readlink -m "$0")")")"
-  [ -x "${ARANGOSH}" ] && ARANGOSH="$(readlink -m "${ARANGOSH}")"
+  [ -x "${AVOCADOSH}" ] && AVOCADOSH="$(readlink -m "${AVOCADOSH}")"
 fi
 
 [[ " $@ " =~ "--build" ]] || {
-  BUILD_PATH="$(dirname "$(dirname "${ARANGOSH}")")"
+  BUILD_PATH="$(dirname "$(dirname "${AVOCADOSH}")")"
   BUILD_PATH="${BUILD_PATH#${EXEC_PATH}/}"
 
   if test -n "$ORIGINAL_PATH"; then
@@ -64,7 +64,7 @@ fi
 
 (
   cd "${EXEC_PATH}"
-  exec $NUMA $ARANGOSH \
+  exec $NUMA $AVOCADOSH \
        -c etc${PS}relative${PS}avocadosh.conf \
        --log.level warning \
        --server.endpoint tcp://127.0.0.1:${PORT} \

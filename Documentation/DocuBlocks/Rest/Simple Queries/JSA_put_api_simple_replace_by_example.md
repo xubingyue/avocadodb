@@ -54,7 +54,7 @@ response body contains an error document in this case.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleReplaceByExample}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleReplaceByExample}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -76,11 +76,11 @@ response body contains an error document in this case.
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using new Signature for attributes WaitForSync and limit
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleReplaceByExampleWaitForSync}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleReplaceByExampleWaitForSync}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -102,6 +102,6 @@ Using new Signature for attributes WaitForSync and limit
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

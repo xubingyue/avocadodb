@@ -31,7 +31,7 @@
 #include "Endpoint/EndpointSrv.h"
 #include "Logger/Logger.h"
 
-#if ARANGODB_HAVE_DOMAIN_SOCKETS
+#if AVOCADODB_HAVE_DOMAIN_SOCKETS
 #include "Endpoint/EndpointUnixDomain.h"
 #endif
 
@@ -105,7 +105,7 @@ std::string Endpoint::unifiedForm(std::string const& specification) {
   }
 
   if (StringUtils::isPrefix(copy, "unix://")) {
-#if ARANGODB_HAVE_DOMAIN_SOCKETS
+#if AVOCADODB_HAVE_DOMAIN_SOCKETS
     return prefix + copy;
 #else
     // no unix socket for windows
@@ -228,7 +228,7 @@ Endpoint* Endpoint::factory(const Endpoint::EndpointType type,
   EncryptionType encryption = EncryptionType::NONE;
 
   if(StringUtils::isPrefix(copy, "unix://")) {
-#if ARANGODB_HAVE_DOMAIN_SOCKETS
+#if AVOCADODB_HAVE_DOMAIN_SOCKETS
     return new EndpointUnixDomain(type, listenBacklog, copy.substr(7));
 #else
     // no unix socket for windows
@@ -330,7 +330,7 @@ std::string const Endpoint::defaultEndpoint(TransportType type) {
              StringUtils::itoa(EndpointIp::_defaultPortVst);
 
     default: {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "invalid transport type");
     }
   }

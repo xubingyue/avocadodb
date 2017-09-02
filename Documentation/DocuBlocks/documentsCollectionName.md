@@ -28,29 +28,29 @@ first argument.
 
 Returns the document for a document-handle:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionName}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionName}
 ~ db._create("example");
 ~ var myid = db.example.insert({_key: "2873916"});
   db.example.document("example/2873916");
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 An error is raised if the document is unknown:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameUnknown}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameUnknown}
 ~ db._create("example");
 ~ var myid = db.example.insert({_key: "2873916"});
 | db.example.document("example/4472917");
-~     // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
+~     // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND)
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 An error is raised if the handle is invalid:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameHandle}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameHandle}
 ~ db._create("example");
-  db.example.document(""); // xpError(ERROR_ARANGO_DOCUMENT_HANDLE_BAD)
+  db.example.document(""); // xpError(ERROR_AVOCADO_DOCUMENT_HANDLE_BAD)
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

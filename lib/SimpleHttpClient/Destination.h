@@ -21,8 +21,8 @@
 /// @author Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_SIMPLE_HTTP_CLIENT_DESTINATION_H
-#define ARANGODB_SIMPLE_HTTP_CLIENT_DESTINATION_H 1
+#ifndef AVOCADODB_SIMPLE_HTTP_CLIENT_DESTINATION_H
+#define AVOCADODB_SIMPLE_HTTP_CLIENT_DESTINATION_H 1
 
 #include "Basics/Common.h"
 

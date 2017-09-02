@@ -96,7 +96,7 @@ function CollectionEdgeSuiteErrorHandling () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE.code, err.errorNum);
       }
 
       try {
@@ -104,7 +104,7 @@ function CollectionEdgeSuiteErrorHandling () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE.code, err.errorNum);
       }
       
       try {
@@ -112,7 +112,7 @@ function CollectionEdgeSuiteErrorHandling () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE.code, err.errorNum);
       }
     }
   };
@@ -173,7 +173,7 @@ function CollectionEdgeSuite () {
           fail();
         }
         catch (err) {
-          assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code, err.errorNum);
+          assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code, err.errorNum);
         }
       });
     },
@@ -489,7 +489,7 @@ function CollectionEdgeSuite () {
         edge.edges("t/h/e/f/o/x");
       } 
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
       }
     },
 
@@ -504,7 +504,7 @@ function CollectionEdgeSuite () {
         edge.edges("123456  ");
       } 
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
       }
     },
 
@@ -519,7 +519,7 @@ function CollectionEdgeSuite () {
         edge.inEdges("the//fox");
       } 
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
       }
     },
 
@@ -534,7 +534,7 @@ function CollectionEdgeSuite () {
         edge.inEdges(" 123456 ");
       } 
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
       }
     },
 
@@ -549,7 +549,7 @@ function CollectionEdgeSuite () {
         edge.outEdges("the//fox");
       } 
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
       }
     },
 
@@ -564,7 +564,7 @@ function CollectionEdgeSuite () {
         edge.outEdges("123456  ");
       } 
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code, err.errorNum);
       }
     },
 
@@ -583,7 +583,7 @@ function CollectionEdgeSuite () {
         fail();
       } 
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_COLLECTION_TYPE_INVALID.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_COLLECTION_TYPE_INVALID.code, err.errorNum);
       }
 
       db._drop(dn);

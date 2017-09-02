@@ -1004,7 +1004,7 @@ int MMFilesCompactorThread::copyMarker(MMFilesDatafile* compactor, MMFilesMarker
   int res = compactor->reserveElement(marker->getSize(), result, 0);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    return TRI_ERROR_ARANGO_NO_JOURNAL;
+    return TRI_ERROR_AVOCADO_NO_JOURNAL;
   }
 
   return compactor->writeElement(*result, marker, false);

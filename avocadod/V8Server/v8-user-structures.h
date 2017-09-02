@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_V8_SERVER_V8_USER_STRUCTURES_H
-#define ARANGOD_V8_SERVER_V8_USER_STRUCTURES_H 1
+#ifndef AVOCADOD_V8_SERVER_V8_USER_STRUCTURES_H
+#define AVOCADOD_V8_SERVER_V8_USER_STRUCTURES_H 1
 
 #include "Basics/Common.h"
 

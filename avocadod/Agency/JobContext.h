@@ -21,8 +21,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_JOB_CONTEXT_H
-#define ARANGOD_CONSENSUS_JOB_CONTEXT_H 1
+#ifndef AVOCADOD_CONSENSUS_JOB_CONTEXT_H
+#define AVOCADOD_CONSENSUS_JOB_CONTEXT_H 1
 
 #include "Job.h"
 

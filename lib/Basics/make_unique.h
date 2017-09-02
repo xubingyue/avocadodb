@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_MAKE__UNIQUE_H
-#define ARANGODB_BASICS_MAKE__UNIQUE_H 1
+#ifndef AVOCADODB_BASICS_MAKE__UNIQUE_H
+#define AVOCADODB_BASICS_MAKE__UNIQUE_H 1
 
 #include <cstddef>
 #include <memory>

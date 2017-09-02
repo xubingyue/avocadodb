@@ -339,7 +339,7 @@ void ExportFeature::collectionExport(SimpleHttpClient* httpClient) {
 
     if (fd < 0) {
       errorMsg = "cannot write to file '" + fileName + "'";
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
     }
 
     TRI_DEFER(TRI_TRACKED_CLOSE_FILE(fd));
@@ -397,7 +397,7 @@ void ExportFeature::queryExport(SimpleHttpClient* httpClient) {
 
   if (fd < 0) {
     errorMsg = "cannot write to file '" + fileName + "'";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
   }
 
   TRI_DEFER(TRI_TRACKED_CLOSE_FILE(fd));
@@ -537,7 +537,7 @@ void ExportFeature::writeToFile(int fd, std::string const& line,
                                 std::string const& fileName) {
   if (!TRI_WritePointer(fd, line.c_str(), line.size())) {
     std::string errorMsg = "cannot write to file '" + fileName + "'";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
   }
 }
 
@@ -553,7 +553,7 @@ std::shared_ptr<VPackBuilder> ExportFeature::httpCall(
   if (response == nullptr || !response->isComplete()) {
     errorMsg =
         "got invalid response from server: " + httpClient->getErrorMessage();
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
   }
 
   std::shared_ptr<VPackBuilder> parsedBody;
@@ -575,7 +575,7 @@ std::shared_ptr<VPackBuilder> ExportFeature::httpCall(
       errorMsg = "got invalid response from server: HTTP " +
                  StringUtils::itoa(response->getHttpReturnCode()) + ": " +
                  response->getHttpReturnMessage();
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
     }
   }
 
@@ -583,14 +583,14 @@ std::shared_ptr<VPackBuilder> ExportFeature::httpCall(
     parsedBody = response->getBodyVelocyPack();
   } catch (...) {
     errorMsg = "got malformed JSON response from server";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
   }
 
   VPackSlice body = parsedBody->slice();
 
   if (!body.isObject()) {
     errorMsg = "got malformed JSON response from server";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMsg);
   }
 
   return parsedBody;
@@ -651,7 +651,7 @@ void ExportFeature::graphExport(SimpleHttpClient* httpClient) {
 
   if (fd < 0) {
     errorMsg = "cannot write to file '" + fileName + "'";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_CANNOT_WRITE_FILE, errorMsg);
   }
   TRI_DEFER(TRI_TRACKED_CLOSE_FILE(fd));
 

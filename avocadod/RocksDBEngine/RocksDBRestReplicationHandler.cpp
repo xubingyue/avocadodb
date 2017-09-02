@@ -443,7 +443,7 @@ void RocksDBRestReplicationHandler::handleCommandBatch() {
 
     RocksDBReplicationContext* ctx = _manager->createContext();
     if (ctx == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "unable to create replication context");
     }
 
@@ -603,7 +603,7 @@ void RocksDBRestReplicationHandler::handleCommandLoggerFollow() {
 
     if (c == nullptr) {
       generateError(rest::ResponseCode::NOT_FOUND,
-                    TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                    TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
       return;
     }
 
@@ -664,7 +664,7 @@ void RocksDBRestReplicationHandler::handleCommandLoggerFollow() {
       HttpResponse* httpResponse = dynamic_cast<HttpResponse*>(_response.get());
 
       if (httpResponse == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "invalid response type");
       }
 
@@ -717,7 +717,7 @@ void RocksDBRestReplicationHandler::handleCommandDetermineOpenTransactions() {
     HttpResponse* httpResponse = dynamic_cast<HttpResponse*>(_response.get());
 
     if (httpResponse == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "invalid response type");
     }
 
@@ -876,7 +876,7 @@ void RocksDBRestReplicationHandler::handleCommandRestoreCollection() {
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   VPackBuilder result;
@@ -932,7 +932,7 @@ void RocksDBRestReplicationHandler::handleCommandCreateKeys() {
   int res = ctx->bindCollection(collection);
   if (res != TRI_ERROR_NO_ERROR) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return;
   }
 
@@ -1208,7 +1208,7 @@ void RocksDBRestReplicationHandler::handleCommandDump() {
   StringBuffer dump(TRI_UNKNOWN_MEM_ZONE);
 
   if (response == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response type");
   }
 
   // do the work!
@@ -1494,7 +1494,7 @@ void RocksDBRestReplicationHandler::handleCommandApplierSetConfig() {
       TRI_ConfigureReplicationApplier(_vocbase->replicationApplier(), &config);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   handleCommandApplierGetConfig();
@@ -1531,7 +1531,7 @@ void RocksDBRestReplicationHandler::handleCommandApplierStart() {
       _vocbase->replicationApplier()->start(initialTick, useTick, barrierId);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   handleCommandApplierGetState();
@@ -1547,7 +1547,7 @@ void RocksDBRestReplicationHandler::handleCommandApplierStop() {
   int res = _vocbase->replicationApplier()->stop(true, true);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   handleCommandApplierGetState();
@@ -1576,7 +1576,7 @@ void RocksDBRestReplicationHandler::handleCommandApplierDeleteState() {
 
   if (res != TRI_ERROR_NO_ERROR) {
     LOG_TOPIC(DEBUG, Logger::REPLICATION) << "unable to delete applier state";
-    THROW_ARANGO_EXCEPTION_MESSAGE(res, "unable to delete applier state");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res, "unable to delete applier state");
   }
 
   handleCommandApplierGetState();
@@ -1614,7 +1614,7 @@ void RocksDBRestReplicationHandler::handleCommandAddFollower() {
 
   if (col == nullptr) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                   "did not find collection");
     return;
   }
@@ -1709,7 +1709,7 @@ void RocksDBRestReplicationHandler::handleCommandRemoveFollower() {
 
   if (col == nullptr) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                   "did not find collection");
     return;
   }
@@ -1758,7 +1758,7 @@ void RocksDBRestReplicationHandler::handleCommandHoldReadLockCollection() {
 
   if (col == nullptr) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                   "did not find collection");
     return;
   }
@@ -1778,7 +1778,7 @@ void RocksDBRestReplicationHandler::handleCommandHoldReadLockCollection() {
 
   if (col->getStatusLocked() != TRI_VOC_COL_STATUS_LOADED) {
     generateError(rest::ResponseCode::SERVER_ERROR,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_LOADED,
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_LOADED,
                   "collection not loaded");
     return;
   }
@@ -2079,7 +2079,7 @@ int RocksDBRestReplicationHandler::processRestoreCollection(
         return res.errorNumber();
       }
     } else {
-      Result res = TRI_ERROR_ARANGO_DUPLICATE_NAME;
+      Result res = TRI_ERROR_AVOCADO_DUPLICATE_NAME;
 
       errorMsg =
           "unable to create collection '" + name + "': " + res.errorMessage();
@@ -2170,7 +2170,7 @@ int RocksDBRestReplicationHandler::processRestoreCollectionCoordinator(
         return res;
       }
     } else {
-      int res = TRI_ERROR_ARANGO_DUPLICATE_NAME;
+      int res = TRI_ERROR_AVOCADO_DUPLICATE_NAME;
 
       errorMsg = "unable to create collection '" + name + "': " +
                  std::string(TRI_errno_string(res));
@@ -2334,7 +2334,7 @@ int RocksDBRestReplicationHandler::createCollection(
 
   /* Temporary ASSERTS to prove correctness of new constructor */
   TRI_ASSERT(col->isSystem() == (name[0] == '_'));
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   TRI_voc_cid_t planId = 0;
   VPackSlice const planIdSlice = slice.get("planId");
   if (planIdSlice.isNumber()) {
@@ -2428,7 +2428,7 @@ int RocksDBRestReplicationHandler::processRestoreIndexes(
     if (!res.ok()) {
       errorMsg = "unable to start transaction: " + res.errorMessage();
       res.reset(res.errorNumber(), errorMsg);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     auto physical = collection->getPhysical();
@@ -2526,7 +2526,7 @@ int RocksDBRestReplicationHandler::processRestoreIndexesCoordinator(
     col = ci->getCollection(dbName, name);
   } catch (...) {
     errorMsg = "could not find collection '" + name + "'";
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(col != nullptr);
 

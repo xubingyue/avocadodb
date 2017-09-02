@@ -57,7 +57,7 @@ is returned if the operation was called with a different HTTP METHOD than PUT.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleRemove}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleRemove}
     var cn = "test";
   ~ db._drop(cn);
     db._create(cn);
@@ -75,9 +75,9 @@ is returned if the operation was called with a different HTTP METHOD than PUT.
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleRemoveNotFound}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleRemoveNotFound}
     var cn = "test";
   ~ db._drop(cn);
     db._create(cn);
@@ -94,7 +94,7 @@ is returned if the operation was called with a different HTTP METHOD than PUT.
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 

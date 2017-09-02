@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_IMPORT_SEND_THREAD_H
-#define ARANGODB_IMPORT_SEND_THREAD_H 1
+#ifndef AVOCADODB_IMPORT_SEND_THREAD_H
+#define AVOCADODB_IMPORT_SEND_THREAD_H 1
 
 #include "Basics/ConditionVariable.h"
 #include "Basics/StringBuffer.h"

@@ -336,7 +336,7 @@ static v8::Handle<v8::Object> RequestCppToV8(v8::Isolate* isolate,
   //        },
   //
   //        "cookies" : {
-  //          "ARANGODB_SESSION_ID" : "0cwuzusd23nw3qiwui84uwqwqw23e"
+  //          "AVOCADODB_SESSION_ID" : "0cwuzusd23nw3qiwui84uwqwqw23e"
   //        },
   //
   //        "requestType" : "GET",
@@ -427,7 +427,7 @@ static v8::Handle<v8::Object> RequestCppToV8(v8::Isolate* isolate,
     if (rest::ContentType::JSON == request->contentType()) {
       auto httpreq = dynamic_cast<HttpRequest*>(request);
       if (httpreq == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
       }
       std::string const& body = httpreq->body();
       req->ForceSet(RequestBodyKey, TRI_V8_STD_STRING(body));
@@ -533,7 +533,7 @@ static v8::Handle<v8::Object> RequestCppToV8(v8::Isolate* isolate,
     HttpRequest* httpRequest = dynamic_cast<HttpRequest*>(request);
     if (httpRequest == nullptr) {
       // maybe we can just continue
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
     } else {
       for (auto& it : httpRequest->cookieValues()) {
         cookiesObject->ForceSet(TRI_V8_STD_STRING(it.first),
@@ -769,7 +769,7 @@ static void ResponseV8ToCpp(v8::Isolate* isolate, TRI_v8_global_t const* v8g,
     char* content = TRI_SlurpFile(TRI_UNKNOWN_MEM_ZONE, *filename, &length);
 
     if (content == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_FILE_NOT_FOUND,
           std::string("unable to read file '") + *filename + "'");
     }
@@ -867,7 +867,7 @@ static TRI_action_result_t ExecuteActionVocbase(
   v8::TryCatch tryCatch;
 
   if (response == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response");
   }
 
   TRI_GET_GLOBALS();
@@ -966,7 +966,7 @@ static TRI_action_result_t ExecuteActionVocbase(
 
       std::string jsError = TRI_StringifyV8Exception(isolate, &tryCatch);
       LOG_TOPIC(WARN, avocadodb::Logger::V8) << "Caught an error while executing an action: " << jsError;
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
       // TODO how to generalize this?
       if (response->transportType() ==
           Endpoint::TransportType::HTTP) {  // FIXME
@@ -1398,7 +1398,7 @@ void TRI_InitV8Actions(v8::Isolate* isolate, v8::Handle<v8::Context> context) {
 /// Below Debugging Functions. Only compiled in maintainer mode.
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 static int clusterSendToAllServers(
     std::string const& dbname,
     std::string const& path,  // Note: Has to be properly encoded!
@@ -1450,7 +1450,7 @@ static int clusterSendToAllServers(
 /// intentionally cause a segmentation violation
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 static void JS_DebugSegfault(v8::FunctionCallbackInfo<v8::Value> const& args) {
   TRI_V8_TRY_CATCH_BEGIN(isolate);
   v8::HandleScope scope(isolate);
@@ -1479,7 +1479,7 @@ static void JS_DebugSegfault(v8::FunctionCallbackInfo<v8::Value> const& args) {
 /// Set a point for an intentional system failure
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 static void JS_DebugSetFailAt(v8::FunctionCallbackInfo<v8::Value> const& args) {
   TRI_V8_TRY_CATCH_BEGIN(isolate);
   v8::HandleScope scope(isolate);
@@ -1522,7 +1522,7 @@ static void JS_DebugSetFailAt(v8::FunctionCallbackInfo<v8::Value> const& args) {
 /// Remove a point for an intentional system failure
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 static void JS_DebugRemoveFailAt(
     v8::FunctionCallbackInfo<v8::Value> const& args) {
   TRI_V8_TRY_CATCH_BEGIN(isolate);
@@ -1577,7 +1577,7 @@ static void JS_DebugClearFailAt(
   }
 
 // if failure testing is not enabled, this is a no-op
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   TRI_ClearFailurePointsDebugging();
 
   if (ServerState::instance()->isCoordinator()) {
@@ -1609,7 +1609,7 @@ void TRI_InitV8DebugUtils(v8::Isolate* isolate, v8::Handle<v8::Context> context,
   TRI_AddGlobalFunctionVocbase(isolate,
                                TRI_V8_ASCII_STRING("SYS_DEBUG_CLEAR_FAILAT"),
                                JS_DebugClearFailAt);
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   TRI_AddGlobalFunctionVocbase(isolate, 
                                TRI_V8_ASCII_STRING("SYS_DEBUG_SEGFAULT"),
                                JS_DebugSegfault);

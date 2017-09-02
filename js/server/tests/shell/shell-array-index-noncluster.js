@@ -116,7 +116,7 @@ function arrayHashIndexSuite () {
         collection.save({a: ["duplicate", null, "duplicate"], b: ["duplicate", null, "duplicate"]});
         fail();
       } catch (e) {
-        assertEqual(e.errorNum, errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code);
+        assertEqual(e.errorNum, errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code);
       }
     },
 
@@ -134,7 +134,7 @@ function arrayHashIndexSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
     },
 
@@ -152,7 +152,7 @@ function arrayHashIndexSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
     },
 
@@ -262,7 +262,7 @@ function arraySkiplistIndexSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
     },
 
@@ -280,7 +280,7 @@ function arraySkiplistIndexSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
+        assertEqual(errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code, err.errorNum);
       }
     }
 

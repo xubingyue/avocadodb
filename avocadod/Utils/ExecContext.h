@@ -20,8 +20,8 @@
 /// @author Manuel Baesler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_EXECCONTEXT_H
-#define ARANGOD_UTILS_EXECCONTEXT_H 1
+#ifndef AVOCADOD_UTILS_EXECCONTEXT_H
+#define AVOCADOD_UTILS_EXECCONTEXT_H 1
 
 #include <string>
 #include "Utils/Authentication.h"

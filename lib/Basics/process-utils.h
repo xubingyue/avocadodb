@@ -21,8 +21,8 @@
 /// @author Esteban Lombeyda
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_PROCESS__UTILS_H
-#define ARANGODB_BASICS_PROCESS__UTILS_H 1
+#ifndef AVOCADODB_BASICS_PROCESS__UTILS_H
+#define AVOCADODB_BASICS_PROCESS__UTILS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/threads.h"
@@ -131,7 +131,7 @@ void TRI_LogProcessInfoSelf(char const* message = nullptr);
 /// @brief converts usec and sec into seconds
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_HAVE_GETRUSAGE
+#ifdef AVOCADODB_HAVE_GETRUSAGE
 uint64_t TRI_MicrosecondsTv(struct timeval* tv);
 #endif
 

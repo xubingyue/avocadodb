@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_VELOCY_PACK_HELPER_H
-#define ARANGODB_BASICS_VELOCY_PACK_HELPER_H 1
+#ifndef AVOCADODB_BASICS_VELOCY_PACK_HELPER_H
+#define AVOCADODB_BASICS_VELOCY_PACK_HELPER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -216,10 +216,10 @@ class VelocyPackHelper {
   static typename std::enable_if<std::is_unsigned<T>::value, T>::type getNumericValue(VPackSlice const& slice, T defaultValue) {
     if (slice.isNumber()) {
       if (slice.isInt() && slice.getInt() < 0) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot assign negative value to unsigned type");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot assign negative value to unsigned type");
       }
       if (slice.isDouble() && slice.getDouble() < 0.0) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot assign negative value to unsigned type");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot assign negative value to unsigned type");
       }
       return slice.getNumber<T>();
     }
@@ -303,13 +303,13 @@ class VelocyPackHelper {
     if (!slice.hasKey(name)) {
       std::string msg =
           "The attribute '" + std::string(name) + "' was not found.";
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
     }
     VPackSlice const sub = slice.get(name);
     if (!sub.isNumber()) {
       std::string msg =
           "The attribute '" + std::string(name) + "' is not a number.";
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
     }
     return sub.getNumericValue<T>();
   }

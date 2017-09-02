@@ -38,22 +38,22 @@ request.
 
 Return the version information
 
-@EXAMPLE_ARANGOSH_RUN{RestVersion}
+@EXAMPLE_AVOCADOSH_RUN{RestVersion}
     var response = logCurlRequest('GET', '/_api/version');
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Return the version information with details
 
-@EXAMPLE_ARANGOSH_RUN{RestVersionDetails}
+@EXAMPLE_AVOCADOSH_RUN{RestVersionDetails}
     var response = logCurlRequest('GET', '/_api/version?details=true');
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

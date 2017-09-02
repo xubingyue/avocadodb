@@ -11,7 +11,7 @@ and no exception will be thrown for them.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionLookupByKeys}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionLookupByKeys}
 ~ db._drop("example");
 ~ db._create("example");
   keys = [ ];
@@ -21,5 +21,5 @@ and no exception will be thrown for them.
   }
   db.example.documents(keys);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

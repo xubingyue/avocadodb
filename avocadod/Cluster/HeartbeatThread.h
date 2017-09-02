@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_HEARTBEAT_THREAD_H
-#define ARANGOD_CLUSTER_HEARTBEAT_THREAD_H 1
+#ifndef AVOCADOD_CLUSTER_HEARTBEAT_THREAD_H
+#define AVOCADOD_CLUSTER_HEARTBEAT_THREAD_H 1
 
 #include "Basics/Thread.h"
 

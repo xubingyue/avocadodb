@@ -12,7 +12,7 @@ The *edges* operator finds all edges starting from (outbound) a document
 from *vertices*, which must a list of documents or document handles.
 
 @EXAMPLES
-@EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
+@EXAMPLE_AVOCADOSH_OUTPUT{EDGCOL_02_outEdges}
   db._create("vertex");
   db._createEdgeCollection("relation");
 ~ var myGraph = {};
@@ -25,6 +25,6 @@ from *vertices*, which must a list of documents or document handles.
   db.relation.outEdges(myGraph.v2._id);
 ~ db._drop("relation");
 ~ db._drop("vertex");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

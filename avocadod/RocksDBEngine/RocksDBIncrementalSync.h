@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_INCREMENTAL_SYNC_H
-#define ARANGOD_ROCKSDB_ROCKSDB_INCREMENTAL_SYNC_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_INCREMENTAL_SYNC_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_INCREMENTAL_SYNC_H 1
 
 #include "Basics/Common.h"
 #include "Replication/InitialSyncer.h"

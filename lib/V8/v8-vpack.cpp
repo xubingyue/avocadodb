@@ -122,7 +122,7 @@ static v8::Handle<v8::Value> ObjectVPackObject(v8::Isolate* isolate,
     }
 
     if (avocadodb::V8PlatformFeature::isOutOfMemory(isolate)) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     it.next();
@@ -157,7 +157,7 @@ static v8::Handle<v8::Value> ObjectVPackArray(v8::Isolate* isolate,
       object->Set(j++, val);
     }
     if (avocadodb::V8PlatformFeature::isOutOfMemory(isolate)) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
     it.next();
   }
@@ -233,7 +233,7 @@ v8::Handle<v8::Value> TRI_VPackToV8(v8::Isolate* isolate,
     case VPackValueType::Custom: {
       if (options == nullptr || options->customTypeHandler == nullptr ||
           base == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "Could not extract custom attribute.");
       }
       std::string id =

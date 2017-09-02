@@ -83,7 +83,7 @@ std::string const& ExecutionNode::getTypeString() const {
     return (*it).second;
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                  "missing type in TypeNames");
 }
 
@@ -91,7 +91,7 @@ void ExecutionNode::validateType(int type) {
   auto it = TypeNames.find(static_cast<int>(type));
 
   if (it == TypeNames.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "unknown TypeID");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, "unknown TypeID");
   }
 }
 
@@ -104,7 +104,7 @@ void ExecutionNode::getSortElements(SortElementVector& elements,
   if (!elementsSlice.isArray()) {
     std::string error = std::string("unexpected value for ") +
                         std::string(which) + std::string(" elements");
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, error);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, error);
   }
 
   elements.reserve(elementsSlice.length());
@@ -174,7 +174,7 @@ ExecutionNode* ExecutionNode::fromVPackFactory(
       // groups
       VPackSlice groupsSlice = slice.get("groups");
       if (!groupsSlice.isArray()) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                        "invalid \"groups\" definition");
       }
 
@@ -192,7 +192,7 @@ ExecutionNode* ExecutionNode::fromVPackFactory(
       // aggregates
       VPackSlice aggregatesSlice = slice.get("aggregates");
       if (!aggregatesSlice.isArray()) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                        "invalid \"aggregates\" definition");
       }
 
@@ -280,7 +280,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
 
   VPackSlice varInfoList = slice.get("varInfoList");
   if (!varInfoList.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "\"varInfoList\" attribute needs to be an array");
   }
 
@@ -288,7 +288,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
 
   for (auto const& it : VPackArrayIterator(varInfoList)) {
     if (!it.isObject()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_NOT_IMPLEMENTED,
           "\"varInfoList\" item needs to be an object");
     }
@@ -301,7 +301,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
 
   VPackSlice nrRegsList = slice.get("nrRegs");
   if (!nrRegsList.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "\"nrRegs\" attribute needs to be an array");
   }
 
@@ -312,7 +312,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
 
   VPackSlice nrRegsHereList = slice.get("nrRegsHere");
   if (!nrRegsHereList.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                    "\"nrRegsHere\" needs to be an array");
   }
 
@@ -323,7 +323,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
 
   VPackSlice regsToClearList = slice.get("regsToClear");
   if (!regsToClearList.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                    "\"regsToClear\" needs to be an array");
   }
 
@@ -336,7 +336,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
 
   VPackSlice varsUsedLater = slice.get("varsUsedLater");
   if (!varsUsedLater.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                    "\"varsUsedLater\" needs to be an array");
   }
 
@@ -348,7 +348,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
     if (oneVariable == nullptr) {
       std::string errmsg = "varsUsedLater: ID not found in all-array: " +
                            StringUtils::itoa(oneVarUsedLater->id);
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, errmsg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, errmsg);
     }
     _varsUsedLater.emplace(oneVariable);
   }
@@ -356,7 +356,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
   VPackSlice varsValidList = slice.get("varsValid");
 
   if (!varsValidList.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                    "\"varsValid\" needs to be an array");
   }
 
@@ -368,7 +368,7 @@ ExecutionNode::ExecutionNode(ExecutionPlan* plan,
     if (oneVariable == nullptr) {
       std::string errmsg = "varsValid: ID not found in all-array: " +
                            StringUtils::itoa(oneVarValid->id);
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, errmsg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, errmsg);
     }
     _varsValid.emplace(oneVariable);
   }
@@ -496,7 +496,7 @@ void ExecutionNode::invalidateCost() {
 
 /// @brief functionality to walk an execution plan recursively
 bool ExecutionNode::walk(WalkerWorker<ExecutionNode>* worker) {
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   // Only do every node exactly once
   // note: this check is not required normally because execution
   // plans do not contain cycles
@@ -1103,7 +1103,7 @@ void ExecutionNode::RegisterPlan::after(ExecutionNode* en) {
 
         if (it2 == varInfo.end()) {
           // report an error here to prevent crashing
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, std::string("missing variable #") + std::to_string(v->id) + " (" + v->name + ") for node #" + std::to_string(en->id()) + " (" + en->getTypeString() + ") while planning registers"); 
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, std::string("missing variable #") + std::to_string(v->id) + " (" + v->name + ") for node #" + std::to_string(en->id()) + " (" + en->getTypeString() + ") while planning registers"); 
         }
 
         // finally adjust the variable inside the IN calculation

@@ -321,17 +321,17 @@ SECTION("tst_unique_remove") {
   int value;
   
   value = -1;
-  CHECK(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
+  CHECK(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
   value = 0;
-  CHECK(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
+  CHECK(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
   value = 12;
-  CHECK(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
+  CHECK(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
   value = 99;
-  CHECK(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
+  CHECK(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
   value = 101;
-  CHECK(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
+  CHECK(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
   value = 1000;
-  CHECK(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
+  CHECK(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, &value));
 
   // check start node
   CHECK(values[2] == skiplist.startNode()->nextNode()->document());
@@ -419,7 +419,7 @@ SECTION("tst_unique_remove_all") {
   
   // try removing again
   for (int i = 0; i < 100; ++i) {
-    CHECK(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, values[i]));
+    CHECK(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND == skiplist.remove(nullptr, values[i]));
   }
   
   // check start node

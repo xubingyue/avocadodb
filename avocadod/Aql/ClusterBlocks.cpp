@@ -576,7 +576,7 @@ AqlItemBlock* BlockWithClients::getSomeForShard(size_t atLeast, size_t atMost,
     delete result;
   }
 
-  THROW_ARANGO_EXCEPTION(out);
+  THROW_AVOCADO_EXCEPTION(out);
 
   DEBUG_END_BLOCK();
 }
@@ -591,7 +591,7 @@ size_t BlockWithClients::skipSomeForShard(size_t atLeast, size_t atMost,
       getOrSkipSomeForShard(atLeast, atMost, true, result, skipped, shardId);
   TRI_ASSERT(result == nullptr);
   if (out != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(out);
+    THROW_AVOCADO_EXCEPTION(out);
   }
   return skipped;
 
@@ -622,14 +622,14 @@ bool BlockWithClients::skipForShard(size_t number, std::string const& shardId) {
 size_t BlockWithClients::getClientId(std::string const& shardId) {
   DEBUG_BEGIN_BLOCK();
   if (shardId.empty()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "got empty shard id");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "got empty shard id");
   }
 
   auto it = _shardIdMap.find(shardId);
   if (it == _shardIdMap.end()) {
     std::string message("AQL: unknown shard id ");
     message.append(shardId);
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
   }
   return ((*it).second);
 
@@ -1065,7 +1065,7 @@ size_t DistributeBlock::sendToClient(AqlItemBlock* cur) {
     value = builder.slice();
     hasCreatedKeyAttribute = true;
   } else if (!input.isObject()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID);
   }
 
   TRI_ASSERT(value.isObject());
@@ -1102,7 +1102,7 @@ size_t DistributeBlock::sendToClient(AqlItemBlock* cur) {
       if (hasCreatedKeyAttribute || value.hasKey(StaticStrings::KeyString)) {
         // a _key was given, but user is not allowed to specify _key
         if (usedAlternativeRegId || !_allowSpecifiedKeys) {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_MUST_NOT_SPECIFY_KEY);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_MUST_NOT_SPECIFY_KEY);
         }
       } else {
         VPackBuilder temp;
@@ -1136,7 +1136,7 @@ size_t DistributeBlock::sendToClient(AqlItemBlock* cur) {
   // std::cout << "SHARDID: " << shardId << "\n";
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   TRI_ASSERT(!shardId.empty());
@@ -1162,7 +1162,7 @@ static bool throwExceptionAfterBadSyncRequest(ClusterCommResult* res,
   DEBUG_BEGIN_BLOCK();
   if (res->status == CL_COMM_TIMEOUT ||
       res->status == CL_COMM_BACKEND_UNAVAILABLE) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res->getErrorCode(),
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res->getErrorCode(),
                                    res->stringifyErrorMessage());
   }
 
@@ -1212,11 +1212,11 @@ static bool throwExceptionAfterBadSyncRequest(ClusterCommResult* res,
 
     // In this case a proper HTTP error was reported by the DBserver,
     if (errorNum > 0 && !errorMessage.empty()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(errorNum, errorMessage);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(errorNum, errorMessage);
     }
 
     // default error
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
   }
 
   return false;
@@ -1496,7 +1496,7 @@ size_t RemoteBlock::skipSome(size_t atLeast, size_t atMost) {
     VPackSlice slice = builder->slice();
 
     if (!slice.hasKey("error") || slice.get("error").getBoolean()) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
     }
     size_t skipped = 0;
     if (slice.hasKey("skipped")) {
@@ -1525,7 +1525,7 @@ bool RemoteBlock::hasMore() {
   VPackSlice slice = builder->slice();
 
   if (!slice.hasKey("error") || slice.get("error").getBoolean()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
   }
   bool hasMore = true;
   if (slice.hasKey("hasMore")) {
@@ -1553,7 +1553,7 @@ int64_t RemoteBlock::count() const {
   VPackSlice slice = builder->slice();
 
   if (!slice.hasKey("error") || slice.get("error").getBoolean()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
   }
 
   int64_t count = 0;
@@ -1582,7 +1582,7 @@ int64_t RemoteBlock::remaining() {
   VPackSlice slice = builder->slice();
 
   if (!slice.hasKey("error") || slice.get("error").getBoolean()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_AQL_COMMUNICATION);
   }
 
   int64_t remaining = 0;

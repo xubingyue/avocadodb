@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_CURSOR_REPOSITORY_H
-#define ARANGOD_UTILS_CURSOR_REPOSITORY_H 1
+#ifndef AVOCADOD_UTILS_CURSOR_REPOSITORY_H
+#define AVOCADOD_UTILS_CURSOR_REPOSITORY_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Mutex.h"

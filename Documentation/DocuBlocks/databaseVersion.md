@@ -8,7 +8,7 @@ database.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
+@EXAMPLE_AVOCADOSH_OUTPUT{dbVersion}
   require("@avocadodb").db._version();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

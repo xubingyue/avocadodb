@@ -14,7 +14,7 @@ will not be supported in future versions of AvocadoDB.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{querySkip}
+@EXAMPLE_AVOCADOSH_OUTPUT{querySkip}
 ~ db._create("five");
 ~ db.five.save({ name : "one" });
 ~ db.five.save({ name : "two" });
@@ -24,6 +24,6 @@ will not be supported in future versions of AvocadoDB.
   db.five.all().toArray();
   db.five.all().skip(3).toArray();
 ~ db._drop("five")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_AUTH_USER_H
-#define ARANGOD_VOC_BASE_AUTH_USER_H 1
+#ifndef AVOCADOD_VOC_BASE_AUTH_USER_H
+#define AVOCADOD_VOC_BASE_AUTH_USER_H 1
 
 #include "Basics/Common.h"
 #include "Utils/Authentication.h"

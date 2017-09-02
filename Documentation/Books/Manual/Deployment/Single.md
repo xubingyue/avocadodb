@@ -25,20 +25,20 @@ Provide one of the arguments to Docker as an environment variable.
 
 There are three options:
 
-1. ARANGO_NO_AUTH=1
+1. AVOCADO_NO_AUTH=1
 
    Disable authentication completely. Useful for local testing or for operating in a trusted network (without a public interface).
         
-2. ARANGO_ROOT_PASSWORD=password
+2. AVOCADO_ROOT_PASSWORD=password
 
    Start AvocadoDB with the given password for root
         
-3. ARANGO_RANDOM_ROOT_PASSWORD=1
+3. AVOCADO_RANDOM_ROOT_PASSWORD=1
 
    Let AvocadoDB generate a random root password
         
 To get going quickly:
 
-`docker run -e ARANGO_RANDOM_ROOT_PASSWORD=1 avocadodb/avocadodb`
+`docker run -e AVOCADO_RANDOM_ROOT_PASSWORD=1 avocadodb/avocadodb`
 
 For an in depth guide about Docker and AvocadoDB please check the official documentation: https://hub.docker.com/r/avocadodb/avocadodb/ . Note that we are using the image `avocadodb/avocadodb` here which is always the most current one. There is also the "official" one called `avocadodb` whose documentation is here: https://hub.docker.com/_/avocadodb/

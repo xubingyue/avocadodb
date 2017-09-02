@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_AGGREGATOR_HANDLER_H
-#define ARANGODB_PREGEL_AGGREGATOR_HANDLER_H 1
+#ifndef AVOCADODB_PREGEL_AGGREGATOR_HANDLER_H
+#define AVOCADODB_PREGEL_AGGREGATOR_HANDLER_H 1
 
 #include <velocypack/Builder.h>
 #include <velocypack/Slice.h>

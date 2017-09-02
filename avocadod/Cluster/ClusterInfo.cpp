@@ -848,8 +848,8 @@ std::shared_ptr<LogicalCollection> ClusterInfo::getCollection(
     // must load collections outside the lock
     loadPlan();
   }
-  THROW_ARANGO_EXCEPTION_MESSAGE(
-      TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(
+      TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
       "Collection not found: " + collectionID + " in database " + databaseID);
 }
 
@@ -1019,7 +1019,7 @@ int ClusterInfo::createDatabaseCoordinator(std::string const& name,
   if (!res.successful()) {
     if (res._statusCode ==
         (int)avocadodb::rest::ResponseCode::PRECONDITION_FAILED) {
-      return setErrormsg(TRI_ERROR_ARANGO_DUPLICATE_NAME, errorMsg);
+      return setErrormsg(TRI_ERROR_AVOCADO_DUPLICATE_NAME, errorMsg);
     }
     errorMsg = std::string("Failed to create database with ") +
       res._clientId + " at " + __FILE__ + ":" + std::to_string(__LINE__);
@@ -1192,16 +1192,16 @@ int ClusterInfo::createCollectionCoordinator(std::string const& databaseName,
 
       if (it2 != (*it).second.end()) {
         // collection already exists!
-        events::CreateCollection(name, TRI_ERROR_ARANGO_DUPLICATE_NAME);
-        return TRI_ERROR_ARANGO_DUPLICATE_NAME;
+        events::CreateCollection(name, TRI_ERROR_AVOCADO_DUPLICATE_NAME);
+        return TRI_ERROR_AVOCADO_DUPLICATE_NAME;
       }
     }
   }
 
   // mop: why do these ask the agency instead of checking cluster info?
   if (!ac.exists("Plan/Databases/" + databaseName)) {
-    events::CreateCollection(name, TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
-    return setErrormsg(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND, errorMsg);
+    events::CreateCollection(name, TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
+    return setErrormsg(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND, errorMsg);
   }
 
   if (ac.exists("Plan/Collections/" + databaseName + "/" + collectionID)) {
@@ -1595,7 +1595,7 @@ int ClusterInfo::setCollectionPropertiesCoordinator(
   res = ac.getValues("Plan/Collections/" + databaseName + "/" + collectionID);
 
   if (!res.successful()) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   velocypack::Slice collection = res.slice()[0].get(
@@ -1603,7 +1603,7 @@ int ClusterInfo::setCollectionPropertiesCoordinator(
                                 "Collections", databaseName, collectionID}));
 
   if (!collection.isObject()) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
  
   VPackBuilder temp;     
@@ -1650,7 +1650,7 @@ int ClusterInfo::setCollectionStatusCoordinator(
   res = ac.getValues("Plan/Collections/" + databaseName + "/" + collectionID);
 
   if (!res.successful()) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   VPackSlice col = res.slice()[0].get(
@@ -1658,7 +1658,7 @@ int ClusterInfo::setCollectionStatusCoordinator(
                                 "Collections", databaseName, collectionID}));
 
   if (!col.isObject()) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   TRI_vocbase_col_status_e old = static_cast<TRI_vocbase_col_status_e>(
@@ -1820,7 +1820,7 @@ int ClusterInfo::ensureIndexCoordinatorWithoutRollback(
                                 "Collections", databaseName, collectionID}));
 
   if (!collection.isObject()) {
-    return setErrormsg(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND, errorMsg);
+    return setErrormsg(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND, errorMsg);
   }
 
   loadPlan();
@@ -1838,7 +1838,7 @@ int ClusterInfo::ensureIndexCoordinatorWithoutRollback(
         getCollection(databaseName, collectionID);
 
     if (c == nullptr) {
-      return setErrormsg(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND, errorMsg);
+      return setErrormsg(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND, errorMsg);
     }
 
     std::shared_ptr<VPackBuilder> tmp = std::make_shared<VPackBuilder>();
@@ -1979,7 +1979,7 @@ int ClusterInfo::ensureIndexCoordinatorWithoutRollback(
               // otherwise
               *dbServerResult =
                   avocadodb::basics::VelocyPackHelper::getNumericValue<int>(
-                      v, "errorNum", TRI_ERROR_ARANGO_INDEX_CREATION_FAILED);
+                      v, "errorNum", TRI_ERROR_AVOCADO_INDEX_CREATION_FAILED);
               return true;
             }
 
@@ -2133,8 +2133,8 @@ int ClusterInfo::dropIndexCoordinator(std::string const& databaseName,
                                 "Collections", databaseName, collectionID}));
   if (!previous.isObject()) {
     events::DropIndex(collectionID, idString,
-                      TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+                      TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   TRI_ASSERT(VPackObjectIterator(previous).size() > 0);
@@ -2212,7 +2212,7 @@ int ClusterInfo::dropIndexCoordinator(std::string const& databaseName,
     READ_LOCKER(readLocker, _planProt.lock);
 
     if (c == nullptr) {
-      return setErrormsg(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND, errorMsg);
+      return setErrormsg(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND, errorMsg);
     }
     c->getIndexesVPack(tmp, false, false);
     indexes = tmp.slice();
@@ -2228,7 +2228,7 @@ int ClusterInfo::dropIndexCoordinator(std::string const& databaseName,
           << "/" << iid << " - " << e.what();
       }
       // no indexes present, so we can't delete our index
-      return setErrormsg(TRI_ERROR_ARANGO_INDEX_NOT_FOUND, errorMsg);
+      return setErrormsg(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND, errorMsg);
     }
 
     MUTEX_LOCKER(guard, *numberOfShardsMutex);
@@ -2270,7 +2270,7 @@ int ClusterInfo::dropIndexCoordinator(std::string const& databaseName,
         << "Failed to find index " << databaseName << "/" << collectionID
         << "/" << iid << " - " << e.what();
     }
-    return setErrormsg(TRI_ERROR_ARANGO_INDEX_NOT_FOUND, errorMsg);
+    return setErrormsg(TRI_ERROR_AVOCADO_INDEX_NOT_FOUND, errorMsg);
   }
 
   VPackBuilder newCollectionBuilder;
@@ -2768,7 +2768,7 @@ std::shared_ptr<std::vector<ShardID>> ClusterInfo::getShardList(
 /// values for some of the sharding attributes is silently ignored
 /// and treated as if these values were `null`. In the second mode
 /// (`docComplete`==false) leads to an error which is reported by
-/// returning TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND, which is the only
+/// returning TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND, which is the only
 /// error code that can be returned.
 ///
 /// In either case, if the collection is found, the variable
@@ -2824,7 +2824,7 @@ int ClusterInfo::getResponsibleShard(LogicalCollection* collInfo,
   }
 
   if (!found) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   int error = TRI_ERROR_NO_ERROR;

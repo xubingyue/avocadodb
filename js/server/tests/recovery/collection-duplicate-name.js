@@ -42,7 +42,7 @@ function runSetup () {
     db._create('UnitTestsRecovery');
   } catch (e) {
     // This intentionally should fail!
-    if (internal.errors.ERROR_ARANGO_DUPLICATE_NAME.code === e.errorNum) {
+    if (internal.errors.ERROR_AVOCADO_DUPLICATE_NAME.code === e.errorNum) {
       // Only this is a valid return code from the server
       return 0;
     }

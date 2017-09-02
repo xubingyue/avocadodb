@@ -312,7 +312,7 @@ function ClusterCollectionSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DUPLICATE_NAME.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DUPLICATE_NAME.code, err.errorNum);
       }
 
       assertEqual(c.name(), db._collection("UnitTestsClusterCrud").name());
@@ -328,7 +328,7 @@ function ClusterCollectionSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_ILLEGAL_NAME.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_ILLEGAL_NAME.code, err.errorNum);
       }
 
       assertNull(db._collection("1234"));
@@ -344,7 +344,7 @@ function ClusterCollectionSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_ILLEGAL_NAME.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_ILLEGAL_NAME.code, err.errorNum);
       }
     },
 
@@ -364,7 +364,7 @@ function ClusterCollectionSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_ILLEGAL_NAME.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_ILLEGAL_NAME.code, err.errorNum);
       }
 
       assertNull(db._collection("_foo"));

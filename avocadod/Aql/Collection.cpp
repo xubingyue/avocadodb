@@ -69,7 +69,7 @@ size_t Collection::count(transaction::Methods* trx) const {
       std::vector<std::pair<std::string, uint64_t>> result;
       int res = avocadodb::countOnCoordinator(vocbase->name(), name, result);
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(
+        THROW_AVOCADO_EXCEPTION_MESSAGE(
             res, "could not determine number of documents in collection");
       }
       uint64_t count = 0;

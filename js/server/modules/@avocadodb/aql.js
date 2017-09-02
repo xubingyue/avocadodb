@@ -586,7 +586,7 @@ function COLLECTION (name, func) {
   }
 
   if (c === null || c === undefined) {
-    THROW(func, INTERNAL.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND, String(name));
+    THROW(func, INTERNAL.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND, String(name));
   }
   return c;
 }
@@ -1215,7 +1215,7 @@ function AQL_COLLECTION_COUNT (name) {
 
   var c = INTERNAL.db._collection(name);
   if (c === null || c === undefined) {
-    THROW('COLLECTION_COUNT', INTERNAL.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND, String(name));
+    THROW('COLLECTION_COUNT', INTERNAL.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND, String(name));
   }
   return c.count();
 }

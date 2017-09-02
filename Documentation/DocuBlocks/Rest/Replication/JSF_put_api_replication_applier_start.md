@@ -42,7 +42,7 @@ is returned if an error occurred while assembling the response.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationApplierStart}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationApplierStart}
     var re = require("@avocadodb/replication");
     re.applier.shutdown();
     re.applier.properties({
@@ -59,6 +59,6 @@ is returned if an error occurred while assembling the response.
 
     assert(response.code === 200);
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

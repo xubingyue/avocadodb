@@ -132,7 +132,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionCreateCollection}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionCreateCollection}
     var url = "/_api/collection";
     var body = {
       name: "testCollectionBasics"
@@ -156,9 +156,9 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
     db._flushCache();
     db._drop("testCollectionBasics");
     db._drop("testCollectionEdges");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionCreateKeyopt}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionCreateKeyopt}
     var url = "/_api/collection";
     var body = {
       name: "testCollectionUsers",
@@ -176,6 +176,6 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
     db._flushCache();
     db._drop("testCollectionUsers");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

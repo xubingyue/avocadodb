@@ -39,12 +39,12 @@ first argument.
 
 Create and replace a document:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentReplace}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsDocumentReplace}
 ~ db._create("example");
   a1 = db.example.insert({ a : 1 });
   a2 = db._replace(a1, { a : 2 });
-  a3 = db._replace(a1, { a : 3 });  // xpError(ERROR_ARANGO_CONFLICT);
+  a3 = db._replace(a1, { a : 3 });  // xpError(ERROR_AVOCADO_CONFLICT);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_REPLICATION_MANAGER_H
-#define ARANGO_ROCKSDB_ROCKSDB_REPLICATION_MANAGER_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_REPLICATION_MANAGER_H
+#define AVOCADO_ROCKSDB_ROCKSDB_REPLICATION_MANAGER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Mutex.h"

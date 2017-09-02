@@ -254,7 +254,7 @@ StringBuffer* SocketTask::leaseStringBuffer(size_t length) {
     size_t const n = buffer->capacity();
     if (n < length) {
       if (buffer->reserve(length) != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
     }
     _stringBuffers.pop_back();
@@ -270,7 +270,7 @@ StringBuffer* SocketTask::leaseStringBuffer(size_t length) {
   }
 
   delete buffer;
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
 }
   
 void SocketTask::returnStringBuffer(StringBuffer* buffer) {

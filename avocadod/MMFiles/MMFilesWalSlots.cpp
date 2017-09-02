@@ -115,15 +115,15 @@ int MMFilesWalSlots::flush(bool waitForSync) {
     if (waitForSync) {
       // wait until data has been committed to disk
       if (!waitForTick(lastTick)) {
-        res = TRI_ERROR_ARANGO_SYNC_TIMEOUT;
+        res = TRI_ERROR_AVOCADO_SYNC_TIMEOUT;
       } else if (!worked) {
-        res = TRI_ERROR_ARANGO_DATAFILE_EMPTY;
+        res = TRI_ERROR_AVOCADO_DATAFILE_EMPTY;
       }
     } else if (!worked) {
       // logfile to flush was still empty and thus not flushed
 
       // not really an error, but used to indicate the specific condition
-      res = TRI_ERROR_ARANGO_DATAFILE_EMPTY;
+      res = TRI_ERROR_AVOCADO_DATAFILE_EMPTY;
     }
   }
 
@@ -212,7 +212,7 @@ MMFilesWalSlotInfo MMFilesWalSlots::nextUnused(TRI_voc_tick_t databaseId, TRI_vo
           }
 
           TRI_IF_FAILURE("LogfileManagerGetWriteableLogfile") {
-            return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_NO_JOURNAL);
+            return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_NO_JOURNAL);
           }
 
           // fetch the next free logfile (this may create a new one)
@@ -220,7 +220,7 @@ MMFilesWalSlotInfo MMFilesWalSlots::nextUnused(TRI_voc_tick_t databaseId, TRI_vo
           int res = newLogfile(alignedSize, status);
 
           if (res != TRI_ERROR_NO_ERROR) {
-            if (res != TRI_ERROR_ARANGO_NO_JOURNAL) {
+            if (res != TRI_ERROR_AVOCADO_NO_JOURNAL) {
               return MMFilesWalSlotInfo(res);
             }
 
@@ -311,7 +311,7 @@ MMFilesWalSlotInfo MMFilesWalSlots::nextUnused(TRI_voc_tick_t databaseId, TRI_vo
     }
   }
 
-  return MMFilesWalSlotInfo(TRI_ERROR_ARANGO_NO_JOURNAL);
+  return MMFilesWalSlotInfo(TRI_ERROR_AVOCADO_NO_JOURNAL);
 }
 
 /// @brief return a used slot, allowing its synchronization
@@ -563,7 +563,7 @@ int MMFilesWalSlots::closeLogfile(MMFilesWalSlot::TickType& lastCommittedTick, b
         }
 
         TRI_IF_FAILURE("LogfileManagerGetWriteableLogfile") {
-          return TRI_ERROR_ARANGO_NO_JOURNAL;
+          return TRI_ERROR_AVOCADO_NO_JOURNAL;
         }
 
         TRI_ASSERT(_logfile == nullptr);
@@ -574,7 +574,7 @@ int MMFilesWalSlots::closeLogfile(MMFilesWalSlot::TickType& lastCommittedTick, b
         int res = newLogfile(1, status);
 
         if (res != TRI_ERROR_NO_ERROR) {
-          if (res != TRI_ERROR_ARANGO_NO_JOURNAL) {
+          if (res != TRI_ERROR_AVOCADO_NO_JOURNAL) {
             return res;
           }
 
@@ -627,7 +627,7 @@ int MMFilesWalSlots::closeLogfile(MMFilesWalSlot::TickType& lastCommittedTick, b
     }
   }
 
-  return TRI_ERROR_ARANGO_NO_JOURNAL;
+  return TRI_ERROR_AVOCADO_NO_JOURNAL;
 }
 
 /// @brief write a header marker

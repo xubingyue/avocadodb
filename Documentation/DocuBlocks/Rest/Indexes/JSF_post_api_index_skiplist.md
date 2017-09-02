@@ -64,7 +64,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 Creating a skiplist index
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateNewSkiplist}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateNewSkiplist}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -82,11 +82,11 @@ Creating a skiplist index
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Creating a sparse skiplist index
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateSparseSkiplist}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateSparseSkiplist}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -105,6 +105,6 @@ Creating a sparse skiplist index
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

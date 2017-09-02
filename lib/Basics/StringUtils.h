@@ -22,8 +22,8 @@
 /// @author Dr. Oreste Costa-Panaia
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_STRING_UTILS_H
-#define ARANGODB_BASICS_STRING_UTILS_H 1
+#ifndef AVOCADODB_BASICS_STRING_UTILS_H
+#define AVOCADODB_BASICS_STRING_UTILS_H 1
 
 #include "Basics/Common.h"
 

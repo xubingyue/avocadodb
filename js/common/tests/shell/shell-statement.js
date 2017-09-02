@@ -838,7 +838,7 @@ function StatementSuite () {
       }
       catch (err) {
         require("internal").print(err);
-        assertEqual(ERRORS.ERROR_ARANGO_DATABASE_NAME_INVALID.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DATABASE_NAME_INVALID.code, err.errorNum);
       }
     },
 
@@ -861,7 +861,7 @@ function StatementSuite () {
       }
       catch (err) {
         require("internal").print(err);
-        assertEqual(ERRORS.ERROR_ARANGO_DATABASE_NAME_INVALID.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DATABASE_NAME_INVALID.code, err.errorNum);
       }
     },
 

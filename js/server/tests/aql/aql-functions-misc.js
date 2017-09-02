@@ -600,7 +600,7 @@ function ahuacatlCollectionCountTestSuite () {
           fail();
         }
         catch (err) {
-          assertEqual(errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, err.errorNum);
+          assertEqual(errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code, err.errorNum);
         }
       });
     },

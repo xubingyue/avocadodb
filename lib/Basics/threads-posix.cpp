@@ -29,7 +29,7 @@
 #include <sys/prctl.h>
 #endif
 
-#ifdef ARANGODB_HAVE_THREAD_POLICY
+#ifdef AVOCADODB_HAVE_THREAD_POLICY
 #include <mach/mach.h>
 #endif
 
@@ -152,7 +152,7 @@ void TRI_AllowCancelation() {
 ////////////////////////////////////////////////////////////////////////////////
 
 void TRI_SetProcessorAffinity(TRI_thread_t* thread, size_t core) {
-#ifdef ARANGODB_HAVE_THREAD_AFFINITY
+#ifdef AVOCADODB_HAVE_THREAD_AFFINITY
 
   cpu_set_t cpuset;
 
@@ -168,7 +168,7 @@ void TRI_SetProcessorAffinity(TRI_thread_t* thread, size_t core) {
 
 #endif
 
-#ifdef ARANGODB_HAVE_THREAD_POLICY
+#ifdef AVOCADODB_HAVE_THREAD_POLICY
 
   thread_affinity_policy_data_t policy = {(int)core};
   auto mach_thread = pthread_mach_thread_np(*thread);

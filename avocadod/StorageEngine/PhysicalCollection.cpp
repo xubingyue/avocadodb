@@ -238,11 +238,11 @@ int PhysicalCollection::newObjectForInsert(
     std::string keyString =
         _logicalCollection->keyGenerator()->generate();
     if (keyString.empty()) {
-      return TRI_ERROR_ARANGO_OUT_OF_KEYS;
+      return TRI_ERROR_AVOCADO_OUT_OF_KEYS;
     }
     builder.add(StaticStrings::KeyString, VPackValue(keyString));
   } else if (!s.isString()) {
-    return TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD;
+    return TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD;
   } else {
     VPackValueLength l;
     char const* p = s.getString(l);
@@ -287,7 +287,7 @@ int PhysicalCollection::newObjectForInsert(
   if (isRestore) {
     VPackSlice oldRev = TRI_ExtractRevisionIdAsSlice(value);
     if (!oldRev.isString()) {
-      return TRI_ERROR_ARANGO_DOCUMENT_REV_BAD;
+      return TRI_ERROR_AVOCADO_DOCUMENT_REV_BAD;
     }
     bool isOld;
     VPackValueLength l;
@@ -374,7 +374,7 @@ int PhysicalCollection::checkRevision(transaction::Methods* trx,
                                       TRI_voc_rid_t expected,
                                       TRI_voc_rid_t found) const {
   if (expected != 0 && found != expected) {
-    return TRI_ERROR_ARANGO_CONFLICT;
+    return TRI_ERROR_AVOCADO_CONFLICT;
   }
   return TRI_ERROR_NO_ERROR;
 }

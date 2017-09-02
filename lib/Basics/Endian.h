@@ -21,8 +21,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_ENDIAN_H
-#define ARANGODB_BASICS_ENDIAN_H 1
+#ifndef AVOCADODB_BASICS_ENDIAN_H
+#define AVOCADODB_BASICS_ENDIAN_H 1
 
 #include <cstdint>
 #include <cstring>

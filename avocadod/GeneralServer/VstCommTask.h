@@ -21,8 +21,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_GENERAL_SERVER_VST_COMM_TASK_H
-#define ARANGOD_GENERAL_SERVER_VST_COMM_TASK_H 1
+#ifndef AVOCADOD_GENERAL_SERVER_VST_COMM_TASK_H
+#define AVOCADOD_GENERAL_SERVER_VST_COMM_TASK_H 1
 
 #include "Basics/Common.h"
 #include "GeneralServer/GeneralCommTask.h"

@@ -104,7 +104,7 @@ is returned if an error occurred while assembling the response.
 
 Empty collection:
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationDumpEmpty}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationDumpEmpty}
     db._drop("testCollection");
     var c = db._create("testCollection");
     var url = "/_api/replication/dump?collection=" + c.name();
@@ -114,11 +114,11 @@ Empty collection:
     logRawResponse(response);
 
     c.drop();
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Non-empty collection:
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationDump}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationDump}
     db._drop("testCollection");
     var c = db._create("testCollection");
     c.save({ "test" : true, "a" : "abc", "_key" : "abcdef" });
@@ -135,6 +135,6 @@ Non-empty collection:
     logRawResponse(response);
 
     c.drop();
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

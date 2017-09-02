@@ -151,12 +151,12 @@ AstNode* Ast::createNodePassthru(AstNode const* what) {
 AstNode* Ast::createNodeExample(AstNode const* variable,
                                 AstNode const* example) {
   if (example == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (example->type != NODE_TYPE_OBJECT &&
       example->type != NODE_TYPE_PARAMETER) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_QUERY_PARSE,
         "expecting object literal or bind parameter for example");
   }
@@ -174,7 +174,7 @@ AstNode* Ast::createNodeFor(char const* variableName, size_t nameLength,
                             AstNode const* expression,
                             bool isUserDefinedVariable) {
   if (variableName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_FOR);
@@ -193,7 +193,7 @@ AstNode* Ast::createNodeLet(char const* variableName, size_t nameLength,
                             AstNode const* expression,
                             bool isUserDefinedVariable) {
   if (variableName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_LET);
@@ -211,7 +211,7 @@ AstNode* Ast::createNodeLet(char const* variableName, size_t nameLength,
 AstNode* Ast::createNodeLet(AstNode const* variable,
                             AstNode const* expression) {
   if (variable == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_LET);
@@ -228,7 +228,7 @@ AstNode* Ast::createNodeLet(char const* variableName, size_t nameLength,
                             AstNode const* expression,
                             AstNode const* condition) {
   if (variableName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_LET);
@@ -494,7 +494,7 @@ AstNode* Ast::createNodeLimit(AstNode const* offset, AstNode const* count) {
 AstNode* Ast::createNodeAssign(char const* variableName, size_t nameLength,
                                AstNode const* expression) {
   if (variableName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_ASSIGN);
@@ -510,7 +510,7 @@ AstNode* Ast::createNodeAssign(char const* variableName, size_t nameLength,
 AstNode* Ast::createNodeVariable(char const* name, size_t nameLength,
                                  bool isUserDefined) {
   if (name == nullptr || nameLength == 0) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (isUserDefined && *name == '_') {
@@ -549,11 +549,11 @@ AstNode* Ast::createNodeVariable(char const* name, size_t nameLength,
 AstNode* Ast::createNodeCollection(char const* name,
                                    AccessMode::Type accessType) {
   if (name == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (*name == '\0' || !LogicalCollection::IsAllowedName(true, name)) {
-    _query->registerErrorCustom(TRI_ERROR_ARANGO_ILLEGAL_NAME, name);
+    _query->registerErrorCustom(TRI_ERROR_AVOCADO_ILLEGAL_NAME, name);
     return nullptr;
   }
 
@@ -583,7 +583,7 @@ AstNode* Ast::createNodeCollection(char const* name,
 /// @brief create an AST reference node
 AstNode* Ast::createNodeReference(char const* variableName, size_t nameLength) {
   if (variableName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_REFERENCE);
@@ -591,7 +591,7 @@ AstNode* Ast::createNodeReference(char const* variableName, size_t nameLength) {
   auto variable = _scopes.getVariable(std::string(variableName, nameLength));
 
   if (variable == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "variable not found in reference AstNode");
   }
 
@@ -607,7 +607,7 @@ AstNode* Ast::createNodeReference(std::string const& variableName) {
   auto variable = _scopes.getVariable(variableName);
 
   if (variable == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "variable not found in reference AstNode");
   }
 
@@ -627,7 +627,7 @@ AstNode* Ast::createNodeReference(Variable const* variable) {
 /// @brief create an AST parameter node
 AstNode* Ast::createNodeParameter(char const* name, size_t length) {
   if (name == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_PARAMETER);
@@ -702,7 +702,7 @@ AstNode* Ast::createNodeAttributeAccess(AstNode const* accessed,
                                         char const* attributeName,
                                         size_t nameLength) {
   if (attributeName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_ATTRIBUTE_ACCESS);
@@ -791,7 +791,7 @@ AstNode* Ast::createNodeExpansion(int64_t levels, AstNode const* iterator,
 AstNode* Ast::createNodeIterator(char const* variableName, size_t nameLength,
                                  AstNode const* expanded) {
   if (variableName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_ITERATOR);
@@ -852,7 +852,7 @@ AstNode* Ast::createNodeValueDouble(double value) {
 /// @brief create an AST string value node
 AstNode* Ast::createNodeValueString(char const* value, size_t length) {
   if (value == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (length == 0) {
@@ -968,7 +968,7 @@ AstNode* Ast::createNodeObjectElement(char const* attributeName,
                                       size_t nameLength,
                                       AstNode const* expression) {
   if (attributeName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNode(NODE_TYPE_OBJECT_ELEMENT);
@@ -1114,7 +1114,7 @@ AstNode* Ast::createNodeTraversal(char const* vertexVarName,
                                   AstNode const* start, AstNode const* graph,
                                   AstNode const* options) {
   if (vertexVarName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   AstNode* node = createNode(NODE_TYPE_TRAVERSAL);
   node->reserve(5);
@@ -1148,7 +1148,7 @@ AstNode* Ast::createNodeTraversal(char const* vertexVarName,
                                   AstNode const* start, AstNode const* graph,
                                   AstNode const* options) {
   if (edgeVarName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   AstNode* node = createNodeTraversal(vertexVarName, vertexVarLength, direction,
                                       start, graph, options);
@@ -1172,7 +1172,7 @@ AstNode* Ast::createNodeTraversal(char const* vertexVarName,
                                   AstNode const* start, AstNode const* graph,
                                   AstNode const* options) {
   if (pathVarName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   AstNode* node =
       createNodeTraversal(vertexVarName, vertexVarLength, edgeVarName,
@@ -1196,7 +1196,7 @@ AstNode* Ast::createNodeShortestPath(char const* vertexVarName,
                                      AstNode const* graph,
                                      AstNode const* options) {
   if (vertexVarName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   AstNode* node = createNode(NODE_TYPE_SHORTEST_PATH);
 
@@ -1229,7 +1229,7 @@ AstNode* Ast::createNodeShortestPath(
     AstNode const* target, AstNode const* graph, AstNode const* options) {
 
   if (edgeVarName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   AstNode* node = createNodeShortestPath(vertexVarName, vertexVarLength, direction, start, target, graph, options);
@@ -1246,7 +1246,7 @@ AstNode* Ast::createNodeShortestPath(
 AstNode* Ast::createNodeFunctionCall(char const* functionName,
                                      AstNode const* arguments) {
   if (functionName == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   auto normalized = normalizeFunctionName(functionName);
@@ -1271,7 +1271,7 @@ AstNode* Ast::createNodeFunctionCall(char const* functionName,
     auto numExpectedArguments = func->numArguments();
 
     if (n < numExpectedArguments.first || n > numExpectedArguments.second) {
-      THROW_ARANGO_EXCEPTION_PARAMS(
+      THROW_AVOCADO_EXCEPTION_PARAMS(
           TRI_ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH, functionName,
           static_cast<int>(numExpectedArguments.first),
           static_cast<int>(numExpectedArguments.second));
@@ -1384,7 +1384,7 @@ void Ast::injectBindParameters(BindParameters& parameters) {
           avocadodb::CollectionNameResolver resolver(_query->vocbase());
           std::string collectionName = resolver.getCollectionNameCluster(basics::StringUtils::uint64(stringValue, length));
           if (collectionName.empty()) {
-            THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND,
+            THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND,
                                           value.copyString().c_str());
           }
 
@@ -1470,7 +1470,7 @@ void Ast::injectBindParameters(BindParameters& parameters) {
          
       // if no string value was inserted for the parameter name, this is an
       // error
-      THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_TYPE,
+      THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_TYPE,
                                     node->getString().c_str());
     } else if (node->type == NODE_TYPE_TRAVERSAL) {
       auto graphNode = node->getMember(2);
@@ -1560,7 +1560,7 @@ void Ast::injectBindParameters(BindParameters& parameters) {
 
   for (auto it = p.begin(); it != p.end(); ++it) {
     if (!(*it).second.second) {
-      THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_UNDECLARED,
+      THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_BIND_PARAMETER_UNDECLARED,
                                     (*it).first.c_str());
     }
   }
@@ -1721,7 +1721,7 @@ void Ast::validateAndOptimize() {
                node->type == NODE_TYPE_UPSERT) {
       if (ctx->hasSeenWriteNodeInCurrentScope) {
         // no two data-modification nodes are allowed in the same scope
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_QUERY_MULTI_MODIFY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_QUERY_MULTI_MODIFY);
       }
       ctx->hasSeenWriteNodeInCurrentScope = true;
     }
@@ -1759,7 +1759,7 @@ void Ast::validateAndOptimize() {
         if ((*it).second < ctx->nestingLevel) {
           name = "collection '" + name;
           name.push_back('\'');
-          THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, name.c_str());
+          THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, name.c_str());
         }
       }
     } else if (node->type == NODE_TYPE_FCALL) {
@@ -1843,7 +1843,7 @@ void Ast::validateAndOptimize() {
         // document-accessing function
         std::string name("function ");
         name.append(func->externalName);
-        THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, name.c_str());
+        THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, name.c_str());
       }
 
       if (static_cast<TraversalContext*>(data)->stopOptimizationRequests == 0) {
@@ -1904,7 +1904,7 @@ void Ast::validateAndOptimize() {
         std::string name("collection '");
         name.append(node->getString());
         name.push_back('\'');
-        THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, name.c_str());
+        THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, name.c_str());
       }
 
       return node;
@@ -1918,7 +1918,7 @@ void Ast::validateAndOptimize() {
     if (node->type == NODE_TYPE_TRAVERSAL) {
       // traversals must not be used after a modification operation
       if (static_cast<TraversalContext*>(data)->hasSeenAnyWriteNode) {
-        THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, "traversal");
+        THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_ACCESS_AFTER_MODIFICATION, "traversal");
       }
 
       return node;
@@ -1951,7 +1951,7 @@ void Ast::getReferencedVariables(AstNode const* node,
       auto variable = static_cast<Variable const*>(node->getData());
 
       if (variable == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
 
       if (variable->needsRegister()) {
@@ -2028,7 +2028,7 @@ TopLevelAttributes Ast::getReferencedAttributes(AstNode const* node,
       auto variable = static_cast<Variable const*>(node->getData());
 
       if (variable == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
 
       auto it = result.find(variable);
@@ -2079,7 +2079,7 @@ bool Ast::populateSingleAttributeAccess(AstNode const* node,
       auto v = static_cast<Variable const*>(node->getData());
 
       if (v == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
 
       if (v->id == variable->id) {
@@ -2146,7 +2146,7 @@ bool Ast::variableOnlyUsedForSingleAttributeAccess(AstNode const* node,
       auto v = static_cast<Variable const*>(node->getData());
 
       if (v == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
 
       if (v->id == variable->id) {
@@ -2309,7 +2309,7 @@ AstNodeType Ast::ReverseOperator(AstNodeType type) {
   auto it = ReversedOperators.find(static_cast<int>(type));
 
   if (it == ReversedOperators.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "invalid node type for inversed operator");
   }
 
@@ -2328,7 +2328,7 @@ AstNodeType Ast::NaryOperatorType(AstNodeType old) {
     return NODE_TYPE_OPERATOR_NARY_OR;
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "invalid node type for n-ary operator");
 }
 
@@ -2339,14 +2339,14 @@ AstNode* Ast::makeConditionFromExample(AstNode const* node) {
   auto object = node->getMember(0);
 
   if (object->type != NODE_TYPE_OBJECT) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_PARSE,
                                    "expecting object literal for example");
   }
 
   auto variable = static_cast<AstNode*>(node->getData());
 
   if (variable == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "internal error in object literal handling");
   }
 
@@ -2363,7 +2363,7 @@ AstNode* Ast::makeConditionFromExample(AstNode const* node) {
       auto member = object->getMember(i);
 
       if (member->type != NODE_TYPE_OBJECT_ELEMENT) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(
+        THROW_AVOCADO_EXCEPTION_MESSAGE(
             TRI_ERROR_QUERY_PARSE,
             "expecting object literal with literal attribute names in example");
       }
@@ -2438,7 +2438,7 @@ AstNode* Ast::executeConstExpression(AstNode const* node) {
   int res = _query->executor()->executeExpression(_query, node, builder);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   // context is not left here, but later
@@ -2564,7 +2564,7 @@ AstNode* Ast::optimizeBinaryOperatorLogical(AstNode* node,
   auto rhs = node->getMember(1);
 
   if (lhs == nullptr || rhs == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (lhs->isConstant()) {
@@ -2623,7 +2623,7 @@ AstNode* Ast::optimizeBinaryOperatorRelational(AstNode* node) {
   AstNode* rhs = node->getMember(1);
 
   if (lhs == nullptr || rhs == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (!lhs->canThrow() && rhs->type == NODE_TYPE_ARRAY &&
@@ -2693,7 +2693,7 @@ AstNode* Ast::optimizeBinaryOperatorArithmetic(AstNode* node) {
   AstNode* rhs = node->getMember(1);
 
   if (lhs == nullptr || rhs == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (lhs->isConstant() && rhs->isConstant()) {
@@ -2830,7 +2830,7 @@ AstNode* Ast::optimizeBinaryOperatorArithmetic(AstNode* node) {
           fmod(left->getDoubleValue(), right->getDoubleValue()));
     }
 
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid operator");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid operator");
   }
 
   return node;
@@ -2849,7 +2849,7 @@ AstNode* Ast::optimizeTernaryOperator(AstNode* node) {
   AstNode* falsePart = node->getMember(2);
 
   if (condition == nullptr || truePart == nullptr || falsePart == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (!condition->isConstant()) {
@@ -2959,7 +2959,7 @@ AstNode* Ast::optimizeReference(AstNode* node) {
   auto variable = static_cast<Variable*>(node->getData());
 
   if (variable == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   // constant propagation
@@ -3073,7 +3073,7 @@ AstNode* Ast::optimizeFor(AstNode* node) {
 
   if (expression->isConstant() && expression->type != NODE_TYPE_ARRAY) {
     // right-hand operand to FOR statement is no array
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_QUERY_ARRAY_EXPECTED,
         std::string("collection or ") +
         TRI_errno_string(TRI_ERROR_QUERY_ARRAY_EXPECTED) +

@@ -18,7 +18,7 @@ can be limited using the *skip* and *limit* operator.
 Use *toArray* to get all documents at once:
 
     @startDocuBlockInline 001_collectionAll
-    @EXAMPLE_ARANGOSH_OUTPUT{001_collectionAll}
+    @EXAMPLE_AVOCADOSH_OUTPUT{001_collectionAll}
     ~ db._create("five");
       db.five.save({ name : "one" });
       db.five.save({ name : "two" });
@@ -27,13 +27,13 @@ Use *toArray* to get all documents at once:
       db.five.save({ name : "five" });
       db.five.all().toArray();
     ~ db._drop("five");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 001_collectionAll
 
 Use *limit* to restrict the documents:
 
     @startDocuBlockInline 002_collectionAllNext
-    @EXAMPLE_ARANGOSH_OUTPUT{002_collectionAllNext}
+    @EXAMPLE_AVOCADOSH_OUTPUT{002_collectionAllNext}
     ~ db._create("five");
       db.five.save({ name : "one" });
       db.five.save({ name : "two" });
@@ -42,7 +42,7 @@ Use *limit* to restrict the documents:
       db.five.save({ name : "five" });
       db.five.all().limit(2).toArray();
     ~ db._drop("five");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 002_collectionAllNext
 
 
@@ -114,7 +114,7 @@ As alternative you can supply an array of paths and values.
 Use *toArray* to get all documents at once:
 
     @startDocuBlockInline 003_collectionByExample
-    @EXAMPLE_ARANGOSH_OUTPUT{003_collectionByExample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{003_collectionByExample}
     ~ db._create("users");
       db.users.save({ name: "Gerhard" });
       db.users.save({ name: "Helmut" });
@@ -124,14 +124,14 @@ Use *toArray* to get all documents at once:
       db.users.byExample({ "name" : "Gerhard" }).toArray();
       db.users.byExample({ "name" : "Helmut", "_id" : "users/15" }).toArray();
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 003_collectionByExample
 
 
 Use *next* to loop over all documents:
 
     @startDocuBlockInline 004_collectionByExampleNext
-    @EXAMPLE_ARANGOSH_OUTPUT{004_collectionByExampleNext}
+    @EXAMPLE_AVOCADOSH_OUTPUT{004_collectionByExampleNext}
     ~ db._create("users");
       db.users.save({ name: "Gerhard" });
       db.users.save({ name: "Helmut" });
@@ -139,7 +139,7 @@ Use *next* to loop over all documents:
       var a = db.users.byExample( {"name" : "Angela" } );
       while (a.hasNext()) print(a.next());
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 004_collectionByExampleNext
 
 ### First Example
@@ -162,14 +162,14 @@ As alternative you can supply an array of paths and values.
 
 
     @startDocuBlockInline collectionFirstExample
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionFirstExample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionFirstExample}
     ~ db._create("users");
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
     ~ db.users.save({ name: "Angela" });
       db.users.firstExample("name", "Angela");
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionFirstExample
 
 
@@ -207,7 +207,7 @@ FOR doc IN @@collection
 Use *toArray* to get all documents at once:
 
     @startDocuBlockInline 005_collectionRange
-    @EXAMPLE_ARANGOSH_OUTPUT{005_collectionRange}
+    @EXAMPLE_AVOCADOSH_OUTPUT{005_collectionRange}
     ~ db._create("old");
       db.old.ensureIndex({ type: "skiplist", fields: [ "age" ] });
       db.old.save({ age: 15 });
@@ -215,7 +215,7 @@ Use *toArray* to get all documents at once:
       db.old.save({ age: 30 });
       db.old.range("age", 10, 30).toArray();
     ~ db._drop("old")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 005_collectionRange
 
 
@@ -252,7 +252,7 @@ FOR doc IN @@collection
 Use *toArray* to get all documents at once:
 
     @startDocuBlockInline 006_collectionClosedRange
-    @EXAMPLE_ARANGOSH_OUTPUT{006_collectionClosedRange}
+    @EXAMPLE_AVOCADOSH_OUTPUT{006_collectionClosedRange}
     ~ db._create("old");
       db.old.ensureIndex({ type: "skiplist", fields: [ "age" ] });
       db.old.save({ age: 15 });
@@ -260,7 +260,7 @@ Use *toArray* to get all documents at once:
       db.old.save({ age: 30 });
       db.old.closedRange("age", 10, 30).toArray();
     ~ db._drop("old")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 006_collectionClosedRange
 
 
@@ -289,11 +289,11 @@ Returns the number of living documents in the collection.
 
 
     @startDocuBlockInline collectionCount
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionCount}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionCount}
     ~ db._create("users");
       db.users.count();
     ~ db._drop("users");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionCount
 
 
@@ -357,67 +357,67 @@ an error object is returned in the result array.
 Returns the document for a document-handle:
 
     @startDocuBlockInline documentsCollectionNameValidPlain
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidPlain}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameValidPlain}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "2873916"});
       db.example.document("example/2873916");
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidPlain
 
 Returns the document for a document-key:
 
     @startDocuBlockInline documentsCollectionNameValidByKey
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidByKey}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameValidByKey}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "2873916"});
       db.example.document("2873916");
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidByKey
 
 Returns the document for an object:
 
     @startDocuBlockInline documentsCollectionNameValidByObject
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidByObject}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameValidByObject}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "2873916"});
       db.example.document({_id: "example/2873916"});
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidByObject
 
 Returns the document for an array of two keys:
 
     @startDocuBlockInline documentsCollectionNameValidMulti
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidMulti}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameValidMulti}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "2873916"});
     ~ var myid = db.example.insert({_key: "2873917"});
       db.example.document(["2873916","2873917"]);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidMulti
 
 An error is raised if the document is unknown:
 
     @startDocuBlockInline documentsCollectionNameUnknown
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameUnknown}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameUnknown}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "2873916"});
-      db.example.document("example/4472917"); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
+      db.example.document("example/4472917"); // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND)
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionNameUnknown
 
 An error is raised if the handle is invalid:
 
     @startDocuBlockInline documentsCollectionNameHandle
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameHandle}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionNameHandle}
     ~ db._create("example");
-      db.example.document(""); // xpError(ERROR_ARANGO_DOCUMENT_HANDLE_BAD)
+      db.example.document(""); // xpError(ERROR_AVOCADO_DOCUMENT_HANDLE_BAD)
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionNameHandle
 
 #### Changes in 3.0 from 2.8:
@@ -494,7 +494,7 @@ This method is deprecated in favour of the array variant of *document*.
 
 
     @startDocuBlockInline collectionLookupByKeys
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionLookupByKeys}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionLookupByKeys}
     ~ db._drop("example");
     ~ db._create("example");
       keys = [ ];
@@ -504,7 +504,7 @@ This method is deprecated in favour of the array variant of *document*.
       }
       db.example.documents(keys);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionLookupByKeys
 
 
@@ -569,21 +569,21 @@ multiple documents with one call.
 
 
     @startDocuBlockInline documentsCollectionInsertSingle
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertSingle}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionInsertSingle}
     ~ db._create("example");
       db.example.insert({ Hello : "World" });
       db.example.insert({ Hello : "World" }, {waitForSync: true});
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertSingle
 
     @startDocuBlockInline documentsCollectionInsertMulti
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertMulti}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionInsertMulti}
     ~ db._create("example");
       db.example.insert([{ Hello : "World" }, {Hello: "there"}])
       db.example.insert([{ Hello : "World" }, {}], {waitForSync: true});
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertMulti
 
 
@@ -666,25 +666,25 @@ result array. The options behave exactly as before.
 Create and update a document:
 
     @startDocuBlockInline documentsCollectionReplace1
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplace1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionReplace1}
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       a2 = db.example.replace(a1, { a : 2 });
-      a3 = db.example.replace(a1, { a : 3 }); // xpError(ERROR_ARANGO_CONFLICT);
+      a3 = db.example.replace(a1, { a : 3 }); // xpError(ERROR_AVOCADO_CONFLICT);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionReplace1
 
 Use a document handle:
 
     @startDocuBlockInline documentsCollectionReplaceHandle
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplaceHandle}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionReplaceHandle}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "3903044"});
       a1 = db.example.insert({ a : 1 });
       a2 = db.example.replace("example/3903044", { a : 2 });
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollectionReplaceHandle
 
 #### Changes in 3.0 from 2.8:
@@ -780,35 +780,35 @@ result array. The options behave exactly as before.
 Create and update a document:
 
     @startDocuBlockInline documentsCollection_UpdateDocument
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateDocument}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollection_UpdateDocument}
     ~ db._create("example");
       a1 = db.example.insert({"a" : 1});
       a2 = db.example.update(a1, {"b" : 2, "c" : 3});
-      a3 = db.example.update(a1, {"d" : 4}); // xpError(ERROR_ARANGO_CONFLICT);
+      a3 = db.example.update(a1, {"d" : 4}); // xpError(ERROR_AVOCADO_CONFLICT);
       a4 = db.example.update(a2, {"e" : 5, "f" : 6 });
       db.example.document(a4);
       a5 = db.example.update(a4, {"a" : 1, c : 9, e : 42 });
       db.example.document(a5);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateDocument
 
 Use a document handle:
 
     @startDocuBlockInline documentsCollection_UpdateHandleSingle
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleSingle}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollection_UpdateHandleSingle}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "18612115"});
       a1 = db.example.insert({"a" : 1});
       a2 = db.example.update("example/18612115", { "x" : 1, "y" : 2 });
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleSingle
 
 Use the keepNull parameter to remove attributes with null values:
 
     @startDocuBlockInline documentsCollection_UpdateHandleKeepNull
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleKeepNull}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollection_UpdateHandleKeepNull}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "19988371"});
       db.example.insert({"a" : 1});
@@ -821,13 +821,13 @@ Use the keepNull parameter to remove attributes with null values:
                         { "b" : null, "c": null, "d" : null }, false, false);
       db.example.document("example/19988371");
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleKeepNull
 
 Patching array values:
 
     @startDocuBlockInline documentsCollection_UpdateHandleArray
-    @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleArray}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentsCollection_UpdateHandleArray}
     ~ db._create("example");
     ~ var myid = db.example.insert({_key: "20774803"});
     |  db.example.insert({"a" : { "one" : 1, "two" : 2, "three" : 3 },
@@ -840,7 +840,7 @@ Patching array values:
                         false, false);
       db.example.document("example/20774803");
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleArray
 
 
@@ -922,28 +922,28 @@ exactly as before.
 Remove a document:
 
     @startDocuBlockInline documentDocumentRemoveSimple
-    @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemoveSimple}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentDocumentRemoveSimple}
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       db.example.document(a1);
       db.example.remove(a1);
-      db.example.document(a1); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+      db.example.document(a1); // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentDocumentRemoveSimple
 
 Remove a document with a conflict:
 
     @startDocuBlockInline documentDocumentRemoveConflict
-    @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemoveConflict}
+    @EXAMPLE_AVOCADOSH_OUTPUT{documentDocumentRemoveConflict}
     ~ db._create("example");
       a1 = db.example.insert({ a : 1 });
       a2 = db.example.replace(a1, { a : 2 });
-      db.example.remove(a1);       // xpError(ERROR_ARANGO_CONFLICT);
+      db.example.remove(a1);       // xpError(ERROR_AVOCADO_CONFLICT);
       db.example.remove(a1, true);
-      db.example.document(a1);     // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+      db.example.document(a1);     // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock documentDocumentRemoveConflict
 
 #### Changes in 3.0 from 2.8:
@@ -977,7 +977,7 @@ This method is deprecated in favour of the array variant of *remove*.
 
 
     @startDocuBlockInline collectionRemoveByKeys
-    @EXAMPLE_ARANGOSH_OUTPUT{collectionRemoveByKeys}
+    @EXAMPLE_AVOCADOSH_OUTPUT{collectionRemoveByKeys}
     ~ db._drop("example");
     ~ db._create("example");
       keys = [ ];
@@ -987,7 +987,7 @@ This method is deprecated in favour of the array variant of *remove*.
       }
       db.example.removeByKeys(keys);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock collectionRemoveByKeys
 
 
@@ -1024,12 +1024,12 @@ removed.
 
 
     @startDocuBlockInline 010_documentsCollectionRemoveByExample
-    @EXAMPLE_ARANGOSH_OUTPUT{010_documentsCollectionRemoveByExample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{010_documentsCollectionRemoveByExample}
     ~ db._create("example");
     ~ db.example.save({ Hello : "world" });
       db.example.removeByExample( {Hello : "world"} );
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 010_documentsCollectionRemoveByExample
 
 
@@ -1069,12 +1069,12 @@ replaced.
 
 
     @startDocuBlockInline 011_documentsCollectionReplaceByExample
-    @EXAMPLE_ARANGOSH_OUTPUT{011_documentsCollectionReplaceByExample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{011_documentsCollectionReplaceByExample}
     ~ db._create("example");
       db.example.save({ Hello : "world" });
       db.example.replaceByExample({ Hello: "world" }, {Hello: "mars"}, false, 5);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 011_documentsCollectionReplaceByExample
 
 
@@ -1133,13 +1133,13 @@ an object with the following sub-attributes:
 
 
     @startDocuBlockInline 012_documentsCollectionUpdateByExample
-    @EXAMPLE_ARANGOSH_OUTPUT{012_documentsCollectionUpdateByExample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{012_documentsCollectionUpdateByExample}
     ~ db._create("example");
       db.example.save({ Hello : "world", foo : "bar" });
       db.example.updateByExample({ Hello: "world" }, { Hello: "foo", World: "bar" }, false);
       db.example.byExample({ Hello: "foo" }).toArray()
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 012_documentsCollectionUpdateByExample
 
 
@@ -1164,9 +1164,9 @@ database.
 
 
     @startDocuBlockInline dbVersion
-    @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
+    @EXAMPLE_AVOCADOSH_OUTPUT{dbVersion}
       require("@avocadodb").db._version();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock dbVersion
 
 ### Edges
@@ -1187,7 +1187,7 @@ in (inbound) a document from *vertices*, which must be a list of documents
 or document handles.
 
     @startDocuBlockInline EDGCOL_02_Relation
-    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_Relation}
+    @EXAMPLE_AVOCADOSH_OUTPUT{EDGCOL_02_Relation}
       db._create("vertex");
       db._createEdgeCollection("relation");
       var myGraph = {};
@@ -1199,7 +1199,7 @@ or document handles.
       db.relation.edges(myGraph.e1._id);
     ~ db._drop("relation");
     ~ db._drop("vertex");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock EDGCOL_02_Relation
 
 `edge-collection.inEdges(vertex)`
@@ -1214,7 +1214,7 @@ The *edges* operator finds all edges ending in (inbound) a document from
 **Examples**
 
     @startDocuBlockInline EDGCOL_02_inEdges
-    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_inEdges}
+    @EXAMPLE_AVOCADOSH_OUTPUT{EDGCOL_02_inEdges}
       db._create("vertex");
       db._createEdgeCollection("relation");
     ~ var myGraph = {};
@@ -1227,7 +1227,7 @@ The *edges* operator finds all edges ending in (inbound) a document from
       db.relation.inEdges(myGraph.v2._id);
     ~ db._drop("relation");
     ~ db._drop("vertex");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock EDGCOL_02_inEdges
 
 `edge-collection.outEdges(vertex)`
@@ -1244,7 +1244,7 @@ from *vertices*, which must a list of documents or document handles.
 **Examples**
 
     @startDocuBlockInline EDGCOL_02_outEdges
-    @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
+    @EXAMPLE_AVOCADOSH_OUTPUT{EDGCOL_02_outEdges}
       db._create("vertex");
       db._createEdgeCollection("relation");
     ~ var myGraph = {};
@@ -1257,7 +1257,7 @@ from *vertices*, which must a list of documents or document handles.
       db.relation.outEdges(myGraph.v2._id);
     ~ db._drop("relation");
     ~ db._drop("vertex");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock EDGCOL_02_outEdges
 
 ### Misc
@@ -1279,7 +1279,7 @@ as second argument.
 **Examples**
 
     @startDocuBlockInline accessViaGeoIndex
-    @EXAMPLE_ARANGOSH_OUTPUT{accessViaGeoIndex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{accessViaGeoIndex}
     ~db._create("example")
     |for (i = -90;  i <= 90;  i += 10) {
     |  for (j = -180;  j <= 180;  j += 10) {
@@ -1293,5 +1293,5 @@ as second argument.
      |items = db.example.getIndexes().map(function(x) { return x.id; });
      db.example.index(items[1]);
     ~ db._drop("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock accessViaGeoIndex

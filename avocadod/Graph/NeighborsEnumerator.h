@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_GRAPH_NEIGHBORSENUMERATOR_H
-#define ARANGODB_GRAPH_NEIGHBORSENUMERATOR_H 1
+#ifndef AVOCADODB_GRAPH_NEIGHBORSENUMERATOR_H
+#define AVOCADODB_GRAPH_NEIGHBORSENUMERATOR_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/PathEnumerator.h"

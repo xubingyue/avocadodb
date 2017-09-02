@@ -8,11 +8,11 @@ you definitely want to know whether your query can utilize it.
 You can use explain to verify whether **skiplists** or **hash indexes** are 
 used (if you omit `colors: false` you will get nice colors in AvocadoShell):
 
-@EXAMPLE_ARANGOSH_OUTPUT{IndexVerify}
+@EXAMPLE_AVOCADOSH_OUTPUT{IndexVerify}
 ~db._create("example");
 var explain = require("@avocadodb/aql/explainer").explain;
 db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
 explain("FOR doc IN example FILTER doc.a < 23 RETURN doc", {colors:false});
 ~db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

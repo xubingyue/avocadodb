@@ -65,14 +65,14 @@ let serverCrashed = false;
 let cleanupDirectories = [];
 
 let BIN_DIR;
-let ARANGOBENCH_BIN;
-let ARANGODUMP_BIN;
-let ARANGOD_BIN;
-let ARANGOIMP_BIN;
-let ARANGORESTORE_BIN;
-let ARANGOEXPORT_BIN;
-let ARANGOSH_BIN;
-let CONFIG_ARANGODB_DIR;
+let AVOCADOBENCH_BIN;
+let AVOCADODUMP_BIN;
+let AVOCADOD_BIN;
+let AVOCADOIMP_BIN;
+let AVOCADORESTORE_BIN;
+let AVOCADOEXPORT_BIN;
+let AVOCADOSH_BIN;
+let CONFIG_AVOCADODB_DIR;
 let CONFIG_RELATIVE_DIR;
 let CONFIG_DIR;
 let JS_DIR;
@@ -123,17 +123,17 @@ function setupBinaries (builddir, buildType, configDir) {
     UNITTESTS_DIR = fs.join(UNITTESTS_DIR, buildType);
   }
 
-  ARANGOBENCH_BIN = fs.join(BIN_DIR, 'avocadobench' + executableExt);
-  ARANGODUMP_BIN = fs.join(BIN_DIR, 'avocadodump' + executableExt);
-  ARANGOD_BIN = fs.join(BIN_DIR, 'avocadod' + executableExt);
-  ARANGOIMP_BIN = fs.join(BIN_DIR, 'avocadoimp' + executableExt);
-  ARANGORESTORE_BIN = fs.join(BIN_DIR, 'avocadorestore' + executableExt);
-  ARANGOEXPORT_BIN = fs.join(BIN_DIR, 'avocadoexport' + executableExt);
-  ARANGOSH_BIN = fs.join(BIN_DIR, 'avocadosh' + executableExt);
+  AVOCADOBENCH_BIN = fs.join(BIN_DIR, 'avocadobench' + executableExt);
+  AVOCADODUMP_BIN = fs.join(BIN_DIR, 'avocadodump' + executableExt);
+  AVOCADOD_BIN = fs.join(BIN_DIR, 'avocadod' + executableExt);
+  AVOCADOIMP_BIN = fs.join(BIN_DIR, 'avocadoimp' + executableExt);
+  AVOCADORESTORE_BIN = fs.join(BIN_DIR, 'avocadorestore' + executableExt);
+  AVOCADOEXPORT_BIN = fs.join(BIN_DIR, 'avocadoexport' + executableExt);
+  AVOCADOSH_BIN = fs.join(BIN_DIR, 'avocadosh' + executableExt);
 
-  CONFIG_ARANGODB_DIR = fs.join(builddir, 'etc', 'avocadodb3'); 
-  if(!fs.exists(CONFIG_ARANGODB_DIR)){
-    CONFIG_ARANGODB_DIR = fs.join(TOP_DIR, CONFIG_ARANGODB_DIR);
+  CONFIG_AVOCADODB_DIR = fs.join(builddir, 'etc', 'avocadodb3'); 
+  if(!fs.exists(CONFIG_AVOCADODB_DIR)){
+    CONFIG_AVOCADODB_DIR = fs.join(TOP_DIR, CONFIG_AVOCADODB_DIR);
   }
 
   CONFIG_RELATIVE_DIR = fs.join(TOP_DIR, 'etc', 'relative');
@@ -145,13 +145,13 @@ function setupBinaries (builddir, buildType, configDir) {
   LOGS_DIR = fs.join(TOP_DIR, 'logs');
 
   let checkFiles = [
-    ARANGOBENCH_BIN,
-    ARANGODUMP_BIN,
-    ARANGOD_BIN,
-    ARANGOIMP_BIN,
-    ARANGORESTORE_BIN,
-    ARANGOEXPORT_BIN,
-    ARANGOSH_BIN];
+    AVOCADOBENCH_BIN,
+    AVOCADODUMP_BIN,
+    AVOCADOD_BIN,
+    AVOCADOIMP_BIN,
+    AVOCADORESTORE_BIN,
+    AVOCADOEXPORT_BIN,
+    AVOCADOSH_BIN];
   for (let b = 0; b < checkFiles.length; ++b) {
     if (!fs.isFile(checkFiles[b])) {
       throw new Error('unable to locate ' + checkFiles[b]);
@@ -486,7 +486,7 @@ function runAvocadoshCmd (options, instanceInfo, addArgs, cmds) {
 
   require('internal').env.INSTANCEINFO = JSON.stringify(instanceInfo);
   const argv = toArgv(args).concat(cmds);
-  return executeAndWait(ARANGOSH_BIN, argv, options, 'avocadoshcmd', instanceInfo.rootDir);
+  return executeAndWait(AVOCADOSH_BIN, argv, options, 'avocadoshcmd', instanceInfo.rootDir);
 }
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -524,7 +524,7 @@ function runAvocadoImp (options, instanceInfo, what) {
     args['convert'] = what.convert ? 'true' : 'false';
   }
 
-  return executeAndWait(ARANGOIMP_BIN, toArgv(args), options, 'avocadoimp', instanceInfo.rootDir);
+  return executeAndWait(AVOCADOIMP_BIN, toArgv(args), options, 'avocadoimp', instanceInfo.rootDir);
 }
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -546,11 +546,11 @@ function runAvocadoDumpRestore (options, instanceInfo, which, database, rootDir,
 
   if (which === 'dump') {
     args['output-directory'] = fs.join(rootDir, dumpDir);
-    exe = ARANGODUMP_BIN;
+    exe = AVOCADODUMP_BIN;
   } else {
     args['create-database'] = 'true';
     args['input-directory'] = fs.join(rootDir, dumpDir);
-    exe = ARANGORESTORE_BIN;
+    exe = AVOCADORESTORE_BIN;
   }
 
   if (options.extremeVerbosity === true) {
@@ -582,7 +582,7 @@ function runAvocadoBenchmark (options, instanceInfo, cmds, rootDir) {
     args['flatCommands'] = ['--quiet'];
   }
 
-  return executeAndWait(ARANGOBENCH_BIN, toArgv(args), options, 'avocadobench', instanceInfo.rootDir);
+  return executeAndWait(AVOCADOBENCH_BIN, toArgv(args), options, 'avocadobench', instanceInfo.rootDir);
 }
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -596,7 +596,7 @@ function runAvocadoBenchmark (options, instanceInfo, cmds, rootDir) {
 // /        information about the incident. (avocadod wrapper for the crash-utils)
 // //////////////////////////////////////////////////////////////////////////////
 function analyzeServerCrash (avocadod, options, checkStr) {
-  return crashUtils.analyzeCrash(ARANGOD_BIN, avocadod, options, checkStr);
+  return crashUtils.analyzeCrash(AVOCADOD_BIN, avocadod, options, checkStr);
 }
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -1032,7 +1032,7 @@ function startAvocado (protocol, options, addArgs, rootDir, role) {
 
   instanceInfo.url = endpointToURL(instanceInfo.endpoint);
   try {
-    instanceInfo.pid = executeAvocadod(ARANGOD_BIN, toArgv(args), options).pid;
+    instanceInfo.pid = executeAvocadod(AVOCADOD_BIN, toArgv(args), options).pid;
   } catch (x) {
     print('failed to run avocadod - ' + JSON.stringify(x));
 
@@ -1257,14 +1257,14 @@ exports.getCleanupDBDirectories = getCleanupDBDirectories;
 
 exports.makeAuthorizationHeaders = makeAuthorizationHeaders;
 
-Object.defineProperty(exports, 'ARANGOEXPORT_BIN', {get: () => ARANGOEXPORT_BIN});
-Object.defineProperty(exports, 'ARANGOD_BIN', {get: () => ARANGOD_BIN});
-Object.defineProperty(exports, 'ARANGOSH_BIN', {get: () => ARANGOSH_BIN});
+Object.defineProperty(exports, 'AVOCADOEXPORT_BIN', {get: () => AVOCADOEXPORT_BIN});
+Object.defineProperty(exports, 'AVOCADOD_BIN', {get: () => AVOCADOD_BIN});
+Object.defineProperty(exports, 'AVOCADOSH_BIN', {get: () => AVOCADOSH_BIN});
 Object.defineProperty(exports, 'CONFIG_DIR', {get: () => CONFIG_DIR});
 Object.defineProperty(exports, 'TOP_DIR', {get: () => TOP_DIR});
 Object.defineProperty(exports, 'LOGS_DIR', {get: () => LOGS_DIR});
 Object.defineProperty(exports, 'UNITTESTS_DIR', {get: () => UNITTESTS_DIR});
 Object.defineProperty(exports, 'BIN_DIR', {get: () => BIN_DIR});
-Object.defineProperty(exports, 'CONFIG_ARANGODB_DIR', {get: () => CONFIG_ARANGODB_DIR});
+Object.defineProperty(exports, 'CONFIG_AVOCADODB_DIR', {get: () => CONFIG_AVOCADODB_DIR});
 Object.defineProperty(exports, 'CONFIG_RELATIVE_DIR', {get: () => CONFIG_RELATIVE_DIR});
 Object.defineProperty(exports, 'serverCrashed', {get: () => serverCrashed});

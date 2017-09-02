@@ -457,13 +457,13 @@ std::string VelocyPackHelper::checkAndGetStringValue(VPackSlice const& slice,
   if (!slice.hasKey(name)) {
     std::string msg =
         "The attribute '" + std::string(name) + "' was not found.";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
   }
   VPackSlice const sub = slice.get(name);
   if (!sub.isString()) {
     std::string msg =
         "The attribute '" + std::string(name) + "' is not a string.";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
   }
   return sub.copyString();
 }
@@ -478,12 +478,12 @@ std::string VelocyPackHelper::checkAndGetStringValue(VPackSlice const& slice,
   TRI_ASSERT(slice.isObject());
   if (!slice.hasKey(name)) {
     std::string msg = "The attribute '" + name + "' was not found.";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
   }
   VPackSlice const sub = slice.get(name);
   if (!sub.isString()) {
     std::string msg = "The attribute '" + name + "' is not a string.";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
   }
   return sub.copyString();
 }
@@ -493,12 +493,12 @@ void VelocyPackHelper::ensureStringValue(VPackSlice const& slice,
   TRI_ASSERT(slice.isObject());
   if (!slice.hasKey(name)) {
     std::string msg = "The attribute '" + name + "' was not found.";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
   }
   VPackSlice const sub = slice.get(name);
   if (!sub.isString()) {
     std::string msg = "The attribute '" + name + "' is not a string.";
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, msg);
   }
 }
 
@@ -590,7 +590,7 @@ std::shared_ptr<VPackBuilder> VelocyPackHelper::velocyPackFromFile(
       throw;
     }
   }
-  THROW_ARANGO_EXCEPTION(TRI_errno());
+  THROW_AVOCADO_EXCEPTION(TRI_errno());
 }
 
 static bool PrintVelocyPack(int fd, VPackSlice const& slice,
@@ -780,7 +780,7 @@ int VelocyPackHelper::compare(VPackSlice lhs, VPackSlice rhs, bool useUTF8,
       if (lhsBase == nullptr || rhsBase == nullptr || 
           options == nullptr ||
           options->customTypeHandler == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "Could not extract custom attribute.");
       }
       std::string lhsString(options->customTypeHandler->toString(lhs, options, *lhsBase));
@@ -1045,7 +1045,7 @@ void VelocyPackHelper::sanitizeNonClientTypes(VPackSlice input,
     sanitizeNonClientTypes(input.resolveExternal(), base, output, options, sanitizeExternals, sanitizeCustom);
   } else if (sanitizeCustom && input.isCustom()) {
     if (options == nullptr || options->customTypeHandler == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot sanitize vpack without custom type handler"); 
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot sanitize vpack without custom type handler"); 
     }
     std::string custom = options->customTypeHandler->toString(input, options, base);
     output.add(VPackValue(custom));
@@ -1104,7 +1104,7 @@ uint64_t VelocyPackHelper::extractIdValue(VPackSlice const& slice) {
     // numeric cid, e.g. 9988488
     return id.getNumericValue<uint64_t>();
   } else if (!id.isNone()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "invalid value for 'id' attribute");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "invalid value for 'id' attribute");
   }
 
   TRI_ASSERT(id.isNone()); 

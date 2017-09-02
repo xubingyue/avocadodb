@@ -489,7 +489,7 @@ void TRI_LogProcessInfoSelf(char const* message) {
 /// @brief converts usec and sec into seconds
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_HAVE_GETRUSAGE
+#ifdef AVOCADODB_HAVE_GETRUSAGE
 
 uint64_t TRI_MicrosecondsTv(struct timeval* tv) {
   time_t sec = tv->tv_sec;
@@ -515,7 +515,7 @@ TRI_process_info_t TRI_ProcessInfoSelf() {
   return TRI_ProcessInfo(Thread::currentProcessId());
 }
 
-#elif ARANGODB_HAVE_GETRUSAGE
+#elif AVOCADODB_HAVE_GETRUSAGE
 
 TRI_process_info_t TRI_ProcessInfoSelf() {
   TRI_process_info_t result;
@@ -535,7 +535,7 @@ TRI_process_info_t TRI_ProcessInfoSelf() {
 
     // ru_maxrss is the resident set size in kilobytes. need to multiply with
     // 1024 to get the number of bytes
-    result._residentSize = used.ru_maxrss * ARANGODB_GETRUSAGE_MAXRSS_UNIT;
+    result._residentSize = used.ru_maxrss * AVOCADODB_GETRUSAGE_MAXRSS_UNIT;
   }
 
 #ifdef TRI_HAVE_MACH

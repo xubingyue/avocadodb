@@ -86,7 +86,7 @@ void MMFilesCollectionKeys::create(TRI_voc_tick_t maxTick) {
 
   // now we either have a ditch or not
   if (_ditch == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   _vpack.reserve(16384);
@@ -100,7 +100,7 @@ void MMFilesCollectionKeys::create(TRI_voc_tick_t maxTick) {
     Result res = trx.begin();
 
     if (!res.ok()) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     ManagedDocumentResult mmdr;
@@ -131,7 +131,7 @@ std::tuple<std::string, std::string, uint64_t> MMFilesCollectionKeys::hashChunk(
     size_t from, size_t to) const {
   if (from >= _vpack.size() || to > _vpack.size() || from >= to ||
       to == 0) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 
   VPackSlice first(_vpack.at(from));
@@ -172,7 +172,7 @@ void MMFilesCollectionKeys::dumpKeys(VPackBuilder& result, size_t chunk,
   }
 
   if (from >= _vpack.size() || from >= to || to == 0) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
   
   for (size_t i = from; i < to; ++i) {
@@ -193,18 +193,18 @@ void MMFilesCollectionKeys::dumpKeys(VPackBuilder& result, size_t chunk,
 void MMFilesCollectionKeys::dumpDocs(avocadodb::velocypack::Builder& result, size_t chunk,
                               size_t chunkSize, VPackSlice const& ids) const {
   if (!ids.isArray()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 
   for (auto const& it : VPackArrayIterator(ids)) {
     if (!it.isNumber()) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
     }
 
     size_t position = chunk * chunkSize + it.getNumber<size_t>();
 
     if (position >= _vpack.size()) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
     }
     
     VPackSlice current(_vpack.at(position));

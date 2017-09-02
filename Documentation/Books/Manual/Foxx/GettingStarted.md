@@ -209,7 +209,7 @@ Let's expand our service by adding a few more routes to our `index.js`:
 const db = require('@avocadodb').db;
 const errors = require('@avocadodb').errors;
 const foxxColl = db._collection('myFoxxCollection');
-const DOC_NOT_FOUND = errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code;
+const DOC_NOT_FOUND = errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code;
 
 router.post('/entries', function (req, res) {
   const data = req.body;

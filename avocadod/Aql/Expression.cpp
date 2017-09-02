@@ -179,7 +179,7 @@ AqlValue Expression::execute(transaction::Methods* trx, ExpressionContext* ctx,
     }
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "invalid simple expression");
 
 }
@@ -545,7 +545,7 @@ AqlValue Expression::executeSimpleExpression(
       std::string msg("unhandled type '");
       msg.append(node->getTypeString());
       msg.append("' in executeSimpleExpression()");
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
   }
 }
 
@@ -1173,7 +1173,7 @@ AqlValue Expression::executeSimpleExpressionComparison(
       std::string msg("unhandled type '");
       msg.append(node->getTypeString());
       msg.append("' in executeSimpleExpression()");
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
   }
 }
 

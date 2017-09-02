@@ -45,8 +45,8 @@ endif ()
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles
     NAME avocadod
-    FILE_DESCRIPTION ${ARANGODB_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADODB_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -62,7 +62,7 @@ else ()
   )
 endif ()
 
-SET(ARANGOD_SOURCES
+SET(AVOCADOD_SOURCES
   ${ProductVersionFiles}
   ${ENTERPRISE_FILES}
   Actions/ActionFeature.cpp
@@ -401,22 +401,22 @@ SET(ARANGOD_SOURCES
   VocBase/replication-common.cpp
   VocBase/ticks.cpp
   VocBase/vocbase.cpp
-  ${ADDITIONAL_BIN_ARANGOD_SOURCES}
+  ${ADDITIONAL_BIN_AVOCADOD_SOURCES}
 )
 
 if (NOT MSVC)
-  set(ARANGOD_SOURCES ${ARANGOD_SOURCES} Scheduler/AcceptorUnixDomain.cpp Scheduler/SocketUnixDomain.cpp)
+  set(AVOCADOD_SOURCES ${AVOCADOD_SOURCES} Scheduler/AcceptorUnixDomain.cpp Scheduler/SocketUnixDomain.cpp)
 endif()
 
 include(RocksDBEngine/CMakeLists.txt)
 include(MMFiles/CMakeLists.txt)
 
-add_library(avocadoserver STATIC ${ARANGOD_SOURCES} ${MMFILES_SOURCES} ${ROCKSDB_SOURCES})
+add_library(avocadoserver STATIC ${AVOCADOD_SOURCES} ${MMFILES_SOURCES} ${ROCKSDB_SOURCES})
 
 target_link_libraries(avocadoserver
-  ${LIB_ARANGO_FE}
-  ${LIB_ARANGO_V8}
-  ${LIB_ARANGO}
+  ${LIB_AVOCADO_FE}
+  ${LIB_AVOCADO_V8}
+  ${LIB_AVOCADO}
   ${LINENOISE_LIBS}
   ${MSVC_LIBS}
   ${V8_LIBS}
@@ -439,18 +439,18 @@ if (USE_ENTERPRISE)
   endif()
 endif()
 
-add_executable(${BIN_ARANGOD}
+add_executable(${BIN_AVOCADOD}
   RestServer/avocadod.cpp
 )
 
-target_link_libraries(${BIN_ARANGOD}
+target_link_libraries(${BIN_AVOCADOD}
   avocadoserver
 )
 
-target_compile_features(${BIN_ARANGOD} PRIVATE cxx_constexpr)
+target_compile_features(${BIN_AVOCADOD} PRIVATE cxx_constexpr)
 
 install(
-  TARGETS ${BIN_ARANGOD}
+  TARGETS ${BIN_AVOCADOD}
   RUNTIME DESTINATION ${CMAKE_INSTALL_SBINDIR}
 )
 
@@ -470,7 +470,7 @@ endif ()
 ## avocado-dfdb
 ################################################################################
 
-install_command_alias(${BIN_ARANGOD}
+install_command_alias(${BIN_AVOCADOD}
   ${CMAKE_INSTALL_SBINDIR}
   avocado-dfdb
 )
@@ -481,7 +481,7 @@ install_config(avocado-dfdb)
 ## avocado-secure-installation
 ################################################################################
 
-install_command_alias(${BIN_ARANGOD}
+install_command_alias(${BIN_AVOCADOD}
   ${CMAKE_INSTALL_SBINDIR}
   avocado-secure-installation
 )
@@ -492,7 +492,7 @@ install_config(avocado-secure-installation)
 ## avocado-init-database
 ################################################################################
 
-install_command_alias(${BIN_ARANGOD}
+install_command_alias(${BIN_AVOCADOD}
   ${CMAKE_INSTALL_SBINDIR}
   avocado-init-database
 )

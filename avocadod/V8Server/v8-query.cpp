@@ -70,10 +70,10 @@ aql::QueryResultV8 AqlQuery(
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
     if (queryResult.code == TRI_ERROR_REQUEST_CANCELED ||
         queryResult.code == TRI_ERROR_QUERY_KILLED) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
     }
 
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
 
   return queryResult;
@@ -112,7 +112,7 @@ static void EdgesQuery(TRI_edge_direction_e direction,
         return "FILTER doc._from " + op + " @value || doc._to " + op + " @value";
     }
 
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid edge index direction");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid edge index direction");
   };
 
   avocadodb::LogicalCollection const* collection =
@@ -124,7 +124,7 @@ static void EdgesQuery(TRI_edge_direction_e direction,
   }
   
   if (collection->type() != TRI_COL_TYPE_EDGE) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_COLLECTION_TYPE_INVALID);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_COLLECTION_TYPE_INVALID);
   }
 
 
@@ -139,7 +139,7 @@ static void EdgesQuery(TRI_edge_direction_e direction,
         builder->add(VPackValue(""));
       }
     } else {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "invalid value type. expecting string or object value");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "invalid value type. expecting string or object value");
     }
   };
   

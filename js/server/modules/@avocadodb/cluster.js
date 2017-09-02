@@ -429,7 +429,7 @@ function tryLaunchJob () {
             delete jobs.scheduled[shards[0]];
             global.KEY_SET('shardSynchronization', 'scheduled', jobs.scheduled);
           } catch (err) {
-            if (err.errorNum === errors.ERROR_ARANGO_DATABASE_NOT_FOUND.code) {
+            if (err.errorNum === errors.ERROR_AVOCADO_DATABASE_NOT_FOUND.code) {
               doCleanup = true;
               done = true;
             }
@@ -1661,8 +1661,8 @@ var shardList = function (dbName, collectionName) {
     if (isEnterprise) {
       return require('@avocadodb/clusterEE').getSmartShards(dbName, collectionName, ci);
     } else {
-      raiseError(avocadodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code,
-        avocadodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.message);
+      raiseError(avocadodb.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.code,
+        avocadodb.errors.ERROR_AVOCADO_COLLECTION_NOT_FOUND.message);
     }
   }
 

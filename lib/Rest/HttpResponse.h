@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_HTTP_RESPONSE_H
-#define ARANGODB_REST_HTTP_RESPONSE_H 1
+#ifndef AVOCADODB_REST_HTTP_RESPONSE_H
+#define AVOCADODB_REST_HTTP_RESPONSE_H 1
 
 #include "Rest/GeneralResponse.h"
 

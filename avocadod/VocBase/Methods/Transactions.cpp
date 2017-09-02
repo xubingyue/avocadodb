@@ -101,7 +101,7 @@ Result executeTransactionJS(
   Result rv;
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
   if (vocbase == nullptr) {
-    rv.reset(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    rv.reset(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
     return rv;
   }
 

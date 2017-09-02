@@ -112,12 +112,12 @@ is returned if an error occurred while assembling the response.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationApplierGetConfig}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationApplierGetConfig}
     var url = "/_api/replication/applier-config";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

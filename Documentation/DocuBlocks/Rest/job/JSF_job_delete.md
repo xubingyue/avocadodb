@@ -46,7 +46,7 @@ found.
 
 Deleting all jobs:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_delete_01}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_delete_01}
   var url = "/_api/version";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
@@ -58,11 +58,11 @@ Deleting all jobs:
   var response = logCurlRequest('DELETE', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Deleting expired jobs:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_delete_02}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_delete_02}
   var url = "/_api/version";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
@@ -84,11 +84,11 @@ Deleting expired jobs:
   var response = logCurlRequest('GET', url);
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Deleting the result of a specific job:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_delete_03}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_delete_03}
   var url = "/_api/version";
   var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
@@ -101,15 +101,15 @@ Deleting the result of a specific job:
   var response = logCurlRequest('DELETE', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Deleting the result of a non-existing job:
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_delete_04}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_delete_04}
   url = '/_api/job/AreYouThere'
   var response = logCurlRequest('DELETE', url, "");
   assert(response.code === 404);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

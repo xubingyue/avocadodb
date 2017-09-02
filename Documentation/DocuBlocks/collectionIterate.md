@@ -17,7 +17,7 @@ as second argument.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{accessViaGeoIndex}
+@EXAMPLE_AVOCADOSH_OUTPUT{accessViaGeoIndex}
 ~db._create("example")
 |for (i = -90;  i <= 90;  i += 10) {
 |  for (j = -180;  j <= 180;  j += 10) {
@@ -31,6 +31,6 @@ as second argument.
  |items = db.example.getIndexes().map(function(x) { return x.id; });
  db.example.index(items[1]);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

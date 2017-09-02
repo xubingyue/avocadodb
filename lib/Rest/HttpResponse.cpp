@@ -53,7 +53,7 @@ HttpResponse::HttpResponse(ResponseCode code)
   _connectionType = rest::ConnectionType::C_KEEP_ALIVE;
   if (_body.c_str() == nullptr) {
     // no buffer could be reserved. out of memory!
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 }
 
@@ -179,7 +179,7 @@ void HttpResponse::writeHeader(StringBuffer* output) {
     // reserve enough space for header name + ": " + value + "\r\n"
     if (output->reserve(keyLength + 2 + it.second.size() + 2) !=
         TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     char const* p = key.c_str();

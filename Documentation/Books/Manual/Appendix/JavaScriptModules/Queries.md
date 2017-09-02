@@ -11,11 +11,11 @@ Properties
 `queries.properties()` Returns the servers current query tracking configuration; we change the slow query threshold to get better results:
 
     @startDocuBlockInline QUERY_01_properyOfQueries
-    @EXAMPLE_ARANGOSH_OUTPUT{QUERY_01_properyOfQueries}
+    @EXAMPLE_AVOCADOSH_OUTPUT{QUERY_01_properyOfQueries}
     var queries = require("@avocadodb/aql/queries");
     queries.properties();
     queries.properties({slowQueryThreshold: 1});
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock QUERY_01_properyOfQueries
 
 Currently running queries
@@ -25,7 +25,7 @@ We [create a task](Tasks.md) that spawns queries, so we have nice output. Since 
 uses resources, you may want to increase `period` (and not forget to remove it... afterwards):
 
     @startDocuBlockInline QUERY_02_listQueries
-    @EXAMPLE_ARANGOSH_OUTPUT{QUERY_02_listQueries}
+    @EXAMPLE_AVOCADOSH_OUTPUT{QUERY_02_listQueries}
     ~var queries = require("@avocadodb/aql/queries");
     var theQuery = 'FOR sleepLoooong IN 1..5 LET sleepLoooonger = SLEEP(1000) RETURN sleepLoooong';
     var tasks = require("@avocadodb/tasks");
@@ -43,7 +43,7 @@ uses resources, you may want to increase `period` (and not forget to remove it..
     |~   }
     ~}
     queries.current();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock QUERY_02_listQueries
 The function returns the currently running AQL queries as an array.
 
@@ -53,10 +53,10 @@ Slow queries
 The function returns the last AQL queries that exceeded the slow query threshold as an array:
 
     @startDocuBlockInline QUERY_03_listSlowQueries
-    @EXAMPLE_ARANGOSH_OUTPUT{QUERY_03_listSlowQueries}
+    @EXAMPLE_AVOCADOSH_OUTPUT{QUERY_03_listSlowQueries}
     ~var queries = require("@avocadodb/aql/queries");
     queries.slow();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock QUERY_03_listSlowQueries
 
 Clear slow queries
@@ -65,11 +65,11 @@ Clear slow queries
 Clear the list of slow AQL queries:
 
     @startDocuBlockInline QUERY_04_clearSlowQueries
-    @EXAMPLE_ARANGOSH_OUTPUT{QUERY_04_clearSlowQueries}
+    @EXAMPLE_AVOCADOSH_OUTPUT{QUERY_04_clearSlowQueries}
     ~var queries = require("@avocadodb/aql/queries");
     queries.clearSlow();
     queries.slow();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock QUERY_04_clearSlowQueries
 
 Kill
@@ -78,7 +78,7 @@ Kill
 Kill a running AQL query:
 
     @startDocuBlockInline QUERY_05_killQueries
-    @EXAMPLE_ARANGOSH_OUTPUT{QUERY_05_killQueries}
+    @EXAMPLE_AVOCADOSH_OUTPUT{QUERY_05_killQueries}
     ~var queries = require("@avocadodb/aql/queries");
     ~var tasks = require("@avocadodb/tasks");
     ~var theQuery = 'FOR sleepLoooong IN 1..5 LET sleepLoooonger = SLEEP(1000) RETURN sleepLoooong';
@@ -86,5 +86,5 @@ Kill a running AQL query:
     |   return query.query === theQuery;
     });
     queries.kill(runningQueries[0].id);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock QUERY_05_killQueries

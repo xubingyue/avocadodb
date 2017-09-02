@@ -49,7 +49,7 @@ function dfdb (options) {
   fs.makeDirectoryRecursive(dataDir);
   let results = { failed: 0 };
 
-  results.dfdb = pu.executeAndWait(pu.ARANGOD_BIN, args, options, 'dfdb', dataDir);
+  results.dfdb = pu.executeAndWait(pu.AVOCADOD_BIN, args, options, 'dfdb', dataDir);
 
   print();
   results.dfdb.failed = results.dfdb.status ? 0 : 1;

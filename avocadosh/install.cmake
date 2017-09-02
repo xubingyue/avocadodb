@@ -12,7 +12,7 @@ strip_install_bin_and_config(avocadoexport  ${STRIP_DIR} ${CMAKE_INSTALL_BINDIR}
 strip_install_bin_and_config(avocadosh      ${STRIP_DIR} ${CMAKE_INSTALL_BINDIR} strip_install_client)
 strip_install_bin_and_config(avocadovpack   ${STRIP_DIR} ${CMAKE_INSTALL_BINDIR} strip_install_client)
 
-install_command_alias(${BIN_ARANGOSH}
+install_command_alias(${BIN_AVOCADOSH}
   ${CMAKE_INSTALL_BINDIR}
   foxx-manager)
 install_config(foxx-manager)

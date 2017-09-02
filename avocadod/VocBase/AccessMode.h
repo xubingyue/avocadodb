@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_ACCESS_MODE_H
-#define ARANGOD_VOC_BASE_ACCESS_MODE_H 1
+#ifndef AVOCADOD_VOC_BASE_ACCESS_MODE_H
+#define AVOCADOD_VOC_BASE_ACCESS_MODE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -64,7 +64,7 @@ struct AccessMode {
     if (strcmp(value, "exclusive") == 0) {
       return Type::EXCLUSIVE;
     } 
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                   "invalid access type");
   }
 
@@ -80,7 +80,7 @@ struct AccessMode {
       case Type::EXCLUSIVE:
         return "exclusive";
     }
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                   "invalid access type");
   }
 };

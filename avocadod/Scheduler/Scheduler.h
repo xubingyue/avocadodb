@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_SCHEDULER_SCHEDULER_H
-#define ARANGOD_SCHEDULER_SCHEDULER_H 1
+#ifndef AVOCADOD_SCHEDULER_SCHEDULER_H
+#define AVOCADOD_SCHEDULER_SCHEDULER_H 1
 
 #include "Basics/Common.h"
 

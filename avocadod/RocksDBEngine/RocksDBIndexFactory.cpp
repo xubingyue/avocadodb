@@ -356,7 +356,7 @@ std::shared_ptr<Index> RocksDBIndexFactory::prepareIndexFromSlice(
     avocadodb::velocypack::Slice info, bool generateKey, LogicalCollection* col,
     bool isClusterConstructor) const {
   if (!info.isObject()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 
   // extract type
@@ -364,7 +364,7 @@ std::shared_ptr<Index> RocksDBIndexFactory::prepareIndexFromSlice(
 
   if (!value.isString()) {
     // Compatibility with old v8-vocindex.
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "invalid index type definition");
   }
 
@@ -382,7 +382,7 @@ std::shared_ptr<Index> RocksDBIndexFactory::prepareIndexFromSlice(
         basics::VelocyPackHelper::getNumericValue<TRI_idx_iid_t>(info, "id", 0);
   } else if (!generateKey) {
     // In the restore case it is forbidden to NOT have id
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "cannot restore index without index identifier");
   }
 
@@ -399,7 +399,7 @@ std::shared_ptr<Index> RocksDBIndexFactory::prepareIndexFromSlice(
     case avocadodb::Index::TRI_IDX_TYPE_PRIMARY_INDEX: {
       if (!isClusterConstructor) {
         // this indexes cannot be created directly
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "cannot create primary index");
       }
       newIdx.reset(new avocadodb::RocksDBPrimaryIndex(col, info));
@@ -408,7 +408,7 @@ std::shared_ptr<Index> RocksDBIndexFactory::prepareIndexFromSlice(
     case avocadodb::Index::TRI_IDX_TYPE_EDGE_INDEX: {
       if (!isClusterConstructor) {
         // this indexes cannot be created directly
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "cannot create edge index");
       }
       VPackSlice fields = info.get("fields");
@@ -447,7 +447,7 @@ std::shared_ptr<Index> RocksDBIndexFactory::prepareIndexFromSlice(
     default: {
       std::string msg =
           "invalid or unsupported index type '" + typeString + "'";
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, msg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED, msg);
     }
   }
 

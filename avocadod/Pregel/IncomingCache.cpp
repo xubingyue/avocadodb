@@ -75,7 +75,7 @@ void InCache<M>::parseMessages(VPackSlice const& incomingData) {
   }
 
   if (i % 2 != 0) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "There must always be a multiple of 2 entries in message array");
   }

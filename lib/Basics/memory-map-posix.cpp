@@ -94,7 +94,7 @@ int TRI_FlushMMFile(int fileDescriptor, void* startingAddress,
     // set a special error. ENOMEM (out of memory) is not appropriate
     LOG_TOPIC(ERR, Logger::MMAP) << "msync failed for range " << Logger::RANGE(startingAddress, numOfBytesToFlush) << ", file-descriptor " << fileDescriptor;
 
-    return TRI_ERROR_ARANGO_MSYNC_FAILED;
+    return TRI_ERROR_AVOCADO_MSYNC_FAILED;
   }
 
   return TRI_ERROR_SYS_ERROR;
@@ -156,7 +156,7 @@ int TRI_UNMMFile(void* memoryAddress, size_t numOfBytesToUnMap,
   // error
 
   if (errno == ENOSPC) {
-    return TRI_ERROR_ARANGO_FILESYSTEM_FULL;
+    return TRI_ERROR_AVOCADO_FILESYSTEM_FULL;
   }
   if (errno == ENOMEM) {
     return TRI_ERROR_OUT_OF_MEMORY_MMAP;

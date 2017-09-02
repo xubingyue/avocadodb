@@ -23,7 +23,7 @@
 
 #include "EndpointUnixDomain.h"
 
-#ifdef ARANGODB_HAVE_DOMAIN_SOCKETS
+#ifdef AVOCADODB_HAVE_DOMAIN_SOCKETS
 
 #include "Basics/FileUtils.h"
 #include "Endpoint/Endpoint.h"

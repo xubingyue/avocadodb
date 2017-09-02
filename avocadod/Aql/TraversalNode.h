@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_TRAVERSAL_NODE_H
-#define ARANGOD_AQL_TRAVERSAL_NODE_H 1
+#ifndef AVOCADOD_AQL_TRAVERSAL_NODE_H
+#define AVOCADOD_AQL_TRAVERSAL_NODE_H 1
 
 #include "Aql/GraphNode.h"
 #include "Aql/Condition.h"

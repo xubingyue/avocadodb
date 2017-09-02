@@ -9,10 +9,10 @@ default properties.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCollectionName}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCollectionName}
 ~ db._create("example");
   db.example;
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

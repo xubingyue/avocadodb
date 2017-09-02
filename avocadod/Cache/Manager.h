@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_CACHE_MANAGER_H
-#define ARANGODB_CACHE_MANAGER_H
+#ifndef AVOCADODB_CACHE_MANAGER_H
+#define AVOCADODB_CACHE_MANAGER_H
 
 #include "Basics/Common.h"
 #include "Basics/asio-helper.h"

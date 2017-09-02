@@ -137,12 +137,12 @@ function ErrorsSuite () {
 
     testAvocadoErrorMessage : function () {
       try {
-        throwError(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code, ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message);
+        throwError(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code, ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message);
         fail();
       }
       catch (err) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code, err.errorNum);
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message, err.errorMessage);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code, err.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.message, err.errorMessage);
       }
     },
 
@@ -151,7 +151,7 @@ function ErrorsSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testAvocadoToString1 : function () {
-      var e = ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+      var e = ERRORS.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
       
       try {
         throwError(e.code, e.message);
@@ -167,7 +167,7 @@ function ErrorsSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testAvocadoToString2 : function () {
-      var e = ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+      var e = ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
       
       try {
         throwError(e.code, e.message + ": did not find document");

@@ -92,7 +92,7 @@ void CalculationBlock::fillBlockWithReference(AqlItemBlock* result) {
     auto a = result->getValueReference(i, _inRegs[0]);
 
     TRI_IF_FAILURE("CalculationBlock::fillBlockWithReference") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
     result->setValue(i, _outReg, a);
   }
@@ -114,7 +114,7 @@ void CalculationBlock::executeExpression(AqlItemBlock* result) {
 
       if (!conditionResult.toBoolean()) {
         TRI_IF_FAILURE("CalculationBlock::executeExpressionWithCondition") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         result->setValue(i, _outReg, AqlValue(avocadodb::basics::VelocyPackHelper::NullValue()));
         continue;
@@ -127,7 +127,7 @@ void CalculationBlock::executeExpression(AqlItemBlock* result) {
     AqlValueGuard guard(a, mustDestroy);
 
     TRI_IF_FAILURE("CalculationBlock::executeExpression") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
     result->setValue(i, _outReg, a);
     guard.steal(); // itemblock has taken over now

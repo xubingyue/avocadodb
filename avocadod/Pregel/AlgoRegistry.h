@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_REGISTRY_H
-#define ARANGODB_PREGEL_REGISTRY_H 1
+#ifndef AVOCADODB_PREGEL_REGISTRY_H
+#define AVOCADODB_PREGEL_REGISTRY_H 1
 
 #include <string>
 #include "Algorithm.h"

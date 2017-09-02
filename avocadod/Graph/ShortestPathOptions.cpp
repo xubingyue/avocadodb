@@ -56,7 +56,7 @@ ShortestPathOptions::ShortestPathOptions(transaction::Methods* trx,
       bidirectional(true),
       multiThreaded(true) {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice type = info.get("type");
   TRI_ASSERT(type.isString());
   TRI_ASSERT(type.isEqualString("shortestPath"));
@@ -76,7 +76,7 @@ ShortestPathOptions::ShortestPathOptions(aql::Query* query, VPackSlice info,
       bidirectional(true),
       multiThreaded(true) {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice type = info.get("type");
   TRI_ASSERT(type.isString());
   TRI_ASSERT(type.isEqualString("shortestPath"));
@@ -88,7 +88,7 @@ ShortestPathOptions::ShortestPathOptions(aql::Query* query, VPackSlice info,
 
   VPackSlice read = info.get("reverseLookupInfos");
   if (!read.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "The options require a reverseLookupInfos");
   }
 

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_COLLECTION_READ_LOCKER_H
-#define ARANGOD_MMFILES_MMFILES_COLLECTION_READ_LOCKER_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_COLLECTION_READ_LOCKER_H
+#define AVOCADOD_MMFILES_MMFILES_COLLECTION_READ_LOCKER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -46,7 +46,7 @@ class MMFilesCollectionReadLocker {
       int res = _collection->lockRead(_useDeadlockDetector);
 
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
 
       _doLock = true;

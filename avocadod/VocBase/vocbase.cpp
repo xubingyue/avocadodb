@@ -159,7 +159,7 @@ void TRI_vocbase_t::registerCollection(
           << " has same name as already added collection "
           << _collectionsByName[name]->cid();
 
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DUPLICATE_NAME);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DUPLICATE_NAME);
     }
 
     // check collection identifier
@@ -173,7 +173,7 @@ void TRI_vocbase_t::registerCollection(
             << "duplicate collection identifier " << collection->cid()
             << " for name '" << name << "'";
 
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DUPLICATE_IDENTIFIER);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DUPLICATE_IDENTIFIER);
       }
     } catch (...) {
       _collectionsByName.erase(name);
@@ -239,7 +239,7 @@ void TRI_vocbase_t::registerView(bool doLock,
           << "view id " << id << " has same name as already added view "
           << _viewsByName[name]->id();
 
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DUPLICATE_NAME);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DUPLICATE_NAME);
     }
 
     // check id
@@ -253,7 +253,7 @@ void TRI_vocbase_t::registerView(bool doLock,
             << "duplicate view identifier " << view->id() << " for name '"
             << name << "'";
 
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DUPLICATE_IDENTIFIER);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DUPLICATE_IDENTIFIER);
       }
     } catch (...) {
       _viewsByName.erase(name);
@@ -349,8 +349,8 @@ avocadodb::LogicalCollection* TRI_vocbase_t::createCollectionWorker(
   auto it = _collectionsByName.find(name);
 
   if (it != _collectionsByName.end()) {
-    events::CreateCollection(name, TRI_ERROR_ARANGO_DUPLICATE_NAME);
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DUPLICATE_NAME);
+    events::CreateCollection(name, TRI_ERROR_AVOCADO_DUPLICATE_NAME);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DUPLICATE_NAME);
   }
 
   registerCollection(basics::ConditionalLocking::DoNotLock, collection.get());
@@ -396,11 +396,11 @@ int TRI_vocbase_t::loadCollection(avocadodb::LogicalCollection* collection,
     }
 
     if (collection->status() == TRI_VOC_COL_STATUS_DELETED) {
-      return TRI_set_errno(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+      return TRI_set_errno(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     }
 
     if (collection->status() == TRI_VOC_COL_STATUS_CORRUPTED) {
-      return TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_COLLECTION);
+      return TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION);
     }
   }
   // release the read lock and acquire a write lock, we have to do some work
@@ -427,7 +427,7 @@ int TRI_vocbase_t::loadCollection(avocadodb::LogicalCollection* collection,
 
       // someone requested the collection to be dropped, so it's not there
       // anymore
-      return TRI_set_errno(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+      return TRI_set_errno(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     }
 
     // no drop action found, go on
@@ -439,12 +439,12 @@ int TRI_vocbase_t::loadCollection(avocadodb::LogicalCollection* collection,
 
   // deleted, give up
   if (collection->status() == TRI_VOC_COL_STATUS_DELETED) {
-    return TRI_set_errno(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+    return TRI_set_errno(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
   }
 
   // corrupted, give up
   if (collection->status() == TRI_VOC_COL_STATUS_CORRUPTED) {
-    return TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_COLLECTION);
+    return TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION);
   }
 
   // currently loading
@@ -468,7 +468,7 @@ int TRI_vocbase_t::loadCollection(avocadodb::LogicalCollection* collection,
           application_features::ApplicationServer::getFeature<DatabaseFeature>(
               "Database");
       if (databaseFeature->throwCollectionNotLoadedError()) {
-        return TRI_ERROR_ARANGO_COLLECTION_NOT_LOADED;
+        return TRI_ERROR_AVOCADO_COLLECTION_NOT_LOADED;
       }
 
       usleep(collectionStatusPollInterval());
@@ -500,19 +500,19 @@ int TRI_vocbase_t::loadCollection(avocadodb::LogicalCollection* collection,
           << "caught exception while opening collection '" << collection->name()
           << "': " << ex.what();
       collection->setStatus(TRI_VOC_COL_STATUS_CORRUPTED);
-      return TRI_ERROR_ARANGO_CORRUPTED_COLLECTION;
+      return TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION;
     } catch (std::exception const& ex) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "caught exception while opening collection '" << collection->name()
           << "': " << ex.what();
       collection->setStatus(TRI_VOC_COL_STATUS_CORRUPTED);
-      return TRI_ERROR_ARANGO_CORRUPTED_COLLECTION;
+      return TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION;
     } catch (...) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "caught unknown exception while opening collection '"
           << collection->name() << "'";
       collection->setStatus(TRI_VOC_COL_STATUS_CORRUPTED);
-      return TRI_ERROR_ARANGO_CORRUPTED_COLLECTION;
+      return TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION;
     }
 
     // lock again to adjust the status
@@ -943,7 +943,7 @@ avocadodb::LogicalCollection* TRI_vocbase_t::createCollection(
     VPackSlice parameters) {
   // check that the name does not contain any strange characters
   if (!LogicalCollection::IsAllowedName(parameters)) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_NAME);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_NAME);
   }
 
   // augment creation parameters
@@ -983,7 +983,7 @@ int TRI_vocbase_t::unloadCollection(avocadodb::LogicalCollection* collection,
 
     // cannot unload a corrupted collection
     if (collection->status() == TRI_VOC_COL_STATUS_CORRUPTED) {
-      return TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_COLLECTION);
+      return TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_COLLECTION);
     }
 
     // an unloaded collection is unloaded
@@ -1108,15 +1108,15 @@ int TRI_vocbase_t::renameCollection(avocadodb::LogicalCollection* collection,
     if (isSystem && !LogicalCollection::IsSystemName(newName)) {
       // a system collection shall not be renamed to a non-system collection
       // name
-      return TRI_set_errno(TRI_ERROR_ARANGO_ILLEGAL_NAME);
+      return TRI_set_errno(TRI_ERROR_AVOCADO_ILLEGAL_NAME);
     } else if (!isSystem && LogicalCollection::IsSystemName(newName)) {
       // a non-system collection shall not be renamed to a system collection
       // name
-      return TRI_set_errno(TRI_ERROR_ARANGO_ILLEGAL_NAME);
+      return TRI_set_errno(TRI_ERROR_AVOCADO_ILLEGAL_NAME);
     }
 
     if (!LogicalCollection::IsAllowedName(isSystem, newName)) {
-      return TRI_set_errno(TRI_ERROR_ARANGO_ILLEGAL_NAME);
+      return TRI_set_errno(TRI_ERROR_AVOCADO_ILLEGAL_NAME);
     }
   }
 
@@ -1157,7 +1157,7 @@ int TRI_vocbase_t::renameCollection(avocadodb::LogicalCollection* collection,
   auto other = lookupCollectionNoLock(newName);
 
   if (other != nullptr) {
-    return TRI_ERROR_ARANGO_DUPLICATE_NAME;
+    return TRI_ERROR_AVOCADO_DUPLICATE_NAME;
   }
 
   int res = collection->rename(newName);
@@ -1217,7 +1217,7 @@ avocadodb::LogicalCollection* TRI_vocbase_t::useCollection(
   }
 
   if (collection == nullptr) {
-    TRI_set_errno(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+    TRI_set_errno(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return nullptr;
   }
 
@@ -1250,7 +1250,7 @@ avocadodb::LogicalCollection* TRI_vocbase_t::useCollection(
   }
 
   if (collection == nullptr) {
-    TRI_set_errno(TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+    TRI_set_errno(TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return nullptr;
   }
 
@@ -1278,7 +1278,7 @@ std::shared_ptr<avocadodb::LogicalView> TRI_vocbase_t::createViewWorker(
 
   // check that the name does not contain any strange characters
   if (!LogicalView::IsAllowedName(name)) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_NAME);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_NAME);
   }
 
   std::string type = avocadodb::basics::VelocyPackHelper::getStringValue(
@@ -1300,8 +1300,8 @@ std::shared_ptr<avocadodb::LogicalView> TRI_vocbase_t::createViewWorker(
   auto it = _viewsByName.find(name);
 
   if (it != _viewsByName.end()) {
-    events::CreateView(name, TRI_ERROR_ARANGO_DUPLICATE_NAME);
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DUPLICATE_NAME);
+    events::CreateView(name, TRI_ERROR_AVOCADO_DUPLICATE_NAME);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DUPLICATE_NAME);
   }
 
   registerView(basics::ConditionalLocking::DoNotLock, view);
@@ -1353,7 +1353,7 @@ int TRI_vocbase_t::dropView(std::string const& name) {
   std::shared_ptr<LogicalView> view = lookupView(name);
 
   if (view == nullptr) {
-    return TRI_ERROR_ARANGO_VIEW_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_VIEW_NOT_FOUND;
   }
 
   return dropView(view);

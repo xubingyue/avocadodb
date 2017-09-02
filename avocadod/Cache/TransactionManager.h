@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_CACHE_TRANSACTION_WINDOW_H
-#define ARANGODB_CACHE_TRANSACTION_WINDOW_H
+#ifndef AVOCADODB_CACHE_TRANSACTION_WINDOW_H
+#define AVOCADODB_CACHE_TRANSACTION_WINDOW_H
 
 #include "Basics/Common.h"
 #include "Cache/State.h"

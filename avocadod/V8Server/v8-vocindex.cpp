@@ -203,14 +203,14 @@ static void CreateVocBase(v8::FunctionCallbackInfo<v8::Value> const& args,
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (args.Length() < 1 || args.Length() > 4) {
     TRI_V8_THROW_EXCEPTION_USAGE("_create(<name>, <properties>, <type>, <options>)");
   }
   if (TRI_GetOperationModeServer() == TRI_VOCBASE_MODE_NO_CREATE) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_READ_ONLY);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_READ_ONLY);
   }
   
   AuthenticationFeature* auth = FeatureCacheFeature::instance()->authenticationFeature();

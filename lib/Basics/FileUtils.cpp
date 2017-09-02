@@ -134,7 +134,7 @@ static void throwFileReadError(int fd, std::string const& filename) {
                       strerror(res));
   LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "" << message;
 
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_SYS_ERROR);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_SYS_ERROR);
 }
 
 std::string slurp(std::string const& filename) {
@@ -212,7 +212,7 @@ static void throwFileWriteError(int fd, std::string const& filename) {
                       strerror(res));
   LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "" << message;
 
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_SYS_ERROR);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_SYS_ERROR);
 }
 
 void spit(std::string const& filename, char const* ptr, size_t len, bool sync) {

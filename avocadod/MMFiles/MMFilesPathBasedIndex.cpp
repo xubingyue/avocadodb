@@ -149,7 +149,7 @@ int MMFilesPathBasedIndex::fillElement(std::vector<T*>& elements,
 
       try {
         TRI_IF_FAILURE("FillElementOOM2") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
         }
 
         elements.emplace_back(element);
@@ -191,7 +191,7 @@ int MMFilesPathBasedIndex::fillElement(std::vector<T*>& elements,
 
         try {
           TRI_IF_FAILURE("FillElementOOM2") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
           }
 
           elements.emplace_back(element);
@@ -316,7 +316,7 @@ void MMFilesPathBasedIndex::buildIndexValues(
       buildIndexValues(document, level + 1, toInsert, sliceStack);
       sliceStack.pop_back();
     } else if (_unique && !_deduplicate) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED);
     }
   };
   for (auto const& member : VPackArrayIterator(current)) {

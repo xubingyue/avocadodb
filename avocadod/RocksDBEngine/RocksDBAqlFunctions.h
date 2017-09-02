@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_AQL_FUNCTIONS_H
-#define ARANGOD_ROCKSDB_ROCKSDB_AQL_FUNCTIONS_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_AQL_FUNCTIONS_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_AQL_FUNCTIONS_H 1
 
 #include "Aql/Functions.h"
 #include "Basics/Common.h"

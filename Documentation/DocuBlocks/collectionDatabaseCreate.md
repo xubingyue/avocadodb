@@ -103,40 +103,40 @@ or *edge*. On default it is document. Instead of giving a type you can also use
 
 With defaults:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreate}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreate}
   c = db._create("users");
   c.properties();
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 With properties:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreateProperties}
   |c = db._create("users", { waitForSync : true,
            journalSize : 1024 * 1204});
   c.properties();
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 With a key generator:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateKey}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreateKey}
 | db._create("users",
      { keyOptions: { type: "autoincrement", offset: 10, increment: 5 } });
   db.users.save({ name: "user 1" });
   db.users.save({ name: "user 2" });
   db.users.save({ name: "user 3" });
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 With a special key option:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
   db._create("users", { keyOptions: { allowUserKeys: false } });
   db.users.save({ name: "user 1" });
 | db.users.save({ name: "user 2", _key: "myuser" });
-~    // xpError(ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED)
+~    // xpError(ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED)
   db.users.save({ name: "user 3" });
 ~ db._drop("users");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

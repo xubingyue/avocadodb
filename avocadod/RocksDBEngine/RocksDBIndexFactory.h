@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_INDEX_FACTORY_H
-#define ARANGOD_ROCKSDB_ROCKSDB_INDEX_FACTORY_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_INDEX_FACTORY_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_INDEX_FACTORY_H 1
 
 #include "Indexes/IndexFactory.h"
 

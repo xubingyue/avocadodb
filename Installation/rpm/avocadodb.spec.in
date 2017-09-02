@@ -45,7 +45,7 @@
 
 Name:           @CPACK_PACKAGE_NAME@
 Version:        @CPACK_PACKAGE_VERSION@
-Release:        @ARANGODB_PACKAGE_REVISION@
+Release:        @AVOCADODB_PACKAGE_REVISION@
 Summary:        The open-source, multi-model NoSQL database
 License:        Apache-2.0
 Group:          Productivity/Databases/Servers
@@ -258,11 +258,11 @@ echo "Start AvocadoDB service:
 "
 %endif
 
-export ARANGODB_DEFAULT_ROOT_PASSWORD=`(uname -a ; cat /etc/hostname) | md5sum | awk '{print $1}'`
+export AVOCADODB_DEFAULT_ROOT_PASSWORD=`(uname -a ; cat /etc/hostname) | md5sum | awk '{print $1}'`
 
 echo "SECURITY HINT:"
 echo "run 'avocado-secure-installation' to set a root password"
-echo "the current password is $ARANGODB_DEFAULT_ROOT_PASSWORD"
+echo "the current password is $AVOCADODB_DEFAULT_ROOT_PASSWORD"
 echo "(in case this a FRESH install, for UPGRADE the password"
 echo "will not be changed)"
 

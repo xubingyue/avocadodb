@@ -392,7 +392,7 @@ int Syncer::applyCollectionDumpMarker(
       // try insert first
       OperationResult opRes = trx.insert(collectionName, slice, options); 
 
-      if (opRes.code == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED) {
+      if (opRes.code == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED) {
         // perform an update
         opRes = trx.replace(collectionName, slice, options); 
       }
@@ -427,7 +427,7 @@ int Syncer::applyCollectionDumpMarker(
       OperationResult opRes = trx.remove(collectionName, old, options);
 
       if (opRes.successful() ||
-          opRes.code == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+          opRes.code == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
         // ignore document not found errors
         return TRI_ERROR_NO_ERROR;
       }
@@ -528,7 +528,7 @@ int Syncer::dropCollection(VPackSlice const& slice, bool reportError) {
 
   if (col == nullptr) {
     if (reportError) {
-      return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
     }
 
     return TRI_ERROR_NO_ERROR;
@@ -558,7 +558,7 @@ int Syncer::createIndex(VPackSlice const& slice) {
     CollectionGuard guard(_vocbase, cid, cnameString);
 
     if (guard.collection() == nullptr) {
-      return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
     }
 
     LogicalCollection* collection = guard.collection();
@@ -610,7 +610,7 @@ int Syncer::dropIndex(avocadodb::velocypack::Slice const& slice) {
     CollectionGuard guard(_vocbase, cid, cnameString);
 
     if (guard.collection() == nullptr) {
-      return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
     }
 
     LogicalCollection* collection = guard.collection();

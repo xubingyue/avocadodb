@@ -21,8 +21,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_NODE_H
-#define ARANGOD_CONSENSUS_NODE_H 1
+#ifndef AVOCADOD_CONSENSUS_NODE_H
+#define AVOCADOD_CONSENSUS_NODE_H 1
 
 #include "AgencyCommon.h"
 

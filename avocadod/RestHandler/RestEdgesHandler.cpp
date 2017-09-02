@@ -75,8 +75,8 @@ void RestEdgesHandler::readCursor(
     // Right now we enforce an edge index that can exactly! work on this condition.
     // So it is impossible to not find an index.
     TRI_ASSERT(false);
-    THROW_ARANGO_EXCEPTION_MESSAGE(
-        TRI_ERROR_ARANGO_NO_INDEX,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
+        TRI_ERROR_AVOCADO_NO_INDEX,
         "Unable to find an edge-index to identify matching edges.");
   }
 
@@ -85,7 +85,7 @@ void RestEdgesHandler::readCursor(
       indexId, condition, var, &mmdr, UINT64_MAX, 1000, false));
 
   if (cursor->failed()) {
-    THROW_ARANGO_EXCEPTION(cursor->code);
+    THROW_AVOCADO_EXCEPTION(cursor->code);
   }
 
   cursor->all(cb);
@@ -154,13 +154,13 @@ bool RestEdgesHandler::validateCollection(std::string const& name) {
   TRI_col_type_e colType = resolver.getCollectionTypeCluster(name);
   if (colType == TRI_COL_TYPE_UNKNOWN) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND);
     return false;
   }
 
   if (colType != TRI_COL_TYPE_EDGE) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_COLLECTION_TYPE_INVALID);
+                  TRI_ERROR_AVOCADO_COLLECTION_TYPE_INVALID);
     return false;
   }
   return true;
@@ -194,7 +194,7 @@ bool RestEdgesHandler::readEdges() {
 
   if (!found || startVertex.empty()) {
     generateError(rest::ResponseCode::BAD,
-                  TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD,
+                  TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD,
                   "illegal document handle");
     return false;
   }

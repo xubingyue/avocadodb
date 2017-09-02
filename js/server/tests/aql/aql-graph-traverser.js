@@ -1293,7 +1293,7 @@ function potentialErrorsSuite () {
         db._query(query, bindVars).toArray();
         fail(query + " should not be allowed");
       } catch (e) {
-        assertEqual(e.errorNum, errors.ERROR_ARANGO_COLLECTION_TYPE_INVALID.code);
+        assertEqual(e.errorNum, errors.ERROR_AVOCADO_COLLECTION_TYPE_INVALID.code);
       }
     },
 
@@ -2645,7 +2645,7 @@ function multiEdgeDirectionSuite () {
             db._query(query[0], bindVars).toArray();
             fail();
           } catch (e) {
-            assertEqual(e.errorNum, errors.ERROR_ARANGO_COLLECTION_TYPE_INVALID.code);
+            assertEqual(e.errorNum, errors.ERROR_AVOCADO_COLLECTION_TYPE_INVALID.code);
           }
         }
       });

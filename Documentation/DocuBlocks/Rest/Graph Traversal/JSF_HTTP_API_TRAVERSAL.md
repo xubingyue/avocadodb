@@ -166,7 +166,7 @@ The starting vertex will always be Alice.
 
 Follow only outbound edges
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalOutbound}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalOutbound}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -181,11 +181,11 @@ Follow only outbound edges
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Follow only inbound edges
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalInbound}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalInbound}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -199,11 +199,11 @@ Follow only inbound edges
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Follow any direction of edges
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalAny}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalAny}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -223,11 +223,11 @@ Follow any direction of edges
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Excluding *Charlie* and *Bob*
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalFilterExclude}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalFilterExclude}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -249,11 +249,11 @@ Excluding *Charlie* and *Bob*
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Do not follow edges from *Bob*
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalFilterPrune}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalFilterPrune}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -273,11 +273,11 @@ Do not follow edges from *Bob*
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Visit only nodes in a depth of at least 2
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalMinDepth}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalMinDepth}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -292,11 +292,11 @@ Visit only nodes in a depth of at least 2
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Visit only nodes in a depth of at most 1
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalMaxDepth}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalMaxDepth}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -311,11 +311,11 @@ Visit only nodes in a depth of at most 1
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a visitor function to return vertex ids only
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalVisitorFunc}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalVisitorFunc}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -330,11 +330,11 @@ Using a visitor function to return vertex ids only
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Count all visited nodes and return a list of nodes only
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalVisitorCountAndList}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalVisitorCountAndList}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -350,11 +350,11 @@ Count all visited nodes and return a list of nodes only
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Expand only inbound edges of *Alice* and outbound edges of *Eve*
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalVisitorExpander}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalVisitorExpander}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -387,11 +387,11 @@ Expand only inbound edges of *Alice* and outbound edges of *Eve*
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Follow the *depthfirst* strategy
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalDepthFirst}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalDepthFirst}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -408,11 +408,11 @@ Follow the *depthfirst* strategy
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using *postorder* ordering
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalPostorder}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalPostorder}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -429,11 +429,11 @@ Using *postorder* ordering
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using *backward* item-ordering:
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalBackwardItemOrder}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalBackwardItemOrder}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -450,12 +450,12 @@ Using *backward* item-ordering:
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Edges should only be included once globally,
 but nodes are included every time they are visited
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalEdgeUniqueness}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalEdgeUniqueness}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -475,7 +475,7 @@ but nodes are included every time they are visited
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 If the underlying graph is cyclic, *maxIterations* should be set
 
@@ -486,7 +486,7 @@ With the directed edges:
 - *Bob* knows *Alice*
 
 
-@EXAMPLE_ARANGOSH_RUN{RestTraversalMaxIterations}
+@EXAMPLE_AVOCADOSH_RUN{RestTraversalMaxIterations}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
@@ -511,7 +511,7 @@ With the directed edges:
 
     logJsonResponse(response);
     examples.dropGraph("knows_graph");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 @endDocuBlock
 

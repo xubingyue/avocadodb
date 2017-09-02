@@ -14,12 +14,12 @@ To create a sparse unique index, set the *sparse* attribute to `true`:
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
-@EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndex}
+@EXAMPLE_AVOCADOSH_OUTPUT{ensureHashIndex}
 ~db._create("test");
 db.test.ensureIndex({ type: "hash", fields: [ "a" ] });
 db.test.save({ a : 1 });
 db.test.save({ a : 1 });
 db.test.save({ a : null });
 ~db._drop("test");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

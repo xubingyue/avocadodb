@@ -19,15 +19,15 @@
 # Description: Start the Avocado Database Server daemon.
 ### END INIT INFO
 
-ARANGO_BIN=/usr/sbin/avocadod
-test -x $ARANGO_BIN || exit 5
+AVOCADO_BIN=/usr/sbin/avocadod
+test -x $AVOCADO_BIN || exit 5
 
-ARANGO_SYSCONFIG=/etc/avocadodb3/avocadod.conf
-test -r $ARANGO_SYSCONFIG || exit 6
+AVOCADO_SYSCONFIG=/etc/avocadodb3/avocadod.conf
+test -r $AVOCADO_SYSCONFIG || exit 6
 
 
-ARANGO_TIMEOUT=120
-ARANGO_PIDFILE=/run/avocadodb/avocadod.pid
+AVOCADO_TIMEOUT=120
+AVOCADO_PIDFILE=/run/avocadodb/avocadod.pid
 
 . /etc/rc.status
 
@@ -44,7 +44,7 @@ ARANGO_PIDFILE=/run/avocadodb/avocadod.pid
 rc_reset
 
 start () {
-    PIDDIR=`dirname $ARANGO_PIDFILE`
+    PIDDIR=`dirname $AVOCADO_PIDFILE`
     [ -d $PIDDIR ] || mkdir $PIDDIR || exit 1
 
     ( cd /var/log/avocadodb3 && chown -R avocadodb:avocadodb . && chmod 700 . ) || exit 1
@@ -60,7 +60,7 @@ start () {
     case "$1" in
         "--upgrade")
             shift
-            $ARANGO_BIN --uid avocadodb --gid avocadodb --server.rest-server false --database.auto-upgrade true $@
+            $AVOCADO_BIN --uid avocadodb --gid avocadodb --server.rest-server false --database.auto-upgrade true $@
             RETVAL=$?
             rc_status -v
             ;;
@@ -73,11 +73,11 @@ start () {
             log_end_msg $RETVAL
             ;;
         *)
-            $ARANGO_BIN --uid avocadodb --gid avocadodb --log.foreground-tty false --database.check-version true
+            $AVOCADO_BIN --uid avocadodb --gid avocadodb --log.foreground-tty false --database.check-version true
             RETVAL=$?
 
             if [ "$RETVAL" -eq 0 ];  then
-                startproc $ARANGO_BIN --uid avocadodb --gid avocadodb --pid-file "$ARANGO_PIDFILE" --temp.path "/var/tmp/avocadod" --log.foreground-tty false --supervisor true $@
+                startproc $AVOCADO_BIN --uid avocadodb --gid avocadodb --pid-file "$AVOCADO_PIDFILE" --temp.path "/var/tmp/avocadod" --log.foreground-tty false --supervisor true $@
 	        rc_status -v
             else
 	        echo "database version check failed, maybe you need to run 'upgrade'?"
@@ -108,7 +108,7 @@ case "$1" in
   stop)
     echo -n "Shutting down AvocadoDB daemon"
 
-    killproc -t $ARANGO_TIMEOUT -p $ARANGO_PIDFILE -TERM $ARANGO_BIN
+    killproc -t $AVOCADO_TIMEOUT -p $AVOCADO_PIDFILE -TERM $AVOCADO_BIN
 
     # Remember status and be verbose
     rc_status -v
@@ -168,7 +168,7 @@ case "$1" in
   status)
     echo -n "Checking for service AvocadoDB"
 
-    checkproc -p $ARANGO_PIDFILE $ARANGO_BIN
+    checkproc -p $AVOCADO_PIDFILE $AVOCADO_BIN
 
     rc_status -v
 

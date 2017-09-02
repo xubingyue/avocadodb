@@ -47,7 +47,7 @@ void AcceptorTcp::open() {
 
       query.reset(new boost::asio::ip::tcp::resolver::query(boost::asio::ip::tcp::v4(), hostname, std::to_string(portNumber)));
     } else {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_IP_ADDRESS_INVALID);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_IP_ADDRESS_INVALID);
     }
 
     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(*query, err);
@@ -80,7 +80,7 @@ void AcceptorTcp::asyncAccept(AcceptHandler const& handler) {
   createPeer();
   auto peer = dynamic_cast<SocketTcp*>(_peer.get());
   if (peer == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unexpected socket type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unexpected socket type");
   }
   _acceptor.async_accept(peer->_socket, peer->_peerEndpoint, handler);
 }

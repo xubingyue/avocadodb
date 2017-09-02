@@ -78,6 +78,6 @@ std::string CollectOptions::methodToString(
     return std::string("sorted");
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                  "cannot stringify unknown aggregation method");
 }

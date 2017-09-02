@@ -56,8 +56,8 @@
 /// Author: Ray Sidney
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_LOGGER_LOGGER_H
-#define ARANGODB_LOGGER_LOGGER_H 1
+#ifndef AVOCADODB_LOGGER_LOGGER_H
+#define AVOCADODB_LOGGER_LOGGER_H 1
 
 #include "Basics/Common.h"
 

@@ -61,7 +61,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 Creating a persistent index
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateNewPersistent}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateNewPersistent}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -79,11 +79,11 @@ Creating a persistent index
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Creating a sparse persistent index
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexCreateSparsePersistent}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexCreateSparsePersistent}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -102,6 +102,6 @@ Creating a sparse persistent index
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

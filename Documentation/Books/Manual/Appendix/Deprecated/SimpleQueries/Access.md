@@ -35,7 +35,7 @@ documents. In this case the next document can be accessed using the
 
 
     @startDocuBlockInline cursorHasNext
-    @EXAMPLE_ARANGOSH_OUTPUT{cursorHasNext}
+    @EXAMPLE_AVOCADOSH_OUTPUT{cursorHasNext}
     ~ db._create("five");
     ~ db.five.save({ name : "one" });
     ~ db.five.save({ name : "two" });
@@ -45,7 +45,7 @@ documents. In this case the next document can be accessed using the
       var a = db.five.all();
       while (a.hasNext()) print(a.next());
     ~ db._drop("five")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock cursorHasNext
 
 
@@ -67,7 +67,7 @@ exhausted cursor, then *undefined* is returned.
 
 
     @startDocuBlockInline cursorNext
-    @EXAMPLE_ARANGOSH_OUTPUT{cursorNext}
+    @EXAMPLE_AVOCADOSH_OUTPUT{cursorNext}
     ~ db._create("five");
     ~ db.five.save({ name : "one" });
     ~ db.five.save({ name : "two" });
@@ -76,7 +76,7 @@ exhausted cursor, then *undefined* is returned.
     ~ db.five.save({ name : "five" });
       db.five.all().next();
     ~ db._drop("five")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock cursorNext
 
 
@@ -118,7 +118,7 @@ means of fetching the query results is chosen. The following two approaches
 lead to the same result:
 
     @startDocuBlockInline executeQueryNoBatchSize
-    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
+    @EXAMPLE_AVOCADOSH_OUTPUT{executeQueryNoBatchSize}
     ~ db._create("users");
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
@@ -126,14 +126,14 @@ lead to the same result:
       result = db.users.all().toArray();
       q = db.users.all(); q.execute(); result = [ ]; while (q.hasNext()) { result.push(q.next()); }
     ~ db._drop("users")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock executeQueryNoBatchSize
 
 The following two alternatives both use a batchSize and return the same
 result:
 
     @startDocuBlockInline executeQueryBatchSize
-    @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}
+    @EXAMPLE_AVOCADOSH_OUTPUT{executeQueryBatchSize}
     ~ db._create("users");
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
@@ -141,7 +141,7 @@ result:
       q = db.users.all(); q.setBatchSize(20); q.execute(); while (q.hasNext()) { print(q.next()); }
       q = db.users.all(); q.execute(20); while (q.hasNext()) { print(q.next()); }
     ~ db._drop("users")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock executeQueryBatchSize
 
 
@@ -189,7 +189,7 @@ returned.
 Ignore any limit:
 
     @startDocuBlockInline cursorCountUnLimited
-    @EXAMPLE_ARANGOSH_OUTPUT{cursorCountUnLimited}
+    @EXAMPLE_AVOCADOSH_OUTPUT{cursorCountUnLimited}
     ~ db._create("five");
     ~ db.five.save({ name : "one" });
     ~ db.five.save({ name : "two" });
@@ -198,13 +198,13 @@ Ignore any limit:
     ~ db.five.save({ name : "five" });
       db.five.all().limit(2).count();
     ~ db._drop("five")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock cursorCountUnLimited
 
 Counting any limit or skip:
 
     @startDocuBlockInline cursorCountLimit
-    @EXAMPLE_ARANGOSH_OUTPUT{cursorCountLimit}
+    @EXAMPLE_AVOCADOSH_OUTPUT{cursorCountLimit}
     ~ db._create("five");
     ~ db.five.save({ name : "one" });
     ~ db.five.save({ name : "two" });
@@ -213,7 +213,7 @@ Counting any limit or skip:
     ~ db.five.save({ name : "five" });
       db.five.all().limit(2).count(true);
     ~ db._drop("five")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock cursorCountLimit
 
 

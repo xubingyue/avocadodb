@@ -143,7 +143,7 @@ void Function::initializeArguments() {
         // unknown parameter type
         std::string message("unknown function signature parameter type for AQL function '");
         message += externalName + "': " + c;
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
       } 
     }
   }

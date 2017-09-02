@@ -128,7 +128,7 @@ RocksDBValue::RocksDBValue(RocksDBEntryType type, uint64_t data)
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -148,7 +148,7 @@ RocksDBValue::RocksDBValue(RocksDBEntryType type, VPackSlice const& data)
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 
@@ -162,7 +162,7 @@ RocksDBValue::RocksDBValue(RocksDBEntryType type, StringRef const& data)
     }
 
     default:
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 }
 

@@ -22,9 +22,9 @@ will be ignored and the configuration for them will not be modified.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesSet}
+@EXAMPLE_AVOCADOSH_OUTPUT{WalPropertiesSet}
 | require("internal").wal.properties({ 
 |    allowOverSizeEntries: true,
     logfileSize: 32 * 1024 * 1024 });
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

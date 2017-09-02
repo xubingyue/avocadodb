@@ -28,11 +28,11 @@ Note: since AvocadoDB 2.2, *insert* is an alias for *save*.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsert}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsCollectionInsert}
 ~ db._create("example");
   db.example.insert({ Hello : "World" });
   db.example.insert({ Hello : "World" }, true);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

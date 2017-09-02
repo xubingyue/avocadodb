@@ -53,7 +53,7 @@ request, the server will respond with *HTTP 400*.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestAqlfunctionCreate}
+@EXAMPLE_AVOCADOSH_RUN{RestAqlfunctionCreate}
   var url = "/_api/aqlfunction";
   var body = {
     name: "myfunctions::temperature::celsiustofahrenheit",
@@ -65,6 +65,6 @@ request, the server will respond with *HTTP 400*.
   assert(response.code === 200 || response.code === 201 || response.code === 202);
 
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

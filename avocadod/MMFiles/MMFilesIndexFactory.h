@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_INDEX_FACTORY_H
-#define ARANGOD_MMFILES_MMFILES_INDEX_FACTORY_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_INDEX_FACTORY_H
+#define AVOCADOD_MMFILES_MMFILES_INDEX_FACTORY_H 1
 
 #include "Indexes/IndexFactory.h"
 

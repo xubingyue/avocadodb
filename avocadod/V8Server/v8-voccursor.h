@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_V8_SERVER_V8_VOCCURSOR_H
-#define ARANGOD_V8_SERVER_V8_VOCCURSOR_H 1
+#ifndef AVOCADOD_V8_SERVER_V8_VOCCURSOR_H
+#define AVOCADOD_V8_SERVER_V8_VOCCURSOR_H 1
 
 #include "Basics/Common.h"
 #include "v8-vocbase.h"

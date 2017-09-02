@@ -138,7 +138,7 @@ is returned when this operation is called on a coordinator in a cluster.
 
 No log events available
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerFollowEmpty}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationLoggerFollowEmpty}
     var re = require("@avocadodb/replication");
     var lastTick = re.logger.state().state.lastLogTick;
 
@@ -148,11 +148,11 @@ No log events available
     assert(response.code === 204);
 
     logRawResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 A few log events
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerFollowSome}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationLoggerFollowSome}
     var re = require("@avocadodb/replication");
     db._drop("products");
 
@@ -172,11 +172,11 @@ A few log events
     assert(response.code === 200);
 
     logRawResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 More events than would fit into the response
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerFollowBufferLimit}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationLoggerFollowBufferLimit}
     var re = require("@avocadodb/replication");
     db._drop("products");
 
@@ -196,6 +196,6 @@ More events than would fit into the response
     assert(response.code === 200);
 
     logRawResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

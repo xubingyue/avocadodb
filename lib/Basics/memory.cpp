@@ -23,7 +23,7 @@
 
 #include "Basics/Common.h"
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 #include <new>
 #endif
 
@@ -35,7 +35,7 @@
 /// why so much memory is needed
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 #define MALLOC_WARNING_THRESHOLD (1024 * 1024 * 1024)
 #endif
 
@@ -46,7 +46,7 @@
 /// mode, and will not include it if in non debug mode
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 
 #define ZONE_DEBUG_LOCATION " in %s:%d"
 #define ZONE_DEBUG_PARAMS , file, line
@@ -65,7 +65,7 @@
 #define BuiltInMalloc(n) malloc(n)
 #define BuiltInRealloc(ptr, n) realloc(ptr, n)
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 #define MALLOC_WRAPPER(zone, n) FailMalloc(zone, n)
 #define REALLOC_WRAPPER(zone, ptr, n) FailRealloc(zone, ptr, n)
 #else
@@ -92,7 +92,7 @@ TRI_memory_zone_t* TRI_CORE_MEM_ZONE = &TriCoreMemZone;
 TRI_memory_zone_t* TRI_UNKNOWN_MEM_ZONE = &TriUnknownMemZone;
 
 /// @brief configuration parameters for memory error tests
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 static size_t FailMinSize = 0;
 static double FailProbability = 0.0;
 static double FailStartStamp = 0.0;
@@ -104,7 +104,7 @@ static thread_local int AllowMemoryFailures = -1;
 /// prints a warning if size is above a threshold
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 static inline void CheckSize(uint64_t n, char const* file, int line) {
   // warn in the case of big malloc operations
   if (n >= MALLOC_WARNING_THRESHOLD) {
@@ -114,7 +114,7 @@ static inline void CheckSize(uint64_t n, char const* file, int line) {
 }
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 /// @brief timestamp for failing malloc
 static inline double CurrentTimeStamp(void) {
   struct timeval tv;
@@ -124,7 +124,7 @@ static inline double CurrentTimeStamp(void) {
 }
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 /// @brief whether or not a malloc operation should intentionally fail
 static bool ShouldFail(size_t n) {
   if (FailMinSize > 0 && FailMinSize > n) {
@@ -151,7 +151,7 @@ static bool ShouldFail(size_t n) {
 }
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 /// @brief intentionally failing malloc - used for failure tests
 static void* FailMalloc(TRI_memory_zone_t* zone, size_t n) {
   // we can fail, so let's check whether we should fail intentionally...
@@ -165,7 +165,7 @@ static void* FailMalloc(TRI_memory_zone_t* zone, size_t n) {
 }
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 /// @brief intentionally failing realloc - used for failure tests
 static void* FailRealloc(TRI_memory_zone_t* zone, void* old, size_t n) {
   // we can fail, so let's check whether we should fail intentionally...
@@ -179,11 +179,11 @@ static void* FailRealloc(TRI_memory_zone_t* zone, void* old, size_t n) {
 }
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 /// @brief initialize failing malloc
 static void InitFailMalloc(void) {
   // get failure probability
-  char* value = getenv("ARANGODB_FAILMALLOC_PROBABILITY");
+  char* value = getenv("AVOCADODB_FAILMALLOC_PROBABILITY");
 
   if (value != nullptr) {
     double v = strtod(value, nullptr);
@@ -193,7 +193,7 @@ static void InitFailMalloc(void) {
   }
 
   // get startup delay
-  value = getenv("ARANGODB_FAILMALLOC_DELAY");
+  value = getenv("AVOCADODB_FAILMALLOC_DELAY");
 
   if (value != nullptr) {
     double v = strtod(value, nullptr);
@@ -203,7 +203,7 @@ static void InitFailMalloc(void) {
   }
 
   // get minimum size for failures
-  value = getenv("ARANGODB_FAILMALLOC_MINSIZE");
+  value = getenv("AVOCADODB_FAILMALLOC_MINSIZE");
 
   if (value != nullptr) {
     unsigned long long v = strtoull(value, nullptr, 10);
@@ -214,7 +214,7 @@ static void InitFailMalloc(void) {
 }
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 /// @brief overloaded, intentionally failing operator new
 void* operator new(size_t size) {
   if (ShouldFail(size)) {
@@ -291,12 +291,12 @@ void operator delete[](void* pointer, std::nothrow_t const&) noexcept {
 #endif
 
 /// @brief system memory allocation
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 void* TRI_SystemAllocateZ(uint64_t n, bool set, char const* file, int line) {
 #else
 void* TRI_SystemAllocate(uint64_t n, bool set) {
 #endif
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   CheckSize(n, file, line);
 #endif
 
@@ -312,13 +312,13 @@ void* TRI_SystemAllocate(uint64_t n, bool set) {
 }
 
 /// @brief basic memory management for allocate
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 void* TRI_AllocateZ(TRI_memory_zone_t* zone, uint64_t n,
                     char const* file, int line) {
 #else
 void* TRI_Allocate(TRI_memory_zone_t* zone, uint64_t n) {
 #endif
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   CheckSize(n, file, line);
 #endif
 
@@ -347,14 +347,14 @@ void* TRI_Allocate(TRI_memory_zone_t* zone, uint64_t n) {
         ", retrying!\n",
         (unsigned long long)n ZONE_DEBUG_PARAMS);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     return TRI_AllocateZ(zone, n, file, line);
 #else
     return TRI_Allocate(zone, n);
 #endif
   }
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   // prefill with 0xA5 (magic value, same as Valgrind will use)
   memset(m, 0xA5, (size_t)n);
 #endif
@@ -363,7 +363,7 @@ void* TRI_Allocate(TRI_memory_zone_t* zone, uint64_t n) {
 }
 
 /// @brief basic memory management for reallocate
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 void* TRI_ReallocateZ(TRI_memory_zone_t* zone, void* m, uint64_t n,
                       char const* file, int line) {
 #else
@@ -371,7 +371,7 @@ void* TRI_Reallocate(TRI_memory_zone_t* zone, void* m, uint64_t n) {
 #endif
 
   if (m == nullptr) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     return TRI_AllocateZ(zone, n, file, line);
 #else
     return TRI_Allocate(zone, n);
@@ -380,7 +380,7 @@ void* TRI_Reallocate(TRI_memory_zone_t* zone, void* m, uint64_t n) {
 
   char* p = (char*)m;
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   CheckSize(n, file, line);
 #endif
 
@@ -408,7 +408,7 @@ void* TRI_Reallocate(TRI_memory_zone_t* zone, void* m, uint64_t n) {
             ZONE_DEBUG_LOCATION ", retrying!\n",
             (unsigned long long)n ZONE_DEBUG_PARAMS);
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     return TRI_ReallocateZ(zone, m, n, file, line);
 #else
     return TRI_Reallocate(zone, m, n);
@@ -419,7 +419,7 @@ void* TRI_Reallocate(TRI_memory_zone_t* zone, void* m, uint64_t n) {
 }
 
 /// @brief basic memory management for deallocate
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 void TRI_FreeZ(TRI_memory_zone_t* zone, void* m, char const* file, int line) {
 #else
 void TRI_Free(TRI_memory_zone_t* zone, void* m) {
@@ -427,7 +427,7 @@ void TRI_Free(TRI_memory_zone_t* zone, void* m) {
 
   char* p = (char*)m;
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (p == nullptr) {
     fprintf(stderr, "freeing nil ptr " ZONE_DEBUG_LOCATION ZONE_DEBUG_PARAMS);
     // crash intentionally
@@ -442,13 +442,13 @@ void TRI_Free(TRI_memory_zone_t* zone, void* m) {
 ///
 /// this can be used to free memory that was not allocated by TRI_Allocate, but
 /// by malloc et al
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 void TRI_SystemFreeZ(void* p, char const* file, int line) {
 #else
 void TRI_SystemFree(void* p) {
 #endif
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   if (p == nullptr) {
     fprintf(stderr, "freeing nil ptr in %s:%d\n", file, line);
   }
@@ -456,13 +456,13 @@ void TRI_SystemFree(void* p) {
   free(p);
 }
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 void TRI_AllowMemoryFailures() {
   AllowMemoryFailures = 1;
 }
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 void TRI_DisallowMemoryFailures() {
   AllowMemoryFailures = 0;
 }
@@ -493,7 +493,7 @@ void TRI_InitializeMemory() {
     TriUnknownMemZone._failed = false;
     TriUnknownMemZone._failable = true;
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
     InitFailMalloc();
 #endif
 

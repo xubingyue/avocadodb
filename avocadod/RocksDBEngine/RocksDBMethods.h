@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_METHODS_H
-#define ARANGOD_ROCKSDB_ROCKSDB_METHODS_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_METHODS_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_METHODS_H 1
 
 #include "Basics/Result.h"
 #include "RocksDBColumnFamily.h"
@@ -87,7 +87,7 @@ class RocksDBMethods {
   virtual void SetSavePoint() = 0;
   virtual avocadodb::Result RollbackToSavePoint() = 0;
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   std::size_t countInBounds(RocksDBKeyBounds const& bounds, bool isElementInRange = false);
 #endif
   

@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_ALGOS_PAGERANK_H
-#define ARANGODB_PREGEL_ALGOS_PAGERANK_H 1
+#ifndef AVOCADODB_PREGEL_ALGOS_PAGERANK_H
+#define AVOCADODB_PREGEL_ALGOS_PAGERANK_H 1
 
 #include <velocypack/Slice.h>
 #include "Pregel/Algorithm.h"

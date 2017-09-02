@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BENCHMARK_BENCHMARK_OPERATION_H
-#define ARANGODB_BENCHMARK_BENCHMARK_OPERATION_H 1
+#ifndef AVOCADODB_BENCHMARK_BENCHMARK_OPERATION_H
+#define AVOCADODB_BENCHMARK_BENCHMARK_OPERATION_H 1
 
 #include "Basics/Common.h"
 #include "SimpleHttpClient/SimpleHttpClient.h"

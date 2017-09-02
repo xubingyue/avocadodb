@@ -33,7 +33,7 @@ is returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestIndexPrimaryIndex}
+@EXAMPLE_AVOCADOSH_RUN{RestIndexPrimaryIndex}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -45,6 +45,6 @@ is returned.
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

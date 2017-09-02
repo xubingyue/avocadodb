@@ -12,7 +12,7 @@ index of a collection or the edge index of an edge collection).
 
 Same as above. Instead of an index an index handle can be given.
 
-@EXAMPLE_ARANGOSH_OUTPUT{col_dropIndex}
+@EXAMPLE_AVOCADOSH_OUTPUT{col_dropIndex}
 ~db._create("example");
 db.example.ensureSkiplist("a", "b");
 var indexInfo = db.example.getIndexes();
@@ -21,6 +21,6 @@ db.example.dropIndex(indexInfo[0])
 db.example.dropIndex(indexInfo[1].id)
 indexInfo = db.example.getIndexes();
 ~db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

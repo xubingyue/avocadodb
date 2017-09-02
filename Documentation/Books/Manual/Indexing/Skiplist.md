@@ -51,27 +51,27 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensureUniqueSkiplistSingle
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistSingle}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureUniqueSkiplistSingle}
     ~db._create("ids");
     db.ids.ensureIndex({ type: "skiplist", fields: [ "myId" ], unique: true });
     db.ids.save({ "myId": 123 });
     db.ids.save({ "myId": 456 });
     db.ids.save({ "myId": 789 });
-    db.ids.save({ "myId": 123 });  // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    db.ids.save({ "myId": 123 });  // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
     ~db._drop("ids");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureUniqueSkiplistSingle
 
     @startDocuBlockInline ensureUniqueSkiplistMultiColumn
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistMultiColumn}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureUniqueSkiplistMultiColumn}
     ~db._create("ids");
     db.ids.ensureIndex({ type: "skiplist", fields: [ "name.first", "name.last" ], unique: true });
     db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }});
     db.ids.save({ "name" : { "first" : "jens", "last": "jensen" }});
     db.ids.save({ "name" : { "first" : "hans", "last": "jensen" }});
-    db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }});  // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    db.ids.save({ "name" : { "first" : "hans", "last": "hansen" }});  // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
     ~db._drop("ids");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureUniqueSkiplistMultiColumn
 
 
@@ -94,7 +94,7 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensureSkiplist
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplist}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureSkiplist}
     ~db._create("names");
     db.names.ensureIndex({ type: "skiplist", fields: [ "first" ] });
     db.names.save({ "first" : "Tim" });
@@ -103,7 +103,7 @@ details, including the index-identifier, is returned.
     db.names.save({ "first" : "Tim" });
     db.names.save({ "first" : "Tom" });
     ~db._drop("names");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureSkiplist
 
 ### Skiplist Array Index
@@ -123,14 +123,14 @@ In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
     @startDocuBlockInline ensureSkiplistArray
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplistArray}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureSkiplistArray}
     ~db._create("test");
     db.test.ensureIndex({ type: "skiplist", fields: [ "a[*]" ] });
     db.test.save({ a : [ 1, 2 ] });
     db.test.save({ a : [ 1, 3 ] });
     db.test.save({ a : null });
     ~db._drop("test");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureSkiplistArray
 
 ### Query by example using a skiplist index

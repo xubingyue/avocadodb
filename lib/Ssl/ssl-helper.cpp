@@ -69,7 +69,7 @@ boost::asio::ssl::context avocadodb::sslContext(
       break;
 
     default:
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unknown SSL protocol method");
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "unknown SSL protocol method");
   }
 
   boost::asio::ssl::context sslctx(meth);
@@ -86,13 +86,13 @@ boost::asio::ssl::context avocadodb::sslContext(
                                           keyfile.c_str())) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot read certificate from '" << keyfile
              << "': " << lastSSLError();
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "unable to read certificate from file");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "unable to read certificate from file");
   }
 
   if (!SSL_CTX_use_PrivateKey_file(sslctx.native_handle(), keyfile.c_str(),
                                    SSL_FILETYPE_PEM)) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot read key from '" << keyfile << "': " << lastSSLError();
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "unable to read key from keyfile");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "unable to read key from keyfile");
   }
 
 #if (OPENSSL_VERSION_NUMBER < 0x00905100L)

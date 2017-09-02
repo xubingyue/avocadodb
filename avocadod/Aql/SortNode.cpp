@@ -92,7 +92,7 @@ std::vector<std::pair<ExecutionNode*, bool>> SortNode::getCalcNodePairs() {
   SortNodeFindMyExpressions findExp(this);
   _dependencies[0]->walk(&findExp);
   if (findExp._foundCalcNodes < _elements.size()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "SortNode wasn't able to locate all its CalculationNodes");
   }

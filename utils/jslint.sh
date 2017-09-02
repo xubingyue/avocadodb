@@ -49,17 +49,17 @@ for file in ${JAVASCRIPT_JSLINT}; do
   FILELIST="${FILELIST} --jslint ${file}";
 done
 
-if [ -z "${ARANGOSH}" ];  then
+if [ -z "${AVOCADOSH}" ];  then
   if [ -x build/bin/avocadosh ];  then
-    ARANGOSH=build/bin/avocadosh
+    AVOCADOSH=build/bin/avocadosh
   elif [ -x bin/avocadosh ];  then
-    ARANGOSH=bin/avocadosh
+    AVOCADOSH=bin/avocadosh
   else
     echo "$0: cannot locate avocadosh"
   fi
 fi
 
-exec $ARANGOSH \
+exec $AVOCADOSH \
     -c none \
     --log.level error \
     --log.file - \

@@ -20,8 +20,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_SCHEDULER_JOB_GUARD_H
-#define ARANGOD_SCHEDULER_JOB_GUARD_H 1
+#ifndef AVOCADOD_SCHEDULER_JOB_GUARD_H
+#define AVOCADOD_SCHEDULER_JOB_GUARD_H 1
 
 #include "Basics/Common.h"
 

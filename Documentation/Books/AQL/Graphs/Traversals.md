@@ -304,24 +304,24 @@ We will create a simple symmetric traversal demonstration graph:
 ![traversal graph](traversal_graph.png)
 
     @startDocuBlockInline GRAPHTRAV_01_create_graph
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_01_create_graph}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_01_create_graph}
     ~addIgnoreCollection("circles");
     ~addIgnoreCollection("edges");
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("traversalGraph");
     db.circles.toArray();
     db.edges.toArray();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_01_create_graph
 
 To get started we select the full graph. For better overview we only return
 the vertex IDs:
 
     @startDocuBlockInline GRAPHTRAV_02_traverse_all
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_02_traverse_all}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_02_traverse_all}
     db._query("FOR v IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' RETURN v._key");
     db._query("FOR v IN 1..3 OUTBOUND 'circles/A' edges RETURN v._key");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_02_traverse_all
 
 We can nicely see that it is heading for the first outer vertex, then goes back to
@@ -333,10 +333,10 @@ Now we only want the elements of a specific depth (min = max = 2), the ones that
 are right behind the fork:
 
     @startDocuBlockInline GRAPHTRAV_03_traverse_3
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_03_traverse_3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_03_traverse_3}
     db._query("FOR v IN 2..2 OUTBOUND 'circles/A' GRAPH 'traversalGraph' return v._key");
     db._query("FOR v IN 2 OUTBOUND 'circles/A' GRAPH 'traversalGraph' return v._key");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_03_traverse_3
 
 As you can see, we can express this in two ways: with or without *max* parameter
@@ -351,10 +351,10 @@ side of the graph, we may filter in two ways:
 - we know the `label` attribute of the edge connecting **A** to **G** is `right_foo`
 
     @startDocuBlockInline GRAPHTRAV_04_traverse_4
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_04_traverse_4}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_04_traverse_4}
     db._query("FOR v, e, p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' RETURN v._key");
     db._query("FOR v, e, p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.edges[0].label != 'right_foo' RETURN v._key");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_04_traverse_4
 
 As we can see all vertices behind **G** are skipped in both queries.
@@ -366,10 +366,10 @@ We also may combine several filters, for instance to filter out the right branch
 (**G**), and the **E** branch:
 
     @startDocuBlockInline GRAPHTRAV_05_traverse_5
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_05_traverse_5}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_05_traverse_5}
     db._query("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' FILTER p.edges[1].label != 'left_blub' return v._key");
     db._query("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' AND    p.edges[1].label != 'left_blub' return v._key");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_05_traverse_5
 
 As you can see, combining two `FILTER` statements with an `AND` has the same result.
@@ -383,11 +383,11 @@ both (*ANY*). Since `circles/A` only has outbound edges, we start our queries
 from `circles/E`:
 
     @startDocuBlockInline GRAPHTRAV_06_traverse_reverse_6
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_06_traverse_reverse_6}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_06_traverse_reverse_6}
     db._query("FOR v IN 1..3 OUTBOUND 'circles/E' GRAPH 'traversalGraph' return v._key");
     db._query("FOR v IN 1..3 INBOUND 'circles/E' GRAPH 'traversalGraph' return v._key");
     db._query("FOR v IN 1..3 ANY 'circles/E' GRAPH 'traversalGraph' return v._key");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_06_traverse_reverse_6
 
 The first traversal will only walk in the forward (*OUTBOUND*) direction.
@@ -413,10 +413,10 @@ Now let's have a look what the optimizer does behind the curtain and inspect
 traversal queries using [the explainer](../ExecutionAndPerformance/Optimizer.md):
 
     @startDocuBlockInline GRAPHTRAV_07_traverse_7
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_07_traverse_7}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_07_traverse_7}
     db._explain("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' LET localScopeVar = RAND() > 0.5 FILTER p.edges[0].theTruth != localScopeVar RETURN v._key", {}, {colors: false});
     db._explain("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.edges[0].label == 'right_foo' RETURN v._key", {}, {colors: false});
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_07_traverse_7
 
 We now see two queries: In one we add a variable *localScopeVar*, which is outside
@@ -429,12 +429,12 @@ Paths that are filtered out by this condition won't be processed at all.
 And finally clean it up again:
 
     @startDocuBlockInline GRAPHTRAV_99_drop_graph
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_99_drop_graph}
+    @EXAMPLE_AVOCADOSH_OUTPUT{GRAPHTRAV_99_drop_graph}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     examples.dropGraph("traversalGraph");
     ~removeIgnoreCollection("circles");
     ~removeIgnoreCollection("edges");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_99_drop_graph
 
 

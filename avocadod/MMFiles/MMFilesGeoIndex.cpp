@@ -149,7 +149,7 @@ bool MMFilesGeoIndexIterator::next(TokenCallback const& cb, size_t limit) {
 
     if (!_cursor) {
       // actually validate that we got a valid cursor
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
   }
 
@@ -232,7 +232,7 @@ IndexIterator* MMFilesGeoIndex::iteratorForCondition(
     avocadodb::aql::AstNode const* node,
     avocadodb::aql::Variable const* reference, bool) {
   TRI_IF_FAILURE("GeoIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   return new MMFilesGeoIndexIterator(_collection, trx, mmdr, this, node,
                                      reference);
@@ -274,7 +274,7 @@ MMFilesGeoIndex::MMFilesGeoIndex(TRI_idx_iid_t iid,
       _longitude.emplace_back(it.name);
     }
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_BAD_PARAMETER,
         "MMFilesGeoIndex can only be created with one or two fields.");
   }
@@ -282,7 +282,7 @@ MMFilesGeoIndex::MMFilesGeoIndex(TRI_idx_iid_t iid,
   _geoIndex = GeoIndex_new();
 
   if (_geoIndex == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 }
 
@@ -324,7 +324,7 @@ void MMFilesGeoIndex::toVelocyPack(VPackBuilder& builder, bool withFigures,
 /// @brief Test if this index matches the definition
 bool MMFilesGeoIndex::matchesDefinition(VPackSlice const& info) const {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice typeSlice = info.get("type");
   TRI_ASSERT(typeSlice.isString());
   StringRef typeStr(typeSlice);
@@ -518,7 +518,7 @@ void MMFilesGeoIndex::unload() {
   auto empty = GeoIndex_new();
 
   if (empty == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   // free the old one

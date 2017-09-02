@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_REPLICATION_DUMP_H
-#define ARANGOD_MMFILES_MMFILES_REPLICATION_DUMP_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_REPLICATION_DUMP_H
+#define AVOCADOD_MMFILES_MMFILES_REPLICATION_DUMP_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -71,7 +71,7 @@ struct MMFilesReplicationDumpContext {
       _buffer = TRI_CreateSizedStringBuffer(TRI_UNKNOWN_MEM_ZONE, _chunkSize);
 
       if (_buffer == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
     }
   }

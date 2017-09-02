@@ -355,7 +355,7 @@ inline void RocksRead(GeoIx* gix, RocksDBKey const& key, std::string* val) {
   avocadodb::Result r =
       gix->rocksMethods->Get(RocksDBColumnFamily::geo(), key, val);
   if (!r.ok()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
   }
 }
 
@@ -369,13 +369,13 @@ inline void RocksWrite(GeoIx* gix, RocksDBKey const& key,
         db->Put(wo, RocksDBColumnFamily::geo(), key.string(), slice);
     if (!s.ok()) {
       avocadodb::Result r = rocksutils::convertStatus(s, rocksutils::index);
-      THROW_ARANGO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
+      THROW_AVOCADO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
     }
   } else {
     avocadodb::Result r = gix->rocksMethods->Put(RocksDBColumnFamily::geo(), key,
                                                 slice, rocksutils::index);
     if (!r.ok()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
+      THROW_AVOCADO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
     }
   }
 }
@@ -384,7 +384,7 @@ inline void RocksDelete(GeoIx* gix, RocksDBKey const& key) {
   avocadodb::Result r =
       gix->rocksMethods->Delete(RocksDBColumnFamily::geo(), key);
   if (!r.ok()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(r.errorNumber(), r.errorMessage());
   }
 }
 

@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VIEWS_LOGGER_VIEW_H
-#define ARANGOD_VIEWS_LOGGER_VIEW_H 1
+#ifndef AVOCADOD_VIEWS_LOGGER_VIEW_H
+#define AVOCADOD_VIEWS_LOGGER_VIEW_H 1
 
 #include "Basics/Common.h"
 #include "Logger/Logger.h"

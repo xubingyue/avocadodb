@@ -404,14 +404,14 @@ TRI_replication_applier_t* TRI_CreateReplicationApplier(TRI_vocbase_t* vocbase) 
 
     if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_FILE_NOT_FOUND) {
       TRI_DestroyStateReplicationApplier(&applier->_state);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     res = TRI_LoadStateReplicationApplier(vocbase, &applier->_state);
 
     if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_FILE_NOT_FOUND) {
       TRI_DestroyStateReplicationApplier(&applier->_state);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   }
 
@@ -1221,7 +1221,7 @@ void TRI_replication_applier_t::toVelocyPack(VPackBuilder& builder) const {
   int res = TRI_StateReplicationApplier(this, &state);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   try {
@@ -1244,7 +1244,7 @@ void TRI_replication_applier_t::toVelocyPack(VPackBuilder& builder) const {
 
   // add server info
   builder.add("server", VPackValue(VPackValueType::Object));
-  builder.add("version", VPackValue(ARANGODB_VERSION));
+  builder.add("version", VPackValue(AVOCADODB_VERSION));
   builder.add("serverId", VPackValue(std::to_string(ServerIdFeature::getId())));
   builder.close();  // server
   

@@ -148,7 +148,7 @@ int Optimizer::createPlans(ExecutionPlan* plan,
         }
 
         TRI_IF_FAILURE("Optimizer::createPlansOom") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         if (!p->varUsageComputed()) {

@@ -118,7 +118,7 @@ SimpleQueryByExample.prototype.execute = function () {
     Array.isArray(this._example)) {
     // invalid datatype for example
     var err = new AvocadoError();
-    err.errorNum = internal.errors.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code;
+    err.errorNum = internal.errors.ERROR_AVOCADO_DOCUMENT_TYPE_INVALID.code;
     err.errorMessage = "invalid document type '" + (typeof this._example) + "'";
     throw err;
   }

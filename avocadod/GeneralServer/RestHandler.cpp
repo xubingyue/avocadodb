@@ -188,14 +188,14 @@ int RestHandler::executeEngine() {
 
     return TRI_ERROR_NO_ERROR;
   } catch (Exception const& ex) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "caught exception in " << name() << ": "
               << DIAGNOSTIC_INFORMATION(ex);
 #endif
     RequestStatistics::SET_EXECUTE_ERROR(_statistics);
     handleError(ex);
   } catch (avocadodb::velocypack::Exception const& ex) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "caught velocypack exception in " << name() << ": "
               << DIAGNOSTIC_INFORMATION(ex);
 #endif
@@ -204,7 +204,7 @@ int RestHandler::executeEngine() {
                   __FILE__, __LINE__);
     handleError(err);
   } catch (std::bad_alloc const& ex) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "caught memory exception in " << name() << ": "
               << DIAGNOSTIC_INFORMATION(ex);
 #endif
@@ -212,7 +212,7 @@ int RestHandler::executeEngine() {
     Exception err(TRI_ERROR_OUT_OF_MEMORY, ex.what(), __FILE__, __LINE__);
     handleError(err);
   } catch (std::exception const& ex) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "caught exception in " << name() << ": "
               << DIAGNOSTIC_INFORMATION(ex);
 #endif
@@ -220,7 +220,7 @@ int RestHandler::executeEngine() {
     Exception err(TRI_ERROR_INTERNAL, ex.what(), __FILE__, __LINE__);
     handleError(err);
   } catch (...) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "caught unknown exception in " << name();
 #endif
     RequestStatistics::SET_EXECUTE_ERROR(_statistics);

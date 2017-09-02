@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REPLICATION_SYNCER_H
-#define ARANGOD_REPLICATION_SYNCER_H 1
+#ifndef AVOCADOD_REPLICATION_SYNCER_H
+#define AVOCADOD_REPLICATION_SYNCER_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/replication-applier.h"

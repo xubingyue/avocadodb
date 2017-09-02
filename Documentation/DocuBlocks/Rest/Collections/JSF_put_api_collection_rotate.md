@@ -37,7 +37,7 @@ If the *collection-name* is unknown, then a *HTTP 404* is returned.
 
 Rotating the journal:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionRotate}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionRotate}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn);
@@ -52,11 +52,11 @@ Rotating the journal:
     db._drop(cn);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Rotating if no journal exists:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionRotateNoJournal}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionRotateNoJournal}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn);
@@ -69,6 +69,6 @@ Rotating if no journal exists:
     db._drop(cn);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

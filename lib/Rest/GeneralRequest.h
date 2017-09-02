@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_GENERAL_REQUEST_H
-#define ARANGODB_REST_GENERAL_REQUEST_H 1
+#ifndef AVOCADODB_REST_GENERAL_REQUEST_H
+#define AVOCADODB_REST_GENERAL_REQUEST_H 1
 
 #include "Basics/Common.h"
 #include "Utils/ExecContext.h"

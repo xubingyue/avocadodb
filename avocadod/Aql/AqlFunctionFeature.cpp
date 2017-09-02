@@ -159,7 +159,7 @@ Function const* AqlFunctionFeature::byName(std::string const& name) {
   auto it = _functionNames.find(name);
 
   if (it == _functionNames.end()) {
-    THROW_ARANGO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_FUNCTION_NAME_UNKNOWN,
+    THROW_AVOCADO_EXCEPTION_PARAMS(TRI_ERROR_QUERY_FUNCTION_NAME_UNKNOWN,
                                   name.c_str());
   }
 
@@ -173,7 +173,7 @@ std::string const& AqlFunctionFeature::getOperatorName(
 
   if (it == _internalFunctionNames.end()) {
     // no function found for the type of node
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMessage);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, errorMessage);
   }
   return it->second;
 }

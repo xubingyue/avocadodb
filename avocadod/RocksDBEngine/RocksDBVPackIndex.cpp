@@ -300,7 +300,7 @@ int RocksDBVPackIndex::fillElement(VPackBuilder& leased, TRI_voc_rid_t revId,
 
     TRI_IF_FAILURE("FillElementOOM") { return TRI_ERROR_OUT_OF_MEMORY; }
     TRI_IF_FAILURE("FillElementOOM2") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     if (_unique) {
@@ -444,7 +444,7 @@ void RocksDBVPackIndex::buildIndexValues(VPackBuilder& leased,
                        hashes);
       sliceStack.pop_back();
     } else if (_unique && !_deduplicate) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED);
     }
   };
   for (auto const& member : VPackArrayIterator(current)) {
@@ -531,7 +531,7 @@ Result RocksDBVPackIndex::insertInternal(transaction::Methods* trx,
       RocksDBValue existing =
           RocksDBValue::Empty(RocksDBEntryType::UniqueVPackIndexValue);
       if (mthds->Exists(_cf, key)) {
-        res = TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+        res = TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
       }
     }
 
@@ -550,7 +550,7 @@ Result RocksDBVPackIndex::insertInternal(transaction::Methods* trx,
         mthds->Delete(_cf, elements[j]);
       }
 
-      if (res == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED && !_unique) {
+      if (res == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED && !_unique) {
         // We ignore unique_constraint violated if we are not unique
         res = TRI_ERROR_NO_ERROR;
         // TODO: remove this? seems dangerous...
@@ -804,13 +804,13 @@ bool RocksDBVPackIndex::accessFitsIndex(
         (*it).second.emplace_back(op);
       }
       TRI_IF_FAILURE("PersistentIndex::accessFitsIndex") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
       TRI_IF_FAILURE("SkiplistIndex::accessFitsIndex") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
       TRI_IF_FAILURE("HashIndex::accessFitsIndex") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       return true;
@@ -868,7 +868,7 @@ bool RocksDBVPackIndex::supportsFilterCondition(
   // mmfiles failure point compat
   if (this->type() == Index::TRI_IDX_TYPE_HASH_INDEX) {
     TRI_IF_FAILURE("SimpleAttributeMatcher::accessFitsIndex") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
   }
 
@@ -1056,13 +1056,13 @@ IndexIterator* RocksDBVPackIndex::iteratorForCondition(
     VPackArrayBuilder guard(&searchValues);
 
     TRI_IF_FAILURE("PersistentIndex::noSortIterator") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
     TRI_IF_FAILURE("SkiplistIndex::noSortIterator") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
     TRI_IF_FAILURE("HashIndex::noSortIterator") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
   } else {
@@ -1126,26 +1126,26 @@ IndexIterator* RocksDBVPackIndex::iteratorForCondition(
         searchValues.openObject();
         searchValues.add(VPackValue(StaticStrings::IndexEq));
         TRI_IF_FAILURE("PersistentIndex::permutationEQ") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         TRI_IF_FAILURE("SkiplistIndex::permutationEQ") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         TRI_IF_FAILURE("HashIndex::permutationEQ") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
       } else if (comp->type == avocadodb::aql::NODE_TYPE_OPERATOR_BINARY_IN) {
         if (isAttributeExpanded(usedFields)) {
           searchValues.openObject();
           searchValues.add(VPackValue(StaticStrings::IndexEq));
           TRI_IF_FAILURE("PersistentIndex::permutationArrayIN") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
           TRI_IF_FAILURE("SkiplistIndex::permutationArrayIN") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
           TRI_IF_FAILURE("HashIndex::permutationArrayIN") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
         } else {
           needNormalize = true;
@@ -1218,13 +1218,13 @@ IndexIterator* RocksDBVPackIndex::iteratorForCondition(
   searchValues.close();
 
   TRI_IF_FAILURE("PersistentIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   TRI_IF_FAILURE("SkiplistIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   TRI_IF_FAILURE("HashIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (needNormalize) {
@@ -1268,10 +1268,10 @@ avocadodb::aql::AstNode* RocksDBVPackIndex::specializeCondition(
   // mmfiles failure compat
   if (this->type() == Index::TRI_IDX_TYPE_HASH_INDEX) {
     TRI_IF_FAILURE("SimpleAttributeMatcher::specializeAllChildrenEQ") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
     TRI_IF_FAILURE("SimpleAttributeMatcher::specializeAllChildrenIN") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
   }
 

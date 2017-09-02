@@ -112,7 +112,7 @@ AqlItemBlock* ModificationBlock::getSome(size_t atLeast, size_t atMost) {
         }
 
         TRI_IF_FAILURE("ModificationBlock::getSome") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         blocks.emplace_back(res.get());
@@ -134,7 +134,7 @@ AqlItemBlock* ModificationBlock::getSome(size_t atLeast, size_t atMost) {
         }
 
         TRI_IF_FAILURE("ModificationBlock::getSome") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         blocks.emplace_back(res.get());
@@ -175,7 +175,7 @@ int ModificationBlock::extractKey(AqlValue const& value,
     return TRI_ERROR_NO_ERROR;
   }
 
-  return TRI_ERROR_ARANGO_DOCUMENT_KEY_MISSING;
+  return TRI_ERROR_AVOCADO_DOCUMENT_KEY_MISSING;
 }
 
 /// @brief process the result of a data-modification operation
@@ -195,10 +195,10 @@ void ModificationBlock::handleResult(int code, bool ignoreErrors,
 
   // bubble up the error
   if (errorMessage != nullptr && !errorMessage->empty()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(code, *errorMessage);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(code, *errorMessage);
   }
 
-  THROW_ARANGO_EXCEPTION(code);
+  THROW_AVOCADO_EXCEPTION(code);
 }
 
 /// @brief process the result of a data-modification operation
@@ -224,7 +224,7 @@ void ModificationBlock::handleBabyResult(std::unordered_map<int, size_t> const& 
     return;
   }
   auto first = errorCounter.begin();
-  if (ignoreDocumentNotFound && first->first == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+  if (ignoreDocumentNotFound && first->first == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
 
     if (errorCounter.size() == 1) {
       // We only have Document not found. Fix statistics and ignore
@@ -243,7 +243,7 @@ void ModificationBlock::handleBabyResult(std::unordered_map<int, size_t> const& 
     TRI_ASSERT(first != errorCounter.end());
   }
 
-  THROW_ARANGO_EXCEPTION(first->first);
+  THROW_AVOCADO_EXCEPTION(first->first);
 }
  
   
@@ -316,7 +316,7 @@ AqlItemBlock* RemoveBlock::work(std::vector<AqlItemBlock*>& blocks) {
           // value is a string
           key = a.slice().copyString();
         } else {
-          errorCode = TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+          errorCode = TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
         }
 
         if (errorCode == TRI_ERROR_NO_ERROR) {
@@ -362,7 +362,7 @@ AqlItemBlock* RemoveBlock::work(std::vector<AqlItemBlock*>& blocks) {
                     avocadodb::basics::VelocyPackHelper::getNumericValue<int>(
                         it, "errorNum", TRI_ERROR_NO_ERROR);
               }
-              if (errorCode == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND && _isDBServer &&
+              if (errorCode == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND && _isDBServer &&
                   ignoreDocumentNotFound) {
                 // Ignore document not found on the DBserver:
                 errorCode = TRI_ERROR_NO_ERROR;
@@ -385,7 +385,7 @@ AqlItemBlock* RemoveBlock::work(std::vector<AqlItemBlock*>& blocks) {
         }
       } else {
         errorCode = opRes.code;
-        if (errorCode == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND && _isDBServer &&
+        if (errorCode == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND && _isDBServer &&
             ignoreDocumentNotFound) {
           // Ignore document not found on the DBserver:
           errorCode = TRI_ERROR_NO_ERROR;
@@ -460,7 +460,7 @@ AqlItemBlock* InsertBlock::work(std::vector<AqlItemBlock*>& blocks) {
 
         if (!a.isObject()) {
           // value is no object
-          errorCode = TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+          errorCode = TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
         } else {
           if (!ep->_options.consultAqlWriteFilter ||
               !_collection->getCollection()->skipForAqlWrite(a.slice(), "")) {
@@ -620,7 +620,7 @@ AqlItemBlock* UpdateBlock::work(std::vector<AqlItemBlock*>& blocks) {
           errorCode = extractKey(a, key);
         }
       } else {
-        errorCode = TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+        errorCode = TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
         errorMessage += std::string("expecting 'Object', got: ") +
                         a.slice().typeName() + std::string(" while handling: ") +
                         _exeNode->getTypeString();
@@ -685,7 +685,7 @@ AqlItemBlock* UpdateBlock::work(std::vector<AqlItemBlock*>& blocks) {
         }
       }
 
-      if (errorCode == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND && _isDBServer &&
+      if (errorCode == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND && _isDBServer &&
           ignoreDocumentNotFound) {
         // Ignore document not found on the DBserver:
         errorCode = TRI_ERROR_NO_ERROR;
@@ -846,7 +846,7 @@ AqlItemBlock* UpsertBlock::work(std::vector<AqlItemBlock*>& blocks) {
               }
 
             } else {
-              errorCode = TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+              errorCode = TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
             }
           }
         }
@@ -862,7 +862,7 @@ AqlItemBlock* UpsertBlock::work(std::vector<AqlItemBlock*>& blocks) {
             insRows.emplace_back(dstRow);
           }
         } else {
-          errorCode = TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+          errorCode = TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
         }
       }
 
@@ -1059,7 +1059,7 @@ AqlItemBlock* ReplaceBlock::work(std::vector<AqlItemBlock*>& blocks) {
           errorCode = extractKey(a, key);
         }
       } else {
-        errorCode = TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
+        errorCode = TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID;
         errorMessage += std::string("expecting 'Object', got: ") +
                         a.slice().typeName() + std::string(" while handling: ") +
                         _exeNode->getTypeString();
@@ -1123,7 +1123,7 @@ AqlItemBlock* ReplaceBlock::work(std::vector<AqlItemBlock*>& blocks) {
         }
       }
 
-      if (errorCode == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND && _isDBServer &&
+      if (errorCode == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND && _isDBServer &&
           ignoreDocumentNotFound) {
         // Ignore document not found on the DBserver:
         errorCode = TRI_ERROR_NO_ERROR;

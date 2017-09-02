@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PROGRAM_OPTIONS_PARAMETERS_H
-#define ARANGODB_PROGRAM_OPTIONS_PARAMETERS_H 1
+#ifndef AVOCADODB_PROGRAM_OPTIONS_PARAMETERS_H
+#define AVOCADODB_PROGRAM_OPTIONS_PARAMETERS_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -481,7 +481,7 @@ struct DiscreteValuesParameter : public T {
       msg.append(stringifyValue(*ptr));
       msg.append("'. ");
       msg.append(description());
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg);
     }
   }
 

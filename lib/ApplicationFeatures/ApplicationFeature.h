@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_APPLICATION_FEATURES_APPLICATION_FEATURE_H
-#define ARANGODB_APPLICATION_FEATURES_APPLICATION_FEATURE_H 1
+#ifndef AVOCADODB_APPLICATION_FEATURES_APPLICATION_FEATURE_H
+#define AVOCADODB_APPLICATION_FEATURES_APPLICATION_FEATURE_H 1
 
 #include "Basics/Common.h"
 
@@ -69,7 +69,7 @@ class ApplicationFeature {
   // enable or disable a feature
   void setEnabled(bool value) {
     if (!value && !isOptional()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_BAD_PARAMETER,
           "cannot disable non-optional feature '" + name() + "'");
     }

@@ -29,7 +29,7 @@ be returned.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{JSF_job_cancel}
+@EXAMPLE_AVOCADOSH_RUN{JSF_job_cancel}
   var url = "/_api/cursor";
   var headers = {'x-avocado-async' : 'store'};
   var postData = {"query":
@@ -54,6 +54,6 @@ be returned.
   var response = logCurlRequest('GET', url, "");
   assert(response.code === 200);
   logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

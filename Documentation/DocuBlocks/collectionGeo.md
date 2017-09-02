@@ -41,7 +41,7 @@ and a destination stored in the attribute *work*. Then you can use the
 `geo` operator to select which geo-spatial attributes (and thus which
 index) to use in a `near` query.
 
-@EXAMPLE_ARANGOSH_OUTPUT{geoIndexSimpleQuery}
+@EXAMPLE_AVOCADOSH_OUTPUT{geoIndexSimpleQuery}
 ~db._create("complex")
 |for (i = -90;  i <= 90;  i += 10) {
 |  for (j = -180;  j <= 180;  j += 10) {
@@ -58,7 +58,7 @@ index) to use in a `near` query.
  db.complex.ensureIndex({ type: "geo", fields: [ "work" ] });
  db.complex.geo("work").near(0, 170).limit(5).toArray();
 ~ db._drop("complex");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 
 @endDocuBlock

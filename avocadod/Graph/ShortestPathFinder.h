@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_GRAPH_SHORTEST_PATH_FINDER_H
-#define ARANGODB_GRAPH_SHORTEST_PATH_FINDER_H 1
+#ifndef AVOCADODB_GRAPH_SHORTEST_PATH_FINDER_H
+#define AVOCADODB_GRAPH_SHORTEST_PATH_FINDER_H 1
 
 #include "Basics/Common.h"
 

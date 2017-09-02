@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_COLLECTION_KEYS_H
-#define ARANGOD_UTILS_COLLECTION_KEYS_H 1
+#ifndef AVOCADOD_UTILS_COLLECTION_KEYS_H
+#define AVOCADOD_UTILS_COLLECTION_KEYS_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/voc-types.h"

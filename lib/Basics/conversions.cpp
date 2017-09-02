@@ -23,7 +23,7 @@
 
 #include "conversions.h"
 
-//YYY #ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+//YYY #ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 //YYY #warning FRANK this files should be replaces by StringUtils and Co
 //YYY #endif
 

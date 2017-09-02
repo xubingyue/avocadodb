@@ -36,7 +36,7 @@ var avocadodb = require('@avocadodb');
 exports.positiveNumber = function (value, info, lang) {
   if (value <= 0.0) {
     var error = new avocadodb.AvocadoError();
-    error.errorNum = avocadodb.ERROR_ARANGO_VALIDATION_FAILED;
+    error.errorNum = avocadodb.ERROR_AVOCADO_VALIDATION_FAILED;
     error.errorMessage = 'number must be positive';
 
     throw error;
@@ -50,7 +50,7 @@ exports.positiveNumber = function (value, info, lang) {
 exports.negativeNumber = function (value, info, lang) {
   if (0.0 <= value) {
     var error = new avocadodb.AvocadoError();
-    error.errorNum = avocadodb.ERROR_ARANGO_VALIDATION_FAILED;
+    error.errorNum = avocadodb.ERROR_AVOCADO_VALIDATION_FAILED;
     error.errorMessage = 'number must be negative';
 
     throw error;
@@ -64,7 +64,7 @@ exports.negativeNumber = function (value, info, lang) {
 exports.zeroNumber = function (value, info, lang) {
   if (value === 0.0) {
     var error = new avocadodb.AvocadoError();
-    error.errorNum = avocadodb.ERROR_ARANGO_VALIDATION_FAILED;
+    error.errorNum = avocadodb.ERROR_AVOCADO_VALIDATION_FAILED;
     error.errorMessage = 'number must be zero';
 
     throw error;
@@ -78,7 +78,7 @@ exports.zeroNumber = function (value, info, lang) {
 exports.nonPositiveNumber = function (value, info, lang) {
   if (0.0 < value) {
     var error = new avocadodb.AvocadoError();
-    error.errorNum = avocadodb.ERROR_ARANGO_VALIDATION_FAILED;
+    error.errorNum = avocadodb.ERROR_AVOCADO_VALIDATION_FAILED;
     error.errorMessage = 'number must be non-positive';
 
     throw error;
@@ -92,7 +92,7 @@ exports.nonPositiveNumber = function (value, info, lang) {
 exports.nonNegativeNumber = function (value, info, lang) {
   if (value < 0.0) {
     var error = new avocadodb.AvocadoError();
-    error.errorNum = avocadodb.ERROR_ARANGO_VALIDATION_FAILED;
+    error.errorNum = avocadodb.ERROR_AVOCADO_VALIDATION_FAILED;
     error.errorMessage = 'number must be non-negative';
 
     throw error;
@@ -106,7 +106,7 @@ exports.nonNegativeNumber = function (value, info, lang) {
 exports.nonZeroNumber = function (value, info, lang) {
   if (value !== 0.0) {
     var error = new avocadodb.AvocadoError();
-    error.errorNum = avocadodb.ERROR_ARANGO_VALIDATION_FAILED;
+    error.errorNum = avocadodb.ERROR_AVOCADO_VALIDATION_FAILED;
     error.errorMessage = 'number must be non-zero';
 
     throw error;

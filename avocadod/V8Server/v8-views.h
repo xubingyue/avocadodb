@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_V8_SERVER_V8_VIEWS_H
-#define ARANGOD_V8_SERVER_V8_VIEWS_H 1
+#ifndef AVOCADOD_V8_SERVER_V8_VIEWS_H
+#define AVOCADOD_V8_SERVER_V8_VIEWS_H 1
 
 #include "Basics/Common.h"
 #include "V8/v8-globals.h"

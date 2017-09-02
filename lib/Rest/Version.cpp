@@ -122,14 +122,14 @@ void Version::initialize() {
 
 
 #if USE_ENTERPRISE
-  Values["enterprise-version"] = ARANGODB_ENTERPRISE_VERSION;
+  Values["enterprise-version"] = AVOCADODB_ENTERPRISE_VERSION;
 #endif
 
-#if HAVE_ARANGODB_BUILD_REPOSITORY
+#if HAVE_AVOCADODB_BUILD_REPOSITORY
   Values["build-repository"] = getBuildRepository();
 #endif
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   Values["assertions"] = "true";
 #else
   Values["assertions"] = "false";
@@ -155,19 +155,19 @@ void Version::initialize() {
   Values["sse42"] = "false";
 #endif
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   Values["maintainer-mode"] = "true";
 #else
   Values["maintainer-mode"] = "false";
 #endif
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   Values["failure-tests"] = "true";
 #else
   Values["failure-tests"] = "false";
 #endif
 
-#ifdef ARANGODB_HAVE_JEMALLOC
+#ifdef AVOCADODB_HAVE_JEMALLOC
   Values["jemalloc"] = "true";
 #else
   Values["jemalloc"] = "false";
@@ -186,7 +186,7 @@ void Version::initialize() {
 
 /// @brief get numeric server version
 int32_t Version::getNumericServerVersion() {
-  char const* apiVersion = ARANGODB_VERSION;
+  char const* apiVersion = AVOCADODB_VERSION;
   char const* p = apiVersion;
 
   // read major version
@@ -211,12 +211,12 @@ int32_t Version::getNumericServerVersion() {
 }
 
 /// @brief get server version
-std::string Version::getServerVersion() { return std::string(ARANGODB_VERSION); }
+std::string Version::getServerVersion() { return std::string(AVOCADODB_VERSION); }
 
 /// @brief get BOOST version
 std::string Version::getBoostVersion() {
-#ifdef ARANGODB_BOOST_VERSION
-  return std::string(ARANGODB_BOOST_VERSION);
+#ifdef AVOCADODB_BOOST_VERSION
+  return std::string(AVOCADODB_BOOST_VERSION);
 #else
   return std::string();
 #endif
@@ -244,8 +244,8 @@ std::string Version::getRocksDBVersion() {
 
 /// @brief get V8 version
 std::string Version::getV8Version() {
-#ifdef ARANGODB_V8_VERSION
-  return std::string(ARANGODB_V8_VERSION);
+#ifdef AVOCADODB_V8_VERSION
+  return std::string(AVOCADODB_V8_VERSION);
 #else
   return std::string();
 #endif
@@ -255,8 +255,8 @@ std::string Version::getV8Version() {
 std::string Version::getOpenSSLVersion() {
 #ifdef OPENSSL_VERSION_TEXT
   return std::string(OPENSSL_VERSION_TEXT);
-#elif defined(ARANGODB_OPENSSL_VERSION)
-  return std::string(ARANGODB_OPENSSL_VERSION);
+#elif defined(AVOCADODB_OPENSSL_VERSION)
+  return std::string(AVOCADODB_OPENSSL_VERSION);
 #else
   return std::string();
 #endif
@@ -269,8 +269,8 @@ std::string Version::getVPackVersion() {
 
 /// @brief get zlib version
 std::string Version::getZLibVersion() {
-#ifdef ARANGODB_ZLIB_VERSION
-  return std::string(ARANGODB_ZLIB_VERSION);
+#ifdef AVOCADODB_ZLIB_VERSION
+  return std::string(AVOCADODB_ZLIB_VERSION);
 #else
   return std::string();
 #endif
@@ -318,8 +318,8 @@ std::string Version::getEndianness() {
 /// @brief get build date
 std::string Version::getBuildDate() {
 // the OpenSuSE build system does not like it, if __DATE__ is used
-#ifdef ARANGODB_BUILD_DATE
-  return std::string(ARANGODB_BUILD_DATE);
+#ifdef AVOCADODB_BUILD_DATE
+  return std::string(AVOCADODB_BUILD_DATE);
 #else
   return std::string(__DATE__).append(" ").append(__TIME__);
 #endif
@@ -327,8 +327,8 @@ std::string Version::getBuildDate() {
 
 /// @brief get build repository
 std::string Version::getBuildRepository() {
-#ifdef HAVE_ARANGODB_BUILD_REPOSITORY
-  return std::string(ARANGODB_BUILD_REPOSITORY);
+#ifdef HAVE_AVOCADODB_BUILD_REPOSITORY
+  return std::string(AVOCADODB_BUILD_REPOSITORY);
 #else
   return std::string();
 #endif
@@ -338,16 +338,16 @@ std::string Version::getBuildRepository() {
 std::string Version::getVerboseVersionString() {
   std::ostringstream version;
 
-  version << "AvocadoDB " << ARANGODB_VERSION_FULL << " "
+  version << "AvocadoDB " << AVOCADODB_VERSION_FULL << " "
           << (sizeof(void*) == 4 ? "32" : "64") << "bit"
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
           << " maintainer mode"
 #endif
 #ifdef __SANITIZE_ADDRESS__
           << " with ASAN"
 #endif
           << ", using "
-#ifdef ARANGODB_HAVE_JEMALLOC
+#ifdef AVOCADODB_HAVE_JEMALLOC
           << "jemalloc, "
 #endif
           << "VPack " << getVPackVersion() << ", "

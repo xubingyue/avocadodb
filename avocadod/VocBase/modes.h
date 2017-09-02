@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_MODES_H
-#define ARANGOD_VOC_BASE_MODES_H 1
+#ifndef AVOCADOD_VOC_BASE_MODES_H
+#define AVOCADOD_VOC_BASE_MODES_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/voc-types.h"

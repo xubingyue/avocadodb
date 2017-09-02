@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_REPLICATION_COMMON_H
-#define ARANGOD_VOC_BASE_REPLICATION_COMMON_H 1
+#ifndef AVOCADOD_VOC_BASE_REPLICATION_COMMON_H
+#define AVOCADOD_VOC_BASE_REPLICATION_COMMON_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/voc-types.h"

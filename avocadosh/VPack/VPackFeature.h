@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_VPACK_VPACK_FEATURE_H
-#define ARANGODB_VPACK_VPACK_FEATURE_H 1
+#ifndef AVOCADODB_VPACK_VPACK_FEATURE_H
+#define AVOCADODB_VPACK_VPACK_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

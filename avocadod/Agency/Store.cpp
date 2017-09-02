@@ -200,7 +200,7 @@ std::vector<bool> Store::applyTransactions(query_t const& query) {
     }
 
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(30000,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(30000,
                                    "Agency request syntax is [[<queries>]]");
   }
   return success;

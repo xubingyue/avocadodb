@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_SINGLE_COLLECTION_TRANSACTION_H
-#define ARANGOD_UTILS_SINGLE_COLLECTION_TRANSACTION_H 1
+#ifndef AVOCADOD_UTILS_SINGLE_COLLECTION_TRANSACTION_H
+#define AVOCADOD_UTILS_SINGLE_COLLECTION_TRANSACTION_H 1
 
 #include "Basics/Common.h"
 #include "Transaction/Methods.h"

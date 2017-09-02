@@ -22,8 +22,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOCBASE_LOGICAL_COLLECTION_H
-#define ARANGOD_VOCBASE_LOGICAL_COLLECTION_H 1
+#ifndef AVOCADOD_VOCBASE_LOGICAL_COLLECTION_H
+#define AVOCADOD_VOCBASE_LOGICAL_COLLECTION_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadWriteLock.h"

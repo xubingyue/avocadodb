@@ -31,7 +31,7 @@ is returned if the database could not be found.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestDatabaseDrop}
+@EXAMPLE_AVOCADOSH_RUN{RestDatabaseDrop}
     var url = "/_api/database";
     var name = "example";
 
@@ -41,6 +41,6 @@ is returned if the database could not be found.
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

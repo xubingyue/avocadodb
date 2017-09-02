@@ -21,8 +21,8 @@
 /// @author Andreas Streichardt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_CLUSTER_HELPERS_H
-#define ARANGOD_CLUSTER_CLUSTER_HELPERS_H 1
+#ifndef AVOCADOD_CLUSTER_CLUSTER_HELPERS_H
+#define AVOCADOD_CLUSTER_CLUSTER_HELPERS_H 1
 
 #include <velocypack/Slice.h>
 

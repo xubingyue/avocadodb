@@ -118,7 +118,7 @@ int Utils::resolveShard(WorkerConfig const* config,
   } else {
     LOG_TOPIC(ERR, Logger::PREGEL)
         << "The collection could not be translated to a planID";
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
 
   bool usesDefaultShardingAttributes;

@@ -45,7 +45,7 @@ static void Append(MMFilesReplicationDumpContext* dump, uint64_t value) {
   int res = TRI_AppendUInt64StringBuffer(dump->_buffer, value);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 }
 
@@ -53,7 +53,7 @@ static void Append(MMFilesReplicationDumpContext* dump, char const* value) {
   int res = TRI_AppendStringStringBuffer(dump->_buffer, value);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 }
 
@@ -538,7 +538,7 @@ static int DumpCollection(MMFilesReplicationDumpContext* dump,
 
     if (res != TRI_ERROR_NO_ERROR) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "got error during dump dump of collection '" << collection->name() << "': " << TRI_errno_string(res);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     // TODO if vstcase find out slice lenght of _slices.back()
@@ -761,7 +761,7 @@ int MMFilesDumpLogReplication(
         }
 
         if (res != TRI_ERROR_NO_ERROR) {
-          THROW_ARANGO_EXCEPTION(res);
+          THROW_AVOCADO_EXCEPTION(res);
         }
 
         if (static_cast<uint64_t>(TRI_LengthStringBuffer(dump->_buffer)) >=
@@ -895,7 +895,7 @@ int MMFilesDetermineOpenTransactionsReplication(MMFilesReplicationDumpContext* d
                    type == TRI_DF_MARKER_VPACK_ABORT_TRANSACTION) {
           transactions.erase(tid);
         } else {
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                          "found invalid marker type");
         }
       }

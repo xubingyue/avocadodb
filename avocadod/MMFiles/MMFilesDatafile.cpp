@@ -279,25 +279,25 @@ int MMFilesDatafile::judge(std::string const& filename) {
 
   if (filesize == 0) {
     // empty logfile
-    return TRI_ERROR_ARANGO_DATAFILE_EMPTY;
+    return TRI_ERROR_AVOCADO_DATAFILE_EMPTY;
   }
 
   if (filesize < static_cast<off_t>(256 * sizeof(uint64_t))) {
     // too small
-    return TRI_ERROR_ARANGO_DATAFILE_UNREADABLE;
+    return TRI_ERROR_AVOCADO_DATAFILE_UNREADABLE;
   }
 
   int fd = TRI_TRACKED_OPEN_FILE(filename.c_str(), O_RDONLY | TRI_O_CLOEXEC);
 
   if (fd < 0) {
-    return TRI_ERROR_ARANGO_DATAFILE_UNREADABLE;
+    return TRI_ERROR_AVOCADO_DATAFILE_UNREADABLE;
   }
 
   uint64_t buffer[256];
 
   if (!TRI_ReadPointer(fd, &buffer, 256 * sizeof(uint64_t))) {
     TRI_TRACKED_CLOSE_FILE(fd);
-    return TRI_ERROR_ARANGO_DATAFILE_UNREADABLE;
+    return TRI_ERROR_AVOCADO_DATAFILE_UNREADABLE;
   }
 
   uint64_t* ptr = buffer;
@@ -312,7 +312,7 @@ int MMFilesDatafile::judge(std::string const& filename) {
   }
 
   TRI_TRACKED_CLOSE_FILE(fd);
-  return TRI_ERROR_ARANGO_DATAFILE_EMPTY;
+  return TRI_ERROR_AVOCADO_DATAFILE_EMPTY;
 }
 
 /// @brief creates either an anonymous or a physical datafile
@@ -331,7 +331,7 @@ MMFilesDatafile* MMFilesDatafile::create(std::string const& filename, TRI_voc_fi
   if (sizeof(MMFilesDatafileHeaderMarker) + sizeof(MMFilesDatafileFooterMarker) >
       maximalSize) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile, maximal size '" << maximalSize << "' is too small";
-    TRI_set_errno(TRI_ERROR_ARANGO_MAXIMAL_SIZE_TOO_SMALL);
+    TRI_set_errno(TRI_ERROR_AVOCADO_MAXIMAL_SIZE_TOO_SMALL);
 
     return nullptr;
   }
@@ -470,10 +470,10 @@ int MMFilesDatafile::reserveElement(TRI_voc_size_t size, MMFilesMarker** positio
     if (_state == TRI_DF_STATE_READ) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot reserve marker, datafile is read-only";
 
-      return TRI_ERROR_ARANGO_READ_ONLY;
+      return TRI_ERROR_AVOCADO_READ_ONLY;
     }
 
-    return TRI_ERROR_ARANGO_ILLEGAL_STATE;
+    return TRI_ERROR_AVOCADO_ILLEGAL_STATE;
   }
 
   // check the maximal size
@@ -485,7 +485,7 @@ int MMFilesDatafile::reserveElement(TRI_voc_size_t size, MMFilesMarker** positio
       // the collection property 'maximalJournalSize' is equal to
       // or smaller than the size of this datafile
       // creating a new file and writing the marker into it will not work either
-      return TRI_ERROR_ARANGO_DOCUMENT_TOO_LARGE;
+      return TRI_ERROR_AVOCADO_DOCUMENT_TOO_LARGE;
     }
 
     // if we get here, the collection's 'maximalJournalSize' property is
@@ -493,7 +493,7 @@ int MMFilesDatafile::reserveElement(TRI_voc_size_t size, MMFilesMarker** positio
     // maybe the marker will fit into a new datafile with the bigger size?
     if (size + MMFilesDatafileHelper::JournalOverhead() > maximalJournalSize) {
       // marker still won't fit
-      return TRI_ERROR_ARANGO_DOCUMENT_TOO_LARGE;
+      return TRI_ERROR_AVOCADO_DOCUMENT_TOO_LARGE;
     }
 
     // fall-through intentional
@@ -501,12 +501,12 @@ int MMFilesDatafile::reserveElement(TRI_voc_size_t size, MMFilesMarker** positio
 
   // add the marker, leave enough room for the footer
   if (_currentSize + size + _footerSize > _maximalSize) {
-    _lastError = TRI_set_errno(TRI_ERROR_ARANGO_DATAFILE_FULL);
+    _lastError = TRI_set_errno(TRI_ERROR_AVOCADO_DATAFILE_FULL);
     _full = true;
 
     LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "cannot write marker, not enough space";
 
-    return TRI_ERROR_ARANGO_DATAFILE_FULL;
+    return TRI_ERROR_AVOCADO_DATAFILE_FULL;
   }
 
   *position = reinterpret_cast<MMFilesMarker*>(_next);
@@ -581,10 +581,10 @@ int MMFilesDatafile::writeElement(void* position, MMFilesMarker const* marker, b
     if (_state == TRI_DF_STATE_READ) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot write marker, datafile is read-only";
 
-      return TRI_ERROR_ARANGO_READ_ONLY;
+      return TRI_ERROR_AVOCADO_READ_ONLY;
     }
 
-    return TRI_ERROR_ARANGO_ILLEGAL_STATE;
+    return TRI_ERROR_AVOCADO_ILLEGAL_STATE;
   }
 
   TRI_ASSERT(position != nullptr);
@@ -593,7 +593,7 @@ int MMFilesDatafile::writeElement(void* position, MMFilesMarker const* marker, b
   if (position == nullptr || position < (void*)_data ||
       position >= (void*)(_data + maximalSize())) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "logic error. writing out of bounds of datafile '" << getName() << "'";
-    return TRI_ERROR_ARANGO_ILLEGAL_STATE;
+    return TRI_ERROR_AVOCADO_ILLEGAL_STATE;
   }
 
   memcpy(position, marker, static_cast<size_t>(marker->getSize()));
@@ -605,7 +605,7 @@ int MMFilesDatafile::writeElement(void* position, MMFilesMarker const* marker, b
       setState(TRI_DF_STATE_WRITE_ERROR);
 
       if (errno == ENOSPC) {
-        _lastError = TRI_set_errno(TRI_ERROR_ARANGO_FILESYSTEM_FULL);
+        _lastError = TRI_set_errno(TRI_ERROR_AVOCADO_FILESYSTEM_FULL);
       } else {
         _lastError = TRI_set_errno(TRI_ERROR_SYS_ERROR);
       }
@@ -689,7 +689,7 @@ bool TRI_IterateDatafile(MMFilesDatafile* datafile,
 
   if (datafile->state() != TRI_DF_STATE_READ &&
       datafile->state() != TRI_DF_STATE_WRITE) {
-    TRI_set_errno(TRI_ERROR_ARANGO_ILLEGAL_STATE);
+    TRI_set_errno(TRI_ERROR_AVOCADO_ILLEGAL_STATE);
     return false;
   }
 
@@ -733,7 +733,7 @@ bool TRI_IterateDatafile(MMFilesDatafile* datafile,
 
   if (datafile->state() != TRI_DF_STATE_READ &&
       datafile->state() != TRI_DF_STATE_WRITE) {
-    TRI_set_errno(TRI_ERROR_ARANGO_ILLEGAL_STATE);
+    TRI_set_errno(TRI_ERROR_AVOCADO_ILLEGAL_STATE);
     return false;
   }
 
@@ -774,8 +774,8 @@ int MMFilesDatafile::rename(std::string const& filename) {
   if (TRI_ExistsFile(filename.c_str())) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot overwrite datafile '" << filename << "'";
 
-    _lastError = TRI_ERROR_ARANGO_DATAFILE_ALREADY_EXISTS;
-    return TRI_ERROR_ARANGO_DATAFILE_ALREADY_EXISTS;
+    _lastError = TRI_ERROR_AVOCADO_DATAFILE_ALREADY_EXISTS;
+    return TRI_ERROR_AVOCADO_DATAFILE_ALREADY_EXISTS;
   }
 
   int res = TRI_RenameFile(_filename.c_str(), filename.c_str());
@@ -795,15 +795,15 @@ int MMFilesDatafile::rename(std::string const& filename) {
 /// @brief seals a datafile, writes a footer, sets it to read-only
 int MMFilesDatafile::seal() {
   if (_state == TRI_DF_STATE_READ) {
-    return TRI_ERROR_ARANGO_READ_ONLY;
+    return TRI_ERROR_AVOCADO_READ_ONLY;
   }
 
   if (_state != TRI_DF_STATE_WRITE) {
-    return TRI_ERROR_ARANGO_ILLEGAL_STATE;
+    return TRI_ERROR_AVOCADO_ILLEGAL_STATE;
   }
 
   if (_isSealed) {
-    return TRI_ERROR_ARANGO_DATAFILE_SEALED;
+    return TRI_ERROR_AVOCADO_DATAFILE_SEALED;
   }
 
   // set a proper tick value
@@ -836,7 +836,7 @@ int MMFilesDatafile::seal() {
     _state = TRI_DF_STATE_WRITE_ERROR;
 
     if (errno == ENOSPC) {
-      _lastError = TRI_set_errno(TRI_ERROR_ARANGO_FILESYSTEM_FULL);
+      _lastError = TRI_set_errno(TRI_ERROR_AVOCADO_FILESYSTEM_FULL);
     } else {
       _lastError = TRI_errno();
     }
@@ -882,7 +882,7 @@ int MMFilesDatafile::truncate(std::string const& path, TRI_voc_size_t position) 
   std::unique_ptr<MMFilesDatafile> datafile(MMFilesDatafile::openHelper(path, true));
 
   if (datafile == nullptr) {
-    return TRI_ERROR_ARANGO_DATAFILE_UNREADABLE;
+    return TRI_ERROR_AVOCADO_DATAFILE_UNREADABLE;
   }
 
   return datafile->truncateAndSeal(position);
@@ -1065,7 +1065,7 @@ int MMFilesDatafile::close() {
         
   LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "attempting to close datafile with an invalid state";
   
-  return TRI_ERROR_ARANGO_ILLEGAL_STATE;
+  return TRI_ERROR_AVOCADO_ILLEGAL_STATE;
 }
 
 /// @brief sync the data of a datafile
@@ -1105,7 +1105,7 @@ int MMFilesDatafile::truncateAndSeal(TRI_voc_size_t position) {
   if (sizeof(MMFilesDatafileHeaderMarker) + sizeof(MMFilesDatafileFooterMarker) >
       maximalSize) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile '" << getName() << "', maximal size " << maximalSize << " is too small";
-    return TRI_ERROR_ARANGO_MAXIMAL_SIZE_TOO_SMALL;
+    return TRI_ERROR_AVOCADO_MAXIMAL_SIZE_TOO_SMALL;
   }
 
   // open the file
@@ -1275,7 +1275,7 @@ bool MMFilesDatafile::check(bool ignoreFailures) {
         return fix(currentSize);
       }
        
-      _lastError = TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_DATAFILE);
+      _lastError = TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE);
       _currentSize = currentSize;
       _next = _data + _currentSize;
       _state = TRI_DF_STATE_OPEN_ERROR;
@@ -1291,7 +1291,7 @@ bool MMFilesDatafile::check(bool ignoreFailures) {
         return fix(currentSize);
       }
        
-      _lastError = TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_DATAFILE);
+      _lastError = TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE);
       _currentSize = currentSize;
       _next = _data + _currentSize;
       _state = TRI_DF_STATE_OPEN_ERROR;
@@ -1316,7 +1316,7 @@ bool MMFilesDatafile::check(bool ignoreFailures) {
           return fix(currentSize);
         }
          
-        _lastError = TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_DATAFILE);
+        _lastError = TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE);
         _currentSize = currentSize;
         _next = _data + _currentSize;
         _state = TRI_DF_STATE_OPEN_ERROR;
@@ -1384,7 +1384,7 @@ bool MMFilesDatafile::check(bool ignoreFailures) {
         }
 
         if (!ignoreFailures) {
-          _lastError = TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_DATAFILE);
+          _lastError = TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE);
           _currentSize = currentSize;
           _next = _data + _currentSize;
           _state = TRI_DF_STATE_OPEN_ERROR;
@@ -1837,7 +1837,7 @@ MMFilesDatafile* MMFilesDatafile::openHelper(std::string const& filename, bool i
   TRI_voc_size_t size = static_cast<TRI_voc_size_t>(status.st_size);
 
   if (size < sizeof(MMFilesDatafileHeaderMarker) + sizeof(MMFilesDatafileFooterMarker)) {
-    TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_DATAFILE);
+    TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE);
     TRI_TRACKED_CLOSE_FILE(fd);
 
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "datafile '" << filename << "' is corrupt, size is only " << size;
@@ -1881,7 +1881,7 @@ MMFilesDatafile* MMFilesDatafile::openHelper(std::string const& filename, bool i
       FATAL_ERROR_EXIT();
     }
 
-    TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_DATAFILE);
+    TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE);
 
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "corrupted datafile header read from '" << filename << "'";
 
@@ -1894,7 +1894,7 @@ MMFilesDatafile* MMFilesDatafile::openHelper(std::string const& filename, bool i
   // check the datafile version
   if (ok) {
     if (header->_version != TRI_DF_VERSION) {
-      TRI_set_errno(TRI_ERROR_ARANGO_CORRUPTED_DATAFILE);
+      TRI_set_errno(TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE);
 
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "unknown datafile version '" << header->_version << "' in datafile '" << filename << "'";
 

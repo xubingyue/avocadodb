@@ -21,8 +21,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_HASH_INDEX_H
-#define ARANGOD_ROCKSDB_ROCKSDB_HASH_INDEX_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_HASH_INDEX_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_HASH_INDEX_H 1
 
 #include "Basics/VelocyPackHelper.h"
 #include "RocksDBEngine/RocksDBVPackIndex.h"

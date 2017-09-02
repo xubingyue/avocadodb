@@ -21,8 +21,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ENGINE_ROCKSDB_COUNTMANAGER_H
-#define ARANGOD_ROCKSDB_ENGINE_ROCKSDB_COUNTMANAGER_H 1
+#ifndef AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_COUNTMANAGER_H
+#define AVOCADOD_ROCKSDB_ENGINE_ROCKSDB_COUNTMANAGER_H 1
 
 #include <rocksdb/types.h>
 #include "Basics/Common.h"

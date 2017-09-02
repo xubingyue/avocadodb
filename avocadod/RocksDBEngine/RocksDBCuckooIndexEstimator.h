@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_INDEX_ESTIMATOR_H
-#define ARANGOD_ROCKSDB_ROCKSDB_INDEX_ESTIMATOR_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_INDEX_ESTIMATOR_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_INDEX_ESTIMATOR_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadLocker.h"
@@ -208,7 +208,7 @@ class RocksDBCuckooIndexEstimator {
         LOG_TOPIC(WARN, avocadodb::Logger::ENGINES)
             << "unable to restore index estimates: invalid format found";
         // Do not construct from serialisation, use other constructor instead
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
       }
     }
   }
@@ -618,7 +618,7 @@ class RocksDBCuckooIndexEstimator {
     current += sizeof(uint64_t);
 
     if (_size <= 256) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
     }
 
     _nrUsed = rocksutils::uint64FromPersistent(current);

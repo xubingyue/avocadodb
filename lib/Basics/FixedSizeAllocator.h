@@ -22,8 +22,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_FIXED_SIZE_ALLOCATOR_H
-#define ARANGODB_BASICS_FIXED_SIZE_ALLOCATOR_H 1
+#ifndef AVOCADODB_BASICS_FIXED_SIZE_ALLOCATOR_H
+#define AVOCADODB_BASICS_FIXED_SIZE_ALLOCATOR_H 1
 
 #include "Basics/Common.h"
 #include "Logger/Logger.h"

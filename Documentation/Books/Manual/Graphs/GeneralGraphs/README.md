@@ -11,18 +11,18 @@ There is no need to include the referenced collections within the query, this mo
 * Create a graph
 
     @startDocuBlockInline generalGraphCreateGraphHowTo1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphCreateGraphHowTo1}
       var graph_module = require("@avocadodb/general-graph");
       var graph = graph_module._create("myGraph");
       graph;
     ~ graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo1
 
 * Add some vertex collections
 
     @startDocuBlockInline generalGraphCreateGraphHowTo2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphCreateGraphHowTo2}
     ~ var graph_module = require("@avocadodb/general-graph");
     ~ var graph = graph_module._create("myGraph");
       graph._addVertexCollection("shop");
@@ -30,13 +30,13 @@ There is no need to include the referenced collections within the query, this mo
       graph._addVertexCollection("pet");
       graph;
     ~ graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo2
 
 * Define relations on the Graph
 
     @startDocuBlockInline generalGraphCreateGraphHowTo3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphCreateGraphHowTo3}
     ~ var graph_module = require("@avocadodb/general-graph");
     ~ var graph = graph_module._create("myGraph");
     ~ graph._addVertexCollection("pet");
@@ -44,7 +44,7 @@ There is no need to include the referenced collections within the query, this mo
       graph._extendEdgeDefinitions(rel);
       graph;
     ~ graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo3
 
 

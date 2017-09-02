@@ -21,7 +21,7 @@ array with the following attributes:
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesGet}
+@EXAMPLE_AVOCADOSH_OUTPUT{WalPropertiesGet}
   require("internal").wal.properties();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

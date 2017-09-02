@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_UTILS_H
-#define ARANGODB_PREGEL_UTILS_H 1
+#ifndef AVOCADODB_PREGEL_UTILS_H
+#define AVOCADODB_PREGEL_UTILS_H 1
 
 #include <cstdint>
 #include "Basics/Common.h"

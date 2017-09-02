@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_PLAN_CACHE_H
-#define ARANGOD_AQL_PLAN_CACHE_H 1
+#ifndef AVOCADOD_AQL_PLAN_CACHE_H
+#define AVOCADOD_AQL_PLAN_CACHE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/ReadWriteLock.h"

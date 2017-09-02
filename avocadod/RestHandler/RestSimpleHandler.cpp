@@ -288,7 +288,7 @@ void RestSimpleHandler::lookupByKeys(VPackSlice const& slice) {
   auto response = _response.get();
 
   if (response == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid response");
   }
 
   try {
@@ -387,7 +387,7 @@ void RestSimpleHandler::lookupByKeys(VPackSlice const& slice) {
       int res = response->reservePayload(32 * resultSize);
 
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
     }
 

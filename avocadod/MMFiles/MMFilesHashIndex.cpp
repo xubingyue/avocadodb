@@ -80,12 +80,12 @@ MMFilesHashIndexLookupBuilder::MMFilesHashIndexLookupBuilder(
               fields[j], paramPair.second, true)) {
         if (TRI_AttributeNamesHaveExpansion(fields[j])) {
           TRI_IF_FAILURE("HashIndex::permutationArrayIN") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
           _mappingFieldCondition.emplace(j, valNode);
         } else {
           TRI_IF_FAILURE("HashIndex::permutationEQ") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
           avocadodb::aql::AstNodeType type = comp->type;
           if (type == aql::NODE_TYPE_OPERATOR_BINARY_IN) {
@@ -119,7 +119,7 @@ MMFilesHashIndexLookupBuilder::MMFilesHashIndexLookupBuilder(
     for (auto const& values : VPackArrayIterator(storageSlice)) {
       tmp.clear();
       TRI_IF_FAILURE("Index::permutationIN") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
       if (values.isArray()) {
         for (auto const& value : VPackArrayIterator(values)) {
@@ -369,7 +369,7 @@ bool MMFilesHashIndexIteratorVPack::next(TokenCallback const& cb,
       _iterator.next();
 
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
     }
 
@@ -515,7 +515,7 @@ void MMFilesHashIndex::toVelocyPackFigures(VPackBuilder& builder) const {
 /// @brief Test if this index matches the definition
 bool MMFilesHashIndex::matchesDefinition(VPackSlice const& info) const {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice typeSlice = info.get("type");
   TRI_ASSERT(typeSlice.isString());
   StringRef typeStr(typeSlice);
@@ -813,7 +813,7 @@ int MMFilesHashIndex::insertMulti(transaction::Methods* trx,
 
   auto work = [this, &context](MMFilesHashIndexElement*& element, bool) {
     TRI_IF_FAILURE("InsertHashIndex") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
 
     MMFilesHashIndexElement* found =
@@ -975,7 +975,7 @@ IndexIterator* MMFilesHashIndex::iteratorForCondition(
     avocadodb::aql::AstNode const* node,
     avocadodb::aql::Variable const* reference, bool) {
   TRI_IF_FAILURE("HashIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   return new MMFilesHashIndexIterator(_collection, trx, mmdr, this, node,
                                       reference);

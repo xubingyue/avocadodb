@@ -71,7 +71,7 @@ RocksDBExportCursor::RocksDBExportCursor(
   Result res = _trx->begin();
 
   if (!res.ok()) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   auto rocksCollection =
@@ -183,11 +183,11 @@ void RocksDBExportCursor::dump(VPackBuilder& builder) {
       this->deleted();
     }
   } catch (avocadodb::basics::Exception const& ex) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(ex.code(), ex.what());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(ex.code(), ex.what());
   } catch (std::exception const& ex) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, ex.what());
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, ex.what());
   } catch (...) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "internal error during RocksDBExportCursor::dump");
   }
   builder.options = oldOptions;

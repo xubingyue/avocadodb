@@ -50,8 +50,8 @@
 /// 
 //////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_LRUCACHE_H
-#define	ARANGODB_LRUCACHE_H 1
+#ifndef AVOCADODB_LRUCACHE_H
+#define	AVOCADODB_LRUCACHE_H 1
 
 #include <unordered_map>
 #include <list>

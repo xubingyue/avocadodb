@@ -27,8 +27,8 @@
 #include <velocypack/Slice.h>
 #include <velocypack/velocypack-aliases.h>
 
-#ifndef ARANGODB_PREGEL_AGGREGATOR_H
-#define ARANGODB_PREGEL_AGGREGATOR_H 1
+#ifndef AVOCADODB_PREGEL_AGGREGATOR_H
+#define AVOCADODB_PREGEL_AGGREGATOR_H 1
 
 namespace avocadodb {
 namespace pregel {

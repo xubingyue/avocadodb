@@ -49,7 +49,7 @@ avocadodb::aql::Graph* avocadodb::lookupGraphByName(std::shared_ptr<transaction:
     std::stringstream ss;
     ss <<  "while looking up graph '" << name << "': " << res.errorMessage();
     res.reset(res.errorNumber(), ss.str());
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
   VPackBuilder b;
   {
@@ -66,14 +66,14 @@ avocadodb::aql::Graph* avocadodb::lookupGraphByName(std::shared_ptr<transaction:
   res = trx.finish(result.code);
 
   if (!result.successful()) {
-    THROW_ARANGO_EXCEPTION_FORMAT(result.code, "while looking up graph '%s'",
+    THROW_AVOCADO_EXCEPTION_FORMAT(result.code, "while looking up graph '%s'",
                                   name.c_str());
   }
   if (!res.ok()) {
     std::stringstream ss;
     ss <<  "while looking up graph '" << name << "': " << res.errorMessage();
     res.reset(res.errorNumber(), ss.str());
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   VPackSlice info = result.slice();

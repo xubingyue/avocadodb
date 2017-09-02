@@ -21,8 +21,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_V8_V8__HELPER_H
-#define ARANGODB_V8_V8__HELPER_H 1
+#ifndef AVOCADODB_V8_V8__HELPER_H
+#define AVOCADODB_V8_V8__HELPER_H 1
 
 #include <v8.h>
 #include "v8-globals.h"

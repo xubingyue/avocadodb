@@ -127,7 +127,7 @@ error) for a document with no user-defined key.
 
 Importing documents with heterogenous attributes from a JSON array
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonList}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonList}
     db._flushCache();
     var cn = "products";
     db._drop(cn);
@@ -150,11 +150,11 @@ Importing documents with heterogenous attributes from a JSON array
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Importing documents from individual JSON lines
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonLines}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonLines}
     db._flushCache();
     var cn = "products";
     db._drop(cn);
@@ -177,11 +177,11 @@ Importing documents from individual JSON lines
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using the auto type detection
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonType}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonType}
     db._flushCache();
     var cn = "products";
     db._drop(cn);
@@ -204,11 +204,11 @@ Using the auto type detection
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Importing into an edge collection, with attributes `_from`, `_to` and `name`
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonEdge}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonEdge}
     db._flushCache();
     var cn = "links";
     db._drop(cn);
@@ -232,11 +232,11 @@ Importing into an edge collection, with attributes `_from`, `_to` and `name`
     logJsonResponse(response);
     db._drop(cn);
     db._drop("products");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Importing into an edge collection, omitting `_from` or `_to`
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonEdgeInvalid}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonEdgeInvalid}
     db._flushCache();
     var cn = "links";
     db._drop(cn);
@@ -255,11 +255,11 @@ Importing into an edge collection, omitting `_from` or `_to`
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Violating a unique constraint, but allow partial imports
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonUniqueContinue}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonUniqueContinue}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -279,11 +279,11 @@ Violating a unique constraint, but allow partial imports
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Violating a unique constraint, not allowing partial imports
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonUniqueFail}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonUniqueFail}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -298,11 +298,11 @@ Violating a unique constraint, not allowing partial imports
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a non-existing collection
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonInvalidCollection}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonInvalidCollection}
     var cn = "products";
     db._drop(cn);
 
@@ -313,11 +313,11 @@ Using a non-existing collection
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a malformed body
 
-@EXAMPLE_ARANGOSH_RUN{RestImportJsonInvalidBody}
+@EXAMPLE_AVOCADOSH_RUN{RestImportJsonInvalidBody}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -331,6 +331,6 @@ Using a malformed body
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

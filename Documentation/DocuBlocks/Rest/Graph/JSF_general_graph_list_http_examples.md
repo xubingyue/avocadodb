@@ -14,7 +14,7 @@ Is returned if the module is available and the graphs could be listed.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialList}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialList}
   var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   examples.loadGraph("social");
@@ -27,6 +27,6 @@ Is returned if the module is available and the graphs could be listed.
   logJsonResponse(response);
 ~ examples.dropGraph("social");
 ~ examples.dropGraph("routeplanner");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

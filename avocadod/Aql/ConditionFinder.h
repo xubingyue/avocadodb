@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_CONDITION_FINDER_H
-#define ARANGOD_AQL_CONDITION_FINDER_H 1
+#ifndef AVOCADOD_AQL_CONDITION_FINDER_H
+#define AVOCADOD_AQL_CONDITION_FINDER_H 1
 
 #include "Aql/Condition.h"
 #include "Aql/ExecutionNode.h"

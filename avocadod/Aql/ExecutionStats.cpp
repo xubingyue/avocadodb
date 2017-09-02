@@ -76,7 +76,7 @@ ExecutionStats::ExecutionStats()
 ExecutionStats::ExecutionStats(VPackSlice const& slice) 
     : ExecutionStats() {
   if (!slice.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "stats is not an object");
   }
 

@@ -39,7 +39,7 @@ is returned when this operation is called on a coordinator in a cluster.
 
 Returns the available tick ranges.
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerTickRanges}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationLoggerTickRanges}
     var url = "/_api/replication/logger-tick-ranges";
 
     var response = logCurlRequest('GET', url);
@@ -47,6 +47,6 @@ Returns the available tick ranges.
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

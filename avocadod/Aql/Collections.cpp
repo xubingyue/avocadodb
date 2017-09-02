@@ -55,7 +55,7 @@ Collection* Collections::add(std::string const& name,
 
   if (it == _collections.end()) {
     if (_collections.size() >= MaxCollections) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_QUERY_TOO_MANY_COLLECTIONS);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_QUERY_TOO_MANY_COLLECTIONS);
     }
 
     auto collection = std::make_unique<Collection>(name, _vocbase, accessType);

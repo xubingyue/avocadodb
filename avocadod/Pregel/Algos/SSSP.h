@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_ALGOS_SSSP_H
-#define ARANGODB_PREGEL_ALGOS_SSSP_H 1
+#ifndef AVOCADODB_PREGEL_ALGOS_SSSP_H
+#define AVOCADODB_PREGEL_ALGOS_SSSP_H 1
 
 #include "Pregel/Algorithm.h"
 
@@ -38,7 +38,7 @@ class SSSPAlgorithm : public Algorithm<int64_t, int64_t, int64_t> {
  public:
   explicit SSSPAlgorithm(VPackSlice userParams) : Algorithm("SSSP") {
       if (!userParams.isObject() || !userParams.hasKey("source")) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                        "You need to specify the source document id");
       }
     _sourceDocumentId = userParams.get("source").copyString();

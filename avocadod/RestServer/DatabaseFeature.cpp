@@ -465,8 +465,8 @@ int DatabaseFeature::createDatabaseCoordinator(TRI_voc_tick_t id,
   result = nullptr;
 
   if (!TRI_vocbase_t::IsAllowedName(true, name)) {
-    events::CreateDatabase(name, TRI_ERROR_ARANGO_DATABASE_NAME_INVALID);
-    return TRI_ERROR_ARANGO_DATABASE_NAME_INVALID;
+    events::CreateDatabase(name, TRI_ERROR_AVOCADO_DATABASE_NAME_INVALID);
+    return TRI_ERROR_AVOCADO_DATABASE_NAME_INVALID;
   }
 
   MUTEX_LOCKER(mutexLocker, _databaseCreateLock);
@@ -478,8 +478,8 @@ int DatabaseFeature::createDatabaseCoordinator(TRI_voc_tick_t id,
     auto it = theLists->_coordinatorDatabases.find(name);
     if (it != theLists->_coordinatorDatabases.end()) {
       // name already in use
-      events::CreateDatabase(name, TRI_ERROR_ARANGO_DUPLICATE_NAME);
-      return TRI_ERROR_ARANGO_DUPLICATE_NAME;
+      events::CreateDatabase(name, TRI_ERROR_AVOCADO_DUPLICATE_NAME);
+      return TRI_ERROR_AVOCADO_DUPLICATE_NAME;
     }
   }
 
@@ -523,8 +523,8 @@ int DatabaseFeature::createDatabase(TRI_voc_tick_t id, std::string const& name,
   result = nullptr;
 
   if (!TRI_vocbase_t::IsAllowedName(false, name)) {
-    events::CreateDatabase(name, TRI_ERROR_ARANGO_DATABASE_NAME_INVALID);
-    return TRI_ERROR_ARANGO_DATABASE_NAME_INVALID;
+    events::CreateDatabase(name, TRI_ERROR_AVOCADO_DATABASE_NAME_INVALID);
+    return TRI_ERROR_AVOCADO_DATABASE_NAME_INVALID;
   }
 
   if (id == 0) {
@@ -549,8 +549,8 @@ int DatabaseFeature::createDatabase(TRI_voc_tick_t id, std::string const& name,
       auto it = theLists->_databases.find(name);
       if (it != theLists->_databases.end()) {
         // name already in use
-        events::CreateDatabase(name, TRI_ERROR_ARANGO_DUPLICATE_NAME);
-        return TRI_ERROR_ARANGO_DUPLICATE_NAME;
+        events::CreateDatabase(name, TRI_ERROR_AVOCADO_DUPLICATE_NAME);
+        return TRI_ERROR_AVOCADO_DUPLICATE_NAME;
       }
     }
 
@@ -640,7 +640,7 @@ int DatabaseFeature::createDatabase(TRI_voc_tick_t id, std::string const& name,
 
 /// @brief drop coordinator database
 int DatabaseFeature::dropDatabaseCoordinator(TRI_voc_tick_t id, bool force) {
-  int res = TRI_ERROR_ARANGO_DATABASE_NOT_FOUND;
+  int res = TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND;
 
   MUTEX_LOCKER(mutexLocker, _databasesMutex);
   auto oldLists = _databasesLists.load();
@@ -706,8 +706,8 @@ int DatabaseFeature::dropDatabase(std::string const& name, bool waitForDeletion,
       if (it == newLists->_databases.end()) {
         // not found
         delete newLists;
-        events::DropDatabase(name, TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
-        return TRI_ERROR_ARANGO_DATABASE_NOT_FOUND;
+        events::DropDatabase(name, TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
+        return TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND;
       } else {
         vocbase = it->second;
         id = vocbase->id();
@@ -1301,7 +1301,7 @@ void DatabaseFeature::verifyAppPaths() {
     } else {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "unable to create --javascript.app-path directory '"
                << appPath << "': " << errorMessage;
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   }
 
@@ -1310,7 +1310,7 @@ void DatabaseFeature::verifyAppPaths() {
 
   if (res != TRI_ERROR_NO_ERROR) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "unable to initialize databases: " << TRI_errno_string(res);
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 }
 

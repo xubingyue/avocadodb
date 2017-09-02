@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_INDEXES_INDEX_ELEMENT_H
-#define ARANGOD_INDEXES_INDEX_ELEMENT_H 1
+#ifndef AVOCADOD_INDEXES_INDEX_ELEMENT_H
+#define AVOCADOD_INDEXES_INDEX_ELEMENT_H 1
 
 #include "Basics/Common.h"
 #include "VocBase/vocbase.h"

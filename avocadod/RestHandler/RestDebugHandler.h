@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REST_HANDLER_REST_DEBUG_HANDLER_H
-#define ARANGOD_REST_HANDLER_REST_DEBUG_HANDLER_H 1
+#ifndef AVOCADOD_REST_HANDLER_REST_DEBUG_HANDLER_H
+#define AVOCADOD_REST_HANDLER_REST_DEBUG_HANDLER_H 1
 
 #include "RestHandler/RestVocbaseBaseHandler.h"
 

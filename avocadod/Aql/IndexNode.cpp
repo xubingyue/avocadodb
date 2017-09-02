@@ -65,7 +65,7 @@ IndexNode::IndexNode(ExecutionPlan* plan, avocadodb::velocypack::Slice const& ba
   VPackSlice indexes = base.get("indexes");
 
   if (!indexes.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "\"indexes\" attribute should be an array");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "\"indexes\" attribute should be an array");
   }
 
   _indexes.reserve(indexes.length());
@@ -78,7 +78,7 @@ IndexNode::IndexNode(ExecutionPlan* plan, avocadodb::velocypack::Slice const& ba
 
   VPackSlice condition = base.get("condition");
   if (!condition.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "\"condition\" attribute should be an object");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "\"condition\" attribute should be an object");
   }
 
   _condition = Condition::fromVPack(plan, condition);

@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REST_SERVER_VOCBASE_CONTEXT_H
-#define ARANGOD_REST_SERVER_VOCBASE_CONTEXT_H 1
+#ifndef AVOCADOD_REST_SERVER_VOCBASE_CONTEXT_H
+#define AVOCADOD_REST_SERVER_VOCBASE_CONTEXT_H 1
 
 #include <velocypack/Builder.h>
 #include <velocypack/velocypack-aliases.h>

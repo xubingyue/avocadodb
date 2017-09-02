@@ -106,7 +106,7 @@ Exceptions thrown by users will make the server respond with a return code of
 
 Executing a transaction on a single collection
 
-@EXAMPLE_ARANGOSH_RUN{RestTransactionSingle}
+@EXAMPLE_AVOCADOSH_RUN{RestTransactionSingle}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -123,11 +123,11 @@ Executing a transaction on a single collection
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Executing a transaction using multiple collections
 
-@EXAMPLE_ARANGOSH_RUN{RestTransactionMulti}
+@EXAMPLE_AVOCADOSH_RUN{RestTransactionMulti}
     var cn1 = "materials";
     db._drop(cn1);
     var materials = db._create(cn1);
@@ -157,11 +157,11 @@ Executing a transaction using multiple collections
     logJsonResponse(response);
     db._drop(cn1);
     db._drop(cn2);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Aborting a transaction due to an internal error
 
-@EXAMPLE_ARANGOSH_RUN{RestTransactionAbortInternal}
+@EXAMPLE_AVOCADOSH_RUN{RestTransactionAbortInternal}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -184,11 +184,11 @@ Aborting a transaction due to an internal error
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Aborting a transaction by explicitly throwing an exception
 
-@EXAMPLE_ARANGOSH_RUN{RestTransactionAbort}
+@EXAMPLE_AVOCADOSH_RUN{RestTransactionAbort}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn, { waitForSync: true });
@@ -206,11 +206,11 @@ Aborting a transaction by explicitly throwing an exception
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Referring to a non-existing collection
 
-@EXAMPLE_ARANGOSH_RUN{RestTransactionNonExisting}
+@EXAMPLE_AVOCADOSH_RUN{RestTransactionNonExisting}
     var cn = "products";
     db._drop(cn);
     var url = "/_api/transaction";
@@ -225,6 +225,6 @@ Referring to a non-existing collection
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

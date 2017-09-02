@@ -121,7 +121,7 @@ returned.
 
 Using a document handle
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerUpdateDocument}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerUpdateDocument}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -135,11 +135,11 @@ Using a document handle
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Unknown document handle
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerUpdateDocumentUnknownHandle}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerUpdateDocumentUnknownHandle}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -154,11 +154,11 @@ Unknown document handle
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Produce a revision conflict
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerUpdateDocumentIfMatchOther}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerUpdateDocumentIfMatchOther}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -174,6 +174,6 @@ Produce a revision conflict
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

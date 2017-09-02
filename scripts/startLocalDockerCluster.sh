@@ -28,7 +28,7 @@ fi
 SECONDARIES="$4"
 
 echo Starting agency...
-docker run -d --net=host -e ARANGO_NO_AUTH=1 --name=agency \
+docker run -d --net=host -e AVOCADO_NO_AUTH=1 --name=agency \
   ${DOCKERIMAGE} \
   --agency.endpoint tcp://0.0.0.0:4001 \
   --agency.id 0 \
@@ -50,7 +50,7 @@ start() {
     TYPE=$1
     PORT=$2
     echo Starting $TYPE on port $PORT
-    docker run -d --net=host -e ARANGO_NO_AUTH=1 --name="$TYPE_$PORT" \
+    docker run -d --net=host -e AVOCADO_NO_AUTH=1 --name="$TYPE_$PORT" \
       ${DOCKERIMAGE} \
                 --cluster.agency-endpoint tcp://127.0.0.1:4001 \
                 --cluster.my-address tcp://127.0.0.1:$PORT \
@@ -70,7 +70,7 @@ startTerminal() {
     TYPE=$1
     PORT=$2
     echo Starting $TYPE on port $PORT
-    $XTERM $XTERMOPTIONS -e docker run -it --net=host -e ARANGO_NO_AUTH=1 \
+    $XTERM $XTERMOPTIONS -e docker run -it --net=host -e AVOCADO_NO_AUTH=1 \
       --name="$TYPE_$PORT" \
       ${DOCKERIMAGE} \
                 --cluster.agency-endpoint tcp://127.0.0.1:4001 \

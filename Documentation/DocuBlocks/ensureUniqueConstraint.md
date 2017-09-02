@@ -28,13 +28,13 @@ indexed and will be taken into account for uniqueness checks.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
-@EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueConstraint}
+@EXAMPLE_AVOCADOSH_OUTPUT{ensureUniqueConstraint}
 ~db._create("test");
 db.test.ensureIndex({ type: "hash", fields: [ "a", "b.c" ], unique: true });
 db.test.save({ a : 1, b : { c : 1 } });
-db.test.save({ a : 1, b : { c : 1 } }); // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+db.test.save({ a : 1, b : { c : 1 } }); // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
 db.test.save({ a : 1, b : { c : null } });
-db.test.save({ a : 1 });  // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+db.test.save({ a : 1 });  // xpError(ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED)
 ~db._drop("test");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

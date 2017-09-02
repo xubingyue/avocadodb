@@ -3,16 +3,16 @@ WD=$(dirname "$0")
 ROOTDIR=$(cd "$WD" && pwd)
 # create start script
 
-ARANGOD_CONF_DIR="${HOME}@INC_CPACK_INSTALL_SYSCONFDIR@/"
-ARANGOD_CONF="${ARANGOD_CONF_DIR}/avocadod.conf"
-mkdir -p "${HOME}@INC_CPACK_ARANGO_DATA_DIR@"
-mkdir -p "${HOME}@INC_CPACK_ARANGO_LOG_DIR@"
-mkdir -p "${HOME}@INC_CPACK_ARANGODB_APPS_DIRECTORY@"
+AVOCADOD_CONF_DIR="${HOME}@INC_CPACK_INSTALL_SYSCONFDIR@/"
+AVOCADOD_CONF="${AVOCADOD_CONF_DIR}/avocadod.conf"
+mkdir -p "${HOME}@INC_CPACK_AVOCADO_DATA_DIR@"
+mkdir -p "${HOME}@INC_CPACK_AVOCADO_LOG_DIR@"
+mkdir -p "${HOME}@INC_CPACK_AVOCADODB_APPS_DIRECTORY@"
 
 if test ! -f "${HOME}@INC_CPACK_INSTALL_SYSCONFDIR@"; then
-    cp -R "${ROOTDIR}@CPACK_PACKAGING_INSTALL_PREFIX@/@CMAKE_INSTALL_SYSCONFDIR_ARANGO@" "${ARANGOD_CONF_DIR}/"
+    cp -R "${ROOTDIR}@CPACK_PACKAGING_INSTALL_PREFIX@/@CMAKE_INSTALL_SYSCONFDIR_AVOCADO@" "${AVOCADOD_CONF_DIR}/"
 fi
-if test ! -f "${HOME}@INC_CPACK_ARANGO_DATA_DIR@/SERVER" -a ! -f "${HOME}@INC_CPACK_ARANGO_DATA_DIR@/ENGINE"; then
+if test ! -f "${HOME}@INC_CPACK_AVOCADO_DATA_DIR@/SERVER" -a ! -f "${HOME}@INC_CPACK_AVOCADO_DATA_DIR@/ENGINE"; then
     STORAGE_ENGINE=$(
         /usr/bin/osascript <<-EOF
 set issueList to {"auto", "mmfiles", "rocksdb"}
@@ -25,9 +25,9 @@ EOF
         STORAGE_ENGINE=auto
     fi
 
-    sed -i -e "s;storage-engine = auto;storage-engine = $STORAGE_ENGINE;" "${ARANGOD_CONF}"
+    sed -i -e "s;storage-engine = auto;storage-engine = $STORAGE_ENGINE;" "${AVOCADOD_CONF}"
 else
-    if "${ROOTDIR}/avocadod" -c "${ARANGOD_CONF}" --database.check-version true; then
+    if "${ROOTDIR}/avocadod" -c "${AVOCADOD_CONF}" --database.check-version true; then
         echo "database doesn't need an upgrade."
     else
         UPGRADE_DB=$(/usr/bin/osascript<<END
@@ -38,7 +38,7 @@ end tell
 END
               )
         if test "${UPGRADE_DB}" == "Yes"; then
-            "${ROOTDIR}/avocadod" --database.auto-upgrade -c "${ARANGOD_CONF}"
+            "${ROOTDIR}/avocadod" --database.auto-upgrade -c "${AVOCADOD_CONF}"
         else
             echo "Can't continue with not updated database."
             exit 1
@@ -57,7 +57,7 @@ for script in $SCRIPTS; do
     echo "export ROOTDIR=\"${ROOTDIR}@CMAKE_INSTALL_PREFIX@\""
     echo
 
-    echo "exec \"\${ROOTDIR}/$script\" -c \"${ARANGOD_CONF_DIR}/${base}.conf\" \$*"
+    echo "exec \"\${ROOTDIR}/$script\" -c \"${AVOCADOD_CONF_DIR}/${base}.conf\" \$*"
   ) > "${ROOTDIR}/$base.$$"
 
   chmod 755 "${ROOTDIR}/$base.$$"
@@ -66,7 +66,7 @@ done
 
 # start the server
 
-PIDFILE="${HOMEDIR}@INC_CPACK_ARANGO_PID_DIR@/avocadod.pid"
+PIDFILE="${HOMEDIR}@INC_CPACK_AVOCADO_PID_DIR@/avocadod.pid"
 
 if [ -f "${PIDFILE}" ];  then
 result=$(
@@ -84,8 +84,8 @@ EOF
 fi
 
 
-test -d "${ROOTDIR}@INC_CPACK_ARANGO_PID_DIR@" || mkdir "${ROOTDIR}@INC_CPACK_ARANGO_PID_DIR@"
-"${ROOTDIR}/avocadod" -c "${ARANGOD_CONF}" --daemon --pid-file "${PIDFILE}"
+test -d "${ROOTDIR}@INC_CPACK_AVOCADO_PID_DIR@" || mkdir "${ROOTDIR}@INC_CPACK_AVOCADO_PID_DIR@"
+"${ROOTDIR}/avocadod" -c "${AVOCADOD_CONF}" --daemon --pid-file "${PIDFILE}"
 
 # create some information for the user
 
@@ -96,10 +96,10 @@ INFOFILE="/tmp/AvocadoDB-CLI.info.$$"
   echo "AvocadoDB server has been started"
   echo ""
   echo "The database directory is located at"
-  echo "   '${HOME}@INC_CPACK_ARANGO_DATA_DIR@'"
+  echo "   '${HOME}@INC_CPACK_AVOCADO_DATA_DIR@'"
   echo ""
   echo "The log file is located at"
-  echo "   '${HOME}@INC_CPACK_ARANGO_LOG_DIR@/avocadod.log'"
+  echo "   '${HOME}@INC_CPACK_AVOCADO_LOG_DIR@/avocadod.log'"
   echo ""
   echo "You can access the server using a browser at 'http://127.0.0.1:8529/'"
   echo "or start the AvocadoDB shell"
@@ -114,7 +114,7 @@ INFOFILE="/tmp/AvocadoDB-CLI.info.$$"
 
 /usr/bin/osascript <<-EOF
 tell application "Terminal"
-  do script "clear && cat $INFOFILE && rm $INFOFILE && sleep 20 && exec tail -1 -f ${HOME}@INC_CPACK_ARANGO_LOG_DIR@/avocadod.log"
+  do script "clear && cat $INFOFILE && rm $INFOFILE && sleep 20 && exec tail -1 -f ${HOME}@INC_CPACK_AVOCADO_LOG_DIR@/avocadod.log"
   activate
 end tell
 EOF

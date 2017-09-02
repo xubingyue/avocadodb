@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_WORKER_H
-#define ARANGODB_PREGEL_WORKER_H 1
+#ifndef AVOCADODB_PREGEL_WORKER_H
+#define AVOCADODB_PREGEL_WORKER_H 1
 
 #include <atomic>
 #include <boost/date_time/posix_time/posix_time.hpp>

@@ -21,7 +21,7 @@ specify this value.
 In case that the index was successfully created, an object with the index
 details is returned.
 
-@EXAMPLE_ARANGOSH_OUTPUT{ensureFulltextIndex}
+@EXAMPLE_AVOCADOSH_OUTPUT{ensureFulltextIndex}
 ~db._create("example");
 db.example.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 3 });
 db.example.save({ text : "the quick brown", b : { c : 1 } });
@@ -33,5 +33,5 @@ db.example.save({ text : "over the lazy", b : { c : 6 } });
 db.example.save({ text : "the lazy dog", b : { c : 7 } });
 db._query("FOR document IN FULLTEXT(example, 'text', 'the') RETURN document");
 ~db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

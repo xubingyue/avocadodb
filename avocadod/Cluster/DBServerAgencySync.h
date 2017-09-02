@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_DB_SERVER_AGENCY_SYNC_H
-#define ARANGOD_CLUSTER_DB_SERVER_AGENCY_SYNC_H 1
+#ifndef AVOCADOD_CLUSTER_DB_SERVER_AGENCY_SYNC_H
+#define AVOCADOD_CLUSTER_DB_SERVER_AGENCY_SYNC_H 1
 
 #include "Basics/Common.h"
 

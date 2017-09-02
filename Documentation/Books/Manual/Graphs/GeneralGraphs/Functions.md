@@ -37,13 +37,13 @@ Returns the vertex defined with the attribute *_from* of the edge with *edgeId* 
 
 
     @startDocuBlockInline generalGraphGetFromVertex
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphGetFromVertex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphGetFromVertex}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       var any = require("@avocadodb").db.relation.any();
       graph._fromVertex("relation/" + any._key);
     ~ examples.dropGraph("social");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphGetFromVertex
 
 
@@ -69,13 +69,13 @@ Returns the vertex defined with the attribute *_to* of the edge with *edgeId* as
 
 
     @startDocuBlockInline generalGraphGetToVertex
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphGetToVertex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphGetToVertex}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       var any = require("@avocadodb").db.relation.any();
       graph._toVertex("relation/" + any._key);
     ~ examples.dropGraph("social");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphGetToVertex
 
 
@@ -117,23 +117,23 @@ Hence the default call would have a complexity of **O(n\*m)**;
 A route planner example, all neighbors of capitals.
 
     @startDocuBlockInline generalGraphModuleNeighbors1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleNeighbors1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleNeighbors1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._neighbors({isCapital : true});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleNeighbors1
 
 A route planner example, all outbound neighbors of Hamburg.
 
     @startDocuBlockInline generalGraphModuleNeighbors2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleNeighbors2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleNeighbors2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._neighbors('germanCity/Hamburg', {direction : 'outbound', maxDepth : 2});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleNeighbors2
 
 
@@ -163,19 +163,19 @@ Hence the default call would have a complexity of **O(n\*m)**;
 A route planner example, all common neighbors of capitals.
 
     @startDocuBlockInline generalGraphModuleCommonNeighbors1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighbors1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleCommonNeighbors1}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("routeplanner");
     graph._commonNeighbors({isCapital : true}, {isCapital : true});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighbors1
 
 A route planner example, all common outbound neighbors of Hamburg with any other location
 which have a maximal depth of 2 :
 
     @startDocuBlockInline generalGraphModuleCommonNeighbors2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighbors2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleCommonNeighbors2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
     | graph._commonNeighbors(
@@ -184,7 +184,7 @@ which have a maximal depth of 2 :
     |   {direction : 'outbound', maxDepth : 2},
         {direction : 'outbound', maxDepth : 2});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighbors2
 
 
@@ -207,27 +207,27 @@ Similar to [_commonNeighbors](#commonneighbors) but returns count instead of the
 A route planner example, all common neighbors of capitals.
 
     @startDocuBlockInline generalGraphModuleCommonNeighborsAmount1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighborsAmount1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleCommonNeighborsAmount1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       var example = { isCapital: true };
       var options = { includeData: true };
       graph._countCommonNeighbors(example, example, options, options);
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighborsAmount1
 
 A route planner example, all common outbound neighbors of Hamburg with any other location
 which have a maximal depth of 2 :
 
     @startDocuBlockInline generalGraphModuleCommonNeighborsAmount2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighborsAmount2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleCommonNeighborsAmount2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       var options = { direction: 'outbound', maxDepth: 2, includeData: true };
       graph._countCommonNeighbors('germanCity/Hamburg', {}, options, options);
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighborsAmount2
 
 
@@ -268,23 +268,23 @@ defined by the parameters vertexExamples.
 A route planner example, all locations with the same properties:
 
     @startDocuBlockInline generalGraphModuleProperties1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleProperties1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleProperties1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._commonProperties({}, {});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleProperties1
 
 A route planner example, all cities which share same properties except for population.
 
     @startDocuBlockInline generalGraphModuleProperties2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleProperties2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleProperties2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._commonProperties({}, {}, {ignoreProperties: 'population'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleProperties2
 
 
@@ -308,24 +308,24 @@ the objects.
 A route planner example, all locations with the same properties:
 
     @startDocuBlockInline generalGraphModuleAmountProperties1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAmountProperties1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAmountProperties1}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("routeplanner");
     graph._countCommonProperties({}, {});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAmountProperties1
 
 A route planner example, all German cities which share same properties except for population.
 
     @startDocuBlockInline generalGraphModuleAmountProperties2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAmountProperties2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAmountProperties2}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("routeplanner");
     | graph._countCommonProperties({}, {}, {vertex1CollectionRestriction : 'germanCity',
       vertex2CollectionRestriction : 'germanCity' ,ignoreProperties: 'population'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAmountProperties2
 
 
@@ -365,24 +365,24 @@ the graph and *m* the average amount of connected edges;
 Return all paths of the graph "social":
 
     @startDocuBlockInline generalGraphModulePaths1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModulePaths1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModulePaths1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var g = examples.loadGraph("social");
       g._paths();
     ~ examples.dropGraph("social");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModulePaths1
 
 Return all inbound paths of the graph "social" with a maximal
 length of 1 and a minimal length of 2:
 
     @startDocuBlockInline generalGraphModulePaths2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModulePaths2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModulePaths2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var g = examples.loadGraph("social");
       g._paths({direction : 'inbound', minLength : 1, maxLength :  2});
     ~ examples.dropGraph("social");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModulePaths2
 
 
@@ -435,25 +435,25 @@ representing the length.
 A route planner example, shortest path from all german to all french cities:
 
     @startDocuBlockInline generalGraphModuleShortestPaths1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleShortestPaths1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleShortestPaths1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var g = examples.loadGraph("routeplanner");
     | g._shortestPath({}, {}, {weight : 'distance', endVertexCollectionRestriction : 'frenchCity',
       startVertexCollectionRestriction : 'germanCity'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleShortestPaths1
 
 A route planner example, shortest path from Hamburg and Cologne to Lyon:
 
     @startDocuBlockInline generalGraphModuleShortestPaths2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleShortestPaths2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleShortestPaths2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var g = examples.loadGraph("routeplanner");
     | g._shortestPath([{_id: 'germanCity/Cologne'},{_id: 'germanCity/Munich'}], 'frenchCity/Lyon',
       {weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleShortestPaths2
 
 
@@ -477,25 +477,25 @@ It does not return the actual path but only the distance between two vertices.
 A route planner example, shortest distance from all german to all french cities:
 
     @startDocuBlockInline generalGraphModuleDistanceTo1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDistanceTo1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleDistanceTo1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var g = examples.loadGraph("routeplanner");
     | g._distanceTo({}, {}, {weight : 'distance', endVertexCollectionRestriction : 'frenchCity',
       startVertexCollectionRestriction : 'germanCity'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleDistanceTo1
 
 A route planner example, shortest distance from Hamburg and Cologne to Lyon:
 
     @startDocuBlockInline generalGraphModuleDistanceTo2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDistanceTo2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleDistanceTo2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var g = examples.loadGraph("routeplanner");
     | g._distanceTo([{_id: 'germanCity/Cologne'},{_id: 'germanCity/Munich'}], 'frenchCity/Lyon',
       {weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleDistanceTo2
 
 
@@ -540,37 +540,37 @@ example as parameter for vertexExample.
 A route planner example, the absolute eccentricity of all locations.
 
     @startDocuBlockInline generalGraphModuleAbsEccentricity1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsEccentricity1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsEccentricity1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._absoluteEccentricity({});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsEccentricity1
 
 A route planner example, the absolute eccentricity of all locations.
 This considers the actual distances.
 
     @startDocuBlockInline generalGraphModuleAbsEccentricity2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsEccentricity2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsEccentricity2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._absoluteEccentricity({}, {weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsEccentricity2
 
 A route planner example, the absolute eccentricity of all cities regarding only
 outbound paths.
 
     @startDocuBlockInline generalGraphModuleAbsEccentricity3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsEccentricity3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsEccentricity3}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
     | graph._absoluteEccentricity({}, {startVertexCollectionRestriction : 'germanCity',
       direction : 'outbound', weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsEccentricity3
 
 
@@ -595,23 +595,23 @@ Similar to [_absoluteEccentricity](#absoluteeccentricity) but returns a normaliz
 A route planner example, the eccentricity of all locations.
 
     @startDocuBlockInline generalGraphModuleEccentricity2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleEccentricity2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleEccentricity2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._eccentricity();
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleEccentricity2
 
 A route planner example, the weighted eccentricity.
 
     @startDocuBlockInline generalGraphModuleEccentricity3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleEccentricity3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleEccentricity3}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._eccentricity({weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleEccentricity3
 
 
@@ -655,37 +655,37 @@ example as parameter for *vertexExample*.
 A route planner example, the absolute closeness of all locations.
 
     @startDocuBlockInline generalGraphModuleAbsCloseness1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsCloseness1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsCloseness1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._absoluteCloseness({});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsCloseness1
 
 A route planner example, the absolute closeness of all locations.
 This considers the actual distances.
 
     @startDocuBlockInline generalGraphModuleAbsCloseness2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsCloseness2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsCloseness2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._absoluteCloseness({}, {weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsCloseness2
 
 A route planner example, the absolute closeness of all German Cities regarding only
 outbound paths.
 
     @startDocuBlockInline generalGraphModuleAbsCloseness3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsCloseness3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsCloseness3}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
     | graph._absoluteCloseness({}, {startVertexCollectionRestriction : 'germanCity',
       direction : 'outbound', weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsCloseness3
 
 
@@ -710,36 +710,36 @@ Similar to [_absoluteCloseness](#absolutecloseness) but returns a normalized val
 A route planner example, the normalized closeness of all locations.
 
     @startDocuBlockInline generalGraphModuleCloseness1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCloseness1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleCloseness1}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("routeplanner");
     graph._closeness();
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleCloseness1
 
 A route planner example, the closeness of all locations.
 This considers the actual distances.
 
     @startDocuBlockInline generalGraphModuleCloseness2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCloseness2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleCloseness2}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("routeplanner");
     graph._closeness({weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleCloseness2
 
 A route planner example, the closeness of all cities regarding only
 outbound paths.
 
     @startDocuBlockInline generalGraphModuleCloseness3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCloseness3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleCloseness3}
     var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("routeplanner");
     graph._closeness({direction : 'outbound', weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleCloseness3
 
 
@@ -777,36 +777,36 @@ of all vertices in the graph.
 A route planner example, the absolute betweenness of all locations.
 
     @startDocuBlockInline generalGraphModuleAbsBetweenness1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsBetweenness1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsBetweenness1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._absoluteBetweenness({});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsBetweenness1
 
 A route planner example, the absolute betweenness of all locations.
 This considers the actual distances.
 
     @startDocuBlockInline generalGraphModuleAbsBetweenness2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsBetweenness2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsBetweenness2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._absoluteBetweenness({weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsBetweenness2
 
 A route planner example, the absolute betweenness of all cities regarding only
 outbound paths.
 
     @startDocuBlockInline generalGraphModuleAbsBetweenness3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsBetweenness3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleAbsBetweenness3}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._absoluteBetweenness({direction : 'outbound', weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsBetweenness3
 
 
@@ -831,36 +831,36 @@ Similar to [_absoluteBetweeness](#absolutebetweenness) but returns normalized va
 A route planner example, the betweenness of all locations.
 
     @startDocuBlockInline generalGraphModuleBetweenness1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleBetweenness1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleBetweenness1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._betweenness();
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleBetweenness1
 
 A route planner example, the betweenness of all locations.
 This considers the actual distances.
 
     @startDocuBlockInline generalGraphModuleBetweenness2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleBetweenness2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleBetweenness2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._betweenness({weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleBetweenness2
 
 A route planner example, the betweenness of all cities regarding only
 outbound paths.
 
     @startDocuBlockInline generalGraphModuleBetweenness3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleBetweenness3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleBetweenness3}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._betweenness({direction : 'outbound', weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleBetweenness3
 
 
@@ -895,36 +895,36 @@ of a graph.
 A route planner example, the radius of the graph.
 
     @startDocuBlockInline generalGraphModuleRadius1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleRadius1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleRadius1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._radius();
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleRadius1
 
 A route planner example, the radius of the graph.
 This considers the actual distances.
 
     @startDocuBlockInline generalGraphModuleRadius2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleRadius2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleRadius2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._radius({weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleRadius2
 
 A route planner example, the radius of the graph regarding only
 outbound paths.
 
     @startDocuBlockInline generalGraphModuleRadius3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleRadius3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleRadius3}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._radius({direction : 'outbound', weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleRadius3
 
 
@@ -959,34 +959,34 @@ of a graph.
 A route planner example, the diameter of the graph.
 
     @startDocuBlockInline generalGraphModuleDiameter1
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDiameter1}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleDiameter1}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._diameter();
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleDiameter1
 
 A route planner example, the diameter of the graph.
 This considers the actual distances.
 
     @startDocuBlockInline generalGraphModuleDiameter2
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDiameter2}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleDiameter2}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._diameter({weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleDiameter2
 
 A route planner example, the diameter of the graph regarding only
 outbound paths.
 
     @startDocuBlockInline generalGraphModuleDiameter3
-    @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDiameter3}
+    @EXAMPLE_AVOCADOSH_OUTPUT{generalGraphModuleDiameter3}
       var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._diameter({direction : 'outbound', weight : 'distance'});
     ~ examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock generalGraphModuleDiameter3

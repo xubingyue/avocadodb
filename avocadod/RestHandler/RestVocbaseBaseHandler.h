@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_REST_HANDLER_REST_VOCBASE_BASE_HANDLER_H
-#define ARANGOD_REST_HANDLER_REST_VOCBASE_BASE_HANDLER_H 1
+#ifndef AVOCADOD_REST_HANDLER_REST_VOCBASE_BASE_HANDLER_H
+#define AVOCADOD_REST_HANDLER_REST_VOCBASE_BASE_HANDLER_H 1
 
 #include "RestHandler/RestBaseHandler.h"
 
@@ -212,7 +212,7 @@ class RestVocbaseBaseHandler : public RestBaseHandler {
   void generateDocumentNotFound(std::string const& /* collection name */,
                                 std::string const& /* document key */) {
     generateError(rest::ResponseCode::NOT_FOUND,
-                  TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+                  TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
   }
 
   //////////////////////////////////////////////////////////////////////////////

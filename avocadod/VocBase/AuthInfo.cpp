@@ -120,7 +120,7 @@ static std::shared_ptr<VPackBuilder> QueryAllUsers(
   TRI_vocbase_t* vocbase = DatabaseFeature::DATABASE->systemDatabase();
   if (vocbase == nullptr) {
     LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "system database is unknown";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
   }
 
   // we cannot set this execution context, otherwise the transaction
@@ -142,14 +142,14 @@ static std::shared_ptr<VPackBuilder> QueryAllUsers(
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
     if (queryResult.code == TRI_ERROR_REQUEST_CANCELED ||
         (queryResult.code == TRI_ERROR_QUERY_KILLED)) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
     }
     return std::shared_ptr<VPackBuilder>();
   }
 
   VPackSlice usersSlice = queryResult.result->slice();
   if (usersSlice.isNone()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   } else if (!usersSlice.isArray()) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot read users from _users collection";
@@ -163,7 +163,7 @@ static VPackBuilder QueryUser(aql::QueryRegistry* queryRegistry,
                               std::string const& user) {
   TRI_vocbase_t* vocbase = DatabaseFeature::DATABASE->systemDatabase();
   if (vocbase == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_FAILED, "_system db is unknown");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_FAILED, "_system db is unknown");
   }
 
   // we cannot set this execution context, otherwise the transaction
@@ -188,17 +188,17 @@ static VPackBuilder QueryUser(aql::QueryRegistry* queryRegistry,
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
     if (queryResult.code == TRI_ERROR_REQUEST_CANCELED ||
         (queryResult.code == TRI_ERROR_QUERY_KILLED)) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
     }
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, "query error");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, "query error");
   }
 
   VPackSlice usersSlice = queryResult.result->slice();
   if (usersSlice.isNone() || !usersSlice.isArray()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
   if (usersSlice.length() == 0) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_USER_NOT_FOUND);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_USER_NOT_FOUND);
   }
 
   VPackSlice doc = usersSlice.at(0);
@@ -389,7 +389,7 @@ void AuthInfo::reloadAllUsers() {
     if (!oldVal.isInteger()) {
       LOG_TOPIC(ERR, Logger::AUTHENTICATION)
           << "Sync/UserVersion is not a number";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
     }
 
     VPackBuilder newVal;

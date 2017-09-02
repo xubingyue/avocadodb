@@ -216,20 +216,20 @@ Graph::Graph(VPackSlice const& slice) : _vertexColls(), _edgeColls() {
           def, "collection", "");
         addEdgeCollection(eCol);
       } catch (...) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_GRAPH_INVALID_GRAPH, "didn't find 'collection' in the graph definition");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_GRAPH_INVALID_GRAPH, "didn't find 'collection' in the graph definition");
       }
       // TODO what if graph is not in a valid format any more
       try {
         VPackSlice tmp = def.get("from");
         insertVertexCollections(tmp);
       } catch (...) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_GRAPH_INVALID_GRAPH, "didn't find from-collection in the graph definition");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_GRAPH_INVALID_GRAPH, "didn't find from-collection in the graph definition");
       }
       try {
         VPackSlice tmp = def.get("to");
         insertVertexCollections(tmp);
       } catch (...) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_GRAPH_INVALID_GRAPH, "didn't find to-collection in the graph definition");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_GRAPH_INVALID_GRAPH, "didn't find to-collection in the graph definition");
       }
     }
   }

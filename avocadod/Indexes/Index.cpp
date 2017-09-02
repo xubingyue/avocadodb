@@ -114,7 +114,7 @@ size_t Index::sortWeight(avocadodb::aql::AstNode const* node) {
 /// @brief set fields from slice
 void Index::setFields(VPackSlice const& fields, bool allowExpansion) {
   if (!fields.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED,
                                    "invalid index description");
   }
 
@@ -123,7 +123,7 @@ void Index::setFields(VPackSlice const& fields, bool allowExpansion) {
 
   for (auto const& name : VPackArrayIterator(fields)) {
     if (!name.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED,
                                      "invalid index description");
     }
 
@@ -142,13 +142,13 @@ void Index::validateFields(VPackSlice const& slice) {
   VPackSlice fields = slice.get("fields");
 
   if (!fields.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED,
                                    "invalid index description");
   }
 
   for (auto const& name : VPackArrayIterator(fields)) {
     if (!name.isString()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_ATTRIBUTE_PARSER_FAILED,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_ATTRIBUTE_PARSER_FAILED,
                                      "invalid index description");
     }
 
@@ -450,7 +450,7 @@ void Index::toVelocyPackFigures(VPackBuilder& builder) const {
 /// @brief default implementation for matchesDefinition
 bool Index::matchesDefinition(VPackSlice const& info) const {
   TRI_ASSERT(info.isObject());
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   VPackSlice typeSlice = info.get("type");
   TRI_ASSERT(typeSlice.isString());
   StringRef typeStr(typeSlice);
@@ -526,7 +526,7 @@ double Index::selectivityEstimate(StringRef const* extra) const {
 }
 
 double Index::selectivityEstimateLocal(StringRef const* extra) const {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
 }
 
 /// @brief default implementation for implicitlyUnique
@@ -824,7 +824,7 @@ void Index::expandInSearchValues(VPackSlice const base,
     bool done = false;
     while (!done) {
       TRI_IF_FAILURE("Index::permutationIN") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
       VPackArrayBuilder guard(&result);
       for (size_t i = 0; i < n; ++i) {

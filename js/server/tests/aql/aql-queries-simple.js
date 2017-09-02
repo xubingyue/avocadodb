@@ -1011,7 +1011,7 @@ function ahuacatlQuerySimpleTestSuite () {
       actual = getQueryResults("LET `a b c` = { `d e f`: 1 } RETURN `a b c`['d e f']");
       assertEqual([ 1 ], actual);
       
-      assertQueryError(errors.ERROR_ARANGO_ILLEGAL_NAME.code, "LET a = 1 RETURN `a b c`"); 
+      assertQueryError(errors.ERROR_AVOCADO_ILLEGAL_NAME.code, "LET a = 1 RETURN `a b c`"); 
     },
 
 ////////////////////////////////////////////////////////////////////////////////

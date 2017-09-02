@@ -40,7 +40,7 @@ with *HTTP 404*.
 
 Valid request for next batch
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorForLimitReturnCont}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorForLimitReturnCont}
     var url = "/_api/cursor";
     var cn = "products";
     db._drop(cn);
@@ -67,11 +67,11 @@ Valid request for next batch
 
     logJsonResponse(response);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Missing identifier
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorMissingCursorIdentifier}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorMissingCursorIdentifier}
     var url = "/_api/cursor";
 
     var response = logCurlRequest('PUT', url, '');
@@ -79,11 +79,11 @@ Missing identifier
     assert(response.code === 400);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Unknown identifier
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorInvalidCursorIdentifier}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorInvalidCursorIdentifier}
     var url = "/_api/cursor/123123";
 
     var response = logCurlRequest('PUT', url, '');
@@ -91,6 +91,6 @@ Unknown identifier
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

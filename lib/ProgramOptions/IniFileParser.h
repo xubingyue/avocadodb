@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PROGRAM_OPTIONS_INI_FILE_PARSER_H
-#define ARANGODB_PROGRAM_OPTIONS_INI_FILE_PARSER_H 1
+#ifndef AVOCADODB_PROGRAM_OPTIONS_INI_FILE_PARSER_H
+#define AVOCADODB_PROGRAM_OPTIONS_INI_FILE_PARSER_H 1
 
 #include "Basics/FileUtils.h"
 

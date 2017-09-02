@@ -10,4 +10,4 @@ if [ "$os" == linux ]; then
 fi
 
 echo
-echo "ARANGOD VERSION: `build/bin/avocadod --version`"
+echo "AVOCADOD VERSION: `build/bin/avocadod --version`"

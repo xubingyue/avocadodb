@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_AUTH_INFO_H
-#define ARANGOD_VOC_BASE_AUTH_INFO_H 1
+#ifndef AVOCADOD_VOC_BASE_AUTH_INFO_H
+#define AVOCADOD_VOC_BASE_AUTH_INFO_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 #include "Aql/QueryRegistry.h"

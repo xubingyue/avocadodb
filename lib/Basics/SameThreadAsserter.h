@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_SAME_THREAD_ASSERTER_H
-#define ARANGODB_BASICS_SAME_THREAD_ASSERTER_H 1
+#ifndef AVOCADODB_BASICS_SAME_THREAD_ASSERTER_H
+#define AVOCADODB_BASICS_SAME_THREAD_ASSERTER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Thread.h"
@@ -31,7 +31,7 @@ namespace avocadodb {
 
 class SameThreadAsserter {
  public:
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 
   SameThreadAsserter() 
       : _startingThreadId(currentThreadId()) {}

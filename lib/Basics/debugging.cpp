@@ -27,8 +27,8 @@
 #include "Basics/ReadWriteLock.h"
 #include "Basics/WriteLocker.h"
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
-#if ARANGODB_ENABLE_BACKTRACE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
+#if AVOCADODB_ENABLE_BACKTRACE
 #include <sstream>
 #ifdef _WIN32
 #include <DbgHelp.h>
@@ -48,7 +48,7 @@ static char* FailurePoints = nullptr;
 /// @brief a read-write lock for thread-safe access to the failure-points list
 avocadodb::basics::ReadWriteLock FailurePointsLock;
 
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 
 /// @brief make a delimited value from a string, so we can unambigiously
 /// search for it (e.g. searching for just "foo" would find "foo" and "foobar",
@@ -250,8 +250,8 @@ void TRI_ShutdownDebugging() {
 
 /// @brief appends a backtrace to the string provided
 void TRI_GetBacktrace(std::string& btstr) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
-#if ARANGODB_ENABLE_BACKTRACE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
+#if AVOCADODB_ENABLE_BACKTRACE
 #ifdef _WIN32
   void* stack[100];
   HANDLE process = GetCurrentProcess();
@@ -339,8 +339,8 @@ void TRI_GetBacktrace(std::string& btstr) {
 
 /// @brief prints a backtrace on stderr
 void TRI_PrintBacktrace() {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
-#if ARANGODB_ENABLE_BACKTRACE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
+#if AVOCADODB_ENABLE_BACKTRACE
   std::string out;
   TRI_GetBacktrace(out);
   fprintf(stderr, "%s", out.c_str());
@@ -355,8 +355,8 @@ void TRI_PrintBacktrace() {
 
 /// @brief logs a backtrace in log level warning
 void TRI_LogBacktrace() {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
-#if ARANGODB_ENABLE_BACKTRACE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
+#if AVOCADODB_ENABLE_BACKTRACE
   std::string bt;
   TRI_GetBacktrace(bt);
   if (!bt.empty()) {  

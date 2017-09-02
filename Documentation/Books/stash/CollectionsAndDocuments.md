@@ -69,10 +69,10 @@ Creating a collection is simple. You can use the *_create* method
 of the *db* variable.
 
     @startDocuBlockInline 01_workWithColl_create
-    @EXAMPLE_ARANGOSH_OUTPUT{01_workWithColl_create}
+    @EXAMPLE_AVOCADOSH_OUTPUT{01_workWithColl_create}
     ~addIgnoreCollection("example")
     db._create("example");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 01_workWithColl_create
 
 After the collection has been created you can easily access it using
@@ -82,10 +82,10 @@ access the collection again it will now show as *unloaded*. You can
 also manually unload a collection.
 
     @startDocuBlockInline 02_workWithColl_unload
-    @EXAMPLE_ARANGOSH_OUTPUT{02_workWithColl_unload}
+    @EXAMPLE_AVOCADOSH_OUTPUT{02_workWithColl_unload}
     db.example.unload();
     db.example;
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 02_workWithColl_unload
 
 Whenever you use a collection AvocadoDB will automatically load it
@@ -95,11 +95,11 @@ In order to create new documents in a collection use the *save*
 operation. 
 
     @startDocuBlockInline 03_workWithColl_save
-    @EXAMPLE_ARANGOSH_OUTPUT{03_workWithColl_save}
+    @EXAMPLE_AVOCADOSH_OUTPUT{03_workWithColl_save}
     db.example.save({ Hello : "World" });
     db.example.save({ "name" : "John Doe", "age" : 29 });
     db.example.save({ "name" : "Jane Smith", "age" : 31 });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 03_workWithColl_save
 
 Just storing documents would be no fun. We now want to select some of
@@ -107,9 +107,9 @@ the stored documents again.  In order to select all elements of a
 collection, one can use the *toArray* method:
 
     @startDocuBlockInline 04_workWithColl_directAcess
-    @EXAMPLE_ARANGOSH_OUTPUT{04_workWithColl_directAcess}
+    @EXAMPLE_AVOCADOSH_OUTPUT{04_workWithColl_directAcess}
     db.example.toArray()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 04_workWithColl_directAcess
 
 Now we want to look for a person with a given name. We can use
@@ -117,9 +117,9 @@ Now we want to look for a person with a given name. We can use
 matching a given example.
 
     @startDocuBlockInline 05_workWithColl_byExample
-    @EXAMPLE_ARANGOSH_OUTPUT{05_workWithColl_byExample}
+    @EXAMPLE_AVOCADOSH_OUTPUT{05_workWithColl_byExample}
     db.example.byExample({ name: "Jane Smith" }).toArray()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 05_workWithColl_byExample
 
 While the *byExample* works very well for simple queries where you
@@ -128,17 +128,17 @@ and *or* conditions. Therefore AvocadoDB also supports a full-blown
 query language, AQL. To run an AQL query, use the *db._query* method:.
 
     @startDocuBlockInline 05_workWithColl_AQL_STR
-    @EXAMPLE_ARANGOSH_OUTPUT{05_workWithColl_AQL_STR}
+    @EXAMPLE_AVOCADOSH_OUTPUT{05_workWithColl_AQL_STR}
     db._query('FOR user IN example FILTER user.name == "Jane Smith" RETURN user').toArray()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 05_workWithColl_AQL_STR
 
 Searching for all persons with an age above 30:
 
     @startDocuBlockInline 06_workWithColl_AOQL_INT
-    @EXAMPLE_ARANGOSH_OUTPUT{06_workWithColl_AOQL_INT}
+    @EXAMPLE_AVOCADOSH_OUTPUT{06_workWithColl_AOQL_INT}
     db._query('FOR user IN example FILTER user.age > 30 RETURN user').toArray()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 06_workWithColl_AOQL_INT
 
 
@@ -146,12 +146,12 @@ John was put in there by mistake – so let's delete him again. We fetch
 the `_id` using *byExample*:
 
     @startDocuBlockInline 07_workWithColl_remove
-    @EXAMPLE_ARANGOSH_OUTPUT{07_workWithColl_remove}
+    @EXAMPLE_AVOCADOSH_OUTPUT{07_workWithColl_remove}
     db.example.remove(db.example.byExample({ name: "John Doe" }).toArray()[0]._id)
     db.example.toArray()
     ~removeIgnoreCollection("example")
     ~db._drop("example")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock 07_workWithColl_remove
 
 

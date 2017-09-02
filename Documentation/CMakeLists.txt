@@ -36,7 +36,7 @@ if (USE_MAINTAINER_MODE AND NOT(MSVC))
     add_custom_command(
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
       OUTPUT  ${mdst}
-      COMMAND ${CMAKE_SOURCE_DIR}/utils/manPages.sh ${msrc} ${mdst} ${ARANGODB_VERSION}
+      COMMAND ${CMAKE_SOURCE_DIR}/utils/manPages.sh ${msrc} ${mdst} ${AVOCADODB_VERSION}
       DEPENDS ${msrc}
       COMMENT "Building manpage ${mdst}"
       VERBATIM

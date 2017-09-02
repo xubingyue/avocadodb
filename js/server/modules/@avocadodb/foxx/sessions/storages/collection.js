@@ -24,8 +24,8 @@
 
 const assert = require('assert');
 const avocadodb = require('@avocadodb');
-const NOT_FOUND = avocadodb.errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code;
-const UNIQUE_CONSTRAINT = avocadodb.errors.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code;
+const NOT_FOUND = avocadodb.errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code;
+const UNIQUE_CONSTRAINT = avocadodb.errors.ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED.code;
 const db = avocadodb.db;
 const aql = avocadodb.aql;
 

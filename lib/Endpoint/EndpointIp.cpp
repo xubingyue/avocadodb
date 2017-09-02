@@ -39,7 +39,7 @@ using namespace avocadodb::basics;
                 windowsErrorBuf, sizeof(windowsErrorBuf), NULL);     \
   errno = GetLastError();
 #else
-//YYY #ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+//YYY #ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 //YYY #warning FRANK move to system or os file
 //YYY #endif
 #define STR_ERROR() strerror(errno)

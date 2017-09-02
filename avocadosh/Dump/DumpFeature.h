@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_DUMP_DUMP_FEATURE_H
-#define ARANGODB_DUMP_DUMP_FEATURE_H 1
+#ifndef AVOCADODB_DUMP_DUMP_FEATURE_H
+#define AVOCADODB_DUMP_DUMP_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 #include "V8Client/AvocadoClientHelper.h"

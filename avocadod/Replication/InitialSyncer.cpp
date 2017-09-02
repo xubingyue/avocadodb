@@ -1198,7 +1198,7 @@ int InitialSyncer::handleCollection(VPackSlice const& parameters,
     if (col == nullptr) {
       errorMsg = "cannot dump: " + collectionMsg + " not found";
 
-      return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+      return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
     }
 
     Result res;

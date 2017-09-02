@@ -128,7 +128,7 @@ void Logger::setLogLevel(std::vector<std::string> const& levels) {
 // NOTE: this function should not be called if the logging is active.
 void Logger::setOutputPrefix(std::string const& prefix) {
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot change output prefix if logging is active");
   }
 
@@ -138,7 +138,7 @@ void Logger::setOutputPrefix(std::string const& prefix) {
 // NOTE: this function should not be called if the logging is active.
 void Logger::setShowLineNumber(bool show) {
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot change show line number if logging is active");
   }
 
@@ -148,7 +148,7 @@ void Logger::setShowLineNumber(bool show) {
 // NOTE: this function should not be called if the logging is active.
 void Logger::setShortenFilenames(bool shorten) {
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot change shorten filenames if logging is active");
   }
 
@@ -158,7 +158,7 @@ void Logger::setShortenFilenames(bool shorten) {
 // NOTE: this function should not be called if the logging is active.
 void Logger::setShowThreadIdentifier(bool show) {
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot change show thread identifier if logging is active");
   }
 
@@ -168,7 +168,7 @@ void Logger::setShowThreadIdentifier(bool show) {
 // NOTE: this function should not be called if the logging is active.
 void Logger::setUseLocalTime(bool show) {
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot change use local time if logging is active");
   }
 
@@ -178,7 +178,7 @@ void Logger::setUseLocalTime(bool show) {
 // NOTE: this function should not be called if the logging is active.
 void Logger::setUseMicrotime(bool show) {
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot change use microtime if logging is active");
   }
 
@@ -188,7 +188,7 @@ void Logger::setUseMicrotime(bool show) {
 // NOTE: this function should not be called if the logging is active.
 void Logger::setKeepLogrotate(bool keep) {
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "cannot change keep log rotate if logging is active");
   }
 
@@ -341,7 +341,7 @@ void Logger::initialize(bool threaded) {
   MUTEX_LOCKER(locker, _initializeMutex);
 
   if (_active) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "Logger already initialized");
   }
 

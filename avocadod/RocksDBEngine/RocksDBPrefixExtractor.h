@@ -23,8 +23,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_PREFIX_EXTRACTOR_H
-#define ARANGO_ROCKSDB_ROCKSDB_PREFIX_EXTRACTOR_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_PREFIX_EXTRACTOR_H
+#define AVOCADO_ROCKSDB_ROCKSDB_PREFIX_EXTRACTOR_H 1
 
 #include "Basics/Common.h"
 

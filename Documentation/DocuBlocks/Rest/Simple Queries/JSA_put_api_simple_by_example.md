@@ -46,7 +46,7 @@ response body contains an error document in this case.
 
 Matching an attribute
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleByExample}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleByExample}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -63,11 +63,11 @@ Matching an attribute
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Matching an attribute which is a sub-document
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleByExample2}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleByExample2}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -84,11 +84,11 @@ Matching an attribute which is a sub-document
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Matching an attribute within a sub-document
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleByExample3}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleByExample3}
     var cn = "products";
     db._drop(cn);
     var products = db._create(cn);
@@ -105,6 +105,6 @@ Matching an attribute within a sub-document
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

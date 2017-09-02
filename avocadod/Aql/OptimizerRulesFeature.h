@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_OPTIMIZER_RULES_FEATURE_H
-#define ARANGOD_AQL_OPTIMIZER_RULES_FEATURE_H 1
+#ifndef AVOCADOD_AQL_OPTIMIZER_RULES_FEATURE_H
+#define AVOCADOD_AQL_OPTIMIZER_RULES_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 #include "Aql/OptimizerRule.h"

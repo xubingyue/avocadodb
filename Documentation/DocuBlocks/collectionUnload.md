@@ -8,12 +8,12 @@ until all query have finished.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{CollectionUnload}
+@EXAMPLE_AVOCADOSH_OUTPUT{CollectionUnload}
 ~ db._create("example");
   col = db.example;
   col.unload();
   col;
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_STORAGE_ENGINE_DOCUMENT_IDENTIFIER_TOKEN_H
-#define ARANGOD_STORAGE_ENGINE_DOCUMENT_IDENTIFIER_TOKEN_H 1
+#ifndef AVOCADOD_STORAGE_ENGINE_DOCUMENT_IDENTIFIER_TOKEN_H
+#define AVOCADOD_STORAGE_ENGINE_DOCUMENT_IDENTIFIER_TOKEN_H 1
 
 namespace avocadodb {
 

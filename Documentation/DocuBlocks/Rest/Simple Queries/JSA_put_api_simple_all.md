@@ -38,7 +38,7 @@ response body contains an error document in this case.
 
 Limit the amount of documents using *limit*
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleAllSkipLimit}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleAllSkipLimit}
     var cn = "products";
     db._drop(cn);
     var collection = db._create(cn);
@@ -57,11 +57,11 @@ Limit the amount of documents using *limit*
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Using a *batchSize* value
 
-@EXAMPLE_ARANGOSH_RUN{RestSimpleAllBatch}
+@EXAMPLE_AVOCADOSH_RUN{RestSimpleAllBatch}
     var cn = "products";
     db._drop(cn);
     var collection = db._create(cn);
@@ -80,6 +80,6 @@ Using a *batchSize* value
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

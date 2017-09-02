@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_STRING_REF_H
-#define ARANGODB_BASICS_STRING_REF_H 1
+#ifndef AVOCADODB_BASICS_STRING_REF_H
+#define AVOCADODB_BASICS_STRING_REF_H 1
 
 #include "Basics/Common.h"
 #include "Basics/xxhash.h"

@@ -20,8 +20,8 @@
 /// @author Andreas Streichardt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_SCHEDULER_SOCKET_TCP_H
-#define ARANGOD_SCHEDULER_SOCKET_TCP_H 1
+#ifndef AVOCADOD_SCHEDULER_SOCKET_TCP_H
+#define AVOCADOD_SCHEDULER_SOCKET_TCP_H 1
 
 #include "Basics/MutexLocker.h"
 #include "Scheduler/Socket.h"

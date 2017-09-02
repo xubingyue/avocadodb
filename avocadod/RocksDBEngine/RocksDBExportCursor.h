@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_ROCKSDB_ROCKSDB_EXPORT_CURSOR_H
-#define ARANGOD_ROCKSDB_ROCKSDB_EXPORT_CURSOR_H 1
+#ifndef AVOCADOD_ROCKSDB_ROCKSDB_EXPORT_CURSOR_H
+#define AVOCADOD_ROCKSDB_ROCKSDB_EXPORT_CURSOR_H 1
 
 #include "Basics/Common.h"
 #include "Utils/CollectionExport.h"

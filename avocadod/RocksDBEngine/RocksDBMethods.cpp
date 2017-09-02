@@ -70,7 +70,7 @@ rocksdb::ReadOptions const& RocksDBMethods::readOptions() {
   return _state->_rocksReadOptions;
 }
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 std::size_t RocksDBMethods::countInBounds(RocksDBKeyBounds const& bounds, bool isElementInRange) {
   std::size_t count = 0;
   
@@ -132,12 +132,12 @@ avocadodb::Result RocksDBReadOnlyMethods::Put(rocksdb::ColumnFamilyHandle* cf,
                                              RocksDBKey const&,
                                              rocksdb::Slice const&,
                                              rocksutils::StatusHint) {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_READ_ONLY);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_READ_ONLY);
 }
 
 avocadodb::Result RocksDBReadOnlyMethods::Delete(rocksdb::ColumnFamilyHandle* cf,
                                                 RocksDBKey const& key) {
-  THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_READ_ONLY);
+  THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_READ_ONLY);
 }
 
 std::unique_ptr<rocksdb::Iterator> RocksDBReadOnlyMethods::NewIterator(

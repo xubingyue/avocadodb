@@ -178,7 +178,7 @@ std::unique_ptr<GeneralClientConnection> ClientFeature::createConnection(
 
   if (endpoint.get() == nullptr) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "invalid value for --server.endpoint ('" << definition << "')";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
 
   std::unique_ptr<GeneralClientConnection> connection(
@@ -204,7 +204,7 @@ std::unique_ptr<httpclient::SimpleHttpClient> ClientFeature::createHttpClient(
   
   if (endpoint.get() == nullptr) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "invalid value for --server.endpoint ('" << definition << "')";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_BAD_PARAMETER);
   }
   
   std::unique_ptr<GeneralClientConnection> connection(GeneralClientConnection::factory(endpoint, _requestTimeout,

@@ -24,7 +24,7 @@ returned.
 
 Ignore any limit:
 
-@EXAMPLE_ARANGOSH_OUTPUT{cursorCount}
+@EXAMPLE_AVOCADOSH_OUTPUT{cursorCount}
 ~ db._create("five");
 ~ db.five.save({ name : "one" });
 ~ db.five.save({ name : "two" });
@@ -33,11 +33,11 @@ Ignore any limit:
 ~ db.five.save({ name : "five" });
   db.five.all().limit(2).count();
 ~ db._drop("five")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Counting any limit or skip:
 
-@EXAMPLE_ARANGOSH_OUTPUT{cursorCountLimit}
+@EXAMPLE_AVOCADOSH_OUTPUT{cursorCountLimit}
 ~ db._create("five");
 ~ db.five.save({ name : "one" });
 ~ db.five.save({ name : "two" });
@@ -46,6 +46,6 @@ Counting any limit or skip:
 ~ db.five.save({ name : "five" });
   db.five.all().limit(2).count(true);
 ~ db._drop("five")
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

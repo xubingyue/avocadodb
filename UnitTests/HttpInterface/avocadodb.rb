@@ -7,27 +7,27 @@ require 'rspec'
 require 'rspec/expectations'
 
 
-$address = ENV['ARANGO_SERVER'] || '127.0.0.1:8529'
-$user = ENV['ARANGO_USER']
-$password = ENV['ARANGO_PASSWORD']
-$ssl = ENV['ARANGO_SSL']
-$silent = ENV['ARANGO_NO_LOG'] || ''
+$address = ENV['AVOCADO_SERVER'] || '127.0.0.1:8529'
+$user = ENV['AVOCADO_USER']
+$password = ENV['AVOCADO_PASSWORD']
+$ssl = ENV['AVOCADO_SSL']
+$silent = ENV['AVOCADO_NO_LOG'] || ''
 $skip_timecritical = ENV['SKIP_TIMECRITICAL'] || true
 
 begin
-  $address = RSpec.configuration.ARANGO_SERVER
+  $address = RSpec.configuration.AVOCADO_SERVER
 rescue
 end
 begin
-  $user = RSpec.configuration.ARANGO_USER
+  $user = RSpec.configuration.AVOCADO_USER
 rescue
 end
 begin
-  $password = RSpec.configuration.ARANGO_PASSWORD
+  $password = RSpec.configuration.AVOCADO_PASSWORD
 rescue
 end
 begin
-  $ssl = RSpec.configuration.ARANGO_SSL
+  $ssl = RSpec.configuration.AVOCADO_SSL
 rescue
 end
 begin

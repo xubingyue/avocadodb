@@ -73,7 +73,7 @@ AqlItemBlock* SubqueryBlock::getSome(size_t atLeast, size_t atMost) {
     int ret = _subquery->initializeCursor(res.get(), i);
 
     if (ret != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(ret);
+      THROW_AVOCADO_EXCEPTION(ret);
     }
 
     if (i > 0 && _subqueryIsConst) {
@@ -101,7 +101,7 @@ AqlItemBlock* SubqueryBlock::getSome(size_t atLeast, size_t atMost) {
 
       try {
         TRI_IF_FAILURE("SubqueryBlock::getSome") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
         res->setValue(i, _outReg, AqlValue(subqueryResults));
       } catch (...) {
@@ -148,7 +148,7 @@ std::vector<AqlItemBlock*>* SubqueryBlock::executeSubquery() {
       }
 
       TRI_IF_FAILURE("SubqueryBlock::executeSubquery") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       results->emplace_back(tmp.get());

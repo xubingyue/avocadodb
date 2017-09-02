@@ -59,7 +59,7 @@ is returned.
 
 Retrieving the checksum of a collection:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetCollectionChecksum}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetCollectionChecksum}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn);
@@ -72,12 +72,12 @@ Retrieving the checksum of a collection:
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Retrieving the checksum of a collection including the collection data,
 but not the revisions:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetCollectionChecksumNoRev}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetCollectionChecksumNoRev}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn);
@@ -90,6 +90,6 @@ but not the revisions:
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

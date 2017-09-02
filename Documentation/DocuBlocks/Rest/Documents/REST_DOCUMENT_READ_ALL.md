@@ -39,7 +39,7 @@ The collection does not exist.
 
 Return all document paths
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerReadDocumentAllPath}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerReadDocumentAllPath}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -56,11 +56,11 @@ Return all document paths
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Return all document keys
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerReadDocumentAllKey}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerReadDocumentAllKey}
     var cn = "products";
     db._drop(cn);
     db._create(cn);
@@ -77,11 +77,11 @@ Return all document keys
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Collection does not exist
 
-@EXAMPLE_ARANGOSH_RUN{RestDocumentHandlerReadDocumentAllCollectionDoesNotExist}
+@EXAMPLE_AVOCADOSH_RUN{RestDocumentHandlerReadDocumentAllCollectionDoesNotExist}
     var cn = "doesnotexist";
     db._drop(cn);
     var url = "/_api/document/" + cn;
@@ -91,6 +91,6 @@ Collection does not exist
     assert(response.code === 404);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

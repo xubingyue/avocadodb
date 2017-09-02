@@ -97,7 +97,7 @@ function ClusterCrudSaveSuite () {
       fail();
     }
     catch (err) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_KEY_BAD.code, err.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_KEY_BAD.code, err.errorNum);
     }
   };
 
@@ -275,7 +275,7 @@ function ClusterCrudReplaceSuite () {
       fail();
     }
     catch (err1) {
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, err1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, err1.errorNum);
     }
 
     try {
@@ -283,7 +283,7 @@ function ClusterCrudReplaceSuite () {
       fail();
     }
     catch (err2) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
     }
   };
 
@@ -320,7 +320,7 @@ function ClusterCrudReplaceSuite () {
       fail();
     }
     catch (err1) {
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, err1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, err1.errorNum);
     }
 
     // change shard keys
@@ -329,7 +329,7 @@ function ClusterCrudReplaceSuite () {
       fail();
     }
     catch (err2) {
-      if (err2.errorNum !== ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+      if (err2.errorNum !== ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
         assertEqual(ERRORS.ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES.code, err2.errorNum);
       }
     }
@@ -368,7 +368,7 @@ function ClusterCrudReplaceSuite () {
     catch (err3) {
       // We cannot determine if it is SHARDING_ATTRIBUTES_CHANGED or NOT_FOUND using one round-trip only.
       if (err3.errorNum !== ERRORS.ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES.code) {
-        assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
+        assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
       } else {
         assertEqual(ERRORS.ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES.code, err3.errorNum);
       }
@@ -379,7 +379,7 @@ function ClusterCrudReplaceSuite () {
       fail();
     }
     catch (err4) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err4.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err4.errorNum);
     }
 
     try {
@@ -525,7 +525,7 @@ function ClusterCrudUpdateSuite () {
       fail();
     }
     catch (err1) {
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, err1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, err1.errorNum);
     }
 
     try {
@@ -533,7 +533,7 @@ function ClusterCrudUpdateSuite () {
       fail();
     }
     catch (err2) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
     }
   };
 
@@ -604,7 +604,7 @@ function ClusterCrudUpdateSuite () {
       fail();
     }
     catch (err1) {
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, err1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, err1.errorNum);
     }
 
     try {
@@ -612,7 +612,7 @@ function ClusterCrudUpdateSuite () {
       fail();
     }
     catch (err2) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
     }
 
     // change shard keys
@@ -621,7 +621,7 @@ function ClusterCrudUpdateSuite () {
       fail();
     }
     catch (err2) {
-      if (err2.errorNum !== ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+      if (err2.errorNum !== ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
         assertEqual(ERRORS.ERROR_CLUSTER_MUST_NOT_CHANGE_SHARDING_ATTRIBUTES.code, err2.errorNum);
       }
     }
@@ -747,7 +747,7 @@ function ClusterCrudDeleteSuite () {
       fail();
     }
     catch (err1) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
     }
 
     // remove a non-existing revision
@@ -760,7 +760,7 @@ function ClusterCrudDeleteSuite () {
       fail();
     }
     catch (err2) {
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, err2.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, err2.errorNum);
     }
 
     // remove non-existing
@@ -768,7 +768,7 @@ function ClusterCrudDeleteSuite () {
       c.document("foobarbaz");
     }
     catch (err3) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
     }
   };
 
@@ -797,7 +797,7 @@ function ClusterCrudDeleteSuite () {
       fail();
     }
     catch (err1) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
     }
 
     // remove a non-existing revision
@@ -809,7 +809,7 @@ function ClusterCrudDeleteSuite () {
       fail();
     }
     catch (err2) {
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, err2.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, err2.errorNum);
     }
 
     // remove non-existing
@@ -817,7 +817,7 @@ function ClusterCrudDeleteSuite () {
       c.document("foobarbaz");
     }
     catch (err3) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err3.errorNum);
     }
   };
 
@@ -899,7 +899,7 @@ function ClusterCrudDocumentSuite () {
       fail();
     }
     catch (err1) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err1.errorNum);
     }
 
     try {
@@ -907,7 +907,7 @@ function ClusterCrudDocumentSuite () {
       fail();
     }
     catch (err2) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err2.errorNum);
     }
 
     old = c.save({ "a" : 1, "b" : "2", "c" : true, "d" : "test" });
@@ -950,7 +950,7 @@ function ClusterCrudDocumentSuite () {
       fail();
     }
     catch (err3) {
-      assertEqual(ERRORS.ERROR_ARANGO_CONFLICT.code, err3.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_CONFLICT.code, err3.errorNum);
     }
 
     // fetch after deletion
@@ -960,7 +960,7 @@ function ClusterCrudDocumentSuite () {
       fail();
     }
     catch (err4) {
-      assertEqual(ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code, err4.errorNum);
+      assertEqual(ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code, err4.errorNum);
     }
   };
 
@@ -1077,7 +1077,7 @@ function ClusterCrudExistsSuite () {
       c.exists(old);
       fail();
     } catch (e) {
-      assertEqual(e.errorNum, ERRORS.ERROR_ARANGO_CONFLICT.code);
+      assertEqual(e.errorNum, ERRORS.ERROR_AVOCADO_CONFLICT.code);
     }
 
     // fetch after deletion

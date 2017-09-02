@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_GRAPH_NODE_H
-#define ARANGOD_AQL_GRAPH_NODE_H 1
+#ifndef AVOCADOD_AQL_GRAPH_NODE_H
+#define AVOCADOD_AQL_GRAPH_NODE_H 1
 
 #include "Aql/ExecutionNode.h"
 #include "Cluster/ClusterInfo.h"

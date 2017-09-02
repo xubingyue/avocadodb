@@ -25,7 +25,7 @@
 
 using namespace avocadodb;
 
-#ifdef ARANGODB_ENABLE_SYSLOG
+#ifdef AVOCADODB_ENABLE_SYSLOG
 
 // we need to define SYSLOG_NAMES for linux to get a list of names
 #define SYSLOG_NAMES
@@ -33,7 +33,7 @@ using namespace avocadodb;
 #define facilitynames TRI_facilitynames
 #include <syslog.h>
 
-#ifdef ARANGODB_ENABLE_SYSLOG_STRINGS
+#ifdef AVOCADODB_ENABLE_SYSLOG_STRINGS
 #include "syslog_names.h"
 #endif
 

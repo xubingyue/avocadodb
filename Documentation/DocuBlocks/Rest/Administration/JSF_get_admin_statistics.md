@@ -24,13 +24,13 @@ Statistics were returned successfully.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestAdminStatistics1}
+@EXAMPLE_AVOCADOSH_RUN{RestAdminStatistics1}
     var url = "/_admin/statistics";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

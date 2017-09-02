@@ -20,8 +20,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_INDEXES_INDEX_RESULT_H
-#define ARANGODB_INDEXES_INDEX_RESULT_H 1
+#ifndef AVOCADODB_INDEXES_INDEX_RESULT_H
+#define AVOCADODB_INDEXES_INDEX_RESULT_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Result.h"

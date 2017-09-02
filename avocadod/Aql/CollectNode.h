@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_COLLECT_NODE_H
-#define ARANGOD_AQL_COLLECT_NODE_H 1
+#ifndef AVOCADOD_AQL_COLLECT_NODE_H
+#define AVOCADOD_AQL_COLLECT_NODE_H 1
 
 #include "Basics/Common.h"
 #include "Aql/Aggregator.h"

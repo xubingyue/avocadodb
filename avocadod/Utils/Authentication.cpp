@@ -35,7 +35,7 @@ static AuthLevel _convertToAuthLevel(avocadodb::StringRef ref) {
   } else if (ref.compare("none") == 0 || ref.empty()) {
     return AuthLevel::NONE;
   }
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                  "expecting access type 'rw', 'ro' or 'none'");
 }
 

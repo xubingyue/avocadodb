@@ -209,7 +209,7 @@ static void mergeResults(
     if (arr.isObject() && arr.hasKey("error") && arr.get("error").isBoolean() && arr.get("error").getBoolean()) {
       // an error occurred, now rethrow the error
       int res = arr.get("errorNum").getNumericValue<int>();
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
     resultBody->add(arr.at(pair.second));
   }
@@ -239,13 +239,13 @@ static void mergeResultsAllShards(
     std::unordered_map<int, size_t>& errorCounter,
     VPackValueLength const expectedResults) {
   // errorCounter is not allowed to contain any NOT_FOUND entry.
-  TRI_ASSERT(errorCounter.find(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) ==
+  TRI_ASSERT(errorCounter.find(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) ==
              errorCounter.end());
   size_t realNotFound = 0;
   VPackBuilder cmp;
   cmp.openObject();
   cmp.add("error", VPackValue(true));
-  cmp.add("errorNum", VPackValue(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND));
+  cmp.add("errorNum", VPackValue(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND));
   cmp.close();
   VPackSlice notFound = cmp.slice();
   resultBody->clear();
@@ -273,7 +273,7 @@ static void mergeResultsAllShards(
   }
   resultBody->close();
   if (realNotFound > 0) {
-    errorCounter.emplace(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND, realNotFound);
+    errorCounter.emplace(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND, realNotFound);
   }
 }
 
@@ -295,7 +295,7 @@ static void extractErrorCodes(ClusterCommResult const& res,
       char const* codeString = code.key.getString(codeLength);
       int codeNr = static_cast<int>(avocadodb::basics::StringUtils::int64(
           codeString, static_cast<size_t>(codeLength)));
-      if (includeNotFound || codeNr != TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+      if (includeNotFound || codeNr != TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
         errorCounter[codeNr] += code.value.getNumericValue<size_t>();
       }
     }
@@ -319,7 +319,7 @@ static int distributeBabyOnShards(
   ShardID shardID;
   int error = ci->getResponsibleShard(collinfo.get(), node, false, shardID,
                                       usesDefaultShardingAttributes);
-  if (error == TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
+  if (error == TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
     return TRI_ERROR_CLUSTER_SHARD_GONE;
   }
   if (error != TRI_ERROR_NO_ERROR) {
@@ -396,7 +396,7 @@ static int distributeBabyOnShards(
       error = ci->getResponsibleShard(collinfo.get(), node, true, shardID,
                                       usesDefaultShardingAttributes, _key);
     }
-    if (error == TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
+    if (error == TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
       return TRI_ERROR_CLUSTER_SHARD_GONE;
     }
 
@@ -576,7 +576,7 @@ int revisionOnCoordinator(std::string const& dbname,
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -650,7 +650,7 @@ int warmupOnCoordinator(std::string const& dbname,
   try {
     collinfo = ci->getCollection(dbname, cid);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -698,7 +698,7 @@ int figuresOnCoordinator(std::string const& dbname, std::string const& collname,
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -769,7 +769,7 @@ int countOnCoordinator(std::string const& dbname, std::string const& collname,
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -835,7 +835,7 @@ int selectivityEstimatesOnCoordinator(
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -958,7 +958,7 @@ int createDocumentOnCoordinator(
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -1097,7 +1097,7 @@ int deleteDocumentOnCoordinator(
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
   bool useDefaultSharding = collinfo->usesDefaultShardKeys();
@@ -1144,7 +1144,7 @@ int deleteDocumentOnCoordinator(
             avocadodb::basics::VelocyPackHelper::EmptyObjectValue(), true,
             shardID, usesDefaultShardingAttributes, _key.toString());
 
-        if (error == TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND) {
+        if (error == TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND) {
           return TRI_ERROR_CLUSTER_SHARD_GONE;
         }
       }
@@ -1330,7 +1330,7 @@ int truncateCollectionOnCoordinator(std::string const& dbname,
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -1390,7 +1390,7 @@ int getDocumentOnCoordinator(
   try {
     collinfo = ci->getCollection(dbname, collname);
   } catch (...) {
-    return TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND;
   }
   TRI_ASSERT(collinfo != nullptr);
 
@@ -1783,20 +1783,20 @@ void fetchVerticesFromEngines(
     int commError = handleGeneralCommErrors(&res);
     if (commError != TRI_ERROR_NO_ERROR) {
       // oh-oh cluster is in a bad state
-      THROW_ARANGO_EXCEPTION(commError);
+      THROW_AVOCADO_EXCEPTION(commError);
     }
     TRI_ASSERT(res.answer != nullptr);
     auto resBody = res.answer->toVelocyPackBuilderPtr();
     VPackSlice resSlice = resBody->slice();
     if (!resSlice.isObject()) {
       // Response has invalid format
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_HTTP_CORRUPTED_JSON);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_HTTP_CORRUPTED_JSON);
     }
     if (res.answer_code != ResponseCode::OK) {
       int code = avocadodb::basics::VelocyPackHelper::getNumericValue<int>(
           resSlice, "errorNum", TRI_ERROR_INTERNAL);
       // We have an error case here. Throw it.
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           code, avocadodb::basics::VelocyPackHelper::getStringValue(
                     resSlice, "errorMessage", TRI_errno_string(code)));
     }
@@ -1806,7 +1806,7 @@ void fetchVerticesFromEngines(
         // We either found the same vertex twice,
         // or found a vertex we did not request.
         // Anyways something somewhere went seriously wrong
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_GOT_CONTRADICTING_ANSWERS);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_GOT_CONTRADICTING_ANSWERS);
       }
       TRI_ASSERT(result.find(key) == result.end());
       auto val = VPackBuilder::clone(pair.value);
@@ -1882,20 +1882,20 @@ void fetchVerticesFromEngines(
     int commError = handleGeneralCommErrors(&res);
     if (commError != TRI_ERROR_NO_ERROR) {
       // oh-oh cluster is in a bad state
-      THROW_ARANGO_EXCEPTION(commError);
+      THROW_AVOCADO_EXCEPTION(commError);
     }
     TRI_ASSERT(res.answer != nullptr);
     auto resBody = res.answer->toVelocyPackBuilderPtr();
     VPackSlice resSlice = resBody->slice();
     if (!resSlice.isObject()) {
       // Response has invalid format
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_HTTP_CORRUPTED_JSON);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_HTTP_CORRUPTED_JSON);
     }
     if (res.answer_code != ResponseCode::OK) {
       int code = avocadodb::basics::VelocyPackHelper::getNumericValue<int>(
           resSlice, "errorNum", TRI_ERROR_INTERNAL);
       // We have an error case here. Throw it.
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           code, avocadodb::basics::VelocyPackHelper::getStringValue(
                     resSlice, "errorMessage", TRI_errno_string(code)));
     }
@@ -1907,7 +1907,7 @@ void fetchVerticesFromEngines(
         // We either found the same vertex twice,
         // or found a vertex we did not request.
         // Anyways something somewhere went seriously wrong
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_GOT_CONTRADICTING_ANSWERS);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_GOT_CONTRADICTING_ANSWERS);
       }
       TRI_ASSERT(result.find(key) == result.end());
       if (!cached) {
@@ -2525,17 +2525,17 @@ std::unique_ptr<LogicalCollection> ClusterMethods::persistCollectionInAgency(
       } catch (...) {}
 
       if (replicationFactorConflict) {
-        THROW_ARANGO_EXCEPTION(
+        THROW_AVOCADO_EXCEPTION(
           TRI_ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_REPLICATION_FACTOR);
       }
       
       if (numberOfShardsConflict) {
-        THROW_ARANGO_EXCEPTION(
+        THROW_AVOCADO_EXCEPTION(
           TRI_ERROR_CLUSTER_DISTRIBUTE_SHARDS_LIKE_NUMBER_OF_SHARDS);
       }
       
       if (chainOfDistributeShardsLike) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_CHAIN_OF_DISTRIBUTESHARDSLIKE);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_CHAIN_OF_DISTRIBUTESHARDSLIKE);
       }
 
       col->distributeShardsLike(otherCidString);
@@ -2544,7 +2544,7 @@ std::unique_ptr<LogicalCollection> ClusterMethods::persistCollectionInAgency(
       if (ignoreDistributeShardsLikeErrors) {
         col->distributeShardsLike(std::string());
       } else {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_UNKNOWN_DISTRIBUTESHARDSLIKE);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_UNKNOWN_DISTRIBUTESHARDSLIKE);
       }
     }
   } else if (!avoid.empty()) {
@@ -2567,7 +2567,7 @@ std::unique_ptr<LogicalCollection> ClusterMethods::persistCollectionInAgency(
   // the default behaviour however is to bail out and inform the user
   // that the requested replicationFactor is not possible right now
   if (dbServers.size() < replicationFactor && !col->isSystem()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_INSUFFICIENT_DBSERVERS);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_INSUFFICIENT_DBSERVERS);
   }
 
   // If the list dbServers is still empty, it will be filled in
@@ -2578,7 +2578,7 @@ std::unique_ptr<LogicalCollection> ClusterMethods::persistCollectionInAgency(
       std::unordered_map<std::string, std::vector<std::string>>>(
       avocadodb::distributeShards(numberOfShards, replicationFactor, dbServers));
   if (shards->empty() && !col->isSmart()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                    "no database servers found in cluster");
   }
   col->setShardMap(shards);
@@ -2599,7 +2599,7 @@ std::unique_ptr<LogicalCollection> ClusterMethods::persistCollectionInAgency(
     if (errorMsg.empty()) {
       errorMsg = TRI_errno_string(myerrno);
     }
-    THROW_ARANGO_EXCEPTION_MESSAGE(myerrno, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(myerrno, errorMsg);
   }
   ci->loadPlan();
 

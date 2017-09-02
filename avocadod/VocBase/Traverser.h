@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_TRAVERSER_H
-#define ARANGOD_VOC_BASE_TRAVERSER_H 1
+#ifndef AVOCADOD_VOC_BASE_TRAVERSER_H
+#define AVOCADOD_VOC_BASE_TRAVERSER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/hashes.h"

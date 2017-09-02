@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_TRANSACTION_OPTIONS_H
-#define ARANGOD_TRANSACTION_OPTIONS_H 1
+#ifndef AVOCADOD_TRANSACTION_OPTIONS_H
+#define AVOCADOD_TRANSACTION_OPTIONS_H 1
 
 #include "Basics/Common.h"
 

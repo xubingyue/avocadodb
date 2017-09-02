@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_CLUSTER_EDGE_CURSOR_H
-#define ARANGOD_CLUSTER_CLUSTER_EDGE_CURSOR_H 1
+#ifndef AVOCADOD_CLUSTER_CLUSTER_EDGE_CURSOR_H
+#define AVOCADOD_CLUSTER_CLUSTER_EDGE_CURSOR_H 1
 
 #include "Graph/EdgeCursor.h"
 #include "VocBase/TraverserOptions.h"

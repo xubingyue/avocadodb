@@ -63,5 +63,5 @@ AqlValue BaseExpressionContext::getVariableValue(Variable const* variable, bool 
   std::string msg("variable not found '");
   msg.append(variable->name);
   msg.append("' in executeSimpleExpression()");
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg.c_str());
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, msg.c_str());
 }

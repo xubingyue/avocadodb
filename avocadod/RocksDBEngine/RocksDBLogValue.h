@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGO_ROCKSDB_ROCKSDB_LOG_VALUE_H
-#define ARANGO_ROCKSDB_ROCKSDB_LOG_VALUE_H 1
+#ifndef AVOCADO_ROCKSDB_ROCKSDB_LOG_VALUE_H
+#define AVOCADO_ROCKSDB_ROCKSDB_LOG_VALUE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/StringRef.h"

@@ -35,7 +35,7 @@
 #include "Basics/fasthash.h"
 #include "Transaction/Methods.h"
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 #include <iostream>
 #endif
 
@@ -678,7 +678,7 @@ AstNode::AstNode(std::function<void(AstNode*)> registerNode,
     case NODE_TYPE_COLLECTION_LIST:
     case NODE_TYPE_PASSTHRU:
     case NODE_TYPE_WITH: {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "Unsupported node type");
     }
     case NODE_TYPE_OBJECT:
@@ -819,7 +819,7 @@ uint64_t AstNode::hashValue(uint64_t hash) const {
 }
 
 /// @brief dump the node (for debugging purposes)
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 void AstNode::dump(int level) const {
   for (int i = 0; i < level; ++i) {
     std::cout << "  ";
@@ -883,7 +883,7 @@ std::string const& AstNode::getTypeString() const {
     return (*it).second;
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                  "missing node type in TypeNames");
 }
 
@@ -895,7 +895,7 @@ std::string const& AstNode::getValueTypeString() const {
     return (*it).second;
   }
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                  "missing node type in ValueTypeNames");
 }
 
@@ -909,7 +909,7 @@ void AstNode::validateType(int type) {
   auto it = TypeNames.find(static_cast<int>(type));
 
   if (it == TypeNames.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                    "unknown AST node TypeID");
   }
 }
@@ -920,7 +920,7 @@ void AstNode::validateValueType(int type) {
   auto it = ValueTypeNames.find(static_cast<int>(type));
 
   if (it == ValueTypeNames.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_NOT_IMPLEMENTED,
                                    "invalid AST node valueTypeName");
   }
 }
@@ -1990,7 +1990,7 @@ void AstNode::stringify(avocadodb::basics::StringBuffer* buffer, bool verbose,
     if (failIfLong && n > TooLongThreshold) {
       // intentionally do not stringify this node because the output would be
       // too long
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
     }
 
     buffer->appendChar('[');
@@ -2016,7 +2016,7 @@ void AstNode::stringify(avocadodb::basics::StringBuffer* buffer, bool verbose,
     if (failIfLong && n > TooLongThreshold) {
       // intentionally do not stringify this node because the output would be
       // too long
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_NOT_IMPLEMENTED);
     }
 
     for (size_t i = 0; i < n; ++i) {
@@ -2242,7 +2242,7 @@ void AstNode::stringify(avocadodb::basics::StringBuffer* buffer, bool verbose,
   std::string message("stringification not supported for node type ");
   message.append(getTypeString());
 
-  THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
+  THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, message);
 }
 
 /// note that this may throw and that the caller is responsible for

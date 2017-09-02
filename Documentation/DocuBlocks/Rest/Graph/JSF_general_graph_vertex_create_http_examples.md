@@ -36,7 +36,7 @@ Returned if no graph or no vertex collection with this name could be found.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialAddVertex}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialAddVertex}
   var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   examples.loadGraph("social");
@@ -50,6 +50,6 @@ Returned if no graph or no vertex collection with this name could be found.
 
   logJsonResponse(response);
   examples.dropGraph("social");
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

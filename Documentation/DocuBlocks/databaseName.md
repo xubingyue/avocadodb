@@ -7,7 +7,7 @@ Returns the name of the current database as a string.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{dbName}
+@EXAMPLE_AVOCADOSH_OUTPUT{dbName}
   require("@avocadodb").db._name();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

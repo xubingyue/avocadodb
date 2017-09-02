@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_AGGREGATOR_H
-#define ARANGOD_AQL_AGGREGATOR_H 1
+#ifndef AVOCADOD_AQL_AGGREGATOR_H
+#define AVOCADOD_AQL_AGGREGATOR_H 1
 
 #include "Basics/Common.h"
 #include "Aql/AqlValue.h"

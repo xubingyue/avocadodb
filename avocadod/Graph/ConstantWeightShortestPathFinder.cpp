@@ -79,7 +79,7 @@ bool ConstantWeightShortestPathFinder::shortestPath(
   _rightClosure.emplace_back(end);
 
   TRI_IF_FAILURE("TraversalOOMInitialize") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   StringRef n;
@@ -161,7 +161,7 @@ void ConstantWeightShortestPathFinder::fillResult(
   }
 
   TRI_IF_FAILURE("TraversalOOMPath") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   _options->fetchVerticesCoordinator(result._vertices);
   clearVisited();

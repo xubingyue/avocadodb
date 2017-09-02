@@ -21,8 +21,8 @@
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_CACHE_PLAIN_CACHE_H
-#define ARANGODB_CACHE_PLAIN_CACHE_H
+#ifndef AVOCADODB_CACHE_PLAIN_CACHE_H
+#define AVOCADODB_CACHE_PLAIN_CACHE_H
 
 #include "Basics/Common.h"
 #include "Cache/Cache.h"

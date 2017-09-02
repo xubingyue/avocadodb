@@ -279,7 +279,7 @@ void RestReplicationHandler::handleCommandMakeSlave() {
   int res = _vocbase->replicationApplier()->forget();
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   // start initial synchronization
@@ -306,7 +306,7 @@ void RestReplicationHandler::handleCommandMakeSlave() {
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(res, errorMsg);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(res, errorMsg);
     return;
   }
 
@@ -314,14 +314,14 @@ void RestReplicationHandler::handleCommandMakeSlave() {
       TRI_ConfigureReplicationApplier(_vocbase->replicationApplier(), &config);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
     return;
   }
 
   res = _vocbase->replicationApplier()->start(lastLogTick, true, barrierId);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
     return;
   }
 
@@ -340,7 +340,7 @@ void RestReplicationHandler::handleTrampolineCoordinator() {
     useVst = true;
   }
   if (_request == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request");
   }
 
   // First check the DBserver component of the body json:
@@ -385,7 +385,7 @@ void RestReplicationHandler::handleTrampolineCoordinator() {
   if (!useVst) {
     HttpRequest* httpRequest = dynamic_cast<HttpRequest*>(_request.get());
     if (httpRequest == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "invalid request type");
     }
 
@@ -436,7 +436,7 @@ void RestReplicationHandler::handleTrampolineCoordinator() {
   if (!useVst) {
     HttpResponse* httpResponse = dynamic_cast<HttpResponse*>(_response.get());
     if (_response == nullptr) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "invalid response type");
     }
     httpResponse->body().swap(&(res->result->getBody()));
@@ -520,7 +520,7 @@ void RestReplicationHandler::handleCommandRestoreIndexes() {
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   VPackBuilder result;
@@ -613,7 +613,7 @@ Result RestReplicationHandler::parseBatch(
 
   HttpRequest* httpRequest = dynamic_cast<HttpRequest*>(_request.get());
   if (httpRequest == nullptr) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "invalid request type");
   }
 
   std::string const& bodyStr = httpRequest->body();
@@ -879,7 +879,7 @@ Result RestReplicationHandler::processRestoreDataBatch(
   }
 
   // Now go through the individual results and check each error, if it was
-  // TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED, then we have to call
+  // TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED, then we have to call
   // replace on the document:
   VPackSlice resultSlice = opRes.slice();
   VPackBuilder replBuilder;  // documents for replace operation
@@ -896,7 +896,7 @@ Result RestReplicationHandler::processRestoreDataBatch(
         error = result.get("errorNum");
         if (error.isNumber()) {
           int code = error.getNumericValue<int>();
-          if (code == TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED) {
+          if (code == TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED) {
             replBuilder.add(*itRequest);
           } else {
             return code;

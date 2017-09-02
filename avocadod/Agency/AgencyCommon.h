@@ -20,8 +20,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CONSENSUS_AGENCY_COMMON_H
-#define ARANGOD_CONSENSUS_AGENCY_COMMON_H 1
+#ifndef AVOCADOD_CONSENSUS_AGENCY_COMMON_H
+#define AVOCADOD_CONSENSUS_AGENCY_COMMON_H 1
 
 #include <chrono>
 

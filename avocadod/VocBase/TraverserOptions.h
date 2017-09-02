@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOC_BASE_TRAVERSER_OPTIONS_H
-#define ARANGOD_VOC_BASE_TRAVERSER_OPTIONS_H 1
+#ifndef AVOCADOD_VOC_BASE_TRAVERSER_OPTIONS_H
+#define AVOCADOD_VOC_BASE_TRAVERSER_OPTIONS_H 1
 
 #include "Aql/FixedVarExpressionContext.h"
 #include "Basics/Common.h"

@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_GRAPH_SINGLE_SERVER_EDGE_CURSOR_H
-#define ARANGOD_GRAPH_SINGLE_SERVER_EDGE_CURSOR_H 1
+#ifndef AVOCADOD_GRAPH_SINGLE_SERVER_EDGE_CURSOR_H
+#define AVOCADOD_GRAPH_SINGLE_SERVER_EDGE_CURSOR_H 1
 
 #include "Basics/Common.h"
 

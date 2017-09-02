@@ -21,7 +21,7 @@ of *true*.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_01_SaveEdgeCol}
+@EXAMPLE_AVOCADOSH_OUTPUT{EDGCOL_01_SaveEdgeCol}
   ~db._drop("vertex");
   ~db._drop("relation");
   db._create("vertex");
@@ -32,6 +32,6 @@ of *true*.
   db._document(e1);
 ~ db._drop("relation");
 ~ db._drop("vertex");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_TRANSACTION_V8_CONTEXT_H
-#define ARANGOD_TRANSACTION_V8_CONTEXT_H 1
+#ifndef AVOCADOD_TRANSACTION_V8_CONTEXT_H
+#define AVOCADOD_TRANSACTION_V8_CONTEXT_H 1
 
 #include "Context.h"
 #include "Basics/Common.h"

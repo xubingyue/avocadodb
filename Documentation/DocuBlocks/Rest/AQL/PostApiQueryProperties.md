@@ -35,7 +35,7 @@ contain the error details embedded in a JSON object.
 
 a Valid query
 
-    @EXAMPLE_ARANGOSH_RUN{RestQueryValid}
+    @EXAMPLE_AVOCADOSH_RUN{RestQueryValid}
     var url = "/_api/query";
     var body = '{ "query" : "FOR p IN products FILTER p.name == @name LIMIT 2 RETURN p.n" }';
 
@@ -44,11 +44,11 @@ a Valid query
     assert(response.code === 200);
 
     logJsonResponse(response);
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
 
 an Invalid query
 
-    @EXAMPLE_ARANGOSH_RUN{RestQueryInvalid}
+    @EXAMPLE_AVOCADOSH_RUN{RestQueryInvalid}
     var url = "/_api/query";
     var body = '{ "query" : "FOR p IN products FILTER p.name = @name LIMIT 2 RETURN p.n" }';
 
@@ -57,6 +57,6 @@ an Invalid query
     assert(response.code === 400);
 
     logJsonResponse(response);
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

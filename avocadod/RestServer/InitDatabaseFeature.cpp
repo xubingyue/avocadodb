@@ -78,7 +78,7 @@ void InitDatabaseFeature::validateOptions(
 
 void InitDatabaseFeature::prepare() {
   if (!_seenPassword) {
-    std::string env = "ARANGODB_DEFAULT_ROOT_PASSWORD";
+    std::string env = "AVOCADODB_DEFAULT_ROOT_PASSWORD";
     char const* password = getenv(env.c_str());
 
     if (password != nullptr) {

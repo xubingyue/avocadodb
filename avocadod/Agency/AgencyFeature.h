@@ -20,8 +20,8 @@
 /// @author Kaveh Vahedipour
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AGENCY_AGENCY_FEATURE_H
-#define ARANGOD_AGENCY_AGENCY_FEATURE_H 1
+#ifndef AVOCADOD_AGENCY_AGENCY_FEATURE_H
+#define AVOCADOD_AGENCY_AGENCY_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

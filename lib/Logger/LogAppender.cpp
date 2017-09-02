@@ -106,7 +106,7 @@ std::pair<std::shared_ptr<LogAppender>, LogTopic*> LogAppender::buildAppender(
 
   auto key = std::make_pair(output, contentFilter);
 
-#ifdef ARANGODB_ENABLE_SYSLOG
+#ifdef AVOCADODB_ENABLE_SYSLOG
   if (StringUtils::isPrefix(output, "syslog://")) {
     key = std::make_pair("syslog://", "");
   }
@@ -118,7 +118,7 @@ std::pair<std::shared_ptr<LogAppender>, LogTopic*> LogAppender::buildAppender(
     return {it->second, topic};
   }
 
-#ifdef ARANGODB_ENABLE_SYSLOG
+#ifdef AVOCADODB_ENABLE_SYSLOG
   // first handle syslog-logging
   if (StringUtils::isPrefix(output, "syslog://")) {
     auto s = StringUtils::split(output.substr(9), '/');

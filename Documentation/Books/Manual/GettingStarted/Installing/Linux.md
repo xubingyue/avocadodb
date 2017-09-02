@@ -52,7 +52,7 @@ Red-Hat based packages will set a random password during installation.
 If you want to force a password, execute
 
 ```
-ARANGODB_DEFAULT_ROOT_PASSWORD=NEWPASSWORD avocado-secure-installation
+AVOCADODB_DEFAULT_ROOT_PASSWORD=NEWPASSWORD avocado-secure-installation
 ```
 
 The command should be executed after the installation.

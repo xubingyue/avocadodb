@@ -685,7 +685,7 @@ void RestoreFeature::start() {
   int err = TRI_ERROR_NO_ERROR;
   std::string versionString = _httpClient->getServerVersion(&err);
 
-  if (_createDatabase && err == TRI_ERROR_ARANGO_DATABASE_NOT_FOUND) {
+  if (_createDatabase && err == TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND) {
     // database not found, but database creation requested
     std::cout << "Creating database '" << dbName << "'" << std::endl;
 

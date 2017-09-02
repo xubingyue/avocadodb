@@ -19,21 +19,21 @@ is thrown if there is no such collection.
 
 Drops a collection:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDrop}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseDrop}
 ~ db._create("example");
   col = db.example;
   db._drop(col);
   col;
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Drops a collection identified by name:
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropName}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionDatabaseDropName}
 ~ db._create("example");
   col = db.example;
   db._drop("example");
   col;
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

@@ -20,8 +20,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BENCHMARK_BENCH_FEATURE_H
-#define ARANGODB_BENCHMARK_BENCH_FEATURE_H 1
+#ifndef AVOCADODB_BENCHMARK_BENCH_FEATURE_H
+#define AVOCADODB_BENCHMARK_BENCH_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

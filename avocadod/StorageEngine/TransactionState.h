@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_STORAGE_ENGINE_TRANSACTION_STATE_H
-#define ARANGOD_STORAGE_ENGINE_TRANSACTION_STATE_H 1
+#ifndef AVOCADOD_STORAGE_ENGINE_TRANSACTION_STATE_H
+#define AVOCADOD_STORAGE_ENGINE_TRANSACTION_STATE_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Result.h"
@@ -35,7 +35,7 @@
 #include "VocBase/AccessMode.h"
 #include "VocBase/voc-types.h"
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 
 #define LOG_TRX(trx, level)                        \
   LOG_TOPIC(TRACE, avocadodb::Logger::TRANSACTIONS) \

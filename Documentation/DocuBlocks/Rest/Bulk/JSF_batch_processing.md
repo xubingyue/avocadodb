@@ -78,7 +78,7 @@ The boundary (`SomeBoundaryValue`) is passed to the server in the HTTP
 `Content-Type` HTTP header.
 *Please note the reply is not displayed all accurate.*
 
-@EXAMPLE_ARANGOSH_RUN{RestBatchMultipartHeader}
+@EXAMPLE_AVOCADOSH_RUN{RestBatchMultipartHeader}
     var parts = [
       "Content-Type: application/x-avocado-batchpart\r\n" +
       "Content-Id: myId1\r\n\r\n" + 
@@ -113,12 +113,12 @@ The boundary (`SomeBoundaryValue`) is passed to the server in the HTTP
     assert(response.code === 200);
 
     logRawResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 
 Sending a batch request, setting the boundary implicitly (the server will
 in this case try to find the boundary at the beginning of the request body).
 
-@EXAMPLE_ARANGOSH_RUN{RestBatchImplicitBoundary}
+@EXAMPLE_AVOCADOSH_RUN{RestBatchImplicitBoundary}
     var parts = [
       "Content-Type: application/x-avocado-batchpart\r\n\r\n" + 
          "DELETE /_api/collection/notexisting1 HTTP/1.1\r\n",
@@ -136,6 +136,6 @@ in this case try to find the boundary at the beginning of the request body).
     assert(response.headers['x-avocado-errors'] == 2);
 
     logRawResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

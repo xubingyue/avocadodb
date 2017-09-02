@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_ENUMERATE_COLLECTION_BLOCK_H
-#define ARANGOD_AQL_ENUMERATE_COLLECTION_BLOCK_H 1
+#ifndef AVOCADOD_AQL_ENUMERATE_COLLECTION_BLOCK_H
+#define AVOCADOD_AQL_ENUMERATE_COLLECTION_BLOCK_H 1
 
 #include "Aql/DocumentProducingBlock.h"
 #include "Aql/ExecutionBlock.h"

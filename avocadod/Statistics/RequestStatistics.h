@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_STATISTICS_REQUEST_STATISTICS_H
-#define ARANGOD_STATISTICS_REQUEST_STATISTICS_H 1
+#ifndef AVOCADOD_STATISTICS_REQUEST_STATISTICS_H
+#define AVOCADOD_STATISTICS_REQUEST_STATISTICS_H 1
 
 #include "Basics/Common.h"
 

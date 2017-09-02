@@ -34,25 +34,25 @@ first argument.
 
 Remove a document:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemove}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentDocumentRemove}
 ~ db._create("example");
   a1 = db.example.insert({ a : 1 });
   db.example.document(a1);
   db.example.remove(a1);
-  db.example.document(a1); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+  db.example.document(a1); // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 Remove a document with a conflict:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemoveConflict}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentDocumentRemoveConflict}
 ~ db._create("example");
   a1 = db.example.insert({ a : 1 });
   a2 = db.example.replace(a1, { a : 2 });
-  db.example.remove(a1);       // xpError(ERROR_ARANGO_CONFLICT);
+  db.example.remove(a1);       // xpError(ERROR_AVOCADO_CONFLICT);
   db.example.remove(a1, true);
-  db.example.document(a1);     // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+  db.example.document(a1);     // xpError(ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

@@ -20,8 +20,8 @@
 /// @author Simon Grätzer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_PREGEL_BUFFER_H
-#define ARANGODB_PREGEL_BUFFER_H 1
+#ifndef AVOCADODB_PREGEL_BUFFER_H
+#define AVOCADODB_PREGEL_BUFFER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/FileUtils.h"
@@ -121,7 +121,7 @@ class MappedFileBuffer : public TypedBuffer<T> {
     // ugly workaround if MAP_ANONYMOUS is not available
     _fd = TRI_TRACKED_OPEN_FILE("/dev/zero", O_RDWR | TRI_O_CLOEXEC);
     if (_fd == -1) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
     }
 
     int flags = MAP_PRIVATE;
@@ -149,7 +149,7 @@ class MappedFileBuffer : public TypedBuffer<T> {
           << "The database directory might reside on a shared folder "
              "(VirtualBox, VMWare) or an NFS "
              "mounted volume which does not allow memory mapped files.";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
     }
     this->_ptr = (T*)ptr;
     // return new TypedBuffer(StaticStrings::Empty, fd, mmHandle, initialSize,
@@ -164,7 +164,7 @@ class MappedFileBuffer : public TypedBuffer<T> {
     _mappedSize = sizeof(T) * _size;
     _fd = TRI_CreateDatafile(filename, _mappedSize);
     if (_fd < 0) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
     }
 
     // memory map the data
@@ -191,7 +191,7 @@ class MappedFileBuffer : public TypedBuffer<T> {
           << "The database directory might reside on a shared folder "
              "(VirtualBox, VMWare) or an NFS-mounted volume which does not "
              "allow memory mapped files.";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
     }
 
     this->_ptr = (T*)data;
@@ -256,7 +256,7 @@ class MappedFileBuffer : public TypedBuffer<T> {
   /// of the page size
   void resize(size_t newSize) override {
     if (this->_ptr == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
     } else if (newSize == _size) {
       return;
     }
@@ -274,11 +274,11 @@ class MappedFileBuffer : public TypedBuffer<T> {
     }
     if (errno == ENOMEM) {
       LOG_TOPIC(DEBUG, Logger::MMAP) << "out of memory in mmap";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY_MMAP);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY_MMAP);
     } else {
       // preserve errno value while we're logging
       LOG_TOPIC(WARN, Logger::MMAP) << "memory-mapping failed";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_SYS_ERROR);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_SYS_ERROR);
     }
 #else
     // resizing mappings doesn't exist on other systems
@@ -287,7 +287,7 @@ class MappedFileBuffer : public TypedBuffer<T> {
     } else {
       LOG_TOPIC(ERR, Logger::MMAP)
           << "Resizing mmap not supported on this platform";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_FAILED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_FAILED);
     }
 #endif
   }

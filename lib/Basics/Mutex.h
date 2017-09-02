@@ -22,12 +22,12 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_MUTEX_H
-#define ARANGODB_BASICS_MUTEX_H 1
+#ifndef AVOCADODB_BASICS_MUTEX_H
+#define AVOCADODB_BASICS_MUTEX_H 1
 
 #include "Basics/Common.h"
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
 #include "Basics/Thread.h"
 #endif
 
@@ -49,7 +49,7 @@ class Mutex {
   
   // assert that the mutex is locked by the current thread. will do
   // nothing in non-maintainer mode and will do nothing for non-posix locks
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   void assertLockedByCurrentThread();
 #else
   inline void assertLockedByCurrentThread() {}
@@ -66,7 +66,7 @@ class Mutex {
   SRWLOCK _mutex;
 #endif
 
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   TRI_tid_t _holder;
 #endif
 };

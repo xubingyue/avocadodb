@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_GRAPH_BASE_OPTIONS_H
-#define ARANGOD_GRAPH_BASE_OPTIONS_H 1
+#ifndef AVOCADOD_GRAPH_BASE_OPTIONS_H
+#define AVOCADOD_GRAPH_BASE_OPTIONS_H 1
 
 #include "Aql/FixedVarExpressionContext.h"
 #include "Basics/Common.h"

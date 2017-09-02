@@ -198,7 +198,7 @@ Result RocksDBPrimaryIndex::insertInternal(transaction::Methods* trx,
 
   // acquire rocksdb transaction
   if (mthd->Exists(_cf, key)) {
-    return TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED;
+    return TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED;
   }
 
   blackListKey(key.string().data(), static_cast<uint32_t>(key.string().size()));
@@ -309,12 +309,12 @@ IndexIterator* RocksDBPrimaryIndex::createInIterator(
   for (size_t i = 0; i < n; ++i) {
     handleValNode(trx, keys.get(), valNode->getMemberUnchecked(i), isId);
     TRI_IF_FAILURE("PrimaryIndex::iteratorValNodes") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
   }
 
   TRI_IF_FAILURE("PrimaryIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   keys->close();
   return new RocksDBPrimaryIndexIterator(_collection, trx, mmdr, this, keys);
@@ -337,7 +337,7 @@ IndexIterator* RocksDBPrimaryIndex::createEqIterator(
   handleValNode(trx, keys.get(), valNode, isId);
 
   TRI_IF_FAILURE("PrimaryIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   keys->close();
   return new RocksDBPrimaryIndexIterator(_collection, trx, mmdr, this, keys);

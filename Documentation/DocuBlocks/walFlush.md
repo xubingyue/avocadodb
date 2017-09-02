@@ -21,7 +21,7 @@ the write-ahead log garbage collector cannot finish garbage collection.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{WalFlush}
+@EXAMPLE_AVOCADOSH_OUTPUT{WalFlush}
   require("internal").wal.flush();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

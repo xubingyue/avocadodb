@@ -71,7 +71,7 @@ static void WeakViewCallback(
   TRI_ASSERT(!view->vocbase()->isDangling());
 
 // find the persistent handle
-#if ARANGODB_ENABLE_MAINTAINER_MODE
+#if AVOCADODB_ENABLE_MAINTAINER_MODE
   auto const& it = v8g->JSViews.find(view);
   TRI_ASSERT(it != v8g->JSViews.end());
 #endif
@@ -146,7 +146,7 @@ static void JS_CreateViewVocbase(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   // we require exactly 3 arguments
@@ -155,7 +155,7 @@ static void JS_CreateViewVocbase(
   }
 
   if (TRI_GetOperationModeServer() == TRI_VOCBASE_MODE_NO_CREATE) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_READ_ONLY);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_READ_ONLY);
   }
 
   PREVENT_EMBEDDED_TRANSACTION();
@@ -222,7 +222,7 @@ static void JS_DropViewVocbase(
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   // we require exactly 1 argument
@@ -237,7 +237,7 @@ static void JS_DropViewVocbase(
 
   int res = vocbase->dropView(name);
 
-  if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_ARANGO_VIEW_NOT_FOUND) {
+  if (res != TRI_ERROR_NO_ERROR && res != TRI_ERROR_AVOCADO_VIEW_NOT_FOUND) {
     TRI_V8_THROW_EXCEPTION(res);
   }
 
@@ -280,11 +280,11 @@ static void JS_ViewVocbase(v8::FunctionCallbackInfo<v8::Value> const& args) {
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   if (vocbase->isDropped()) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   // expecting one argument
@@ -318,7 +318,7 @@ static void JS_ViewsVocbase(v8::FunctionCallbackInfo<v8::Value> const& args) {
   TRI_vocbase_t* vocbase = GetContextVocBase(isolate);
 
   if (vocbase == nullptr) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
   }
 
   std::vector<std::shared_ptr<LogicalView>> views = vocbase->views();
@@ -376,7 +376,7 @@ static void JS_NameViewVocbase(
   std::string const name(view->name());
 
   if (name.empty()) {
-    TRI_V8_THROW_EXCEPTION(TRI_ERROR_ARANGO_VIEW_NOT_FOUND);
+    TRI_V8_THROW_EXCEPTION(TRI_ERROR_AVOCADO_VIEW_NOT_FOUND);
   }
 
   v8::Handle<v8::Value> result = TRI_V8_STD_STRING(name);

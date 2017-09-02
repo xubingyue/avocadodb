@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_GRAPH_SHORTEST_PATH_PRIORITY_QUEUE_H
-#define ARANGODB_GRAPH_SHORTEST_PATH_PRIORITY_QUEUE_H 1
+#ifndef AVOCADODB_GRAPH_SHORTEST_PATH_PRIORITY_QUEUE_H
+#define AVOCADODB_GRAPH_SHORTEST_PATH_PRIORITY_QUEUE_H 1
 
 #include "Basics/Common.h"
 

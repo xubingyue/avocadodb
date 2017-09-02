@@ -188,8 +188,8 @@ AvocadoCollection.prototype.index = function (id) {
   }
 
   var err = new AvocadoError();
-  err.errorNum = internal.errors.ERROR_ARANGO_INDEX_NOT_FOUND.code;
-  err.errorMessage = internal.errors.ERROR_ARANGO_INDEX_NOT_FOUND.message;
+  err.errorNum = internal.errors.ERROR_AVOCADO_INDEX_NOT_FOUND.code;
+  err.errorMessage = internal.errors.ERROR_AVOCADO_INDEX_NOT_FOUND.message;
 
   throw err;
 };

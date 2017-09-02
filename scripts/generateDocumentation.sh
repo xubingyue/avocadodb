@@ -35,14 +35,14 @@ test_tools(){
         echo "apt-get install calibre-bin"
         exit 1
     fi
-    ARANGODB_VERSION_MAJOR=`grep 'set(ARANGODB_VERSION_MAJOR' CMakeLists.txt | sed 's;.*"\(.*\)".*;\1;'`
-    ARANGODB_VERSION_MINOR=`grep 'set(ARANGODB_VERSION_MINOR' CMakeLists.txt | sed 's;.*"\(.*\)".*;\1;'`
-    ARANGODB_VERSION_REVISION=`grep 'set(ARANGODB_VERSION_REVISION' CMakeLists.txt | sed 's;.*"\(.*\)".*;\1;'`
+    AVOCADODB_VERSION_MAJOR=`grep 'set(AVOCADODB_VERSION_MAJOR' CMakeLists.txt | sed 's;.*"\(.*\)".*;\1;'`
+    AVOCADODB_VERSION_MINOR=`grep 'set(AVOCADODB_VERSION_MINOR' CMakeLists.txt | sed 's;.*"\(.*\)".*;\1;'`
+    AVOCADODB_VERSION_REVISION=`grep 'set(AVOCADODB_VERSION_REVISION' CMakeLists.txt | sed 's;.*"\(.*\)".*;\1;'`
 
-    if test "${ARANGODB_VERSION_REVISION}" == "devel"; then
+    if test "${AVOCADODB_VERSION_REVISION}" == "devel"; then
         export NODE_MODULES_DIR="/tmp/devel/node_modules"
     else
-        export NODE_MODULES_DIR="/tmp/${ARANGODB_VERSION_MAJOR}.${ARANGODB_VERSION_MINOR}/node_modules"
+        export NODE_MODULES_DIR="/tmp/${AVOCADODB_VERSION_MAJOR}.${AVOCADODB_VERSION_MINOR}/node_modules"
     fi
 
     if test ! -d ${NODE_MODULES_DIR}; then

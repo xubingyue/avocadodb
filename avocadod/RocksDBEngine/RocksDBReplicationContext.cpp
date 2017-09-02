@@ -481,7 +481,7 @@ RocksDBReplicationContext::createTransaction(TRI_vocbase_t* vocbase) {
   Result res = trx->begin();
   if (!res.ok()) {
     _guard.reset();
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
   _customTypeHandler = ctx->orderCustomTypeHandler();
   _vpackOptions.customTypeHandler = _customTypeHandler.get();

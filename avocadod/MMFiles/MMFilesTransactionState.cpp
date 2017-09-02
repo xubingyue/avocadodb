@@ -92,7 +92,7 @@ Result MMFilesTransactionState::beginTransaction(transaction::Hints hints) {
 
       while (logfileManager->isThrottled()) {
         if (++iterations == maxIterations) {
-          return TRI_ERROR_ARANGO_WRITE_THROTTLE_TIMEOUT;
+          return TRI_ERROR_AVOCADO_WRITE_THROTTLE_TIMEOUT;
         }
 
         usleep(WaitTime);
@@ -236,7 +236,7 @@ int MMFilesTransactionState::addOperation(TRI_voc_rid_t revisionId,
   TRI_IF_FAILURE("TransactionOperationNoSlot") { return TRI_ERROR_DEBUG; }
 
   TRI_IF_FAILURE("TransactionOperationNoSlotExcept") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (!isSingleOperationTransaction && !_beginWritten) {
@@ -334,14 +334,14 @@ int MMFilesTransactionState::addOperation(TRI_voc_rid_t revisionId,
     std::unique_ptr<MMFilesDocumentOperation> copy(operation.clone());
    
     TRI_IF_FAILURE("TransactionOperationPushBack") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG); 
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG); 
     }
       
     static_cast<MMFilesTransactionCollection*>(trxCollection)->addOperation(copy.get());
     
     TRI_IF_FAILURE("TransactionOperationPushBack2") {
       copy.release();
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG); 
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG); 
     }
 
     copy->handled();
@@ -398,7 +398,7 @@ int MMFilesTransactionState::writeBeginMarker() {
     if (res == TRI_ERROR_NO_ERROR) {
       _beginWritten = true;
     } else {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   } catch (avocadodb::basics::Exception const& ex) {
     res = ex.code();
@@ -439,7 +439,7 @@ int MMFilesTransactionState::writeAbortMarker() {
     }
   
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   } catch (avocadodb::basics::Exception const& ex) {
     res = ex.code();
@@ -501,7 +501,7 @@ int MMFilesTransactionState::writeCommitMarker() {
     }
     
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   } catch (avocadodb::basics::Exception const& ex) {
     res = ex.code();

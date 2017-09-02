@@ -32,7 +32,7 @@ using namespace avocadodb;
 using namespace avocadodb::basics;
 using namespace avocadodb::options;
 
-#if ARANGODB_MMAP_JEMALLOC
+#if AVOCADODB_MMAP_JEMALLOC
 char JemallocFeature::_staticPath[PATH_MAX + 1];
 #endif
 
@@ -44,7 +44,7 @@ JemallocFeature::JemallocFeature(
 }
 
 void JemallocFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
-#if ARANGODB_MMAP_JEMALLOC
+#if AVOCADODB_MMAP_JEMALLOC
   options->addSection("vm", "Virtual memory");
 
   options->addOption("--vm.resident-limit", "resident limit in bytes",
@@ -56,7 +56,7 @@ void JemallocFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
 }
 
 void JemallocFeature::validateOptions(std::shared_ptr<ProgramOptions>) {
-#if ARANGODB_MMAP_JEMALLOC
+#if AVOCADODB_MMAP_JEMALLOC
   static int64_t const MIN_LIMIT = 512 * 1024 * 1024;
 
   if (_residentLimit < 0 && 0 < TRI_PhysicalMemory) {
@@ -88,7 +88,7 @@ void JemallocFeature::validateOptions(std::shared_ptr<ProgramOptions>) {
 #endif
 }
 
-#if ARANGODB_MMAP_JEMALLOC
+#if AVOCADODB_MMAP_JEMALLOC
 extern "C" void adb_jemalloc_set_limit(size_t limit, char const* path);
 #endif
 
@@ -103,7 +103,7 @@ void JemallocFeature::setDefaultPath(std::string const& path) {
 }
 
 void JemallocFeature::start() {
-#if ARANGODB_MMAP_JEMALLOC
+#if AVOCADODB_MMAP_JEMALLOC
   *_staticPath = '\0';
 
   if (0 < _residentLimit) {

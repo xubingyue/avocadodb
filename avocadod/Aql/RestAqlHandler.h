@@ -21,8 +21,8 @@
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_REST_AQL_HANDLER_H
-#define ARANGOD_AQL_REST_AQL_HANDLER_H 1
+#ifndef AVOCADOD_AQL_REST_AQL_HANDLER_H
+#define AVOCADOD_AQL_REST_AQL_HANDLER_H 1
 
 #include "Basics/Common.h"
 #include "Aql/QueryRegistry.h"

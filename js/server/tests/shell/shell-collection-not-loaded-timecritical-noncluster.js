@@ -162,7 +162,7 @@ function ThrowCollectionNotLoadedSuite() {
       var errors = internal.errors;
 
       var found = rc.byExample({
-        err: errors.ERROR_ARANGO_COLLECTION_NOT_LOADED.code
+        err: errors.ERROR_AVOCADO_COLLECTION_NOT_LOADED.code
       }).toArray();
       db._drop(cnCollect);
 
@@ -241,7 +241,7 @@ function ThrowCollectionNotLoadedSuite() {
       var errors = internal.errors;
 
       var found = db._collection(cnCollect).byExample({
-        err: errors.ERROR_ARANGO_COLLECTION_NOT_LOADED.code
+        err: errors.ERROR_AVOCADO_COLLECTION_NOT_LOADED.code
       }).toArray();
       db._drop(cnCollect);
 

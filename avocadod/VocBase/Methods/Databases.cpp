@@ -119,7 +119,7 @@ avocadodb::Result Databases::info(TRI_vocbase_t* vocbase, VPackBuilder& result) 
       } else if (value.get("id").isNumber()) {
         result.add("id", VPackValue(std::to_string(value.get("id").getUInt())));
       } else {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "unexpected type for 'id' attribute");
       }
       result.add("path", value.get("none"));
@@ -139,7 +139,7 @@ avocadodb::Result Databases::create(std::string const& dbName,
                                    VPackSlice const& inUsers,
                                    VPackSlice const& inOptions) {
   if (TRI_GetOperationModeServer() == TRI_VOCBASE_MODE_NO_CREATE) {
-    return Result(TRI_ERROR_ARANGO_READ_ONLY);
+    return Result(TRI_ERROR_AVOCADO_READ_ONLY);
   }
   auto auth = FeatureCacheFeature::instance()->authenticationFeature();
   if (auth->isActive() && ExecContext::CURRENT != nullptr) {
@@ -216,7 +216,7 @@ avocadodb::Result Databases::create(std::string const& dbName,
 
   if (ServerState::instance()->isCoordinator()) {
     if (!TRI_vocbase_t::IsAllowedName(false, dbName)) {
-      return Result(TRI_ERROR_ARANGO_DATABASE_NAME_INVALID);
+      return Result(TRI_ERROR_AVOCADO_DATABASE_NAME_INVALID);
     }
 
     uint64_t const id = ClusterInfo::instance()->uniqid();
@@ -410,7 +410,7 @@ avocadodb::Result Databases::drop(TRI_vocbase_t* systemVocbase,
     TRI_vocbase_t* vocbase = databaseFeature->useDatabaseCoordinator(dbName);
 
     if (vocbase == nullptr) {
-      return Result(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+      return Result(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
     }
 
     TRI_voc_tick_t const id = vocbase->id();

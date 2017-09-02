@@ -2362,9 +2362,9 @@ static void JS_Output(v8::FunctionCallbackInfo<v8::Value> const& args) {
 ///
 /// - virtualSize: Virtual memory size in bytes.
 ///
-/// @EXAMPLE_ARANGOSH_OUTPUT{internalStatistics}
+/// @EXAMPLE_AVOCADOSH_OUTPUT{internalStatistics}
 ///   require("internal").processStat();
-/// @END_EXAMPLE_ARANGOSH_OUTPUT
+/// @END_EXAMPLE_AVOCADOSH_OUTPUT
 ////////////////////////////////////////////////////////////////////////////////
 
 static void JS_ProcessStatistics(
@@ -4787,7 +4787,7 @@ void TRI_InitV8Utils(v8::Isolate* isolate, v8::Handle<v8::Context> context,
 #endif
 
   TRI_AddGlobalVariableVocbase(isolate, TRI_V8_ASCII_STRING("VERSION"),
-                               TRI_V8_ASCII_STRING(ARANGODB_VERSION));
+                               TRI_V8_ASCII_STRING(AVOCADODB_VERSION));
 
   TRI_AddGlobalVariableVocbase(isolate, 
                                TRI_V8_ASCII_STRING("SYS_PLATFORM"),

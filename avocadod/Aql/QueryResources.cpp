@@ -95,7 +95,7 @@ void QueryResources::addNode(AstNode* node) {
 /// the string is freed when the query is destroyed
 char* QueryResources::registerString(char const* p, size_t length) {
   if (p == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (length == 0) {
@@ -116,7 +116,7 @@ char* QueryResources::registerString(char const* p, size_t length) {
 char* QueryResources::registerEscapedString(char const* p, size_t length,
                                             size_t& outLength) {
   if (p == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   if (length == 0) {
@@ -131,7 +131,7 @@ char* QueryResources::registerEscapedString(char const* p, size_t length,
 
 char* QueryResources::registerLongString(char* copy, size_t length) {  
   if (copy == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   try {

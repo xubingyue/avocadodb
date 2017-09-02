@@ -27,13 +27,13 @@ is returned when an invalid HTTP method is used.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestWalTransactionsGet}
+@EXAMPLE_AVOCADOSH_RUN{RestWalTransactionsGet}
     var url = "/_admin/wal/transactions";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

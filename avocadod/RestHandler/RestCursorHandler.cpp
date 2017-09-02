@@ -124,16 +124,16 @@ void RestCursorHandler::processQuery(VPackSlice const& slice) {
   if (queryResult.code != TRI_ERROR_NO_ERROR) {
     if (queryResult.code == TRI_ERROR_REQUEST_CANCELED ||
         (queryResult.code == TRI_ERROR_QUERY_KILLED && wasCanceled())) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
     }
 
-    THROW_ARANGO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
+    THROW_AVOCADO_EXCEPTION_MESSAGE(queryResult.code, queryResult.details);
   }
 
   VPackSlice qResult = queryResult.result->slice();
 
   if (qResult.isNone()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   TRI_ASSERT(qResult.isArray());
@@ -168,7 +168,7 @@ void RestCursorHandler::processQuery(VPackSlice const& slice) {
       }
 
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
 
       VPackBuilder result(&options);
@@ -191,7 +191,7 @@ void RestCursorHandler::processQuery(VPackSlice const& slice) {
         result.add("error", VPackValue(false));
         result.add("code", VPackValue((int)_response->responseCode()));
       } catch (...) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
       generateResult(rest::ResponseCode::CREATED, result.slice(),
                      queryResult.context);
@@ -241,7 +241,7 @@ void RestCursorHandler::registerQuery(avocadodb::aql::Query* query) {
   MUTEX_LOCKER(mutexLocker, _queryLock);
 
   if (_queryKilled) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_REQUEST_CANCELED);
   }
 
   TRI_ASSERT(_query == nullptr);
@@ -306,7 +306,7 @@ VPackBuilder RestCursorHandler::buildOptions(VPackSlice const& slice) const {
   if (batchSize.isNumber()) {
     if ((batchSize.isDouble() && batchSize.getDouble() == 0.0) ||
         (batchSize.isInteger() && batchSize.getUInt() == 0)) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_TYPE_ERROR, "expecting non-zero value for <batchSize>");
     }
     options.add("batchSize", batchSize);

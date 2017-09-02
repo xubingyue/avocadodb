@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_MMFILES_MMFILES_COLLECTION_WRITE_LOCKER_H
-#define ARANGOD_MMFILES_MMFILES_COLLECTION_WRITE_LOCKER_H 1
+#ifndef AVOCADOD_MMFILES_MMFILES_COLLECTION_WRITE_LOCKER_H
+#define AVOCADOD_MMFILES_MMFILES_COLLECTION_WRITE_LOCKER_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Exceptions.h"
@@ -45,7 +45,7 @@ class MMFilesCollectionWriteLocker {
       int res = _collection->lockWrite(_useDeadlockDetector);
 
       if (res != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(res);
+        THROW_AVOCADO_EXCEPTION(res);
       }
 
       _doLock = true;

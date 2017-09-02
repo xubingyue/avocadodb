@@ -81,7 +81,7 @@ function post_api_traversal (req, res) {
   try {
     doc = db._document(json.startVertex);
   } catch (err) {
-    return notFound(req, res, avocadodb.ERROR_ARANGO_DOCUMENT_NOT_FOUND, 'invalid startVertex');
+    return notFound(req, res, avocadodb.ERROR_AVOCADO_DOCUMENT_NOT_FOUND, 'invalid startVertex');
   }
 
   var datasource;
@@ -105,7 +105,7 @@ function post_api_traversal (req, res) {
 
     if (edgeCollection === undefined ||
       edgeCollection === null) {
-      return notFound(req, res, avocadodb.ERROR_ARANGO_COLLECTION_NOT_FOUND,
+      return notFound(req, res, avocadodb.ERROR_AVOCADO_COLLECTION_NOT_FOUND,
         'invalid edgeCollection');
     }
   } else {

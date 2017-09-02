@@ -6,7 +6,7 @@ if [ -z "$XTERMOPTIONS" ] ; then
     XTERMOPTIONS="--geometry=80x43"
 fi
 
-ARANGOD=/usr/sbin/avocadod
+AVOCADOD=/usr/sbin/avocadod
 
 NRAGENTS=$1
 if [ "$NRAGENTS" == "" ] ; then
@@ -49,7 +49,7 @@ echo Starting agency ...
 if [ $NRAGENTS -gt 1 ]; then
    for aid in `seq 0 $(( $NRAGENTS - 2 ))`; do
        port=$(( $BASE + $aid ))
-       ${ARANGOD} \
+       ${AVOCADOD} \
            --agency.id $aid \
            --agency.compaction-step-size $COMP \
            --agency.election-timeout-min $MINP \
@@ -72,7 +72,7 @@ fi
 for aid in `seq 0 $(( $NRAGENTS - 1 ))`; do
     endpoints="$endpoints --agency.endpoint tcp://localhost:$(( $BASE + $aid ))"          
 done
-${ARANGOD} \
+${AVOCADOD} \
     $endpoints \
     --agency.id $(( $NRAGENTS - 1 )) \
     --agency.compaction-step-size $COMP \
@@ -104,7 +104,7 @@ start() {
     PORT=$2
     mkdir /tmp/cluster/data$PORT
     echo Starting $TYPE on port $PORT
-    ${ARANGOD} --database.directory /tmp/cluster/data$PORT \
+    ${AVOCADOD} --database.directory /tmp/cluster/data$PORT \
                --cluster.agency-endpoint tcp://127.0.0.1:$BASE \
                --cluster.my-address tcp://127.0.0.1:$PORT \
                --server.endpoint tcp://127.0.0.1:$PORT \
@@ -130,7 +130,7 @@ startTerminal() {
     PORT=$2
     mkdir /tmp/cluster/data$PORT
     echo Starting $TYPE on port $PORT
-    $XTERM $XTERMOPTIONS -e ${ARANGOD} \
+    $XTERM $XTERMOPTIONS -e ${AVOCADOD} \
                 --database.directory /tmp/cluster/data$PORT \
                 --cluster.agency-endpoint tcp://127.0.0.1:$BASE \
                 --cluster.my-address tcp://127.0.0.1:$PORT \
@@ -193,7 +193,7 @@ if [ -n "$SECONDARIES" ]; then
     echo Registering secondary $CLUSTER_ID for "DBServer$index"
     curl -f -X PUT --data "{\"primary\": \"DBServer$index\", \"oldSecondary\": \"none\", \"newSecondary\": \"$CLUSTER_ID\"}" -H "Content-Type: application/json" localhost:8530/_admin/cluster/replaceSecondary
     echo Starting Secondary $CLUSTER_ID on port $PORT
-    ${ARANGOD} --database.directory /tmp/cluster/data$PORT \
+    ${AVOCADOD} --database.directory /tmp/cluster/data$PORT \
                --cluster.agency-endpoint tcp://127.0.0.1:$BASE \
                --cluster.my-address tcp://127.0.0.1:$PORT \
                --server.endpoint tcp://127.0.0.1:$PORT \

@@ -20,12 +20,12 @@ will be *mmfiles* or *rocksdb*
 
 Return the active storage engine
 
-@EXAMPLE_ARANGOSH_RUN{RestEngine}
+@EXAMPLE_AVOCADOSH_RUN{RestEngine}
     var response = logCurlRequest('GET', '/_api/engine');
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

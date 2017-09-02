@@ -69,7 +69,7 @@ void RecoveryManager::monitorCollections(
     Conductor* listener) {
   MUTEX_LOCKER(guard, _lock);
   if (ServerState::instance()->isCoordinator() == false) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_COORDINATOR);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_CLUSTER_ONLY_ON_COORDINATOR);
   }
   ClusterInfo* ci = ClusterInfo::instance();
 

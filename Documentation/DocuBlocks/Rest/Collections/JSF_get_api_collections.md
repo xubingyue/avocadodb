@@ -27,7 +27,7 @@ The list of collections
 
 Return information about all collections:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetAllCollections}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetAllCollections}
     var url = "/_api/collection";
 
     var response = logCurlRequest('GET', url);
@@ -35,6 +35,6 @@ Return information about all collections:
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

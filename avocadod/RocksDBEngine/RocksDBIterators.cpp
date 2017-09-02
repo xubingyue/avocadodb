@@ -59,7 +59,7 @@ RocksDBAllIndexIterator::RocksDBAllIndexIterator(
   options.verify_checksums = false;  // TODO evaluate
   // options.readahead_size = 4 * 1024 * 1024;
   _iterator = mthds->NewIterator(options, cf);
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
   rocksdb::ColumnFamilyDescriptor desc;
   cf->GetDescriptor(&desc);
   TRI_ASSERT(desc.options.prefix_extractor);
@@ -92,7 +92,7 @@ bool RocksDBAllIndexIterator::next(TokenCallback const& cb, size_t limit) {
   }
 
   while (limit > 0) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     TRI_ASSERT(_bounds.objectId() == RocksDBKey::objectId(_iterator->key()));
 #endif
 
@@ -282,7 +282,7 @@ RocksDBSortedAllIterator::RocksDBSortedAllIterator(
     : IndexIterator(collection, trx, mmdr, index),
       _bounds(RocksDBKeyBounds::PrimaryIndex(index->objectId())),
       _iterator(),
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
       _index(index),
 #endif
       _cmp(index->comparator()) {
@@ -342,7 +342,7 @@ bool RocksDBSortedAllIterator::nextWithKey(TokenKeyCallback const& cb,
   }
 
   while (limit > 0) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     TRI_ASSERT(_index->objectId() == RocksDBKey::objectId(_iterator->key()));
 #endif
     RocksDBToken token(RocksDBValue::revisionId(_iterator->value()));

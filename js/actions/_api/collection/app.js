@@ -200,7 +200,7 @@ function post_api_collection (req, res) {
   }
 
   if (r.name === '') {
-    actions.resultBad(req, res, avocadodb.ERROR_ARANGO_ILLEGAL_NAME,
+    actions.resultBad(req, res, avocadodb.ERROR_AVOCADO_ILLEGAL_NAME,
       'name must be non-empty');
     return;
   }
@@ -576,7 +576,7 @@ function put_api_collection_rename (req, res, collection) {
   }
 
   if (!body.hasOwnProperty('name')) {
-    actions.resultBad(req, res, avocadodb.ERROR_ARANGO_ILLEGAL_NAME,
+    actions.resultBad(req, res, avocadodb.ERROR_AVOCADO_ILLEGAL_NAME,
       'name must be non-empty');
     return;
   }

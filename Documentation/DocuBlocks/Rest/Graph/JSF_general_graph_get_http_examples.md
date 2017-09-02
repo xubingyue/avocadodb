@@ -23,7 +23,7 @@ Returned if no graph with this name could be found.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{HttpGharialGetGraph}
+@EXAMPLE_AVOCADOSH_RUN{HttpGharialGetGraph}
   var graph = require("@avocadodb/general-graph");
 | if (graph._exists("myGraph")) {
 |    graph._drop("myGraph", true);
@@ -42,6 +42,6 @@ Returned if no graph with this name could be found.
   logJsonResponse(response);
 
   graph._drop("myGraph", true);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

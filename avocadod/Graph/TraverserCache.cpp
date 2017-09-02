@@ -66,13 +66,13 @@ VPackSlice TraverserCache::lookupInCollection(StringRef id) {
   Result res = _trx->documentFastPathLocal(id.substr(0, pos).toString(),
                                         id.substr(pos + 1).toString(), *_mmdr);
 
-  if (!res.ok() && (res.errorNumber() != TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND)) {
+  if (!res.ok() && (res.errorNumber() != TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND)) {
     // ok we are in a rather bad state. Better throw and abort.
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   VPackSlice result;
-  if (res.errorNumber() == TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND) {
+  if (res.errorNumber() == TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND) {
     // This is expected, we may have dangling edges. Interpret as NULL
     result = basics::VelocyPackHelper::NullValue();
   } else {

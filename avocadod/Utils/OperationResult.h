@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_OPERATION_RESULT_H
-#define ARANGOD_UTILS_OPERATION_RESULT_H 1
+#ifndef AVOCADOD_UTILS_OPERATION_RESULT_H
+#define AVOCADOD_UTILS_OPERATION_RESULT_H 1
 
 #include "Basics/Common.h"
 #include "Basics/Result.h"

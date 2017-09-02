@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_REST_GENERAL_RESPONSE_H
-#define ARANGODB_REST_GENERAL_RESPONSE_H 1
+#ifndef AVOCADODB_REST_GENERAL_RESPONSE_H
+#define AVOCADODB_REST_GENERAL_RESPONSE_H 1
 
 #include "Basics/Common.h"
 

@@ -20,8 +20,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_AQL_AQL_FUNCTION_FEATURE_H
-#define ARANGOD_AQL_AQL_FUNCTION_FEATURE_H 1
+#ifndef AVOCADOD_AQL_AQL_FUNCTION_FEATURE_H
+#define AVOCADOD_AQL_AQL_FUNCTION_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 #include "Aql/AstNode.h"

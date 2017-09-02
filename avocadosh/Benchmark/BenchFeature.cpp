@@ -50,7 +50,7 @@ using namespace avocadodb::rest;
 /// We use an evil global pointer here.
 ////////////////////////////////////////////////////////////////////////////////
 
-BenchFeature* ARANGOBENCH;
+BenchFeature* AVOCADOBENCH;
 #include "Benchmark/test-cases.h"
 
 BenchFeature::BenchFeature(application_features::ApplicationServer* server,
@@ -186,12 +186,12 @@ void BenchFeature::start() {
   int ret = EXIT_SUCCESS;
 
   *_result = ret;
-  ARANGOBENCH = this;
+  AVOCADOBENCH = this;
 
   std::unique_ptr<BenchmarkOperation> benchmark(GetTestCase(_testCase));
 
   if (benchmark == nullptr) {
-    ARANGOBENCH = nullptr;
+    AVOCADOBENCH = nullptr;
     LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "invalid test case name '" << _testCase << "'";
     FATAL_ERROR_EXIT();
   }
@@ -438,4 +438,4 @@ void BenchFeature::printResult(BenchRunResult const& result) {
   }
 }
 
-void BenchFeature::unprepare() { ARANGOBENCH = nullptr; }
+void BenchFeature::unprepare() { AVOCADOBENCH = nullptr; }

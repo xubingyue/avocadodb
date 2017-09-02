@@ -135,7 +135,7 @@ static ExecutionBlock* CreateBlock(
                                       static_cast<CollectNode const*>(en));
       }
 
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "cannot instantiate CollectBlock with "
                                      "undetermined aggregation method");
     }
@@ -243,7 +243,7 @@ struct Instanciator final : public WalkerWorker<ExecutionNode> {
       std::unique_ptr<ExecutionBlock> eb(CreateBlock(engine, en, cache, std::unordered_set<std::string>()));
 
       if (eb == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "illegal node type");
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "illegal node type");
       }
 
       // do we need to adjust the root node?
@@ -252,7 +252,7 @@ struct Instanciator final : public WalkerWorker<ExecutionNode> {
       if (nodeType == ExecutionNode::DISTRIBUTE ||
           nodeType == ExecutionNode::SCATTER ||
           nodeType == ExecutionNode::GATHER) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(
+        THROW_AVOCADO_EXCEPTION_MESSAGE(
             TRI_ERROR_INTERNAL, "logic error, got cluster node in local query");
       }
 
@@ -683,7 +683,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
       if (errorCode == TRI_ERROR_NO_ERROR) {
         errorCode = TRI_ERROR_INTERNAL; // must have an error
       }
-      THROW_ARANGO_EXCEPTION_MESSAGE(errorCode, error);
+      THROW_AVOCADO_EXCEPTION_MESSAGE(errorCode, error);
     }
   }
 
@@ -734,7 +734,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
       // need a new query instance on the coordinator
       localQuery = query->clone(PART_DEPENDENT, false);
       if (localQuery == nullptr) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                        "cannot clone query");
       }
     }
@@ -759,7 +759,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
         ExecutionBlock* eb = CreateBlock(engine.get(), (*en), cache, _includedShards);
 
         if (eb == nullptr) {
-          THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+          THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                          "illegal node type");
         }
 
@@ -783,7 +783,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
         if (nodeType == ExecutionNode::GATHER) {
           // we found a gather node
           if (remoteNode == nullptr) {
-            THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+            THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                            "expecting a remoteNode");
           }
 
@@ -800,7 +800,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
 
             auto it = queryIds.find(theId);
             if (it == queryIds.end()) {
-              THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+              THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                              "could not find query id in list");
             }
             std::string idThere = it->second;
@@ -810,7 +810,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
 
             auto serverList = clusterInfo->getResponsibleServer(shardId);
             if (serverList->empty()) {
-              THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_CLUSTER_BACKEND_UNAVAILABLE,
+              THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_CLUSTER_BACKEND_UNAVAILABLE,
                                             "Could not find responsible server for shard " + shardId);
             }
 
@@ -889,7 +889,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
     auto findServerLists = [&] (ShardID const& shard) -> Serv2ColMap::iterator {
       auto serverList = clusterInfo->getResponsibleServer(shard);
       if (serverList->empty()) {
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_CLUSTER_BACKEND_UNAVAILABLE,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_CLUSTER_BACKEND_UNAVAILABLE,
                                        "Could not find responsible server for shard " + shard);
       }
       TRI_ASSERT(!serverList->empty());
@@ -1075,7 +1075,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
           if (res->errorMessage.length() > 0) {
             message += std::string(" : ") + res->errorMessage;
           }
-          THROW_ARANGO_EXCEPTION_MESSAGE(
+          THROW_AVOCADO_EXCEPTION_MESSAGE(
               TRI_ERROR_CLUSTER_BACKEND_UNAVAILABLE, message);
         } else {
           // Only if the result was successful we will get here
@@ -1085,7 +1085,7 @@ struct CoordinatorInstanciator : public WalkerWorker<ExecutionNode> {
               VPackParser::fromJson(body.c_str(), body.length());
           VPackSlice resultSlice = builder->slice();
           if (!resultSlice.isNumber()) {
-            THROW_ARANGO_EXCEPTION_MESSAGE(
+            THROW_AVOCADO_EXCEPTION_MESSAGE(
                 TRI_ERROR_INTERNAL, "got unexpected response from engine build request: '" + resultSlice.toJson() + "'");
           }
           auto engineId = resultSlice.getNumericValue<traverser::TraverserEngineID>();
@@ -1334,7 +1334,7 @@ ExecutionEngine* ExecutionEngine::instantiateFromPlan(
           auto cc = avocadodb::ClusterComm::instance();
           if (cc == nullptr) {
             // nullptr only happens on controlled shutdown
-            THROW_ARANGO_EXCEPTION( TRI_ERROR_SHUTTING_DOWN);
+            THROW_AVOCADO_EXCEPTION( TRI_ERROR_SHUTTING_DOWN);
           }
 
           TRI_vocbase_t* vocbase = query->vocbase();
@@ -1360,7 +1360,7 @@ ExecutionEngine* ExecutionEngine::instantiateFromPlan(
             if (res->errorMessage.length() > 0) {
               message += std::string(" : ") + res->errorMessage;
             }
-            THROW_ARANGO_EXCEPTION_MESSAGE(
+            THROW_AVOCADO_EXCEPTION_MESSAGE(
                 TRI_ERROR_QUERY_COLLECTION_LOCK_FAILED, message);
           }
         }

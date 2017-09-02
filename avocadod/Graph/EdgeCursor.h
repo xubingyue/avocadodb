@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_GRAPH_EDGECURSOR_H
-#define ARANGOD_GRAPH_EDGECURSOR_H 1
+#ifndef AVOCADOD_GRAPH_EDGECURSOR_H
+#define AVOCADOD_GRAPH_EDGECURSOR_H 1
 
 #include "Basics/Common.h"
 

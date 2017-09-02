@@ -22,8 +22,8 @@
 /// @author Achim Brandt
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_GENERAL_SERVER_GENERAL_COMM_TASK_H
-#define ARANGOD_GENERAL_SERVER_GENERAL_COMM_TASK_H 1
+#ifndef AVOCADOD_GENERAL_SERVER_GENERAL_COMM_TASK_H
+#define AVOCADOD_GENERAL_SERVER_GENERAL_COMM_TASK_H 1
 
 #include "Scheduler/SocketTask.h"
 

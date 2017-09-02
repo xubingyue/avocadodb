@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_CLUSTER_TRAVERSER_ENGINE_REGISTRY_H
-#define ARANGOD_CLUSTER_TRAVERSER_ENGINE_REGISTRY_H 1
+#ifndef AVOCADOD_CLUSTER_TRAVERSER_ENGINE_REGISTRY_H
+#define AVOCADOD_CLUSTER_TRAVERSER_ENGINE_REGISTRY_H 1
 
 #include "Basics/ConditionVariable.h"
 #include "Basics/ReadWriteLock.h"

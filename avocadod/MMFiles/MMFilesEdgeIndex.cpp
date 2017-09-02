@@ -324,7 +324,7 @@ Result MMFilesEdgeIndex::remove(transaction::Methods* trx,
     if (isRollback) {
       return Result(TRI_ERROR_NO_ERROR);
     }
-    return IndexResult(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND, this);
+    return IndexResult(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND, this);
   }
 }
 
@@ -514,7 +514,7 @@ IndexIterator* MMFilesEdgeIndex::createEqIterator(
 
   handleValNode(keys.get(), valNode);
   TRI_IF_FAILURE("EdgeIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   keys->close();
 
@@ -539,12 +539,12 @@ IndexIterator* MMFilesEdgeIndex::createInIterator(
   for (size_t i = 0; i < n; ++i) {
     handleValNode(keys.get(), valNode->getMemberUnchecked(i));
     TRI_IF_FAILURE("EdgeIndex::iteratorValNodes") {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
     }
   }
 
   TRI_IF_FAILURE("EdgeIndex::noIterator") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
   keys->close();
 
@@ -569,7 +569,7 @@ void MMFilesEdgeIndex::handleValNode(
   keys->close();
 
   TRI_IF_FAILURE("EdgeIndex::collectKeys") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 }
 

@@ -53,7 +53,7 @@ static TRI_edge_direction_e parseDirection(AstNode const* node) {
     case 2:
       return TRI_EDGE_OUT;
     default:
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_QUERY_PARSE,
           "direction can only be INBOUND, OUTBOUND or ANY");
   }
@@ -141,8 +141,8 @@ GraphNode::GraphNode(ExecutionPlan* plan, size_t id, TRI_vocbase_t* vocbase,
         if ((*it).second != dir) {
           std::string msg("conflicting directions specified for collection '" +
                           std::string(eColName));
-          THROW_ARANGO_EXCEPTION_MESSAGE(
-              TRI_ERROR_ARANGO_COLLECTION_TYPE_INVALID, msg);
+          THROW_AVOCADO_EXCEPTION_MESSAGE(
+              TRI_ERROR_AVOCADO_COLLECTION_TYPE_INVALID, msg);
         }
         // do not re-add the same collection!
         continue;
@@ -153,7 +153,7 @@ GraphNode::GraphNode(ExecutionPlan* plan, size_t id, TRI_vocbase_t* vocbase,
         std::string msg("collection type invalid for collection '" +
                         std::string(eColName) +
                         ": expecting collection type 'edge'");
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_ARANGO_COLLECTION_TYPE_INVALID,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_AVOCADO_COLLECTION_TYPE_INVALID,
                                        msg);
       }
 
@@ -186,13 +186,13 @@ GraphNode::GraphNode(ExecutionPlan* plan, size_t id, TRI_vocbase_t* vocbase,
         _graphObj = plan->getAst()->query()->lookupGraphByName(graphName);
 
         if (_graphObj == nullptr) {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_GRAPH_NOT_FOUND);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_GRAPH_NOT_FOUND);
         }
 
         auto eColls = _graphObj->edgeCollections();
         size_t length = eColls.size();
         if (length == 0) {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_GRAPH_EMPTY);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_GRAPH_EMPTY);
         }
 
         // First determine whether all edge collections are smart and sharded
@@ -240,7 +240,7 @@ GraphNode::GraphNode(ExecutionPlan* plan, size_t id, TRI_vocbase_t* vocbase,
         auto vColls = _graphObj->vertexCollections();
         length = vColls.size();
         if (length == 0) {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_GRAPH_EMPTY);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_GRAPH_EMPTY);
         }
         _vertexColls.reserve(length);
         for (auto const& v : vColls) {
@@ -281,7 +281,7 @@ GraphNode::GraphNode(ExecutionPlan* plan,
         d = TRI_EDGE_OUT;
         break;
       default:
-        THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+        THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                        "Invalid direction value");
         break;
     }
@@ -296,16 +296,16 @@ GraphNode::GraphNode(ExecutionPlan* plan,
       _graphObj = plan->getAst()->query()->lookupGraphByName(graphName);
 
       if (_graphObj == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_GRAPH_NOT_FOUND);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_GRAPH_NOT_FOUND);
       }
     } else {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "missing graphDefinition.");
     }
   } else {
     _graphInfo.add(base.get("graph"));
     if (!_graphInfo.slice().isArray()) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                      "graph has to be an array.");
     }
   }
@@ -313,7 +313,7 @@ GraphNode::GraphNode(ExecutionPlan* plan,
   // Collection information
   VPackSlice list = base.get("edgeCollections");
   if (!list.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                    "graph needs an array of edge collections.");
   }
 
@@ -326,7 +326,7 @@ GraphNode::GraphNode(ExecutionPlan* plan,
   list = base.get("vertexCollections");
 
   if (!list.isArray()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_QUERY_BAD_JSON_PLAN,
         "graph needs an array of vertex collections.");
   }
@@ -358,7 +358,7 @@ GraphNode::GraphNode(ExecutionPlan* plan,
 
   VPackSlice opts = base.get("options");
   if (!opts.isObject()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_QUERY_BAD_JSON_PLAN,
                                    "graph options have to be a json-object.");
   }
   _options = BaseOptions::createOptionsFromSlice(

@@ -78,7 +78,7 @@ bool ConditionFinder::before(ExecutionNode* en) {
         for (auto& it : static_cast<SortNode const*>(en)->getElements()) {
           _sorts.emplace_back((it.var)->id, it.ascending);
           TRI_IF_FAILURE("ConditionFinder::sortNode") {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
           }
         }
       }
@@ -93,7 +93,7 @@ bool ConditionFinder::before(ExecutionNode* en) {
           outvars[0]->id,
           static_cast<CalculationNode const*>(en)->expression()->node());
       TRI_IF_FAILURE("ConditionFinder::variableDefinition") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
       break;
     }
@@ -149,7 +149,7 @@ bool ConditionFinder::before(ExecutionNode* en) {
       // normalize the condition
       condition->normalize(_plan);
       TRI_IF_FAILURE("ConditionFinder::normalizePlan") {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
       }
 
       bool const conditionIsImpossible =
@@ -220,7 +220,7 @@ bool ConditionFinder::before(ExecutionNode* en) {
             node->outVariable(), usedIndexes, condition.get(), reverse));
         condition.release();
         TRI_IF_FAILURE("ConditionFinder::insertIndexNode") {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
         }
 
         // We keep this node's change

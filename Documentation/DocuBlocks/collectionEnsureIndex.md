@@ -39,9 +39,9 @@ object existed before the call is indicated in the return attribute
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionEnsureIndex}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionEnsureIndex}
 ~db._create("test");
 db.test.ensureIndex({ type: "hash", fields: [ "a" ], sparse: true });
 db.test.ensureIndex({ type: "hash", fields: [ "a", "b" ], unique: true });
 ~db._drop("test");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT

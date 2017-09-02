@@ -7,6 +7,6 @@ Returns the filesystem path of the current database as a string. When using the 
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{dbPath}
+@EXAMPLE_AVOCADOSH_OUTPUT{dbPath}
   require("@avocadodb").db._path();
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT

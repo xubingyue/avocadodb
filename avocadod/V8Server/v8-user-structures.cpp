@@ -391,7 +391,7 @@ int TRI_CompareValuesJson(TRI_json_t const* lhs, TRI_json_t const* rhs,
       std::unique_ptr<TRI_json_t> keys(GetMergedKeyArray(lhs, rhs));
 
       if (keys == nullptr) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
 
       auto json = keys.get();
@@ -873,7 +873,7 @@ struct KeySpaceElement {
       : key(nullptr), json(json) {
     key = TRI_DuplicateString(TRI_UNKNOWN_MEM_ZONE, k, length);
     if (key == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
   }
 

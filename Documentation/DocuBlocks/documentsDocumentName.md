@@ -25,11 +25,11 @@ first argument.
 
 Returns the document:
 
-@EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentName}
+@EXAMPLE_AVOCADOSH_OUTPUT{documentsDocumentName}
 ~ db._create("example");
 ~ var myid = db.example.insert({_key: "12345"});
   db._document("example/12345");
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

@@ -72,7 +72,7 @@ specific names.
 To start, we'll define a simple action handler in a module */ownTest*:
 
     @startDocuBlockInline MOD_01a_routingCreateOwnTest
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_01a_routingCreateOwnTest}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_01a_routingCreateOwnTest}
     |db._modules.save({
     |  path: "/db:/ownTest",
     |  content:
@@ -82,7 +82,7 @@ To start, we'll define a simple action handler in a module */ownTest*:
     |     "  res.contentType = 'text/plain';" +
     |     "};"
     });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_01a_routingCreateOwnTest
 
 This does nothing but register a do action handler in a module */ownTest*.  The
@@ -90,7 +90,7 @@ action handler is not yet callable, but must be mapped to a route first.  To map
 the action to the route */ourtest*, execute the following command:
 
     @startDocuBlockInline MOD_01b_routingEnableOwnTest
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_01b_routingEnableOwnTest}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_01b_routingEnableOwnTest}
     |db._routing.save({
     |  url: "/ourtest", 
     |  action: {
@@ -98,13 +98,13 @@ the action to the route */ourtest*, execute the following command:
     |  }
     });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_01b_routingEnableOwnTest
 
 Now use the browser or cURL and access http://localhost:8529/ourtest :
 
     @startDocuBlockInline MOD_01c_routingCurlOwnTest
-    @EXAMPLE_ARANGOSH_RUN{MOD_01c_routingCurlOwnTest}
+    @EXAMPLE_AVOCADOSH_RUN{MOD_01c_routingCurlOwnTest}
     var url = "/ourtest";
     var response = logCurlRequest('GET', url);
     assert(response.code === 200);
@@ -113,7 +113,7 @@ Now use the browser or cURL and access http://localhost:8529/ourtest :
     db._query("FOR route IN _routing FILTER route.url == '/ourtest' REMOVE route in _routing")
     db._query("FOR module IN _modules FILTER module.path == '/db:/ownTest' REMOVE module in _modules")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock MOD_01c_routingCurlOwnTest
 
 
@@ -129,9 +129,9 @@ The routing cache stores the routing information computed from the *_routing*
 collection. Whenever you change this collection manually, you need to call
 
     @startDocuBlockInline MOD_05_routingModifyReload
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_05_routingModifyReload}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_05_routingModifyReload}
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_05_routingModifyReload
 
 in order to rebuild the cache.
@@ -147,7 +147,7 @@ For detailed information see the reference manual.
 Use the following for a permanent redirect:
 
     @startDocuBlockInline MOD_06a_routingRedirect
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_06a_routingRedirect}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_06a_routingRedirect}
     | db._routing.save({
     |  url: "/redirectMe",
     |  action: {
@@ -159,18 +159,18 @@ Use the following for a permanent redirect:
     |  }
     });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_06a_routingRedirect
 
     @startDocuBlockInline MOD_06b_routingCurlRedirect
-    @EXAMPLE_ARANGOSH_RUN{MOD_06b_routingCurlRedirect}
+    @EXAMPLE_AVOCADOSH_RUN{MOD_06b_routingCurlRedirect}
     var url = "/redirectMe";
     var response = logCurlRequest('GET', url);
     assert(response.code === 301);
     logHtmlResponse(response);
     db._query("FOR route IN _routing FILTER route.url == '/redirectMe' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock MOD_06b_routingCurlRedirect
 
 ### Routing Bundles
@@ -179,7 +179,7 @@ Instead of adding all routes for package separately, you can
 specify a bundle:
 
     @startDocuBlockInline MOD_07a_routingMulti
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_07a_routingMulti}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_07a_routingMulti}
     | db._routing.save({
     |  routes: [
     |    {
@@ -197,12 +197,12 @@ specify a bundle:
     |  ]
       });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_07a_routingMulti
 
 
     @startDocuBlockInline MOD_07b_routingCurlMulti
-    @EXAMPLE_ARANGOSH_RUN{MOD_07b_routingCurlMulti}
+    @EXAMPLE_AVOCADOSH_RUN{MOD_07b_routingCurlMulti}
     var url = ["/url1", "/url2", "/url3"];
     var reply = ["route 1", "route 2", "route 3"]
     for (var i = 1; i < 3; i++) {
@@ -213,14 +213,14 @@ specify a bundle:
     }
     db._query("FOR route IN _routing FILTER route.routes[0].url == '/url1' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock MOD_07b_routingCurlMulti
 
 The advantage is, that you can put all your routes into one document
 and use a common prefix.
 
     @startDocuBlockInline MOD_07c_routingMulti
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_07c_routingMulti}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_07c_routingMulti}
     | db._routing.save({
     |  urlPrefix: "/test",
     |  routes: [
@@ -239,13 +239,13 @@ and use a common prefix.
     |  ]
       });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_07c_routingMulti
 
 will define the URL */test/url1*, */test/url2*, and */test/url3*:
 
     @startDocuBlockInline MOD_07d_routingCurlMulti
-    @EXAMPLE_ARANGOSH_RUN{MOD_07d_routingCurlMulti}
+    @EXAMPLE_AVOCADOSH_RUN{MOD_07d_routingCurlMulti}
     var url = ["/test/url1", "/test/url2", "/test/url3"];
     var reply = ["route 1", "route 2", "route 3"]
     for (var i = 0; i < 3; i++) {
@@ -256,7 +256,7 @@ will define the URL */test/url1*, */test/url2*, and */test/url3*:
     }
     db._query("FOR route IN _routing FILTER route.routes[0].url == '/url1' REMOVE route in _routing")
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock MOD_07d_routingCurlMulti
 
 ### Writing Middleware
@@ -267,7 +267,7 @@ action for the URL */subdirectory*. This action simply logs
 the requests, calls the next in line, and logs the response:
 
     @startDocuBlockInline MOD_08a_routingCreateOwnConsoleLog
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_08a_routingCreateOwnConsoleLog}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_08a_routingCreateOwnConsoleLog}
     |db._modules.save({
     |  path: "/db:/OwnMiddlewareTest",
     |  content:
@@ -278,7 +278,7 @@ the requests, calls the next in line, and logs the response:
     |     "    console.log('produced response: %s', JSON.stringify(res));" +
     |     "};"
     });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_08a_routingCreateOwnConsoleLog
 
 This function will now be available as *db://OwnMiddlewareTest/logRequest*. You need to
@@ -286,7 +286,7 @@ tell AvocadoDB that it is should use a prefix match and that the shortest match
 should win in this case:
 
     @startDocuBlockInline MOD_08b_routingCreateRouteToOwnConsoleLog
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_08b_routingCreateRouteToOwnConsoleLog}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_08b_routingCreateRouteToOwnConsoleLog}
     |db._routing.save({
     |  middleware: [
     |    {
@@ -299,7 +299,7 @@ should win in this case:
     |    }
     |  ]
     });
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_08b_routingCreateRouteToOwnConsoleLog
 
 When you call *next()* in that action, the next specific routing will
@@ -314,7 +314,7 @@ called without modifying the URL in the request object
 Now we add some other simple routings to test all this:
 
     @startDocuBlockInline MOD_08c_routingCreateRouteToOwnConsoleLog
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_08c_routingCreateRouteToOwnConsoleLog}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_08c_routingCreateRouteToOwnConsoleLog}
     |db._routing.save({
     |    url: "/subdirectory/ourtest/1",
     |    action: {
@@ -334,13 +334,13 @@ Now we add some other simple routings to test all this:
     |    }
     });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_08c_routingCreateRouteToOwnConsoleLog
 
 Then we send some curl requests to these sample routes:
 
     @startDocuBlockInline MOD_08d_routingCurlToOwnConsoleLog
-    @EXAMPLE_ARANGOSH_RUN{MOD_08d_routingCurlToOwnConsoleLog}
+    @EXAMPLE_AVOCADOSH_RUN{MOD_08d_routingCurlToOwnConsoleLog}
     var url = ["/subdirectory/ourtest/1",
                "/subdirectory/ourtest/2",
                "/subdirectory/ourtest/3"];
@@ -355,7 +355,7 @@ Then we send some curl requests to these sample routes:
     db._query("FOR route IN _routing FILTER route.url == '/subdirectory/ourtest/3' REMOVE route in _routing");
     db._query("FOR module IN _modules FILTER module.path == '/db:/OwnMiddlewareTest' REMOVE module in _modules");
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock MOD_08d_routingCurlToOwnConsoleLog
 
 and the console (and / or the logfile) will show requests and replies.
@@ -384,9 +384,9 @@ After any modification to the routing or actions, it is thus recommended to
 make the changes "live" by calling the following functions from within avocadosh:
 
     @startDocuBlockInline MOD_09_routingReload
-    @EXAMPLE_ARANGOSH_RUN{MOD_09_routingReload}
+    @EXAMPLE_AVOCADOSH_RUN{MOD_09_routingReload}
     require("internal").reloadRouting();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_09_routingReload
 
 You might also be affected by client-side caching.
@@ -434,7 +434,7 @@ For example, this definition only allows access via *GET* and *HEAD*:
 whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
 
     @startDocuBlockInline MOD_09a_routingSpecifyMethods
-    @EXAMPLE_ARANGOSH_OUTPUT{MOD_09a_routingSpecifyMethods}
+    @EXAMPLE_AVOCADOSH_OUTPUT{MOD_09a_routingSpecifyMethods}
     |db._routing.save({
     |    url: {
     |      match: "/hello/world",
@@ -445,11 +445,11 @@ whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
     |    }
     });
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock MOD_09a_routingSpecifyMethods
 
     @startDocuBlockInline MOD_09b_routingCurlSpecifyMethods
-    @EXAMPLE_ARANGOSH_RUN{MOD_09b_routingCurlSpecifyMethods}
+    @EXAMPLE_AVOCADOSH_RUN{MOD_09b_routingCurlSpecifyMethods}
     var url = "/hello/world"
     var postContent = "{hello: 'world'}";
     var response = logCurlRequest('GET', url);
@@ -470,7 +470,7 @@ whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
 
     db._query("FOR route IN _routing FILTER route.url.match == '/hello/world' REMOVE route in _routing");
     require("internal").reloadRouting()
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_AVOCADOSH_RUN
     @endDocuBlock MOD_09b_routingCurlSpecifyMethods
 
 The former definition (defining *url* as an object with a *match* attribute)

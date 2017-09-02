@@ -21,8 +21,8 @@
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_SCHEDULER_SCHEDULER_FEATURE_H
-#define ARANGOD_SCHEDULER_SCHEDULER_FEATURE_H 1
+#ifndef AVOCADOD_SCHEDULER_SCHEDULER_FEATURE_H
+#define AVOCADOD_SCHEDULER_SCHEDULER_FEATURE_H 1
 
 #include "ApplicationFeatures/ApplicationFeature.h"
 

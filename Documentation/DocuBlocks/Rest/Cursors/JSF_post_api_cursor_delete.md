@@ -31,7 +31,7 @@ returned if a cursor is used after it has been destroyed.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestCursorDelete}
+@EXAMPLE_AVOCADOSH_RUN{RestCursorDelete}
     var url = "/_api/cursor";
     var cn = "products";
     db._drop(cn);
@@ -57,6 +57,6 @@ returned if a cursor is used after it has been destroyed.
 
     assert(response.code === 202);
   ~ db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

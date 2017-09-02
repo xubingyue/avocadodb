@@ -11,7 +11,7 @@ returned.
 
 Drops the index with *index-handle*.
 
-@EXAMPLE_ARANGOSH_OUTPUT{dropIndex}
+@EXAMPLE_AVOCADOSH_OUTPUT{dropIndex}
 ~db._create("example");
 db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
 var indexInfo = db.example.getIndexes();
@@ -20,5 +20,5 @@ db._dropIndex(indexInfo[0])
 db._dropIndex(indexInfo[1].id)
 indexInfo = db.example.getIndexes();
 ~db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

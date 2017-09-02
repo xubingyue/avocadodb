@@ -88,7 +88,7 @@ function avocadosh (options) {
     }
 
     const startTime = time();
-    let rc = executeExternalAndWait(pu.ARANGOSH_BIN, toArgv(args));
+    let rc = executeExternalAndWait(pu.AVOCADOSH_BIN, toArgv(args));
     const deltaTime = time() - startTime;
     const failSuccess = (rc.hasOwnProperty('exit') && rc.exit === expectedReturnCode);
 
@@ -153,7 +153,7 @@ function avocadosh (options) {
     print('--------------------------------------------------------------------------------');
 
     fs.write(execFile,
-      'echo "db._databases();" | ' + fs.makeAbsolute(pu.ARANGOSH_BIN) + ' --server.endpoint tcp://127.0.0.1:0');
+      'echo "db._databases();" | ' + fs.makeAbsolute(pu.AVOCADOSH_BIN) + ' --server.endpoint tcp://127.0.0.1:0');
 
     executeExternalAndWait('sh', ['-c', 'chmod a+x ' + execFile]);
 
@@ -196,7 +196,7 @@ function avocadosh (options) {
     }
 
     fs.write(shebangFile,
-      '#!' + fs.makeAbsolute(pu.ARANGOSH_BIN) + ' --javascript.execute \n' +
+      '#!' + fs.makeAbsolute(pu.AVOCADOSH_BIN) + ' --javascript.execute \n' +
       'print("hello world");\n');
 
     executeExternalAndWait('sh', ['-c', 'chmod a+x ' + shebangFile]);

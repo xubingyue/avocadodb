@@ -97,7 +97,7 @@ Worker<V, E, M>::Worker(TRI_vocbase_t* vocbase, Algorithm<V, E, M>* algo,
     // TODO maybe lazy loading needs to be performed on another thread too
     std::set<std::string> activeSet = _algorithm->initialActiveSet();
     if (activeSet.size() == 0) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
+      THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL,
                                      "There needs to be one active vertice");
     }
     for (std::string const& documentID : activeSet) {
@@ -176,18 +176,18 @@ VPackBuilder Worker<V, E, M>::prepareGlobalStep(VPackSlice const& data) {
   if (_state != WorkerState::IDLE) {
     LOG_TOPIC(ERR, Logger::PREGEL)
         << "Cannot prepare a gss when the worker is not idle";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_INTERNAL);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_INTERNAL);
   }
   _state = WorkerState::PREPARING;  // stop any running step
   LOG_TOPIC(DEBUG, Logger::PREGEL) << "Received prepare GSS: " << data.toJson();
   VPackSlice gssSlice = data.get(Utils::globalSuperstepKey);
   if (!gssSlice.isInteger()) {
-    THROW_ARANGO_EXCEPTION_FORMAT(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_FORMAT(TRI_ERROR_BAD_PARAMETER,
                                   "Invalid gss in %s:%d", __FILE__, __LINE__);
   }
   const uint64_t gss = (uint64_t)gssSlice.getUInt();
   if (_expectedGSS != gss) {
-    THROW_ARANGO_EXCEPTION_FORMAT(
+    THROW_AVOCADO_EXCEPTION_FORMAT(
         TRI_ERROR_BAD_PARAMETER,
         "Seems like this worker missed a gss, expected %u. Data = %s ",
         _expectedGSS, data.toJson().c_str());
@@ -264,7 +264,7 @@ void Worker<V, E, M>::receivedMessages(VPackSlice const& data) {
     MY_READ_LOCKER(guard, _cacheRWLock);
     _writeCacheNextGSS->parseMessages(data);
   } else {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER,
                                    "Superstep out of sync");
     LOG_TOPIC(ERR, Logger::PREGEL) << "Expected: " << _config._globalSuperstep
                                    << "Got: " << gss;
@@ -278,7 +278,7 @@ void Worker<V, E, M>::startGlobalStep(VPackSlice const& data) {
   // Lock to prevent malicous activity
   MUTEX_LOCKER(guard, _commandMutex);
   if (_state != WorkerState::PREPARING) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "Cannot start a gss when the worker is not prepared");
   }
@@ -286,7 +286,7 @@ void Worker<V, E, M>::startGlobalStep(VPackSlice const& data) {
   VPackSlice gssSlice = data.get(Utils::globalSuperstepKey);
   const uint64_t gss = (uint64_t)gssSlice.getUInt();
   if (gss != _config.globalSuperstep()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "Wrong GSS");
+    THROW_AVOCADO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "Wrong GSS");
   }
 
   _workerAggregators->resetValues();
@@ -451,7 +451,7 @@ void Worker<V, E, M>::_finishedProcessing() {
   {
     MUTEX_LOCKER(guard, _threadMutex);
     if (_runningThreads != 0) {
-      THROW_ARANGO_EXCEPTION_MESSAGE(
+      THROW_AVOCADO_EXCEPTION_MESSAGE(
           TRI_ERROR_INTERNAL, "only one thread should ever enter this region");
     }
   }

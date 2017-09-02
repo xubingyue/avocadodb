@@ -188,7 +188,7 @@ debugging rspec with gdb
 
     server> ./scripts/unittest http_server --test api-import-spec.rb --server tcp://127.0.0.1:7777
     - or -
-    server> ARANGO_SERVER="127.0.0.1:6666" rspec -IUnitTests/HttpInterface --format d --color UnitTests/HttpInterface/api-import-spec.rb
+    server> AVOCADO_SERVER="127.0.0.1:6666" rspec -IUnitTests/HttpInterface --format d --color UnitTests/HttpInterface/api-import-spec.rb
 
     client> gdb --args ./build/bin/avocadod --server.endpoint http+tcp://127.0.0.1:6666 --server.authentication false --log.level communication=trace ../avocadodb-data-test-mmfiles
 
@@ -605,7 +605,7 @@ write markdown
 you need to place hooks:
   - `@startDocuBlock <tdocuBlockName>` is replaced by a Docublock extracted from source.
   - `@startDocuBlockInline <docuBlockName>` till `@endDocuBlock <docuBlockName>`
-     is replaced in with its own evaluated content - so  *@EXAMPLE_ARANGOSH_[OUTPUT | RUN]* sections are executed
+     is replaced in with its own evaluated content - so  *@EXAMPLE_AVOCADOSH_[OUTPUT | RUN]* sections are executed
      the same way as inside of source code documentation.
 
 Include ditaa diagrams
@@ -628,7 +628,7 @@ avocadod Example tool
 Here is how its details work:
   - all *Documentation/DocuBlocks/*.md* and *Documentation/Books/*.md* are searched.
   - all lines inside of source code starting with '///' are matched, all lines in .md files.
-  - an example start is marked with *@EXAMPLE_ARANGOSH_OUTPUT* or *@EXAMPLE_ARANGOSH_RUN*
+  - an example start is marked with *@EXAMPLE_AVOCADOSH_OUTPUT* or *@EXAMPLE_AVOCADOSH_RUN*
   - the example is named by the string provided in brackets after the above key
   - the output is written to `Documentation/Examples/<name>.generated`
   - examples end with *@END_EXAMPLE_[OUTPUT|RUN]*
@@ -655,12 +655,12 @@ sortable naming scheme so they're executed in sequence. Using `<modulename>_<seq
     * `~addIgnoreCollection("test")` - the collection test will again be alarmed if left over.
 
   - it is executed line by line. If a line is intended to fail (aka throw an exception),
-    you have to specify `// xpError(ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED)` so the exception will be caught;
+    you have to specify `// xpError(ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED)` so the exception will be caught;
     else the example is marked as broken.
     If you need to wrap that line, you may want to make the next line starting by a tilde to suppress an empty line:
 
         /// | someLongStatement()
-        /// ~ // xpError(ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED)
+        /// ~ // xpError(ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED)
 
  - RUN is intended to be pasted into a unix shell with *cURL* to demonstrate how the REST-HTTP-APIs work.
    The whole chunk of code is executed at once, and is expected **not to throw**.

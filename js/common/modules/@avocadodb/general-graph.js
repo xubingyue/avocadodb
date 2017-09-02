@@ -96,12 +96,12 @@ var findOrCreateCollectionByName = function (name, type, noCreate, options) {
     res = true;
   } else if (!(col instanceof AvocadoCollection)) {
     var err = new AvocadoError();
-    err.errorNum = avocadodb.errors.ERROR_GRAPH_NOT_AN_ARANGO_COLLECTION.code;
-    err.errorMessage = name + avocadodb.errors.ERROR_GRAPH_NOT_AN_ARANGO_COLLECTION.message;
+    err.errorNum = avocadodb.errors.ERROR_GRAPH_NOT_AN_AVOCADO_COLLECTION.code;
+    err.errorMessage = name + avocadodb.errors.ERROR_GRAPH_NOT_AN_AVOCADO_COLLECTION.message;
     throw err;
   } else if (type === AvocadoCollection.TYPE_EDGE && col.type() !== type) {
     var err2 = new AvocadoError();
-    err2.errorNum = avocadodb.errors.ERROR_ARANGO_COLLECTION_TYPE_INVALID.code;
+    err2.errorNum = avocadodb.errors.ERROR_AVOCADO_COLLECTION_TYPE_INVALID.code;
     err2.errorMessage = name + ' cannot be used as relation. It is not an edge collection';
     throw err2;
   }
@@ -396,8 +396,8 @@ var bindEdgeCollections = function (self, edgeCollections) {
         to.indexOf('/') === -1) {
         // invalid from or to value
         var err = new AvocadoError();
-        err.errorNum = avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code;
-        err.errorMessage = avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message;
+        err.errorNum = avocadodb.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code;
+        err.errorMessage = avocadodb.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message;
         throw err;
       }
 
@@ -902,8 +902,8 @@ class Graph {
     if (typeof edgeId !== 'string' ||
       edgeId.indexOf('/') === -1) {
       let err = new AvocadoError();
-      err.errorNum = avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code;
-      err.errorMessage = avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message;
+      err.errorNum = avocadodb.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code;
+      err.errorMessage = avocadodb.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message;
       throw err;
     }
     let edgeCollection = this._getEdgeCollectionByName(edgeId.split('/')[0]);
@@ -923,8 +923,8 @@ class Graph {
     if (typeof edgeId !== 'string' ||
       edgeId.indexOf('/') === -1) {
       let err = new AvocadoError();
-      err.errorNum = avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.code;
-      err.errorMessage = avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message;
+      err.errorNum = avocadodb.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.code;
+      err.errorMessage = avocadodb.errors.ERROR_AVOCADO_DOCUMENT_HANDLE_BAD.message;
       throw err;
     }
     let edgeCollection = this._getEdgeCollectionByName(edgeId.split('/')[0]);
@@ -1915,7 +1915,7 @@ exports._graph = function (graphName) {
   try {
     g = gdb.document(graphName);
   } catch (e) {
-    if (e.errorNum !== errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.errorNum !== errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw e;
     }
     let err = new AvocadoError();
@@ -2033,7 +2033,7 @@ exports._create = function (graphName, edgeDefinitions, orphanCollections, optio
   try {
     gdb.document(graphName);
   } catch (e) {
-    if (e.errorNum !== errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.errorNum !== errors.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
       throw e;
     }
     graphAlreadyExists = false;

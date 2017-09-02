@@ -44,7 +44,7 @@ void VelocyPackDumper::handleUnsupportedType(VPackSlice const* slice) {
     TRI_AppendStringUnsafeStringBuffer(buffer, "null", 4);
     return;
   } else if (options->unsupportedTypeBehavior == VPackOptions::ConvertUnsupportedType) {
-#ifdef ARANGODB_ENABLE_MAINTAINER_MODE
+#ifdef AVOCADODB_ENABLE_MAINTAINER_MODE
     TRI_ASSERT(strlen("\"(non-representable type)\"") + 1 < MinReserveValue);
 #endif
     TRI_AppendStringUnsafeStringBuffer(buffer, "\"(non-representable type)\"");
@@ -61,7 +61,7 @@ void VelocyPackDumper::appendUInt(uint64_t v) {
   int res = TRI_ReserveStringBuffer(buffer, MinReserveValue);
      
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   if (10000000000000000000ULL <= v) {
@@ -134,7 +134,7 @@ void VelocyPackDumper::appendDouble(double v) {
   int res = TRI_ReserveStringBuffer(buffer, static_cast<size_t>(len));
      
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
   
   TRI_AppendStringUnsafeStringBuffer(buffer, &temp[0], static_cast<size_t>(len));
@@ -152,7 +152,7 @@ void VelocyPackDumper::dumpInteger(VPackSlice const* slice) {
     int res = TRI_ReserveStringBuffer(buffer, MinReserveValue);
      
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     int64_t v = slice->getInt();
@@ -229,7 +229,7 @@ void VelocyPackDumper::dumpInteger(VPackSlice const* slice) {
     int res = TRI_ReserveStringBuffer(buffer, MinReserveValue);
      
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     int64_t v = slice->getSmallInt();
@@ -302,7 +302,7 @@ void VelocyPackDumper::appendString(char const* src, VPackValueLength len) {
   int res = TRI_ReserveStringBuffer(buffer, 6 * len + 2);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
         
   TRI_AppendCharUnsafeStringBuffer(buffer, '"');
@@ -369,7 +369,7 @@ void VelocyPackDumper::appendString(char const* src, VPackValueLength len) {
       if (options->escapeUnicode) {
         // must now reserve more memory
         if (TRI_ReserveStringBuffer(buffer, 6 * (p - reinterpret_cast<uint8_t const*>(src) + 2)) != TRI_ERROR_NO_ERROR) {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
         }
 
         uint32_t value = ((((uint32_t) *p & 0x0fU) << 18) | (((uint32_t) *(p + 1) & 0x3fU) << 12) | (((uint32_t) *(p + 2) & 0x3fU) << 6) | ((uint32_t) *(p + 3) & 0x3fU));
@@ -403,7 +403,7 @@ void VelocyPackDumper::dumpValue(VPackSlice const* slice, VPackSlice const* base
   int res = TRI_ReserveStringBuffer(buffer, 32);
      
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   switch (slice->type()) {
@@ -427,14 +427,14 @@ void VelocyPackDumper::dumpValue(VPackSlice const* slice, VPackSlice const* base
       while (it.valid()) {
         if (!it.isFirst()) {
           if (TRI_AppendCharStringBuffer(buffer, ',') != TRI_ERROR_NO_ERROR) {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
           }
         }
         dumpValue(it.value(), slice);
         it.next();
       }
       if (TRI_AppendCharStringBuffer(buffer, ']') != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
       break;
     }
@@ -445,18 +445,18 @@ void VelocyPackDumper::dumpValue(VPackSlice const* slice, VPackSlice const* base
       while (it.valid()) {
         if (!it.isFirst()) {
           if (TRI_AppendCharStringBuffer(buffer, ',') != TRI_ERROR_NO_ERROR) {
-            THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+            THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
           }
         }
         dumpValue(it.key().makeKey(), slice);
         if (TRI_AppendCharStringBuffer(buffer, ':') != TRI_ERROR_NO_ERROR) {
-          THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+          THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
         }
         dumpValue(it.value(), slice);
         it.next();
       }
       if (TRI_AppendCharStringBuffer(buffer, '}') != TRI_ERROR_NO_ERROR) {
-        THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+        THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
       }
       break;
     }

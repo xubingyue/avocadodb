@@ -48,7 +48,7 @@ RestStatus RestVersionHandler::execute() {
   VPackBuilder result;
   result.add(VPackValue(VPackValueType::Object));
   result.add("server", VPackValue("avocado"));
-  result.add("version", VPackValue(ARANGODB_VERSION));
+  result.add("version", VPackValue(AVOCADODB_VERSION));
 
   #ifdef USE_ENTERPRISE
     result.add("license", VPackValue("enterprise"));

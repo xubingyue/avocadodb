@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_INDEXES_INDEX_FACTORY_H
-#define ARANGOD_INDEXES_INDEX_FACTORY_H 1
+#ifndef AVOCADOD_INDEXES_INDEX_FACTORY_H
+#define AVOCADOD_INDEXES_INDEX_FACTORY_H 1
 
 #include "Basics/Common.h"
 

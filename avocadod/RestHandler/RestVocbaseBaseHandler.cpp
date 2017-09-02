@@ -299,7 +299,7 @@ void RestVocbaseBaseHandler::generatePreconditionFailed(
     builder.add("error", VPackValue(true));
     builder.add("code", VPackValue(static_cast<int32_t>(
                             rest::ResponseCode::PRECONDITION_FAILED)));
-    builder.add("errorNum", VPackValue(TRI_ERROR_ARANGO_CONFLICT));
+    builder.add("errorNum", VPackValue(TRI_ERROR_AVOCADO_CONFLICT));
     builder.add("errorMessage", VPackValue("precondition failed"));
     if (slice.isObject()) {
       builder.add(StaticStrings::IdString, slice.get(StaticStrings::IdString));
@@ -385,7 +385,7 @@ void RestVocbaseBaseHandler::generateTransactionError(
     std::string const& collectionName, OperationResult const& result,
     std::string const& key, TRI_voc_rid_t rev) {
   switch (result.code) {
-    case TRI_ERROR_ARANGO_COLLECTION_NOT_FOUND:
+    case TRI_ERROR_AVOCADO_COLLECTION_NOT_FOUND:
       if (collectionName.empty()) {
         // no collection name specified
         generateError(rest::ResponseCode::BAD, result.code,
@@ -397,46 +397,46 @@ void RestVocbaseBaseHandler::generateTransactionError(
       }
       return;
 
-    case TRI_ERROR_ARANGO_READ_ONLY:
+    case TRI_ERROR_AVOCADO_READ_ONLY:
       generateError(rest::ResponseCode::FORBIDDEN, result.code,
                     "collection is read-only");
       return;
 
-    case TRI_ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED:
+    case TRI_ERROR_AVOCADO_UNIQUE_CONSTRAINT_VIOLATED:
       generateError(rest::ResponseCode::CONFLICT, result.code,
                     result.errorMessage);
       return;
 
-    case TRI_ERROR_ARANGO_DOCUMENT_KEY_BAD:
+    case TRI_ERROR_AVOCADO_DOCUMENT_KEY_BAD:
       generateError(rest::ResponseCode::BAD, result.code, "invalid document key");
       return;
 
-    case TRI_ERROR_ARANGO_DOCUMENT_HANDLE_BAD:
+    case TRI_ERROR_AVOCADO_DOCUMENT_HANDLE_BAD:
       generateError(rest::ResponseCode::BAD, result.code, "invalid document handle");
       return;
 
-    case TRI_ERROR_ARANGO_INVALID_EDGE_ATTRIBUTE:
+    case TRI_ERROR_AVOCADO_INVALID_EDGE_ATTRIBUTE:
       generateError(rest::ResponseCode::BAD, result.code, "invalid edge attribute");
       return;
 
-    case TRI_ERROR_ARANGO_OUT_OF_KEYS:
+    case TRI_ERROR_AVOCADO_OUT_OF_KEYS:
       generateError(rest::ResponseCode::SERVER_ERROR, result.code, "out of keys");
       return;
 
-    case TRI_ERROR_ARANGO_DOCUMENT_KEY_UNEXPECTED:
+    case TRI_ERROR_AVOCADO_DOCUMENT_KEY_UNEXPECTED:
       generateError(rest::ResponseCode::BAD, result.code,
                     "collection does not allow using user-defined keys");
       return;
 
-    case TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND:
+    case TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND:
       generateDocumentNotFound(collectionName, key);
       return;
 
-    case TRI_ERROR_ARANGO_DOCUMENT_TYPE_INVALID:
+    case TRI_ERROR_AVOCADO_DOCUMENT_TYPE_INVALID:
       generateError(rest::ResponseCode::BAD, result.code);
       return;
 
-    case TRI_ERROR_ARANGO_CONFLICT:
+    case TRI_ERROR_AVOCADO_CONFLICT:
       if (result.buffer != nullptr) {
         // This case happens if we come via the generateTransactionError that
         // has a proper OperationResult with a slice:

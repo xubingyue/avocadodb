@@ -21,8 +21,8 @@
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_VOCBASE_GRAPHS_H
-#define ARANGOD_VOCBASE_GRAPHS_H 1
+#ifndef AVOCADOD_VOCBASE_GRAPHS_H
+#define AVOCADOD_VOCBASE_GRAPHS_H 1
 
 #include "VocBase/vocbase.h"
 

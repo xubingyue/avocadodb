@@ -24,13 +24,13 @@ is returned if the request was not executed in the *_system* database.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_RUN{RestDatabaseGet}
+@EXAMPLE_AVOCADOSH_RUN{RestDatabaseGet}
     var url = "/_api/database";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logJsonResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

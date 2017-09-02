@@ -11,8 +11,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin/")
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles_avocadobench
     NAME avocadobench
-    FILE_DESCRIPTION ${ARANGOBENCH_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADOBENCH_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -20,7 +20,7 @@ if (MSVC AND NOT(SKIP_PACKAGING))
   )
 endif ()
 
-add_executable(${BIN_ARANGOBENCH}
+add_executable(${BIN_AVOCADOBENCH}
   ${ProductVersionFiles_avocadobench}
   ${PROJECT_SOURCE_DIR}/lib/Basics/WorkMonitorDummy.cpp
   Benchmark/BenchFeature.cpp
@@ -29,8 +29,8 @@ add_executable(${BIN_ARANGOBENCH}
   Shell/ConsoleFeature.cpp
 )
 
-target_link_libraries(${BIN_ARANGOBENCH}
-  ${LIB_ARANGO}
+target_link_libraries(${BIN_AVOCADOBENCH}
+  ${LIB_AVOCADO}
   ${MSVC_LIBS}
   ${SYSTEM_LIBRARIES}
   boost_system
@@ -38,7 +38,7 @@ target_link_libraries(${BIN_ARANGOBENCH}
 )
 
 install(
-  TARGETS ${BIN_ARANGOBENCH}
+  TARGETS ${BIN_AVOCADOBENCH}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install_config(avocadobench)
@@ -60,8 +60,8 @@ endif ()
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles_avocadodump
     NAME avocadodump
-    FILE_DESCRIPTION ${ARANGO_DUMP_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADO_DUMP_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -69,7 +69,7 @@ if (MSVC AND NOT(SKIP_PACKAGING))
   )
 endif ()
 
-add_executable(${BIN_ARANGODUMP}
+add_executable(${BIN_AVOCADODUMP}
   ${ProductVersionFiles_avocadodump}
   ${PROJECT_SOURCE_DIR}/lib/Basics/WorkMonitorDummy.cpp
   Dump/DumpFeature.cpp
@@ -79,8 +79,8 @@ add_executable(${BIN_ARANGODUMP}
   V8Client/AvocadoClientHelper.cpp
 )
 
-target_link_libraries(${BIN_ARANGODUMP}
-  ${LIB_ARANGO}
+target_link_libraries(${BIN_AVOCADODUMP}
+  ${LIB_AVOCADO}
   ${MSVC_LIBS}
   ${SYSTEM_LIBRARIES}
   boost_system
@@ -88,7 +88,7 @@ target_link_libraries(${BIN_ARANGODUMP}
 )
 
 install(
-  TARGETS ${BIN_ARANGODUMP}
+  TARGETS ${BIN_AVOCADODUMP}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install_config(avocadodump)
@@ -110,8 +110,8 @@ endif ()
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles_avocadoexport
     NAME avocadoexport
-    FILE_DESCRIPTION ${ARANGO_EXPORT_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADO_EXPORT_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -119,7 +119,7 @@ if (MSVC AND NOT(SKIP_PACKAGING))
   )
 endif ()
 
-add_executable(${BIN_ARANGOEXPORT}
+add_executable(${BIN_AVOCADOEXPORT}
   ${ProductVersionFiles_avocadoexport}
   ${PROJECT_SOURCE_DIR}/lib/Basics/WorkMonitorDummy.cpp
   Export/ExportFeature.cpp
@@ -129,8 +129,8 @@ add_executable(${BIN_ARANGOEXPORT}
   V8Client/AvocadoClientHelper.cpp
 )
 
-target_link_libraries(${BIN_ARANGOEXPORT}
-  ${LIB_ARANGO}
+target_link_libraries(${BIN_AVOCADOEXPORT}
+  ${LIB_AVOCADO}
   ${MSVC_LIBS}
   ${SYSTEM_LIBRARIES}
   boost_system
@@ -138,7 +138,7 @@ target_link_libraries(${BIN_ARANGOEXPORT}
 )
 
 install(
-  TARGETS ${BIN_ARANGOEXPORT}
+  TARGETS ${BIN_AVOCADOEXPORT}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install_config(avocadoexport)
@@ -160,8 +160,8 @@ endif ()
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles_avocadoimp
     NAME avocadoimp
-    FILE_DESCRIPTION ${ARANGO_IMP_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADO_IMP_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -169,7 +169,7 @@ if (MSVC AND NOT(SKIP_PACKAGING))
   )
 endif ()
 
-add_executable(${BIN_ARANGOIMP}
+add_executable(${BIN_AVOCADOIMP}
   ${ProductVersionFiles_avocadoimp}
   ${PROJECT_SOURCE_DIR}/lib/Basics/WorkMonitorDummy.cpp
   Import/ImportFeature.cpp
@@ -181,8 +181,8 @@ add_executable(${BIN_ARANGOIMP}
   V8Client/AvocadoClientHelper.cpp
 )
 
-target_link_libraries(${BIN_ARANGOIMP}
-  ${LIB_ARANGO}
+target_link_libraries(${BIN_AVOCADOIMP}
+  ${LIB_AVOCADO}
   ${MSVC_LIBS}
   ${SYSTEM_LIBRARIES}
   boost_system
@@ -190,7 +190,7 @@ target_link_libraries(${BIN_ARANGOIMP}
 )
 
 install(
-  TARGETS ${BIN_ARANGOIMP}
+  TARGETS ${BIN_AVOCADOIMP}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install_config(avocadoimp)
@@ -212,8 +212,8 @@ endif ()
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles_avocadorestore
     NAME avocadorestore
-    FILE_DESCRIPTION ${ARANGO_RESTORE_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADO_RESTORE_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -221,7 +221,7 @@ if (MSVC AND NOT(SKIP_PACKAGING))
   )
 endif ()
 
-add_executable(${BIN_ARANGORESTORE}
+add_executable(${BIN_AVOCADORESTORE}
   ${ProductVersionFiles_avocadorestore}
   ${PROJECT_SOURCE_DIR}/lib/Basics/WorkMonitorDummy.cpp
   Restore/RestoreFeature.cpp
@@ -231,8 +231,8 @@ add_executable(${BIN_ARANGORESTORE}
   V8Client/AvocadoClientHelper.cpp
 )
 
-target_link_libraries(${BIN_ARANGORESTORE}
-  ${LIB_ARANGO}
+target_link_libraries(${BIN_AVOCADORESTORE}
+  ${LIB_AVOCADO}
   ${MSVC_LIBS}
   ${SYSTEM_LIBRARIES}
   boost_system
@@ -240,7 +240,7 @@ target_link_libraries(${BIN_ARANGORESTORE}
 )
 
 install(
-  TARGETS ${BIN_ARANGORESTORE}
+  TARGETS ${BIN_AVOCADORESTORE}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install_config(avocadorestore)
@@ -262,8 +262,8 @@ endif ()
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles_avocadosh
     NAME avocadosh
-    FILE_DESCRIPTION ${ARANGOSH_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADOSH_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -271,7 +271,7 @@ if (MSVC AND NOT(SKIP_PACKAGING))
   )
 endif ()
 
-add_executable(${BIN_ARANGOSH}
+add_executable(${BIN_AVOCADOSH}
   ${ProductVersionFiles_avocadosh}
   ${PROJECT_SOURCE_DIR}/lib/Basics/WorkMonitorDummy.cpp
   Import/ImportHelper.cpp
@@ -285,9 +285,9 @@ add_executable(${BIN_ARANGOSH}
   V8Client/AvocadoClientHelper.cpp
 )
 
-target_link_libraries(${BIN_ARANGOSH}
-  ${LIB_ARANGO_V8}
-  ${LIB_ARANGO}
+target_link_libraries(${BIN_AVOCADOSH}
+  ${LIB_AVOCADO_V8}
+  ${LIB_AVOCADO}
   ${LINENOISE_LIBS}
   ${V8_LIBS}
   ${MSVC_LIBS}
@@ -297,7 +297,7 @@ target_link_libraries(${BIN_ARANGOSH}
 )
 
 install(
-  TARGETS ${BIN_ARANGOSH}
+  TARGETS ${BIN_AVOCADOSH}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install_config(avocadosh)
@@ -319,8 +319,8 @@ endif ()
 if (MSVC AND NOT(SKIP_PACKAGING))
   generate_product_version(ProductVersionFiles_avocadovpack
     NAME avocadovpack
-    FILE_DESCRIPTION ${ARANGO_VPACK_FRIENDLY_STRING}
-    ICON ${ARANGO_ICON}
+    FILE_DESCRIPTION ${AVOCADO_VPACK_FRIENDLY_STRING}
+    ICON ${AVOCADO_ICON}
     VERSION_MAJOR ${CPACK_PACKAGE_VERSION_MAJOR}
     VERSION_MINOR ${CPACK_PACKAGE_VERSION_MINOR}
     VERSION_PATCH ${CPACK_PACKAGE_VERSION_PATCH}
@@ -328,7 +328,7 @@ if (MSVC AND NOT(SKIP_PACKAGING))
   )
 endif ()
 
-add_executable(${BIN_ARANGOVPACK}
+add_executable(${BIN_AVOCADOVPACK}
   ${ProductVersionFiles_avocadovpack}
   ${PROJECT_SOURCE_DIR}/lib/Basics/WorkMonitorDummy.cpp
   Shell/ClientFeature.cpp
@@ -337,8 +337,8 @@ add_executable(${BIN_ARANGOVPACK}
   VPack/avocadovpack.cpp
 )
 
-target_link_libraries(${BIN_ARANGOVPACK}
-  ${LIB_ARANGO}
+target_link_libraries(${BIN_AVOCADOVPACK}
+  ${LIB_AVOCADO}
   ${MSVC_LIBS}
   ${SYSTEM_LIBRARIES}
   boost_system
@@ -346,7 +346,7 @@ target_link_libraries(${BIN_ARANGOVPACK}
 )
 
 install(
-  TARGETS ${BIN_ARANGOVPACK}
+  TARGETS ${BIN_AVOCADOVPACK}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 if (NOT USE_PRECOMPILED_V8)
@@ -363,7 +363,7 @@ endif ()
 ## foxx-manager
 ################################################################################
 
-install_command_alias(${BIN_ARANGOSH}
+install_command_alias(${BIN_AVOCADOSH}
   ${CMAKE_INSTALL_BINDIR}
   foxx-manager)
 

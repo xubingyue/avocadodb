@@ -21,8 +21,8 @@
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_META_UTILITY_H
-#define ARANGODB_META_UTILITY_H 1
+#ifndef AVOCADODB_META_UTILITY_H
+#define AVOCADODB_META_UTILITY_H 1
 
 #include <memory>
 

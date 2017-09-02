@@ -237,7 +237,7 @@ void MMFilesEngine::start() {
     if (res != TRI_ERROR_NO_ERROR) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "unable to initialize databases: " << TRI_errno_string(res);
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   }
 }
@@ -365,7 +365,7 @@ void MMFilesEngine::getDatabases(avocadodb::velocypack::Builder& result) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "database directory '" << directory
           << "' is not writable for current user";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATADIR_NOT_WRITABLE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATADIR_NOT_WRITABLE);
     }
 
     // we have a writable directory...
@@ -400,7 +400,7 @@ void MMFilesEngine::getDatabases(avocadodb::velocypack::Builder& result) {
           << "database directory '" << directory
           << "' does not contain parameters file or parameters file cannot be "
              "read";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
 
     LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME)
@@ -414,7 +414,7 @@ void MMFilesEngine::getDatabases(avocadodb::velocypack::Builder& result) {
           << "' does not contain a valid parameters file";
 
       // abort
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
 
     VPackSlice parameters = builder->slice();
@@ -432,7 +432,7 @@ void MMFilesEngine::getDatabases(avocadodb::velocypack::Builder& result) {
           << "database directory '" << directory
           << "' does not contain a valid parameters file. database id is not a "
              "string";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
 
     if (avocadodb::basics::VelocyPackHelper::getBooleanValue(parameters,
@@ -458,7 +458,7 @@ void MMFilesEngine::getDatabases(avocadodb::velocypack::Builder& result) {
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "database directory '" << directory
           << "' does not contain a valid parameters file";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
 
     result.add(parameters);
@@ -566,7 +566,7 @@ int MMFilesEngine::getCollectionsAndIndexes(
           << "database subdirectory '" << directory
           << "' is not writable for current user";
 
-      return TRI_ERROR_ARANGO_DATADIR_NOT_WRITABLE;
+      return TRI_ERROR_AVOCADO_DATADIR_NOT_WRITABLE;
     }
     
     std::vector<std::string> files = TRI_FilesDirectory(directory.c_str());
@@ -651,7 +651,7 @@ int MMFilesEngine::getViews(TRI_vocbase_t* vocbase,
           << "database subdirectory '" << directory
           << "' is not writable for current user";
 
-      return TRI_ERROR_ARANGO_DATADIR_NOT_WRITABLE;
+      return TRI_ERROR_AVOCADO_DATADIR_NOT_WRITABLE;
     }
 
     int res = TRI_ERROR_NO_ERROR;
@@ -697,7 +697,7 @@ int MMFilesEngine::getViews(TRI_vocbase_t* vocbase,
 
 void MMFilesEngine::waitForSync(TRI_voc_tick_t tick) {
   if (application_features::ApplicationServer::isStopping()) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_SHUTTING_DOWN);
   }
 
   MMFilesLogfileManager::instance()->slots()->waitForTick(tick);
@@ -727,7 +727,7 @@ TRI_vocbase_t* MMFilesEngine::createDatabaseMMFiles(
   res = createDatabaseDirectory(id, name);
 
   if (res != TRI_ERROR_NO_ERROR) {
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   return openExistingDatabase(id, name, true, false);
@@ -814,14 +814,14 @@ std::string MMFilesEngine::createCollection(
         << "cannot create datafile '" << parameters->name() << "' in '" << path
         << "', journal size '" << static_cast<MMFilesCollection*>(parameters->getPhysical())->journalSize()
         << "' is too small";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATAFILE_FULL);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATAFILE_FULL);
   }
 
   if (!TRI_IsDirectory(path.c_str())) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot create collection '" << path
         << "', database path is not a directory";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATADIR_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATADIR_INVALID);
   }
 
   TRI_ASSERT(id != 0);
@@ -834,8 +834,8 @@ std::string MMFilesEngine::createCollection(
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot create collection '" << parameters->name()
         << "' in directory '" << dirname << "': directory already exists";
-    THROW_ARANGO_EXCEPTION(
-        TRI_ERROR_ARANGO_COLLECTION_DIRECTORY_ALREADY_EXISTS);
+    THROW_AVOCADO_EXCEPTION(
+        TRI_ERROR_AVOCADO_COLLECTION_DIRECTORY_ALREADY_EXISTS);
   }
 
   // use a temporary directory first. this saves us from leaving an empty
@@ -852,11 +852,11 @@ std::string MMFilesEngine::createCollection(
         << "cannot create collection '" << parameters->name()
         << "' in directory '" << path << "': " << TRI_errno_string(res) << " - "
         << systemError << " - " << errorMessage;
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   TRI_IF_FAILURE("CreateCollection::tempDirectory") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   // create a temporary file (.tmp)
@@ -869,7 +869,7 @@ std::string MMFilesEngine::createCollection(
       avocadodb::basics::FileUtils::buildFilename(dirname, ".tmp"));
 
   TRI_IF_FAILURE("CreateCollection::tempFile") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
@@ -878,11 +878,11 @@ std::string MMFilesEngine::createCollection(
         << "' in directory '" << path << "': " << TRI_errno_string(res) << " - "
         << systemError << " - " << errorMessage;
     TRI_RemoveDirectory(tmpname.c_str());
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   TRI_IF_FAILURE("CreateCollection::renameDirectory") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   res = TRI_RenameFile(tmpname.c_str(), dirname.c_str());
@@ -893,7 +893,7 @@ std::string MMFilesEngine::createCollection(
         << "' in directory '" << path << "': " << TRI_errno_string(res) << " - "
         << systemError << " - " << errorMessage;
     TRI_RemoveDirectory(tmpname.c_str());
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   // now we have the collection directory in place with the correct name and a
@@ -941,7 +941,7 @@ avocadodb::Result MMFilesEngine::persistCollection(
         MMFilesLogfileManager::instance()->allocateAndWrite(marker, false);
 
     if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+      THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
     }
 
     return {};
@@ -986,7 +986,7 @@ avocadodb::Result MMFilesEngine::dropCollection(
         MMFilesLogfileManager::instance()->allocateAndWrite(marker, false);
 
     if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+      THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
     }
   } catch (avocadodb::basics::Exception const& ex) {
     res = ex.code();
@@ -1141,7 +1141,7 @@ Result MMFilesEngine::renameCollection(
         MMFilesLogfileManager::instance()->allocateAndWrite(marker, false);
 
     if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+      THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
     }
 
     res = TRI_ERROR_NO_ERROR;
@@ -1167,7 +1167,7 @@ void MMFilesEngine::createView(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot create view '" << path
         << "', database path is not a directory";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATADIR_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATADIR_INVALID);
   }
 
   TRI_ASSERT(id != 0);
@@ -1180,8 +1180,8 @@ void MMFilesEngine::createView(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot create view '" << parameters->name() << "' in directory '"
         << dirname << "': directory already exists";
-    THROW_ARANGO_EXCEPTION(
-        TRI_ERROR_ARANGO_COLLECTION_DIRECTORY_ALREADY_EXISTS);  // TODO: change
+    THROW_AVOCADO_EXCEPTION(
+        TRI_ERROR_AVOCADO_COLLECTION_DIRECTORY_ALREADY_EXISTS);  // TODO: change
                                                                 // error code
   }
 
@@ -1199,11 +1199,11 @@ void MMFilesEngine::createView(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
         << "cannot create view '" << parameters->name() << "' in directory '"
         << path << "': " << TRI_errno_string(res) << " - " << systemError
         << " - " << errorMessage;
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   TRI_IF_FAILURE("CreateView::tempDirectory") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   // create a temporary file (.tmp)
@@ -1216,7 +1216,7 @@ void MMFilesEngine::createView(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
       avocadodb::basics::FileUtils::buildFilename(dirname, ".tmp"));
 
   TRI_IF_FAILURE("CreateView::tempFile") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   if (res != TRI_ERROR_NO_ERROR) {
@@ -1225,11 +1225,11 @@ void MMFilesEngine::createView(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
         << path << "': " << TRI_errno_string(res) << " - " << systemError
         << " - " << errorMessage;
     TRI_RemoveDirectory(tmpname.c_str());
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   TRI_IF_FAILURE("CreateView::renameDirectory") {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_DEBUG);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_DEBUG);
   }
 
   res = TRI_RenameFile(tmpname.c_str(), dirname.c_str());
@@ -1240,7 +1240,7 @@ void MMFilesEngine::createView(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
         << path << "': " << TRI_errno_string(res) << " - " << systemError
         << " - " << errorMessage;
     TRI_RemoveDirectory(tmpname.c_str());
-    THROW_ARANGO_EXCEPTION(res);
+    THROW_AVOCADO_EXCEPTION(res);
   }
 
   // now we have the directory in place with the correct name and a .tmp file in
@@ -1287,7 +1287,7 @@ avocadodb::Result MMFilesEngine::persistView(TRI_vocbase_t* vocbase,
         MMFilesLogfileManager::instance()->allocateAndWrite(marker, false);
 
     if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+      THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
     }
 
     return {};
@@ -1325,7 +1325,7 @@ avocadodb::Result MMFilesEngine::dropView(TRI_vocbase_t* vocbase,
         MMFilesLogfileManager::instance()->allocateAndWrite(marker, false);
 
     if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+      THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
     }
   } catch (avocadodb::basics::Exception const& ex) {
     res = ex.code();
@@ -1448,7 +1448,7 @@ void MMFilesEngine::saveViewInfo(TRI_vocbase_t* vocbase, TRI_voc_cid_t id,
 
   if (!ok) {
     int res = TRI_errno();
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         res,
         std::string("cannot save view properties file '") + filename +
             "': " + TRI_errno_string(res));
@@ -1494,7 +1494,7 @@ void MMFilesEngine::createIndex(TRI_vocbase_t* vocbase,
   if (!ok) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot save index definition: "
                                             << TRI_last_error();
-    THROW_ARANGO_EXCEPTION(TRI_errno());
+    THROW_AVOCADO_EXCEPTION(TRI_errno());
   }
 }
 
@@ -1743,7 +1743,7 @@ void MMFilesEngine::verifyDirectories() {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "database path '" << _basePath
                                             << "' is not a directory";
 
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATADIR_INVALID);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATADIR_INVALID);
   }
 
   if (!TRI_IsWritable(_basePath.c_str())) {
@@ -1752,7 +1752,7 @@ void MMFilesEngine::verifyDirectories() {
         << "database directory '" << _basePath
         << "' is not writable for current user";
 
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATADIR_NOT_WRITABLE);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATADIR_NOT_WRITABLE);
   }
 
   // verify existence of "databases" subdirectory
@@ -1767,7 +1767,7 @@ void MMFilesEngine::verifyDirectories() {
           << "unable to create database directory '" << _databasePath
           << "': " << errorMessage;
 
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATADIR_NOT_WRITABLE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATADIR_NOT_WRITABLE);
     }
   }
 
@@ -1775,7 +1775,7 @@ void MMFilesEngine::verifyDirectories() {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "database directory '" << _databasePath << "' is not writable";
 
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATADIR_NOT_WRITABLE);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATADIR_NOT_WRITABLE);
   }
 }
 
@@ -1930,7 +1930,7 @@ std::string MMFilesEngine::collectionDirectory(TRI_voc_tick_t databaseId,
   auto it = _collectionPaths.find(databaseId);
 
   if (it == _collectionPaths.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "trying to determine directory for unknown database");
   }
@@ -1938,7 +1938,7 @@ std::string MMFilesEngine::collectionDirectory(TRI_voc_tick_t databaseId,
   auto it2 = (*it).second.find(id);
 
   if (it2 == (*it).second.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "trying to determine directory for unknown collection");
   }
@@ -1959,7 +1959,7 @@ std::string MMFilesEngine::viewDirectory(TRI_voc_tick_t databaseId,
   auto it = _viewPaths.find(databaseId);
 
   if (it == _viewPaths.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL,
         "trying to determine directory for unknown database");
   }
@@ -1967,7 +1967,7 @@ std::string MMFilesEngine::viewDirectory(TRI_voc_tick_t databaseId,
   auto it2 = (*it).second.find(id);
 
   if (it2 == (*it).second.end()) {
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         TRI_ERROR_INTERNAL, "trying to determine directory for unknown view");
   }
   return (*it2).second;
@@ -2007,7 +2007,7 @@ TRI_vocbase_t* MMFilesEngine::openExistingDatabase(TRI_voc_tick_t id,
     int res = getViews(vocbase.get(), builder);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     VPackSlice slice = builder.slice();
@@ -2057,7 +2057,7 @@ TRI_vocbase_t* MMFilesEngine::openExistingDatabase(TRI_voc_tick_t id,
                                        isUpgrade);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
 
     VPackSlice slice = builder.slice();
@@ -2259,7 +2259,7 @@ void MMFilesEngine::saveCollectionInfo(
 
   if (!ok) {
     int res = TRI_errno();
-    THROW_ARANGO_EXCEPTION_MESSAGE(
+    THROW_AVOCADO_EXCEPTION_MESSAGE(
         res,
         std::string("cannot save collection properties file '") + filename +
             "': " + TRI_errno_string(res));
@@ -2278,7 +2278,7 @@ VPackBuilder MMFilesEngine::loadCollectionInfo(TRI_vocbase_t* vocbase,
       LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "collection directory '" << path << " ' does not contain a "
           << "parameters file '" << filename.substr(0, filename.size() - 4) << "'";
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
   }
       
@@ -2297,7 +2297,7 @@ VPackBuilder MMFilesEngine::loadCollectionInfo(TRI_vocbase_t* vocbase,
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot open '" << filename
         << "', collection parameters are not readable";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
   }
       
   if (filename.substr(filename.size() - 4, 4) == ".tmp") {
@@ -2413,7 +2413,7 @@ VPackBuilder MMFilesEngine::loadViewInfo(TRI_vocbase_t* vocbase,
   if (!TRI_ExistsFile(filename.c_str())) {
     filename += ".tmp";  // try file with .tmp extension
     if (!TRI_ExistsFile(filename.c_str())) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
     }
   }
 
@@ -2423,7 +2423,7 @@ VPackBuilder MMFilesEngine::loadViewInfo(TRI_vocbase_t* vocbase,
   if (!slice.isObject()) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot open '" << filename << "', view parameters are not readable";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_ILLEGAL_PARAMETER_FILE);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_ILLEGAL_PARAMETER_FILE);
   }
 
   if (filename.substr(filename.size() - 4, 4) == ".tmp") {
@@ -2528,7 +2528,7 @@ int MMFilesEngine::extendCompactionBlocker(TRI_vocbase_t* vocbase,
   auto it = _compactionBlockers.find(vocbase);
 
   if (it == _compactionBlockers.end()) {
-    return TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
   }
 
   for (auto& blocker : (*it).second) {
@@ -2538,7 +2538,7 @@ int MMFilesEngine::extendCompactionBlocker(TRI_vocbase_t* vocbase,
     }
   }
 
-  return TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+  return TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
 }
 
 /// @brief remove an existing compaction blocker
@@ -2549,7 +2549,7 @@ int MMFilesEngine::removeCompactionBlocker(TRI_vocbase_t* vocbase,
   auto it = _compactionBlockers.find(vocbase);
 
   if (it == _compactionBlockers.end()) {
-    return TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+    return TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
   }
 
   size_t const n = (*it).second.size();
@@ -2567,7 +2567,7 @@ int MMFilesEngine::removeCompactionBlocker(TRI_vocbase_t* vocbase,
     }
   }
 
-  return TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND;
+  return TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND;
 }
 
 void MMFilesEngine::preventCompaction(
@@ -2630,7 +2630,7 @@ int MMFilesEngine::startCleanup(TRI_vocbase_t* vocbase) {
 
   if (!thread->start()) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "could not start cleanup thread";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   thread.release();
@@ -2691,7 +2691,7 @@ int MMFilesEngine::startCompactor(TRI_vocbase_t* vocbase) {
   if (!thread->start()) {
     LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "could not start compactor thread";
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
   }
 
   thread.release();
@@ -2905,7 +2905,7 @@ int MMFilesEngine::openCollection(TRI_vocbase_t* vocbase,
       MMFilesDatafile* datafile = df.release();
 
       if (!checkDatafileHeader(datafile, filename)) {
-        result = TRI_ERROR_ARANGO_CORRUPTED_DATAFILE;
+        result = TRI_ERROR_AVOCADO_CORRUPTED_DATAFILE;
         stop = true;
         break;
       }
@@ -3075,7 +3075,7 @@ int MMFilesEngine::transferMarkers(LogicalCollection* collection,
     res = syncJournalCollection(collection);
 
     if (res != TRI_ERROR_NO_ERROR) {
-      THROW_ARANGO_EXCEPTION(res);
+      THROW_AVOCADO_EXCEPTION(res);
     }
   }
 
@@ -3181,7 +3181,7 @@ char* MMFilesEngine::nextFreeMarkerPosition(LogicalCollection* collection,
 
   if (res != TRI_ERROR_NO_ERROR) {
     // could not reserve space, for whatever reason
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_NO_JOURNAL);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_NO_JOURNAL);
   }
 
   // if we get here, we successfully reserved space in the datafile
@@ -3213,7 +3213,7 @@ char* MMFilesEngine::nextFreeMarkerPosition(LogicalCollection* collection,
                      ->createMMFilesDocumentDitch(false, __FILE__, __LINE__);
 
     if (ditch == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
     cache->addDitch(ditch);
@@ -3280,7 +3280,7 @@ int MMFilesEngine::writeDropMarker(TRI_voc_tick_t id) {
 
     if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
       // throw an exception which is caught at the end of this function
-      THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+      THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
     }
   } catch (avocadodb::basics::Exception const& ex) {
     res = ex.code();
@@ -3314,7 +3314,7 @@ int MMFilesEngine::writeCreateDatabaseMarker(TRI_voc_tick_t id,
 
     if (slotInfo.errorCode != TRI_ERROR_NO_ERROR) {
       // throw an exception which is caught at the end of this function
-      THROW_ARANGO_EXCEPTION(slotInfo.errorCode);
+      THROW_AVOCADO_EXCEPTION(slotInfo.errorCode);
     }
   } catch (avocadodb::basics::Exception const& ex) {
     res = ex.code();
@@ -3405,7 +3405,7 @@ Result MMFilesEngine::createLoggerState(TRI_vocbase_t* vocbase, VPackBuilder& bu
 
   // "server" part
   builder.add("server", VPackValue(VPackValueType::Object));  // open
-  builder.add("version", VPackValue(ARANGODB_VERSION));
+  builder.add("version", VPackValue(AVOCADODB_VERSION));
   builder.add("serverId", VPackValue(std::to_string(ServerIdFeature::getId())));
   builder.close();
 

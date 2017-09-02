@@ -60,7 +60,7 @@ avocadodb::velocypack::Slice MMFilesHashIndexElement::slice(IndexLookupContext* 
   } 
   uint8_t const* vpack = context->lookup(MMFilesToken{_revisionId});
   if (vpack == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
   } 
   return VPackSlice(vpack + sub->value.offset);
 }
@@ -136,7 +136,7 @@ avocadodb::velocypack::Slice MMFilesSkiplistIndexElement::slice(IndexLookupConte
   } 
   uint8_t const* vpack = context->lookup(MMFilesToken{_revisionId});
   if (vpack == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
   } 
   return VPackSlice(vpack + sub->value.offset);
 }
@@ -152,7 +152,7 @@ uint64_t MMFilesSimpleIndexElement::hash(avocadodb::velocypack::Slice const& val
 VPackSlice MMFilesSimpleIndexElement::slice(IndexLookupContext* context) const {
   uint8_t const* vpack = context->lookup(MMFilesToken{_revisionId});
   if (vpack == nullptr) {
-    THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DOCUMENT_NOT_FOUND);
+    THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DOCUMENT_NOT_FOUND);
   } 
   return VPackSlice(vpack + offset());
 }

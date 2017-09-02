@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGODB_BASICS_DEBUGGING_H
-#define ARANGODB_BASICS_DEBUGGING_H 1
+#ifndef AVOCADODB_BASICS_DEBUGGING_H
+#define AVOCADODB_BASICS_DEBUGGING_H 1
 
 #ifndef TRI_WITHIN_COMMON
 #error use <Basics/Common.h>
@@ -34,7 +34,7 @@
 /// this macro can be used in maintainer mode to make the server fail at
 /// certain locations in the C code. The points at which a failure is actually
 /// triggered can be defined at runtime using TRI_AddFailurePointDebugging().
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 
 #define TRI_IF_FAILURE(what) if (TRI_ShouldFailDebugging(what))
 
@@ -45,14 +45,14 @@
 #endif
 
 /// @brief cause a segmentation violation
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 void TRI_SegfaultDebugging(char const*);
 #else
 static inline void TRI_SegfaultDebugging(char const* unused) { (void)unused; }
 #endif
 
 /// @brief check whether we should fail at a failure point
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 bool TRI_ShouldFailDebugging(char const*);
 #else
 static inline bool TRI_ShouldFailDebugging(char const* unused) {
@@ -62,7 +62,7 @@ static inline bool TRI_ShouldFailDebugging(char const* unused) {
 #endif
 
 /// @brief add a failure point
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 void TRI_AddFailurePointDebugging(char const*);
 #else
 static inline void TRI_AddFailurePointDebugging(char const* unused) {
@@ -71,7 +71,7 @@ static inline void TRI_AddFailurePointDebugging(char const* unused) {
 #endif
 
 /// @brief remove a failure point
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 void TRI_RemoveFailurePointDebugging(char const*);
 #else
 static inline void TRI_RemoveFailurePointDebugging(char const* unused) {
@@ -80,7 +80,7 @@ static inline void TRI_RemoveFailurePointDebugging(char const* unused) {
 #endif
 
 /// @brief clear all failure points
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
 void TRI_ClearFailurePointsDebugging(void);
 #else
 static inline void TRI_ClearFailurePointsDebugging(void) {}
@@ -88,7 +88,7 @@ static inline void TRI_ClearFailurePointsDebugging(void) {}
 
 /// @brief returns whether failure point debugging can be used
 static inline bool TRI_CanUseFailurePointsDebugging(void) {
-#ifdef ARANGODB_ENABLE_FAILURE_TESTS
+#ifdef AVOCADODB_ENABLE_FAILURE_TESTS
   return true;
 #else
   return false;

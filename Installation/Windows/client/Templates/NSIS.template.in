@@ -19,7 +19,7 @@
 ; custom defines for the DRY people of us.
   !define TRI_UNINSTALL_REG_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\@CPACK_PACKAGE_INSTALL_REGISTRY_KEY@";
 ; Put some of the more custom ones in from the CMakeFile:
-@CPACK_ARANGODB_NSIS_DEFINES@
+@CPACK_AVOCADODB_NSIS_DEFINES@
 
 ;--------------------------------
 ;Variables

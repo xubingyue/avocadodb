@@ -18,12 +18,12 @@ database.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionRename}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionRename}
 ~ db._create("example");
   c = db.example;
   c.rename("better-example");
   c;
 ~ db._drop("better-example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 
 

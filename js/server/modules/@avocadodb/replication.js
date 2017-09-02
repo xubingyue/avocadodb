@@ -279,7 +279,7 @@ function syncCollectionFinalize (database, collname, from, config, sourceServer)
         coll.remove(entry.data._key, {isSynchronousReplication: sourceServer});
       } catch (errx) {
         console.topic('replication=debug','syncCollectionFinalize: remove', entry, JSON.stringify(errx));
-        if (errx.errorNum !== ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+        if (errx.errorNum !== ERRORS.ERROR_AVOCADO_DOCUMENT_NOT_FOUND.code) {
           throw errx;
         }
         // We swallow the NOT FOUND error here. It is possible that

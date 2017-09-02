@@ -170,7 +170,7 @@ is returned.
 
 Using an identifier and requesting the figures of the collection:
 
-@EXAMPLE_ARANGOSH_RUN{RestCollectionGetCollectionFigures}
+@EXAMPLE_AVOCADOSH_RUN{RestCollectionGetCollectionFigures}
     var cn = "products";
     db._drop(cn);
     var coll = db._create(cn);
@@ -184,6 +184,6 @@ Using an identifier and requesting the figures of the collection:
 
     logJsonResponse(response);
     db._drop(cn);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

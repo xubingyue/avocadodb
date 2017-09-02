@@ -35,13 +35,13 @@ is returned when this operation is called on a coordinator in a cluster.
 
 Returning the first available tick
 
-@EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerFirstTick}
+@EXAMPLE_AVOCADOSH_RUN{RestReplicationLoggerFirstTick}
     var url = "/_api/replication/logger-first-tick";
     var response = logCurlRequest('GET', url);
 
     assert(response.code === 200);
 
     logRawResponse(response);
-@END_EXAMPLE_ARANGOSH_RUN
+@END_EXAMPLE_AVOCADOSH_RUN
 @endDocuBlock
 

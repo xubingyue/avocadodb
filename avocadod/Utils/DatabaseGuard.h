@@ -21,8 +21,8 @@
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifndef ARANGOD_UTILS_vocbase_GUARD_H
-#define ARANGOD_UTILS_vocbase_GUARD_H 1
+#ifndef AVOCADOD_UTILS_vocbase_GUARD_H
+#define AVOCADOD_UTILS_vocbase_GUARD_H 1
 
 #include "ApplicationFeatures/ApplicationServer.h"
 #include "Basics/Exceptions.h"
@@ -41,7 +41,7 @@ class DatabaseGuard {
       : _vocbase(vocbase) {
     TRI_ASSERT(vocbase != nullptr);
     if (!_vocbase->use()) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
     }
   }
 
@@ -53,7 +53,7 @@ class DatabaseGuard {
     _vocbase = databaseFeature->useDatabase(id);
 
     if (_vocbase == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
     }
     
     TRI_ASSERT(!_vocbase->isDangling());
@@ -67,7 +67,7 @@ class DatabaseGuard {
     _vocbase = databaseFeature->useDatabase(name);
 
     if (_vocbase == nullptr) {
-      THROW_ARANGO_EXCEPTION(TRI_ERROR_ARANGO_DATABASE_NOT_FOUND);
+      THROW_AVOCADO_EXCEPTION(TRI_ERROR_AVOCADO_DATABASE_NOT_FOUND);
     }
     
     TRI_ASSERT(!_vocbase->isDangling());

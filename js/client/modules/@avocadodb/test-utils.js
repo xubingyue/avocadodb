@@ -421,7 +421,7 @@ function doOnePathInner (path) {
 
 function scanTestPath (path) {
   var community = doOnePathInner(path);
-  if (global.ARANGODB_CLIENT_VERSION(true)['enterprise-version']) {
+  if (global.AVOCADODB_CLIENT_VERSION(true)['enterprise-version']) {
     return community.concat(doOnePathInner('enterprise/' + path));
   } else {
     return community;
@@ -511,7 +511,7 @@ function runInAvocadosh (options, instanceInfo, file, addArgs) {
     args = Object.assign(args, addArgs);
   }
   require('internal').env.INSTANCEINFO = JSON.stringify(instanceInfo);
-  let rc = pu.executeAndWait(pu.ARANGOSH_BIN, toArgv(args), options, 'avocadosh', instanceInfo.rootDir);
+  let rc = pu.executeAndWait(pu.AVOCADOSH_BIN, toArgv(args), options, 'avocadosh', instanceInfo.rootDir);
   let result;
   try {
     result = JSON.parse(fs.read(instanceInfo.rootDir + '/testresult.json'));

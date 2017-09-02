@@ -15,7 +15,7 @@ documents in the *ignored* sub-attribute.
 
 @EXAMPLES
 
-@EXAMPLE_ARANGOSH_OUTPUT{collectionRemoveByKeys}
+@EXAMPLE_AVOCADOSH_OUTPUT{collectionRemoveByKeys}
 ~ db._drop("example");
 ~ db._create("example");
   keys = [ ];
@@ -25,5 +25,5 @@ documents in the *ignored* sub-attribute.
   }
   db.example.removeByKeys(keys);
 ~ db._drop("example");
-@END_EXAMPLE_ARANGOSH_OUTPUT
+@END_EXAMPLE_AVOCADOSH_OUTPUT
 

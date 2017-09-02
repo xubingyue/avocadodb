@@ -44,11 +44,11 @@ Assume we want to create an hash-based outbound vertex-centric index on the attr
 This can be created with the following way:
 
     @startDocuBlockInline ensureVertexCentricHashIndex
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureVertexCentricHashIndex}
+    @EXAMPLE_AVOCADOSH_OUTPUT{ensureVertexCentricHashIndex}
     ~db._createEdgeCollection("collection");
     db.collection.ensureIndex({ type: "hash", fields: [ "_from", "type" ] })
     ~db._drop("collection");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @END_EXAMPLE_AVOCADOSH_OUTPUT
     @endDocuBlock ensureVertexCentricHashIndex
 
 All options that are supported by the respective indexes are supported by the vertex-centric index as well.
