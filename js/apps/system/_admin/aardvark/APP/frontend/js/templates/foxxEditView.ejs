@@ -8,7 +8,7 @@
   <div class="modal-body">
     <table>
       <tr>
-        <th class="collectionTh">Name:</th>
+        <th class="collectionTh">名字:</th>
         <th class="collectionTh"><strong><%=appInfos[1] %></strong></th>
       </tr>
       <tr>
@@ -16,12 +16,12 @@
         <th class="collectionTh"><%=documentationJsonUrl</th>
       </tr>
       <tr>
-        <th class="collectionTh">Mount:</th>
+        <th class="collectionTh">挂载:</th>
         <th class="collectionTh"><input type="text" id="change-mount-point" name="mountpoint" value="<%=attributes.mount%>"/></th>
         <th><span class="modalTooltips avocadoicon icon_avocadodb_info" title="The path where the app can be reached."></span></th>
       </tr>
       <tr>
-        <th class="collectionTh">Version:</th>
+        <th class="collectionTh">版本:</th>
         <th class="collectionTh">
           <select>
             <option selected><%=appInfos[2] %></option>
@@ -58,7 +58,7 @@
     <%} else if (false) {%>
       <button id="activate" class="button-success pull-right" style="margin-right:8px" disabled>Activate</button>
     <%}%>
-    
+
   </div>
 </div>
 </script>

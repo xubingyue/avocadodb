@@ -2,7 +2,7 @@
 /* global window, $, Backbone, document, d3 */
 /* global $, avocadoHelper, btoa, _, frontendConfig */
 
-(function () {
+(function() {
   'use strict';
 
   window.Router = Backbone.Router.extend({
@@ -47,7 +47,7 @@
       'support': 'support'
     },
 
-    execute: function (callback, args) {
+    execute: function(callback, args) {
       if (this.lastRoute === '#queries') {
         // cleanup input editors
         this.queryView.removeInputEditors();
@@ -58,11 +58,13 @@
       }
 
       if (this.lastRoute) {
-        if (this.lastRoute.substr(0, 11) === '#collection' && this.lastRoute.split('/').length === 3) {
+        if (this.lastRoute.substr(0, 11) === '#collection' && this.lastRoute
+          .split('/').length === 3) {
           this.documentView.cleanupEditor();
         }
 
-        if (this.lastRoute === '#dasboard' || window.location.hash.substr(0, 5) === '#node') {
+        if (this.lastRoute === '#dasboard' || window.location.hash.substr(
+            0, 5) === '#node') {
           // dom graph cleanup
           d3.selectAll('svg > *').remove();
         }
@@ -103,20 +105,20 @@
 
     listenerFunctions: {},
 
-    listener: function (event) {
-      _.each(window.App.listenerFunctions, function (func, key) {
+    listener: function(event) {
+      _.each(window.App.listenerFunctions, function(func, key) {
         func(event);
       });
     },
 
-    checkUser: function () {
+    checkUser: function() {
       var self = this;
 
       if (window.location.hash === '#login') {
         return;
       }
 
-      var startInit = function () {
+      var startInit = function() {
         this.initOnce();
 
         // show hidden by default divs
@@ -124,12 +126,14 @@
         $('.navbar').show();
       }.bind(this);
 
-      var callback = function (error, user) {
+      var callback = function(error, user) {
         if (frontendConfig.authenticationEnabled) {
           self.currentUser = user;
           if (error || user === null) {
             if (window.location.hash !== '#login') {
-              this.navigate('login', {trigger: true});
+              this.navigate('login', {
+                trigger: true
+              });
             }
           } else {
             startInit();
@@ -150,9 +154,9 @@
       }
     },
 
-    waitForInit: function (origin, param1, param2) {
+    waitForInit: function(origin, param1, param2) {
       if (!this.initFinished) {
-        setTimeout(function () {
+        setTimeout(function() {
           if (!param1) {
             origin(false);
           }
@@ -178,7 +182,7 @@
 
     initFinished: false,
 
-    initialize: function () {
+    initialize: function() {
       // check frontend config for global conf settings
       if (frontendConfig.isCluster === true) {
         this.isCluster = true;
@@ -199,14 +203,14 @@
 
       this.userCollection = new window.AvocadoUsers();
 
-      this.initOnce = function () {
-        this.initOnce = function () {};
+      this.initOnce = function() {
+        this.initOnce = function() {};
 
-        var callback = function (error, isCoordinator) {
+        var callback = function(error, isCoordinator) {
           self = this;
           if (isCoordinator === true) {
             self.coordinatorCollection.fetch({
-              success: function () {
+              success: function() {
                 self.fetchDBS();
               }
             });
@@ -248,7 +252,7 @@
 
         this.currentDB.fetch({
           cache: false,
-          success: function () {
+          success: function() {
             self.naviView = new window.NavigationView({
               database: self.avocadoDatabase,
               currentDB: self.currentDB,
@@ -264,7 +268,7 @@
 
         this.footerView.render();
 
-        window.checkVersion();
+
 
         this.userConfig = new window.UserConfig();
         this.userConfig.fetch();
@@ -278,16 +282,16 @@
         avocadoHelper.initSigma();
       }.bind(this);
 
-      $(window).resize(function () {
+      $(window).resize(function() {
         self.handleResize();
       });
 
-      $(window).scroll(function () {
+      $(window).scroll(function() {
         // self.handleScroll()
       });
     },
 
-    handleScroll: function () {
+    handleScroll: function() {
       if ($(window).scrollTop() > 50) {
         $('.navbar > .secondary').css('top', $(window).scrollTop());
         $('.navbar > .secondary').css('position', 'absolute');
@@ -300,7 +304,7 @@
       }
     },
 
-    cluster: function (initialized) {
+    cluster: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.cluster.bind(this));
@@ -309,10 +313,14 @@
       if (this.isCluster === false || this.isCluster === undefined) {
         if (this.currentDB.get('name') === '_system') {
           this.routes[''] = 'dashboard';
-          this.navigate('#dashboard', {trigger: true});
+          this.navigate('#dashboard', {
+            trigger: true
+          });
         } else {
           this.routes[''] = 'collections';
-          this.navigate('#collections', {trigger: true});
+          this.navigate('#collections', {
+            trigger: true
+          });
         }
         return;
       }
@@ -326,7 +334,7 @@
       this.clusterView.render();
     },
 
-    node: function (id, initialized) {
+    node: function(id, initialized) {
       this.checkUser();
       if (!initialized || this.isCluster === undefined) {
         this.waitForInit(this.node.bind(this), id);
@@ -334,7 +342,9 @@
       }
       if (this.isCluster === false) {
         this.routes[''] = 'dashboard';
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('#dashboard', {
+          trigger: true
+        });
         return;
       }
 
@@ -349,7 +359,7 @@
       this.nodeView.render();
     },
 
-    nodeInfo: function (id, initialized) {
+    nodeInfo: function(id, initialized) {
       this.checkUser();
       if (!initialized || this.isCluster === undefined) {
         this.waitForInit(this.nodeInfo.bind(this), id);
@@ -357,7 +367,9 @@
       }
       if (this.isCluster === false) {
         this.routes[''] = 'dashboard';
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('#dashboard', {
+          trigger: true
+        });
         return;
       }
 
@@ -372,7 +384,7 @@
       this.nodeInfoView.render();
     },
 
-    shards: function (initialized) {
+    shards: function(initialized) {
       this.checkUser();
       if (!initialized || this.isCluster === undefined) {
         this.waitForInit(this.shards.bind(this));
@@ -380,7 +392,9 @@
       }
       if (this.isCluster === false) {
         this.routes[''] = 'dashboard';
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('#dashboard', {
+          trigger: true
+        });
         return;
       }
       if (!this.shardsView) {
@@ -391,7 +405,7 @@
       this.shardsView.render();
     },
 
-    nodes: function (initialized) {
+    nodes: function(initialized) {
       this.checkUser();
       if (!initialized || this.isCluster === undefined) {
         this.waitForInit(this.nodes.bind(this));
@@ -399,18 +413,19 @@
       }
       if (this.isCluster === false) {
         this.routes[''] = 'dashboard';
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('#dashboard', {
+          trigger: true
+        });
         return;
       }
       if (this.nodesView) {
         this.nodesView.remove();
       }
-      this.nodesView = new window.NodesView({
-      });
+      this.nodesView = new window.NodesView({});
       this.nodesView.render();
     },
 
-    cNodes: function (initialized) {
+    cNodes: function(initialized) {
       this.checkUser();
       if (!initialized || this.isCluster === undefined) {
         this.waitForInit(this.cNodes.bind(this));
@@ -418,7 +433,9 @@
       }
       if (this.isCluster === false) {
         this.routes[''] = 'dashboard';
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('#dashboard', {
+          trigger: true
+        });
         return;
       }
       this.nodesView = new window.NodesView({
@@ -429,7 +446,7 @@
       this.nodesView.render();
     },
 
-    dNodes: function (initialized) {
+    dNodes: function(initialized) {
       this.checkUser();
       if (!initialized || this.isCluster === undefined) {
         this.waitForInit(this.dNodes.bind(this));
@@ -437,11 +454,15 @@
       }
       if (this.isCluster === false) {
         this.routes[''] = 'dashboard';
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('#dashboard', {
+          trigger: true
+        });
         return;
       }
       if (this.dbServers.length === 0) {
-        this.navigate('#cNodes', {trigger: true});
+        this.navigate('#cNodes', {
+          trigger: true
+        });
         return;
       }
 
@@ -453,7 +474,7 @@
       this.nodesView.render();
     },
 
-    sNodes: function (initialized) {
+    sNodes: function(initialized) {
       this.checkUser();
       if (!initialized || this.isCluster === undefined) {
         this.waitForInit(this.sNodes.bind(this));
@@ -461,7 +482,9 @@
       }
       if (this.isCluster === false) {
         this.routes[''] = 'dashboard';
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('#dashboard', {
+          trigger: true
+        });
         return;
       }
 
@@ -472,7 +495,7 @@
       this.scaleView.render();
     },
 
-    addAuth: function (xhr) {
+    addAuth: function(xhr) {
       var u = this.clusterPlan.get('user');
       if (!u) {
         xhr.abort();
@@ -487,16 +510,17 @@
       xhr.setRequestHeader('Authorization', 'Basic ' + btoa(token));
     },
 
-    logger: function (name, initialized) {
+    logger: function(name, initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.logger.bind(this), name);
         return;
       }
       if (!this.loggerView) {
-        var co = new window.AvocadoLogs(
-          {upto: true, loglevel: 4}
-        );
+        var co = new window.AvocadoLogs({
+          upto: true,
+          loglevel: 4
+        });
         this.loggerView = new window.LoggerView({
           collection: co
         });
@@ -504,13 +528,13 @@
       this.loggerView.render();
     },
 
-    applicationDetail: function (mount, initialized) {
+    applicationDetail: function(mount, initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.applicationDetail.bind(this), mount);
         return;
       }
-      var callback = function () {
+      var callback = function() {
         if (this.hasOwnProperty('applicationDetailView')) {
           this.applicationDetailView.remove();
         }
@@ -518,14 +542,15 @@
           model: this.foxxList.get(decodeURIComponent(mount))
         });
 
-        this.applicationDetailView.model = this.foxxList.get(decodeURIComponent(mount));
+        this.applicationDetailView.model = this.foxxList.get(
+          decodeURIComponent(mount));
         this.applicationDetailView.render('swagger');
       }.bind(this);
 
       if (this.foxxList.length === 0) {
         this.foxxList.fetch({
           cache: false,
-          success: function () {
+          success: function() {
             callback();
           }
         });
@@ -534,8 +559,8 @@
       }
     },
 
-    login: function () {
-      var callback = function (error, user) {
+    login: function() {
+      var callback = function(error, user) {
         if (!this.loginView) {
           this.loginView = new window.LoginView({
             collection: this.userCollection
@@ -551,7 +576,7 @@
       this.userCollection.whoAmI(callback);
     },
 
-    collections: function (initialized) {
+    collections: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.collections.bind(this));
@@ -566,13 +591,13 @@
       });
       this.avocadoCollectionsStore.fetch({
         cache: false,
-        success: function () {
+        success: function() {
           self.collectionsView.render();
         }
       });
     },
 
-    cIndices: function (colname, initialized) {
+    cIndices: function(colname, initialized) {
       var self = this;
 
       this.checkUser();
@@ -582,7 +607,7 @@
       }
       this.avocadoCollectionsStore.fetch({
         cache: false,
-        success: function () {
+        success: function() {
           self.indicesView = new window.IndicesView({
             collectionName: colname,
             collection: self.avocadoCollectionsStore.findWhere({
@@ -594,7 +619,7 @@
       });
     },
 
-    cSettings: function (colname, initialized) {
+    cSettings: function(colname, initialized) {
       var self = this;
 
       this.checkUser();
@@ -604,7 +629,7 @@
       }
       this.avocadoCollectionsStore.fetch({
         cache: false,
-        success: function () {
+        success: function() {
           self.settingsView = new window.SettingsView({
             collectionName: colname,
             collection: self.avocadoCollectionsStore.findWhere({
@@ -616,7 +641,7 @@
       });
     },
 
-    cInfo: function (colname, initialized) {
+    cInfo: function(colname, initialized) {
       var self = this;
 
       this.checkUser();
@@ -626,7 +651,7 @@
       }
       this.avocadoCollectionsStore.fetch({
         cache: false,
-        success: function () {
+        success: function() {
           self.infoView = new window.InfoView({
             collectionName: colname,
             collection: self.avocadoCollectionsStore.findWhere({
@@ -638,7 +663,7 @@
       });
     },
 
-    documents: function (colid, pageid, initialized) {
+    documents: function(colid, pageid, initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.documents.bind(this), colid, pageid);
@@ -659,7 +684,7 @@
       this.documentsView.delegateEvents();
     },
 
-    document: function (colid, docid, initialized) {
+    document: function(colid, docid, initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.document.bind(this), colid, docid);
@@ -688,7 +713,7 @@
 
       this.documentView.render();
 
-      var callback = function (error, type) {
+      var callback = function(error, type) {
         if (!error) {
           this.documentView.setType();
         } else {
@@ -699,7 +724,7 @@
       avocadoHelper.collectionApiType(colid, null, callback);
     },
 
-    query: function (initialized) {
+    query: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.query.bind(this));
@@ -713,7 +738,7 @@
       this.queryView.render();
     },
 
-    graph: function (name, initialized) {
+    graph: function(name, initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.graph.bind(this), name);
@@ -739,7 +764,7 @@
       this.graphViewer.render();
     },
 
-    graphSettings: function (name, initialized) {
+    graphSettings: function(name, initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.graphSettings.bind(this), name);
@@ -755,33 +780,31 @@
       this.graphSettingsView.render();
     },
 
-    helpUs: function (initialized) {
+    helpUs: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.helpUs.bind(this));
         return;
       }
       if (!this.testView) {
-        this.helpUsView = new window.HelpUsView({
-        });
+        this.helpUsView = new window.HelpUsView({});
       }
       this.helpUsView.render();
     },
 
-    support: function (initialized) {
+    support: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.support.bind(this));
         return;
       }
       if (!this.testView) {
-        this.supportView = new window.SupportView({
-        });
+        this.supportView = new window.SupportView({});
       }
       this.supportView.render();
     },
 
-    workMonitor: function (initialized) {
+    workMonitor: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.workMonitor.bind(this));
@@ -798,7 +821,7 @@
       this.workMonitorView.render();
     },
 
-    queryManagement: function (initialized) {
+    queryManagement: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.queryManagement.bind(this));
@@ -812,17 +835,20 @@
       this.queryManagementView.render();
     },
 
-    databases: function (initialized) {
+    databases: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.databases.bind(this));
         return;
       }
 
-      var callback = function (error) {
+      var callback = function(error) {
         if (error) {
-          avocadoHelper.avocadoError('DB', 'Could not get list of allowed databases');
-          this.navigate('#', {trigger: true});
+          avocadoHelper.avocadoError('DB',
+            'Could not get list of allowed databases');
+          this.navigate('#', {
+            trigger: true
+          });
           $('#databaseNavi').css('display', 'none');
           $('#databaseNaviSelect').css('display', 'none');
         } else {
@@ -841,7 +867,7 @@
       avocadoHelper.databaseAllowed(callback);
     },
 
-    dashboard: function (initialized) {
+    dashboard: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.dashboard.bind(this));
@@ -857,7 +883,7 @@
       this.dashboardView.render();
     },
 
-    graphManagement: function (initialized) {
+    graphManagement: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.graphManagement.bind(this));
@@ -867,16 +893,14 @@
         this.graphManagementView.undelegateEvents();
       }
       this.graphManagementView =
-        new window.GraphManagementView(
-          {
-            collection: new window.GraphCollection(),
-            collectionCollection: this.avocadoCollectionsStore
-          }
-      );
+        new window.GraphManagementView({
+          collection: new window.GraphCollection(),
+          collectionCollection: this.avocadoCollectionsStore
+        });
       this.graphManagementView.render();
     },
 
-    showGraph: function (name, initialized) {
+    showGraph: function(name, initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.showGraph.bind(this), name);
@@ -884,19 +908,17 @@
       }
       if (!this.graphManagementView) {
         this.graphManagementView =
-          new window.GraphManagementView(
-            {
-              collection: new window.GraphCollection(),
-              collectionCollection: this.avocadoCollectionsStore
-            }
-        );
+          new window.GraphManagementView({
+            collection: new window.GraphCollection(),
+            collectionCollection: this.avocadoCollectionsStore
+          });
         this.graphManagementView.render(name, true);
       } else {
         this.graphManagementView.loadGraphViewer(name);
       }
     },
 
-    applications: function (initialized) {
+    applications: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.applications.bind(this));
@@ -910,7 +932,7 @@
       this.applicationsView.reload();
     },
 
-    handleSelectDatabase: function (initialized) {
+    handleSelectDatabase: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.handleSelectDatabase.bind(this));
@@ -919,31 +941,36 @@
       this.naviView.handleSelectDatabase();
     },
 
-    handleResize: function () {
+    handleResize: function() {
       if (this.dashboardView) {
         this.dashboardView.resize();
       }
-      if (this.graphManagementView && Backbone.history.getFragment() === 'graphs') {
+      if (this.graphManagementView && Backbone.history.getFragment() ===
+        'graphs') {
         this.graphManagementView.handleResize($('#content').width());
       }
-      if (this.queryView && Backbone.history.getFragment() === 'queries') {
+      if (this.queryView && Backbone.history.getFragment() ===
+        'queries') {
         this.queryView.resize();
       }
       if (this.naviView) {
         this.naviView.resize();
       }
-      if (this.graphViewer && Backbone.history.getFragment().indexOf('graph') > -1) {
+      if (this.graphViewer && Backbone.history.getFragment().indexOf(
+          'graph') > -1) {
         this.graphViewer.resize();
       }
-      if (this.documentsView && Backbone.history.getFragment().indexOf('documents') > -1) {
+      if (this.documentsView && Backbone.history.getFragment().indexOf(
+          'documents') > -1) {
         this.documentsView.resize();
       }
-      if (this.documentView && Backbone.history.getFragment().indexOf('collection') > -1) {
+      if (this.documentView && Backbone.history.getFragment().indexOf(
+          'collection') > -1) {
         this.documentView.resize();
       }
     },
 
-    userPermission: function (name, initialized) {
+    userPermission: function(name, initialized) {
       this.checkUser();
       if (initialized || initialized === null) {
         if (this.userPermissionView) {
@@ -963,7 +990,7 @@
       }
     },
 
-    userView: function (name, initialized) {
+    userView: function(name, initialized) {
       this.checkUser();
       if (initialized || initialized === null) {
         this.userView = new window.UserView({
@@ -976,7 +1003,7 @@
       }
     },
 
-    userManagement: function (initialized) {
+    userManagement: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.userManagement.bind(this));
@@ -992,7 +1019,7 @@
       this.userManagementView.render();
     },
 
-    userProfile: function (initialized) {
+    userProfile: function(initialized) {
       this.checkUser();
       if (!initialized) {
         this.waitForInit(this.userProfile.bind(this));
@@ -1006,11 +1033,11 @@
       this.userManagementView.render(true);
     },
 
-    fetchDBS: function (callback) {
+    fetchDBS: function(callback) {
       var self = this;
       var cb = false;
 
-      this.coordinatorCollection.each(function (coordinator) {
+      this.coordinatorCollection.each(function(coordinator) {
         self.dbServers.push(
           new window.ClusterServers([], {
             host: coordinator.get('address')
@@ -1020,9 +1047,9 @@
 
       this.initFinished = true;
 
-      _.each(this.dbServers, function (dbservers) {
+      _.each(this.dbServers, function(dbservers) {
         dbservers.fetch({
-          success: function () {
+          success: function() {
             if (cb === false) {
               if (callback) {
                 callback();
@@ -1034,11 +1061,11 @@
       });
     },
 
-    getNewRoute: function (host) {
+    getNewRoute: function(host) {
       return 'http://' + host;
     },
 
-    registerForUpdate: function (o) {
+    registerForUpdate: function(o) {
       this.toUpdate.push(o);
       o.updateUrl();
     }

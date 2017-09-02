@@ -3,9 +3,7 @@
     <nav class="navbar" style="display: none">
       <div class="primary">
           <div class="navlogo">
-            <a class="logo big" href="#"><img id="AvocadoDBLogo" class="avocadodbLogo" src="img/avocadodb-edition-optimized.svg"/></a>
-            <a class="logo small" href="#"><img class="avocadodbLogo" src="img/avocadodb_logo_small.png"/></a>
-            <a class="version"><span id="currentVersion"></span></a>
+            <h2>AvocadoDB</h2>
           </div>
           <!-- <div id="progressPlaceholderIcon"></div> -->
             <div class="statmenu" id="statisticBar">
@@ -53,7 +51,7 @@
 
   <div id="graphSettingsContent" style="display: none">
   </div>
-  
+
   <div id="filterSelectDiv" style="display:none">
   </div>
 

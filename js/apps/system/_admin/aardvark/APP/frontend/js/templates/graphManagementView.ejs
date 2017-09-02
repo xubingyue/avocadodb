@@ -1,7 +1,7 @@
 <script id="graphManagementView.ejs" type="text/template">
   <div class="headerBar">
     <div class="search-field">
-      <input type="text" value="<%=searchString%>" id="graphManagementSearchInput" class="search-input" placeholder="Search..."/>
+      <input type="text" value="<%=searchString%>" id="graphManagementSearchInput" class="search-input" placeholder="搜索..."/>
       <i id="graphManagementSearchSubmit" class="fa fa-search"></i>
       <!-- <img id="graphManagementSearchSubmit" class="search-submit-icon"> -->
     </div>
@@ -21,12 +21,12 @@
 
     <div id="graphManagementDropdown" class="dropdownInner">
       <ul>
-        <li class="nav-header">Sorting</li>
+        <li class="nav-header">排序</li>
         <li><a>
           <label class="checkbox checkboxLabel">
             <input class="css-checkbox" type="checkbox" id="graphSortDesc">
             <i class="fa"></i>
-            Sort descending
+            降序
           </label>
         </a></li>
       </ul>
@@ -41,7 +41,7 @@
         <div class="fullBorderBox">
           <a href="#" id="createGraph" class="add">
             <span id="newGraph" class="pull-left add-Icon"><i class="fa fa-plus-circle"></i></span>
-            Add Graph
+            添加图形数据库
           </a>
         </div>
       </div>

@@ -8,17 +8,17 @@
   </div>
 
   <div class="filterOptions">
-    <div id="showAll"><strong>Show all</strong></div>
+    <div id="showAll"><strong> 显示全部</strong></div>
     <% var cssClass; %>
     <% _.each(options, function (option) { %>
       <% if (option.active) { %>
       <%  cssClass = 'active'; %>
-      <% } else { %> 
+      <% } else { %>
       <% cssClass = 'inactive'; %>
       <% } %>
       <div class="<%=cssClass%>" name="<%=option.name%>" id="<%=option.name%>-option">
         <% var color = option.color || '#f6f8fa'; %>
-     
+
         <% if (cssClass === 'active') { %>
           <span class="marked"><i class="fa fa-check"/></span>
         <% } else { %>

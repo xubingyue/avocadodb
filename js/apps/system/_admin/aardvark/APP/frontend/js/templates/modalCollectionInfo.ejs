@@ -22,7 +22,7 @@
             </tr>
           <% } %>
           <tr id="collectionSyncBox">
-            <th class="collectionInfoTh2">Wait for sync:</th>
+            <th class="collectionInfoTh2">等待同步:</th>
             <th class="collectionInfoTh">
                 <div id="show-collection-sync" class="modal-text">
                   <%=figuresData.waitForSync%>
@@ -95,7 +95,7 @@
               </th>
             </tr>
           <% } %>
-          
+
           <% if (figuresData.replicationFactor) { %>
             <tr>
               <th class="collectionInfoTh2">Replication factor:</th>
@@ -116,7 +116,7 @@
               <th class="collectionInfoTh">
               </th>
             </tr>
-          <% } %> 
+          <% } %>
           <% if (!frontendConfig.isCluster) { %>
             <% if (figuresData.figures.compactionStatus) { %>
               <tr>
@@ -127,9 +127,9 @@
                 <th class="collectionInfoTh">
                 </th>
               </tr>
-            <% } %> 
+            <% } %>
           <% } %>
-          
+
           <% if (figuresData.figures.waitingFor) { %>
             <tr>
               <th class="collectionInfoTh2">Waiting for:</th>
@@ -161,7 +161,7 @@
             </tr>
             <tr>
               <th class="modal-text">Alive</th>
-              <% if (figuresData.walMessage) { %> 
+              <% if (figuresData.walMessage) { %>
                 <th class="modal-text"><%=figuresData.walMessage%></th>
               <% } else { %>
                 <th class="modal-text"><%=numeral(figuresData.figures.alive.count).format('0,0')%></th>
