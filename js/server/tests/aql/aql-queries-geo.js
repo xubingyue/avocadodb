@@ -29,9 +29,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
-var errors = require("@arangodb").errors;
-var helper = require("@arangodb/aql-helper");
+var db = require("@avocadodb").db;
+var errors = require("@avocadodb").errors;
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 var assertQueryError = helper.assertQueryError;
 

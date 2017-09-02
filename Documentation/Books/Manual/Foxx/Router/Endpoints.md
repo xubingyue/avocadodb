@@ -37,7 +37,7 @@ Returns the endpoint.
 
 ```js
 router.get(/* ... */)
-.header('arangoVersion', joi.number().min(30000).default(30000));
+.header('avocadoVersion', joi.number().min(30000).default(30000));
 ```
 
 pathParam

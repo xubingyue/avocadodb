@@ -39,14 +39,14 @@ $navbar-size: 150px;
     }
   }
 
-  .arangodbLogo {
+  .avocadodbLogo {
     height: auto;
     margin-left: 3px;
     margin-top: 15px;
     width: $navbar-size - 6px;
   }
 
-  .arango-collection-select {
+  .avocado-collection-select {
     @extend %inputs;
     position: relative;
     right: -22px;
@@ -466,7 +466,7 @@ $navbar-size: 150px;
   }
 }
 
-#arangoCollectionSelect {
+#avocadoCollectionSelect {
   display: none;
   float: right;
   margin-bottom: 0;
@@ -491,7 +491,7 @@ $navbar-size: 150px;
   display: block;
 }
 
-.arango-logo {
+.avocado-logo {
   height: 34px;
   padding: 0 !important;
 

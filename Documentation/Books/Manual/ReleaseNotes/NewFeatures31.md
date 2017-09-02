@@ -2,13 +2,13 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 3.1. ArangoDB 3.1 also contains several bugfixes that are not listed
+AvocadoDB 3.1. AvocadoDB 3.1 also contains several bugfixes that are not listed
 here.
 
 SmartGraphs
 -----------
 
-ArangoDB 3.1 adds a first major enterprise only feature called SmartGraphs.
+AvocadoDB 3.1 adds a first major enterprise only feature called SmartGraphs.
 SmartGraphs form an addition to the already existing graph features and allow to
 scale graphs beyond a single machine while keeping almost the same query performance.
 The SmartGraph feature is suggested for all graph database use cases that require
@@ -30,21 +30,21 @@ revision (for the concept of a hybrid logical clock see
 [this paper](http://www.cse.buffalo.edu/tech-reports/2014-04.pdf)).
 See [this manual section](../DataModeling/Documents/DocumentAddress.html#document-revision) for details.
 
-ArangoDB >= 3.1 can ArangoDB 3.0 database directories and will simply continue
+AvocadoDB >= 3.1 can AvocadoDB 3.0 database directories and will simply continue
 to use the old `_rev` attribute values. New revisions will be written with
 the new time stamps.
 
 It is highly recommended to backup all your data before loading a database
-directory that was written by ArangoDB <= 3.0 into an ArangoDB >= 3.1.
+directory that was written by AvocadoDB <= 3.0 into an AvocadoDB >= 3.1.
 
 Communication Layer
 -------------------
 
-ArangoDB up to 3.0 used [libev](http://software.schmorp.de/pkg/libev.html) for
-the communication layer. ArangoDB starting from 3.1 uses
+AvocadoDB up to 3.0 used [libev](http://software.schmorp.de/pkg/libev.html) for
+the communication layer. AvocadoDB starting from 3.1 uses
 [Boost ASIO](www.boost.org).
 
-Starting with ArangoDB 3.1 we begin to provide the VelocyStream Protocol (vst) as
+Starting with AvocadoDB 3.1 we begin to provide the VelocyStream Protocol (vst) as
 a addition to the established http protocol.
 
 A few options have changed concerning communication, please checkout
@@ -63,7 +63,7 @@ Authentication is now supported within the cluster.
 Document revisions cache
 ------------------------
 
-The ArangoDB server now provides an in-memory cache for frequently accessed 
+The AvocadoDB server now provides an in-memory cache for frequently accessed 
 document revisions. Documents that are accessed during read/write operations 
 are loaded into the revisions cache automatically, and subsequently served from 
 there.
@@ -179,7 +179,7 @@ Audit logging has been added, see [Auditing](../Administration/Auditing/README.m
 Client tools
 ------------
 
-Added option `--skip-lines` for arangoimp
+Added option `--skip-lines` for avocadoimp
 This allows skipping the first few lines from the import file in case the CSV or TSV 
 import are used and some initial lines should be skipped from the input.
 
@@ -200,7 +200,7 @@ The shard view in cluster mode now displays a progress indicator while moving sh
 Authentication
 --------------
 
-Up to ArangoDB 3.0 authentication of client requests was only possible with HTTP basic 
+Up to AvocadoDB 3.0 authentication of client requests was only possible with HTTP basic 
 authentication.
 
 Starting with 3.1 it is now possible to also use a [JSON Web Tokens](https://jwt.io/)

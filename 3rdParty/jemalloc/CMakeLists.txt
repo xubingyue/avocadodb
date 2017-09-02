@@ -24,7 +24,7 @@ file(
 if (LINUX OR DARWIN)
   file(
     COPY
-      "${CMAKE_CURRENT_SOURCE_DIR}/arangodb-jemalloc.c"
+      "${CMAKE_CURRENT_SOURCE_DIR}/avocadodb-jemalloc.c"
     DESTINATION
       "${JEMALLOC_BINARY_DIR}/src"
   )

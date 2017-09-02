@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "StaticStrings.h"
 
-using namespace arangodb;
+using namespace avocadodb;
 
 // constants
 std::string const StaticStrings::Base64("base64");
@@ -78,41 +78,41 @@ std::string const StaticStrings::AccessControlMaxAge("access-control-max-age");
 std::string const StaticStrings::AccessControlRequestHeaders(
     "access-control-request-headers");
 std::string const StaticStrings::Allow("allow");
-std::string const StaticStrings::Async("x-arango-async");
-std::string const StaticStrings::AsyncId("x-arango-async-id");
+std::string const StaticStrings::Async("x-avocado-async");
+std::string const StaticStrings::AsyncId("x-avocado-async-id");
 std::string const StaticStrings::Authorization("authorization");
 std::string const StaticStrings::BatchContentType(
-    "application/x-arango-batchpart");
+    "application/x-avocado-batchpart");
 std::string const StaticStrings::CacheControl("cache-control");
 std::string const StaticStrings::Close("Close");
-std::string const StaticStrings::ClusterCommSource("x-arango-source");
+std::string const StaticStrings::ClusterCommSource("x-avocado-source");
 std::string const StaticStrings::Code("code");
 std::string const StaticStrings::Connection("connection");
 std::string const StaticStrings::ContentEncoding("content-encoding");
 std::string const StaticStrings::ContentLength("content-length");
 std::string const StaticStrings::ContentTypeHeader("content-type");
-std::string const StaticStrings::Coordinator("x-arango-coordinator");
+std::string const StaticStrings::Coordinator("x-avocado-coordinator");
 std::string const StaticStrings::CorsMethods(
     "DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT");
 std::string const StaticStrings::Error("error");
 std::string const StaticStrings::ErrorMessage("errorMessage");
 std::string const StaticStrings::ErrorNum("errorNum");
-std::string const StaticStrings::Errors("x-arango-errors");
-std::string const StaticStrings::ErrorCodes("x-arango-error-codes");
+std::string const StaticStrings::Errors("x-avocado-errors");
+std::string const StaticStrings::ErrorCodes("x-avocado-error-codes");
 std::string const StaticStrings::Etag("etag");
 std::string const StaticStrings::Expect("expect");
 std::string const StaticStrings::ExposedCorsHeaders(
     "etag, content-encoding, content-length, location, server, "
-    "x-arango-errors, x-arango-async-id");
-std::string const StaticStrings::HLCHeader("x-arango-hlc");
+    "x-avocado-errors, x-avocado-async-id");
+std::string const StaticStrings::HLCHeader("x-avocado-hlc");
 std::string const StaticStrings::KeepAlive("Keep-Alive");
 std::string const StaticStrings::Location("location");
 std::string const StaticStrings::MultiPartContentType("multipart/form-data");
 std::string const StaticStrings::NoSniff("nosniff");
 std::string const StaticStrings::Origin("origin");
-std::string const StaticStrings::Queue("x-arango-queue");
+std::string const StaticStrings::Queue("x-avocado-queue");
 std::string const StaticStrings::Server("server");
-std::string const StaticStrings::StartThread("x-arango-start-thread");
+std::string const StaticStrings::StartThread("x-avocado-start-thread");
 std::string const StaticStrings::WwwAuthenticate("www-authenticate");
 std::string const StaticStrings::XContentTypeOptions("x-content-type-options");
 

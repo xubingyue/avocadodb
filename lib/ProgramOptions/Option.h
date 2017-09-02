@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@
 
 #include <velocypack/Builder.h>
 
-namespace arangodb {
+namespace avocadodb {
 namespace options {
 
 struct Parameter;
@@ -41,7 +41,7 @@ struct Option {
   Option(std::string const& value, std::string const& description,
          Parameter* parameter, bool hidden, bool obsolete);
 
-  void toVPack(arangodb::velocypack::Builder& builder) const;
+  void toVPack(avocadodb::velocypack::Builder& builder) const;
 
   // get display name for the option
   std::string displayName() const { return "--" + fullName(); }

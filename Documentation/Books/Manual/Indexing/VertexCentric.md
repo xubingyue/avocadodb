@@ -4,7 +4,7 @@ Vertex Centric Indexes
 Introduction to Vertex Centric Indexes
 --------------------------------------
 
-In ArangoDB there are special indices designed to speed up graph operations,
+In AvocadoDB there are special indices designed to speed up graph operations,
 especially if the graph contains supernodes (vertices that have an exceptionally
 high amount of connected edges).
 These indices are called vertex centric indexes and can be used in addition
@@ -23,9 +23,9 @@ The following query example could benefit from such an index:
       FILTER p.edges[*].type ALL == "friend"
       RETURN v
 
-Using the built-in edge-index ArangoDB can find the list of all edges attached to the vertex fast,
+Using the built-in edge-index AvocadoDB can find the list of all edges attached to the vertex fast,
 but still it has to walk through this list and check if all of them have the attribute `type == "friend"`.
-Using a vertex-centric index would allow ArangoDB to find all edges for the vertex having the attribute `type == "friend"`
+Using a vertex-centric index would allow AvocadoDB to find all edges for the vertex having the attribute `type == "friend"`
 in the same time and can save the iteration to verify the condition.
 
 Index creation

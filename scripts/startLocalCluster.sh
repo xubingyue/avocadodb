@@ -54,7 +54,7 @@ if [ -z "$JWT_SECRET" ];then
   AUTHORIZATION_HEADER=""
 else
   AUTHENTICATION="--server.jwt-secret $JWT_SECRET"
-  AUTHORIZATION_HEADER="Authorization: bearer $(jwtgen -a HS256 -s $JWT_SECRET -c 'iss=arangodb' -c 'server_id=setup')"
+  AUTHORIZATION_HEADER="Authorization: bearer $(jwtgen -a HS256 -s $JWT_SECRET -c 'iss=avocadodb' -c 'server_id=setup')"
 fi
 
 if [ "$TRANSPORT" == "ssl" ]; then
@@ -67,16 +67,16 @@ fi
 
 if [ ! -z "$INTERACTIVE_MODE" ] ; then
     if [ "$INTERACTIVE_MODE" == "C" ] ; then
-        ARANGOD="${BUILD}/bin/arangod "
-        CO_ARANGOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/arangod --console "
+        ARANGOD="${BUILD}/bin/avocadod "
+        CO_ARANGOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/avocadod --console "
         echo "Starting one coordinator in terminal with --console"
     elif [ "$INTERACTIVE_MODE" == "R" ] ; then
-        ARANGOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/arangod --console "
+        ARANGOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/avocadod --console "
         CO_ARANGOD=$ARANGOD
         echo Running cluster in rr with --console.
     fi
 else
-    ARANGOD="${BUILD}/bin/arangod "
+    ARANGOD="${BUILD}/bin/avocadod "
     CO_ARANGOD=$ARANGOD
 fi
 
@@ -201,7 +201,7 @@ if [ "$SECONDARIES" == "1" ] ; then
         echo Registering secondary $CLUSTER_ID for "DBServer$zfindex"
         curl -f -X PUT --data "{\"primary\": \"DBServer$zfindex\", \"oldSecondary\": \"none\", \"newSecondary\": \"$CLUSTER_ID\"}" -H "Content-Type: application/json" $ADDRESS:$CO_BASE/_admin/cluster/replaceSecondary
         echo Starting Secondary $CLUSTER_ID on port $PORT
-        ${BUILD}/bin/arangod \
+        ${BUILD}/bin/avocadod \
             -c none \
             --database.directory cluster/data$PORT \
             --cluster.agency-endpoint $TRANSPORT://$ADDRESS:$AG_BASE \
@@ -224,6 +224,6 @@ fi
 
 echo Done, your cluster is ready at
 for p in `seq $CO_BASE $PORTTOPCO` ; do
-    echo "   ${BUILD}/bin/arangosh --server.endpoint $TRANSPORT://[::1]:$p"
+    echo "   ${BUILD}/bin/avocadosh --server.endpoint $TRANSPORT://[::1]:$p"
 done
 

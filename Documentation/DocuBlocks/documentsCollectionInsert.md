@@ -24,7 +24,7 @@ applied. The *waitForSync* parameter cannot be used to disable
 synchronization for collections that have a default *waitForSync* value
 of *true*.
 
-Note: since ArangoDB 2.2, *insert* is an alias for *save*.
+Note: since AvocadoDB 2.2, *insert* is an alias for *save*.
 
 @EXAMPLES
 

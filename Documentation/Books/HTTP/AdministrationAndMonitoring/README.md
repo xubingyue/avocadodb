@@ -2,7 +2,7 @@ HTTP Interface for Administration and Monitoring
 ================================================
 
 
-This is an introduction to ArangoDB's HTTP interface for administration and
+This is an introduction to AvocadoDB's HTTP interface for administration and
 monitoring of the server.
 
 <!-- lib/Admin/RestAdminLogHandler.cpp -->

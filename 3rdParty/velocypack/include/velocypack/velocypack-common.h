@@ -3,7 +3,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2015 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2015 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 /// @author Jan Steemann
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef VELOCYPACK_COMMON_H
@@ -62,7 +62,7 @@
 #define VELOCYPACK_UNUSED /* unused */
 #endif
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 
 // unified size type for VPack, can be used on 32 and 64 bit
@@ -200,7 +200,7 @@ static inline void storeUInt64(uint8_t* start, uint64_t value) noexcept {
   } while (start < end);
 }
 
-}  // namespace arangodb::velocypack
-}  // namespace arangodb
+}  // namespace avocadodb::velocypack
+}  // namespace avocadodb
 
 #endif

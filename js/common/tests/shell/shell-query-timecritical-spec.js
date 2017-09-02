@@ -3,10 +3,10 @@
 /* global describe, it, beforeEach, afterEach */
 'use strict';
 const internal = require('internal');
-const tasks = require('@arangodb/tasks');
+const tasks = require('@avocadodb/tasks');
 const expect = require('chai').expect;
 
-const isServer = typeof arango === 'undefined';
+const isServer = typeof avocado === 'undefined';
 const query = 'FOR x IN 1..5 LET y = SLEEP(@value) RETURN x';
 const taskInfo = {
   offset: 0,
@@ -49,7 +49,7 @@ describe('AQL query analyzer', function () {
   let testee;
 
   beforeEach(function () {
-    testee = require('@arangodb/aql/queries');
+    testee = require('@avocadodb/aql/queries');
     restoreDefaults(testee);
   });
 

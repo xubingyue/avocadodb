@@ -13,15 +13,15 @@ add_custom_target(examples
 # manual pages
 if (USE_MAINTAINER_MODE AND NOT(MSVC))
   set(MAN_NAMES
-    man1/arangobench.1
-    man1/arangodump.1
-    man1/arangoimp.1
-    man1/arangorestore.1
-    man1/arangoexport.1
-    man1/arangosh.1
-    man8/rcarangod.8
-    man8/arangod.8
-    man8/arango-dfdb.8
+    man1/avocadobench.1
+    man1/avocadodump.1
+    man1/avocadoimp.1
+    man1/avocadorestore.1
+    man1/avocadoexport.1
+    man1/avocadosh.1
+    man8/rcavocadod.8
+    man8/avocadod.8
+    man8/avocado-dfdb.8
     man8/foxx-manager.8
     )
 

@@ -1,9 +1,9 @@
 Routers
 =======
 
-`const createRouter = require('@arangodb/foxx/router');`
+`const createRouter = require('@avocadodb/foxx/router');`
 
-Routers let you define routes that extend ArangoDB's HTTP API with custom endpoints.
+Routers let you define routes that extend AvocadoDB's HTTP API with custom endpoints.
 
 Routers need to be mounted using the `use` method of a [service context](../Context.md) to expose their HTTP routes at a service's mount path.
 
@@ -89,11 +89,11 @@ router.get(function (req, res) {
 });
 ```
 
-Restricting access to authenticated ArangoDB users:
+Restricting access to authenticated AvocadoDB users:
 
 ```js
 router.get('/secrets', function (req, res, next) {
-  if (req.arangoUser) {
+  if (req.avocadoUser) {
     next();
   } else {
     res.throw(404, 'Secrets? What secrets?');

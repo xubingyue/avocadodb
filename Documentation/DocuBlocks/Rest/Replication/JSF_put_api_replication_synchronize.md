@@ -12,7 +12,7 @@ the database name on the master (if not specified, defaults to the
 name of the local current database).
 
 @RESTBODYPARAM{username,string,optional,string}
-an optional ArangoDB username to use when connecting to the endpoint.
+an optional AvocadoDB username to use when connecting to the endpoint.
 
 @RESTBODYPARAM{password,string,required,string}
 the password to use when connecting to the endpoint.
@@ -48,17 +48,17 @@ This value will be ignored if set to *0*.
 
 @RESTDESCRIPTION
 Starts a full data synchronization from a remote endpoint into the local
-ArangoDB database.
+AvocadoDB database.
 
-The *sync* method can be used by replication clients to connect an ArangoDB database
+The *sync* method can be used by replication clients to connect an AvocadoDB database
 to a remote endpoint, fetch the remote list of collections and indexes, and collection
-data. It will thus create a local backup of the state of data at the remote ArangoDB
+data. It will thus create a local backup of the state of data at the remote AvocadoDB
 database. *sync* works on a per-database level.
 
 *sync* will first fetch the list of collections and indexes from the remote endpoint.
 It does so by calling the *inventory* API of the remote database. It will then purge
-data in the local ArangoDB database, and after start will transfer collection data
-from the remote database to the local ArangoDB database. It will extract data from the
+data in the local AvocadoDB database, and after start will transfer collection data
+from the remote database to the local AvocadoDB database. It will extract data from the
 remote database by calling the remote database's *dump* API until all data are fetched.
 
 In case of success, the body of the response is a JSON object with the following
@@ -71,7 +71,7 @@ attributes:
   synchronization later.
 
 WARNING: calling this method will sychronize data from the collections found
-on the remote endpoint to the local ArangoDB database. All data in the local
+on the remote endpoint to the local AvocadoDB database. All data in the local
 collections will be purged and replaced with data from the endpoint.
 
 Use with caution!

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/traversal"
   prefix = "api-traversal"
 
@@ -15,10 +15,10 @@ describe ArangoDB do
 
     before do
       @cv = "UnitTestsTraversalVertex"
-      ArangoDB.create_collection(@cv, false)
+      AvocadoDB.create_collection(@cv, false)
 
       @ce = "UnitTestsTraversalEdge"
-      ArangoDB.create_collection(@ce, false, 3)
+      AvocadoDB.create_collection(@ce, false, 3)
 
       cmd = "/_api/document?collection=#{@cv}" 
       [ 
@@ -27,7 +27,7 @@ describe ArangoDB do
         "London", "Paris", "Lyon", "Cologne","Dusseldorf", "Beijing", "Shanghai", "Tokyo", "Kyoto", "Taipeh", "Perth", "Sydney"
       ].each do|loc|
         body = "{ \"_key\" : \"#{loc}\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
       end
       
       count = 1000
@@ -53,13 +53,13 @@ describe ArangoDB do
         from = pair[0]
         to = pair[1]
         body = "{ \"_key\" : \"#{count}\", \"_from\": \"#{@cv}/#{from}\", \"_to\": \"#{@cv}/#{to}\"}"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
       end
     end
     
     after do
-      ArangoDB.drop_collection(@cv)
-      ArangoDB.drop_collection(@ce)
+      AvocadoDB.drop_collection(@cv)
+      AvocadoDB.drop_collection(@ce)
     end
 
 ################################################################################
@@ -74,7 +74,7 @@ describe ArangoDB do
       
       it "no direction, no expander" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"startVertex\" : \"#{@cv}/World\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-no-expander", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-no-expander", api, :body => body)
 
         doc.code.should eq(400)
 
@@ -90,7 +90,7 @@ describe ArangoDB do
       
       it "no edge collection" do
         body = "{ \"startVertex\" : \"#{@cv}/World\", \"direction\" : \"outbound\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-no-collection", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-no-collection", api, :body => body)
 
         doc.code.should eq(400)
 
@@ -106,7 +106,7 @@ describe ArangoDB do
       
       it "non-existing edge collection" do
         body = "{ \"edgeCollection\" : \"UnitTestsNonExistingEdgeCollection\", \"startVertex\" : \"#{@cv}/World\", \"direction\" : \"outbound\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-non-existing-collection", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-non-existing-collection", api, :body => body)
 
         doc.code.should eq(404)
 
@@ -122,7 +122,7 @@ describe ArangoDB do
       
       it "no start vertex" do
         body = "{ \"edgeCollection\" : \"#{@ce}\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-no-start-vertex", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-no-start-vertex", api, :body => body)
 
         doc.code.should eq(400)
 
@@ -138,7 +138,7 @@ describe ArangoDB do
       
       it "non-existing start vertex" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"startVertex\" : \"#{@cv}/nonexisting\", \"direction\" : \"outbound\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-non-existing-vertex", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-non-existing-vertex", api, :body => body)
 
         doc.code.should eq(404)
 
@@ -154,7 +154,7 @@ describe ArangoDB do
       
       it "invalid direction" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"startVertex\" : \"#{@cv}/World\", \"direction\" : \"foo\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-invalid-direction", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-invalid-direction", api, :body => body)
         
         doc.code.should eq(400)
 
@@ -170,7 +170,7 @@ describe ArangoDB do
       
       it "traversal exception" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"startVertex\" : \"#{@cv}/World\", \"direction\" : \"outbound\", \"visitor\" : \"throw 'bang!';\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-traversal-exception", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-traversal-exception", api, :body => body)
 
         doc.code.should eq(500)
 
@@ -186,7 +186,7 @@ describe ArangoDB do
       
       it "traversal abortion, few iterations" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"startVertex\" : \"#{@cv}/Blackhole\", \"direction\" : \"outbound\", \"uniqueness\" : { \"vertices\" : \"none\", \"edges\" : \"none\" }, \"maxIterations\" : 5 }"
-        doc = ArangoDB.log_post("#{prefix}-visit-traversal-abort1", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-traversal-abort1", api, :body => body)
 
         doc.code.should eq(500)
 
@@ -210,7 +210,7 @@ describe ArangoDB do
 
       it "visits nodes in a graph, outbound, pre-order, forward" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"strategy\" : \"depthfirst\", \"order\" : \"preorder\", \"itemOrder\" : \"forward\", \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-preorder-forward", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-preorder-forward", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -258,7 +258,7 @@ describe ArangoDB do
 
       it "visits nodes in a graph, outbound, pre-order, backward" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"strategy\" : \"depthfirst\", \"order\" : \"preorder\", \"itemOrder\" : \"backward\", \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-preorder-backward", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-preorder-backward", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -306,7 +306,7 @@ describe ArangoDB do
 
       it "visits nodes in a graph, outbound, post-order, forward" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"strategy\" : \"depthfirst\", \"order\" : \"postorder\", \"itemOrder\" : \"forward\", \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-postorder-forward", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-postorder-forward", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -354,7 +354,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, outbound, breadth-first pre-order, backward" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"strategy\" : \"breadthfirst\", \"order\" : \"preorder\", \"itemOrder\" : \"backward\", \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-breadthfirst-preorder-backward", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-breadthfirst-preorder-backward", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -402,7 +402,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, outbound, breadth-first post-order, backward" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"strategy\" : \"breadthfirst\", \"order\" : \"postorder\", \"itemOrder\" : \"backward\", \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-breadthfirst-postorder-backward", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-breadthfirst-postorder-backward", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -450,7 +450,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, outbound, minDepth 2" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"minDepth\" : 2, \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-outbound-maxdepth2", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-outbound-maxdepth2", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -488,7 +488,7 @@ describe ArangoDB do
 
       it "visits nodes in a graph, outbound, maxDepth 0" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"maxDepth\" : 0, \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-outbound-maxdepth0", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-outbound-maxdepth0", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -510,7 +510,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, outbound, maxDepth 1" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"maxDepth\" : 1, \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-outbound-maxdepth1", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-outbound-maxdepth1", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -540,7 +540,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, outbound, no connections" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/AU\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-outbound-noconnections", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-outbound-noconnections", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -570,7 +570,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, inbound" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"direction\" : \"inbound\", \"startVertex\" : \"#{@cv}/AU\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-inbound-simple", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-inbound-simple", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -596,7 +596,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, inbound, no connections" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"direction\" : \"inbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-inbound-noconnections", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-inbound-noconnections", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -626,7 +626,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, own filter" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"direction\" : \"outbound\", \"filter\" : \"if (vertex._id === '#{@cv}/World') { return 'prune'; }\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id); result.visited.paths.push(function() { var paths = [ ]; for (var i = 0; i < path.vertices.length; ++i) { paths.push(path.vertices[i]._id); } return paths;}());\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-filter1", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-filter1", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -648,7 +648,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, own filter" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"direction\" : \"outbound\", \"filter\" : \"if (vertex._id === '#{@cv}/Europe' || vertex._id === '#{@cv}/US') { return [ 'prune', 'exclude' ]; }\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id);\", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-filter2", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-filter2", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -674,7 +674,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, custom init" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"direction\" : \"outbound\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.myCounter++; result.myVar += 'a';\", \"init\" : \"result.myCounter = 13; result.myVar = 'a'; \", \"sort\" : \"if (l._key < r._key) { return -1; } else if (l._key > r._key) { return 1; } return 0;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-custom-init", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-custom-init", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -691,7 +691,7 @@ describe ArangoDB do
       
       it "visits nodes in a graph, own expander" do
         body = "{ \"edgeCollection\" : \"#{@ce}\", \"filter\" : \"if (vertex._id === '#{@cv}/Europe') { return [ 'prune', 'exclude' ]; }\", \"startVertex\" : \"#{@cv}/World\", \"visitor\" : \"result.visited.vertices.push(vertex._id);\", \"expander\" : \"var connections = [ ]; config.edgeCollection.outEdges(vertex).forEach(function(c) { connections.push({ vertex: require('internal').db._document(c._to), edge: c }); }); connections = connections.sort( function(l,r) { if (l.edge._key < r.edge._key) { return -1; } else if (l.edge._key > r.edge._key) { return 1; } else { return 0; }}); return connections;\" }"
-        doc = ArangoDB.log_post("#{prefix}-visit-expander", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-visit-expander", api, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, $, localStorage, window, arangoHelper, templateEngine, JSONEditor */
+/* global Backbone, $, localStorage, window, avocadoHelper, templateEngine, JSONEditor */
 /* global document, _ */
 
 (function () {
@@ -88,13 +88,13 @@
     setType: function () {
       var callback = function (error, data, type) {
         if (error) {
-          arangoHelper.arangoError('Error', 'Could not fetch data.');
+          avocadoHelper.avocadoError('Error', 'Could not fetch data.');
         } else {
           this.type = type;
           this.breadcrumb();
           this.fillInfo();
           this.fillEditor();
-          arangoHelper.checkCollectionPermissions(this.colid, this.changeViewToReadOnly.bind(this));
+          avocadoHelper.checkCollectionPermissions(this.colid, this.changeViewToReadOnly.bind(this));
         }
       }.bind(this);
 
@@ -136,7 +136,7 @@
       if (this.type._from && this.type._to) {
         var callbackEdge = function (error) {
           if (error) {
-            arangoHelper.arangoError('Edge error', 'Could not delete edge');
+            avocadoHelper.avocadoError('Edge error', 'Could not delete edge');
           } else {
             successFunction();
           }
@@ -145,7 +145,7 @@
       } else {
         var callbackDoc = function (error) {
           if (error) {
-            arangoHelper.arangoError('Error', 'Could not delete document');
+            avocadoHelper.avocadoError('Error', 'Could not delete document');
           } else {
             successFunction();
           }
@@ -304,7 +304,7 @@
       if (this.type === 'edge' || this.type._from) {
         var callbackE = function (error, data) {
           if (error) {
-            arangoHelper.arangoError('Error', data.responseJSON.errorMessage);
+            avocadoHelper.avocadoError('Error', data.responseJSON.errorMessage);
           } else {
             this.successConfirmation();
             this.disableSaveButton();
@@ -315,7 +315,7 @@
       } else {
         var callback = function (error, data) {
           if (error) {
-            arangoHelper.arangoError('Error', data.responseJSON.errorMessage);
+            avocadoHelper.avocadoError('Error', data.responseJSON.errorMessage);
           } else {
             this.successConfirmation();
             this.disableSaveButton();
@@ -327,11 +327,11 @@
     },
 
     successConfirmation: function () {
-      arangoHelper.arangoNotification('Document saved.');
+      avocadoHelper.avocadoNotification('Document saved.');
     },
 
     errorConfirmation: function (e) {
-      arangoHelper.arangoError('Document editor: ', e);
+      avocadoHelper.avocadoError('Document editor: ', e);
     },
 
     enableSaveButton: function () {

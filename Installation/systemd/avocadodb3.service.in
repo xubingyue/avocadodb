@@ -1,0 +1,39 @@
+# This file is part of package avocadodb.
+#
+# Description:
+#
+#  Used to start AvocadoDB
+#
+#  A universal open-source database with a flexible data model 
+#  for documents, graphs, and key-values. Build high 
+#  performance applications using a convenient sql-like query 
+#  language or JavaScript extensions.
+#
+#  http://www.avocadodb.com
+#
+
+[Unit]
+Description=AvocadoDB database server
+After=sysinit.target sockets.target timers.target paths.target slices.target network.target syslog.target
+
+[Service]
+Type=forking
+LimitNOFILE=131072
+PIDFile=/var/run/avocadodb3/avocadod.pid
+Environment=GLIBCXX_FORCE_NEW=1
+ExecStartPre=/usr/bin/install -g avocadodb -o avocadodb -d /var/tmp/avocadodb3
+ExecStartPre=/usr/bin/install -g avocadodb -o avocadodb -d /var/run/avocadodb3
+ExecStartPre=@CHOWN_EXECUTABLE@ -R avocadodb:avocadodb /var/log/avocadodb3
+ExecStartPre=@CHMOD_EXECUTABLE@ 700 /var/log/avocadodb3
+ExecStartPre=@CHOWN_EXECUTABLE@ -R avocadodb:avocadodb /var/lib/avocadodb3
+ExecStartPre=@CHMOD_EXECUTABLE@ 700 /var/lib/avocadodb3
+ExecStartPre=@CHOWN_EXECUTABLE@ -R avocadodb:avocadodb /var/lib/avocadodb3-apps
+ExecStartPre=@CHMOD_EXECUTABLE@ 700 /var/lib/avocadodb3-apps
+ExecStartPre=/usr/sbin/avocadod --uid avocadodb --gid avocadodb --pid-file /var/run/avocadodb3/avocadod.pid --server.rest-server false --database.auto-upgrade true
+ExecStart=/usr/sbin/avocadod    --uid avocadodb --gid avocadodb --pid-file /var/run/avocadodb3/avocadod.pid --temp.path /var/tmp/avocadodb3 --supervisor --log.foreground-tty false
+TimeoutStopSec=3600
+TimeoutSec=3600
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

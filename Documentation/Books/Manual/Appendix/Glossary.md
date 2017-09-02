@@ -10,9 +10,9 @@ Collections contain documents of a specific type. There are currently two types:
 
 ### Collection Identifier
 
-A collection identifier identifies a collection in a database. It is a string value and is unique within the database. Up to including ArangoDB 1.1, the collection identifier has been a client's primary means to access collections. Starting with ArangoDB 1.2, clients should instead use a collection's unique name to access a collection instead of its identifier.
+A collection identifier identifies a collection in a database. It is a string value and is unique within the database. Up to including AvocadoDB 1.1, the collection identifier has been a client's primary means to access collections. Starting with AvocadoDB 1.2, clients should instead use a collection's unique name to access a collection instead of its identifier.
 
-ArangoDB currently uses 64bit unsigned integer values to maintain collection ids internally. When returning collection ids to clients, ArangoDB will put them into a string to ensure the collection id is not clipped by clients that do not support big integers. Clients should treat the collection ids returned by ArangoDB as
+AvocadoDB currently uses 64bit unsigned integer values to maintain collection ids internally. When returning collection ids to clients, AvocadoDB will put them into a string to ensure the collection id is not clipped by clients that do not support big integers. Clients should treat the collection ids returned by AvocadoDB as
 opaque strings when they store or use it locally.
 
 ### Collection Name
@@ -21,29 +21,29 @@ A collection name identifies a collection in a database. It is a string and is u
 
 ### Database
 
-ArangoDB can handle multiple databases in the same server instance. Databases can be used to logically group and separate data. An ArangoDB database consists of collections and dedicated database-specific worker processes.
+AvocadoDB can handle multiple databases in the same server instance. Databases can be used to logically group and separate data. An AvocadoDB database consists of collections and dedicated database-specific worker processes.
 
-A database contains its own collections (which cannot be accessed from other databases), Foxx applications, and replication loggers and appliers. Each ArangoDB database contains its own system collections (e.g. _users, _replication, ...).
+A database contains its own collections (which cannot be accessed from other databases), Foxx applications, and replication loggers and appliers. Each AvocadoDB database contains its own system collections (e.g. _users, _replication, ...).
 
-There will always be at least one database in ArangoDB. This is the default database, named _system. This database cannot be dropped, and provides special operations for creating, dropping, and enumerating databases. Users can create additional databases and give them unique names to access them later. Database management operations cannot be initiated from out of user-defined databases.
+There will always be at least one database in AvocadoDB. This is the default database, named _system. This database cannot be dropped, and provides special operations for creating, dropping, and enumerating databases. Users can create additional databases and give them unique names to access them later. Database management operations cannot be initiated from out of user-defined databases.
 
-When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. /_db/_system/...). If the request URI does not contain a database name, the database name is automatically derived from the endpoint. Please refer to [DatabaseEndpoint](../../HTTP/Database/DatabaseEndpoint.html) for more information.
+When AvocadoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. /_db/_system/...). If the request URI does not contain a database name, the database name is automatically derived from the endpoint. Please refer to [DatabaseEndpoint](../../HTTP/Database/DatabaseEndpoint.html) for more information.
 
 ### Database Name
 
-A single ArangoDB instance can handle multiple databases in parallel. When multiple databases are used, each database must be given a unique name. This name is used to uniquely identify a database. The default database in ArangoDB is named _system.
+A single AvocadoDB instance can handle multiple databases in parallel. When multiple databases are used, each database must be given a unique name. This name is used to uniquely identify a database. The default database in AvocadoDB is named _system.
 
 The database name is a string consisting of only letters, digits and the _ (underscore) and - (dash) characters. User-defined database names must always start with a letter. Database names is case-sensitive.
 
 ### Database Organization
 
-A single ArangoDB instance can handle multiple databases in parallel. By default, there will be at least one database, which is named _system.
+A single AvocadoDB instance can handle multiple databases in parallel. By default, there will be at least one database, which is named _system.
 
 Databases are physically stored in separate sub-directories underneath the database directory, which itself resides in the instance's data directory.
 
 Each database has its own sub-directory, named database-<database id>. The database directory contains sub-directories for the collections of the database, and a file named parameter.json. This file contains the database id and name.
 
-In an example ArangoDB instance which has two databases, the filesystem layout could look like this:
+In an example AvocadoDB instance which has two databases, the filesystem layout could look like this:
 
 ```
 data/                     # the instance's data directory
@@ -72,7 +72,7 @@ apps/                   # the instance's application directory
 
 ### Document
 
-Documents in ArangoDB are JSON objects. These objects can be nested (to any depth) and may contain arrays. Each document is uniquely identified by its document handle.
+Documents in AvocadoDB are JSON objects. These objects can be nested (to any depth) and may contain arrays. Each document is uniquely identified by its document handle.
 
 ### Document ETag
 
@@ -87,12 +87,12 @@ A document handle uniquely identifies a document in the database. It is a string
 A document key is a string that uniquely identifies a document in a
 given collection. It can and should be used by clients when specific
 documents are searched. Document keys are stored in the `_key` attribute
-of documents. The key values are automatically indexed by ArangoDB in
+of documents. The key values are automatically indexed by AvocadoDB in
 a collection's primary index. Thus looking up a document by its key is
 regularly a fast operation. The `_key` value of a document is immutable
 once the document has been created.
 
-By default, ArangoDB will auto-generate a document key if no `_key`
+By default, AvocadoDB will auto-generate a document key if no `_key`
 attribute is specified, and use the user-specified `_key` value
 otherwise.
 
@@ -107,11 +107,11 @@ keys (see
 
 ### Document Revision
 
-As ArangoDB supports MVCC, documents can exist in more than one revision. The document revision is the MVCC token used to identify a particular revision of a document. It is a string value currently containing an integer number and is unique within the list of document revisions for a single document. Document revisions can be used to conditionally update, replace or delete documents in the database. In order to find a particular revision of a document, you need the document handle and the document revision.
+As AvocadoDB supports MVCC, documents can exist in more than one revision. The document revision is the MVCC token used to identify a particular revision of a document. It is a string value currently containing an integer number and is unique within the list of document revisions for a single document. Document revisions can be used to conditionally update, replace or delete documents in the database. In order to find a particular revision of a document, you need the document handle and the document revision.
 
-The document revision is stored in the `_rev` attribute of a document, and is set and updated by ArangoDB automatically. The `_rev` value cannot be set from the outside.
+The document revision is stored in the `_rev` attribute of a document, and is set and updated by AvocadoDB automatically. The `_rev` value cannot be set from the outside.
 
-ArangoDB currently uses 64bit unsigned integer values to maintain document revisions internally. When returning document revisions to clients, ArangoDB will put them into a string to ensure the revision id is not clipped by clients that do not support big integers. Clients should treat the revision id returned by ArangoDB as an opaque string when they store or use it locally. This will allow ArangoDB to change the format of revision ids later if this should be required. Clients can use revisions ids to perform simple equality/non-equality comparisons (e.g. to check whether a document has changed or not), but they should not use revision ids to perform greater/less than comparisons with them to check if a document revision is older than one another, even if this might work for some cases.
+AvocadoDB currently uses 64bit unsigned integer values to maintain document revisions internally. When returning document revisions to clients, AvocadoDB will put them into a string to ensure the revision id is not clipped by clients that do not support big integers. Clients should treat the revision id returned by AvocadoDB as an opaque string when they store or use it locally. This will allow AvocadoDB to change the format of revision ids later if this should be required. Clients can use revisions ids to perform simple equality/non-equality comparisons (e.g. to check whether a document has changed or not), but they should not use revision ids to perform greater/less than comparisons with them to check if a document revision is older than one another, even if this might work for some cases.
 
 ### Edge
 
@@ -149,13 +149,13 @@ An edges index is automatically created for edge collections. It contains connec
 
 ### Fulltext Index
 
-A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be defined on one attribute only, and will include all words contained in documents that have a textual value in the index attribute. Since ArangoDB 2.6 the index will also include words from the index attribute if the index attribute is an array of strings, or an object with string value members.
+A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be defined on one attribute only, and will include all words contained in documents that have a textual value in the index attribute. Since AvocadoDB 2.6 the index will also include words from the index attribute if the index attribute is an array of strings, or an object with string value members.
 
 For example, given a fulltext index on the `translations` attribute and the following documents, then searching for `лиса` using the fulltext index would return only the first document. Searching for the index for the exact string `Fox` would return the first two documents, and searching for `prefix:Fox` would return all three documents:
      
     { translations: { en: "fox", de: "Fuchs", fr: "renard", ru: "лиса" } }
     { translations: "Fox is the English translation of the German word Fuchs" }
-    { translations: [ "ArangoDB", "document", "database", "Foxx" ] }
+    { translations: [ "AvocadoDB", "document", "database", "Foxx" ] }
 
 If the index attribute is neither a string, an object or an array, its contents will not be indexed. When indexing the contents of an array attribute, an array member will only be included in the index if it is a string. When indexing the contents of an object attribute, an object member value will only be included in the index if it is a string. Other data types are ignored and not indexed.
 

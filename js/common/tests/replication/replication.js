@@ -30,11 +30,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var errors = arangodb.errors;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var errors = avocadodb.errors;
+var db = avocadodb.db;
 var internal = require("internal");
-var replication = require("@arangodb/replication");
+var replication = require("@avocadodb/replication");
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite
@@ -2053,7 +2053,7 @@ function ReplicationSyncSuite () {
     testSyncInvalidResponse : function () {
       try {
         replication.sync({
-          endpoint: "tcp://www.arangodb.com:80",
+          endpoint: "tcp://www.avocadodb.com:80",
           connectTimeout: 2,
           maxConnectRetries: 0,
           connectionRetryWaitTime: 1

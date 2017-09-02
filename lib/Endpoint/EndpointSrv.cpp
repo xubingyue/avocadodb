@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
-/// @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "EndpointSrv.h"
@@ -37,8 +37,8 @@
 #include "Endpoint/EndpointIp.h"
 #include "Logger/Logger.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 #if PACKETSZ > 1024
 #define MAXPACKET PACKETSZ
@@ -88,7 +88,7 @@ static std::vector<SrvRecord> srvRecords(std::string const& specification) {
       n = dn_expand(msg, eom, cp, (char*)hostbuf, 256);
 
       if (n < 0) {
-        LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "DNS record for '" << specification << "' is corrupt";
+        LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "DNS record for '" << specification << "' is corrupt";
         return {};
       }
 
@@ -100,7 +100,7 @@ static std::vector<SrvRecord> srvRecords(std::string const& specification) {
       n = dn_expand(msg, eom, cp, (char*)hostbuf, 256);
 
       if (n < 0) {
-        LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "DNS record for '" << specification << "' is corrupt";
+        LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "DNS record for '" << specification << "' is corrupt";
         return {};
       }
 
@@ -130,13 +130,13 @@ static std::vector<SrvRecord> srvRecords(std::string const& specification) {
       n = dn_expand(msg, eom, cp, (char*)hostbuf, 256);
 
       if (n < 0) {
-        LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "DNS record for '" << specification << "' is corrupt";
+        LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "DNS record for '" << specification << "' is corrupt";
         break;
       }
 
       cp += n;
 
-      LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "DNS record for '" << specification << "': type " << type
+      LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "DNS record for '" << specification << "': type " << type
                  << ", class " << nclass << ", ttl " << ttl << ", len " << dlen
                  << ", prio " << priority << ", weight " << weight << ", port "
                  << port << ", host '" << hostbuf << "'";
@@ -155,7 +155,7 @@ static std::vector<SrvRecord> srvRecords(std::string const& specification) {
       services.push_back(srv);
     }
   } else {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "DNS record for '" << specification << "' not found";
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "DNS record for '" << specification << "' not found";
   }
 
   std::sort(services.begin(), services.end(),

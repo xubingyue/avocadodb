@@ -8,7 +8,7 @@ Please note that several of these methods can be used from the _system
 database only.
 
 ### Name
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 return the database name
@@ -22,13 +22,13 @@ Returns the name of the current database as a string.
 
 @startDocuBlockInline dbName
 @EXAMPLE_ARANGOSH_OUTPUT{dbName}
-  require("@arangodb").db._name();
+  require("@avocadodb").db._name();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbName
 
 
 ### ID
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 return the database id
@@ -42,13 +42,13 @@ Returns the id of the current database as a string.
 
 @startDocuBlockInline dbId
 @EXAMPLE_ARANGOSH_OUTPUT{dbId}
-  require("@arangodb").db._id();
+  require("@avocadodb").db._id();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbId
 
 
 ### Path
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 return the path to database files
@@ -62,13 +62,13 @@ Returns the filesystem path of the current database as a string.
 
 @startDocuBlockInline dbPath
 @EXAMPLE_ARANGOSH_OUTPUT{dbPath}
-  require("@arangodb").db._path();
+  require("@avocadodb").db._path();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbPath
 
 
 ### isSystem
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 return the database type
@@ -82,7 +82,7 @@ cannot be dropped.
 
 
 ### Use Database
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 change the current database
@@ -94,7 +94,7 @@ that the database specified by *name* must already exist.
 Changing the database might be disallowed in some contexts, for example
 server-side actions (including Foxx).
 
-When performing this command from arangosh, the current credentials (username
+When performing this command from avocadosh, the current credentials (username
 and password) will be re-used. These credentials might not be valid to
 connect to the database specified by *name*. Additionally, the database
 only be accessed from certain endpoints only. In this case, switching the
@@ -104,7 +104,7 @@ endpoint data.
 
 
 ### List Databases
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 return the list of all existing databases
@@ -115,7 +115,7 @@ the *_system* database.
 
 
 ### Create Database
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 create a new database
@@ -144,7 +144,7 @@ object can contain the following attributes:
   active or not. The default value is *true*.
 * *extra*: an optional JSON object with extra user information. The data
   contained in *extra* will be stored for the user but not be interpreted
-  further by ArangoDB.
+  further by AvocadoDB.
 
 If no initial users are specified, a default user *root* will be created
 with an empty string password. This ensures that the new database will be
@@ -155,9 +155,9 @@ into the new database (username and password must be identical to the current
 session) and add or modify users with the following commands.
 
 ```js
-  require("@arangodb/users").save(username, password, true);
-  require("@arangodb/users").update(username, password, true);
-  require("@arangodb/users").remove(username);
+  require("@avocadodb/users").save(username, password, true);
+  require("@avocadodb/users").update(username, password, true);
+  require("@avocadodb/users").remove(username);
 ```
 Alternatively, you can specify user data directly. For example:
 
@@ -169,7 +169,7 @@ Those methods can only be used from within the *_system* database.
 
 
 ### Drop Database
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 drop an existing database

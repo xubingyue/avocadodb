@@ -2,7 +2,7 @@ Satellite Collections
 =====================
 
 Satellite Collections are an *Enterprise* only feature. When doing Joins in an
-ArangoDB cluster data has to exchanged between different servers.
+AvocadoDB cluster data has to exchanged between different servers.
 
 Joins will be executed on a coordinator. It will prepare an execution plan
 and execute it. When executing the coordinator will contact all shards of the
@@ -27,21 +27,21 @@ storage requirements and poorer write performance on this data.
 To create a satellite collection set the *replicationFactor* of this collection
 to "satellite".
 
-Using arangosh:
+Using avocadosh:
 
-    arangosh> db._create("satellite", {"replicationFactor": "satellite"});
+    avocadosh> db._create("satellite", {"replicationFactor": "satellite"});
 
 ### A full example
 
-    arangosh> var explain = require("@arangodb/aql/explainer").explain
-    arangosh> db._create("satellite", {"replicationFactor": "satellite"})
-    arangosh> db._create("nonsatellite", {numberOfShards: 8})
-    arangosh> db._create("nonsatellite2", {numberOfShards: 8})
+    avocadosh> var explain = require("@avocadodb/aql/explainer").explain
+    avocadosh> db._create("satellite", {"replicationFactor": "satellite"})
+    avocadosh> db._create("nonsatellite", {numberOfShards: 8})
+    avocadosh> db._create("nonsatellite2", {numberOfShards: 8})
 
 Let's analyse a normal join not involving satellite collections:
 
 ```
-arangosh> explain("FOR doc in nonsatellite FOR doc2 in nonsatellite2 RETURN 1")
+avocadosh> explain("FOR doc in nonsatellite FOR doc2 in nonsatellite2 RETURN 1")
 
 Query string:
  FOR doc in nonsatellite FOR doc2 in nonsatellite2 RETURN 1
@@ -79,7 +79,7 @@ network traffic.
 Let's now have a look at the same using satellite collections:
 
 ```
-arangosh> db._query("FOR doc in nonsatellite FOR doc2 in satellite RETURN 1")
+avocadosh> db._query("FOR doc in nonsatellite FOR doc2 in satellite RETURN 1")
 
 Query string:
  FOR doc in nonsatellite FOR doc2 in satellite RETURN 1

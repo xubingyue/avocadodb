@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ int TRI_closesocket(TRI_socket_t s) {
     if (res != 0) {
       // Windows complains about shutting down a socket that was not bound
       // so we will not print out the error here
-      // LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "socket shutdown error: " << WSAGetLastError();
+      // LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "socket shutdown error: " << WSAGetLastError();
     } else {
       char buf[256];
       int len;
@@ -49,7 +49,7 @@ int TRI_closesocket(TRI_socket_t s) {
     res = closesocket(s.fileHandle);
 
     if (res != 0) {
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "socket close error: " << WSAGetLastError();
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "socket close error: " << WSAGetLastError();
     }
   }
 #else
@@ -58,7 +58,7 @@ int TRI_closesocket(TRI_socket_t s) {
 
     if (res == -1) {
       int myerrno = errno;
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "socket close error: " << myerrno << ": " << strerror(myerrno);
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "socket close error: " << myerrno << ": " << strerror(myerrno);
     }
   }
 #endif

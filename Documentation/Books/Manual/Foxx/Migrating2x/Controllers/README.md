@@ -9,7 +9,7 @@ Old:
 
 ```js
 'use strict';
-const Foxx = require('org/arangodb/foxx');
+const Foxx = require('org/avocadodb/foxx');
 const ctrl = new Foxx.Controller(applicationContext);
 
 ctrl.get('/hello', function (req, res) {
@@ -21,7 +21,7 @@ New:
 
 ```js
 'use strict';
-const createRouter = require('org/arangodb/foxx/router');
+const createRouter = require('org/avocadodb/foxx/router');
 const router = createRouter();
 // If you are importing this file from your entry file ("main"):
 module.exports = router;

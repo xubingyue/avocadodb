@@ -11,8 +11,8 @@ This will return the number of functions unregistered.
 @EXAMPLES
 
 ```js
-  require("@arangodb/aql/functions").unregisterGroup("myfunctions::temperature");
+  require("@avocadodb/aql/functions").unregisterGroup("myfunctions::temperature");
 
-  require("@arangodb/aql/functions").unregisterGroup("myfunctions");
+  require("@avocadodb/aql/functions").unregisterGroup("myfunctions");
 ```
 

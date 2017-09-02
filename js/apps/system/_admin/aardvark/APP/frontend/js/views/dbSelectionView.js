@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global templateEngine, window, Backbone, $, arangoHelper */
+/* global templateEngine, window, Backbone, $, avocadoHelper */
 (function () {
   'use strict';
   window.DBSelectionView = Backbone.View.extend({
@@ -23,7 +23,7 @@
     render: function (el) {
       var callback = function (error, list) {
         if (error) {
-          arangoHelper.arangoError('DB', 'Could not fetch databases');
+          avocadoHelper.avocadoError('DB', 'Could not fetch databases');
         } else {
           this.$el = el;
           this.$el.html(this.template.render({

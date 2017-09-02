@@ -1,35 +1,35 @@
 HTTP Interface for Batch Requests
 =================================
 
-Clients normally send individual operations to ArangoDB in individual
+Clients normally send individual operations to AvocadoDB in individual
 HTTP requests. This is straightforward and simple, but has the
 disadvantage that the network overhead can be significant if many
 small requests are issued in a row.
 
-To mitigate this problem, ArangoDB offers a batch request API that
+To mitigate this problem, AvocadoDB offers a batch request API that
 clients can use to send multiple operations in one batch to
-ArangoDB. This method is especially useful when the client has to send
+AvocadoDB. This method is especially useful when the client has to send
 many HTTP requests with a small body/payload and the individual
 request results do not depend on each other.
 
-Clients can use ArangoDB's batch API by issuing a multipart HTTP POST
+Clients can use AvocadoDB's batch API by issuing a multipart HTTP POST
 request to the URL */_api/batch* handler. The handler will accept the
 request if the Content-type is *multipart/form-data* and a boundary
-string is specified. ArangoDB will then decompose the batch request
+string is specified. AvocadoDB will then decompose the batch request
 into its individual parts using this boundary. This also means that
 the boundary string itself must not be contained in any of the parts.
-When ArangoDB has split the multipart request into its individual
+When AvocadoDB has split the multipart request into its individual
 parts, it will process all parts sequentially as if it were a
-standalone request.  When all parts are processed, ArangoDB will
+standalone request.  When all parts are processed, AvocadoDB will
 generate a multipart HTTP response that contains one part for each
 part operation result.  For example, if you send a multipart request
-with 5 parts, ArangoDB will send back a multipart response with 5
+with 5 parts, AvocadoDB will send back a multipart response with 5
 parts as well.
 
 The server expects each part message to start with exactly the
 following "header": 
 
-    Content-type: application/x-arango-batchpart
+    Content-type: application/x-avocado-batchpart
 
 You can optionally specify a *Content-Id* "header" to uniquely
 identify each part message. The server will return the *Content-Id* in
@@ -42,7 +42,7 @@ might lead to the part being rejected or incorrectly interpreted. The
 part request payload, formatted as a regular HTTP request, must follow
 the two Windows line breaks literal directly.
 
-Note that the literal *Content-type: application/x-arango-batchpart*
+Note that the literal *Content-type: application/x-avocado-batchpart*
 technically is the header of the MIME part, and the HTTP request
 (including its headers) is the body part of the MIME part.
 
@@ -61,21 +61,21 @@ creation operations. The boundary used in this example is
 ```js
 > curl -X POST --data-binary @- --header "Content-type: multipart/form-data; boundary=XXXsubpartXXX" http://localhost:8529/_api/batch
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 Content-Id: 1
 
 POST /_api/document?collection=xyz HTTP/1.1
 
 {"a":1,"b":2,"c":3}
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 Content-Id: 2
 
 POST /_api/document?collection=xyz HTTP/1.1
 
 {"a":1,"b":2,"c":3,"d":4}
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 Content-Id: 3
 
 POST /_api/document?collection=xyz HTTP/1.1
@@ -108,7 +108,7 @@ Content-type: multipart/form-data; boundary=XXXsubpartXXX
 Content-length: 1055
 
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 Content-Id: 1
 
 HTTP/1.1 202 Accepted
@@ -118,7 +118,7 @@ Content-length: 53
 
 {"error":false,"_id":"xyz/9514299","_key":"9514299","_rev":"9514299"}
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 Content-Id: 2
 
 HTTP/1.1 202 Accepted
@@ -128,7 +128,7 @@ Content-length: 53
 
 {"error":false,"_id":"xyz/9579835","_key":"9579835","_rev":"9579835"}
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 Content-Id: 3
 
 HTTP/1.1 202 Accepted
@@ -147,7 +147,7 @@ example):
 When constructing the multipart HTTP response, the server will use the
 same boundary that the client supplied. If any of the part responses
 has a status code of 400 or greater, the server will also return an
-HTTP header *x-arango-errors* containing the overall number of part
+HTTP header *x-avocado-errors* containing the overall number of part
 requests that produced errors:
 
 *Examples*
@@ -155,13 +155,13 @@ requests that produced errors:
 ```js
 > curl -X POST --data-binary @- --header "Content-type: multipart/form-data; boundary=XXXsubpartXXX" http://localhost:8529/_api/batch
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 
 POST /_api/document?collection=nonexisting
 
 {"a":1,"b":2,"c":3}
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 
 POST /_api/document?collection=xyz
 
@@ -170,19 +170,19 @@ POST /_api/document?collection=xyz
 ```
 
 In this example, the overall response code is 200, but as some of the
-part request failed (with status code 404), the *x-arango-errors*
+part request failed (with status code 404), the *x-avocado-errors*
 header of the overall response is *1*:
 
 *Examples*
 
 ```js
 HTTP/1.1 200 OK
-x-arango-errors: 1
+x-avocado-errors: 1
 Content-type: multipart/form-data; boundary=XXXsubpartXXX
 Content-length: 711
 
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 
 HTTP/1.1 404 Not Found
 Content-type: application/json; charset=utf-8
@@ -190,7 +190,7 @@ Content-length: 111
 
 {"error":true,"code":404,"errorNum":1203,"errorMessage":"collection \/_api\/collection\/nonexisting not found"}
 --XXXsubpartXXX
-Content-type: application/x-arango-batchpart
+Content-type: application/x-avocado-batchpart
 
 HTTP/1.1 202 Accepted
 Content-type: application/json; charset=utf-8

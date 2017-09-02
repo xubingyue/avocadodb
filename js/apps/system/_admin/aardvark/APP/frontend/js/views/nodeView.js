@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, templateEngine, arangoHelper, $, window */
+/* global Backbone, templateEngine, avocadoHelper, $, window */
 (function () {
   'use strict';
 
@@ -47,7 +47,7 @@
 
       var callback = function () {
         this.continueRender();
-        this.breadcrumb(arangoHelper.getCoordinatorShortName(this.coordid));
+        this.breadcrumb(avocadoHelper.getCoordinatorShortName(this.coordid));
         $(window).trigger('resize');
       }.bind(this);
 
@@ -73,7 +73,7 @@
         // coordinator
         this.dashboards[this.coordinator.get('name')] = new window.DashboardView({
           dygraphConfig: window.dygraphConfig,
-          database: window.App.arangoDatabase,
+          database: window.App.avocadoDatabase,
           serverToShow: {
             raw: this.coordinator.get('address'),
             isDBServer: false,
@@ -87,7 +87,7 @@
         dashboard = attributes.name;
         this.dashboards[attributes.name] = new window.DashboardView({
           dygraphConfig: null,
-          database: window.App.arangoDatabase,
+          database: window.App.avocadoDatabase,
           serverToShow: {
             raw: attributes.address,
             isDBServer: true,

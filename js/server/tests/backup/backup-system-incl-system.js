@@ -1,4 +1,4 @@
-/*global arango, assertTrue, assertEqual */
+/*global avocado, assertTrue, assertEqual */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief setup collections for backup tests
@@ -7,7 +7,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -21,17 +21,17 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
-const db = require("@arangodb").db;
+const db = require("@avocadodb").db;
 const jsunity = require("jsunity");
-const users = require("@arangodb/users");
+const users = require("@avocadodb/users");
 const colname = 'UnitTestBkpCollection';
 const isCluster = false;
 
@@ -105,7 +105,7 @@ function backupTestSuite() {
     },
 
     testGraph: function () {
-      const graphs = require("@arangodb/general-graph");
+      const graphs = require("@avocadodb/general-graph");
       assertTrue(graphs._exists('UnitTestGraph'));
       const ecol = db._collection('UnitTestEdges');
       assertTrue(ecol !== null && ecol !== undefined);

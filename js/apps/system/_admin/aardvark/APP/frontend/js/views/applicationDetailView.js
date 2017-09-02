@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* global Backbone, $, window, ace, arangoHelper, templateEngine, Joi, _ */
+/* global Backbone, $, window, ace, avocadoHelper, templateEngine, Joi, _ */
 (function () {
   'use strict';
 
@@ -53,8 +53,8 @@
       }.bind(this);
 
       if ($('#jsonLink').html() === 'Swagger') {
-        var url = arangoHelper.databaseUrl('/_admin/aardvark/foxxes/docs/swagger.json?mount=' + encodeURIComponent(this.model.get('mount')));
-        arangoHelper.download(url, callbackFunction);
+        var url = avocadoHelper.databaseUrl('/_admin/aardvark/foxxes/docs/swagger.json?mount=' + encodeURIComponent(this.model.get('mount')));
+        avocadoHelper.download(url, callbackFunction);
       } else {
         $('#swaggerJsonContent').hide();
         $('#swagger iframe').show();
@@ -104,7 +104,7 @@
       window.foxxInstallView.upgrade(mount, function () {
         window.App.applicationDetail(encodeURIComponent(mount));
       });
-      $('.createModalDialog .arangoHeader').html('Replace Service');
+      $('.createModalDialog .avocadoHeader').html('Replace Service');
       $('#infoTab').click();
     },
 
@@ -257,11 +257,11 @@
         var callback = function (error, db) {
           var self = this;
           if (error) {
-            arangoHelper.arangoError('DB', 'Could not get current database');
+            avocadoHelper.avocadoError('DB', 'Could not get current database');
           } else {
             $(this.el).html(this.template.render({
               app: this.model,
-              baseUrl: arangoHelper.databaseUrl('', db),
+              baseUrl: avocadoHelper.databaseUrl('', db),
               mode: mode
             }));
 
@@ -295,7 +295,7 @@
           this.breadcrumb();
         }.bind(this);
 
-        arangoHelper.currentDatabase(callback);
+        avocadoHelper.currentDatabase(callback);
 
         if (_.isEmpty(this.model.get('config'))) {
           $('#service-settings').attr('disabled', true);
@@ -348,13 +348,13 @@
     openApp: function () {
       var callback = function (error, db) {
         if (error) {
-          arangoHelper.arangoError('DB', 'Could not get current database');
+          avocadoHelper.avocadoError('DB', 'Could not get current database');
         } else {
           window.open(this.appUrl(db), this.model.get('title')).focus();
         }
       }.bind(this);
 
-      arangoHelper.currentDatabase(callback);
+      avocadoHelper.currentDatabase(callback);
     },
 
     deleteApp: function () {
@@ -390,7 +390,7 @@
     },
 
     appUrl: function (currentDB) {
-      return arangoHelper.databaseUrl(this.model.get('mount'), currentDB);
+      return avocadoHelper.databaseUrl(this.model.get('mount'), currentDB);
     },
 
     applyConfig: function () {
@@ -422,7 +422,7 @@
       });
       this.model.setConfiguration(cfg, function () {
         this.updateConfig();
-        arangoHelper.arangoNotification(this.model.get('name'), 'Settings applied.');
+        avocadoHelper.avocadoNotification(this.model.get('name'), 'Settings applied.');
       }.bind(this));
     },
 
@@ -503,7 +503,7 @@
       var deps = {};
       _.each(this.model.get('deps'), function (title, name) {
         var $el = $('#app_deps_' + name);
-        deps[name] = window.arangoHelper.escapeHtml($el.val());
+        deps[name] = window.avocadoHelper.escapeHtml($el.val());
       });
       this.model.setDependencies(deps, function () {
         window.modalView.hide();

@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Error codes and meanings
 ///
-/// The following errors might be raised when running ArangoDB:
+/// The following errors might be raised when running AvocadoDB:
 ///
 /// - 0: @LIT{no error}
 ///   No error has occurred.
@@ -538,7 +538,7 @@
 ///   request is still using the cursor.
 /// - 1650: @LIT{internal transaction error}
 ///   Will be raised when a wrong usage of transactions is detected. this is an
-///   internal error and indicates a bug in ArangoDB.
+///   internal error and indicates a bug in AvocadoDB.
 /// - 1651: @LIT{nested transactions detected}
 ///   Will be raised when transactions are nested.
 /// - 1652: @LIT{unregistered collection used in transaction}
@@ -566,7 +566,7 @@
 /// - 1752: @LIT{service download failed}
 ///   Will be raised when a service download from the central repository failed.
 /// - 1753: @LIT{service upload failed}
-///   Will be raised when a service upload from the client to the ArangoDB
+///   Will be raised when a service upload from the client to the AvocadoDB
 ///   server failed.
 /// - 1800: @LIT{cannot init a LDAP connection}
 ///   can not init a LDAP connection
@@ -640,8 +640,8 @@
 ///   The collection is already used in an edge definition of the graph.
 /// - 1930: @LIT{edge collection not used in graph}
 ///   The edge collection is not used in any edge definition of the graph.
-/// - 1931: @LIT{ is not an ArangoCollection}
-///   The collection is not an ArangoCollection.
+/// - 1931: @LIT{ is not an AvocadoCollection}
+///   The collection is not an AvocadoCollection.
 /// - 1932: @LIT{collection _graphs does not exist}
 ///   collection _graphs does not exist.
 /// - 1933: @LIT{Invalid example type. Has to be String, Array or Object}
@@ -761,7 +761,7 @@
 #define REG_ERROR(id, label) TRI_set_errno_string(TRI_ ## id, label);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief register all errors for ArangoDB
+/// @brief register all errors for AvocadoDB
 ////////////////////////////////////////////////////////////////////////////////
 
 void TRI_InitializeErrorMessages ();
@@ -2969,7 +2969,7 @@ void TRI_InitializeErrorMessages ();
 /// internal transaction error
 ///
 /// Will be raised when a wrong usage of transactions is detected. this is an
-/// internal error and indicates a bug in ArangoDB.
+/// internal error and indicates a bug in AvocadoDB.
 ////////////////////////////////////////////////////////////////////////////////
 
 #define TRI_ERROR_TRANSACTION_INTERNAL                                    (1650)
@@ -3100,7 +3100,7 @@ void TRI_InitializeErrorMessages ();
 ///
 /// service upload failed
 ///
-/// Will be raised when a service upload from the client to the ArangoDB server
+/// Will be raised when a service upload from the client to the AvocadoDB server
 /// failed.
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -3451,9 +3451,9 @@ void TRI_InitializeErrorMessages ();
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief 1931: ERROR_GRAPH_NOT_AN_ARANGO_COLLECTION
 ///
-///  is not an ArangoCollection
+///  is not an AvocadoCollection
 ///
-/// The collection is not an ArangoCollection.
+/// The collection is not an AvocadoCollection.
 ////////////////////////////////////////////////////////////////////////////////
 
 #define TRI_ERROR_GRAPH_NOT_AN_ARANGO_COLLECTION                          (1931)

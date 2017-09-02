@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global $, arangoHelper, jasmine, nv, d3, describe, beforeEach, afterEach, it, spyOn, expect */
+/* global $, avocadoHelper, jasmine, nv, d3, describe, beforeEach, afterEach, it, spyOn, expect */
 /* global this.options, this.options.database, this.options.database.findWhere */
 
 (function () {
@@ -15,8 +15,8 @@
           throw 'This should be a spy';
         }
       };
-      window.CreateDummyForObject(window, 'ArangoDatabase');
-      databaseDummy = new window.ArangoDatabase();
+      window.CreateDummyForObject(window, 'AvocadoDatabase');
+      databaseDummy = new window.AvocadoDatabase();
       dyGraphConfigDummy = {
         getDetailChartConfig: function () {
           return {

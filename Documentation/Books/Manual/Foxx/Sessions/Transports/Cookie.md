@@ -1,7 +1,7 @@
 Cookie Session Transport
 ========================
 
-`const cookieTransport = require('@arangodb/foxx/sessions/transports/cookie');`
+`const cookieTransport = require('@avocadodb/foxx/sessions/transports/cookie');`
 
 The cookie transport stores session identifiers in cookies on the request and response object.
 

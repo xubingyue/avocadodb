@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* jshint unused: false */
 /* global Backbone, $, window, setTimeout, _ */
-/* global arangoHelper, templateEngine */
+/* global avocadoHelper, templateEngine */
 
 (function () {
   'use strict';
@@ -80,7 +80,7 @@
         edge: []
       };
 
-      window.App.arangoCollectionsStore.each(function (collection) {
+      window.App.avocadoCollectionsStore.each(function (collection) {
         if (collection.get('isSystem')) {
           self.collections.system.push(collection.get('name'));
         } else if (collection.get('type') === 'document') {
@@ -110,7 +110,7 @@
       $.ajax({
         type: 'GET',
         cache: false,
-        url: arangoHelper.databaseUrl('/_api/aql-builtin'),
+        url: avocadoHelper.databaseUrl('/_api/aql-builtin'),
         contentType: 'application/json',
         success: function (data) {
           self.stringToArray();
@@ -126,7 +126,7 @@
           if (callback) {
             callback();
           }
-          arangoHelper.arangoError('AQL', 'Could not fetch AQL function definition.');
+          avocadoHelper.avocadoError('AQL', 'Could not fetch AQL function definition.');
         }
       });
     },

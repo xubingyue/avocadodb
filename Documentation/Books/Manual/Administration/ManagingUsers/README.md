@@ -1,16 +1,16 @@
 Managing Users
 ==============
 
-The user management in ArangoDB 3 is similar to the ones found in MySQL,
+The user management in AvocadoDB 3 is similar to the ones found in MySQL,
 PostgreSQL, or other database systems.
 
 User management is possible in the [web interface](../WebInterface/Users.md)
-and in [arangosh](InArangosh.md) while logged on to the *\_system* database.
+and in [avocadosh](InAvocadosh.md) while logged on to the *\_system* database.
 
 Actions and Access Levels
 -------------------------
 
-An ArangoDB server contains a list of users. It also defines various
+An AvocadoDB server contains a list of users. It also defines various
 access levels that can be assigned to a user (for details, see below)
 and that are needed to perform certain actions. These actions can be grouped
 into three categories:
@@ -127,7 +127,7 @@ collection *data* nor create new collections in the database *example*.
 Granting Access Levels
 ----------------------
 
-Access levels can be managed via the [web interface] or in [arangosh].
+Access levels can be managed via the [web interface] or in [avocadosh].
 
 In order to grant an access level to a user, you can assign one of
 three access levels for each database and one of three levels for each
@@ -245,8 +245,8 @@ user has *Administrate* access to the database. They have access level
 *Read/Only* if the user has *Access* to the database.
 
 To modify these system collections you should always use the 
-specialized APIs provided by ArangoDB. For example
+specialized APIs provided by AvocadoDB. For example
 no user has access to the *\_users* collection in the *\_system*
 database. All changes to the access levels must be done using the
-*@arangodb/users* module, the `/_users/` API or the web interface.
+*@avocadodb/users* module, the `/_users/` API or the web interface.
 

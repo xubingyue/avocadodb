@@ -30,7 +30,7 @@
 
 var internal = require("internal");
 var jsunity = require("jsunity");
-let users = require("@arangodb/users");
+let users = require("@avocadodb/users");
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite

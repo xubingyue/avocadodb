@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/document"
   prefix = "documents"
 
@@ -12,12 +12,12 @@ describe ArangoDB do
     before do
       @cn = "UnitTestsCollectionDocuments"
 
-      ArangoDB.drop_collection(@cn)
-      @cid = ArangoDB.create_collection(@cn)
+      AvocadoDB.drop_collection(@cn)
+      @cid = AvocadoDB.create_collection(@cn)
     end
 
     after do
-      ArangoDB.drop_collection(@cn)
+      AvocadoDB.drop_collection(@cn)
     end
 
 ################################################################################
@@ -27,7 +27,7 @@ describe ArangoDB do
     it "creates a document with an invalid type" do
       cmd = api + "?collection=" + @cn
       body = "[ [] ]";
-      doc = ArangoDB.log_post("#{prefix}-create-list1", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-create-list1", cmd, :body => body)
 
       doc.code.should eq(202)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -38,7 +38,7 @@ describe ArangoDB do
     it "creates a document with an invalid type" do
       cmd = api + "?collection=" + @cn
       body = "\"test\"";
-      doc = ArangoDB.log_post("#{prefix}-create-list2", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-create-list2", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -55,7 +55,7 @@ describe ArangoDB do
     it "updates a document with an invalid type" do
       cmd = api + "/#{@cn}/test"
       body = "[ ]";
-      doc = ArangoDB.log_patch("#{prefix}-update-object1", cmd, :body => body)
+      doc = AvocadoDB.log_patch("#{prefix}-update-object1", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -68,7 +68,7 @@ describe ArangoDB do
     it "updates a document with an invalid type" do
       cmd = api + "/#{@cn}/test"
       body = "\"test\"";
-      doc = ArangoDB.log_patch("#{prefix}-update-object2", cmd, :body => body)
+      doc = AvocadoDB.log_patch("#{prefix}-update-object2", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -85,7 +85,7 @@ describe ArangoDB do
     it "replaces a document with an invalid type" do
       cmd = api + "/#{@cn}/test"
       body = "[ ]";
-      doc = ArangoDB.log_put("#{prefix}-replace-object1", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-replace-object1", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -98,7 +98,7 @@ describe ArangoDB do
     it "replaces a document with an invalid type" do
       cmd = api + "/#{@cn}/test"
       body = "\"test\"";
-      doc = ArangoDB.log_put("#{prefix}-replace-object2", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-replace-object2", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -115,7 +115,7 @@ describe ArangoDB do
     it "updates documents by example with an invalid type" do
       cmd = "/_api/simple/update-by-example"
       body = "{ \"collection\" : \"#{@cn}\", \"example\" : [ ], \"newValue\" : { } }";
-      doc = ArangoDB.log_put("#{prefix}-update-by-example1", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-update-by-example1", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -128,7 +128,7 @@ describe ArangoDB do
     it "updates documents by example with an invalid type" do
       cmd = "/_api/simple/update-by-example"
       body = "{ \"collection\" : \"#{@cn}\", \"example\" : { }, \"newValue\" : [ ] }";
-      doc = ArangoDB.log_put("#{prefix}-update-by-example2", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-update-by-example2", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -145,7 +145,7 @@ describe ArangoDB do
     it "replaces documents by example with an invalid type" do
       cmd = "/_api/simple/replace-by-example"
       body = "{ \"collection\" : \"#{@cn}\", \"example\" : [ ], \"newValue\" : { } }";
-      doc = ArangoDB.log_put("#{prefix}-replace-by-example1", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-replace-by-example1", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -158,7 +158,7 @@ describe ArangoDB do
     it "replaces documents by example with an invalid type" do
       cmd = "/_api/simple/replace-by-example"
       body = "{ \"collection\" : \"#{@cn}\", \"example\" : { }, \"newValue\" : [ ] }";
-      doc = ArangoDB.log_put("#{prefix}-replace-by-example2", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-replace-by-example2", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -175,7 +175,7 @@ describe ArangoDB do
     it "removes a document with an invalid type" do
       cmd = "/_api/simple/remove-by-example"
       body = "{ \"collection\" : \"#{@cn}\", \"example\" : [ ] }";
-      doc = ArangoDB.log_put("#{prefix}-remove-by-example", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-remove-by-example", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")

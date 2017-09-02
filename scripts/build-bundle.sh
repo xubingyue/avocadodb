@@ -18,7 +18,7 @@ done
     --parallel 5 \
     --package Bundle \
     --buildDir build-${EP}bundle \
-    --prefix "/opt/arangodb" \
+    --prefix "/opt/avocadodb" \
     --targetDir /var/tmp/ \
     --downloadStarter \
     --clang \

@@ -1,8 +1,8 @@
-Incompatible changes in ArangoDB 2.3
+Incompatible changes in AvocadoDB 2.3
 ====================================
 
 It is recommended to check the following list of incompatible changes **before** 
-upgrading to ArangoDB 2.3, and adjust any client programs if necessary.
+upgrading to AvocadoDB 2.3, and adjust any client programs if necessary.
 
 
 Configuration file changes
@@ -15,12 +15,12 @@ started. There are situation in which threads are waiting for results of
 distributed database servers. In this case the number of threads is dynamically
 increased.
 
-With ArangoDB 2.3, the number of server threads can be configured independently
+With AvocadoDB 2.3, the number of server threads can be configured independently
 of the number of V8 contexts. The configuration option
-`--javascript.v8-contexts` was added to arangod to provide better control over
-the number of V8 contexts created in arangod.
+`--javascript.v8-contexts` was added to avocadod to provide better control over
+the number of V8 contexts created in avocadod.
   
-Previously, the number of V8 contexts arangod created at startup was equal 
+Previously, the number of V8 contexts avocadod created at startup was equal 
 to the number of server threads (as specified by option `--server.threads`). 
 
 In some situations it may be more sensible to create different amounts of threads 
@@ -31,7 +31,7 @@ threads do not have such high memory or CPU footprint.
 If the option `--javascript.v8-contexts` is not specified, the number of V8
 contexts created at startup will remain equal to the number of server threads.
 Thus no change in configuration is required to keep the same behavior as in
-previous ArangoDB versions.
+previous AvocadoDB versions.
 
 If you are using the default config files or merge them with your local config
 files, please review if the default number of server threads is okay in your
@@ -41,7 +41,7 @@ created (as specified in option `--javascript.v8-contexts`) is okay.
 ### Syslog
 
 The command-line option `--log.syslog` was used in previous versions of
-ArangoDB to turn logging to syslog on or off: when setting to a non-empty
+AvocadoDB to turn logging to syslog on or off: when setting to a non-empty
 string, syslog logging was turned on, otherwise turned off.
 When syslog logging was turned on, logging was done with the application
 name specified in `--log.application`, which defaulted to `triagens`.
@@ -51,17 +51,17 @@ but did not have any effect.
 This behavior turned out to be unintuitive and was changed in 2.3 as follows:
 
 * the command-line option `--log.syslog` is deprecated and does not have any
-  effect when starting ArangoDB.
+  effect when starting AvocadoDB.
 * to turn on syslog logging in 2.3, the option `--log.facility` has to be set
   to a non-empty string. The value for `facility` is OS-dependent (possible
   values can be found in `/usr/include/syslog.h` or the like - `user` should
   be available on many systems).
 * the default value for `--log.application` has been changed from `triagens` to
-  `arangod`. 
+  `avocadod`. 
 * the command-line option `--log.hostname` is deprecated and does not have any
-  effect when starting ArangoDB. Instead, the host name will be set by syslog
+  effect when starting AvocadoDB. Instead, the host name will be set by syslog
   automatically.
-* when logging to syslog, ArangoDB now omits the datetime prefix and the process
+* when logging to syslog, AvocadoDB now omits the datetime prefix and the process
   id, because they'll be added by syslog automatically.
 
 
@@ -70,25 +70,25 @@ AQL
 
 ### AQL queries throw less exceptions
 
-ArangoDB 2.3 contains a completely rewritten AQL query optimizer and execution 
+AvocadoDB 2.3 contains a completely rewritten AQL query optimizer and execution 
 engine. This means that AQL queries will be executed with a different engine than
-in ArangoDB 2.2 and earlier. Parts of AQL queries might be executed in different 
+in AvocadoDB 2.2 and earlier. Parts of AQL queries might be executed in different 
 order than before because the AQL optimizer has more freedom to move things 
 around in a query.
 
-In previous versions of ArangoDB, AQL queries aborted with an exception in many
+In previous versions of AvocadoDB, AQL queries aborted with an exception in many
 situations and threw a runtime exception. Exceptions were thrown when trying to
 find a value using the `IN` operator in a non-array element, when trying to use
 non-boolean values with the logical operands `&&` or `||` or `!`, when using non-numeric
 values in arithmetic operations, when passing wrong parameters into functions etc.
 
-In ArangoDB 2.3 this has been changed in many cases to make AQL more user-friendly
+In AvocadoDB 2.3 this has been changed in many cases to make AQL more user-friendly
 and to allow the optimization to perform much more query optimizations.
 
 Here is a summary of changes:
 - when a non-array value is used on the right-hand side of the `IN` operator, the 
-  result will be `false` in ArangoDB 2.3, and no exception will be thrown.
-- the boolean operators `&&` and `||` do not throw in ArangoDB 2.3 if any of the
+  result will be `false` in AvocadoDB 2.3, and no exception will be thrown.
+- the boolean operators `&&` and `||` do not throw in AvocadoDB 2.3 if any of the
   operands is not a boolean value. Instead, they will perform an implicit cast of
   the values to booleans. Their result will be as follows:
   - `lhs && rhs` will return `lhs` if it is `false` or would be `false` when converted
@@ -101,7 +101,7 @@ Here is a summary of changes:
 - the arithmetic operators (`+`, `-`, `*`, `/`, `%`) can be applied to any value and 
   will not throw exceptions when applied to non-numeric values. Instead, any value used
   in these operators will be casted to a numeric value implicitly. If no numeric result
-  can be produced by an arithmetic operator, it will return `null` in ArangoDB 2.3. This
+  can be produced by an arithmetic operator, it will return `null` in AvocadoDB 2.3. This
   is also true for division by zero. 
 - passing arguments of invalid types into AQL functions does not throw a runtime
   exception in most cases, but may produce runtime warnings. Built-in AQL functions that 
@@ -116,9 +116,9 @@ in the order of returned values is allowed because no sort order is guaranteed b
 (and was never) unless an explicit `SORT` statement is used in a query.
 
 
-### Changed return values of ArangoQueryCursor.getExtra()
+### Changed return values of AvocadoQueryCursor.getExtra()
 
-The return value of `ArangoQueryCursor.getExtra()` has been changed in ArangoDB 2.3.
+The return value of `AvocadoQueryCursor.getExtra()` has been changed in AvocadoDB 2.3.
 It now contains a `stats` attribute with statistics about the query previously executed.
 It also contains a `warnings` attribute with warnings that happened during query
 execution. The return value structure has been unified in 2.3 for both read-only and
@@ -127,7 +127,7 @@ data-modification queries.
 The return value looks like this for a read-only query:
 
 ```
-arangosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.execute().getExtra()
+avocadosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.execute().getExtra()
 { 
   "stats" : { 
     "writesExecuted" : 0, 
@@ -139,10 +139,10 @@ arangosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.exe
 }
 ```
 
-For data-modification queries, ArangoDB 2.3 returns a result with the same structure:
+For data-modification queries, AvocadoDB 2.3 returns a result with the same structure:
 
 ```
-arangosh> stmt = db._createStatement("FOR i IN xx REMOVE i IN xx"); stmt.execute().getExtra()
+avocadosh> stmt = db._createStatement("FOR i IN xx REMOVE i IN xx"); stmt.execute().getExtra()
 { 
   "stats" : { 
     "writesExecuted" : 2600, 
@@ -154,18 +154,18 @@ arangosh> stmt = db._createStatement("FOR i IN xx REMOVE i IN xx"); stmt.execute
 }
 ```
 
-In ArangoDB 2.2, the return value of `ArangoQueryCursor.getExtra()` was empty for read-only
+In AvocadoDB 2.2, the return value of `AvocadoQueryCursor.getExtra()` was empty for read-only
 queries and contained an attribute `operations` with two sub-attributes for data-modification 
 queries:
 
 ```
-arangosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.execute().getExtra()
+avocadosh> stmt = db._createStatement("FOR i IN mycollection RETURN i"); stmt.execute().getExtra()
 { 
 }
 ```
 
 ```
-arangosh> stmt = db._createStatement("FOR i IN mycollection REMOVE i IN mycollection"); stmt.execute().getExtra()
+avocadosh> stmt = db._createStatement("FOR i IN mycollection REMOVE i IN mycollection"); stmt.execute().getExtra()
 { 
   "operations" : { 
     "executed" : 2600, 
@@ -194,7 +194,7 @@ some other cases as follows:
 }
 ```
 
-With the changed result structure in ArangoDB 2.3, the `extra` attribute in the result
+With the changed result structure in AvocadoDB 2.3, the `extra` attribute in the result
 will look like this:
 
 ```
@@ -218,33 +218,33 @@ be returned inside the `stats` attribute of the `extra` attribute, and not direc
 as an attribute inside the `extra` attribute as in 2.2. Note that a `fullCount` will
 only be present in `extra`.`stats` if it was requested as an option for the query.
 
-The result in ArangoDB 2.3 will also contain a `warnings` attribute with the array of 
+The result in AvocadoDB 2.3 will also contain a `warnings` attribute with the array of 
 warnings that happened during query execution.
 
 
-### Changed return values in ArangoStatement.explain()
+### Changed return values in AvocadoStatement.explain()
 
-The return value of `ArangoStatement.explain()` has changed significantly in 
-ArangoDB 2.3. The new return value structure is not compatible with the structure
+The return value of `AvocadoStatement.explain()` has changed significantly in 
+AvocadoDB 2.3. The new return value structure is not compatible with the structure
 returned by 2.2.
 
-In ArangoDB 2.3, the full execution plan for an AQL query is returned alongside all 
+In AvocadoDB 2.3, the full execution plan for an AQL query is returned alongside all 
 applied optimizer rules, optimization warnings etc. It is also possible to have the 
 optimizer return all execution plans. This required a new data structure.
 
-Client programs that use `ArangoStatement.explain()` or the HTTP REST API method
+Client programs that use `AvocadoStatement.explain()` or the HTTP REST API method
 `POST /_api/explain` may need to be adjusted to use the new return format.
 
 
-The return value of `ArangoStatement.parse()` has been extended in ArangoDB 2.3.
-In addition to the existing attributes, ArangoDB 2.3 will also return an `ast` attribute
+The return value of `AvocadoStatement.parse()` has been extended in AvocadoDB 2.3.
+In addition to the existing attributes, AvocadoDB 2.3 will also return an `ast` attribute
 containing the abstract syntax tree of the statement. This extra attribute can
 safely be ignored by client programs.
 
 
 ### Variables not updatable in queries
 
-Previous versions of ArangoDB allowed the modification of variables inside AQL 
+Previous versions of AvocadoDB allowed the modification of variables inside AQL 
 queries, e.g.
 
 ```
@@ -264,28 +264,28 @@ non-deterministic behavior because queries are not executed linearly.
 ### Changed return value of `TO_BOOL`
 
 The AQL function `TO_BOOL` now always returns *true* if its argument is a array or an object.
-In previous versions of ArangoDB, the function returned *false* for empty arrays or for
+In previous versions of AvocadoDB, the function returned *false* for empty arrays or for
 objects without attributes.
 
 
 ### Changed return value of `TO_NUMBER`
 
 The AQL function `TO_NUMBER` now returns *null* if its argument is an object or an
-array with more than one member. In previous version of ArangoDB, the return
+array with more than one member. In previous version of AvocadoDB, the return
 value in these cases was 0. `TO_NUMBER` will return 0 for empty array, and the numeric
 equivalent of the array member's value for arrays with a single member.
 
 
 ### New AQL keywords
 
-The following keywords have been added to AQL in ArangoDB 2.3:
+The following keywords have been added to AQL in AvocadoDB 2.3:
 
 - *NOT*
 - *AND*
 - *OR*
 
 Unquoted usage of these keywords for attribute names in AQL queries will likely
-fail in ArangoDB 2.3. If any such attribute name needs to be used in a query, it
+fail in AvocadoDB 2.3. If any such attribute name needs to be used in a query, it
 should be enclosed in backticks to indicate the usage of a literal attribute
 name. 
 
@@ -296,17 +296,17 @@ Removed features
 ### Bitarray indexes
   
 Bitarray indexes were only half-way documented and integrated in previous versions 
-of ArangoDB so their benefit was limited. The support for bitarray indexes has
-thus been removed in ArangoDB 2.3. It is not possible to create indexes of type
-"bitarray" with ArangoDB 2.3.
+of AvocadoDB so their benefit was limited. The support for bitarray indexes has
+thus been removed in AvocadoDB 2.3. It is not possible to create indexes of type
+"bitarray" with AvocadoDB 2.3.
 
 When a collection is opened that contains a bitarray index definition created 
-with a previous version of ArangoDB, ArangoDB will ignore it and log the following
+with a previous version of AvocadoDB, AvocadoDB will ignore it and log the following
 warning:
 
-    index type 'bitarray' is not supported in this version of ArangoDB and is ignored 
+    index type 'bitarray' is not supported in this version of AvocadoDB and is ignored 
 
-Future versions of ArangoDB may automatically remove such index definitions so the
+Future versions of AvocadoDB may automatically remove such index definitions so the
 warnings will eventually disappear.
 
 
@@ -318,7 +318,7 @@ The HTTP REST API method at `POST /_admin/modules/flush` has been removed.
 Known issues
 ------------
 
-In ArangoDB 2.3.0, AQL queries containing filter conditions with an IN expression 
+In AvocadoDB 2.3.0, AQL queries containing filter conditions with an IN expression 
 will not yet use an index:
 
     FOR doc IN collection FILTER doc.indexedAttribute IN [ ... ] RETURN doc

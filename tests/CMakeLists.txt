@@ -4,7 +4,7 @@ endforeach()
 
 # linking is a dark art...workmonitordummy is somehow necessary
 add_executable(
-  arangodbtests
+  avocadodbtests
 #  ../lib/Basics/WorkMonitorDummy.cpp
   Agency/AddFollowerTest.cpp
   Agency/CleanOutServerTest.cpp
@@ -61,17 +61,17 @@ add_executable(
 )
 
 target_link_libraries(
-  arangodbtests
-  arangoserver
+  avocadodbtests
+  avocadoserver
 )
 
-target_include_directories(arangodbtests PRIVATE
+target_include_directories(avocadodbtests PRIVATE
   ${INCLUDE_DIRECTORIES}
 )
 
 # add these includes as system includes because otherwise
 # the compiler will emit warnings for fakeit.hpp
-target_include_directories(arangodbtests SYSTEM PRIVATE
+target_include_directories(avocadodbtests SYSTEM PRIVATE
   ${CMAKE_SOURCE_DIR}/3rdParty/catch
   ${CMAKE_SOURCE_DIR}/3rdParty/fakeit
 )

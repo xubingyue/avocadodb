@@ -1,27 +1,27 @@
 #!/bin/sh
-update-rc.d arangodb3 start 99 2 3 4 5 . stop 00 0 1 6 . >/dev/null
-/etc/init.d/arangodb3 start
+update-rc.d avocadodb3 start 99 2 3 4 5 . stop 00 0 1 6 . >/dev/null
+/etc/init.d/avocadodb3 start
 
 echo "
-ArangoDB 2 (http://www.arangodb.com)
+AvocadoDB 2 (http://www.avocadodb.com)
   A multi-purpose open-source database with a flexible data model for documents,
   graphs, and key-values.
 
-First Steps with ArangoDB:
-  http:/www.arangodb.com/quickstart
+First Steps with AvocadoDB:
+  http:/www.avocadodb.com/quickstart
 
-Upgrading ArangoDB:
-  https://docs.arangodb.com/Manual/Administration/Upgrading/
+Upgrading AvocadoDB:
+  https://docs.avocadodb.com/Manual/Administration/Upgrading/
 
-Upgrading ArangoDB database files:
-  > /etc/init.d/arangodb3 upgrade
+Upgrading AvocadoDB database files:
+  > /etc/init.d/avocadodb3 upgrade
 
 Configuration file:
-  /etc/arangodb3/arangod.conf
+  /etc/avocadodb3/avocadod.conf
 
-Start ArangoDB shell client:
-  > /usr/bin/arangosh
+Start AvocadoDB shell client:
+  > /usr/bin/avocadosh
 
-Start ArangoDB service:
-  > /etc/init.d/arangodb3 start
+Start AvocadoDB service:
+  > /etc/init.d/avocadodb3 start
 "

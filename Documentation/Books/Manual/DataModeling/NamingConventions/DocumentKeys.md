@@ -22,7 +22,7 @@ Keys are case-sensitive, i.e. *myKey* and *MyKEY* are considered to be
 different keys.
 
 Specifying a document key is optional when creating new documents. If no
-document key is specified by the user, ArangoDB will create the document key
+document key is specified by the user, AvocadoDB will create the document key
 itself as each document is required to have a key.
 
 There are no guarantees about the format and pattern of auto-generated document

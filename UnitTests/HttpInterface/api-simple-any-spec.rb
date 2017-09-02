@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/simple"
   prefix = "api-simple"
 
@@ -16,22 +16,22 @@ describe ArangoDB do
     context "any query:" do
       before do
         @cn = "UnitTestsCollectionSimple"
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
         
         body = "{ \"name\" : \"#{@cn}\", \"numberOfShards\" : 8 }"
-        doc = ArangoDB.post("/_api/collection", :body => body)
+        doc = AvocadoDB.post("/_api/collection", :body => body)
         doc.code.should eq(200)
         @cid = doc.parsed_response['id']
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
       
       it "get any document, wrong collection" do
         cmd = api + "/any"
         body = "{ \"collection\" : \"NonExistingCollection\" }"
-        doc = ArangoDB.log_put("#{prefix}-any", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-any", cmd, :body => body)
 
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -43,7 +43,7 @@ describe ArangoDB do
       it "get any document, empty collection" do
         cmd = api + "/any"
         body = "{ \"collection\" : \"#{@cn}\" }"
-        doc = ArangoDB.log_put("#{prefix}-any", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-any", cmd, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -51,11 +51,11 @@ describe ArangoDB do
       end
       
       it "get any document, single-document collection" do
-        ArangoDB.post("/_api/document?collection=#{@cn}", :body => "{ \"n\" : 30 }")
+        AvocadoDB.post("/_api/document?collection=#{@cn}", :body => "{ \"n\" : 30 }")
 
         cmd = api + "/any"
         body = "{ \"collection\" : \"#{@cn}\" }"
-        doc = ArangoDB.log_put("#{prefix}-any", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-any", cmd, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -66,12 +66,12 @@ describe ArangoDB do
 
       it "get any document, non-empty collection" do
         (0...10).each{|i|
-          ArangoDB.post("/_api/document?collection=#{@cn}", :body => "{ \"n\" : #{i} }")
+          AvocadoDB.post("/_api/document?collection=#{@cn}", :body => "{ \"n\" : #{i} }")
         }
 
         cmd = api + "/any"
         body = "{ \"collection\" : \"#{@cn}\" }"
-        doc = ArangoDB.log_put("#{prefix}-any", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-any", cmd, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

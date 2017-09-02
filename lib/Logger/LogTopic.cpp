@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2013 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@
 #include "Enterprise/Audit/AuditFeature.h"
 #endif
 
-using namespace arangodb;
+using namespace avocadodb;
 
 namespace {
 std::atomic<uint16_t> NEXT_TOPIC_ID(0);
@@ -99,7 +99,7 @@ void LogTopic::setLogLevel(std::string const& name, LogLevel level) {
   auto it = _names.find(name);
 
   if (it == _names.end()) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "strange topic '" << name << "'";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "strange topic '" << name << "'";
     return;
   }
 
@@ -142,7 +142,7 @@ LogTopic::LogTopic(std::string const& name, LogLevel level)
       _name(name),
       _level(level) {
   if (name != "fixme" && name != "general") {
-    // "fixme" is a remainder from ArangoDB < 3.2, when it was
+    // "fixme" is a remainder from AvocadoDB < 3.2, when it was
     // allowed to log messages without a topic. From 3.2 onwards,
     // logging is always topic-based, and all previously topicless
     // log invocations now use the log topic "fixme".

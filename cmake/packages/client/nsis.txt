@@ -2,7 +2,7 @@
 # the client package is a complete cmake sub package.
 ################################################################################
 
-project(arangodb3-client)
+project(avocadodb3-client)
 cmake_minimum_required(VERSION 2.8)
 
 ################################################################################
@@ -105,10 +105,10 @@ endif ()
 
 include(${ORIGINAL_SOURCE_DIR}/cmake/VcMacros.cmake)
 include(${ORIGINAL_SOURCE_DIR}/cmake/GNUInstallDirs.cmake)
-set(CMAKE_INSTALL_SYSCONFDIR_ARANGO "${CMAKE_INSTALL_SYSCONFDIR}/arangodb3")
-set(CMAKE_INSTALL_FULL_SYSCONFDIR_ARANGO "${CMAKE_INSTALL_FULL_SYSCONFDIR}/arangodb3")
-set(CMAKE_INSTALL_DATAROOTDIR_ARANGO "${CMAKE_INSTALL_DATAROOTDIR}/arangodb3")
-set(CMAKE_INSTALL_FULL_DATAROOTDIR_ARANGO "${CMAKE_INSTALL_FULL_DATAROOTDIR}/arangodb3")
+set(CMAKE_INSTALL_SYSCONFDIR_ARANGO "${CMAKE_INSTALL_SYSCONFDIR}/avocadodb3")
+set(CMAKE_INSTALL_FULL_SYSCONFDIR_ARANGO "${CMAKE_INSTALL_FULL_SYSCONFDIR}/avocadodb3")
+set(CMAKE_INSTALL_DATAROOTDIR_ARANGO "${CMAKE_INSTALL_DATAROOTDIR}/avocadodb3")
+set(CMAKE_INSTALL_FULL_DATAROOTDIR_ARANGO "${CMAKE_INSTALL_FULL_DATAROOTDIR}/avocadodb3")
 
 set(INSTALL_MACROS_NO_TARGET_INSTALL TRUE)
 include(${ORIGINAL_SOURCE_DIR}/cmake/InstallMacros.cmake)
@@ -132,9 +132,9 @@ install (FILES "${SSL_EAY_RELEASE_DLL}" DESTINATION "${CMAKE_INSTALL_BINDIR}/" C
 set (ICON_PATH "${W_INSTALL_FILES}/Icons/")
 install(DIRECTORY "${ICON_PATH}" DESTINATION "resources")
 
-file(TO_NATIVE_PATH "resources/Icons/arangodb.ico" RELATIVE_ARANGO_ICON)
-file(TO_NATIVE_PATH "${ICON_PATH}arangodb.bmp" ARANGO_IMG)
-file(TO_NATIVE_PATH "${ICON_PATH}/arangodb.ico" ARANGO_ICON)
+file(TO_NATIVE_PATH "resources/Icons/avocadodb.ico" RELATIVE_ARANGO_ICON)
+file(TO_NATIVE_PATH "${ICON_PATH}avocadodb.bmp" ARANGO_IMG)
+file(TO_NATIVE_PATH "${ICON_PATH}/avocadodb.ico" ARANGO_ICON)
 
 STRING(REGEX REPLACE "\\\\" "\\\\\\\\" RELATIVE_ARANGO_ICON "${RELATIVE_ARANGO_ICON}") 
 STRING(REGEX REPLACE "\\\\" "\\\\\\\\" ARANGO_IMG "${ARANGO_IMG}")
@@ -169,8 +169,8 @@ set(CPACK_ARANGODB_NSIS_DEFINES "
 ################################################################################
 include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 include(${ORIGINAL_SOURCE_DIR}/cmake/debugInformation.cmake)
-include(${ORIGINAL_SOURCE_DIR}/cmake/InstallArangoDBJSClient.cmake)
-include(${ORIGINAL_SOURCE_DIR}/arangosh/install.cmake)
+include(${ORIGINAL_SOURCE_DIR}/cmake/InstallAvocadoDBJSClient.cmake)
+include(${ORIGINAL_SOURCE_DIR}/avocadosh/install.cmake)
 
 install_readme(README.windows README.windows.txt)
 

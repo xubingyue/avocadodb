@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@
 
 #include "V8/v8-globals.h"
 
-namespace arangodb{
+namespace avocadodb{
   class Result;
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -151,9 +151,9 @@ v8::Handle<v8::Value> TRI_ExecuteJavaScriptString(
 void TRI_CreateErrorObject(v8::Isolate* isolate, int errorNumber);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief creates an error in a javascript object, based on arangodb::Result
+/// @brief creates an error in a javascript object, based on avocadodb::Result
 ////////////////////////////////////////////////////////////////////////////////
-void TRI_CreateErrorObject(v8::Isolate* isolate, arangodb::Result const&);
+void TRI_CreateErrorObject(v8::Isolate* isolate, avocadodb::Result const&);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief creates an error in a javascript object

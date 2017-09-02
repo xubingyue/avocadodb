@@ -4,7 +4,7 @@
 ### @brief creates swagger json files from doc headers of rest files
 ###
 ### find files in
-###   arangod/RestHandler/*.cpp
+###   avocadod/RestHandler/*.cpp
 ###   js/actions/api-*.js
 ###
 ### @usage generateSwagger.py < RestXXXX.cpp > restSwagger.json
@@ -51,9 +51,9 @@ MS = re.M | re.S
 swagger = {
   "swagger": "2.0",
   "info": {
-    "description": "ArangoDB REST API Interface",
+    "description": "AvocadoDB REST API Interface",
     "version": "1.0",
-    "title": "ArangoDB",
+    "title": "AvocadoDB",
     "license": {
       "name": "Apache License, Version 2.0"
     }
@@ -409,7 +409,7 @@ def next_step(fp, line, r):
     if not line:                              return eof, (fp, line)
     elif check_end_of_comment(line, r):       return skip_code, (fp, line)
     elif r.START_DOCUBLOCK.match(line):       return start_docublock, (fp, line)
-    elif r.EXAMPLE_ARANGOSH_RUN.match(line):  return example_arangosh_run, (fp, line)
+    elif r.EXAMPLE_ARANGOSH_RUN.match(line):  return example_avocadosh_run, (fp, line)
     elif r.RESTBODYPARAM.match(line):         return restbodyparam, (fp, line)
     elif r.RESTSTRUCT.match(line):            return reststruct, (fp, line)
     elif r.RESTALLBODYPARAM.match(line):      return restallbodyparam, (fp, line)
@@ -996,14 +996,14 @@ def examples(cargo, r=Regexen()):
     return generic_handler_desc(cargo, r, "x-examples", None, operation['x-examples'], currentExample)
 
 ################################################################################
-### @brief example_arangosh_run
+### @brief example_avocadosh_run
 ################################################################################
 
 
-def example_arangosh_run(cargo, r=Regexen()):
+def example_avocadosh_run(cargo, r=Regexen()):
     global currentExample, DEBUG
 
-    if DEBUG: print >> sys.stderr, "example_arangosh_run"
+    if DEBUG: print >> sys.stderr, "example_avocadosh_run"
     fp, last = cargo
 
     exampleHeader = brTrim(operation['x-examples'][currentExample]).strip()
@@ -1095,7 +1095,7 @@ automat.add_state(comment)
 automat.add_state(eof, end_state=1)
 automat.add_state(error, end_state=1)
 automat.add_state(start_docublock)
-automat.add_state(example_arangosh_run)
+automat.add_state(example_avocadosh_run)
 automat.add_state(examples)
 automat.add_state(skip_code)
 automat.add_state(restbodyparam)
@@ -1211,7 +1211,7 @@ fileFilter = ""
 if len(sys.argv) > 5:
     fileFilter = sys.argv[5]
     print >> sys.stderr, "Filtering for: [" + fileFilter + "]"
-# read ArangoDB version
+# read AvocadoDB version
 f = open(scriptDir + "VERSION", "r")
 for version in f:
   version = version.strip('\n')

@@ -1,12 +1,12 @@
 /* global describe, beforeEach, afterEach, it*/
 'use strict';
 
-const errors = require('@arangodb').errors;
+const errors = require('@avocadodb').errors;
 const expect = require('chai').expect;
 const fs = require('fs');
-const FoxxManager = require('@arangodb/foxx/manager');
-const FoxxService = require('@arangodb/foxx/service');
-const request = require('@arangodb/request');
+const FoxxManager = require('@avocadodb/foxx/manager');
+const FoxxService = require('@avocadodb/foxx/service');
+const request = require('@avocadodb/request');
 const SERVICE_PATH = fs.makeAbsolute(fs.join(
   FoxxService._startupPath, 'common', 'test-data', 'apps', 'minimal-working-service'
 ));

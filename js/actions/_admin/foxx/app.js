@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,21 +21,21 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Dr. Frank Celler
-// / @author Copyright 2014-2016, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014-2016, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-const actions = require('@arangodb/actions');
-const FoxxManager = require('@arangodb/foxx/manager');
-const request = require('@arangodb/request');
-const db = require('@arangodb').db;
-const ArangoError = require('@arangodb').ArangoError;
+const actions = require('@avocadodb/actions');
+const FoxxManager = require('@avocadodb/foxx/manager');
+const request = require('@avocadodb/request');
+const db = require('@avocadodb').db;
+const AvocadoError = require('@avocadodb').AvocadoError;
 const joinPath = require('path').join;
 const fs = require('fs');
-const fmu = require('@arangodb/foxx/manager-utils');
+const fmu = require('@avocadodb/foxx/manager-utils');
 
 const easyPostCallback = actions.easyPostCallback;
 
@@ -56,7 +56,7 @@ function proxyLocal (method, url, qs, body, headers = {}) {
   }
   const res = request({method, url, qs, headers, body});
   if (res.json && res.json.errorNum) {
-    throw new ArangoError(res.json);
+    throw new AvocadoError(res.json);
   }
   res.throw();
   return res.body ? JSON.parse(res.body) : null;

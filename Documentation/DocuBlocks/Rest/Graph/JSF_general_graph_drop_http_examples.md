@@ -33,7 +33,7 @@ Returned if no graph with this name could be found.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{HttpGharialDrop}
-  var examples = require("@arangodb/graph-examples/example-graph.js");
+  var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   examples.loadGraph("social");
   var url = "/_api/gharial/social?dropCollections=true";

@@ -4,7 +4,7 @@ Skiplists
 Introduction to Skiplist Indexes
 --------------------------------
 
-This is an introduction to ArangoDB's skiplists.
+This is an introduction to AvocadoDB's skiplists.
 
 It is possible to define a skiplist index on one or more attributes (or paths)
 of documents. This skiplist is then used in queries to locate documents
@@ -21,7 +21,7 @@ Accessing Skiplist Indexes from the Shell
 
 ### Unique Skiplist Index
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 Ensures that a unique skiplist index exists:
 `collection.ensureIndex({ type: "skiplist", fields: [ "field1", ..., "fieldn" ], unique: true })`
@@ -77,7 +77,7 @@ details, including the index-identifier, is returned.
 
 ### Non-unique Skiplist Index
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 Ensures that a non-unique skiplist index exists:
 `collection.ensureIndex({ type: "skiplist", fields: [ "field1", ..., "fieldn" ] })`

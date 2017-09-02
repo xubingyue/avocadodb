@@ -38,7 +38,7 @@
 #define absv(n) ((n) < 0 ? -(n) : (n))
 #define minv(a, b) ((a) < (b) ? (a) : (b))
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 // forward for fpconv function
 int fpconv_dtoa(double fp, char dest[24]);
@@ -326,7 +326,7 @@ static int filter_special(double fp, char* dest) {
   return 3;
 }
 
-int arangodb::velocypack::fpconv_dtoa(double d, char dest[24]) {
+int avocadodb::velocypack::fpconv_dtoa(double d, char dest[24]) {
   char digits[18];
 
   int str_len = 0;

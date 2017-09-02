@@ -2,11 +2,11 @@ Starting the JavaScript shell
 -----------------------------
 
 The easiest way to connect to the database is the JavaScript shell
-_arangosh_. You can either start it from the command-line or as an
+_avocadosh_. You can either start it from the command-line or as an
 embedded version in the browser. Using the command-line tool has the
 advantage that you can use autocompletion.
 
-    unix> arangosh --server.password ""
+    unix> avocadosh --server.password ""
                                            _ 
       __ _ _ __ __ _ _ __   __ _  ___  ___| |__ 
      / _` | '__/ _` | '_ \ / _` |/ _ \/ __| '_ \ 
@@ -14,17 +14,17 @@ advantage that you can use autocompletion.
      \__,_|_|  \__,_|_| |_|\__, |\___/|___/_| |_|
                            |___/
 
-    Welcome to arangosh 2.x.y. Copyright (c) 2012 triAGENS GmbH.
+    Welcome to avocadosh 2.x.y. Copyright (c) 2012 triAGENS GmbH.
     Using Google V8 4.1.0.27 JavaScript engine.
     Using READLINE 6.1.
 
-    Connected to Arango DB 127.0.0.1:8529 Version 2.2.0
+    Connected to Avocado DB 127.0.0.1:8529 Version 2.2.0
 
-    arangosh> help
+    avocadosh> help
     ------------------------------------- Help -------------------------------------
     Predefined objects:                                                 
-      arango:                               ArangoConnection           
-      db:                                   ArangoDatabase             
+      avocado:                               AvocadoConnection           
+      db:                                   AvocadoDatabase             
       fm:                                   FoxxManager  
     Example:                                                            
      > db._collections();                   list all collections       
@@ -43,7 +43,7 @@ advantage that you can use autocompletion.
      > db._databases()                      list existing databases    
      > help                                 show help pages            
      > exit                                         
-    arangosh>
+    avocadosh>
 
 This gives you a prompt where you can issue JavaScript commands.
 
@@ -53,10 +53,10 @@ in order to run the shell on your system. You can use the options
 `--server.endpoint`, `--server.username` and `--server.password` for
 this.
 
-    unix> arangosh --server.endpoint tcp://127.0.0.1:8529 --server.username root
+    unix> avocadosh --server.endpoint tcp://127.0.0.1:8529 --server.username root
 
 A default configuration is normally installed under
-*/etc/arangodb/arangosh.conf*. It contains a default endpoint and an
+*/etc/avocadodb/avocadosh.conf*. It contains a default endpoint and an
 empty password.
 
 Querying for Documents
@@ -88,7 +88,7 @@ also manually unload a collection.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 02_workWithColl_unload
 
-Whenever you use a collection ArangoDB will automatically load it
+Whenever you use a collection AvocadoDB will automatically load it
 into memory for you.
 
 In order to create new documents in a collection use the *save*
@@ -124,7 +124,7 @@ matching a given example.
 
 While the *byExample* works very well for simple queries where you
 combine the conditions with an `and`. The syntax above becomes messy for *joins*
-and *or* conditions. Therefore ArangoDB also supports a full-blown
+and *or* conditions. Therefore AvocadoDB also supports a full-blown
 query language, AQL. To run an AQL query, use the *db._query* method:.
 
     @startDocuBlockInline 05_workWithColl_AQL_STR
@@ -159,10 +159,10 @@ You can learn all about the query language [AQL](../../AQL/index.html). Note tha
 *_query* is a short-cut for *_createStatement* and *execute*. We will
 come back to these functions when we talk about cursors.
 
-ArangoDB's Front-End
+AvocadoDB's Front-End
 --------------------
 
-The ArangoDB server has a graphical front-end, which allows you to
+The AvocadoDB server has a graphical front-end, which allows you to
 inspect the current state of the server from within your browser. You
 can use the front-end using the following URL:
 
@@ -170,6 +170,6 @@ can use the front-end using the following URL:
 
 The front-end allows you to browse through the collections and
 documents. If you need to administrate the database, please use
-the ArangoDB shell described in the next section.
+the AvocadoDB shell described in the next section.
 
 

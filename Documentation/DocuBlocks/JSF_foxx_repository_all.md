@@ -5,7 +5,7 @@
 Returns an array of models that matches the given example. You can provide
 both a skip and a limit value.
 
-**Warning:** ArangoDB doesn't guarantee a specific order in this case, to make
+**Warning:** AvocadoDB doesn't guarantee a specific order in this case, to make
 this really useful we have to explicitly provide something to order by.
 
 *Parameter*

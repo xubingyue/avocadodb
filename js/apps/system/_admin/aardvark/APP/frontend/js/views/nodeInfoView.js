@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, $, Backbone, templateEngine, window */
+/* global avocadoHelper, $, Backbone, templateEngine, window */
 (function () {
   'use strict';
 
@@ -30,7 +30,7 @@
 
       var callback = function () {
         this.continueRender();
-        this.breadcrumb(arangoHelper.getCoordinatorShortName(this.nodeId));
+        this.breadcrumb(avocadoHelper.getCoordinatorShortName(this.nodeId));
         $(window).trigger('resize');
       }.bind(this);
 

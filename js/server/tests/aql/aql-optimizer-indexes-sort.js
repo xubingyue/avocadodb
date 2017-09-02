@@ -29,7 +29,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite
@@ -106,7 +106,7 @@ function optimizerIndexesSortTestSuite () {
       });
 
       assertNotEqual(-1, nodeTypes.indexOf("IndexNode"), query);
-      if (!require("@arangodb/cluster").isCluster()) {
+      if (!require("@avocadodb/cluster").isCluster()) {
         assertEqual(-1, nodeTypes.indexOf("SortNode"), query);
       }
 
@@ -118,7 +118,7 @@ function optimizerIndexesSortTestSuite () {
       }
       assertEqual(expected.sort(), results.json.sort(), query);
       assertEqual(0, results.stats.scannedFull);
-      if (!require("@arangodb/cluster").isCluster()) {
+      if (!require("@avocadodb/cluster").isCluster()) {
         assertEqual(expected.length, results.stats.scannedIndex);
       }
     },
@@ -143,7 +143,7 @@ function optimizerIndexesSortTestSuite () {
       });
 
       assertNotEqual(-1, nodeTypes.indexOf("IndexNode"), query);
-      if (!require("@arangodb/cluster").isCluster()) {
+      if (!require("@avocadodb/cluster").isCluster()) {
         assertEqual(-1, nodeTypes.indexOf("SortNode"), query);
       }
 
@@ -154,7 +154,7 @@ function optimizerIndexesSortTestSuite () {
       }
       assertEqual(expected, results.json, query);
       assertEqual(0, results.stats.scannedFull);
-      if (!require("@arangodb/cluster").isCluster()) {
+      if (!require("@avocadodb/cluster").isCluster()) {
         assertEqual(expected.length, results.stats.scannedIndex);
       }
     },
@@ -179,7 +179,7 @@ function optimizerIndexesSortTestSuite () {
       });
 
       assertNotEqual(-1, nodeTypes.indexOf("IndexNode"), query);
-      if (!require("@arangodb/cluster").isCluster()) {
+      if (!require("@avocadodb/cluster").isCluster()) {
         assertEqual(-1, nodeTypes.indexOf("SortNode"), query);
       }
 
@@ -191,7 +191,7 @@ function optimizerIndexesSortTestSuite () {
       }
       assertEqual(expected.sort(), results.json.sort(), query);
       assertEqual(0, results.stats.scannedFull);
-      if (!require("@arangodb/cluster").isCluster()) {
+      if (!require("@avocadodb/cluster").isCluster()) {
         assertEqual(expected.length, results.stats.scannedIndex);
       }
     },

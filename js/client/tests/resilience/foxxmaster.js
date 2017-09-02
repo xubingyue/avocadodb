@@ -1,11 +1,11 @@
 /*jshint strict: false, sub: true */
-/*global print, arango, assertTrue, assertNotNull, assertNotUndefined */
+/*global print, avocado, assertTrue, assertNotNull, assertNotUndefined */
 'use strict';
 
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2014 triagens GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,19 +20,19 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Andreas Streichardt
 ////////////////////////////////////////////////////////////////////////////////
 
 const jsunity = require('jsunity');
-const arangodb = require('@arangodb');
+const avocadodb = require('@avocadodb');
 const wait = require('internal').wait;
-const db = arangodb.db;
+const db = avocadodb.db;
 const fs = require('fs');
 const console = require('console');
-const request = require("@arangodb/request");
-const foxxManager = require('@arangodb/foxx/manager');
+const request = require("@avocadodb/request");
+const foxxManager = require('@avocadodb/foxx/manager');
 
 const suspendExternal = require('internal').suspendExternal;
 const continueExternal = require("internal").continueExternal;
@@ -73,7 +73,7 @@ function serverSetup() {
   db.foxxqueuetest.insert({'_key': 'test', 'date': null, 'server': null});
   
   const serverCode = `
-const queues = require('@arangodb/foxx/queues');
+const queues = require('@avocadodb/foxx/queues');
 
 let queue = queues.create('q');
 queue.push({mount: '/queuetest', name: 'queuetest', 'repeatTimes': -1, 'repeatDelay': 1000}, {});
@@ -83,7 +83,7 @@ queue.push({mount: '/queuetest', name: 'queuetest', 'repeatTimes': -1, 'repeatDe
 
 function serverTeardown() {
   const serverCode = `
-const queues = require('@arangodb/foxx/queues');
+const queues = require('@avocadodb/foxx/queues');
 `;
   executeOnServer(serverCode);
   foxxManager.uninstall('/queuetest');
@@ -111,15 +111,15 @@ function FoxxmasterSuite() {
       let server = document.server;
       assertNotNull(server);
 
-      let instance = instanceInfo.arangods.filter(arangod => {
-        if (arangod.role === 'agent') {
+      let instance = instanceInfo.avocadods.filter(avocadod => {
+        if (avocadod.role === 'agent') {
           return false;
         }
-        let url = arangod.endpoint.replace(/tcp/, 'http') + '/_admin/server/id';
+        let url = avocadod.endpoint.replace(/tcp/, 'http') + '/_admin/server/id';
         let res = request({method: 'GET', url: url});
         let parsed = JSON.parse(res.body);
         if (parsed.id === server) {
-          assertTrue(suspendExternal(arangod.pid));
+          assertTrue(suspendExternal(avocadod.pid));
         }
         return parsed.id === server;
       })[0];
@@ -127,10 +127,10 @@ function FoxxmasterSuite() {
       assertNotUndefined(instance);
       assertTrue(suspendExternal(instance.pid));
 
-      let newEndpoint = instanceInfo.arangods.filter(arangod => {
-        return arangod.role === 'coordinator' && arangod.pid !== instance.pid;
+      let newEndpoint = instanceInfo.avocadods.filter(avocadod => {
+        return avocadod.role === 'coordinator' && avocadod.pid !== instance.pid;
       })[0];
-      arango.reconnect(newEndpoint.endpoint, db._name(), 'root', '');
+      avocado.reconnect(newEndpoint.endpoint, db._name(), 'root', '');
       let waitInterval = 0.1;
       let waited = 0;
       let ok = false;

@@ -11,9 +11,9 @@ The names of some attributes of the request object have been adjusted to more cl
 
 * `req.requestType` is now called `req.method`
 
-* `req.compatibility` is now called `req.arangoVersion`
+* `req.compatibility` is now called `req.avocadoVersion`
 
-* `req.user` is now called `req.arangoUser`
+* `req.user` is now called `req.avocadoUser`
 
 Some attributes have been removed or changed:
 
@@ -58,7 +58,7 @@ const sid = req.cookie('sid', {
 Request bodies
 --------------
 
-The `req.body` is no longer a method and no longer automatically parses JSON request bodies unless a request body was defined. The `req.rawBody` now corresponds to the `req.rawBodyBuffer` of ArangoDB 2.x and is also no longer a method.
+The `req.body` is no longer a method and no longer automatically parses JSON request bodies unless a request body was defined. The `req.rawBody` now corresponds to the `req.rawBodyBuffer` of AvocadoDB 2.x and is also no longer a method.
 
 Old:
 

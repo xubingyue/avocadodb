@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* global $, Joi, _, arangoHelper, templateEngine, window */
+/* global $, Joi, _, avocadoHelper, templateEngine, window */
 (function () {
   'use strict';
 
@@ -22,7 +22,7 @@
         success: function () {
           window.modalView.hide();
           self.reload();
-          arangoHelper.arangoNotification('Services', 'Service ' + result.name + ' installed.');
+          avocadoHelper.avocadoNotification('Services', 'Service ' + result.name + ' installed.');
         }
       });
     } else {
@@ -32,10 +32,10 @@
       }
       switch (res.errorNum) {
         case errors.ERROR_SERVICE_DOWNLOAD_FAILED.code:
-          arangoHelper.arangoError('Services', 'Unable to download application from the given repository.');
+          avocadoHelper.avocadoError('Services', 'Unable to download application from the given repository.');
           break;
         default:
-          arangoHelper.arangoError('Services', res.errorNum + '. ' + res.errorMessage);
+          avocadoHelper.avocadoError('Services', res.errorNum + '. ' + res.errorMessage);
       }
     }
   };
@@ -185,7 +185,7 @@
         mount = this.mount;
         flag = $('#new-app-teardown').prop('checked');
       } else {
-        mount = window.arangoHelper.escapeHtml($('#new-app-mount').val());
+        mount = window.avocadoHelper.escapeHtml($('#new-app-mount').val());
       }
       var toInstall = $(e.currentTarget).attr('appId');
       var version = $(e.currentTarget).attr('appVersion');
@@ -195,7 +195,7 @@
         this.collection.installFromStore({name: toInstall, version: version}, mount, installCallback.bind(this));
       }
       window.modalView.hide();
-      arangoHelper.arangoNotification('Services', 'Installing ' + toInstall + '.');
+      avocadoHelper.avocadoNotification('Services', 'Installing ' + toInstall + '.');
     }
   };
 
@@ -211,7 +211,7 @@
         mount = this.mount;
         flag = Boolean($('#new-app-teardown').prop('checked'));
       } else {
-        mount = window.arangoHelper.escapeHtml($('#new-app-mount').val());
+        mount = window.avocadoHelper.escapeHtml($('#new-app-mount').val());
       }
       isLegacy = Boolean($('#zip-app-islegacy').prop('checked'));
       this.collection.installFromZip(data.filename, mount, installCallback.bind(this), isLegacy, flag);
@@ -225,17 +225,17 @@
         mount = this.mount;
         flag = $('#new-app-teardown').prop('checked');
       } else {
-        mount = window.arangoHelper.escapeHtml($('#new-app-mount').val());
+        mount = window.avocadoHelper.escapeHtml($('#new-app-mount').val());
       }
-      url = window.arangoHelper.escapeHtml($('#repository').val());
-      version = window.arangoHelper.escapeHtml($('#tag').val());
+      url = window.avocadoHelper.escapeHtml($('#repository').val());
+      version = window.avocadoHelper.escapeHtml($('#tag').val());
 
       if (version === '') {
         version = 'master';
       }
       var info = {
-        url: window.arangoHelper.escapeHtml($('#repository').val()),
-        version: window.arangoHelper.escapeHtml($('#tag').val())
+        url: window.avocadoHelper.escapeHtml($('#repository').val()),
+        version: window.avocadoHelper.escapeHtml($('#tag').val())
       };
 
       try {
@@ -256,20 +256,20 @@
         mount = this.mount;
         flag = $('#new-app-teardown').prop('checked');
       } else {
-        mount = window.arangoHelper.escapeHtml($('#new-app-mount').val());
+        mount = window.avocadoHelper.escapeHtml($('#new-app-mount').val());
       }
       var info = {
-        name: window.arangoHelper.escapeHtml($('#new-app-name').val()),
+        name: window.avocadoHelper.escapeHtml($('#new-app-name').val()),
         documentCollections: _.map($('#new-app-document-collections').select2('data'), function (d) {
-          return window.arangoHelper.escapeHtml(d.text);
+          return window.avocadoHelper.escapeHtml(d.text);
         }),
         edgeCollections: _.map($('#new-app-edge-collections').select2('data'), function (d) {
-          return window.arangoHelper.escapeHtml(d.text);
+          return window.avocadoHelper.escapeHtml(d.text);
         }),
-        //        authenticated: window.arangoHelper.escapeHtml($("#new-app-name").val()),
-        author: window.arangoHelper.escapeHtml($('#new-app-author').val()),
-        license: window.arangoHelper.escapeHtml($('#new-app-license').val()),
-        description: window.arangoHelper.escapeHtml($('#new-app-description').val())
+        //        authenticated: window.avocadoHelper.escapeHtml($("#new-app-name").val()),
+        author: window.avocadoHelper.escapeHtml($('#new-app-author').val()),
+        license: window.avocadoHelper.escapeHtml($('#new-app-license').val()),
+        description: window.avocadoHelper.escapeHtml($('#new-app-description').val())
       };
       this.collection.generate(info, mount, installCallback.bind(this), flag);
     }
@@ -350,7 +350,7 @@
       }
     });
     $('#upload-foxx-zip').uploadFile({
-      url: arangoHelper.databaseUrl('/_api/upload?multipart=true'),
+      url: avocadoHelper.databaseUrl('/_api/upload?multipart=true'),
       allowedTypes: 'zip,js',
       multiple: false,
       onSuccess: installFoxxFromZip.bind(scope)
@@ -363,7 +363,7 @@
       });
     }).fail(function () {
       var table = $('#appstore-content');
-      table.append('<tr><td>Store is not available. ArangoDB is not able to connect to github.com</td></tr>');
+      table.append('<tr><td>Store is not available. AvocadoDB is not able to connect to github.com</td></tr>');
     });
   };
 

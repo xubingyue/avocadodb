@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@
 #include <rocksdb/convenience.h>
 #include <rocksdb/version.h>
 
-using namespace arangodb::rest;
+using namespace avocadodb::rest;
 
 std::map<std::string, std::string> Version::Values;
   
@@ -102,15 +102,15 @@ void Version::initialize() {
   Values["debug"] = "false";
 #endif
   Values["endianness"] = getEndianness();
-  Values["fd-setsize"] = arangodb::basics::StringUtils::itoa(FD_SETSIZE);
+  Values["fd-setsize"] = avocadodb::basics::StringUtils::itoa(FD_SETSIZE);
   Values["full-version-string"] = getVerboseVersionString();
   Values["icu-version"] = getICUVersion();
   Values["openssl-version"] = getOpenSSLVersion();
   Values["platform"] = TRI_PLATFORM;
   Values["reactor-type"] = getBoostReactorType();
   Values["server-version"] = getServerVersion();
-  Values["sizeof int"] = arangodb::basics::StringUtils::itoa(sizeof(int));
-  Values["sizeof void*"] = arangodb::basics::StringUtils::itoa(sizeof(void*));
+  Values["sizeof int"] = avocadodb::basics::StringUtils::itoa(sizeof(int));
+  Values["sizeof void*"] = avocadodb::basics::StringUtils::itoa(sizeof(void*));
 #ifdef TRI_UNALIGNED_ACCESS
   Values["unaligned-access"] = "true";
 #else
@@ -180,7 +180,7 @@ void Version::initialize() {
 #endif
   
   for (auto& it : Values) {
-    arangodb::basics::StringUtils::trimInPlace(it.second);
+    avocadodb::basics::StringUtils::trimInPlace(it.second);
   }
 }
 
@@ -264,7 +264,7 @@ std::string Version::getOpenSSLVersion() {
 
 /// @brief get vpack version
 std::string Version::getVPackVersion() {
-  return arangodb::velocypack::Version::BuildVersion.toString();
+  return avocadodb::velocypack::Version::BuildVersion.toString();
 }
 
 /// @brief get zlib version
@@ -338,7 +338,7 @@ std::string Version::getBuildRepository() {
 std::string Version::getVerboseVersionString() {
   std::ostringstream version;
 
-  version << "ArangoDB " << ARANGODB_VERSION_FULL << " "
+  version << "AvocadoDB " << ARANGODB_VERSION_FULL << " "
           << (sizeof(void*) == 4 ? "32" : "64") << "bit"
 #ifdef ARANGODB_ENABLE_MAINTAINER_MODE
           << " maintainer mode"

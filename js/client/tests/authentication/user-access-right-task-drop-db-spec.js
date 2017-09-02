@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2017 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License");
 // / you may not use this file except in compliance with the License.
@@ -22,24 +22,24 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
 // / @author Mark Vollmary
-// / @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
 const expect = require('chai').expect;
-const helper = require('@arangodb/user-helper');
-const tasks = require('@arangodb/tasks');
-const pu = require('@arangodb/process-utils');
+const helper = require('@avocadodb/user-helper');
+const tasks = require('@avocadodb/tasks');
+const pu = require('@avocadodb/process-utils');
 const download = require('internal').download;
 const namePrefix = helper.namePrefix;
 const rightLevels = helper.rightLevels;
 const testDBName = `${namePrefix}DBNew`;
-const errors = require('@arangodb').errors;
+const errors = require('@avocadodb').errors;
 const keySpaceId = 'task_drop_db_keyspace';
 
 const userSet = helper.userSet;
@@ -47,7 +47,7 @@ const systemLevel = helper.systemLevel;
 const dbLevel = helper.dbLevel;
 const colLevel = helper.colLevel;
 
-const arango = require('internal').arango;
+const avocado = require('internal').avocado;
 const db = require('internal').db;
 for (let l of rightLevels) {
   systemLevel[l] = new Set();
@@ -86,13 +86,13 @@ const executeJS = (code) => {
   httpOptions.method = 'POST';
   httpOptions.timeout = 1800;
   httpOptions.returnBodyOnError = true;
-  return download(arango.getEndpoint().replace('tcp', 'http') + '/_admin/execute?returnAsJSON=true',
+  return download(avocado.getEndpoint().replace('tcp', 'http') + '/_admin/execute?returnAsJSON=true',
     code,
     httpOptions);
 };
 
 const switchUser = (user) => {
-  arango.reconnect(arango.getEndpoint(), '_system', user, '');
+  avocado.reconnect(avocado.getEndpoint(), '_system', user, '');
 };
 helper.removeAllUsers();
 
@@ -170,7 +170,7 @@ describe('User Rights Management', () => {
                 name: taskId,
                 command: `(function (params) {
                   try {
-                    const db = require('@arangodb').db;
+                    const db = require('@avocadodb').db;
                     db._dropDatabase('${testDBName}');
                   } finally {
                     global.KEY_SET('${keySpaceId}', '${name}', true);

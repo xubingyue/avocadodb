@@ -163,8 +163,8 @@
               txt = $(span).text();
             expect(btn).toBeDefined();
             expect(span).toBeDefined();
-            expect(span).toBeOfClass('arangoicon');
-            expect(span).toBeOfClass('icon_arangodb_database1');
+            expect(span).toBeOfClass('avocadoicon');
+            expect(span).toBeOfClass('icon_avocadodb_database1');
             expect(span).toBeOfClass('cluster_icon_small');
             expect(txt.trim()).toEqual('4/5');
           });
@@ -205,8 +205,8 @@
               txt = $(span).text();
             expect(btn).toBeDefined();
             expect(span).toBeDefined();
-            expect(span).toBeOfClass('arangoicon');
-            expect(span).toBeOfClass('icon_arangodb_compass');
+            expect(span).toBeOfClass('avocadoicon');
+            expect(span).toBeOfClass('icon_avocadodb_compass');
             expect(span).toBeOfClass('cluster_icon_small');
             expect(txt.trim()).toEqual('4/5');
           });
@@ -269,8 +269,8 @@
             expect(tile).toBeOfClass('tile');
             expect(tile).toBeOfClass('tile-left');
             expect(icon).toBeDefined();
-            expect(icon).toBeOfClass('arangoicon');
-            expect(icon).toBeOfClass('icon_arangodb_database1');
+            expect(icon).toBeOfClass('avocadoicon');
+            expect(icon).toBeOfClass('icon_avocadodb_database1');
             expect(icon).toBeOfClass('cluster_icon_large');
             expect(htxt.trim()).toEqual('Data Servers');
             expect(ftxt.trim()).toEqual('4/5');
@@ -318,8 +318,8 @@
             expect(tile).toBeOfClass('tile');
             expect(tile).toBeOfClass('tile-right');
             expect(icon).toBeDefined();
-            expect(icon).toBeOfClass('arangoicon');
-            expect(icon).toBeOfClass('icon_arangodb_compass');
+            expect(icon).toBeOfClass('avocadoicon');
+            expect(icon).toBeOfClass('icon_avocadodb_compass');
             expect(icon).toBeOfClass('cluster_icon_large');
             expect(htxt.trim()).toEqual('Coordinators');
             expect(ftxt.trim()).toEqual('4/5');

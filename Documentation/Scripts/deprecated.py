@@ -30,11 +30,11 @@ def replaceCode(pathOfFile, newVersionNumber):
 
 if __name__ == '__main__':
   path = ["Documentation/Books/books/Manual"]
-  g = open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "ArangoDB/../../VERSION")))
+  g = open(os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "AvocadoDB/../../VERSION")))
   if g:
     newVersionNumber=g.read()
   g.close
   for i in path:
-    dirpath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir,"ArangoDB/../../"+i))
+    dirpath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir,"AvocadoDB/../../"+i))
     print "Tagging deprecated files"
     walk_on_files(dirpath, newVersionNumber)

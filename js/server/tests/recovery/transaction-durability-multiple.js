@@ -28,7 +28,7 @@
 // / @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var db = require('@arangodb').db;
+var db = require('@avocadodb').db;
 var internal = require('internal');
 var jsunity = require('jsunity');
 
@@ -46,7 +46,7 @@ function runSetup () {
       write: [ 'UnitTestsRecovery1', 'UnitTestsRecovery2' ]
     },
     action: function () {
-      var db = require('@arangodb').db;
+      var db = require('@avocadodb').db;
 
       var c1 = db._collection('UnitTestsRecovery1');
       var c2 = db._collection('UnitTestsRecovery2');

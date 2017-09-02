@@ -10,7 +10,7 @@
 If set to *true*, the response will contain a *details* attribute with
 additional information about included components and their versions. The
 attribute names and internals of the *details* object may vary depending on
-platform and ArangoDB version.
+platform and AvocadoDB version.
 
 @RESTDESCRIPTION
 Returns the server name and version number. The response is a JSON object
@@ -22,7 +22,7 @@ with the following attributes:
 is returned in all cases.
 
 @RESTREPLYBODY{server,string,required,string}
-will always contain *arango*
+will always contain *avocado*
 
 @RESTREPLYBODY{version,string,required,string}
 the server version string. The string has the format

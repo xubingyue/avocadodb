@@ -4,7 +4,7 @@ stand-alone shell
  SQL-like query language or JavaScript extensions.
  Debug symbol file for development.
  .
- Copyright: 2014-2016 by ArangoDB GmbH
+ Copyright: 2014-2016 by AvocadoDB GmbH
  Copyright: 2012-2013 by triAGENS GmbH
- ArangoDB Software
- www.arangodb.com
+ AvocadoDB Software
+ www.avocadodb.com

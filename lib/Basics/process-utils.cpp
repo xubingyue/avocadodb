@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Esteban Lombeyda
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@
 #include "Basics/Thread.h"
 #include "Basics/tri-strings.h"
 
-using namespace arangodb;
+using namespace avocadodb;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief physical memory
@@ -160,7 +160,7 @@ static std::vector<TRI_external_t*> ExternalProcesses;
 /// @brief lock for protected access to vector ExternalProcesses
 ////////////////////////////////////////////////////////////////////////////////
 
-static arangodb::Mutex ExternalProcessesLock;
+static avocadodb::Mutex ExternalProcessesLock;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief creates pipe pair
@@ -169,12 +169,12 @@ static arangodb::Mutex ExternalProcessesLock;
 #ifndef _WIN32
 static bool CreatePipes(int* pipe_server_to_child, int* pipe_child_to_server) {
   if (pipe(pipe_server_to_child) == -1) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create pipe";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create pipe";
     return false;
   }
 
   if (pipe(pipe_child_to_server) == -1) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create pipe";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create pipe";
 
     close(pipe_server_to_child[0]);
     close(pipe_server_to_child[1]);
@@ -240,7 +240,7 @@ static void StartExternalProcess(TRI_external_t* external, bool usePipes) {
 
   // parent
   if (processPid == -1) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "fork failed";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "fork failed";
 
     if (usePipes) {
       close(pipe_server_to_child[0]);
@@ -253,7 +253,7 @@ static void StartExternalProcess(TRI_external_t* external, bool usePipes) {
     return;
   }
 
-  LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "fork succeeded, child pid: " << processPid;
+  LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "fork succeeded, child pid: " << processPid;
 
   if (usePipes) {
     close(pipe_server_to_child[0]);
@@ -281,7 +281,7 @@ static bool createPipes(HANDLE* hChildStdinRd, HANDLE* hChildStdinWr,
 
   // create a pipe for the child process's STDOUT
   if (!CreatePipe(hChildStdoutRd, hChildStdoutWr, &saAttr, 0)) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << ""
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << ""
              << "stdout pipe creation failed";
     return false;
   }
@@ -290,7 +290,7 @@ static bool createPipes(HANDLE* hChildStdinRd, HANDLE* hChildStdinWr,
   if (!CreatePipe(hChildStdinRd, hChildStdinWr, &saAttr, 0)) {
     CloseHandle(hChildStdoutRd);
     CloseHandle(hChildStdoutWr);
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "stdin pipe creation failed";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "stdin pipe creation failed";
     return false;
   }
 
@@ -387,7 +387,7 @@ static bool startProcess(TRI_external_t* external, HANDLE rd, HANDLE wr) {
   
   args = makeWindowsArgs(external);
   if (args == NULL) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "execute of '" << external->_executable
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "execute of '" << external->_executable
              << "' failed making args";
     return false;
   }
@@ -420,7 +420,7 @@ static bool startProcess(TRI_external_t* external, HANDLE rd, HANDLE wr) {
 
   if (bFuncRetn == FALSE) {
     TRI_SYSTEM_ERROR();
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "execute of '" << external->_executable
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "execute of '" << external->_executable
              << "' failed, error: " << GetLastError() << " " << TRI_GET_ERRORBUF;
     return false;
   } else {
@@ -860,7 +860,7 @@ void TRI_CreateExternalProcess(char const* executable, char const** arguments,
     return;
   }
 
-  LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "adding process " << external->_pid << " to list";
+  LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "adding process " << external->_pid << " to list";
 
   // Note that the following deals with different types under windows,
   // however, this code here can be written in a platform-independent
@@ -905,9 +905,9 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
   if (external == nullptr) {
     status._errorMessage =
         std::string("the pid you're looking for is not in our list: ") +
-        arangodb::basics::StringUtils::itoa(static_cast<int64_t>(pid._pid));
+        avocadodb::basics::StringUtils::itoa(static_cast<int64_t>(pid._pid));
     status._status = TRI_EXT_NOT_FOUND;
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "checkExternal: pid not found: " << pid._pid;
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "checkExternal: pid not found: " << pid._pid;
 
     return status;
   }
@@ -930,7 +930,7 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
       if (wait) {
         status._errorMessage =
             std::string("waitpid returned 0 for pid while it shouldn't ") +
-            arangodb::basics::StringUtils::itoa(external->_pid);
+            avocadodb::basics::StringUtils::itoa(external->_pid);
 
         if (WIFEXITED(loc)) {
           external->_status = TRI_EXT_TERMINATED;
@@ -950,11 +950,11 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
       }
     } else if (res == -1) {
       TRI_set_errno(TRI_ERROR_SYS_ERROR);
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "waitpid returned error for pid " << external->_pid << " ("
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "waitpid returned error for pid " << external->_pid << " ("
                 << wait << "): " << TRI_last_error();
       status._errorMessage =
           std::string("waitpid returned error for pid ") +
-          arangodb::basics::StringUtils::itoa(external->_pid) +
+          avocadodb::basics::StringUtils::itoa(external->_pid) +
           std::string(": ") + std::string(TRI_last_error());
     } else if (static_cast<TRI_pid_t>(external->_pid) ==
                static_cast<TRI_pid_t>(res)) {
@@ -972,12 +972,12 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
         external->_exitStatus = 0;
       }
     } else {
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "unexpected waitpid result for pid " << external->_pid
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "unexpected waitpid result for pid " << external->_pid
                 << ": " << res;
       status._errorMessage =
           std::string("unexpected waitpid result for pid ") +
-          arangodb::basics::StringUtils::itoa(external->_pid) +
-          std::string(": ") + arangodb::basics::StringUtils::itoa(res);
+          avocadodb::basics::StringUtils::itoa(external->_pid) +
+          std::string(": ") + avocadodb::basics::StringUtils::itoa(res);
     }
 #else
     {
@@ -989,11 +989,11 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
         if (result == WAIT_FAILED) {
           FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0,
                         windowsErrorBuf, sizeof(windowsErrorBuf), NULL);
-          LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "could not wait for subprocess with pid "
+          LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "could not wait for subprocess with pid "
                     << external->_pid << ": " << windowsErrorBuf;
           status._errorMessage =
               std::string("could not wait for subprocess with pid ") +
-              arangodb::basics::StringUtils::itoa(
+              avocadodb::basics::StringUtils::itoa(
                   static_cast<int64_t>(external->_pid)) +
               windowsErrorBuf;
           status._exitStatus = GetLastError();
@@ -1004,7 +1004,7 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
         switch (result) {
           case WAIT_ABANDONED:
             wantGetExitCode = true;
-            LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "WAIT_ABANDONED while waiting for subprocess with pid "
+            LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "WAIT_ABANDONED while waiting for subprocess with pid "
                       << external->_pid;
             break;
           case WAIT_OBJECT_0:
@@ -1018,17 +1018,17 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
           case WAIT_FAILED:
             FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), 0,
                           windowsErrorBuf, sizeof(windowsErrorBuf), NULL);
-            LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "could not wait for subprocess with pid "
+            LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "could not wait for subprocess with pid "
                       << external->_pid << ": " << windowsErrorBuf;
             status._errorMessage =
                 std::string("could not wait for subprocess with PID '") +
-                arangodb::basics::StringUtils::itoa(
+                avocadodb::basics::StringUtils::itoa(
                     static_cast<int64_t>(external->_pid)) +
                 std::string("'") + windowsErrorBuf;
             status._exitStatus = GetLastError();
           default:
             wantGetExitCode = true;
-            LOG_TOPIC(WARN, arangodb::Logger::FIXME)
+            LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
                 << "unexpected status while waiting for subprocess with pid "
                 << external->_pid;
         }
@@ -1036,11 +1036,11 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
       if (wantGetExitCode) {
         DWORD exitCode = STILL_ACTIVE;
         if (!GetExitCodeProcess(external->_process, &exitCode)) {
-          LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "exit status could not be determined for pid "
+          LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "exit status could not be determined for pid "
                     << external->_pid;
           status._errorMessage =
               std::string("exit status could not be determined for pid ") +
-              arangodb::basics::StringUtils::itoa(
+              avocadodb::basics::StringUtils::itoa(
                   static_cast<int64_t>(external->_pid));
         } else {
           if (exitCode == STILL_ACTIVE) {
@@ -1060,13 +1060,13 @@ TRI_external_status_t TRI_CheckExternalProcess(TRI_external_id_t pid,
     }
 #endif
   } else {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "unexpected process status " << external->_status << ": "
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "unexpected process status " << external->_status << ": "
               << external->_exitStatus;
     status._errorMessage =
         std::string("unexpected process status ") +
-        arangodb::basics::StringUtils::itoa(external->_status) +
+        avocadodb::basics::StringUtils::itoa(external->_status) +
         std::string(": ") +
-        arangodb::basics::StringUtils::itoa(external->_exitStatus);
+        avocadodb::basics::StringUtils::itoa(external->_exitStatus);
   }
 
   status._status = external->_status;
@@ -1122,15 +1122,15 @@ static bool OurKillProcess(TRI_external_t* pid, int signal) {
 
   // kill worker process
   if (0 != TerminateProcess(pid->_process, uExitCode)) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "kill of worker process succeeded";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "kill of worker process succeeded";
   } else {
     DWORD e1 = GetLastError();
     BOOL ok = GetExitCodeProcess(pid->_process, &exitCode);
 
     if (ok) {
-      LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "worker process already dead: " << exitCode;
+      LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "worker process already dead: " << exitCode;
     } else {
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "kill of worker process failed: " << exitCode;
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "kill of worker process failed: " << exitCode;
       ok = false;
     }
   }
@@ -1156,7 +1156,7 @@ static bool OurKillProcessPID(DWORD pid) {
 ////////////////////////////////////////////////////////////////////////////////
 
 bool TRI_KillExternalProcess(TRI_external_id_t pid, int signal) {
-  LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "killing process: " << pid._pid;
+  LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "killing process: " << pid._pid;
 
   TRI_external_t* external = nullptr;  // just to please the compiler
   {
@@ -1173,7 +1173,7 @@ bool TRI_KillExternalProcess(TRI_external_id_t pid, int signal) {
   }
 
   if (external == nullptr) {
-    LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "kill: process not found: " << pid._pid;
+    LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "kill: process not found: " << pid._pid;
 #ifndef _WIN32
     // Kill just in case:
     if (0 == kill(pid._pid, signal)) {
@@ -1215,7 +1215,7 @@ bool TRI_KillExternalProcess(TRI_external_id_t pid, int signal) {
 ////////////////////////////////////////////////////////////////////////////////
 
 bool TRI_SuspendExternalProcess(TRI_external_id_t pid) {
-  LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "suspending process: " << pid._pid;
+  LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "suspending process: " << pid._pid;
 
 #ifndef _WIN32
   return 0 == kill(pid._pid, SIGSTOP);
@@ -1229,7 +1229,7 @@ bool TRI_SuspendExternalProcess(TRI_external_id_t pid) {
 ////////////////////////////////////////////////////////////////////////////////
 
 bool TRI_ContinueExternalProcess(TRI_external_id_t pid) {
-  LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "continueing process: " << pid._pid;
+  LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "continueing process: " << pid._pid;
 
 #ifndef _WIN32
   return 0 == kill(pid._pid, SIGCONT);

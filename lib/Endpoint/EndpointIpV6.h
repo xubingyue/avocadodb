@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@
 
 #include "Basics/StringUtils.h"
 
-namespace arangodb {
+namespace avocadodb {
 class EndpointIpV6 final : public EndpointIp {
  public:
   EndpointIpV6(EndpointType, TransportType, EncryptionType, int, bool,
@@ -38,7 +38,7 @@ class EndpointIpV6 final : public EndpointIp {
   int domain() const override { return AF_INET6; }
 
   std::string hostAndPort() const override {
-    return '[' + host() + "]:" + arangodb::basics::StringUtils::itoa(port());
+    return '[' + host() + "]:" + avocadodb::basics::StringUtils::itoa(port());
   }
 };
 }

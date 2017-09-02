@@ -1,8 +1,8 @@
 Database Names
 ==============
 
-ArangoDB will always start up with a default database, named *_system*.
-Users can create additional databases in ArangoDB, provided the database
+AvocadoDB will always start up with a default database, named *_system*.
+Users can create additional databases in AvocadoDB, provided the database
 names conform to the following constraints:
 
 * Database names must only consist of the letters *a* to *z* (both lower and

@@ -11,9 +11,9 @@ Using *synchronous replication* alone will guarantee consistency and high availa
 
 In a cluster synchronous replication will be managed by the *coordinators* for the client. The data will always be stored on *primaries*.
 
-The following example will give you an idea of how synchronous operation has been implemented in ArangoDB.
+The following example will give you an idea of how synchronous operation has been implemented in AvocadoDB.
 
-1. Connect to a coordinator via arangosh
+1. Connect to a coordinator via avocadosh
 2. Create a collection
 
     127.0.0.1:8530@_system> db._create("test", {"replicationFactor": 2})
@@ -39,7 +39,7 @@ replicate it to the follower.
    synchronous replication is resumed. This happens all transparently
    to the client.
 
-The current implementation of ArangoDB does not allow changing the replicationFactor later. This is subject to change. In the meantime the only way is to dump and restore the collection. A cookbook recipe for this can be found here: https://docs.arangodb.com/cookbook/Administration/Migrate2.8to3.0.html#controling-the-number-of-shards-and-the-replication-factor
+The current implementation of AvocadoDB does not allow changing the replicationFactor later. This is subject to change. In the meantime the only way is to dump and restore the collection. A cookbook recipe for this can be found here: https://docs.avocadodb.com/cookbook/Administration/Migrate2.8to3.0.html#controling-the-number-of-shards-and-the-replication-factor
 
 ### Automatic failover
 

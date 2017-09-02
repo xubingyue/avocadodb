@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,9 +27,9 @@
 
 #include <type_traits>
     
-#define ENUM_ITERATOR(type, start, end) arangodb::EnumIterator<type, type::start, type::end>()
+#define ENUM_ITERATOR(type, start, end) avocadodb::EnumIterator<type, type::start, type::end>()
 
-namespace arangodb {
+namespace avocadodb {
 
 /// @brief Iterator for an enum class type
 /// will work only when the enum values are unique, contiguous and 

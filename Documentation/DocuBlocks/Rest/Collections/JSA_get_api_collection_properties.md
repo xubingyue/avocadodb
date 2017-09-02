@@ -35,7 +35,7 @@ This is achieved by forcing a load of the underlying collection.
     of documents is considered an error.
 
 - *isVolatile*: If *true* then the collection data will be
-  kept in memory only and ArangoDB will not write or sync the data
+  kept in memory only and AvocadoDB will not write or sync the data
   to disk.
   This option is only present for the MMFiles storage engine.
 

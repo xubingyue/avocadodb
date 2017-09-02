@@ -1,8 +1,8 @@
-AQL with ArangoDB Web Interface
+AQL with AvocadoDB Web Interface
 ===============================
 
 
-In the ArangoDB Web Interface the AQL Editor tab allows to execute ad-hoc AQL
+In the AvocadoDB Web Interface the AQL Editor tab allows to execute ad-hoc AQL
 queries.
 
 Type in a query in the main box and execute it by pressing the *Execute* button.
@@ -29,14 +29,14 @@ Bind parameters (table view mode):
 | Key         | Value  |
 |-------------|--------|
 | @collection | _apps  |
-| search      | arango |
+| search      | avocado |
 
 Bind parameters (JSON view mode):
 
 ```json
 {
     "@collection": "_apps",
-    "search": "arango"
+    "search": "avocado"
 }
 ```
 

@@ -30,8 +30,8 @@
 
 var jsunity = require("jsunity");
 var internal = require("internal");
-var testHelper = require("@arangodb/test-helper").Helper;
-var ArangoCollection = require("@arangodb/arango-collection").ArangoCollection;
+var testHelper = require("@avocadodb/test-helper").Helper;
+var AvocadoCollection = require("@avocadodb/avocado-collection").AvocadoCollection;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -890,7 +890,7 @@ function CompactionSuite () {
       c1.unload();
       c1 = null;
 
-      while (internal.db._collection(cn).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (internal.db._collection(cn).status() !== AvocadoCollection.STATUS_UNLOADED) {
         internal.db._collection(cn).unload();
         internal.wait(1, false);
       }
@@ -964,7 +964,7 @@ function CompactionSuite () {
       c1.unload();
       c1 = null;
 
-      while (internal.db._collection(cn).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (internal.db._collection(cn).status() !== AvocadoCollection.STATUS_UNLOADED) {
         internal.db._collection(cn).unload();
         internal.wait(1, false);
       }

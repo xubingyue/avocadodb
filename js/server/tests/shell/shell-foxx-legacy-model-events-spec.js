@@ -3,8 +3,8 @@
 
 var sinon = require('sinon');
 const expect = require('chai').expect;
-var FoxxRepository = require('@arangodb/foxx/legacy/repository').Repository;
-var Model = require('@arangodb/foxx/legacy/model').Model;
+var FoxxRepository = require('@avocadodb/foxx/legacy/repository').Repository;
+var Model = require('@avocadodb/foxx/legacy/model').Model;
 
 describe('Model Events', function () {
   var collection, instance, repository;

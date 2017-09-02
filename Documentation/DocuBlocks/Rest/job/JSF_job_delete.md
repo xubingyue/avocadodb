@@ -48,7 +48,7 @@ Deleting all jobs:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_delete_01}
   var url = "/_api/version";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
 
   assert(response.code === 202);
@@ -64,7 +64,7 @@ Deleting expired jobs:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_delete_02}
   var url = "/_api/version";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
 
   assert(response.code === 202);
@@ -90,13 +90,13 @@ Deleting the result of a specific job:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_delete_03}
   var url = "/_api/version";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
 
   assert(response.code === 202);
   logRawResponse(response);
 
-  var queryId = response.headers['x-arango-async-id'];
+  var queryId = response.headers['x-avocado-async-id'];
   url = '/_api/job/' + queryId
   var response = logCurlRequest('DELETE', url, "");
   assert(response.code === 200);

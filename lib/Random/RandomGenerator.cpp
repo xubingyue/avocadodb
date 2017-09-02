@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,8 +37,8 @@
 #include "Basics/hashes.h"
 #include "Logger/Logger.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 // -----------------------------------------------------------------------------
 // RandomDevice
@@ -168,13 +168,13 @@ int32_t RandomDevice::other(int32_t left, uint32_t range) {
 
   while (r >= g) {
     if (++count >= MAX_COUNT) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot generate small random number after " << count
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot generate small random number after " << count
                << " tries";
       r %= g;
       continue;
     }
 
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "random number too large, trying again";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "random number too large, trying again";
     r = random();
   }
 
@@ -228,10 +228,10 @@ class RandomDeviceDirect : public RandomDevice {
       ssize_t r = TRI_READ(fd, ptr, (TRI_read_t)n);
 
       if (r == 0) {
-        LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "read on random device failed: nothing read";
+        LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "read on random device failed: nothing read";
         FATAL_ERROR_EXIT();
       } else if (r < 0) {
-        LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "read on random device failed: " << strerror(errno);
+        LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "read on random device failed: " << strerror(errno);
         FATAL_ERROR_EXIT();
       }
 
@@ -311,14 +311,14 @@ class RandomDeviceCombined : public RandomDevice {
       ssize_t r = TRI_READ(fd, ptr, (TRI_read_t)n);
 
       if (r == 0) {
-        LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "read on random device failed: nothing read";
+        LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "read on random device failed: nothing read";
         FATAL_ERROR_EXIT();
       } else if (errno == EWOULDBLOCK || errno == EAGAIN) {
-        LOG_TOPIC(INFO, arangodb::Logger::FIXME) << "not enough entropy (got " << (sizeof(buffer) - n)
+        LOG_TOPIC(INFO, avocadodb::Logger::FIXME) << "not enough entropy (got " << (sizeof(buffer) - n)
                   << "), switching to pseudo-random";
         break;
       } else if (r < 0) {
-        LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "read on random device failed: " << strerror(errno);
+        LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "read on random device failed: " << strerror(errno);
         FATAL_ERROR_EXIT();
       }
 
@@ -327,7 +327,7 @@ class RandomDeviceCombined : public RandomDevice {
 
       rseed = buffer[0];
 
-      LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "using seed " << rseed;
+      LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "using seed " << rseed;
     }
 
     if (0 < n) {
@@ -414,7 +414,7 @@ class RandomDeviceWin32 : public RandomDevice {
     // fill the buffer with random characters
     int result = CryptGenRandom(cryptoHandle, n, ptr);
     if (result == 0) {
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "read on random device failed: nothing read";
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "read on random device failed: nothing read";
       FATAL_ERROR_EXIT();
     }
     pos = 0;

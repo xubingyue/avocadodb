@@ -3,8 +3,8 @@ const dd = require('dedent');
 const joi = require('joi');
 const httpError = require('http-errors');
 const status = require('statuses');
-const errors = require('@arangodb').errors;
-const createRouter = require('@arangodb/foxx/router');
+const errors = require('@avocadodb').errors;
+const createRouter = require('@avocadodb/foxx/router');
 const <%= model %> = require('../models/<%= modelFile %>');
 
 const <%= documents %> = module.context.collection('<%= collection %>');
@@ -40,7 +40,7 @@ router.post(function (req, res) {
   try {
     meta = <%= documents %>.save(<%= document %>);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === ARANGO_DUPLICATE) {
+    if (e.isAvocadoError && e.errorNum === ARANGO_DUPLICATE) {
       throw httpError(HTTP_CONFLICT, e.message);
     }
     throw e;
@@ -68,7 +68,7 @@ router.get(':key', function (req, res) {
   try {
     <%= document %> = <%= documents %>.document(key);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === ARANGO_NOT_FOUND) {
+    if (e.isAvocadoError && e.errorNum === ARANGO_NOT_FOUND) {
       throw httpError(HTTP_NOT_FOUND, e.message);
     }
     throw e;
@@ -90,10 +90,10 @@ router.put(':key', function (req, res) {
   try {
     meta = <%= documents %>.replace(key, <%= document %>);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === ARANGO_NOT_FOUND) {
+    if (e.isAvocadoError && e.errorNum === ARANGO_NOT_FOUND) {
       throw httpError(HTTP_NOT_FOUND, e.message);
     }
-    if (e.isArangoError && e.errorNum === ARANGO_CONFLICT) {
+    if (e.isAvocadoError && e.errorNum === ARANGO_CONFLICT) {
       throw httpError(HTTP_CONFLICT, e.message);
     }
     throw e;
@@ -119,10 +119,10 @@ router.patch(':key', function (req, res) {
     <%= documents %>.update(key, patchData);
     <%= document %> = <%= documents %>.document(key);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === ARANGO_NOT_FOUND) {
+    if (e.isAvocadoError && e.errorNum === ARANGO_NOT_FOUND) {
       throw httpError(HTTP_NOT_FOUND, e.message);
     }
-    if (e.isArangoError && e.errorNum === ARANGO_CONFLICT) {
+    if (e.isAvocadoError && e.errorNum === ARANGO_CONFLICT) {
       throw httpError(HTTP_CONFLICT, e.message);
     }
     throw e;
@@ -144,7 +144,7 @@ router.delete(':key', function (req, res) {
   try {
     <%= documents %>.remove(key);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === ARANGO_NOT_FOUND) {
+    if (e.isAvocadoError && e.errorNum === ARANGO_NOT_FOUND) {
       throw httpError(HTTP_NOT_FOUND, e.message);
     }
     throw e;

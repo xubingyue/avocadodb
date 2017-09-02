@@ -1,8 +1,8 @@
-Incompatible changes in ArangoDB 2.7
+Incompatible changes in AvocadoDB 2.7
 ====================================
 
 It is recommended to check the following list of incompatible changes **before** 
-upgrading to ArangoDB 2.7, and adjust any client programs if necessary.
+upgrading to AvocadoDB 2.7, and adjust any client programs if necessary.
 
 
 AQL changes
@@ -15,8 +15,8 @@ variable, a collection name or a function name) will stop working. To make such 
 working again, each occurrence of `DISTINCT` in an AQL query should be enclosed in backticks.
 This will turn `DISTINCT` from a keyword into an identifier again.
 
-The AQL function `SKIPLIST()` has been removed in ArangoDB 2.7. This function was deprecated in
-ArangoDB 2.6. It was a left-over from times when the query optimizer wasn't able to use skiplist 
+The AQL function `SKIPLIST()` has been removed in AvocadoDB 2.7. This function was deprecated in
+AvocadoDB 2.6. It was a left-over from times when the query optimizer wasn't able to use skiplist 
 indexes together with filters, skip and limit values. Since this issue been fixed since version 2.3, 
 there is no AQL replacement function for `SKIPLIST`. Queries that use the `SKIPLIST` function 
 can be fixed by using the usual combination of `FOR`, `FILTER` and `LIMIT`, e.g.
@@ -34,7 +34,7 @@ Foxx changes
 
 ### Bundling and compilation
 
-The `assets` property is no longer supported in Foxx manifests and is scheduled to be removed in a future version of ArangoDB. The `files` property can still be used to serve static assets but it is recommended to use separate tooling to compile and bundle your assets.
+The `assets` property is no longer supported in Foxx manifests and is scheduled to be removed in a future version of AvocadoDB. The `files` property can still be used to serve static assets but it is recommended to use separate tooling to compile and bundle your assets.
 
 ### Manifest scripts
 
@@ -64,13 +64,13 @@ The properties `setup` and `teardown` have been moved into the `scripts` propert
 
 ### Foxx Queues
 
-Function-based Foxx Queue job types are no longer supported. To learn about how you can use the new script-based job types [follow the updated recipe in the cookbook](https://docs.arangodb.com/2.8/cookbook/FoxxQueues.html).
+Function-based Foxx Queue job types are no longer supported. To learn about how you can use the new script-based job types [follow the updated recipe in the cookbook](https://docs.avocadodb.com/2.8/cookbook/FoxxQueues.html).
 
 ### Foxx Sessions
 
 The `jwt` and `type` options have been removed from the `activateSessions` API.
 
-If you want to replicate the behavior of the `jwt` option you can use the JWT functions in the `crypto` module. A JWT-based session storage that doesn't write sessions to the database is available as the [sessions-jwt app](https://github.com/arangodb/foxx-sessions-jwt) in the Foxx app store.
+If you want to replicate the behavior of the `jwt` option you can use the JWT functions in the `crypto` module. A JWT-based session storage that doesn't write sessions to the database is available as the [sessions-jwt app](https://github.com/avocadodb/foxx-sessions-jwt) in the Foxx app store.
 
 The session type is now inferred from the presence of the `cookie` or `header` options (allowing you to enable support for both). If you want to use the default settings for `cookie` or `header` you can pass the value `true` instead.
 
@@ -79,7 +79,7 @@ The `sessionStorageApp` option has been removed in favour of the `sessionStorage
 **Before:**
 
 ```js
-var Foxx = require('org/arangodb/foxx');
+var Foxx = require('org/avocadodb/foxx');
 var ctrl = new Foxx.Controller(applicationContext);
 
 ctrl.activateSessions({
@@ -99,12 +99,12 @@ ctrl.activateSessions({
 
 ### Request module
 
-The module `org/arangodb/request` uses an internal library function for sending HTTP
+The module `org/avocadodb/request` uses an internal library function for sending HTTP
 requests. This library functionally unconditionally set an HTTP header `Accept-Encoding: gzip`
 in all outgoing HTTP requests, without client code having to set this header explicitly.
 
 This has been fixed in 2.7, so `Accept-Encoding: gzip` is not set automatically anymore.
-Additionally the header `User-Agent: ArangoDB` is not set automatically either. If
+Additionally the header `User-Agent: AvocadoDB` is not set automatically either. If
 client applications rely on these headers being sent, they are free to add it when
 constructing requests using the request module.
 
@@ -113,23 +113,23 @@ can be added here if required by passing it via a `headers` sub-attribute in the
 third parameter (`options`) to this function. 
 
 
-arangodump / backups
+avocadodump / backups
 --------------------
 
-The filenames in dumps created by arangodump now contain not only the name of the dumped 
+The filenames in dumps created by avocadodump now contain not only the name of the dumped 
 collection, but also an additional 32-digit hash value. This is done to prevent overwriting 
 dump files in case-insensitive file systems when there exist multiple collections with the 
 same name (but with different cases). 
 
-This change leads to changed filenames in dumps created by arangodump. If any client
+This change leads to changed filenames in dumps created by avocadodump. If any client
 scripts depend on the filenames in the dump output directory being equal to the collection
 name plus one of the suffixes `.structure.json` and `.data.json`, they need to be adjusted.
 
-Starting with ArangoDB 2.7, the file names will contain an underscore plus the 32-digit
+Starting with AvocadoDB 2.7, the file names will contain an underscore plus the 32-digit
 MD5 value (represented in hexadecimal notation) of the collection name.
 
-For example, when arangodump dumps data of two collections *test* and *Test*, the 
-filenames in previous versions of ArangoDB were:
+For example, when avocadodump dumps data of two collections *test* and *Test*, the 
+filenames in previous versions of AvocadoDB were:
   
 * `test.structure.json` (definitions for collection *test*)
 * `test.data.json` (data for collection *test*)
@@ -147,37 +147,37 @@ In 2.7, the filenames will be:
 Starting / stopping
 -------------------
 
-When starting arangod, the server will now drop the process privileges to the 
+When starting avocadod, the server will now drop the process privileges to the 
 specified values in options `--server.uid` and `--server.gid` instantly after 
 parsing the startup options.
 
 That means when either `--server.uid` or `--server.gid` are set, the privilege
 change will happen earlier. This may prevent binding the server to an endpoint 
-with a port number lower than 1024 if the arangodb user has no privileges 
-for that. Previous versions of ArangoDB changed the privileges later, so some
+with a port number lower than 1024 if the avocadodb user has no privileges 
+for that. Previous versions of AvocadoDB changed the privileges later, so some
 startup actions were still carried out under the invoking user (i.e. likely 
 *root* when started via init.d or system scripts) and especially binding to
 low port numbers was still possible there.
 
-The default privileges for user *arangodb* will not be sufficient for binding
-to port numbers lower than 1024. To have an ArangoDB 2.7 bind to a port number 
+The default privileges for user *avocadodb* will not be sufficient for binding
+to port numbers lower than 1024. To have an AvocadoDB 2.7 bind to a port number 
 lower than 1024, it needs to be started with either a different privileged user,
-or the privileges of the *arangodb* user have to raised manually beforehand.
+or the privileges of the *avocadodb* user have to raised manually beforehand.
 
-Additionally, Linux startup scripts and systemd configuration for arangod now 
+Additionally, Linux startup scripts and systemd configuration for avocadod now 
 will adjust the NOFILE (number of open files) limits for the process. The limit
-value is set to 131072 (128k) when ArangoDB is started via start/stop commands.
-The goal of this change is to prevent arangod from running out of available
+value is set to 131072 (128k) when AvocadoDB is started via start/stop commands.
+The goal of this change is to prevent avocadod from running out of available
 file descriptors for socket connections and datafiles.
 
 
 Connection handling
 -------------------
 
-arangod will now actually close lingering client connections when idle for at least 
+avocadod will now actually close lingering client connections when idle for at least 
 the duration specified in the `--server.keep-alive-timeout` startup option.
  
-In previous versions of ArangoDB, idle connections were not closed by the server 
+In previous versions of AvocadoDB, idle connections were not closed by the server 
 when the timeout was reached and the client was still connected. Now the 
 connection is properly closed by the server in case of timeout. Client
 applications relying on the old behavior may now need to reconnect to the
@@ -214,29 +214,29 @@ Miscellaneous changes
 
 Many simple queries provide a `skip()` function that can be used to skip over a certain number
 of documents in the result. This function allowed specifying negative offsets in previous versions
-of ArangoDB. Specifying a negative offset led to the query result being iterated in reverse order,
+of AvocadoDB. Specifying a negative offset led to the query result being iterated in reverse order,
 so skipping was performed from the back of the result. As most simple queries do not provide a
 guaranteed result order, skipping from the back of a result with unspecific order seems a rather
 exotic use case and was removed to increase consistency with AQL, which also does not provide
 negative skip values.
 
-Negative skip values were deprecated in ArangoDB 2.6.
+Negative skip values were deprecated in AvocadoDB 2.6.
 
 ### Tasks API
 
-The undocumented function `addJob()` has been removed from the `org/arangodb/tasks` module in
-ArangoDB 2.7. 
+The undocumented function `addJob()` has been removed from the `org/avocadodb/tasks` module in
+AvocadoDB 2.7. 
 
 ### Runtime endpoints manipulation API
 
 The following HTTP REST API methods for runtime manipulation of server endpoints have been
-removed in ArangoDB 2.7:
+removed in AvocadoDB 2.7:
 
 * POST `/_api/endpoint`: to dynamically add an endpoint while the server was running
 * DELETE `/_api/endpoint`: to dynamically remove an endpoint while the server was running
 
 This change also affects the equivalent JavaScript endpoint manipulation methods available 
-in Foxx. The following functions have been removed in ArangoDB 2.7:
+in Foxx. The following functions have been removed in AvocadoDB 2.7:
 
 * `db._configureEndpoint()`
 * `db._removeEndpoint()` 

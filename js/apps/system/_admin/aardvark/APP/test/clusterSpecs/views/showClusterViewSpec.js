@@ -1,12 +1,12 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global $, arangoHelper, jasmine, nv, d3, describe, beforeEach, afterEach, it, spyOn, expect*/
+/* global $, avocadoHelper, jasmine, nv, d3, describe, beforeEach, afterEach, it, spyOn, expect*/
 
 (function () {
   'use strict';
 
   describe('The Show Cluster View', function () {
-    var view, serverDummy, arangoDocumentsDummy, statisticsDescriptionDummy,
+    var view, serverDummy, avocadoDocumentsDummy, statisticsDescriptionDummy,
       jqueryDummy,serverDummy2, dyGraphConfigDummy;
 
     beforeEach(function () {
@@ -27,7 +27,7 @@
 
       };
 
-      arangoDocumentsDummy = {
+      avocadoDocumentsDummy = {
         getStatisticsHistory: function () {
           return undefined;
         },
@@ -141,7 +141,7 @@
       spyOn(window, 'ClusterCoordinators').andReturn(serverDummy2);
       spyOn(window, 'ClusterCollections').andReturn(serverDummy);
       spyOn(window, 'ClusterShards').andReturn(serverDummy);
-      spyOn(window, 'arangoDocuments').andReturn(arangoDocumentsDummy);
+      spyOn(window, 'avocadoDocuments').andReturn(avocadoDocumentsDummy);
       spyOn(window, 'StatisticsDescription').andReturn(statisticsDescriptionDummy);
 
       spyOn(statisticsDescriptionDummy, 'fetch');
@@ -667,13 +667,13 @@
        spyOn(serverDummy2, "forEach").andCallFake(function (a) {
          serverResult2.forEach(a)
        })
-       spyOn(arangoDocumentsDummy, "getStatisticsHistory")
+       spyOn(avocadoDocumentsDummy, "getStatisticsHistory")
        view.loadHistory()
 
        expect(serverDummy2.findWhere).toHaveBeenCalledWith({
          status: "ok"
        })
-       expect(arangoDocumentsDummy.getStatisticsHistory).toHaveBeenCalledWith({
+       expect(avocadoDocumentsDummy.getStatisticsHistory).toHaveBeenCalledWith({
          server: {
            raw: "123.456.789",
            isDBServer: true,
@@ -683,7 +683,7 @@
          },
          figures: ["client.totalTime"]
        })
-       expect(arangoDocumentsDummy.getStatisticsHistory).toHaveBeenCalledWith({
+       expect(avocadoDocumentsDummy.getStatisticsHistory).toHaveBeenCalledWith({
          server: {
            raw: "123.456.799",
            isDBServer: true,
@@ -693,7 +693,7 @@
          },
          figures: ["client.totalTime"]
        })
-       expect(arangoDocumentsDummy.getStatisticsHistory).not.toHaveBeenCalledWith({
+       expect(avocadoDocumentsDummy.getStatisticsHistory).not.toHaveBeenCalledWith({
          server: {
            raw: "123.456.119",
            isDBServer: true,

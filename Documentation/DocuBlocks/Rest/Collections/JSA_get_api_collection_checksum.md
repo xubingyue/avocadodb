@@ -21,7 +21,7 @@ Whether or not to include document body data in the checksum calculation.
 Will calculate a checksum of the meta-data (keys and optionally revision ids) and
 optionally the document data in the collection.
 
-The checksum can be used to compare if two collections on different ArangoDB
+The checksum can be used to compare if two collections on different AvocadoDB
 instances contain the same contents. The current revision of the collection is
 returned too so one can make sure the checksums are calculated for the same
 state of data.

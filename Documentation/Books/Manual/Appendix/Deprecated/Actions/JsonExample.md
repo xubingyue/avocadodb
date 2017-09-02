@@ -95,7 +95,7 @@ The simplest dynamic action is:
 ```js
 { 
   action: { 
-    do: "@arangodb/actions/echoRequest" 
+    do: "@avocadodb/actions/echoRequest" 
   } 
 }
 ```
@@ -104,7 +104,7 @@ better to call functions defined in modules. In the above example the function
 can be accessed from JavaScript as:
 
 ```js
-require("@arangodb/actions").echoRequest
+require("@avocadodb/actions").echoRequest
 ```
 
 The function *echoRequest* is pre-defined. It takes the request objects and
@@ -123,7 +123,7 @@ function (req, res, options, next)
     |db._routing.save({ 
     |    url: "/hello/echo",
     |    action: { 
-    |    do: "@arangodb/actions/echoRequest" 
+    |    do: "@avocadodb/actions/echoRequest" 
     |  } 
     });
     ~require("internal").reloadRouting()
@@ -136,7 +136,7 @@ You should see something like
 
     @startDocuBlockInline JSON_07_fetchroutingCreateHelloEcho
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_07_fetchroutingCreateHelloEcho}
-    arango.GET("/hello/echo")
+    avocado.GET("/hello/echo")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_07_fetchroutingCreateHelloEcho
 
@@ -188,7 +188,7 @@ called.
     |db._routing.save({ 
     |  url: "/hello/echo",
     |  action: { 
-    |    controller: "@arangodb/actions/echoController" 
+    |    controller: "@avocadodb/actions/echoController" 
     |  } 
     });
     ~require("internal").reloadRouting()
@@ -199,7 +199,7 @@ Reload the routing and check http:// 127.0.0.1:8529/hello/echo:
 
     @startDocuBlockInline JSON_10_fetchroutingCreateEchoController
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_10_fetchroutingCreateEchoController}
-    arango.GET("/hello/echo")
+    avocado.GET("/hello/echo")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_10_fetchroutingCreateEchoController
 
@@ -231,13 +231,13 @@ You can use
 ```js
 { 
   action: { 
-    prefixController: "@arangodb/actions" 
+    prefixController: "@avocadodb/actions" 
   } 
 }
 ```
 
 to define a prefix controller. If the URL */hello/echoController* is given, then
-the module *@arangodb/actions/echoController* is used.
+the module *@avocadodb/actions/echoController* is used.
 
 If you use a prefix controller, you should make certain that no unwanted actions
 are available under the prefix.
@@ -246,7 +246,7 @@ The definition
 
 ```js
 { 
-  action: "@arangodb/actions" 
+  action: "@avocadodb/actions" 
 }
 ```
 is a short-cut for a prefix controller definition.
@@ -271,7 +271,7 @@ You can also store a function directly in the routing table.
 
     @startDocuBlockInline JSON_12b_fetchroutingEchoFunction
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_12b_fetchroutingEchoFunction}
-    arango.GET("hello/echo")
+    avocado.GET("hello/echo")
     db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -283,7 +283,7 @@ The controller must define handler functions which take a request object and
 fill the response object.
 
 A very simple example is the function *echoRequest* defined in the module
-*@arangodb/actions*.
+*@avocadodb/actions*.
 
 ```js
 function (req, res, options, next) {
@@ -304,7 +304,7 @@ Install it via:
     |db._routing.save({ 
     |  url: "/echo",
     |  action: { 
-    |    do: "@arangodb/actions/echoRequest" 
+    |    do: "@avocadodb/actions/echoRequest" 
     |  }
     })
     ~require("internal").reloadRouting()
@@ -317,7 +317,7 @@ You should see something like
 
     @startDocuBlockInline JSON_14_fetchroutingRequestHelloEcho
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_14_fetchroutingRequestHelloEcho}
-    arango.GET("/hello/echo")
+    avocado.GET("/hello/echo")
     db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -330,7 +330,7 @@ You may also pass options to the called function:
     |db._routing.save({ 
     |  url: "/echo",
     |  action: {
-    |    do: "@arangodb/actions/echoRequest",
+    |    do: "@avocadodb/actions/echoRequest",
     |    options: { 
     |      "Hello": "World" 
     |    }
@@ -344,7 +344,7 @@ You now see the options in the result:
 
     @startDocuBlockInline JSON_16_fetchroutingEchoRequestOptions
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_16_fetchroutingEchoRequestOptions}
-    arango.GET("/echo")
+    avocado.GET("/echo")
     db._query("FOR route IN _routing FILTER route.url == '/echo' REMOVE route in _routing")
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT

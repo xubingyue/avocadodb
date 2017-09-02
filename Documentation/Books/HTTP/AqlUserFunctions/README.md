@@ -3,9 +3,9 @@ HTTP Interface for AQL User Functions Management
 
 ### AQL User Functions Management
 
-This is an introduction to ArangoDB's HTTP interface for managing AQL
+This is an introduction to AvocadoDB's HTTP interface for managing AQL
 user functions. AQL user functions are a means to extend the functionality
-of ArangoDB's query language (AQL) with user-defined JavaScript code.
+of AvocadoDB's query language (AQL) with user-defined JavaScript code.
  
 For an overview of how AQL user functions and their implications, please refer to
 the [Extending AQL](../../AQL/Extending/index.html) chapter.

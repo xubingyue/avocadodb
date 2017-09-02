@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Wilfried Goesgens
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var arangodb = require('@arangodb');
-var actions = require('@arangodb/actions');
-var tasks = require('@arangodb/tasks');
+var avocadodb = require('@avocadodb');
+var actions = require('@avocadodb/actions');
+var tasks = require('@avocadodb/tasks');
 
 var API = '_api/tasks';
 
@@ -49,7 +49,7 @@ function get_api_tasks (req, res) {
     });
 
     if (allTasks.length === 0) {
-      actions.resultNotFound(req, res, arangodb.ERROR_TASK_NOT_FOUND);
+      actions.resultNotFound(req, res, avocadodb.ERROR_TASK_NOT_FOUND);
     } else {
       actions.resultOk(req, res, actions.HTTP_OK, allTasks[0]);
     }
@@ -70,7 +70,7 @@ function post_api_task_register (req, res, byId) {
   var body = actions.getJsonBody(req, res);
   if (byId) {
     if (req.suffix.length !== 1) {
-      actions.resultBad(req, res, arangodb.ERROR_HTTP_BAD_PARAMETER,
+      actions.resultBad(req, res, avocadodb.ERROR_HTTP_BAD_PARAMETER,
         'expected PUT /' + API + '/<task-id>');
       return;
     } else {
@@ -93,7 +93,7 @@ function post_api_task_register (req, res, byId) {
 
 function delete_api_task (req, res) {
   if (req.suffix.length !== 1) {
-    actions.resultBad(req, res, arangodb.ERROR_HTTP_BAD_PARAMETER,
+    actions.resultBad(req, res, avocadodb.ERROR_HTTP_BAD_PARAMETER,
       'expected DELETE /' + API + '/<task-id>');
   } else {
     try {

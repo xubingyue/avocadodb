@@ -17,8 +17,8 @@ For range queries it is required that a skiplist index is present for the
 queried attribute. If no skiplist index is present on the attribute, an
 error will be thrown.
 
-Note: the *range* simple query function is **deprecated** as of ArangoDB 2.6. 
-The function may be removed in future versions of ArangoDB. The preferred
+Note: the *range* simple query function is **deprecated** as of AvocadoDB 2.6. 
+The function may be removed in future versions of AvocadoDB. The preferred
 way for retrieving documents from a collection within a specific range
 is to use an AQL query as follows: 
 

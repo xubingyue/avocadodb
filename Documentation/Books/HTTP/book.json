@@ -1,8 +1,8 @@
 {
   "gitbook": "^3.2.2",
-  "title": "ArangoDB VERSION_NUMBER HTTP API Documentation",
-  "author": "ArangoDB GmbH",
-  "description": "Official HTTP API manual for ArangoDB - the native multi-model NoSQL database",
+  "title": "AvocadoDB VERSION_NUMBER HTTP API Documentation",
+  "author": "AvocadoDB GmbH",
+  "description": "Official HTTP API manual for AvocadoDB - the native multi-model NoSQL database",
   "language": "en",
   "plugins": [
     "-search",
@@ -36,7 +36,7 @@
       "css": ["styles/header.css"]
     },
     "sitemap-general": {
-      "prefix": "https://docs.arangodb.com/devel/HTTP/",
+      "prefix": "https://docs.avocadodb.com/devel/HTTP/",
       "changefreq": "daily",
       "priority": 0.3
     },
@@ -44,7 +44,7 @@
       "token": "UA-81053435-2"
     },
     "edit-link": {
-      "base": "https://github.com/arangodb/arangodb/edit/devel/Documentation/Books/HTTP",
+      "base": "https://github.com/avocadodb/avocadodb/edit/devel/Documentation/Books/HTTP",
       "label": "Edit Page"
     },
     "localized-footer": {

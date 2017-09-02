@@ -30,13 +30,13 @@
 
 var jsunity = require("jsunity");
 
-var arangodb = require("@arangodb");
+var avocadodb = require("@avocadodb");
 
-var ArangoCollection = arangodb.ArangoCollection;
-var db = arangodb.db;
-var ERRORS = arangodb.errors;
+var AvocadoCollection = avocadodb.AvocadoCollection;
+var db = avocadodb.db;
+var ERRORS = avocadodb.errors;
 var wait = require("internal").wait;
-var testHelper = require("@arangodb/test-helper").Helper;
+var testHelper = require("@avocadodb/test-helper").Helper;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -141,7 +141,7 @@ function CollectionEdgeSuite () {
     setUp : function () {
       db._drop(en);
       edge = db._createEdgeCollection(en);
-      assertEqual(ArangoCollection.TYPE_EDGE, edge.type());
+      assertEqual(AvocadoCollection.TYPE_EDGE, edge.type());
 
       db._drop(vn);
       vertex = db._create(vn);

@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* global Backbone, $, window, setTimeout, Joi, _, arangoHelper */
+/* global Backbone, $, window, setTimeout, Joi, _, avocadoHelper */
 /* global templateEngine */
 
 (function () {
@@ -362,7 +362,7 @@
         });
       }
 
-      arangoHelper.createTooltips('.createModalDialog .modalTooltips', 'left');
+      avocadoHelper.createTooltips('.createModalDialog .modalTooltips', 'left');
 
       var completeTableContent = tableContent || [];
       if (advancedContent && advancedContent.content) {

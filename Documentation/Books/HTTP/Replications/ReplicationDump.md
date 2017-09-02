@@ -1,13 +1,13 @@
 Replication Dump Commands
 =========================
 
-The *inventory* method can be used to query an ArangoDB database's current
+The *inventory* method can be used to query an AvocadoDB database's current
 set of collections plus their indexes. Clients can use this method to get an 
 overview of which collections are present in the database. They can use this information
 to either start a full or a partial synchronization of data, e.g. to initiate a backup
 or the incremental data synchronization.
 
-<!-- arangod/RestHandler/RestReplicationHandler.cpp -->
+<!-- avocadod/RestHandler/RestReplicationHandler.cpp -->
 @startDocuBlock JSF_put_api_replication_inventory
 
 
@@ -35,12 +35,12 @@ in a dump, the write-ahead log must be flushed first.
 To get to an identical state of data, replication clients should apply the individual
 parts of the dump results in the same order as they are provided.
 
-<!-- arangod/RestHandler/RestReplicationHandler.cpp -->
+<!-- avocadod/RestHandler/RestReplicationHandler.cpp -->
 @startDocuBlock JSF_get_api_replication_dump
 
 
-<!-- arangod/RestHandler/RestReplicationHandler.cpp -->
+<!-- avocadod/RestHandler/RestReplicationHandler.cpp -->
 @startDocuBlock JSF_put_api_replication_synchronize
 
-<!-- arangod/RestHandler/RestReplicationHandler.cpp -->
+<!-- avocadod/RestHandler/RestReplicationHandler.cpp -->
 @startDocuBlock JSF_get_api_replication_cluster_inventory

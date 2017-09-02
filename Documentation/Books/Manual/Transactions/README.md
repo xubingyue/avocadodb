@@ -1,10 +1,10 @@
 Transactions
 ============
 
-Starting with version 1.3, ArangoDB provides support for user-definable 
+Starting with version 1.3, AvocadoDB provides support for user-definable 
 transactions. 
 
-Transactions in ArangoDB are atomic, consistent, isolated, and durable (*ACID*).
+Transactions in AvocadoDB are atomic, consistent, isolated, and durable (*ACID*).
 
 These *ACID* properties provide the following guarantees:
 
@@ -16,6 +16,6 @@ These *ACID* properties provide the following guarantees:
   other transactions until the transaction commits. 
 * Finally, the *durability* proposition makes sure that operations from 
   transactions that have committed will be made persistent. The amount of
-  transaction durability is configurable in ArangoDB, as is the durability
+  transaction durability is configurable in AvocadoDB, as is the durability
   on collection level. 
 

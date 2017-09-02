@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,11 +68,11 @@
 #include <velocypack/Validator.h>
 #include <velocypack/velocypack-aliases.h>
 
-using namespace arangodb;
-using namespace arangodb::application_features;
-using namespace arangodb::basics;
-using namespace arangodb::httpclient;
-using namespace arangodb::rest;
+using namespace avocadodb;
+using namespace avocadodb::application_features;
+using namespace avocadodb::basics;
+using namespace avocadodb::httpclient;
+using namespace avocadodb::rest;
 
 /// @brief Random string generators
 namespace {
@@ -112,7 +112,7 @@ static void CreateErrorObject(v8::Isolate* isolate, int errorNumber,
                               std::string const& message) noexcept {
   try {
     if (errorNumber == TRI_ERROR_OUT_OF_MEMORY) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME)
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "encountered out-of-memory error";
     }
 
@@ -142,12 +142,12 @@ static void CreateErrorObject(v8::Isolate* isolate, int errorNumber,
     errorObject->Set(TRI_V8_ASCII_STRING("errorMessage"), errorMessage);
 
     TRI_GET_GLOBALS();
-    TRI_GET_GLOBAL(ArangoErrorTempl, v8::ObjectTemplate);
+    TRI_GET_GLOBAL(AvocadoErrorTempl, v8::ObjectTemplate);
 
-    v8::Handle<v8::Object> ArangoError = ArangoErrorTempl->NewInstance();
+    v8::Handle<v8::Object> AvocadoError = AvocadoErrorTempl->NewInstance();
 
-    if (!ArangoError.IsEmpty()) {
-      errorObject->SetPrototype(ArangoError);
+    if (!AvocadoError.IsEmpty()) {
+      errorObject->SetPrototype(AvocadoError);
     }
 
     isolate->ThrowException(errorObject);
@@ -170,7 +170,7 @@ static bool LoadJavaScriptFile(v8::Isolate* isolate, char const* filename,
   char* content = TRI_SlurpFile(TRI_UNKNOWN_MEM_ZONE, filename, &length);
 
   if (content == nullptr) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot load java script file '"
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot load java script file '"
                                             << filename
                                             << "': " << TRI_last_error();
     return false;
@@ -207,7 +207,7 @@ static bool LoadJavaScriptFile(v8::Isolate* isolate, char const* filename,
   }
 
   if (content == nullptr) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME)
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
         << "cannot load java script file '" << filename
         << "': " << TRI_errno_string(TRI_ERROR_OUT_OF_MEMORY);
     return false;
@@ -230,7 +230,7 @@ static bool LoadJavaScriptFile(v8::Isolate* isolate, char const* filename,
 
   // compilation failed, print errors that happened during compilation
   if (script.IsEmpty()) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot load java script file '"
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot load java script file '"
                                             << filename
                                             << "': compilation failed.";
     return false;
@@ -250,7 +250,7 @@ static bool LoadJavaScriptFile(v8::Isolate* isolate, char const* filename,
     }
   }
 
-  LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "loaded java script file: '"
+  LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "loaded java script file: '"
                                             << filename << "'";
   return true;
 }
@@ -265,7 +265,7 @@ static bool LoadJavaScriptDirectory(v8::Isolate* isolate, char const* path,
   v8::HandleScope scope(isolate);
   bool result;
 
-  LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "loading JavaScript directory: '"
+  LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "loading JavaScript directory: '"
                                             << path << "'";
 
   std::vector<std::string> files = TRI_FilesDirectory(path);
@@ -837,7 +837,7 @@ void JS_Download(v8::FunctionCallbackInfo<v8::Value> const& args) {
       TRI_V8_THROW_SYNTAX_ERROR("unsupported URL specified");
     }
 
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME)
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME)
         << "downloading file. endpoint: " << endpoint
         << ", relative URL: " << url;
 
@@ -858,7 +858,7 @@ void JS_Download(v8::FunctionCallbackInfo<v8::Value> const& args) {
     SimpleHttpClientParams params(timeout, false);
     params.setSupportDeflate(false);
     // security by obscurity won't work. Github requires a useragent nowadays.
-    params.setExposeArangoDB(true);
+    params.setExposeAvocadoDB(true);
     SimpleHttpClient client(connection.get(), params);
     
     v8::Handle<v8::Object> result = v8::Object::New(isolate);
@@ -1010,11 +1010,11 @@ static void JS_Execute(v8::FunctionCallbackInfo<v8::Value> const& args) {
           keys->Get(v8::Integer::New(isolate, i))->ToString();
       v8::Handle<v8::Value> value = sandbox->Get(key);
 
-      if (Logger::logLevel() == arangodb::LogLevel::TRACE) {
+      if (Logger::logLevel() == avocadodb::LogLevel::TRACE) {
         TRI_Utf8ValueNFC keyName(TRI_UNKNOWN_MEM_ZONE, key);
 
         if (*keyName != nullptr) {
-          LOG_TOPIC(TRACE, arangodb::Logger::FIXME)
+          LOG_TOPIC(TRACE, avocadodb::Logger::FIXME)
               << "copying key '" << *keyName << "' from sandbox to context";
         }
       }
@@ -1092,11 +1092,11 @@ static void JS_Execute(v8::FunctionCallbackInfo<v8::Value> const& args) {
           keys->Get(v8::Integer::New(isolate, i))->ToString();
       v8::Handle<v8::Value> value = context->Global()->Get(key);
 
-      if (Logger::logLevel() == arangodb::LogLevel::TRACE) {
+      if (Logger::logLevel() == avocadodb::LogLevel::TRACE) {
         TRI_Utf8ValueNFC keyName(TRI_UNKNOWN_MEM_ZONE, key);
 
         if (*keyName != nullptr) {
-          LOG_TOPIC(TRACE, arangodb::Logger::FIXME)
+          LOG_TOPIC(TRACE, avocadodb::Logger::FIXME)
               << "copying key '" << *keyName << "' from context to sandbox";
         }
       }
@@ -3965,10 +3965,10 @@ static void JS_VPackToV8(v8::FunctionCallbackInfo<v8::Value> const& args) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief ArangoError
+/// @brief AvocadoError
 ////////////////////////////////////////////////////////////////////////////////
 
-static void JS_ArangoError(v8::FunctionCallbackInfo<v8::Value> const& args) {
+static void JS_AvocadoError(v8::FunctionCallbackInfo<v8::Value> const& args) {
   v8::Isolate* isolate = args.GetIsolate();
   v8::HandleScope scope(isolate);
 
@@ -4005,7 +4005,7 @@ static void JS_ArangoError(v8::FunctionCallbackInfo<v8::Value> const& args) {
   }
 
   {
-    // call Error.captureStackTrace(this) so the ArangoError object gets a nifty
+    // call Error.captureStackTrace(this) so the AvocadoError object gets a nifty
     // stack trace
     v8::Handle<v8::Object> current = isolate->GetCurrentContext()->Global();
     v8::Handle<v8::Value> errorObject =
@@ -4193,9 +4193,9 @@ void TRI_LogV8Exception(v8::Isolate* isolate, v8::TryCatch* tryCatch) {
   // exception.
   if (message.IsEmpty()) {
     if (exceptionString == nullptr) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "JavaScript exception";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "JavaScript exception";
     } else {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "JavaScript exception: "
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "JavaScript exception: "
                                               << exceptionString;
     }
   } else {
@@ -4210,18 +4210,18 @@ void TRI_LogV8Exception(v8::Isolate* isolate, v8::TryCatch* tryCatch) {
 
     if (filenameString == nullptr) {
       if (exceptionString == nullptr) {
-        LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "JavaScript exception";
+        LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "JavaScript exception";
       } else {
-        LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "JavaScript exception: "
+        LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "JavaScript exception: "
                                                 << exceptionString;
       }
     } else {
       if (exceptionString == nullptr) {
-        LOG_TOPIC(ERR, arangodb::Logger::FIXME)
+        LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
             << "JavaScript exception in file '" << filenameString << "' at "
             << linenum << "," << start;
       } else {
-        LOG_TOPIC(ERR, arangodb::Logger::FIXME)
+        LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
             << "JavaScript exception in file '" << filenameString << "' at "
             << linenum << "," << start << ": " << exceptionString;
       }
@@ -4232,7 +4232,7 @@ void TRI_LogV8Exception(v8::Isolate* isolate, v8::TryCatch* tryCatch) {
     if (*sourceline) {
       std::string l = *sourceline;
 
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "!" << l;
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "!" << l;
 
       if (1 < start) {
         l = std::string(start - 1, ' ');
@@ -4242,7 +4242,7 @@ void TRI_LogV8Exception(v8::Isolate* isolate, v8::TryCatch* tryCatch) {
 
       l += std::string((size_t)(end - start + 1), '^');
 
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "!" << l;
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "!" << l;
     }
   }
 }
@@ -4331,7 +4331,7 @@ v8::Handle<v8::Value> TRI_ExecuteJavaScriptString(
         }
       }
     } else {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME)
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
           << "no output function defined in Javascript context";
     }
   }
@@ -4349,9 +4349,9 @@ void TRI_CreateErrorObject(v8::Isolate* isolate, int errorNumber) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief creates an error in a javascript object, based on arangodb::result
+/// @brief creates an error in a javascript object, based on avocadodb::result
 ////////////////////////////////////////////////////////////////////////////////
-void TRI_CreateErrorObject(v8::Isolate* isolate, arangodb::Result const& res){
+void TRI_CreateErrorObject(v8::Isolate* isolate, avocadodb::Result const& res){
   TRI_CreateErrorObject(isolate, res.errorNumber(), res.errorMessage(), false);
 }
 
@@ -4557,25 +4557,25 @@ void TRI_InitV8Utils(v8::Isolate* isolate, v8::Handle<v8::Context> context,
   // generate the general error template
   // .............................................................................
 
-  ft = v8::FunctionTemplate::New(isolate, JS_ArangoError);
-  ft->SetClassName(TRI_V8_ASCII_STRING("ArangoError"));
+  ft = v8::FunctionTemplate::New(isolate, JS_AvocadoError);
+  ft->SetClassName(TRI_V8_ASCII_STRING("AvocadoError"));
 
-  // ArangoError is a "sub-class" of Error
-  v8::Handle<v8::Function> ArangoErrorFunc = ft->GetFunction();
+  // AvocadoError is a "sub-class" of Error
+  v8::Handle<v8::Function> AvocadoErrorFunc = ft->GetFunction();
   v8::Handle<v8::Value> ErrorObject =
       context->Global()->Get(TRI_V8_ASCII_STRING("Error"));
   v8::Handle<v8::Value> ErrorPrototype =
       ErrorObject->ToObject()->Get(TRI_V8_ASCII_STRING("prototype"));
 
-  ArangoErrorFunc->Get(TRI_V8_ASCII_STRING("prototype"))
+  AvocadoErrorFunc->Get(TRI_V8_ASCII_STRING("prototype"))
       ->ToObject()
       ->SetPrototype(ErrorPrototype);
 
   TRI_AddGlobalFunctionVocbase(
-      isolate, TRI_V8_ASCII_STRING("ArangoError"), ArangoErrorFunc);
+      isolate, TRI_V8_ASCII_STRING("AvocadoError"), AvocadoErrorFunc);
 
   rt = ft->InstanceTemplate();
-  v8g->ArangoErrorTempl.Reset(isolate, rt);
+  v8g->AvocadoErrorTempl.Reset(isolate, rt);
 
   // .............................................................................
   // create the global functions

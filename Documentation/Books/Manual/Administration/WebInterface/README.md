@@ -1,7 +1,7 @@
 Web Interface
 =============
 
-ArangoDB comes with a built-in web interface for administration. The interface
+AvocadoDB comes with a built-in web interface for administration. The interface
 differs for standalone instances and cluster setups.
 
 Standalone:

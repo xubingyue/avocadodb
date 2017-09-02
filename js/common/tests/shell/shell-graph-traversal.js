@@ -30,11 +30,11 @@
 
 var jsunity = require("jsunity");
 
-var arangodb = require("@arangodb");
-var traversal = require("@arangodb/graph/traversal");
-var generalGraph = require("@arangodb/general-graph");
+var avocadodb = require("@avocadodb");
+var traversal = require("@avocadodb/graph/traversal");
+var generalGraph = require("@avocadodb/general-graph");
 
-var db = arangodb.db;
+var db = avocadodb.db;
 var Traverser = traversal.Traverser;
 
 ////////////////////////////////////////////////////////////////////////////////

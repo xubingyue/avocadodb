@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* global Backbone, $, window, arangoHelper, templateEngine, _ */
+/* global Backbone, $, window, avocadoHelper, templateEngine, _ */
 (function () {
   'use strict';
 
@@ -36,7 +36,7 @@
       $('#checkDevel').next().removeClass('fa fa-check-square-o fa-square-o').addClass('fa');
       $('#checkSystem').next().removeClass('fa fa-check-square-o fa-square-o').addClass('fa');
       $('#checkProduction').next().removeClass('fa fa-check-square-o fa-square-o').addClass('fa');
-      arangoHelper.setCheckboxStatus('#foxxDropdown');
+      avocadoHelper.setCheckboxStatus('#foxxDropdown');
     },
 
     toggleDevel: function () {
@@ -131,7 +131,7 @@
       $('#checkDevel').attr('checked', this._showDevel);
       $('#checkProduction').attr('checked', this._showProd);
       $('#checkSystem').attr('checked', this._showSystem);
-      arangoHelper.setCheckboxStatus('#foxxDropdown');
+      avocadoHelper.setCheckboxStatus('#foxxDropdown');
 
       var self = this;
       _.each(this._installedSubViews, function (v) {
@@ -139,8 +139,8 @@
         v.toggle('system', self._showSystem);
       });
 
-      arangoHelper.fixTooltips('icon_arangodb', 'left');
-      arangoHelper.checkDatabasePermissions(this.setReadOnly.bind(this));
+      avocadoHelper.fixTooltips('icon_avocadodb', 'left');
+      avocadoHelper.checkDatabasePermissions(this.setReadOnly.bind(this));
       return this;
     }
 

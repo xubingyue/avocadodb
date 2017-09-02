@@ -29,11 +29,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 var internal = require("internal");
 var errors = internal.errors;
-var helper = require("@arangodb/aql-helper");
-var cluster = require("@arangodb/cluster");
+var helper = require("@avocadodb/aql-helper");
+var cluster = require("@avocadodb/cluster");
 var getQueryResults = helper.getQueryResults;
 var getRawQueryResults = helper.getRawQueryResults;
 

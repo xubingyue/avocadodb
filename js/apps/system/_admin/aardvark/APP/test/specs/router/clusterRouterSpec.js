@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global describe, beforeEach, btoa, arangoHelper, afterEach, it, console, spyOn, expect*/
+/* global describe, beforeEach, btoa, avocadoHelper, afterEach, it, console, spyOn, expect*/
 /* global $, jasmine, _*/
 
 (function () {
@@ -14,7 +14,7 @@
       serverDashboardViewDummy,
       planTestViewDummy,
       modalLoginDummy,
-      arangoDocumentsDummy,
+      avocadoDocumentsDummy,
       planSymmetricViewDummy,
       planScenarioSelectorViewDummy,
       statisticsCollectionDummy,
@@ -151,7 +151,7 @@
         id: 'statisticsDescriptionCollection'
       };
 
-      arangoDocumentsDummy = {};
+      avocadoDocumentsDummy = {};
 
       spyOn(window, 'FooterView').andReturn(footerViewDummy);
       spyOn(window, 'ClusterPlan').andReturn(clusterPlanDummy);
@@ -167,7 +167,7 @@
       spyOn(window, 'ShowClusterView').andReturn(showClusterViewDummy);
       spyOn(window, 'ShutdownButtonView').andReturn(shutdownButtonViewDummy);
       spyOn(window, 'ServerDashboardView').andReturn(serverDashboardViewDummy);
-      spyOn(window, 'arangoDocuments').andReturn(arangoDocumentsDummy);
+      spyOn(window, 'avocadoDocuments').andReturn(avocadoDocumentsDummy);
     });
 
     describe('initialization', function () {

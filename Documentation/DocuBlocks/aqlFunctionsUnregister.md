@@ -12,6 +12,6 @@ exception.
 @EXAMPLES
 
 ```js
-  require("@arangodb/aql/functions").unregister("myfunctions::temperature::celsiustofahrenheit");
+  require("@avocadodb/aql/functions").unregister("myfunctions::temperature::celsiustofahrenheit");
 ```
 

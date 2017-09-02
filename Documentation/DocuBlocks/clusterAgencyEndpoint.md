@@ -13,8 +13,8 @@ have the following pattern:
 - ssl://ipv4-address:port - TCP/IP endpoint, using IPv4, SSL encryption
 - ssl://[ipv6-address]:port - TCP/IP endpoint, using IPv6, SSL encryption
 
-At least one endpoint must be specified or ArangoDB will refuse to start.
-It is recommended to specify at least two endpoints so ArangoDB has an
+At least one endpoint must be specified or AvocadoDB will refuse to start.
+It is recommended to specify at least two endpoints so AvocadoDB has an
 alternative endpoint if one of them becomes unavailable.
 
 @EXAMPLES

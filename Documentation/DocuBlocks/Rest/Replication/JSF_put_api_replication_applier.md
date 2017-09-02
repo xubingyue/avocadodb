@@ -14,7 +14,7 @@ following attributes may be present in the configuration:
 
 - *database*: the name of the database to connect to (e.g. "_system").
 
-- *username*: an optional ArangoDB username to use when connecting to the endpoint.
+- *username*: an optional AvocadoDB username to use when connecting to the endpoint.
 
 - *password*: the password to use when connecting to the endpoint.
 

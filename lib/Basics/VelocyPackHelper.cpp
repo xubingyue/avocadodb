@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
@@ -49,8 +49,8 @@ unsigned long long XXH64(const void* input, size_t length,
                          unsigned long long seed);
 }
 
-using namespace arangodb;
-using VelocyPackHelper = arangodb::basics::VelocyPackHelper;
+using namespace avocadodb;
+using VelocyPackHelper = avocadodb::basics::VelocyPackHelper;
 
 static std::unique_ptr<VPackAttributeTranslator> Translator;
 static std::unique_ptr<VPackAttributeExcludeHandler> ExcludeHandler;
@@ -100,12 +100,12 @@ static int8_t const TypeWeights[256] = {
 struct DefaultCustomTypeHandler final : public VPackCustomTypeHandler {
   void dump(VPackSlice const&, VPackDumper* dumper,
             VPackSlice const&) override {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "DefaultCustomTypeHandler called";
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "DefaultCustomTypeHandler called";
     dumper->appendString("hello from CustomTypeHandler");
   }
   std::string toString(VPackSlice const&, VPackOptions const*,
                        VPackSlice const&) override {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "DefaultCustomTypeHandler called";
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "DefaultCustomTypeHandler called";
     return "hello from CustomTypeHandler";
   }
 };
@@ -142,7 +142,7 @@ struct SystemAttributeExcludeHandler final
 
 /// @brief static initializer for all VPack values
 void VelocyPackHelper::initialize() {
-  LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "initializing vpack";
+  LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "initializing vpack";
 
   // initialize attribute translator
   Translator.reset(new VPackAttributeTranslator);
@@ -205,14 +205,14 @@ void VelocyPackHelper::initialize() {
 ////////////////////////////////////////////////////////////////////////////////
 
 void VelocyPackHelper::disableAssemblerFunctions() {
-  arangodb::velocypack::disableAssemblerFunctions();
+  avocadodb::velocypack::disableAssemblerFunctions();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief return the (global) attribute exclude handler instance
 ////////////////////////////////////////////////////////////////////////////////
 
-arangodb::velocypack::AttributeExcludeHandler*
+avocadodb::velocypack::AttributeExcludeHandler*
 VelocyPackHelper::getExcludeHandler() {
   return ExcludeHandler.get();
 }
@@ -221,7 +221,7 @@ VelocyPackHelper::getExcludeHandler() {
 /// @brief return the (global) attribute translator instance
 ////////////////////////////////////////////////////////////////////////////////
 
-arangodb::velocypack::AttributeTranslator* VelocyPackHelper::getTranslator() {
+avocadodb::velocypack::AttributeTranslator* VelocyPackHelper::getTranslator() {
   return Translator.get();
 }
 
@@ -561,7 +561,7 @@ std::string VelocyPackHelper::getStringValue(VPackSlice slice,
 
 uint64_t VelocyPackHelper::stringUInt64(VPackSlice const& slice) {
   if (slice.isString()) {
-    return arangodb::basics::StringUtils::uint64(slice.copyString());
+    return avocadodb::basics::StringUtils::uint64(slice.copyString());
   }
   if (slice.isNumber()) {
     return slice.getNumericValue<uint64_t>();
@@ -600,8 +600,8 @@ static bool PrintVelocyPack(int fd, VPackSlice const& slice,
     return false;
   }
 
-  arangodb::basics::StringBuffer buffer(TRI_UNKNOWN_MEM_ZONE);
-  arangodb::basics::VPackStringBufferAdapter bufferAdapter(
+  avocadodb::basics::StringBuffer buffer(TRI_UNKNOWN_MEM_ZONE);
+  avocadodb::basics::VPackStringBufferAdapter bufferAdapter(
       buffer.stringBuffer());
   try {
     VPackDumper dumper(&bufferAdapter);
@@ -659,7 +659,7 @@ bool VelocyPackHelper::velocyPackToFile(std::string const& filename,
 
   if (fd < 0) {
     TRI_set_errno(TRI_ERROR_SYS_ERROR);
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create json file '" << tmp
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create json file '" << tmp
              << "': " << TRI_LAST_ERROR_STR;
     return false;
   }
@@ -667,19 +667,19 @@ bool VelocyPackHelper::velocyPackToFile(std::string const& filename,
   if (!PrintVelocyPack(fd, slice, true)) {
     TRI_TRACKED_CLOSE_FILE(fd);
     TRI_set_errno(TRI_ERROR_SYS_ERROR);
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot write to json file '" << tmp
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot write to json file '" << tmp
              << "': " << TRI_LAST_ERROR_STR;
     TRI_UnlinkFile(tmp.c_str());
     return false;
   }
 
   if (syncFile) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "syncing tmp file '" << tmp << "'";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "syncing tmp file '" << tmp << "'";
 
     if (!TRI_fsync(fd)) {
       TRI_TRACKED_CLOSE_FILE(fd);
       TRI_set_errno(TRI_ERROR_SYS_ERROR);
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot sync saved json '" << tmp
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot sync saved json '" << tmp
                << "': " << TRI_LAST_ERROR_STR;
       TRI_UnlinkFile(tmp.c_str());
       return false;
@@ -690,7 +690,7 @@ bool VelocyPackHelper::velocyPackToFile(std::string const& filename,
 
   if (res < 0) {
     TRI_set_errno(TRI_ERROR_SYS_ERROR);
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot close saved file '" << tmp
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot close saved file '" << tmp
              << "': " << TRI_LAST_ERROR_STR;
     TRI_UnlinkFile(tmp.c_str());
     return false;
@@ -700,7 +700,7 @@ bool VelocyPackHelper::velocyPackToFile(std::string const& filename,
 
   if (res != TRI_ERROR_NO_ERROR) {
     TRI_set_errno(res);
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot rename saved file '" << tmp << "' to '" << filename
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot rename saved file '" << tmp << "' to '" << filename
              << "': " << TRI_LAST_ERROR_STR;
     TRI_UnlinkFile(tmp.c_str());
 
@@ -879,7 +879,7 @@ int VelocyPackHelper::compare(VPackSlice lhs, VPackSlice rhs, bool useUTF8,
       return 0;
     default:
       // Contains all other ValueTypes of VelocyPack.
-      // They are not used in ArangoDB so this cannot occur
+      // They are not used in AvocadoDB so this cannot occur
       TRI_ASSERT(false);
       return 0;
   }
@@ -996,7 +996,7 @@ uint64_t VelocyPackHelper::hashByAttributes(
     }
   } else if (slice.isString() && attributes.size() == 1 &&
              attributes[0] == StaticStrings::KeyString) {
-    arangodb::StringRef subKey(slice);
+    avocadodb::StringRef subKey(slice);
     size_t pos = subKey.find('/');
     if (pos != std::string::npos) {
       // We have an _id. Split it.
@@ -1111,7 +1111,7 @@ uint64_t VelocyPackHelper::extractIdValue(VPackSlice const& slice) {
   return 0;
 }
 
-arangodb::LoggerStream& operator<<(arangodb::LoggerStream& logger,
+avocadodb::LoggerStream& operator<<(avocadodb::LoggerStream& logger,
                                    VPackSlice const& slice) {
   size_t const cutoff = 100;
   std::string sliceStr(slice.toJson());

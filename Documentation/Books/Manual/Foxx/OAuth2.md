@@ -1,7 +1,7 @@
 OAuth 2.0
 =========
 
-`const createOAuth2Client = require('@arangodb/foxx/oauth2');`
+`const createOAuth2Client = require('@avocadodb/foxx/oauth2');`
 
 The OAuth2 module provides abstractions over OAuth 2.0 providers like Facebook, GitHub and Google.
 
@@ -10,7 +10,7 @@ The OAuth2 module provides abstractions over OAuth 2.0 providers like Facebook, 
 The following extends the [user management example](Users.md):
 
 ```js
-const crypto = require('@arangodb/crypto');
+const crypto = require('@avocadodb/crypto');
 const router = createRouter();
 const oauth2 = createOAuth2Client({
   // We'll use Facebook for this example

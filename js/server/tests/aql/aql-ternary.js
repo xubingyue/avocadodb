@@ -29,9 +29,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 
 function ahuacatlTernaryTestSuite () {
 

@@ -28,10 +28,10 @@
 // / @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var db = require('@arangodb').db;
+var db = require('@avocadodb').db;
 var internal = require('internal');
 var jsunity = require('jsunity');
-var ArangoCollection = internal.ArangoCollection;
+var AvocadoCollection = internal.AvocadoCollection;
 
 function runSetup () {
   'use strict';
@@ -46,7 +46,7 @@ function runSetup () {
   internal.wal.flush(true, true);
 
   while (true) {
-    if (db._collection('UnitTestsRecovery').status() === ArangoCollection.STATUS_UNLOADED) {
+    if (db._collection('UnitTestsRecovery').status() === AvocadoCollection.STATUS_UNLOADED) {
       break;
     }
     internal.wait(0.5, true);

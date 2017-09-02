@@ -2,14 +2,14 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 3.2. ArangoDB 3.2 also contains several bugfixes that are not listed
+AvocadoDB 3.2. AvocadoDB 3.2 also contains several bugfixes that are not listed
 here.
 
 
 Storage engines
 ---------------
 
-ArangoDB 3.2 offers two storage engines:
+AvocadoDB 3.2 offers two storage engines:
 
 * the always-existing memory-mapped files storage engine
 * a new storage engine based on [RocksDB](https://www.github.com/facebook/rocksdb/)
@@ -43,7 +43,7 @@ and isolation.
 
 ### RocksDB storage engine
 
-The RocksDB storage engine is new in ArangoDB 3.2. It is designed to store datasets
+The RocksDB storage engine is new in AvocadoDB 3.2. It is designed to store datasets
 that are bigger than the server's available RAM. It persists all data (including the
 indexes) in a RocksDB instance.
 
@@ -62,8 +62,8 @@ consistency semantics.
 
 ### Storage engine selection
 
-The storage engine to use in an ArangoDB cluster or a single-server instance must be
-selected initially. The default storage engine in ArangoDB 3.2 is the MMFiles engine if
+The storage engine to use in an AvocadoDB cluster or a single-server instance must be
+selected initially. The default storage engine in AvocadoDB 3.2 is the MMFiles engine if
 no storage engine is selected explicitly. This ensures all users upgrading from earlier
 versions can continue with the well-known MMFiles engine.
 
@@ -80,9 +80,9 @@ Once the storage engine was selected, the selection cannot be changed by adjusti
 to re-start the server with another (empty) database directory. In order to use data
 created with the other storage engine, it is required to dump the data first with the
 old engine and restore it using the new storage engine. This can be achieved via 
-invoking arangodump and arangorestore.
+invoking avocadodump and avocadorestore.
 
-Unlike in MySQL, the storage engine selection in ArangoDB is for an entire cluster or
+Unlike in MySQL, the storage engine selection in AvocadoDB is for an entire cluster or
 an entire single-server instance. All databases and collections will use the same storage 
 engine. 
 
@@ -100,7 +100,7 @@ supported there:
   neither hash nor skiplist indexes. These index types map to the same RocksDB-based
   sorted index implementation. The same is true for the "persistent" index. The names 
   "hash", "skiplist" and "persistent" are only used for compatibility with the MMFiles 
-  engine where these indexes existed in previous and the current version of ArangoDB.
+  engine where these indexes existed in previous and the current version of AvocadoDB.
 
 * geo: user-defined index for proximity searches
 
@@ -110,7 +110,7 @@ Satellite Collections
 ---------------------
 
 With SatelliteCollections, you can define collections to shard to a cluster and
-collections to replicate to each machine. The ArangoDB query optimizer knows where
+collections to replicate to each machine. The AvocadoDB query optimizer knows where
 each shard is located and sends the requests to the DBServers involved, which then
 executes the query, locally. With this approach, network hops during join
 operations on sharded collections can be avoided and response times can be close to
@@ -123,9 +123,9 @@ are available in the *Enterprise* edition.
 Memory management
 -----------------
 
-* make arangod start with less V8 JavaScript contexts
+* make avocadod start with less V8 JavaScript contexts
 
-  This speeds up the server start and makes arangod use less memory at start.
+  This speeds up the server start and makes avocadod use less memory at start.
   Whenever a V8 context is needed by a Foxx action or some other JavaScript operation 
   and there is no usable V8 context, a new context will be created dynamically now.
 
@@ -142,7 +142,7 @@ Memory management
 
   The first few requests in new V8 contexts may take longer than in contexts 
   that have been there already. Performance may therefore suffer a bit for the
-  initial requests sent to ArangoDB or when there are only few but performance-
+  initial requests sent to AvocadoDB or when there are only few but performance-
   critical situations in which new V8 contexts need to be created. If this is a 
   concern, it can easily be fixed by setting `--javascipt.v8-contexts-minimum`
   and `--javascript.v8-contexts` to a relatively high value, which will guarantee
@@ -152,7 +152,7 @@ Memory management
   Waiting for an unused V8 context will now also abort and write a log message
   in case no V8 context can be acquired/created after 60 seconds.
 
-* the number of pending operations in arangod can now be limited to a configurable
+* the number of pending operations in avocadod can now be limited to a configurable
   number. If this number is exceeded, the server will now respond with HTTP 503
   (service unavailable). The maximum size of pending operations is controlled via
   the startup option `--server.maximal-queue-size`. Setting it to 0 means "no limit".
@@ -173,18 +173,18 @@ Memory management
 Communication Layer
 -------------------
 
-* HTTP responses returned by arangod will now include the extra HTTP header 
+* HTTP responses returned by avocadod will now include the extra HTTP header 
   `x-content-type-options: nosniff` to work around a cross-site scripting bug
   in MSIE
 
 * the default value for `--ssl.protocol` was changed from TLSv1 to TLSv1.2.
-  When not explicitly set, arangod and all client tools will now use TLSv1.2.
+  When not explicitly set, avocadod and all client tools will now use TLSv1.2.
 
 * the JSON data in all incoming HTTP requests in now validated for duplicate
   attribute names.
 
   Incoming JSON data with duplicate attribute names will now be rejected as
-  invalid. Previous versions of ArangoDB only validated the uniqueness of
+  invalid. Previous versions of AvocadoDB only validated the uniqueness of
   attribute names inside incoming JSON for some API endpoints, but not
   consistently for all APIs.
 
@@ -202,12 +202,12 @@ JavaScript
   FAILED).
 
 * change default string truncation length from 80 characters to 256 characters for
-  `print`/`printShell` functions in ArangoShell and arangod. This will emit longer
+  `print`/`printShell` functions in AvocadoShell and avocadod. This will emit longer
   prefixes of string values before truncating them with `...`, which is helpful
-  for debugging. This change is mostly useful when using the ArangoShell (arangosh).
+  for debugging. This change is mostly useful when using the AvocadoShell (avocadosh).
 
 
-* the `@arangodb` module now provides a `time` function which returns the current time
+* the `@avocadodb` module now provides a `time` function which returns the current time
   in seconds as a floating point value with microsecond precision.
 
 
@@ -321,25 +321,25 @@ AQL
 Client tools
 ------------
 
-* added data export tool, arangoexport.
+* added data export tool, avocadoexport.
 
-  arangoexport can be used to export collections to json, jsonl or xml
+  avocadoexport can be used to export collections to json, jsonl or xml
   and export a graph or collections to xgmml.
 
-* added "jsonl" as input file type for arangoimp
+* added "jsonl" as input file type for avocadoimp
 
-* added `--translate` option for arangoimp to translate attribute names from
-  the input files to attriubte names expected by ArangoDB
+* added `--translate` option for avocadoimp to translate attribute names from
+  the input files to attriubte names expected by AvocadoDB
 
   The `--translate` option can be specified multiple times (once per translation
   to be executed). The following example renames the "id" column from the input
   file to "_key", and the "from" column to "_from", and the "to" column to "_to":
 
-      arangoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
+      avocadoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
 
   `--translate` works for CSV and TSV inputs only.
 
-* added `--threads` option to arangoimp to specify the number of parallel import threads 
+* added `--threads` option to avocadoimp to specify the number of parallel import threads 
 
 * changed default value for client tools option `--server.max-packet-size` from 128 MB 
   to 256 MB. this allows transferring bigger result sets from the server without the
@@ -374,7 +374,7 @@ Foxx
 Miscellaneous Changes
 ---------------------
 
-* arangod now validates several OS/environment settings on startup and warns if
+* avocadod now validates several OS/environment settings on startup and warns if
   the settings are non-ideal. It additionally will print out ways to remedy the
   options.
   

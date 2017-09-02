@@ -1,7 +1,7 @@
 Managing Users in the Web Interface
 ===================================
 
-ArangoDB users are globally stored in the \_system database and can only be
+AvocadoDB users are globally stored in the \_system database and can only be
 mananged while logged on to this database. There you can find the *Users* section:
 
 ![Users](images/users.png)

@@ -29,17 +29,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var db = arangodb.db;
-var graph = require("@arangodb/general-graph");
+var avocadodb = require("@avocadodb");
+var db = avocadodb.db;
+var graph = require("@avocadodb/general-graph");
 var cluster;
-var isOnServer = (typeof ArangoClusterComm === "object");
+var isOnServer = (typeof AvocadoClusterComm === "object");
 if (isOnServer) {
-  cluster = require("@arangodb/cluster");
+  cluster = require("@avocadodb/cluster");
 } else {
   cluster = {};
 }
-var ERRORS = arangodb.errors;
+var ERRORS = avocadodb.errors;
 
 var _ = require("lodash");
 
@@ -565,7 +565,7 @@ function GeneralGraphCreationSuite() {
       } catch (e) {
         assertEqual(
           e.errorMessage,
-          arangodb.errors.ERROR_GRAPH_EDGE_COLLECTION_NOT_USED.message
+          avocadodb.errors.ERROR_GRAPH_EDGE_COLLECTION_NOT_USED.message
         );
       }
 
@@ -625,7 +625,7 @@ function GeneralGraphCreationSuite() {
       } catch (e) {
         assertEqual(
           e.errorMessage,
-          arangodb.errors.ERROR_GRAPH_COLLECTION_MULTI_USE.message
+          avocadodb.errors.ERROR_GRAPH_COLLECTION_MULTI_USE.message
         );
       }
 
@@ -649,7 +649,7 @@ function GeneralGraphCreationSuite() {
       } catch (e) {
         assertEqual(
           e.errorMessage,
-          ec2 + " " + arangodb.errors.ERROR_GRAPH_COLLECTION_USE_IN_MULTI_GRAPHS.message
+          ec2 + " " + avocadodb.errors.ERROR_GRAPH_COLLECTION_USE_IN_MULTI_GRAPHS.message
         );
       }
 
@@ -724,7 +724,7 @@ function GeneralGraphCreationSuite() {
       } catch (e) {
         assertEqual(
           e.errorMessage,
-          arangodb.errors.ERROR_GRAPH_EDGE_COLLECTION_NOT_USED.message
+          avocadodb.errors.ERROR_GRAPH_EDGE_COLLECTION_NOT_USED.message
         );
       }
 
@@ -972,7 +972,7 @@ function EdgesAndVerticesSuite() {
       } catch (e) {
         assertEqual(
           e.errorMessage,
-          arangodb.errors.ERROR_GRAPH_CREATE_MALFORMED_EDGE_DEFINITION.message
+          avocadodb.errors.ERROR_GRAPH_CREATE_MALFORMED_EDGE_DEFINITION.message
         );
       }
       assertFalse(graph._exists(myGraphName));
@@ -990,7 +990,7 @@ function EdgesAndVerticesSuite() {
       } catch (e) {
         assertEqual(
           e.errorMessage,
-          ec1 + " " + arangodb.errors.ERROR_GRAPH_COLLECTION_USE_IN_MULTI_GRAPHS.message
+          ec1 + " " + avocadodb.errors.ERROR_GRAPH_COLLECTION_USE_IN_MULTI_GRAPHS.message
         );
       }
       assertFalse(graph._exists(myGraphName));
@@ -1016,7 +1016,7 @@ function EdgesAndVerticesSuite() {
       } catch (e) {
         assertEqual(
           e.errorMessage,
-          arangodb.errors.ERROR_GRAPH_COLLECTION_MULTI_USE.message
+          avocadodb.errors.ERROR_GRAPH_COLLECTION_MULTI_USE.message
         );
       }
       assertFalse(graph._exists(myGraphName));
@@ -1359,7 +1359,7 @@ function EdgesAndVerticesSuite() {
         catch (e) {
           assertEqual(
             e.errorMessage,
-            arangodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
+            avocadodb.errors.ERROR_ARANGO_DOCUMENT_HANDLE_BAD.message
           );
         }
       });
@@ -1710,11 +1710,11 @@ function OrphanCollectionSuite() {
 
     setUp : function() {
       try {
-        arangodb.db._collection("_graphs").remove(gN1);
+        avocadodb.db._collection("_graphs").remove(gN1);
       } catch (ignore) {
       }
       try {
-        arangodb.db._collection("_graphs").remove(gN2);
+        avocadodb.db._collection("_graphs").remove(gN2);
       } catch (ignore) {
       }
       g1 = graph._create(
@@ -1852,9 +1852,9 @@ function OrphanCollectionSuite() {
         g1._addVertexCollection(vC4, true);
         fail();
       } catch(err) {
-        assertEqual(err.errorNum, arangodb.errors.ERROR_GRAPH_COLLECTION_USED_IN_ORPHANS.code);
+        assertEqual(err.errorNum, avocadodb.errors.ERROR_GRAPH_COLLECTION_USED_IN_ORPHANS.code);
         assertEqual(err.errorMessage,
-          arangodb.errors.ERROR_GRAPH_COLLECTION_USED_IN_ORPHANS.message);
+          avocadodb.errors.ERROR_GRAPH_COLLECTION_USED_IN_ORPHANS.message);
       }
     }
   };

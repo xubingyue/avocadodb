@@ -1,7 +1,7 @@
 Request Module
 ==============
 
-`const request = require('@arangodb/request')`
+`const request = require('@avocadodb/request')`
 
 The request module provides the functionality for making HTTP requests.
 
@@ -30,7 +30,7 @@ request({method, url, ...options});
 For example:
 
 ```js
-const request = require('@arangodb/request');
+const request = require('@avocadodb/request');
 
 request.get('http://localhost', {headers: {'x-session-id': 'keyboardcat'}});
 // is equivalent to
@@ -82,7 +82,7 @@ The function returns a *Response* object with the following properties:
 The request module supports `application/x-www-form-urlencoded` (URL encoded) form uploads:
 
 ```js
-const request = require('@arangodb/request');
+const request = require('@avocadodb/request');
 
 var res = request.post('http://service.example/upload', {form: {key: 'value'}});
 // or
@@ -104,7 +104,7 @@ If you want to use the [querystring](http://nodejs.org/api/querystring.html) mod
 If you want to submit JSON-serializable values as request bodies, just set the *json* option:
 
 ```js
-const request = require('@arangodb/request');
+const request = require('@avocadodb/request');
 
 var res = request.post('http://service.example/notify', {body: {key: 'value'}, json: true});
 // or
@@ -123,7 +123,7 @@ var res = request({
 The request module supports both *HTTP Basic* authentication. Just pass the credentials via the *auth* option:
 
 ```js
-const request = require('@arangodb/request');
+const request = require('@avocadodb/request');
 
 var res = request.get(
   'http://service.example/secret',
@@ -145,7 +145,7 @@ var res = request({
 Alternatively you can supply the credentials via the URL:
 
 ```js
-const request = require('@arangodb/request');
+const request = require('@avocadodb/request');
 
 var username = 'jcd';
 var password = 'bionicman';
@@ -161,7 +161,7 @@ var res = request.get(
 You can also use *Bearer* token authentication:
 
 ```js
-const request = require('@arangodb/request');
+const request = require('@avocadodb/request');
 
 var res = request.get(
   'http://service.example/secret',

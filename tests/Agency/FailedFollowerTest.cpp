@@ -5,7 +5,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Andreas Streichardt
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 #include "catch.hpp"
 #include "fakeit.hpp"
@@ -40,16 +40,16 @@
 #include <velocypack/Slice.h>
 #include <velocypack/velocypack-aliases.h>
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::consensus;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::consensus;
 using namespace fakeit;
 
-namespace arangodb {
+namespace avocadodb {
 namespace tests {
 namespace failed_follower_test {
 
-const std::string PREFIX = "arango";
+const std::string PREFIX = "avocado";
 const std::string DATABASE = "database";
 const std::string COLLECTION = "collection";
 const std::string SHARD = "s99";
@@ -135,7 +135,7 @@ SECTION("creating a job should create a job in todo") {
   std::string jobId = "1";
   When(Method(mockAgent, write)).AlwaysDo([&](query_t const& q, bool d) -> write_ret_t {
     INFO(q->slice().toJson());
-    auto expectedJobKey = "/arango/Target/ToDo/" + jobId;
+    auto expectedJobKey = "/avocado/Target/ToDo/" + jobId;
     REQUIRE(std::string(q->slice().typeName()) == "array" );
     REQUIRE(q->slice().length() == 1);
     REQUIRE(std::string(q->slice()[0].typeName()) == "array");
@@ -183,7 +183,7 @@ SECTION("if we want to start and the collection went missing from plan (our trut
 
   TestStructureType createTestStructure = [&](VPackSlice const& s, std::string const& path) {
     std::unique_ptr<VPackBuilder> builder;
-    if (path == "/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
+    if (path == "/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
       return builder;
     }
 
@@ -197,7 +197,7 @@ SECTION("if we want to start and the collection went missing from plan (our trut
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
       }
       builder->close();
@@ -221,16 +221,16 @@ SECTION("if we want to start and the collection went missing from plan (our trut
     REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
 
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/ToDo/1").typeName()) == "object");
-    REQUIRE(std::string(writes.get("/arango/Target/ToDo/1").get("op").typeName()) == "string");
-    CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-    CHECK(std::string(writes.get("/arango/Target/Finished/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1").get("op").typeName()) == "string");
+    CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+    CHECK(std::string(writes.get("/avocado/Target/Finished/1").typeName()) == "object");
     return fakeWriteResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -253,11 +253,11 @@ SECTION("if we are supposed to fail a distributeShardsLike job we immediately fa
         }
       }
 
-      if (path == "/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
+      if (path == "/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
         builder->add("distributeShardsLike", VPackValue("PENG"));
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
       }
       builder->close();
@@ -281,16 +281,16 @@ SECTION("if we are supposed to fail a distributeShardsLike job we immediately fa
     REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
 
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/ToDo/1").typeName()) == "object");
-    REQUIRE(std::string(writes.get("/arango/Target/ToDo/1").get("op").typeName()) == "string");
-    CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-    CHECK(std::string(writes.get("/arango/Target/Failed/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1").get("op").typeName()) == "string");
+    CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+    CHECK(std::string(writes.get("/avocado/Target/Failed/1").typeName()) == "object");
     return fakeWriteResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -313,11 +313,11 @@ SECTION("if the follower is healthy again we fail the job") {
         }
       }
 
-      if (path == "/arango/Supervision/Health/" + SHARD_FOLLOWER1) {
+      if (path == "/avocado/Supervision/Health/" + SHARD_FOLLOWER1) {
         builder->add("Status", VPackValue("GOOD"));
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
       }
       builder->close();
@@ -335,24 +335,24 @@ SECTION("if the follower is healthy again we fail the job") {
   When(Method(mockAgent, transact)).Do([&](query_t const& q) -> trans_ret_t {
     INFO("WriteTransaction: " << q->slice().toJson());
     auto preconditions = q->slice()[0][1];
-    REQUIRE(preconditions.get("/arango/Supervision/Health/" + SHARD_FOLLOWER1 + "/Status").get("old").copyString() == "FAILED");
+    REQUIRE(preconditions.get("/avocado/Supervision/Health/" + SHARD_FOLLOWER1 + "/Status").get("old").copyString() == "FAILED");
 
-    char const* json = R"=([{"arango":{"Supervision":{"Health":{"follower1":{"Status":"GOOD"}}}}}])=";
+    char const* json = R"=([{"avocado":{"Supervision":{"Health":{"follower1":{"Status":"GOOD"}}}}}])=";
     auto transBuilder = std::make_shared<Builder>(createBuilder(json));
     return trans_ret_t(true, "", 0, 1, transBuilder);
   });
   When(Method(mockAgent, write)).Do([&](query_t const& q, bool d) -> write_ret_t {
     INFO("WriteTransaction: " << q->slice().toJson());
     auto writes = q->slice()[0][0]; \
-    REQUIRE(std::string(writes.get("/arango/Target/ToDo/1").get("op").typeName()) == "string"); \
-    CHECK(std::string(writes.get("/arango/Target/Failed/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1").get("op").typeName()) == "string"); \
+    CHECK(std::string(writes.get("/avocado/Target/Failed/1").typeName()) == "object");
 
     return fakeWriteResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn();
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -375,14 +375,14 @@ SECTION("if there is no healthy free server when trying to start just wait") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
       }
       builder->close();
     } else {
-      if (path == "/arango/Supervision/Health/free/Status") {
+      if (path == "/avocado/Supervision/Health/free/Status") {
         builder->add(VPackValue("FAILED"));
-      } else if (path == "/arango/Supervision/Health/free2/Status") {
+      } else if (path == "/avocado/Supervision/Health/free2/Status") {
         builder->add(VPackValue("FAILED"));
       } else {
         builder->add(s);
@@ -400,7 +400,7 @@ SECTION("if there is no healthy free server when trying to start just wait") {
   Mock<AgentInterface> mockAgent;
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -419,15 +419,15 @@ SECTION("abort any moveShard job blocking the shard and start") {
     REQUIRE(std::string(q->slice()[0].typeName()) == "array");
     REQUIRE(q->slice()[0].length() > 0); // preconditions!
     REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
-    REQUIRE(std::string(q->slice()[0][0].get("/arango/Target/ToDo/2").typeName()) == "object");
-    moveShardBuilder.add(q->slice()[0][0].get("/arango/Target/ToDo/2"));
+    REQUIRE(std::string(q->slice()[0][0].get("/avocado/Target/ToDo/2").typeName()) == "object");
+    moveShardBuilder.add(q->slice()[0][0].get("/avocado/Target/ToDo/2"));
 
     return fakeWriteResult;
   });
   When(Method(moveShardMockAgent, waitFor)).Return();
   AgentInterface &moveShardAgent = moveShardMockAgent.get();
   auto moveShard = MoveShard(
-    baseStructure("arango"), &moveShardAgent, "2", "strunz", DATABASE,
+    baseStructure("avocado"), &moveShardAgent, "2", "strunz", DATABASE,
     COLLECTION, SHARD, SHARD_LEADER, FREE_SERVER, true);
   moveShard.create();
 
@@ -442,15 +442,15 @@ SECTION("abort any moveShard job blocking the shard and start") {
           builder->add(it.key.copyString(), childBuilder->slice());
         }
       }
-      if (path == "/arango/Supervision/Shards") {
+      if (path == "/avocado/Supervision/Shards") {
         builder->add(SHARD, VPackValue("2"));
-      } else if (path == "/arango/Target/ToDo") {
+      } else if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
-      } else if (path == "/arango/Target/Pending") {
+      } else if (path == "/avocado/Target/Pending") {
         builder->add("2", moveShardBuilder.slice());
       }
     } else {
-      if (path == "/arango/Current/Collections/" + DATABASE + "/" +
+      if (path == "/avocado/Current/Collections/" + DATABASE + "/" +
           COLLECTION + "/" + SHARD + "/servers") {
         VPackArrayBuilder a(builder.get());
         builder->add(VPackValue(SHARD_LEADER));
@@ -475,7 +475,7 @@ SECTION("abort any moveShard job blocking the shard and start") {
     REQUIRE(q->slice().length() == 1);
     REQUIRE(std::string(q->slice()[0].typeName()) == "array");
     REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
-    REQUIRE(std::string(q->slice()[0][0].get("/arango/Target/Failed/2").typeName()) == "object");
+    REQUIRE(std::string(q->slice()[0][0].get("/avocado/Target/Failed/2").typeName()) == "object");
     return fakeWriteResult;
   });
 
@@ -483,13 +483,13 @@ SECTION("abort any moveShard job blocking the shard and start") {
     // check that the job is now pending
     INFO("Transaction: " << q->slice().toJson());
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/Finished/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/Finished/1").typeName()) == "object");
     return fakeTransResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -512,11 +512,11 @@ SECTION("a successfully started job should finish immediately and set everything
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
       }
     } else {
-      if (path == "/arango/Current/Collections/" + DATABASE + "/" +
+      if (path == "/avocado/Current/Collections/" + DATABASE + "/" +
           COLLECTION + "/" + SHARD + "/servers") {
         VPackArrayBuilder a(builder.get());
         builder->add(VPackValue(SHARD_LEADER));
@@ -538,31 +538,31 @@ SECTION("a successfully started job should finish immediately and set everything
     // check that the job is now pending
     INFO("Transaction: " << q->slice().toJson());
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/Finished/1").typeName()) == "object");
-    REQUIRE(std::string(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).typeName()) == "array");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).length() == 3);
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[0].copyString() == "leader");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[1].copyString() == "free");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[2].copyString() == "follower2");
-    REQUIRE(writes.get("/arango/Plan/Version").get("op").copyString() == "increment");
-    REQUIRE(std::string(writes.get("/arango/Target/Finished/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/Finished/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).typeName()) == "array");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).length() == 3);
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[0].copyString() == "leader");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[1].copyString() == "free");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[2].copyString() == "follower2");
+    REQUIRE(writes.get("/avocado/Plan/Version").get("op").copyString() == "increment");
+    REQUIRE(std::string(writes.get("/avocado/Target/Finished/1").typeName()) == "object");
 
     auto preconditions = q->slice()[0][1];
     REQUIRE(std::string(preconditions.typeName()) == "object");
-    REQUIRE(preconditions.get("/arango/Supervision/Health/free/Status").get("old").copyString() == "GOOD");
-    REQUIRE(std::string(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old").typeName()) == "array");
-    REQUIRE(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[0].copyString() == "leader");
-    REQUIRE(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[1].copyString() == "follower1");
-    REQUIRE(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[2].copyString() == "follower2");
-    REQUIRE(preconditions.get("/arango/Supervision/DBServers/free").get("oldEmpty").getBool() == true);
-    REQUIRE(preconditions.get("/arango/Supervision/Shards/s99").get("oldEmpty").getBool() == true);
+    REQUIRE(preconditions.get("/avocado/Supervision/Health/free/Status").get("old").copyString() == "GOOD");
+    REQUIRE(std::string(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old").typeName()) == "array");
+    REQUIRE(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[0].copyString() == "leader");
+    REQUIRE(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[1].copyString() == "follower1");
+    REQUIRE(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[2].copyString() == "follower2");
+    REQUIRE(preconditions.get("/avocado/Supervision/DBServers/free").get("oldEmpty").getBool() == true);
+    REQUIRE(preconditions.get("/avocado/Supervision/Shards/s99").get("oldEmpty").getBool() == true);
 
     return fakeTransResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -583,7 +583,7 @@ SECTION("the job should handle distributeShardsLike") {
           builder->add(it.key.copyString(), childBuilder->slice());
         }
       }
-      if (path == "/arango/Current/Collections/" + DATABASE) {
+      if (path == "/avocado/Current/Collections/" + DATABASE) {
         // we fake that follower2 is in sync
         char const* json1 =
           R"=({"s100":{"servers":["leader","follower2"]}})=";
@@ -592,18 +592,18 @@ SECTION("the job should handle distributeShardsLike") {
         char const* json2 =
           R"=({"s101":{"servers":["leader","follower1"]}})=";
         builder->add("linkedcollection2", createBuilder(json2).slice());
-      } else if (path == "/arango/Plan/Collections/" + DATABASE) {
+      } else if (path == "/avocado/Plan/Collections/" + DATABASE) {
         char const* json1 = R"=({"distributeShardsLike":"collection","shards":
           {"s100":["leader","follower1","follower2"]}})=";
         builder->add("linkedcollection1", createBuilder(json1).slice());
         char const* json2 = R"=({"distributeShardsLike":"collection","shards":
           {"s101":["leader","follower1","follower2"]}})=";
         builder->add("linkedcollection2", createBuilder(json2).slice());
-      } else if (path == "/arango/Target/ToDo") {
+      } else if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
       }
     } else {
-      if (path == "/arango/Current/Collections/" + DATABASE + "/" +
+      if (path == "/avocado/Current/Collections/" + DATABASE + "/" +
           COLLECTION + "/" + SHARD + "/servers") {
         VPackArrayBuilder a(builder.get());
         builder->add(VPackValue(SHARD_LEADER));
@@ -625,42 +625,42 @@ SECTION("the job should handle distributeShardsLike") {
     // check that the job is now pending
     INFO("Transaction: " << q->slice().toJson());
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/Finished/1").typeName()) == "object");
-    REQUIRE(std::string(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).typeName()) == "array");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).length() == 3);
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[0].copyString() == "leader");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[1].copyString() == "free");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[2].copyString() == "follower2");
-    REQUIRE(std::string(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100").typeName()) == "array");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100").length() == 3);
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100")[0].copyString() == "leader");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100")[1].copyString() == "free");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100")[2].copyString() == "follower2");
-    REQUIRE(std::string(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101").typeName()) == "array");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101").length() == 3);
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101")[0].copyString() == "leader");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101")[1].copyString() == "free");
-    REQUIRE(writes.get("/arango/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101")[2].copyString() == "follower2");
+    REQUIRE(std::string(writes.get("/avocado/Target/Finished/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).typeName()) == "array");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).length() == 3);
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[0].copyString() == "leader");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[1].copyString() == "free");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD)[2].copyString() == "follower2");
+    REQUIRE(std::string(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100").typeName()) == "array");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100").length() == 3);
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100")[0].copyString() == "leader");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100")[1].copyString() == "free");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection1/shards/s100")[2].copyString() == "follower2");
+    REQUIRE(std::string(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101").typeName()) == "array");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101").length() == 3);
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101")[0].copyString() == "leader");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101")[1].copyString() == "free");
+    REQUIRE(writes.get("/avocado/Plan/Collections/" + DATABASE + "/linkedcollection2/shards/s101")[2].copyString() == "follower2");
 
-    REQUIRE(writes.get("/arango/Plan/Version").get("op").copyString() == "increment");
-    REQUIRE(std::string(writes.get("/arango/Target/Finished/1").typeName()) == "object");
+    REQUIRE(writes.get("/avocado/Plan/Version").get("op").copyString() == "increment");
+    REQUIRE(std::string(writes.get("/avocado/Target/Finished/1").typeName()) == "object");
 
     auto preconditions = q->slice()[0][1];
     REQUIRE(std::string(preconditions.typeName()) == "object");
-    REQUIRE(preconditions.get("/arango/Supervision/Health/free/Status").get("old").copyString() == "GOOD");
-    REQUIRE(std::string(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old").typeName()) == "array");
-    REQUIRE(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[0].copyString() == "leader");
-    REQUIRE(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[1].copyString() == "follower1");
-    REQUIRE(preconditions.get("/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[2].copyString() == "follower2");
-    REQUIRE(preconditions.get("/arango/Supervision/DBServers/free").get("oldEmpty").getBool() == true);
-    REQUIRE(preconditions.get("/arango/Supervision/Shards/s99").get("oldEmpty").getBool() == true);
+    REQUIRE(preconditions.get("/avocado/Supervision/Health/free/Status").get("old").copyString() == "GOOD");
+    REQUIRE(std::string(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old").typeName()) == "array");
+    REQUIRE(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[0].copyString() == "leader");
+    REQUIRE(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[1].copyString() == "follower1");
+    REQUIRE(preconditions.get("/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION + "/shards/" + SHARD).get("old")[2].copyString() == "follower2");
+    REQUIRE(preconditions.get("/avocado/Supervision/DBServers/free").get("oldEmpty").getBool() == true);
+    REQUIRE(preconditions.get("/avocado/Supervision/Shards/s99").get("oldEmpty").getBool() == true);
 
     return fakeTransResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -682,7 +682,7 @@ SECTION("the job should timeout after a while") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         VPackBuilder todoJob = createJob();
         VPackBuilder timedOutJob;
         {
@@ -698,7 +698,7 @@ SECTION("the job should timeout after a while") {
         builder->add("1", timedOutJob.slice());
       }
     } else {
-      if (path == "/arango/Current/Collections/" + DATABASE + "/" +
+      if (path == "/avocado/Current/Collections/" + DATABASE + "/" +
           COLLECTION + "/" + SHARD + "/servers") {
         VPackArrayBuilder a(builder.get());
         builder->add(VPackValue(SHARD_LEADER));
@@ -720,14 +720,14 @@ SECTION("the job should timeout after a while") {
     // check that the job is now pending
     INFO("Write: " << q->slice().toJson());
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/Failed/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/Failed/1").typeName()) == "object");
 
     return fakeWriteResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId
@@ -749,11 +749,11 @@ SECTION("the job should be abortable when it is in todo") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add("1", createJob().slice());
       }
     } else {
-      if (path == "/arango/Current/Collections/" + DATABASE + "/" +
+      if (path == "/avocado/Current/Collections/" + DATABASE + "/" +
           COLLECTION + "/" + SHARD + "/servers") {
         VPackArrayBuilder a(builder.get());
         builder->add(VPackValue(SHARD_LEADER));
@@ -775,14 +775,14 @@ SECTION("the job should be abortable when it is in todo") {
     // check that the job is now pending
     INFO("Write: " << q->slice().toJson());
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/Failed/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/Failed/1").typeName()) == "object");
 
     return fakeWriteResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
   AgentInterface &agent = mockAgent.get();
   auto failedFollower = FailedFollower(
-    agency("arango"),
+    agency("avocado"),
     &agent,
     JOB_STATUS::TODO,
     jobId

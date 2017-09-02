@@ -5,7 +5,7 @@ Fulltext queries
 It is recommended to use AQL instead, see [**Fulltext functions**](../../../../AQL/Functions/Fulltext.html).
 {% endhint %}
 
-ArangoDB allows to run queries on text contained in document attributes.  To use
+AvocadoDB allows to run queries on text contained in document attributes.  To use
 this, a [fulltext index](../../Glossary.md#fulltext-index) must be defined for the attribute of the collection that
 contains the text. Creating the index will parse the text in the specified
 attribute for all documents of the collection. Only documents will be indexed
@@ -16,7 +16,7 @@ fulltext index.
 When a fulltext index exists, it can be queried using a fulltext query.
 
 ### Fulltext
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 queries the fulltext index
@@ -27,8 +27,8 @@ The *fulltext* simple query functions performs a fulltext search on the specifie
 
 Details about the fulltext query syntax can be found below.
 
-Note: the *fulltext* simple query function is **deprecated** as of ArangoDB 2.6. 
-The function may be removed in future versions of ArangoDB. The preferred
+Note: the *fulltext* simple query function is **deprecated** as of AvocadoDB 2.6. 
+The function may be removed in future versions of AvocadoDB. The preferred
 way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
 [AQL function](../../../../AQL/Functions/Fulltext.html) as follows:
 

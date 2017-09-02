@@ -3,7 +3,7 @@ HTTP Interface for Indexes
 
 ### Indexes
 
-This is an introduction to ArangoDB's HTTP interface for indexes in
+This is an introduction to AvocadoDB's HTTP interface for indexes in
 general. There are special sections for various index types.
 
 #### Index
@@ -48,8 +48,8 @@ the standard HTTP methods (*POST*, *GET*, *PUT*, *DELETE*).
 Address of an Index
 -------------------
 
-All indexes in ArangoDB have an unique handle. This index handle identifies an
-index and is managed by ArangoDB. All indexes are found under the URI
+All indexes in AvocadoDB have an unique handle. This index handle identifies an
+index and is managed by AvocadoDB. All indexes are found under the URI
 
     http://server:port/_api/index/index-handle
 

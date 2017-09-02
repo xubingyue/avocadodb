@@ -1,7 +1,7 @@
 Working with Edges using REST
 =============================
 
-This is documentation to ArangoDB's
+This is documentation to AvocadoDB's
 [REST interface for edges](../../Manual/Graphs/Edges/index.html).
 
 Edges are documents with two additional attributes: *_from* and *_to*.

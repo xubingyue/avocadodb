@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, $, setTimeout, window, arangoHelper, templateEngine */
+/* global Backbone, $, setTimeout, window, avocadoHelper, templateEngine */
 
 (function () {
   'use strict';
@@ -11,7 +11,7 @@
 
     templateActive: templateEngine.createTemplate('queryManagementViewActive.ejs'),
     templateSlow: templateEngine.createTemplate('queryManagementViewSlow.ejs'),
-    table: templateEngine.createTemplate('arangoTable.ejs'),
+    table: templateEngine.createTemplate('avocadoTable.ejs'),
     active: true,
     shouldRender: true,
     timer: 0,
@@ -25,13 +25,13 @@
 
       window.setInterval(function () {
         if (window.location.hash === '#queries' && window.VISIBLE && self.shouldRender &&
-          arangoHelper.getCurrentSub().route === 'queryManagement') {
+          avocadoHelper.getCurrentSub().route === 'queryManagement') {
           if (self.active) {
-            if ($('#arangoQueryManagementTable').is(':visible')) {
+            if ($('#avocadoQueryManagementTable').is(':visible')) {
               self.convertModelToJSON(true);
             }
           } else {
-            if ($('#arangoQueryManagementTable').is(':visible')) {
+            if ($('#avocadoQueryManagementTable').is(':visible')) {
               self.convertModelToJSON(false);
             }
           }
@@ -41,11 +41,11 @@
 
     events: {
       'click #deleteSlowQueryHistory': 'deleteSlowQueryHistoryModal',
-      'click #arangoQueryManagementTable .fa-minus-circle': 'deleteRunningQueryModal'
+      'click #avocadoQueryManagementTable .fa-minus-circle': 'deleteRunningQueryModal'
     },
 
     tableDescription: {
-      id: 'arangoQueryManagementTable',
+      id: 'avocadoQueryManagementTable',
       titles: ['ID', 'Query String', 'Bind parameter', 'Runtime', 'Started', ''],
       rows: [],
       unescaped: [false, false, false, false, true]
@@ -131,7 +131,7 @@
     },
 
     render: function () {
-      var options = arangoHelper.getCurrentSub();
+      var options = avocadoHelper.getCurrentSub();
       if (options.params.active) {
         this.active = true;
         this.convertModelToJSON(true);
@@ -163,7 +163,7 @@
           2: 'pre'
         }
       }));
-      $('#activequeries').addClass('arango-active-tab');
+      $('#activequeries').addClass('avocado-active-tab');
       this.addEvents();
     },
 
@@ -176,7 +176,7 @@
           2: 'pre'
         }
       }));
-      $('#slowqueries').addClass('arango-active-tab');
+      $('#slowqueries').addClass('avocado-active-tab');
       this.addEvents();
     },
 

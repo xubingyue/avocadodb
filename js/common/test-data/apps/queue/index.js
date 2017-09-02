@@ -1,6 +1,6 @@
 'use strict';
-const queues = require('@arangodb/foxx/queues');
-const router = require('@arangodb/foxx/router')();
+const queues = require('@avocadodb/foxx/queues');
+const router = require('@avocadodb/foxx/router')();
 module.context.use(router);
 
 router.post((req, res) => {

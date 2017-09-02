@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false, maxlen: 5000 */
-/*global arango, assertEqual, assertTrue*/
+/*global avocado, assertEqual, assertTrue*/
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test the replication interface
@@ -29,8 +29,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var db = avocadodb.db;
 
 function ReplicationApiSuite () {
   'use strict';
@@ -60,7 +60,7 @@ function ReplicationApiSuite () {
     tearDown : function () {
       // avoid hanging tests! by canceling batches
       batchesToFree.forEach( function(id){
-          arango.DELETE_RAW("/_api/replication/batch/"+ id, "");
+          avocado.DELETE_RAW("/_api/replication/batch/"+ id, "");
       });
 
       collection.drop();
@@ -74,13 +74,13 @@ function ReplicationApiSuite () {
     testCreateBatchId : function () {
       // create batch
       var doc = {};
-      var result = arango.POST_RAW("/_api/replication/batch", JSON.stringify(doc));
+      var result = avocado.POST_RAW("/_api/replication/batch", JSON.stringify(doc));
       assertEqual(200, result.code);
       var obj = JSON.parse(result.body);
       assertTrue(obj.hasOwnProperty("id"));
 
       // delete batch
-      result = arango.DELETE_RAW("/_api/replication/batch/"+ obj.id, "");
+      result = avocado.DELETE_RAW("/_api/replication/batch/"+ obj.id, "");
       assertEqual(204, result.code);
 
     },
@@ -92,14 +92,14 @@ function ReplicationApiSuite () {
     testKeys : function () {
       // create batch
       var doc = {};
-      var result = arango.POST_RAW("/_api/replication/batch", JSON.stringify(doc));
+      var result = avocado.POST_RAW("/_api/replication/batch", JSON.stringify(doc));
       assertEqual(200, result.code);
       var batchObj = JSON.parse(result.body);
       assertTrue(batchObj.hasOwnProperty("id"));
       batchesToFree.push(batchObj.id);
 
       // create keys
-      result = arango.POST_RAW("/_api/replication/keys?collection=" + cn + 
+      result = avocado.POST_RAW("/_api/replication/keys?collection=" + cn + 
                                    "&batchId=" + batchObj.id, JSON.stringify(doc));
       assertEqual(200, result.code);
       var keysObj = JSON.parse(result.body);
@@ -108,7 +108,7 @@ function ReplicationApiSuite () {
       assertTrue(keysObj.count === 100);
 
       // fetch keys
-      result = arango.PUT_RAW("/_api/replication/keys/"+ batchObj.id +
+      result = avocado.PUT_RAW("/_api/replication/keys/"+ batchObj.id +
                               "?collection=" + cn +
                               "&type=keys"
                              ,JSON.stringify(doc)
@@ -118,7 +118,7 @@ function ReplicationApiSuite () {
       keysObj = JSON.parse(result.body);
       assertTrue(Array.isArray(keysObj));
 
-      result = arango.PUT_RAW("/_api/replication/keys/"+ batchObj.id +
+      result = avocado.PUT_RAW("/_api/replication/keys/"+ batchObj.id +
                               "?collection=" + cn +
                               "&type=keys" +
                               "&chunk=" + Math.pow(2,60) +
@@ -128,7 +128,7 @@ function ReplicationApiSuite () {
       assertEqual(400, result.code);
 
       // iterator should be invalid
-      result = arango.PUT_RAW("/_api/replication/keys/"+ batchObj.id +
+      result = avocado.PUT_RAW("/_api/replication/keys/"+ batchObj.id +
                               "?collection=" + cn +
                               "&type=keys" +
                               "&chunk=" + 5 +
@@ -138,7 +138,7 @@ function ReplicationApiSuite () {
       assertEqual(400, result.code);
 
       // delete batch
-      result = arango.DELETE_RAW("/_api/replication/batch/"+ batchObj.id, "");
+      result = avocado.DELETE_RAW("/_api/replication/batch/"+ batchObj.id, "");
       assertEqual(204, result.code);
 
       batchesToFree.pop();

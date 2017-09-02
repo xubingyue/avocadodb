@@ -145,7 +145,7 @@ SECTION("tst_2") {
 
   std::string testString((const char*) gruessgott1);
   std::string expectString((const char*) lower);
-  std::string resultString = arangodb::basics::Utf8Helper::DefaultUtf8Helper.toLowerCase(testString);
+  std::string resultString = avocadodb::basics::Utf8Helper::DefaultUtf8Helper.toLowerCase(testString);
   CHECK(std::string(expectString) == resultString);
   
   len = 0;
@@ -160,12 +160,12 @@ SECTION("tst_2") {
 SECTION("tst_3") {
   std::string testString   = "aäoöuüAÄOÖUÜ";
   std::string expectString = "aäoöuüaäoöuü";
-  std::string resultString = arangodb::basics::Utf8Helper::DefaultUtf8Helper.toLowerCase(testString);
+  std::string resultString = avocadodb::basics::Utf8Helper::DefaultUtf8Helper.toLowerCase(testString);
   CHECK(std::string(expectString) == resultString);
 
   testString   = "aäoöuüAÄOÖUÜ";
   expectString = "AÄOÖUÜAÄOÖUÜ";
-  resultString = arangodb::basics::Utf8Helper::DefaultUtf8Helper.toUpperCase(testString);
+  resultString = avocadodb::basics::Utf8Helper::DefaultUtf8Helper.toUpperCase(testString);
   CHECK(std::string(expectString) == resultString);
 }
 
@@ -173,7 +173,7 @@ SECTION("tst_4") {
   std::string testString   = "Der Müller geht in die Post.";
   
   std::set<std::string> words;
-  arangodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 3, UINT32_MAX, true);
+  avocadodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 3, UINT32_MAX, true);
   CHECK(!words.empty());
   
   CHECK((5UL) == words.size());
@@ -184,7 +184,7 @@ SECTION("tst_4") {
   CHECK(words.find(std::string("post")) != words.end());
   
   words.clear();
-  arangodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 4, UINT32_MAX, true);
+  avocadodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 4, UINT32_MAX, true);
   CHECK(!words.empty());
   
   CHECK((3UL) == words.size());
@@ -195,7 +195,7 @@ SECTION("tst_4") {
   CHECK(words.find(std::string("die")) == words.end());
   
   words.clear();
-  arangodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, "", 3, UINT32_MAX, true);
+  avocadodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, "", 3, UINT32_MAX, true);
   CHECK(words.empty());
 }
 
@@ -203,7 +203,7 @@ SECTION("tst_5") {
   std::string testString   = "Der Müller geht in die Post.";
   
   std::set<std::string> words;
-  arangodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 3, UINT32_MAX, false);
+  avocadodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 3, UINT32_MAX, false);
   CHECK(!words.empty());
   
   CHECK((5UL) == words.size());
@@ -214,7 +214,7 @@ SECTION("tst_5") {
   CHECK(words.find(std::string("Post")) != words.end());
     
   words.clear();
-  arangodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 4, UINT32_MAX, false);
+  avocadodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, testString, 4, UINT32_MAX, false);
   CHECK(!words.empty());
   
   CHECK((3UL) == words.size());
@@ -225,7 +225,7 @@ SECTION("tst_5") {
   CHECK(words.find(std::string("die")) == words.end());
   
   words.clear();
-  arangodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, "", 4, UINT32_MAX, false);
+  avocadodb::basics::Utf8Helper::DefaultUtf8Helper.tokenize(words, "", 4, UINT32_MAX, false);
   CHECK(words.empty());
 }
 }

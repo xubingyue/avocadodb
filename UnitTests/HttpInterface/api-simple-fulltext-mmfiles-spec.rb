@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/simple"
   prefix = "api-simple"
 
@@ -16,10 +16,10 @@ describe ArangoDB do
     context "fulltext query:" do
       before do
         @cn = "UnitTestsCollectionFulltext"
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
 
         body = "{ \"name\" : \"#{@cn}\", \"numberOfShards\" : 8 }"
-        doc = ArangoDB.post("/_api/collection", :body => body)
+        doc = AvocadoDB.post("/_api/collection", :body => body)
         doc.code.should eq(200)
         @cid = doc.parsed_response['id']
 
@@ -32,18 +32,18 @@ describe ArangoDB do
 
         # insert documents
         texts.each do |text|
-          ArangoDB.post("/_api/document?collection=#{@cn}", :body => "{ \"text\" : \"#{text}\" }")
+          AvocadoDB.post("/_api/document?collection=#{@cn}", :body => "{ \"text\" : \"#{text}\" }")
         end
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
       
       it "returns an error for fulltext query without query attribute" do
         cmd = api + "/fulltext"
         body = "{ \"collection\" : \"#{@cn}\", \"attribute\" : \"text\" }"
-        doc = ArangoDB.log_put("#{prefix}-fulltext-missing", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-fulltext-missing", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -54,7 +54,7 @@ describe ArangoDB do
       it "returns an error for fulltext query without an index" do
         cmd = api + "/fulltext"
         body = "{ \"collection\" : \"#{@cn}\", \"attribute\" : \"text\", \"query\" : \"foo\" }"
-        doc = ArangoDB.log_put("#{prefix}-fulltext-missing", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-fulltext-missing", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -67,12 +67,12 @@ describe ArangoDB do
         # create index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"fulltext\", \"fields\" : [ \"text\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
               # query index on different attribute
         cmd = api + "/fulltext"
         body = "{ \"collection\" : \"#{@cn}\", \"attribute\" : \"foo\", \"query\" : \"bar\" }"
-        doc = ArangoDB.log_put("#{prefix}-fulltext-missing", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-fulltext-missing", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -85,11 +85,11 @@ describe ArangoDB do
         # create index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"fulltext\", \"fields\" : [ \"text\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         cmd = api + "/fulltext"
         body = "{ \"collection\" : \"#{@cn}\", \"attribute\" : \"text\", \"query\" : \"como,interesado,viendo\" }"
-        doc = ArangoDB.log_put("#{prefix}-within", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-within", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -104,11 +104,11 @@ describe ArangoDB do
         # create index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"fulltext\", \"fields\" : [ \"text\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         cmd = api + "/fulltext"
         body = "{ \"collection\" : \"#{@cn}\", \"attribute\" : \"text\", \"query\" : \"que\", \"limit\" : 2 }"
-        doc = ArangoDB.log_put("#{prefix}-within", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-within", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -123,11 +123,11 @@ describe ArangoDB do
         # create index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"fulltext\", \"fields\" : [ \"text\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         cmd = api + "/fulltext"
         body = "{ \"collection\" : \"#{@cn}\", \"attribute\" : \"text\", \"query\" : \"prefix:que,prefix:pa\" }"
-        doc = ArangoDB.log_put("#{prefix}-within", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-within", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

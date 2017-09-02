@@ -12,7 +12,7 @@ This log may then be read by clients to replay any data modification on a differ
 
 To query the current state of the logger, use the *state* command:
   
-    require("@arangodb/replication").logger.state();
+    require("@avocadodb/replication").logger.state();
 
 The result might look like this:
 
@@ -33,10 +33,10 @@ The result might look like this:
 }
 ```
 
-The *running* attribute will always be true. In earlier versions of ArangoDB the replication was optional and this could have been *false*. 
+The *running* attribute will always be true. In earlier versions of AvocadoDB the replication was optional and this could have been *false*. 
 
 The *totalEvents* attribute indicates how many log events have been logged since the start 
-of the ArangoDB server. Finally, the *lastLogTick* value indicates the id of the last 
+of the AvocadoDB server. Finally, the *lastLogTick* value indicates the id of the last 
 operation that was written to the server's write-ahead log. It can be used to determine whether new 
 operations were logged, and is also used by the replication applier for incremental 
 fetching of data.
@@ -47,13 +47,13 @@ fetching of data.
 To query which data ranges are still available for replication clients to fetch,
 the logger provides the *firstTick* and *tickRanges* functions:
 
-    require("@arangodb/replication").logger.firstTick();
+    require("@avocadodb/replication").logger.firstTick();
 
 This will return the minimum tick value that the server can provide to replication
 clients via its replication APIs. The *tickRanges* function returns the minimum and
 maximum tick values per logfile:
 
-    require("@arangodb/replication").logger.tickRanges();
+    require("@avocadodb/replication").logger.tickRanges();
 
 ### Replication Applier
 
@@ -84,7 +84,7 @@ The replication applier state is queryable at any time by using the *state* comm
 applier. This will return the state of the applier of the current database:
 
 ```js
-require("@arangodb/replication").applier.state();
+require("@avocadodb/replication").applier.state();
 ```
 
 The result might look like this:
@@ -168,7 +168,7 @@ To copy the initial data from the **slave** to the master and start the
 continuous replication, there is an all-in-one command *setupReplication*:
 
 ```js
-require("@arangodb/replication").setupReplication(configuration);
+require("@avocadodb/replication").setupReplication(configuration);
 ```
 
 The following example demonstrates how to use the command for setting up replication
@@ -176,7 +176,7 @@ for the *_system* database. Note that it should be run on the slave and not the 
 
 ```js
 db._useDatabase("_system");
-require("@arangodb/replication").setupReplication({
+require("@avocadodb/replication").setupReplication({
   endpoint: "tcp://master.domain.org:8529",
   username: "myuser",
   password: "mypasswd",
@@ -205,14 +205,14 @@ To manually start and stop the applier in the current database, the *start* and 
 can be used like this:
 
 ```js
-require("@arangodb/replication").applier.start(<tick>);
-require("@arangodb/replication").applier.stop();
+require("@avocadodb/replication").applier.start(<tick>);
+require("@avocadodb/replication").applier.stop();
 ```
 
 **Note**: Starting a replication applier without setting up an initial configuration will 
 fail. The replication applier will look for its configuration in a file named 
 *REPLICATION-APPLIER-CONFIG* in the current database's directory. If the file is not present, 
-ArangoDB will use some default configuration, but it cannot guess the endpoint (the address 
+AvocadoDB will use some default configuration, but it cannot guess the endpoint (the address 
 of the master database) the applier should connect to. Thus starting the applier without 
 configuration will fail.
 
@@ -220,7 +220,7 @@ Note that at the first time you start the applier, you should pass the value ret
 *lastLogTick* attribute of the initial sync operation.
 
 **Note**: Starting a database's replication applier via the *start* command will not necessarily 
-start the applier on the next and following ArangoDB server restarts. Additionally, stopping a
+start the applier on the next and following AvocadoDB server restarts. Additionally, stopping a
 database's replication applier manually will not necessarily prevent the applier from being 
 started again on the next server start. All of this is configurable separately (hang on reading).
 
@@ -243,7 +243,7 @@ To configure the replication applier of a specific database, use the *properties
 it without any arguments will return the applier's current configuration:
 
 ```js
-require("@arangodb/replication").applier.properties();
+require("@avocadodb/replication").applier.properties();
 ```
 
 The result might look like this:
@@ -270,7 +270,7 @@ for the replication applier to be startable. You may also want to configure a us
 for the connection via the *username* and *password* attributes. 
 
 ```js
-require("@arangodb/replication").applier.properties({ 
+require("@avocadodb/replication").applier.properties({ 
   endpoint: "tcp://master.domain.org:8529", 
   username:  "root", 
   password: "secret",
@@ -282,7 +282,7 @@ This will re-configure the replication applier for the current database. The con
 used from the next start of the replication applier. The replication applier cannot be re-configured 
 while it is running. It must be stopped first to be re-configured.
 
-To make the replication applier of the current database start automatically when the ArangoDB server 
+To make the replication applier of the current database start automatically when the AvocadoDB server 
 starts, use the *autoStart* attribute. 
 
 Setting the *adaptivePolling* attribute to *true* will make the replication applier poll the 
@@ -314,7 +314,7 @@ before retrying the connection to the master in case of connection problems.
 The *chunkSize* attribute can be used to control the approximate maximum size of a master's
 response (in bytes). Setting it to a low value may make the master respond faster (less data is
 assembled before the master sends the response), but may require more request-response roundtrips.
-Set it to *0* to use ArangoDB's built-in default value.
+Set it to *0* to use AvocadoDB's built-in default value.
 
 The *includeSystem* attribute controls whether changes to system collections (such as *_graphs* or
 *_users*) should be applied. If set to *true*, changes in these collections will be replicated, 
@@ -355,7 +355,7 @@ only be used for diagnosing replication problems.
 The following example will set most of the discussed properties for the current database's applier:
 
 ```js
-require("@arangodb/replication").applier.properties({ 
+require("@avocadodb/replication").applier.properties({ 
   endpoint: "tcp://master.domain.org:8529", 
   username: "root", 
   password: "secret",
@@ -384,7 +384,7 @@ The only safe method for doing a full synchronization (or re-synchronization) is
 The initial synchronization for the current database is executed with the *sync* command:
 
 ```js
-require("@arangodb/replication").sync({
+require("@avocadodb/replication").sync({
   endpoint: "tcp://master.domain.org:8529",
   username: "root",
   password: "secret,
@@ -401,7 +401,7 @@ collections using the *restrictType* and *restrictCollection* parameters.
 The following command only synchronizes collection *foo* and *bar*:
 
 ```js
-require("@arangodb/replication").sync({
+require("@avocadodb/replication").sync({
   endpoint: "tcp://master.domain.org:8529",
   username: "root",
   password: "secret,
@@ -433,7 +433,7 @@ Now you can start the continuous synchronization for the current database on the
 with the command
 
 ```js
-require("@arangodb/replication").applier.start("231848833079705");
+require("@avocadodb/replication").applier.start("231848833079705");
 ```
 
 **Note**: The tick values should be treated as strings. Using numeric data types for tick

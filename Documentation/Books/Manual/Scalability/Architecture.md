@@ -1,7 +1,7 @@
 Architecture
 ------------
 
-The cluster architecture of ArangoDB is a CP master/master model with no 
+The cluster architecture of AvocadoDB is a CP master/master model with no 
 single point of failure. With "CP" we mean that in the presence of a
 network partition, the database prefers internal consistency over 
 availability. With "master/master" we mean that clients can send their 
@@ -9,27 +9,27 @@ requests to an arbitrary node, and experience the same view on the
 database regardless. "No single point of failure" means that the cluster
 can continue to serve requests, even if one machine fails completely.
 
-In this way, ArangoDB has been designed as a distributed multi-model 
+In this way, AvocadoDB has been designed as a distributed multi-model 
 database. This section gives a short outline on the cluster architecture and
 how the above features and capabilities are achieved.
 
-### Structure of an ArangoDB cluster
+### Structure of an AvocadoDB cluster
 
-An ArangoDB cluster consists of a number of ArangoDB instances
+An AvocadoDB cluster consists of a number of AvocadoDB instances
 which talk to each other over the network. They play different roles,
 which will be explained in detail below. The current configuration 
 of the cluster is held in the "Agency", which is a highly-available
-resilient key/value store based on an odd number of ArangoDB instances
+resilient key/value store based on an odd number of AvocadoDB instances
 running [Raft Consensus Protocol](https://raft.github.io/).
 
-For the various instances in an ArangoDB cluster there are 4 distinct
+For the various instances in an AvocadoDB cluster there are 4 distinct
 roles: Agents, Coordinators, Primary and Secondary DBservers. In the
 following sections we will shed light on each of them. Note that the
 tasks for all roles run the same binary from the same Docker image.
 
 #### Agents
 
-One or multiple Agents form the Agency in an ArangoDB cluster. The
+One or multiple Agents form the Agency in an AvocadoDB cluster. The
 Agency is the central place to store the configuration in a cluster. It
 performs leader elections and provides other synchronization services for
 the whole cluster. Without the Agency none of the other components can
@@ -39,7 +39,7 @@ While generally invisible to the outside it is the heart of the
 cluster. As such, fault tolerance is of course a must have for the
 Agency. To achieve that the Agents are using the [Raft Consensus
 Algorithm](https://raft.github.io/). The algorithm formally guarantees
-conflict free configuration management within the ArangoDB cluster.
+conflict free configuration management within the AvocadoDB cluster.
 
 At its core the Agency manages a big configuration tree. It supports
 transactional read and write operations on this tree, and other servers
@@ -77,17 +77,17 @@ normal cluster operation.
 
 #### Cluster ID
 
-Every non-Agency ArangoDB instance in a cluster is assigned a unique
+Every non-Agency AvocadoDB instance in a cluster is assigned a unique
 ID during its startup. Using its ID a node is identifiable
 throughout the cluster. All cluster operations will communicate
 via this ID.
 
 ### Sharding
 
-Using the roles outlined above an ArangoDB cluster is able to distribute
+Using the roles outlined above an AvocadoDB cluster is able to distribute
 data in so called shards across multiple primaries. From the outside
 this process is fully transparent and as such we achieve the goals of
-what other systems call "master-master replication". In an ArangoDB
+what other systems call "master-master replication". In an AvocadoDB
 cluster you talk to any coordinator and whenever you read or write data
 it will automatically figure out where the data is stored (read) or to
 be stored (write). The information about the shards is shared across the
@@ -124,7 +124,7 @@ from the DBserver layer.
 
 ### Replication
 
-ArangoDB offers two ways of data replication within a cluster, synchronous
+AvocadoDB offers two ways of data replication within a cluster, synchronous
 and asynchronous. In this section we explain some details and highlight
 the advantages and disadvantages respectively.
 
@@ -163,15 +163,15 @@ resynchronizes its data with the new leader and order is restored.
 All shard data synchronizations are done in an incremental way, such that
 resynchronizations are quick. This technology allows to move shards
 (follower and leader ones) between DBservers without service interruptions.
-Therefore, an ArangoDB cluster can move all the data on a specific DBserver
+Therefore, an AvocadoDB cluster can move all the data on a specific DBserver
 to other DBservers and then shut down that server in a controlled way. 
-This allows to scale down an ArangoDB cluster without service interruption,
+This allows to scale down an AvocadoDB cluster without service interruption,
 loss of fault tolerance or data loss. Furthermore, one can re-balance the
 distribution of the shards, either manually or automatically.
 
 All these operations can be triggered via a REST/JSON API or via the
 graphical web UI. All fail-over operations are completely handled within
-the ArangoDB cluster.
+the AvocadoDB cluster.
 
 Obviously, synchronous replication involves a certain increased latency for
 write operations, simply because there is one more network hop within the 
@@ -194,11 +194,11 @@ and confirmed data can be lost.
 
 Nevertheless, we also offer automatic fail-over with this setup. Contrary 
 to the synchronous case, here the fail-over management is done from outside
-the ArangoDB cluster. In a future version we might move this management
+the AvocadoDB cluster. In a future version we might move this management
 into the supervision process in the Agency, but as of now, the management
-is done via the Mesos framework scheduler for ArangoDB (see below).
+is done via the Mesos framework scheduler for AvocadoDB (see below).
 
-The granularity of the replication is a whole ArangoDB instance with
+The granularity of the replication is a whole AvocadoDB instance with
 all data that resides on that instance, which means that
 you need twice as many instances as without asynchronous replication. 
 Synchronous replication is more flexible in that respect, you can have 
@@ -207,12 +207,12 @@ across the remaining ones.
 
 ### Microservices and zero administation
 
-The design and capabilities of ArangoDB are geared towards usage in
+The design and capabilities of AvocadoDB are geared towards usage in
 modern microservice architectures of applications. With the 
 [Foxx services](../Foxx/README.md) it is very easy to deploy a data
-centric microservice within an ArangoDB cluster.
+centric microservice within an AvocadoDB cluster.
 
-In addition, one can deploy multiple instances of ArangoDB within the
+In addition, one can deploy multiple instances of AvocadoDB within the
 same project. One part of the project might need a scalable document
 store, another might need a graph database, and yet another might need
 the full power of a multi-model database actually mixing the various
@@ -220,30 +220,30 @@ data models. There are enormous efficiency benefits to be reaped by
 being able to use a single technology for various roles in a project.
 
 To simplify live of the devops in such a scenario we try as much as
-possible to use a zero administration approach for ArangoDB. A running
-ArangoDB cluster is resilient against failures and essentially repairs
+possible to use a zero administration approach for AvocadoDB. A running
+AvocadoDB cluster is resilient against failures and essentially repairs
 itself in case of temporary failures. See the next section for further
 capabilities in this direction.
 
 ### Apache Mesos integration
 
 For the distributed setup, we use the Apache Mesos infrastructure by default.
-ArangoDB is a fully certified package for DC/OS and can thus
+AvocadoDB is a fully certified package for DC/OS and can thus
 be deployed essentially with a few mouse clicks or a single command, once
 you have an existing DC/OS cluster. But even on a plain Apache Mesos cluster
-one can deploy ArangoDB via Marathon with a single API call and some JSON 
+one can deploy AvocadoDB via Marathon with a single API call and some JSON 
 configuration.
 
 The advantage of this approach is that we can not only implement the 
 initial deployment, but also the later management of automatic 
-replacement of failed instances and the scaling of the ArangoDB cluster
+replacement of failed instances and the scaling of the AvocadoDB cluster
 (triggered manually or even automatically). Since all manipulations are
 either via the graphical web UI or via JSON/REST calls, one can even
 implement auto-scaling very easily.
 
 A DC/OS cluster is a very natural environment to deploy microservice
 architectures, since it is so convenient to deploy various services,
-including potentially multiple ArangoDB cluster instances within the
+including potentially multiple AvocadoDB cluster instances within the
 same DC/OS cluster. The built-in service discovery makes it extremely
 simple to connect the various microservices and Mesos automatically
 takes care of the distribution and deployment of the various tasks.
@@ -251,13 +251,13 @@ takes care of the distribution and deployment of the various tasks.
 See the [Deployment](../Deployment/README.md) chapter and its subsections
 for instructions.
 
-It is possible to deploy an ArangoDB cluster by simply launching a bunch of 
+It is possible to deploy an AvocadoDB cluster by simply launching a bunch of 
 Docker containers with the right command line options to link them up, 
-or even on a single machine starting multiple ArangoDB processes. In that 
-case, synchronous replication will work within the deployed ArangoDB cluster,
+or even on a single machine starting multiple AvocadoDB processes. In that 
+case, synchronous replication will work within the deployed AvocadoDB cluster,
 and automatic fail-over in the sense that the duties of a failed server will
 automatically be assigned to another, surviving one. However, since the
-ArangoDB cluster cannot within itself launch additional instances, replacement
+AvocadoDB cluster cannot within itself launch additional instances, replacement
 of failed nodes is not automatic and scaling up and down has to be managed
 manually. This is why we do not recommend this setup for production 
 deployment.

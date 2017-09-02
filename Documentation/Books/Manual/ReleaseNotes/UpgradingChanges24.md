@@ -1,8 +1,8 @@
-Incompatible changes in ArangoDB 2.4
+Incompatible changes in AvocadoDB 2.4
 ====================================
 
 It is recommended to check the following list of incompatible changes **before** 
-upgrading to ArangoDB 2.4, and adjust any client programs if necessary.
+upgrading to AvocadoDB 2.4, and adjust any client programs if necessary.
 
 
 Changed behavior
@@ -42,13 +42,13 @@ look for the updated error messages.
 
 ### Default endpoint
 
-The default endpoint for arangod is now `127.0.0.1`.
+The default endpoint for avocadod is now `127.0.0.1`.
 
-This change will modify the IP address ArangoDB listens on to 127.0.0.1 by default.
-This will make new ArangoDB installations unaccessible from clients other than
+This change will modify the IP address AvocadoDB listens on to 127.0.0.1 by default.
+This will make new AvocadoDB installations unaccessible from clients other than
 localhost unless the configuration is changed. This is a security feature. 
 
-To make ArangoDB accessible from any client, change the server's configuration 
+To make AvocadoDB accessible from any client, change the server's configuration 
 (`--server.endpoint`) to either `tcp://0.0.0.0:8529` or the server's publicly
 visible IP address.
 
@@ -75,7 +75,7 @@ If this is also undesired, it is also possible to specify a list of collections 
 exclude from the initial synchronization and the continuous replication using the
 `restrictCollections` attribute, e.g.:
 
-    require("org/arangodb/replication").applier.properties({ 
+    require("org/avocadodb/replication").applier.properties({ 
       includeSystem: true,
       restrictType: "exclude",
       restrictCollections: [ "_users", "_graphs", "foo" ] 
@@ -105,7 +105,7 @@ Several options for the `configure` command have been removed in 2.4. The option
 are not available anymore because the build process will always use the bundled
 versions of the libraries.
 
-When building ArangoDB from source in a directory that already contained a pre-2.4 
+When building AvocadoDB from source in a directory that already contained a pre-2.4 
 version, it will be necessary to run a `make superclean` command once and a full
 rebuild afterwards:
 
@@ -122,7 +122,7 @@ As a consequence of global renaming in the codebase, the option `mergeArrays` ha
 been renamed to `mergeObjects`. This option controls whether JSON objects will be 
 merged on an update operation or overwritten. The default has been, and still is, 
 to merge. Not specifying the parameter will lead to a merge, as it has been the
-behavior in ArangoDB ever since.
+behavior in AvocadoDB ever since.
 
 This affects the HTTP REST API method PATCH `/_api/document/collection/key`. Its
 optional URL parameter `mergeArrays` for the option has been renamed to `mergeObjects`. 
@@ -141,7 +141,7 @@ Deprecated features
 -------------------
 
 For `FoxxController` objects, the method `collection()` is deprecated and will be
-removed in future version of ArangoDB. Using this method will issue a warning. 
+removed in future version of AvocadoDB. Using this method will issue a warning. 
 Please use `applicationContext.collection()` instead.
 
 For `FoxxRepository` objects, the property `modelPrototype` is now deprecated.
@@ -159,12 +159,12 @@ is deprecated. Please use `requestContext.pathParam({type: joi})` instead.
 For `FoxxModel`, calling `Model.extend({}, {attributes: {}})` is deprecated. 
 Please use `Model.extend({schema: {}})` instead.
 
-In module `org/arangodb/general-graph`, the functions `_undirectedRelation()` 
+In module `org/avocadodb/general-graph`, the functions `_undirectedRelation()` 
 and `_directedRelation()` are deprecated and will be removed in a future version
-of ArangoDB. Both functions have been unified to `_relation()`.
+of AvocadoDB. Both functions have been unified to `_relation()`.
 
-The modules `org/arangodb/graph` and `org/arangodb/graph-blueprint` are deprecated. 
-Please use module `org/arangodb/general-graph` instead.
+The modules `org/avocadodb/graph` and `org/avocadodb/graph-blueprint` are deprecated. 
+Please use module `org/avocadodb/general-graph` instead.
 
 The HTTP REST API `_api/graph` and all its methods are deprecated. Please use 
 the general graph API `_api/gharial` instead.
@@ -173,14 +173,14 @@ the general graph API `_api/gharial` instead.
 Removed features
 ----------------
 
-The following replication-related JavaScript methods became obsolete in ArangoDB
-2.2 and have been removed in ArangoDB 2.4:
+The following replication-related JavaScript methods became obsolete in AvocadoDB
+2.2 and have been removed in AvocadoDB 2.4:
 
-* `require("org/arangodb/replication").logger.start()`
-* `require("org/arangodb/replication").logger.stop()`
-* `require("org/arangodb/replication").logger.properties()`
+* `require("org/avocadodb/replication").logger.start()`
+* `require("org/avocadodb/replication").logger.stop()`
+* `require("org/avocadodb/replication").logger.properties()`
 
-The REST API methods for these functions have also been removed in ArangoDB 2.4:  
+The REST API methods for these functions have also been removed in AvocadoDB 2.4:  
 
 * HTTP PUT `/_api/replication/logger-start` 
 * HTTP PUT `/_api/replication/logger-stop` 
@@ -189,5 +189,5 @@ The REST API methods for these functions have also been removed in ArangoDB 2.4:
 
 Client applications that call one of these methods should be adjusted by removing
 the calls to these methods. This shouldn't be problematic as these methods have
-been no-ops since ArangoDB 2.2 anyway.
+been no-ops since AvocadoDB 2.2 anyway.
 

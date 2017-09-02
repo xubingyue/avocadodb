@@ -11,7 +11,7 @@ This definition can be done in two ways, either using *joi* directly.
 Accessing the body in this case will give you a JSON object.
 The other way is to use a Foxx *Model*.
 Accessing the body in this case will give you an instance of this Model.
-For both ways an entry for the body will be added in the Documentation in ArangoDBs WebInterface.
+For both ways an entry for the body will be added in the Documentation in AvocadoDBs WebInterface.
 For information about how to annotate your models, see the Model section.
 All requests sending a body that does not match the validation given this way
 will automatically be rejected.

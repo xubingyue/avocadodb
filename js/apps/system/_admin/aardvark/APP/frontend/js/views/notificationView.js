@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global frontendConfig, Backbone, templateEngine, $, window, noty, arangoHelper */
+/* global frontendConfig, Backbone, templateEngine, $, window, noty, avocadoHelper */
 (function () {
   'use strict';
 
@@ -17,8 +17,8 @@
       this.collection.bind('reset', this.renderNotifications.bind(this));
 
       window.setTimeout(function () {
-        if (frontendConfig.authenticationEnabled === false && frontendConfig.isCluster === false && arangoHelper.showAuthDialog() === true) {
-          window.arangoHelper.arangoWarning(
+        if (frontendConfig.authenticationEnabled === false && frontendConfig.isCluster === false && avocadoHelper.showAuthDialog() === true) {
+          window.avocadoHelper.avocadoWarning(
             'Warning', 'Authentication is disabled. Do not use this setup in production mode.'
           );
         }
@@ -88,7 +88,7 @@
                 text: "Don't show again.",
                 onClick: function ($noty) {
                   $noty.close();
-                  window.arangoHelper.doNotShowAgain();
+                  window.avocadoHelper.doNotShowAgain();
                 }
               }
             ];
@@ -100,9 +100,9 @@
           noty({
             theme: 'relax',
             text: message,
-            template: '<div class="noty_message arango_message">' +
-              '<div><i class="fa fa-close"></i></div><span class="noty_text arango_text"></span>' +
-              '<div class="noty_close arango_close"></div></div>',
+            template: '<div class="noty_message avocado_message">' +
+              '<div><i class="fa fa-close"></i></div><span class="noty_text avocado_text"></span>' +
+              '<div class="noty_close avocado_close"></div></div>',
             maxVisible: 1,
             closeWith: ['click'],
             type: latestModel.get('type'),

@@ -54,7 +54,7 @@ the server will try to return more data if there's more data left to return.
 
 If *chunkSize* is not specified, some server-side default value will be used.
 
-The *Content-Type* of the result is *application/x-arango-dump*. This is an
+The *Content-Type* of the result is *application/x-avocado-dump*. This is an
 easy-to-process format, with all log events going onto separate lines in the
 response body. Each log event itself is a JSON object, with at least the
 following attributes:
@@ -82,25 +82,25 @@ data structures can be found in @ref RefManualReplicationEventTypes.
 
 The response will also contain the following HTTP headers:
 
-- *x-arango-replication-active*: whether or not the logger is active. Clients
+- *x-avocado-replication-active*: whether or not the logger is active. Clients
   can use this flag as an indication for their polling frequency. If the
   logger is not active and there are no more replication events available, it
   might be sensible for a client to abort, or to go to sleep for a long time
   and try again later to check whether the logger has been activated.
 
-- *x-arango-replication-lastincluded*: the tick value of the last included
+- *x-avocado-replication-lastincluded*: the tick value of the last included
   value in the result. In incremental log fetching, this value can be used
   as the *from* value for the following request. **Note** that if the result is
   empty, the value will be *0*. This value should not be used as *from* value
   by clients in the next request (otherwise the server would return the log
   events from the start of the log again).
 
-- *x-arango-replication-lasttick*: the last tick value the logger server has
+- *x-avocado-replication-lasttick*: the last tick value the logger server has
   logged (not necessarily included in the result). By comparing the the last
   tick and last included tick values, clients have an approximate indication of
   how many events there are still left to fetch.
 
-- *x-arango-replication-checkmore*: whether or not there already exists more
+- *x-avocado-replication-checkmore*: whether or not there already exists more
   log data which the client could fetch immediately. If there is more log data
   available, the client could call *logger-follow* again with an adjusted *from*
   value to fetch remaining log entries until there are no more.
@@ -139,7 +139,7 @@ is returned when this operation is called on a coordinator in a cluster.
 No log events available
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerFollowEmpty}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
     var lastTick = re.logger.state().state.lastLogTick;
 
     var url = "/_api/replication/logger-follow?from=" + lastTick;
@@ -153,7 +153,7 @@ No log events available
 A few log events
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerFollowSome}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
     db._drop("products");
 
     var lastTick = re.logger.state().state.lastLogTick;
@@ -177,7 +177,7 @@ A few log events
 More events than would fit into the response
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerFollowBufferLimit}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
     db._drop("products");
 
     var lastTick = re.logger.state().state.lastLogTick;

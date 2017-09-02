@@ -1,5 +1,5 @@
 'use strict';
-const db = require('@arangodb').db;
+const db = require('@avocadodb').db;
 const collections = <%= JSON.stringify(collections, null, 2) %>;
 
 for (const localName of collections) {

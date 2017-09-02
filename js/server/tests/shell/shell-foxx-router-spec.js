@@ -1,7 +1,7 @@
 /* global describe, it, beforeEach */
 'use strict';
-const Router = require('@arangodb/foxx/router/router');
-const Tree = require('@arangodb/foxx/router/tree');
+const Router = require('@avocadodb/foxx/router/router');
+const Tree = require('@avocadodb/foxx/router/tree');
 const expect = require('chai').expect;
 
 const $_WILDCARD = Symbol.for('@@wildcard'); // catch-all suffix

@@ -35,7 +35,7 @@
 #include "Basics/json.h"
 #include "Random/RandomGenerator.h"
 
-using namespace arangodb::basics;
+using namespace avocadodb::basics;
 
 static bool Initialized = false;
 static uint64_t counter = 0;
@@ -51,14 +51,14 @@ struct CFilesSetup {
     
     if (!Initialized) {
       Initialized = true;
-      arangodb::RandomGenerator::initialize(arangodb::RandomGenerator::RandomType::MERSENNE);
+      avocadodb::RandomGenerator::initialize(avocadodb::RandomGenerator::RandomType::MERSENNE);
     }
 
     _directory.appendText(TRI_GetTempPath());
     _directory.appendChar(TRI_DIR_SEPARATOR_CHAR);
-    _directory.appendText("arangotest-");
+    _directory.appendText("avocadotest-");
     _directory.appendInteger(static_cast<uint64_t>(TRI_microtime()));
-    _directory.appendInteger(arangodb::RandomGenerator::interval(UINT32_MAX));
+    _directory.appendInteger(avocadodb::RandomGenerator::interval(UINT32_MAX));
 
     TRI_CreateDirectory(_directory.c_str(), systemError, errorMessage);
   }
@@ -76,7 +76,7 @@ struct CFilesSetup {
     filename->appendChar(TRI_DIR_SEPARATOR_CHAR);
     filename->appendText("tmp-");
     filename->appendInteger(++counter);
-    filename->appendInteger(arangodb::RandomGenerator::interval(UINT32_MAX));
+    filename->appendInteger(avocadodb::RandomGenerator::interval(UINT32_MAX));
 
     FILE* fd = fopen(filename->c_str(), "wb");
 

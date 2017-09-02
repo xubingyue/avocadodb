@@ -1,7 +1,7 @@
 Foxx Service Management
 =======================
 
-This is an introduction to ArangoDB's HTTP interface for managing Foxx services.
+This is an introduction to AvocadoDB's HTTP interface for managing Foxx services.
 
 @startDocuBlock api_foxx_service_list
 

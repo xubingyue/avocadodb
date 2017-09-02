@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@
 #include "Logger/Logger.h"
 #include "Rest/CommonDefines.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 struct Options;
 class Slice;
@@ -69,12 +69,12 @@ class GeneralResponse {
   /// this is a functionality so that user can set a type like application/zip
   /// from java script code the ContentType will be CUSTOM!!
   void setContentType(std::string const& contentType) {
-    _headers[arangodb::StaticStrings::ContentTypeHeader] = contentType;
+    _headers[avocadodb::StaticStrings::ContentTypeHeader] = contentType;
     _contentType = ContentType::CUSTOM;
   }
 
   void setContentType(std::string&& contentType) {
-    _headers[arangodb::StaticStrings::ContentTypeHeader] =
+    _headers[avocadodb::StaticStrings::ContentTypeHeader] =
         std::move(contentType);
     _contentType = ContentType::CUSTOM;
   }
@@ -84,7 +84,7 @@ class GeneralResponse {
     _contentTypeRequested = type;
   }
 
-  virtual arangodb::Endpoint::TransportType transportType() = 0;
+  virtual avocadodb::Endpoint::TransportType transportType() = 0;
 
  protected:
   explicit GeneralResponse(ResponseCode);
@@ -157,20 +157,20 @@ class GeneralResponse {
 
   void addPayloadPreconditions() { 
     if (_vpackPayloads.size() != 0) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "Payload set twice";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Payload set twice";
       TRI_ASSERT(_vpackPayloads.size() == 0);
     }
   }
   virtual void addPayloadPreHook(bool inputIsBuffer, bool& resolveExternals,
                                  bool& skipBody) {}
   void addPayload(VPackSlice const&,
-                  arangodb::velocypack::Options const* = nullptr,
+                  avocadodb::velocypack::Options const* = nullptr,
                   bool resolve_externals = true);
   void addPayload(VPackBuffer<uint8_t>&&,
-                  arangodb::velocypack::Options const* = nullptr,
+                  avocadodb::velocypack::Options const* = nullptr,
                   bool resolve_externals = true);
   virtual void addPayloadPostHook(VPackSlice const&,
-                                  arangodb::velocypack::Options const*,
+                                  avocadodb::velocypack::Options const*,
                                   bool resolveExternals, bool bodySkipped) {}
 
   virtual int reservePayload(std::size_t size) { return TRI_ERROR_NO_ERROR; }

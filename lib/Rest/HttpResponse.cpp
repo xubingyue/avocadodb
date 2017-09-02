@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Achim Brandt
@@ -38,8 +38,8 @@
 #include "Meta/conversion.h"
 #include "Rest/GeneralRequest.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 bool HttpResponse::HIDE_PRODUCT_HEADER = false;
 
@@ -213,7 +213,7 @@ void HttpResponse::writeHeader(StringBuffer* output) {
 
   // add "Server" response header
   if (!seenServerHeader && !HIDE_PRODUCT_HEADER) {
-    output->appendText("Server: ArangoDB\r\n");
+    output->appendText("Server: AvocadoDB\r\n");
   }
 
   // add "Connection" response header
@@ -252,7 +252,7 @@ void HttpResponse::writeHeader(StringBuffer* output) {
       break;
     case ContentType::DUMP:
       output->appendText(TRI_CHAR_LENGTH_PAIR(
-          "Content-Type: application/x-arango-dump; charset=utf-8\r\n"));
+          "Content-Type: application/x-avocado-dump; charset=utf-8\r\n"));
       break;
     case ContentType::CUSTOM: {
       // intentionally don't print anything here
@@ -335,7 +335,7 @@ void HttpResponse::addPayloadPostHook(
     default: {
       setContentType(rest::ContentType::JSON);
       if (_generateBody) {
-        arangodb::basics::VelocyPackDumper dumper(&_body, options);
+        avocadodb::basics::VelocyPackDumper dumper(&_body, options);
         dumper.dumpValue(*slicePtr);
       } else {
         // TODO can we optimize this?

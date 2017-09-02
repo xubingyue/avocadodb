@@ -1,7 +1,7 @@
 Database Management
 ===================
 
-This is an introduction to ArangoDB's HTTP interface for managing databases.
+This is an introduction to AvocadoDB's HTTP interface for managing databases.
 
 The HTTP interface for databases provides operations to create and drop
 individual databases. These are mapped to the standard HTTP methods *POST*

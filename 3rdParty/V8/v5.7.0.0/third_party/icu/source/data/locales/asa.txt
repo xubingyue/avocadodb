@@ -229,7 +229,7 @@ asa{
             }
         }
         dayperiod{
-            dn{"Marango athiku"}
+            dn{"Mavocado athiku"}
         }
         era{
             dn{"Edhi"}

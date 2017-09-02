@@ -4,7 +4,7 @@ Writing tests
 Foxx provides out of the box support for running tests against an installed service
 using the [Mocha](https://mochajs.org) test runner.
 
-Test files have full access to the [service context](./Context.md) and all ArangoDB APIs
+Test files have full access to the [service context](./Context.md) and all AvocadoDB APIs
 but like scripts can not define Foxx routes.
 
 Running tests
@@ -99,9 +99,9 @@ Test structure
 
 Mocha test suites can be defined using one of three interfaces: BDD, TDD or Exports.
 
-The QUnit interface of Mocha is not supported in ArangoDB.
+The QUnit interface of Mocha is not supported in AvocadoDB.
 
-Like all ArangoDB code, test code is always synchronous.
+Like all AvocadoDB code, test code is always synchronous.
 
 ### BDD interface
 
@@ -203,7 +203,7 @@ exports['False things'] = {
 Assertions
 ----------
 
-ArangoDB provides two bundled modules to define assertions:
+AvocadoDB provides two bundled modules to define assertions:
 
 * `assert` corresponds to the [Node.js `assert` module](http://nodejs.org/api/assert.html),
   providing low-level assertions that can optionally specify an error message.

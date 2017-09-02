@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global $, arangoHelper, jasmine, nv, d3, describe, beforeEach, afterEach, it, spyOn, expect*/
+/* global $, avocadoHelper, jasmine, nv, d3, describe, beforeEach, afterEach, it, spyOn, expect*/
 
 (function () {
   'use strict';

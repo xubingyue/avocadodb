@@ -5,14 +5,14 @@
 # Run this script in the main source directory.
 #
 # This script sets up performance monitoring events to measure single
-# document operations. Run this script with sudo when the ArangoDB
+# document operations. Run this script with sudo when the AvocadoDB
 # process is already running:
 #
 #   sudo ./setupPerfEvents.sh
 #
 # Now you are able to recrod the event with:
 #
-#   sudo perf record -e "probe_arangod:*" -aR
+#   sudo perf record -e "probe_avocadod:*" -aR
 #
 # The above command will get sample data indefinitely, hit Ctrl-C when
 # the measurement is finished. A file "perf.data" is written to the
@@ -29,7 +29,7 @@
 # This will group enter and exit events of functions together, compute the time
 # spent and sort by function. When finished remove all events with:
 #
-#   sudo perf probe -d "probe_arangod:*"
+#   sudo perf probe -d "probe_avocadod:*"
 #
 # List events with:
 #
@@ -44,10 +44,10 @@ main(){
     export VERBOSE=1
     shift
   fi
-  local ARANGOD_EXECUTABLE=${1-build/bin/arangod}
+  local ARANGOD_EXECUTABLE=${1-build/bin/avocadod}
 
   #delete all existing events
-  perf probe -x $ARANGOD_EXECUTABLE -d "probe_arangod:*"
+  perf probe -x $ARANGOD_EXECUTABLE -d "probe_avocadod:*"
 
   echo "Adding events, this takes a few seconds..."
 

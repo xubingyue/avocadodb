@@ -2,7 +2,7 @@
 
   <div id="loggerContent" class="logger-content-id innerContent">
 
-    <div class="arangoToolbar arangoToolbarTop">
+    <div class="avocadoToolbar avocadoToolbarTop">
 
       <div class="pull-left">
       </div>
@@ -37,8 +37,8 @@
     <div class="pure-g" level="<%=entry.status.toLowerCase()%>" topic="<%=entry.topic.toLowerCase()%>">
       <div class="pure-u-1-24">
         <p class="labels">
-          <% var lcolor = arangoHelper.statusColors[entry.status.toLowerCase()];%>
-          <% var tcolor = arangoHelper.alphabetColors[entry.topic.charAt(0).toLowerCase()];%>
+          <% var lcolor = avocadoHelper.statusColors[entry.status.toLowerCase()];%>
+          <% var tcolor = avocadoHelper.alphabetColors[entry.topic.charAt(0).toLowerCase()];%>
           <span class="tippy level" title="Level: <%=entry.status%>" style="background: <%=lcolor%>"></span>
           <span class="tippy topic" title="Topic: <%=entry.topic%>" style="background: <%=tcolor%>"></span>
         </p>

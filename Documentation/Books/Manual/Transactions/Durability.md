@@ -48,7 +48,7 @@ a transaction, e.g.
 In this case, the *true* value will make the whole transaction be synchronized
 to disk at the commit.
 
-In any case, ArangoDB will give users the choice of whether or not they want 
+In any case, AvocadoDB will give users the choice of whether or not they want 
 full durability for single collection transactions. Using the delayed synchronization
 (i.e. *waitForSync* with a value of *false*) will potentially increase throughput 
 and performance of transactions, but will introduce the risk of losing the last
@@ -68,7 +68,7 @@ committed or in preparation to be committed will be rolled back on server restar
 For multi-collection transactions, there will be at least one disk sync operation 
 per modified collection. Multi-collection transactions thus have a potentially higher
 cost than single collection transactions. There is no configuration to turn off disk 
-synchronization for multi-collection transactions in ArangoDB. 
+synchronization for multi-collection transactions in AvocadoDB. 
 The disk sync speed of the system will thus be the most important factor for the 
 performance of multi-collection transactions.
 

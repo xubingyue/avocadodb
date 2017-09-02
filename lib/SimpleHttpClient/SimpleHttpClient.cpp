@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2017 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Achim Brandt
@@ -34,10 +34,10 @@
 #include <velocypack/Parser.h>
 #include <velocypack/velocypack-aliases.h>
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
-namespace arangodb {
+namespace avocadodb {
 namespace httpclient {
 
 /// @brief empty map, used for headers
@@ -170,7 +170,7 @@ SimpleHttpResult* SimpleHttpClient::retryRequest(
     }
 
     if (!_params._retryMessage.empty() && (_params._maxRetries - tries) > 0) {
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "" << _params._retryMessage
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "" << _params._retryMessage
                 << " - retries left: " << (_params._maxRetries - tries);
     }
 
@@ -519,8 +519,8 @@ void SimpleHttpClient::setRequest(
     _writeBuffer.appendText(TRI_CHAR_LENGTH_PAIR("Connection: Close\r\n"));
   }
 
-  if (_params._exposeArangoDB) {
-    _writeBuffer.appendText(TRI_CHAR_LENGTH_PAIR("User-Agent: ArangoDB\r\n"));
+  if (_params._exposeAvocadoDB) {
+    _writeBuffer.appendText(TRI_CHAR_LENGTH_PAIR("User-Agent: AvocadoDB\r\n"));
   }
 
   // do not automatically advertise deflate support
@@ -580,7 +580,7 @@ void SimpleHttpClient::setRequest(
 
   _writeBuffer.ensureNullTerminated();
 
-  LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "Request: "
+  LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "Request: "
              << std::string(_writeBuffer.c_str(), _writeBuffer.length());
 
   if (_state == DEAD) {
@@ -891,7 +891,7 @@ std::string SimpleHttpClient::getHttpErrorMessage(
     *errorCode = TRI_ERROR_NO_ERROR;
   }
 
-  arangodb::basics::StringBuffer const& body = result->getBody();
+  avocadodb::basics::StringBuffer const& body = result->getBody();
   std::string details;
 
   try {
@@ -907,7 +907,7 @@ std::string SimpleHttpClient::getHttpErrorMessage(
         if (errorCode != nullptr) {
           *errorCode = errorNum;
         }
-        details = ": ArangoError " + std::to_string(errorNum) + ": " +
+        details = ": AvocadoError " + std::to_string(errorNum) + ": " +
                   msg.copyString();
       }
     }
@@ -939,9 +939,9 @@ std::string SimpleHttpClient::getServerVersion(int* errorCode) {
   if (response->getHttpReturnCode() ==
       static_cast<int>(rest::ResponseCode::OK)) {
     // default value
-    std::string version = "arango";
+    std::string version = "avocado";
 
-    arangodb::basics::StringBuffer const& body = response->getBody();
+    avocadodb::basics::StringBuffer const& body = response->getBody();
     try {
       std::shared_ptr<VPackBuilder> builder =
           VPackParser::fromJson(body.c_str(), body.length());
@@ -949,8 +949,8 @@ std::string SimpleHttpClient::getServerVersion(int* errorCode) {
       VPackSlice slice = builder->slice();
       if (slice.isObject()) {
         VPackSlice server = slice.get("server");
-        if (server.isString() && server.copyString() == "arango") {
-          // "server" value is a string and its content is "arango"
+        if (server.isString() && server.copyString() == "avocado") {
+          // "server" value is a string and its content is "avocado"
           VPackSlice v = slice.get("version");
           if (v.isString()) {
             version = v.copyString();

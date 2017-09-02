@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, Backbone, templateEngine, $, window, _ */
+/* global avocadoHelper, Backbone, templateEngine, $, window, _ */
 (function () {
   'use strict';
 
@@ -41,7 +41,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/cluster/shardDistribution'),
+          url: avocadoHelper.databaseUrl('/_admin/cluster/shardDistribution'),
           contentType: 'application/json',
           processData: false,
           async: true,
@@ -63,18 +63,18 @@
             if (collsAvailable) {
               self.continueRender(data.results);
             } else {
-              arangoHelper.renderEmpty('No collections and no shards available');
+              avocadoHelper.renderEmpty('No collections and no shards available');
             }
           },
           error: function (data) {
             if (data.readyState !== 0) {
-              arangoHelper.arangoError('Cluster', 'Could not fetch sharding information.');
+              avocadoHelper.avocadoError('Cluster', 'Could not fetch sharding information.');
             }
           }
         });
 
         if (navi !== false) {
-          arangoHelper.buildNodesSubNav('Shards');
+          avocadoHelper.buildNodesSubNav('Shards');
         }
       }
     },
@@ -93,11 +93,11 @@
 
       if (!from) {
         fromServer = $(e.currentTarget).parent().parent().attr('leader');
-        fromServer = arangoHelper.getDatabaseServerId(fromServer);
+        fromServer = avocadoHelper.getDatabaseServerId(fromServer);
       } else {
         leader = $(e.currentTarget).parent().parent().attr('leader');
-        leader = arangoHelper.getDatabaseServerId(leader);
-        fromServer = arangoHelper.getDatabaseServerId(from);
+        leader = avocadoHelper.getDatabaseServerId(leader);
+        fromServer = avocadoHelper.getDatabaseServerId(from);
       }
 
       var buttons = [];
@@ -132,7 +132,7 @@
           array = array.reverse();
 
           if (array.length === 0) {
-            arangoHelper.arangoMessage('Shards', 'No database server for moving the shard is available.');
+            avocadoHelper.avocadoMessage('Shards', 'No database server for moving the shard is available.');
             return;
           }
 
@@ -179,21 +179,21 @@
       $.ajax({
         type: 'POST',
         cache: false,
-        url: arangoHelper.databaseUrl('/_admin/cluster/moveShard'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/moveShard'),
         contentType: 'application/json',
         processData: false,
         data: JSON.stringify(data),
         async: true,
         success: function (data) {
           if (data.id) {
-            arangoHelper.arangoNotification('Shard ' + shardName + ' will be moved to ' + arangoHelper.getDatabaseShortName(toServer) + '.');
+            avocadoHelper.avocadoNotification('Shard ' + shardName + ' will be moved to ' + avocadoHelper.getDatabaseShortName(toServer) + '.');
             window.setTimeout(function () {
               window.App.shardsView.render();
             }, 3000);
           }
         },
         error: function () {
-          arangoHelper.arangoError('Shard ' + shardName + ' could not be moved to ' + arangoHelper.getDatabaseShortName(toServer) + '.');
+          avocadoHelper.avocadoError('Shard ' + shardName + ' could not be moved to ' + avocadoHelper.getDatabaseShortName(toServer) + '.');
         }
       });
 
@@ -206,7 +206,7 @@
       $.ajax({
         type: 'POST',
         cache: false,
-        url: arangoHelper.databaseUrl('/_admin/cluster/rebalanceShards'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/rebalanceShards'),
         contentType: 'application/json',
         processData: false,
         data: JSON.stringify({}),
@@ -216,11 +216,11 @@
             window.setTimeout(function () {
               self.render(false);
             }, 3000);
-            arangoHelper.arangoNotification('Started rebalance process.');
+            avocadoHelper.avocadoNotification('Started rebalance process.');
           }
         },
         error: function () {
-          arangoHelper.arangoError('Could not start rebalance process.');
+          avocadoHelper.avocadoError('Could not start rebalance process.');
         }
       });
 

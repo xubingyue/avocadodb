@@ -35,14 +35,14 @@ global.DEFINE_MODULE('internal', (function () {
   // //////////////////////////////////////////////////////////////////////////////
 
   // //////////////////////////////////////////////////////////////////////////////
-  // / @brief ArangoError
+  // / @brief AvocadoError
   // //////////////////////////////////////////////////////////////////////////////
 
-  if (global.ArangoError) {
-    exports.ArangoError = global.ArangoError;
-    delete global.ArangoError;
+  if (global.AvocadoError) {
+    exports.AvocadoError = global.AvocadoError;
+    delete global.AvocadoError;
   } else {
-    exports.ArangoError = function (error) {
+    exports.AvocadoError = function (error) {
       if (error !== undefined) {
         this.error = error.error;
         this.code = error.code;
@@ -51,12 +51,12 @@ global.DEFINE_MODULE('internal', (function () {
       }
     };
 
-    exports.ArangoError.prototype = new Error();
+    exports.AvocadoError.prototype = new Error();
   }
 
-  exports.ArangoError.prototype.isArangoError = true;
+  exports.AvocadoError.prototype.isAvocadoError = true;
 
-  Object.defineProperty(exports.ArangoError.prototype, 'message', {
+  Object.defineProperty(exports.AvocadoError.prototype, 'message', {
     configurable: true,
     enumerable: true,
     get() {
@@ -64,13 +64,13 @@ global.DEFINE_MODULE('internal', (function () {
     }
   });
 
-  exports.ArangoError.prototype.name = 'ArangoError';
+  exports.AvocadoError.prototype.name = 'AvocadoError';
 
-  exports.ArangoError.prototype._PRINT = function (context) {
+  exports.AvocadoError.prototype._PRINT = function (context) {
     context.output += '[' + this.toString() + ']';
   };
 
-  exports.ArangoError.prototype.toString = function () {
+  exports.AvocadoError.prototype.toString = function () {
     return `${this.name} ${this.errorNum}: ${this.message}`;
   };
 
@@ -1690,7 +1690,7 @@ global.DEFINE_MODULE('internal', (function () {
 
   exports.startColorPrint = function (color, silent) {
     var schemes = {
-      arangodb: {
+      avocadodb: {
         COLOR_PUNCTUATION: exports.COLORS.COLOR_RESET,
         COLOR_STRING: exports.COLORS.COLOR_BOLD_MAGENTA,
         COLOR_NUMBER: exports.COLORS.COLOR_BOLD_GREEN,

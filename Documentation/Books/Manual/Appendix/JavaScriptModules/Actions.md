@@ -1,18 +1,18 @@
 Module "actions"
 ================
 
-`const actions = require('@arangodb/actions')`
+`const actions = require('@avocadodb/actions')`
 
 The action module provides the infrastructure for defining low-level HTTP actions.
 
-If you want to define HTTP endpoints in ArangoDB you should probably use the [Foxx microservice framework](../../Foxx/README.md) instead.
+If you want to define HTTP endpoints in AvocadoDB you should probably use the [Foxx microservice framework](../../Foxx/README.md) instead.
 
 Basics
 ------
 
 ### Error message
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.getErrorMessage(code)`
 
@@ -57,7 +57,7 @@ generate a response.
 
 ### Result ok
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultOk(req, res, code, result, headers)`
 
@@ -69,7 +69,7 @@ and *code* with value *code* to the *result*.
 
 ### Result bad
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultBad(req, res, error-code, msg, headers)`
 
@@ -77,7 +77,7 @@ The function generates an error response.
 
 ### Result not found
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultNotFound(req, res, code, msg, headers)`
 
@@ -85,7 +85,7 @@ The function generates an error response.
 
 ### Result unsupported
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultUnsupported(req, res, headers)`
 
@@ -93,7 +93,7 @@ The function generates an error response.
 
 ### Result error
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 *actions.resultError(*req*, *res*, *code*, *errorNum*,
                          *errorMessage*, *headers*, *keyvals)*
@@ -107,7 +107,7 @@ into the result.
 
 ### Result not Implemented
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultNotImplemented(req, res, msg, headers)`
 
@@ -115,7 +115,7 @@ The function generates an error response.
 
 ### Result permanent redirect
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultPermanentRedirect(req, res, options, headers)`
 
@@ -123,18 +123,18 @@ The function generates a redirect response.
 
 ### Result temporary redirect
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultTemporaryRedirect(req, res, options, headers)`
 
 The function generates a redirect response.
 
-ArangoDB Result Generators
+AvocadoDB Result Generators
 --------------------------
 
 ### Collection not found
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.collectionNotFound(req, res, collection, headers)`
 
@@ -142,7 +142,7 @@ The function generates an error response.
 
 ### Index not found
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.indexNotFound(req, res, collection, index, headers)`
 
@@ -150,7 +150,7 @@ The function generates an error response.
 
 ### Result exception
 
-<!-- js/server/modules/@arangodb/actions.js -->
+<!-- js/server/modules/@avocadodb/actions.js -->
 
 `actions.resultException(req, res, err, headers, verbose)`
 

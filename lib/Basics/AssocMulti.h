@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Martin Schoenert
@@ -49,7 +49,7 @@
 #include <iostream>
 #endif
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +115,7 @@ class AssocMulti {
  private:
   typedef Entry<Element, IndexType, useHashCache> EntryType;
 
-  typedef arangodb::basics::IndexBucket<EntryType, IndexType, SIZE_MAX> Bucket;
+  typedef avocadodb::basics::IndexBucket<EntryType, IndexType, SIZE_MAX> Bucket;
 
   std::vector<Bucket> _buckets;
   size_t _bucketsMask;
@@ -314,8 +314,8 @@ class AssocMulti {
 
     // allocate working space and coordination tools for tasks
 
-    std::shared_ptr<std::vector<arangodb::Mutex>> bucketMapLocker;
-    bucketMapLocker.reset(new std::vector<arangodb::Mutex>(_buckets.size()));
+    std::shared_ptr<std::vector<avocadodb::Mutex>> bucketMapLocker;
+    bucketMapLocker.reset(new std::vector<avocadodb::Mutex>(_buckets.size()));
 
     std::shared_ptr<std::vector<std::atomic<size_t>>> bucketFlags;
     bucketFlags.reset(new std::vector<std::atomic<size_t>>(_buckets.size()));
@@ -380,8 +380,8 @@ class AssocMulti {
           contextDestroyer(userData);
         }
       };
-      std::shared_ptr<arangodb::basics::LocalCallbackTask> cbTask;
-      cbTask.reset(new arangodb::basics::LocalCallbackTask(queue, callback));
+      std::shared_ptr<avocadodb::basics::LocalCallbackTask> cbTask;
+      cbTask.reset(new avocadodb::basics::LocalCallbackTask(queue, callback));
       queue->enqueueCallback(cbTask);
     }
 #endif
@@ -1352,7 +1352,7 @@ class AssocMulti {
   }
 };
 
-}  // namespace arangodb::basics
-}  // namespace arangodb
+}  // namespace avocadodb::basics
+}  // namespace avocadodb
 
 #endif

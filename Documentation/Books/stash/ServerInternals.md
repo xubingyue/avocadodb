@@ -1,7 +1,7 @@
 Server-side db-Object implementation
 ------------------------------------
 
-We [already talked about the arangosh db Object implementation](../GettingStarted/Arangosh.md), Now a little more about the server version, so the following examples won't work properly in arangosh.
+We [already talked about the avocadosh db Object implementation](../GettingStarted/Avocadosh.md), Now a little more about the server version, so the following examples won't work properly in avocadosh.
 
 Server-side methods of the *db object* will return an `[object ShapedJson]`. This datatype is a very lightweight JavaScript object that contains an internal pointer to where the document data are actually stored in memory or on disk. Especially this is not a fullblown copy of the document's complete data. 
 
@@ -11,7 +11,7 @@ All of this is done for performance reasons. It often allows ommitting the creat
 
 Here's an example:
 ```js
-var ShapedJson = require("@arangodb").ShapedJson;
+var ShapedJson = require("@avocadodb").ShapedJson;
 // fetches document from collection into a JavaScript object
 var doc = db.test.any(); 
 

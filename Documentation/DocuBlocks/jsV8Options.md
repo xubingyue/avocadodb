@@ -28,7 +28,7 @@ Another example of specific V8 options being set at startup:
 Names and features or usable options depend on the version of V8 being
 used,
 and might change in the future if a different version of V8 is being used
-in ArangoDB. Not all options offered by V8 might be sensible to use in the
-context of ArangoDB. Use the specific options only if you are sure that
+in AvocadoDB. Not all options offered by V8 might be sensible to use in the
+context of AvocadoDB. Use the specific options only if you are sure that
 they are not harmful for the regular database operation.
 

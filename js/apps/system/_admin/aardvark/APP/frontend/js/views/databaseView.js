@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global window, document, Backbone, $, arangoHelper, templateEngine, Joi */
+/* global window, document, Backbone, $, avocadoHelper, templateEngine, Joi */
 (function () {
   'use strict';
 
@@ -63,7 +63,7 @@
 
       var callback = function (error, db) {
         if (error) {
-          arangoHelper.arangoError('DB', 'Could not get current db properties');
+          avocadoHelper.avocadoError('DB', 'Could not get current db properties');
         } else {
           self.currentDB = db;
 
@@ -84,7 +84,7 @@
                 $('#databaseDropdown2').show();
               }
 
-              arangoHelper.setCheckboxStatus('#databaseDropdown');
+              avocadoHelper.setCheckboxStatus('#databaseDropdown');
 
               self.replaceSVGs();
             }
@@ -111,34 +111,34 @@
 
     handleError: function (status, text, dbname) {
       if (status === 409) {
-        arangoHelper.arangoError('DB', 'Database ' + dbname + ' already exists.');
+        avocadoHelper.avocadoError('DB', 'Database ' + dbname + ' already exists.');
         return;
       }
       if (status === 400) {
-        arangoHelper.arangoError('DB', 'Invalid Parameters');
+        avocadoHelper.avocadoError('DB', 'Invalid Parameters');
         return;
       }
       if (status === 403) {
-        arangoHelper.arangoError('DB', 'Insufficent rights. Execute this from _system database');
+        avocadoHelper.avocadoError('DB', 'Insufficent rights. Execute this from _system database');
         return;
       }
     },
 
     validateDatabaseInfo: function (db, user) {
       if (user === '') {
-        arangoHelper.arangoError('DB', 'You have to define an owner for the new database');
+        avocadoHelper.avocadoError('DB', 'You have to define an owner for the new database');
         return false;
       }
       if (db === '') {
-        arangoHelper.arangoError('DB', 'You have to define a name for the new database');
+        avocadoHelper.avocadoError('DB', 'You have to define a name for the new database');
         return false;
       }
       if (db.indexOf('_') === 0) {
-        arangoHelper.arangoError('DB ', 'Databasename should not start with _');
+        avocadoHelper.avocadoError('DB ', 'Databasename should not start with _');
         return false;
       }
       if (!db.match(/^[a-zA-Z][a-zA-Z0-9_-]*$/)) {
-        arangoHelper.arangoError('DB', 'Databasename may only contain numbers, letters, _ and -');
+        avocadoHelper.avocadoError('DB', 'Databasename may only contain numbers, letters, _ and -');
         return false;
       }
       return true;
@@ -176,7 +176,7 @@
           if (userName !== 'root') {
             $.ajax({
               type: 'PUT',
-              url: arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(userName) + '/database/' + encodeURIComponent(dbname)),
+              url: avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(userName) + '/database/' + encodeURIComponent(dbname)),
               contentType: 'application/json',
               data: JSON.stringify({
                 grant: 'rw'
@@ -185,7 +185,7 @@
           }
           $.ajax({
             type: 'PUT',
-            url: arangoHelper.databaseUrl('/_api/user/root/database/' + encodeURIComponent(dbname)),
+            url: avocadoHelper.databaseUrl('/_api/user/root/database/' + encodeURIComponent(dbname)),
             contentType: 'application/json',
             data: JSON.stringify({
               grant: 'rw'
@@ -195,17 +195,17 @@
           if (window.location.hash === '#databases') {
             self.updateDatabases();
           }
-          arangoHelper.arangoNotification('Database ' + data.get('name') + ' created.');
+          avocadoHelper.avocadoNotification('Database ' + data.get('name') + ' created.');
         }
       });
 
-      arangoHelper.arangoNotification('Database creation in progress.');
+      avocadoHelper.avocadoNotification('Database creation in progress.');
       window.modalView.hide();
     },
 
     submitDeleteDatabase: function (dbname) {
       var toDelete = this.collection.where({name: dbname});
-      toDelete[0].destroy({wait: true, url: arangoHelper.databaseUrl('/_api/database/' + dbname)});
+      toDelete[0].destroy({wait: true, url: avocadoHelper.databaseUrl('/_api/database/' + dbname)});
       this.updateDatabases();
       window.App.naviView.dbSelectionView.render($('#dbSelect'));
       window.modalView.hide();

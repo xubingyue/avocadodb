@@ -38,7 +38,7 @@ var jsunity = require("jsunity"),
 
 function measurementSuite() {
   'use strict';
-  var Graph = require("@arangodb/general-graph"),
+  var Graph = require("@avocadodb/general-graph"),
     graph_name = "UnitTestsCollectionGraph",
     vertex = "UnitTestsCollectionVertex",
     edge = "UnitTestsCollectionEdge",
@@ -211,7 +211,7 @@ function measurementSuite() {
 
 function geodesicSuite() {
   'use strict';
-  var Graph = require("@arangodb/general-graph"),
+  var Graph = require("@avocadodb/general-graph"),
     graph_name = "UnitTestsCollectionGraph",
     vertex = "UnitTestsCollectionVertex",
     edge = "UnitTestsCollectionEdge",
@@ -379,7 +379,7 @@ function geodesicSuite() {
 
 function normalizedSuite() {
   'use strict';
-  var Graph = require("@arangodb/general-graph"),
+  var Graph = require("@avocadodb/general-graph"),
     graph_name = "UnitTestsCollectionGraph",
     vertex = "UnitTestsCollectionVertex",
     edge = "UnitTestsCollectionEdge",

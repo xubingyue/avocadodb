@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Achim Brandt
@@ -36,7 +36,7 @@
 #include <velocypack/Options.h>
 #include <velocypack/velocypack-aliases.h>
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 class Builder;
 struct Options;
@@ -70,7 +70,7 @@ class GeneralRequest {
   static RequestType translateMethod(std::string const&);
 
   // append RequestType as string value to given String buffer
-  static void appendMethod(RequestType, arangodb::basics::StringBuffer*);
+  static void appendMethod(RequestType, avocadodb::basics::StringBuffer*);
 
  protected:
   static RequestType findRequestType(char const*, size_t const);
@@ -160,7 +160,7 @@ class GeneralRequest {
   // do not care about message ids
   virtual uint64_t messageId() const { return 1; }
 
-  virtual arangodb::Endpoint::TransportType transportType() = 0;
+  virtual avocadodb::Endpoint::TransportType transportType() = 0;
   virtual int64_t contentLength() const = 0;
   // get value from headers map. The key must be lowercase.
   virtual std::string const& header(std::string const& key) const = 0;
@@ -178,7 +178,7 @@ class GeneralRequest {
   virtual std::unordered_map<std::string, std::vector<std::string>>
   arrayValues() const = 0;
 
-  virtual VPackSlice payload(arangodb::velocypack::Options const* options =
+  virtual VPackSlice payload(avocadodb::velocypack::Options const* options =
                              &VPackOptions::Defaults) = 0;
 
   std::shared_ptr<VPackBuilder> toVelocyPackBuilderPtr() {

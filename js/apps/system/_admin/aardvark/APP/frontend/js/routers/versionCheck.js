@@ -1,5 +1,5 @@
 /* jshint unused: false */
-/* global $, window, navigator, _, arangoHelper */
+/* global $, window, navigator, _, avocadoHelper */
 (function () {
   'use strict';
 
@@ -7,7 +7,7 @@
   var isVersionCheckEnabled = function (cb) {
     $.ajax({
       type: 'GET',
-      url: arangoHelper.databaseUrl('/_admin/aardvark/shouldCheckVersion'),
+      url: avocadoHelper.databaseUrl('/_admin/aardvark/shouldCheckVersion'),
       success: function (data) {
         if (data === true) {
           cb();
@@ -21,7 +21,7 @@
     var buttons = [];
 
     buttons.push(window.modalView.createSuccessButton('Download Page', function () {
-      window.open('https://www.arangodb.com/download', '_blank');
+      window.open('https://www.avocadodb.com/download', '_blank');
       window.modalView.hide();
     }));
 
@@ -130,7 +130,7 @@
     $.ajax({
       type: 'GET',
       cache: false,
-      url: arangoHelper.databaseUrl('/_api/version'),
+      url: avocadoHelper.databaseUrl('/_api/version'),
       contentType: 'application/json',
       processData: false,
       async: true,
@@ -171,7 +171,7 @@
           crossDomain: true,
           timeout: 3000,
           dataType: 'jsonp',
-          url: 'https://www.arangodb.com/repositories/versions.php' +
+          url: 'https://www.avocadodb.com/repositories/versions.php' +
             '?jsonp=parseVersions&version=' + encodeURIComponent(currentVersion.toString())
         });
       }

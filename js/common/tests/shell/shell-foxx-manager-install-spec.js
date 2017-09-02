@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -22,15 +22,15 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-const FoxxManager = require('@arangodb/foxx/manager');
-const arangodb = require('@arangodb');
-const ArangoError = arangodb.ArangoError;
+const FoxxManager = require('@avocadodb/foxx/manager');
+const avocadodb = require('@avocadodb');
+const AvocadoError = avocadodb.AvocadoError;
 const fs = require('fs');
 const Module = require('module');
 const errors = require('internal').errors;
@@ -74,30 +74,30 @@ describe('Foxx Manager install', function () {
     it('without manifest', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'no-manifest'), '/unittest/broken');
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_SERVICE_MANIFEST_NOT_FOUND.code);
     });
 
     it('with malformed manifest', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-manifest'), '/unittest/broken');
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_MALFORMED_MANIFEST_FILE.code);
     });
 
     it('with malformed name', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-name'), '/unittest/broken');
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_SERVICE_MANIFEST.code);
     });
 
     it('with malformed controller file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-controller-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_SYNTAX_ERROR.code);
-        if (require('@arangodb').isServer) {
+        if (require('@avocadodb').isServer) {
           expect(err).to.have.property('cause').that.is.an.instanceof(SyntaxError);
         } else {
           expect(err).not.to.have.property('cause');
@@ -109,7 +109,7 @@ describe('Foxx Manager install', function () {
     it('with malformed controller path', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-controller-path'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_NOT_FOUND.code);
         expect(err).not.to.have.property('cause');
         return true;
@@ -119,9 +119,9 @@ describe('Foxx Manager install', function () {
     it('with broken controller file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'broken-controller-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_SYNTAX_ERROR.code);
-        if (require('@arangodb').isServer) {
+        if (require('@avocadodb').isServer) {
           expect(err).to.have.property('cause')
             .that.is.an.instanceof(SyntaxError);
         } else {
@@ -134,12 +134,12 @@ describe('Foxx Manager install', function () {
     it('with broken setup file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'broken-setup-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_FAILURE.code);
-        if (require('@arangodb').isServer) {
+        if (require('@avocadodb').isServer) {
           expect(err).to.have.property('cause');
           expect(err.cause).not.to.be.an.instanceof(SyntaxError);
-          expect(err.cause).not.to.be.an.instanceof(ArangoError);
+          expect(err.cause).not.to.be.an.instanceof(AvocadoError);
         } else {
           expect(err).not.to.have.property('cause');
         }
@@ -150,9 +150,9 @@ describe('Foxx Manager install', function () {
     it('with malformed exports file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-exports-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_SYNTAX_ERROR.code);
-        if (require('@arangodb').isServer) {
+        if (require('@avocadodb').isServer) {
           expect(err).to.have.property('cause')
             .that.is.an.instanceof(SyntaxError);
         } else {
@@ -165,7 +165,7 @@ describe('Foxx Manager install', function () {
     it('with malformed exports path', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-exports-path'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_NOT_FOUND.code);
         expect(err).not.to.have.property('cause');
         return true;
@@ -175,9 +175,9 @@ describe('Foxx Manager install', function () {
     it('with malformed setup file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-setup-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_SYNTAX_ERROR.code);
-        if (require('@arangodb').isServer) {
+        if (require('@avocadodb').isServer) {
           expect(err).to.have.property('cause')
             .that.is.an.instanceof(SyntaxError);
         } else {
@@ -190,7 +190,7 @@ describe('Foxx Manager install', function () {
     it('with malformed setup path', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'malformed-setup-path'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_NOT_FOUND.code);
         expect(err).not.to.have.property('cause');
         return true;
@@ -200,7 +200,7 @@ describe('Foxx Manager install', function () {
     it('with missing controller file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'missing-controller-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_NOT_FOUND.code);
         expect(err).not.to.have.property('cause');
         return true;
@@ -210,7 +210,7 @@ describe('Foxx Manager install', function () {
     it('with missing exports file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'missing-exports-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_NOT_FOUND.code);
         expect(err).not.to.have.property('cause');
         return true;
@@ -220,7 +220,7 @@ describe('Foxx Manager install', function () {
     it('with missing setup file', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'missing-setup-file'), '/unittest/broken');
-      }).to.throw(ArangoError).that.satisfies(function (err) {
+      }).to.throw(AvocadoError).that.satisfies(function (err) {
         expect(err).to.have.property('errorNum', errors.ERROR_MODULE_NOT_FOUND.code);
         expect(err).not.to.have.property('cause');
         return true;
@@ -254,7 +254,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -263,7 +263,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -272,7 +272,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -281,7 +281,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -290,7 +290,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -299,7 +299,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -308,7 +308,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -317,7 +317,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
 
@@ -326,7 +326,7 @@ describe('Foxx Manager install', function () {
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), mount);
         FoxxManager.uninstall(mount);
-      }).to.throw(ArangoError)
+      }).to.throw(AvocadoError)
         .with.property('errorNum', errors.ERROR_INVALID_MOUNTPOINT.code);
     });
   });

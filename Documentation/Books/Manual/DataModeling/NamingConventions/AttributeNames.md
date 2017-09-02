@@ -5,8 +5,8 @@ Users can pick attribute names for document attributes as desired, provided the
 following attribute naming constraints are not violated:
 
 - Attribute names starting with an underscore are considered to be system
-  attributes for ArangoDB's internal use. Such attribute names are already used
-  by ArangoDB for special purposes:
+  attributes for AvocadoDB's internal use. Such attribute names are already used
+  by AvocadoDB for special purposes:
   - *_id* is used to contain a document's handle
   - *_key* is used to contain a document's user-defined key
   - *_rev* is used to contain the document's revision number
@@ -33,7 +33,7 @@ following attribute naming constraints are not violated:
   backticks when used in an AQL query to tell them apart from bind variables.
   Therefore we do not encourage the use of attributes starting with at-marks,
   though they will work when used properly.
-* ArangoDB does not enforce a length limit for attribute names. However, long
+* AvocadoDB does not enforce a length limit for attribute names. However, long
   attribute names may use more memory in result sets etc. Therefore the use
   of long attribute names is discouraged.
 * Attribute names are case-sensitive.

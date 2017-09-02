@@ -5,18 +5,18 @@ New-Item -Force -ItemType Directory log-output -ErrorAction SilentlyContinue
 if (Get-Command docker -errorAction SilentlyContinue) {
   $buildOptions += " -DOPENSSL_INCLUDE_DIR=`"`$env:OPENSSL_INCLUDE_DIR`" -DLIB_EAY_RELEASE=`"`$env:LIB_EAY_RELEASE`" -DSSL_EAY_RELEASE=`"`$env:SSL_EAY_RELEASE`" -DLIB_EAY_RELEASE_DLL=`"`$env:LIB_EAY_RELEASE_DLL`" -DSSL_EAY_RELEASE_DLL=`"`$env:SSL_EAY_RELEASE_DLL"
   $volume = "$env:WORKSPACE"
-  $volume += ":C:\arangodb"
+  $volume += ":C:\avocadodb"
   $build = @'
 $ErrorActionPreference="Stop"
-New-Item -ItemType Directory -Force -Path c:\arangodb\build
-cd c:\arangodb\build
+New-Item -ItemType Directory -Force -Path c:\avocadodb\build
+cd c:\avocadodb\build
 cmake .. -G "Visual Studio 14 2015 Win64" ${buildOptions}
 cmake --build . --config RelWithDebInfo
 exit $LastExitCode
 '@
   $build > buildscript.ps1
 
-  docker run --rm -v $volume m0ppers/build-container powershell C:\arangodb\buildscript.ps1 | Set-Content -PassThru log-output\build.log
+  docker run --rm -v $volume m0ppers/build-container powershell C:\avocadodb\buildscript.ps1 | Set-Content -PassThru log-output\build.log
 } else {
   $env:GYP_MSVS_OVERRIDE_PATH='C:\Program Files (x86)\Microsoft Visual Studio\Shared\14.0\VC\bin'
   New-Item -ItemType Directory -Force -Path build

@@ -1,12 +1,12 @@
 Handling Indexes
 ================
 
-This is an introduction to ArangoDB's interface for indexes in general.  
+This is an introduction to AvocadoDB's interface for indexes in general.  
 There are special sections for 
 
 - [Index Basics](IndexBasics.md): Introduction to all index types
 - [Which index to use when](WhichIndex.md): Index type and options adviser
-- [Index Utilization](IndexUtilization.md): How ArangoDB uses indexes
+- [Index Utilization](IndexUtilization.md): How AvocadoDB uses indexes
 - [Working with Indexes](WorkingWithIndexes.md): How to handle indexes
   programmatically using the `db` object
  - [Hash Indexes](Hash.md)

@@ -3,7 +3,7 @@ v3.2.2 (2017-08-23)
 
 * fixed issue #2847: adjust the response of the DELETE `/_api/users/database/*` calls
 
-* fixed issue #3075: Error when upgrading arangoDB on linux ubuntu 16.04 
+* fixed issue #3075: Error when upgrading avocadoDB on linux ubuntu 16.04 
 
 * fixed a buffer overrun in linenoise console input library for long input strings
 
@@ -43,7 +43,7 @@ v3.2.2 (2017-08-23)
 
 * fixed issue #3067: Upgrade from 3.2 to 3.2.1 reset autoincrement keys
 
-* fixed issue #3044: ArangoDB server shutdown unexpectedly
+* fixed issue #3044: AvocadoDB server shutdown unexpectedly
 
 * fixed issue #3039: Incorrect filter interpretation
 
@@ -124,7 +124,7 @@ v3.2.1 (2017-08-09)
       // enables tracking of bind variables
       // set to false to turn tracking of bind variables off
       var value = true;
-      require("@arangodb/aql/queries").properties({
+      require("@avocadodb/aql/queries").properties({
         trackBindVars: value
       });
 
@@ -133,7 +133,7 @@ v3.2.1 (2017-08-09)
 * fixed issue #2943: loadIndexesIntoMemory not returning the same structure
   as the rest of the collection APIs
 
-* fixed issue #2949: ArangoError 1208: illegal name
+* fixed issue #2949: AvocadoError 1208: illegal name
 
 * fixed issue #2874: Collection properties do not return `isVolatile`
   attribute
@@ -155,10 +155,10 @@ v3.2.1 (2017-08-09)
 
 * prevent V8 from issuing SIGILL instructions when it runs out of memory
 
-  Now arangod will attempt to log a FATAL error into its logfile in case V8
+  Now avocadod will attempt to log a FATAL error into its logfile in case V8
   runs out of memory. In case V8 runs out of memory, it will still terminate the
-  entire process. But at least there should be something in the ArangoDB logs
-  indicating what the problem was. Apart from that, the arangod process should
+  entire process. But at least there should be something in the AvocadoDB logs
+  indicating what the problem was. Apart from that, the avocadod process should
   now be exited with SIGABRT rather than SIGILL as it shouldn't return into the
   V8 code that aborted the process with `__builtin_trap`.
 
@@ -177,7 +177,7 @@ v3.2.1 (2017-08-09)
 
 * fixed issue #2884: AQL traversal uniqueness constraints "propagating" to other traversals? Weird results
 
-* arangoexport: added `--query` option for passing an AQL query to export the result
+* avocadoexport: added `--query` option for passing an AQL query to export the result
 
 * fixed issue #2879: No result when querying for the last record of a query
 
@@ -256,7 +256,7 @@ v3.2.beta4 (2017-07-04)
     * added `GET /_api/user/{user}/database/{database}/{collection}`
     * added optional `full` parameter to the `GET /_api/user/{user}/database/` REST call
 
-* added user functions in the arangoshell `@arangodb/users` module
+* added user functions in the avocadoshell `@avocadodb/users` module
     * added `grantCollection` and `revokeCollection` functions
     * added `permission(user, database, collection)` to retrieve collection specific rights
 
@@ -328,7 +328,7 @@ v3.2.beta2 (2017-06-20)
 * fix invalid first group results for sorted AQL COLLECT when LIMIT
   was used
 
-* fix potential race, which could make arangod hang on startup
+* fix potential race, which could make avocadod hang on startup
 
 * removed `exception` field from transaction error result; users should throw
   explicit `Error` instances to return custom exceptions (addresses issue #2561)
@@ -350,7 +350,7 @@ v3.2.beta1 (2017-06-12)
 
 * provide more context for index errors (addresses issue #342)
 
-* arangod now validates several OS/environment settings on startup and warns if
+* avocadod now validates several OS/environment settings on startup and warns if
   the settings are non-ideal. Most of the checks are executed on Linux systems only.
 
 * fixed issue #2515: The replace-or-with-in optimization rule might prevent use of indexes
@@ -392,11 +392,11 @@ v3.2.beta1 (2017-06-12)
 * added distinction between hasUser and authorized within Foxx
   (cluster internal requests are authorized requests but don't have a user)
 
-* arangoimp now has a `--threads` option to enable parallel imports of data
+* avocadoimp now has a `--threads` option to enable parallel imports of data
 
 * PR #2514: Foxx services that can't be fixed by self-healing now serve a 503 error
 
-* added `time` function to `@arangodb` module
+* added `time` function to `@avocadodb` module
 
 
 v3.2.alpha4 (2017-04-25)
@@ -404,7 +404,7 @@ v3.2.alpha4 (2017-04-25)
 
 * fixed issue #2450: Bad optimization plan on simple query
 
-* fixed issue #2448: ArangoDB Web UI takes no action when Delete button is clicked
+* fixed issue #2448: AvocadoDB Web UI takes no action when Delete button is clicked
 
 * fixed issue #2442: Frontend shows already deleted databases during login
 
@@ -475,7 +475,7 @@ v3.2.alpha4 (2017-04-25)
 * removed internal build option `USE_DEV_TIMERS`
 
   Enabling this option activated some proprietary timers for only selected
-  events in arangod. Instead better use `perf` to gather timings.
+  events in avocadod. Instead better use `perf` to gather timings.
 
 
 v3.2.alpha3 (2017-03-22)
@@ -489,9 +489,9 @@ v3.2.alpha3 (2017-03-22)
   There is also an HTTP REST handler at GET /_api/engine that returns engine
   information.
 
-* require at least cmake 3.2 for building ArangoDB
+* require at least cmake 3.2 for building AvocadoDB
 
-* make arangod start with less V8 JavaScript contexts
+* make avocadod start with less V8 JavaScript contexts
 
   This speeds up the server start (a little bit) and makes it use less memory.
   Whenever a V8 context is needed by a Foxx action or some other operation and
@@ -510,7 +510,7 @@ v3.2.alpha3 (2017-03-22)
 
   The first few requests in new V8 contexts will take longer than in contexts
   that have been there already. Performance may therefore suffer a bit for the
-  initial requests sent to ArangoDB or when there are only few but performance-
+  initial requests sent to AvocadoDB or when there are only few but performance-
   critical situations in which new V8 contexts will be created. If this is a
   concern, it can easily be fixed by setting `--javascipt.v8-contexts-minimum`
   and `--javascript.v8-contexts` to a relatively high value, which will guarantee
@@ -526,23 +526,23 @@ v3.2.alpha3 (2017-03-22)
 
 * added "bindVars" to attributes of currently running and slow queries
 
-* added "jsonl" as input file type for arangoimp
+* added "jsonl" as input file type for avocadoimp
 
 * upgraded version of bundled zlib library from 1.2.8 to 1.2.11
 
-* added input file type `auto` for arangoimp so it can automatically detect the
+* added input file type `auto` for avocadoimp so it can automatically detect the
   type of the input file from the filename extension
 
 * fixed variables parsing in GraphQL
 
-* added `--translate` option for arangoimp to translate attribute names from
-  the input files to attriubte names expected by ArangoDB
+* added `--translate` option for avocadoimp to translate attribute names from
+  the input files to attriubte names expected by AvocadoDB
 
   The `--translate` option can be specified multiple times (once per translation
   to be executed). The following example renames the "id" column from the input
   file to "_key", and the "from" column to "_from", and the "to" column to "_to":
 
-      arangoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
+      avocadoimp --type csv --file data.csv --translate "id=_key" --translate "from=_from" --translate "to=_to"
 
   `--translate` works for CSV and TSV inputs only.
 
@@ -557,14 +557,14 @@ v3.2.alpha3 (2017-03-22)
 * fixed issue #2342
 
 * change default string truncation length from 80 characters to 256 characters for
-  `print`/`printShell` functions in ArangoShell and arangod. This will emit longer
+  `print`/`printShell` functions in AvocadoShell and avocadod. This will emit longer
   prefixes of string values before truncating them with `...`, which is helpful
   for debugging.
 
 * always validate incoming JSON HTTP requests for duplicate attribute names
 
   Incoming JSON data with duplicate attribute names will now be rejected as
-  invalid. Previous versions of ArangoDB only validated the uniqueness of
+  invalid. Previous versions of AvocadoDB only validated the uniqueness of
   attribute names inside incoming JSON for some API endpoints, but not
   consistently for all APIs.
 
@@ -572,15 +572,15 @@ v3.2.alpha3 (2017-03-22)
 
 * allow passing own `graphql-sync` module instance to Foxx GraphQL router
 
-* arangoexport can now export to csv format
+* avocadoexport can now export to csv format
 
-* arangoimp: fixed issue #2214
+* avocadoimp: fixed issue #2214
 
 * Foxx: automatically add CORS response headers
 
 * added "OPTIONS" to CORS `access-control-allow-methods` header
 
-* Foxx: Fix arangoUser sometimes not being set correctly
+* Foxx: Fix avocadoUser sometimes not being set correctly
 
 * fixed issue #1974
 
@@ -610,9 +610,9 @@ v3.2.alpha2 (2017-02-20)
   JavaScript document operations from 1239 ("illegal document revision")
   to 1200 ("conflict").
 
-* added data export tool, arangoexport.
+* added data export tool, avocadoexport.
 
-  arangoexport can be used to export collections to json, jsonl or xml
+  avocadoexport can be used to export collections to json, jsonl or xml
   and export a graph or collections to xgmml.
 
 * fixed a race condition when closing a connection
@@ -710,7 +710,7 @@ v3.1.20 (2016-05-16)
 * fix in SimpleHttpClient for correct advancement of readBufferOffset
 
 * forward SIG_HUP in supervisor process to the server process to fix logrotaion
-  You need to stop the remaining arangod server process manually for the upgrade to work.
+  You need to stop the remaining avocadod server process manually for the upgrade to work.
 
 
 v3.1.19 (2017-04-28)
@@ -900,7 +900,7 @@ v3.1.11 (2017-02-17)
 
 * ui: fixed #2308
 
-* fixed a race in async task cancellation via `require("@arangodb/tasks").unregisterTask()`
+* fixed a race in async task cancellation via `require("@avocadodb/tasks").unregisterTask()`
 
 * fixed spuriously hanging threads in cluster AQL that could sit idle for a few minutes
 
@@ -952,7 +952,7 @@ v3.1.10 (2017-02-02)
 * fixed wrong sorting order in cluster, if an index was used to sort with many
   shards.
 
-* added --replication-factor, --number-of-shards and --wait-for-sync to arangobench
+* added --replication-factor, --number-of-shards and --wait-for-sync to avocadobench
 
 * turn on UTF-8 string validation for VelocyPack values received via VST connections
 
@@ -1009,7 +1009,7 @@ v3.1.10 (2017-02-02)
 
 * added option -D to define a configuration file environment key=value
 
-* changed encoding behavior for URLs encoded in the C++ code of ArangoDB:
+* changed encoding behavior for URLs encoded in the C++ code of AvocadoDB:
   previously the special characters `-`, `_`, `~` and `.` were returned as-is
   after URL-encoding, now `.` will be encoded to be `%2e`.
   This also changes the behavior of how incoming URIs are processed: previously
@@ -1018,14 +1018,14 @@ v3.1.10 (2017-02-02)
 
 * Foxx request URL suffix is no longer unescaped
 
-* @arangodb/request option json now defaults to `true` if the response body is not empty and encoding is not explicitly set to `null` (binary).
+* @avocadodb/request option json now defaults to `true` if the response body is not empty and encoding is not explicitly set to `null` (binary).
   The option can still be set to `false` to avoid unnecessary attempts at parsing the response as JSON.
 
 * Foxx configuration values for unknown options will be discarded when saving the configuration in production mode using the web interface
 
 * module.context.dependencies is now immutable
 
-* process.stdout.isTTY now returns `true` in arangosh and when running arangod with the `--console` flag
+* process.stdout.isTTY now returns `true` in avocadosh and when running avocadod with the `--console` flag
 
 * add support for Swagger tags in Foxx
 
@@ -1177,16 +1177,16 @@ v3.1.1 (2016-11-15)
 
   - "fail":
     will validate _rev values of 3.0 collections on collection loading and throw an exception when invalid _rev values are found.
-    in this case collections with invalid _rev values are marked as corrupted and cannot be used in the ArangoDB 3.1 instance.
-    the fix procedure for such collections is to export the collections from 3.0 database with arangodump and restore them in 3.1 with arangorestore.
+    in this case collections with invalid _rev values are marked as corrupted and cannot be used in the AvocadoDB 3.1 instance.
+    the fix procedure for such collections is to export the collections from 3.0 database with avocadodump and restore them in 3.1 with avocadorestore.
     collections that do not contain invalid _rev values are marked as ok and will not be re-checked on following loads.
     collections that contain invalid _rev values will be re-checked on following loads.
 
   - "true":
     will validate _rev values of 3.0 collections on collection loading and print a warning when invalid _rev values are found.
-    in this case collections with invalid _rev values can be used in the ArangoDB 3.1 instance.
+    in this case collections with invalid _rev values can be used in the AvocadoDB 3.1 instance.
     however, subsequent operations on documents with invalid _rev values may silently fail or fail with explicit errors.
-    the fix procedure for such collections is to export the collections from 3.0 database with arangodump and restore them in 3.1 with arangorestore.
+    the fix procedure for such collections is to export the collections from 3.0 database with avocadodump and restore them in 3.1 with avocadorestore.
     collections that do not contain invalid _rev values are marked as ok and will not be re-checked on following loads.
     collections that contain invalid _rev values will be re-checked on following loads.
 
@@ -1197,7 +1197,7 @@ v3.1.1 (2016-11-15)
     this setting does not affect whether collections are re-checked later.
     collections will be re-checked on following loads if `--database.check-30-revisions` is later set to either `true` or `fail`.
 
-  The change also suppresses warnings that were printed when collections were restored using arangorestore, and the restore
+  The change also suppresses warnings that were printed when collections were restored using avocadorestore, and the restore
   data contained invalid _rev values. Now these warnings are suppressed, and new HLC _rev values are generated for these documents
   as before.
 
@@ -1210,7 +1210,7 @@ v3.1.1 (2016-11-15)
 
   if an object provides a toJSON() function, this function is still called for serializing it.
   the change is that the result of toJSON() is not stringified anymore, but saved as is. previous
-  versions of ArangoDB called toJSON() and after that additionally stringified its result.
+  versions of AvocadoDB called toJSON() and after that additionally stringified its result.
 
   This change will affect the saving of JS Buffer objects, which will now be saved as arrays of
   bytes instead of a comma-separated string of the Buffer's byte contents.
@@ -1232,7 +1232,7 @@ v3.1.1 (2016-11-15)
 
 * fixed wrong version in web interface login screen (EE only)
 
-* make web interface not display an exclamation mark next to ArangoDB version number 3.1
+* make web interface not display an exclamation mark next to AvocadoDB version number 3.1
 
 * fixed search for arbitrary document attributes in web interface in case multiple
   search values were used on different attribute names. in this case, the search always
@@ -1256,7 +1256,7 @@ v3.1.0 (2016-10-29)
 
 * AQL breaking change in cluster:
 
-  from ArangoDB 3.1 onwards `WITH` is required for traversals in a
+  from AvocadoDB 3.1 onwards `WITH` is required for traversals in a
   clustered environment in order to avoid deadlocks.
 
   Note that for queries that access only a single collection or that have all
@@ -1266,7 +1266,7 @@ v3.1.0 (2016-10-29)
   *WITH* is only useful for queries that dynamically access collections, e.g.
   via traversals, shortest path operations or the *DOCUMENT()* function.
 
-  more info can be found [here](https://github.com/arangodb/arangodb/blob/devel/Documentation/Books/AQL/Operations/With.md)
+  more info can be found [here](https://github.com/avocadodb/avocadodb/blob/devel/Documentation/Books/AQL/Operations/With.md)
 
 * added AQL function `DISTANCE` to calculate the distance between two arbitrary
   coordinates (haversine formula)
@@ -1430,9 +1430,9 @@ v3.1.alpha2 (2016-09-01)
 
 * fixed thread affinity
 
-* replaced require("internal").db by require("@arangodb").db
+* replaced require("internal").db by require("@avocadodb").db
 
-* added option `--skip-lines` for arangoimp
+* added option `--skip-lines` for avocadoimp
   this allows skipping the first few lines from the import file in case the
   CSV or TSV import are used
 
@@ -1455,7 +1455,7 @@ v3.1.alpha2 (2016-09-01)
 * When disabling Foxx development mode the setup script is now re-run
 
 * Foxx now provides an easy way to directly serve GraphQL requests using the
-  `@arangodb/foxx/graphql` module and the bundled `graphql-sync` dependency
+  `@avocadodb/foxx/graphql` module and the bundled `graphql-sync` dependency
 
 * Foxx OAuth2 module now correctly passes the `access_token` to the OAuth2 server
 
@@ -1592,7 +1592,7 @@ v3.0.6 (2016-09-02)
 
 * fixed issue #2012
 
-* fixed wrong default value for arangoimp's `--on-duplicate` value
+* fixed wrong default value for avocadoimp's `--on-duplicate` value
 
 * fix execution of AQL traversal expressions when there are multiple
   conditions that refer to variables set outside the traversal
@@ -1647,7 +1647,7 @@ v3.0.4 (2016-08-01)
 
 * fixed issue #1959
 
-* replaced require("internal").db by require("@arangodb").db
+* replaced require("internal").db by require("@avocadodb").db
 
 * fixed issue #1954
 
@@ -1688,7 +1688,7 @@ v3.0.3 (2016-07-17)
 
 * fixed issue #1936
 
-* improved performance of arangorestore in clusters with synchronous
+* improved performance of avocadorestore in clusters with synchronous
   replication
 
 * Foxx tests and scripts in development mode should now always respect updated
@@ -1712,8 +1712,8 @@ v3.0.2 (2016-07-09)
 
 * fixed issue #1929
 
-* make arangodump dump the attribute `isSystem` when dumping the structure
-  of a collection, additionally make arangorestore not fail when the attribute
+* make avocadodump dump the attribute `isSystem` when dumping the structure
+  of a collection, additionally make avocadorestore not fail when the attribute
   is missing
 
 * fixed "Could not extract custom attribute" issue when using COLLECT with
@@ -1729,7 +1729,7 @@ v3.0.2 (2016-07-09)
 
 * fix double precision value loss in VelocyPack JSON parser
 
-* added missing SSL support for arangorestore
+* added missing SSL support for avocadorestore
 
 * improved cluster import performance
 
@@ -1739,7 +1739,7 @@ v3.0.2 (2016-07-09)
 
 * fix Foxx app access from within the frontend on DC/OS
 
-* add option --default-replication-factor to arangorestore and simplify
+* add option --default-replication-factor to avocadorestore and simplify
   the control over the number of shards when restoring
 
 * fix a bug in the VPack -> V8 conversion if special attributes _key,
@@ -1772,7 +1772,7 @@ v3.0.1 (2016-06-30)
   this ensures revision ids don't matter when compacting documents
 
 * escape Unicode characters in JSON HTTP responses
-  this converts UTF-8 characters in HTTP responses of arangod into `\uXXXX`
+  this converts UTF-8 characters in HTTP responses of avocadod into `\uXXXX`
   escape sequences. This makes the HTTP responses fit into the 7 bit ASCII
   character range, which speeds up HTTP response parsing for some clients,
   namely node.js/v8
@@ -1812,7 +1812,7 @@ v3.0.0-rc3 (2016-06-19)
 
 * trusted reverse proxy support is now handled more consistently
 
-* ArangoDB request compatibility and user are now exposed in Foxx
+* AvocadoDB request compatibility and user are now exposed in Foxx
 
 * all bundled NPM modules have been upgraded to their latest versions
 
@@ -1823,7 +1823,7 @@ v3.0.0-rc2 (2016-06-12)
 * added option `--server.max-packet-size` for client tools
 
 * renamed option `--server.ssl-protocol` to `--ssl.protocol` in client tools
-  (was already done for arangod, but overlooked for client tools)
+  (was already done for avocadod, but overlooked for client tools)
 
 * fix handling of `--ssl.protocol` value 5 (TLS v1.2) in client tools, which
   claimed to support it but didn't
@@ -1849,7 +1849,7 @@ v3.0.0-rc1 (2016-06-10)
     - `[ 1, 2, 3 ]` is now converted to `[1,2,3]`
     - `[ "test", 1, 2 ] is now converted to `["test",1,2]`
 
-    Previous versions of ArangoDB converted arrays with no members into the
+    Previous versions of AvocadoDB converted arrays with no members into the
     empty string, and non-empty arrays into a comma-separated list of member
     values, without the surrounding angular brackets. Additionally, string
     array members were not enclosed in quotes in the result string:
@@ -1864,12 +1864,12 @@ v3.0.0-rc1 (2016-06-10)
     - `{ a: 1, b: 2 }` is converted to `{"a":1,"b":2}`
     - `{ "test" : "foobar" }` is converted to `{"test":"foobar"}`
 
-    Previous versions of ArangoDB always converted objects into the string
+    Previous versions of AvocadoDB always converted objects into the string
     `[object Object]`
 
   This change affects also the AQL functions `CONCAT()` and `CONCAT_SEPARATOR()`
   which treated array values differently in previous versions. Previous versions
-  of ArangoDB automatically flattened array values on the first level of the array,
+  of AvocadoDB automatically flattened array values on the first level of the array,
   e.g. `CONCAT([1, 2, 3, [ 4, 5, 6 ]])` produced `1,2,3,4,5,6`. Now this will produce
   `[1,2,3,[4,5,6]]`. To flatten array members on the top level, you can now use
   the more explicit `CONCAT(FLATTEN([1, 2, 3, [4, 5, 6]], 1))`.
@@ -1879,7 +1879,7 @@ v3.0.0-rc1 (2016-06-10)
 
 * as a consequence of the upgrade to V8 version 5, the implementation of the
   JavaScript `Buffer` object had to be changed. JavaScript `Buffer` objects in
-  ArangoDB now always store their data on the heap. There is no shared pool
+  AvocadoDB now always store their data on the heap. There is no shared pool
   for small Buffer values, and no pointing into existing Buffer data when
   extracting slices. This change may increase the cost of creating Buffers with
   short contents or when peeking into existing Buffers, but was required for
@@ -1891,16 +1891,16 @@ v3.0.0-rc1 (2016-06-10)
   `_endpoints()`.
 
 * changed default value of `--server.authentication` from `false` to `true` in
-  configuration files etc/relative/arangod.conf and etc/arangodb/arangod.conf.in.
+  configuration files etc/relative/avocadod.conf and etc/avocadodb/avocadod.conf.in.
   This means the server will be started with authentication enabled by default,
   requiring all client connections to provide authentication data when connecting
-  to ArangoDB. Authentication can still be turned off via setting the value of
-  `--server.authentication` to `false` in ArangoDB's configuration files or by
+  to AvocadoDB. Authentication can still be turned off via setting the value of
+  `--server.authentication` to `false` in AvocadoDB's configuration files or by
   specifying the option on the command-line.
 
 * Changed result format for querying all collections via the API GET `/_api/collection`.
 
-  Previous versions of ArangoDB returned an object with an attribute named `collections`
+  Previous versions of AvocadoDB returned an object with an attribute named `collections`
   and an attribute named `names`. Both contained all available collections, but
   `collections` contained the collections as an array, and `names` contained the
   collections again, contained in an object in which the attribute names were the
@@ -1932,11 +1932,11 @@ v3.0.0-rc1 (2016-06-10)
   }
   ```
 
-  in ArangoDB 3.0.
+  in AvocadoDB 3.0.
 
 * added AQL functions `TYPENAME()` and `HASH()`
 
-* renamed arangob tool to arangobench
+* renamed avocadob tool to avocadobench
 
 * added AQL string comparison operator `LIKE`
 
@@ -2086,10 +2086,10 @@ v3.0.0-rc1 (2016-06-10)
 * change collection directory names to include a random id component at the end
 
   The new pattern is `collection-<id>-<random>`, where `<id>` is the collection
-  id and `<random>` is a random number. Previous versions of ArangoDB used a
+  id and `<random>` is a random number. Previous versions of AvocadoDB used a
   pattern `collection-<id>` without the random number.
 
-  ArangoDB 3.0 understands both the old and name directory name patterns.
+  AvocadoDB 3.0 understands both the old and name directory name patterns.
 
 * removed mostly unused internal spin-lock implementation
 
@@ -2097,9 +2097,9 @@ v3.0.0-rc1 (2016-06-10)
   Windows versions older than Windows 7 (e.g. Windows Vista, Windows XP) and
   Windows 2008R2 (e.g. Windows 2008).
 
-* changed names of sub-threads started by arangod
+* changed names of sub-threads started by avocadod
 
-* added option `--default-number-of-shards` to arangorestore, allowing creating
+* added option `--default-number-of-shards` to avocadorestore, allowing creating
   collections with a specifiable number of shards from a non-cluster dump
 
 * removed support for CoffeeScript source files
@@ -2111,7 +2111,7 @@ v3.0.0-rc1 (2016-06-10)
 * when downloading a Foxx service from the web interface the suggested filename
   is now based on the service's mount path instead of simply "app.zip"
 
-* the `@arangodb/request` response object now stores the parsed JSON response
+* the `@avocadodb/request` response object now stores the parsed JSON response
   body in a property `json` instead of `body` when the request was made using the
   `json` option. The `body` instead contains the response body as a string.
 
@@ -2137,7 +2137,7 @@ v2.8.12 (XXXX-XX-XX)
 
 * fixed issue #1959
 
-* export aqlQuery template handler as require('org/arangodb').aql for forwards-compatibility
+* export aqlQuery template handler as require('org/avocadodb').aql for forwards-compatibility
 
 
 v2.8.11 (2016-07-13)
@@ -2166,12 +2166,12 @@ v2.8.10 (2016-07-01)
 
 * honor the value of startup option `--database.wait-for-sync` (that is used to control
   whether new collections are created with `waitForSync` set to `true` by default) also
-  when creating collections via the HTTP API (and thus the ArangoShell). When creating
+  when creating collections via the HTTP API (and thus the AvocadoShell). When creating
   a collection via these mechanisms, the option was ignored so far, which was inconsistent.
 
-* fixed issue #1826: arangosh --javascript.execute: internal error (geo index issue)
+* fixed issue #1826: avocadosh --javascript.execute: internal error (geo index issue)
 
-* fixed issue #1823: Arango crashed hard executing very simple query on windows
+* fixed issue #1823: Avocado crashed hard executing very simple query on windows
 
 
 v2.8.9 (2016-05-13)
@@ -2193,13 +2193,13 @@ v2.8.9 (2016-05-13)
 v2.8.8 (2016-04-19)
 -------------------
 
-* fixed issue #1805: Query: internal error (location: arangod/Aql/AqlValue.cpp:182).
-  Please report this error to arangodb.com (while executing)
+* fixed issue #1805: Query: internal error (location: avocadod/Aql/AqlValue.cpp:182).
+  Please report this error to avocadodb.com (while executing)
 
-* allow specifying collection name prefixes for `_from` and `_to` in arangoimp:
+* allow specifying collection name prefixes for `_from` and `_to` in avocadoimp:
 
   To avoid specifying complete document ids (consisting of collection names and document
-  keys) for *_from* and *_to* values when importing edges with arangoimp, there are now
+  keys) for *_from* and *_to* values when importing edges with avocadoimp, there are now
   the options *--from-collection-prefix* and *--to-collection-prefix*.
 
   If specified, these values will be automatically prepended to each value in *_from*
@@ -2207,7 +2207,7 @@ v2.8.8 (2016-04-19)
 
   *Example*
 
-      > arangoimp --from-collection-prefix users --to-collection-prefix products ...
+      > avocadoimp --from-collection-prefix users --to-collection-prefix products ...
 
   Importing the following document will then create an edge between *users/1234* and
   *products/4321*:
@@ -2227,14 +2227,14 @@ v2.8.7 (2016-04-07)
 
 * fix to-boolean conversion for documents in AQL
 
-* expose the User-Agent HTTP header from the ArangoShell since Github seems to
-  require it now, and we use the ArangoShell for fetching Foxx repositories from Github
+* expose the User-Agent HTTP header from the AvocadoShell since Github seems to
+  require it now, and we use the AvocadoShell for fetching Foxx repositories from Github
 
 * work with http servers that only send
 
 * fixed potential race condition between compactor and collector threads
 
-* fix removal of temporary directories on arangosh exit
+* fix removal of temporary directories on avocadosh exit
 
 * javadoc-style comments in Foxx services are no longer interpreted as
   Foxx comments outside of controller/script/exports files (#1748)
@@ -2248,33 +2248,33 @@ v2.8.7 (2016-04-07)
 v2.8.6 (2016-03-23)
 -------------------
 
-* arangosh can now execute JavaScript script files that contain a shebang
+* avocadosh can now execute JavaScript script files that contain a shebang
   in the first line of the file. This allows executing script files directly.
 
   Provided there is a script file `/path/to/script.js` with the shebang
-  `#!arangosh --javascript.execute`:
+  `#!avocadosh --javascript.execute`:
 
       > cat /path/to/script.js
-      #!arangosh --javascript.execute
+      #!avocadosh --javascript.execute
       print("hello from script.js");
 
   If the script file is made executable
 
       > chmod a+x /path/to/script.js
 
-  it can be invoked on the shell directly and use arangosh for its execution:
+  it can be invoked on the shell directly and use avocadosh for its execution:
 
       > /path/to/script.js
       hello from script.js
 
-  This did not work in previous versions of ArangoDB, as the whole script contents
+  This did not work in previous versions of AvocadoDB, as the whole script contents
   (including the shebang) were treated as JavaScript code.
-  Now shebangs in script files will now be ignored for all files passed to arangosh's
+  Now shebangs in script files will now be ignored for all files passed to avocadosh's
   `--javascript.execute` parameter.
 
-  The alternative way of executing a JavaScript file with arangosh still works:
+  The alternative way of executing a JavaScript file with avocadosh still works:
 
-      > arangosh --javascript.execute /path/to/script.js
+      > avocadosh --javascript.execute /path/to/script.js
       hello from script.js
 
 * added missing reset of traversal state for nested traversals.
@@ -2284,7 +2284,7 @@ v2.8.6 (2016-03-23)
   traversal with different start vertices led to the nested traversal
   always using the start vertex provided on the first invocation.
 
-* fixed issue #1781: ArangoDB startup time increased tremendously
+* fixed issue #1781: AvocadoDB startup time increased tremendously
 
 * fixed issue #1783: SIGHUP should rotate the log
 
@@ -2305,14 +2305,14 @@ v2.8.5 (2016-03-11)
 
 * added new endpoint "srv://" for DNS service records
 
-* `org/arangodb/request` no longer sets the content-type header to the
+* `org/avocadodb/request` no longer sets the content-type header to the
   string "undefined" when no content-type header should be sent (issue #1776)
 
 
 v2.8.4 (2016-03-01)
 -------------------
 
-* global modules are no longer incorrectly resolved outside the ArangoDB
+* global modules are no longer incorrectly resolved outside the AvocadoDB
   JavaScript directory or the Foxx service's root directory (issue #1577)
 
 * improved error messages from Foxx and JavaScript (issues #1564, #1565, #1744)
@@ -2336,7 +2336,7 @@ v2.8.3 (2016-02-22)
 * Routing actions loaded from the database no longer throw exceptions when
   trying to load other modules using "require"
 
-* The `org/arangodb/request` response object now sets a property `json` to the
+* The `org/avocadodb/request` response object now sets a property `json` to the
   parsed JSON response body in addition to overwriting the `body` property when
   the request was made using the `json` option.
 
@@ -2371,7 +2371,7 @@ v2.8.2 (2016-02-09)
 * added all-in-one function *setupReplication* to synchronize data from master
   to slave and start the continuous replication:
 
-      require("@arangodb/replication").setupReplication(configuration);
+      require("@avocadodb/replication").setupReplication(configuration);
 
   The command will return when the initial synchronization is finished and the
   continuous replication has been started, or in case the initial synchronization
@@ -2391,7 +2391,7 @@ v2.8.2 (2016-02-09)
   master:
 
       db._useDatabase("_system");
-      require("@arangodb/replication").setupReplication({
+      require("@avocadodb/replication").setupReplication({
         endpoint: "tcp://master.domain.org:8529",
         username: "myuser",
         password: "mypasswd",
@@ -2528,8 +2528,8 @@ v2.8.0-beta7 (2016-01-06)
 
 * adjusted the behavior of the expansion (`[*]`) operator in AQL for non-array values
 
-  In ArangoDB 2.8, calling the expansion operator on a non-array value will always
-  return an empty array. Previous versions of ArangoDB expanded non-array values by
+  In AvocadoDB 2.8, calling the expansion operator on a non-array value will always
+  return an empty array. Previous versions of AvocadoDB expanded non-array values by
   calling the `TO_ARRAY()` function for the value, which for example returned an
   array with a single value for boolean, numeric and string input values, and an array
   with the object's values for an object input value. This behavior was inconsistent
@@ -2584,7 +2584,7 @@ v2.8.0-beta7 (2016-01-06)
 
 * fixes for AQL optimizer and traversal
 
-* added `--create-collection-type` option to arangoimp
+* added `--create-collection-type` option to avocadoimp
 
   This allows specifying the type of the collection to be created when
   `--create-collection` is set to `true`.
@@ -2636,11 +2636,11 @@ v2.8.0-beta2 (2015-12-16)
 * the compaction will now provide queryable status info that can be used to track
   its progress. The compaction status is displayed in the web interface, too.
 
-* better error reporting for arangodump and arangorestore
+* better error reporting for avocadodump and avocadorestore
 
-* arangodump will now fail by default when trying to dump edges that
+* avocadodump will now fail by default when trying to dump edges that
   refer to already dropped collections. This can be circumvented by
-  specifying the option `--force true` when invoking arangodump
+  specifying the option `--force true` when invoking avocadodump
 
 * fixed cluster upgrade procedure
 
@@ -2721,7 +2721,7 @@ v2.8.0-alpha1 (2015-12-03)
     used as a constant time span in which the slave will not poll the master for
     further changes. The default values are 0.5 seconds for `idleMinWaitTime` and
     2.5 seconds for `idleMaxWaitTime`, which correspond to the hard-coded values
-    used in previous versions of ArangoDB.
+    used in previous versions of AvocadoDB.
 
   - added `initialSyncMaxWaitTime` configuration parameter for initial and continuous
     replication
@@ -2741,13 +2741,13 @@ v2.8.0-alpha1 (2015-12-03)
     the regular replication status check APIs.
 
   - added `async` attribute for `sync` and `syncCollection` operations called from
-    the ArangoShell. Setthing this attribute to `true` will make the synchronization
+    the AvocadoShell. Setthing this attribute to `true` will make the synchronization
     job on the server go into the background, so that the shell does not block. The
     status of the started asynchronous synchronization job can be queried from the
-    ArangoShell like this:
+    AvocadoShell like this:
 
         /* starts initial synchronization */
-        var replication = require("@arangodb/replication");
+        var replication = require("@avocadodb/replication");
         var id = replication.sync({
           endpoint: "tcp://master.domain.org:8529",
           username: "myuser",
@@ -2781,13 +2781,13 @@ v2.8.0-alpha1 (2015-12-03)
 * web interface: AQL editor now supports bind parameters
 
 * added startup option `--server.hide-product-header` to make the server not send
-  the HTTP response header `"Server: ArangoDB"` in its HTTP responses. By default,
+  the HTTP response header `"Server: AvocadoDB"` in its HTTP responses. By default,
   the option is turned off so the header is still sent as usual.
 
 * added new AQL function `UNSET_RECURSIVE` to recursively unset attritutes from
   objects/documents
 
-* switched command-line editor in ArangoShell and arangod to linenoise-ng
+* switched command-line editor in AvocadoShell and avocadod to linenoise-ng
 
 * added automatic deadlock detection for transactions
 
@@ -2853,19 +2853,19 @@ v2.8.0-alpha1 (2015-12-03)
   To define an index for array values, the attribute name is extended with the
   expansion operator `[*]` in the index definition:
 
-      arangosh> db.colName.ensureHashIndex("tags[*]");
+      avocadosh> db.colName.ensureHashIndex("tags[*]");
 
   When given the following document
 
-      { tags: [ "AQL", "ArangoDB", "Index" ] }
+      { tags: [ "AQL", "AvocadoDB", "Index" ] }
 
-  the index will now contain the individual values `"AQL"`, `"ArangoDB"` and `"Index"`.
+  the index will now contain the individual values `"AQL"`, `"AvocadoDB"` and `"Index"`.
 
-  Now the index can be used for finding all documents having `"ArangoDB"` somewhere in their
+  Now the index can be used for finding all documents having `"AvocadoDB"` somewhere in their
   tags array using the following AQL query:
 
       FOR doc IN colName
-        FILTER "ArangoDB" IN doc.tags[*]
+        FILTER "AvocadoDB" IN doc.tags[*]
         RETURN doc
 
 * rewrote AQL query optimizer rule `use-index-range` and renamed it to `use-indexes`.
@@ -2879,7 +2879,7 @@ v2.8.0-alpha1 (2015-12-03)
 
 * module resolution as used by `require` now behaves more like in node.js
 
-* the `org/arangodb/request` module now returns response bodies for error responses
+* the `org/avocadodb/request` module now returns response bodies for error responses
   by default. The old behavior of not returning bodies for error responses can be
   re-enabled by explicitly setting the option `returnBodyOnError` to `false` (#1437)
 
@@ -2946,7 +2946,7 @@ v2.7.3 (2015-12-17)
 -------------------
 
 * fixed some replication value conversion issues when replication applier properties
-  were set via ArangoShell
+  were set via AvocadoShell
 
 * fixed disappearing of documents for collections transferred via `sync` or
   `syncCollection` if the collection was dropped right before synchronization
@@ -2985,7 +2985,7 @@ v2.7.2 (2015-12-01)
     used as a constant time span in which the slave will not poll the master for
     further changes. The default values are 0.5 seconds for `idleMinWaitTime` and
     2.5 seconds for `idleMaxWaitTime`, which correspond to the hard-coded values
-    used in previous versions of ArangoDB.
+    used in previous versions of AvocadoDB.
 
   - added `initialSyncMaxWaitTime` configuration parameter for initial and continuous
     replication
@@ -3040,7 +3040,7 @@ v2.7.1 (2015-11-07)
 * disable replication appliers when starting in modes `--upgrade`, `--no-server`
   and `--check-upgrade`
 
-* more detailed output in arango-dfdb
+* more detailed output in avocado-dfdb
 
 * fixed "no start tick" issue in replication applier
 
@@ -3087,12 +3087,12 @@ v2.7.0 (2015-10-09)
 -------------------
 
 * fixed request statistics aggregation
-  When arangod was started in supervisor mode, the request statistics always showed
+  When avocadod was started in supervisor mode, the request statistics always showed
   0 requests, as the statistics aggregation thread did not run then.
 
 * read server configuration files before dropping privileges. this ensures that
   the SSL keyfile specified in the configuration can be read with the server's start
-  privileges (i.e. root when using a standard ArangoDB package).
+  privileges (i.e. root when using a standard AvocadoDB package).
 
 * fixed replication with a 2.6 replication configuration and issues with a 2.6 master
 
@@ -3121,7 +3121,7 @@ v2.7.0-rc2 (2015-09-22)
   should also prevent from re-compacting already merged datafiles in case not many
   changes were made. Compaction will also make fewer index lookups than before.
 
-* added `syncCollection()` function in module `org/arangodb/replication`
+* added `syncCollection()` function in module `org/avocadodb/replication`
 
   This allows synchronizing the data of a single collection from a master to a slave
   server. Synchronization can either restore the whole collection by transferring all
@@ -3132,11 +3132,11 @@ v2.7.0-rc2 (2015-09-22)
 
   The `syncCollection()` function can be used as follows:
 
-      require("org/arangodb/replication").syncCollection(collectionName, options);
+      require("org/avocadodb/replication").syncCollection(collectionName, options);
 
   e.g.
 
-      require("org/arangodb/replication").syncCollection("myCollection", {
+      require("org/avocadodb/replication").syncCollection("myCollection", {
         endpoint: "tcp://127.0.0.1:8529",  /* master */
         username: "root",                  /* username for master */
         password: "secret",                /* password for master */
@@ -3267,19 +3267,19 @@ v2.7.0-rc1 (2015-09-17)
   This prevents SIGBUS signals being raised when memory of a sparse datafile is accessed
   and the disk is full and the accessed file part is not actually disk-backed. In
   this case the mapped memory region is not necessarily backed by physical memory, and
-  accessing the memory may raise SIGBUS and crash arangod.
+  accessing the memory may raise SIGBUS and crash avocadod.
 
-* the `internal.download()` function and the module `org/arangodb/request` used some
+* the `internal.download()` function and the module `org/avocadodb/request` used some
   internal library function that handled the sending of HTTP requests from inside of
-  ArangoDB. This library unconditionally set an HTTP header `Accept-Encoding: gzip`
+  AvocadoDB. This library unconditionally set an HTTP header `Accept-Encoding: gzip`
   in all outgoing HTTP requests.
 
   This has been fixed in 2.7, so `Accept-Encoding: gzip` is not set automatically anymore.
-  Additionally, the header `User-Agent: ArangoDB` is not set automatically either. If
+  Additionally, the header `User-Agent: AvocadoDB` is not set automatically either. If
   client applications desire to send these headers, they are free to add it when
   constructing the requests using the `download` function or the request module.
 
-* fixed issue #1436: org/arangodb/request advertises deflate without supporting it
+* fixed issue #1436: org/avocadodb/request advertises deflate without supporting it
 
 * added template string generator function `aqlQuery` for generating AQL queries
 
@@ -3297,20 +3297,20 @@ v2.7.0-rc1 (2015-09-17)
   sizes reported by `figures()` in 2.7 will be higher than those reported by 2.6,
   but the 2.7 values are more accurate.
 
-* IMPORTANT CHANGE: the filenames in dumps created by arangodump now contain
+* IMPORTANT CHANGE: the filenames in dumps created by avocadodump now contain
   not only the name of the dumped collection, but also an additional 32-digit hash
   value. This is done to prevent overwriting dump files in case-insensitive file
   systems when there exist multiple collections with the same name (but with
   different cases).
 
   For example, if a database has two collections: `test` and `Test`, previous
-  versions of ArangoDB created the files
+  versions of AvocadoDB created the files
 
   * `test.structure.json` and `test.data.json` for collection `test`
   * `Test.structure.json` and `Test.data.json` for collection `Test`
 
   This did not work for case-insensitive filesystems, because the files for the
-  second collection would have overwritten the files of the first. arangodump in
+  second collection would have overwritten the files of the first. avocadodump in
   2.7 will create the following filenames instead:
 
   * `test_098f6bcd4621d373cade4e832627b4f6.structure.json` and `test_098f6bcd4621d373cade4e832627b4f6.data.json`
@@ -3318,9 +3318,9 @@ v2.7.0-rc1 (2015-09-17)
 
   These filenames will be unambiguous even in case-insensitive filesystems.
 
-* IMPORTANT CHANGE: make arangod actually close lingering client connections
+* IMPORTANT CHANGE: make avocadod actually close lingering client connections
   when idle for at least the duration specified via `--server.keep-alive-timeout`.
-  In previous versions of ArangoDB, connections were not closed by the server
+  In previous versions of AvocadoDB, connections were not closed by the server
   when the timeout was reached and the client was still connected. Now the
   connection is properly closed by the server in case of timeout. Client
   applications relying on the old behavior may now need to reconnect to the
@@ -3328,35 +3328,35 @@ v2.7.0-rc1 (2015-09-17)
   being idle for a long time may be closed by the OS or firewalls anyway -
   client applications should be aware of that and try to reconnect).
 
-* IMPORTANT CHANGE: when starting arangod, the server will drop the process
+* IMPORTANT CHANGE: when starting avocadod, the server will drop the process
   privileges to the specified values in options `--server.uid` and `--server.gid`
   instantly after parsing the startup options.
 
   That means when either `--server.uid` or `--server.gid` are set, the privilege
   change will happen earlier. This may prevent binding the server to an endpoint
-  with a port number lower than 1024 if the arangodb user has no privileges
-  for that. Previous versions of ArangoDB changed the privileges later, so some
+  with a port number lower than 1024 if the avocadodb user has no privileges
+  for that. Previous versions of AvocadoDB changed the privileges later, so some
   startup actions were still carried out under the invoking user (i.e. likely
   *root* when started via init.d or system scripts) and especially binding to
   low port numbers was still possible there.
 
-  The default privileges for user *arangodb* will not be sufficient for binding
-  to port numbers lower than 1024. To have an ArangoDB 2.7 bind to a port number
+  The default privileges for user *avocadodb* will not be sufficient for binding
+  to port numbers lower than 1024. To have an AvocadoDB 2.7 bind to a port number
   lower than 1024, it needs to be started with either a different privileged user,
-  or the privileges of the *arangodb* user have to raised manually beforehand.
+  or the privileges of the *avocadodb* user have to raised manually beforehand.
 
 * added AQL optimizer rule `patch-update-statements`
 
-* Linux startup scripts and systemd configuration for arangod now try to
+* Linux startup scripts and systemd configuration for avocadod now try to
   adjust the NOFILE (number of open files) limits for the process. The limit
-  value is set to 131072 (128k) when ArangoDB is started via start/stop
+  value is set to 131072 (128k) when AvocadoDB is started via start/stop
   commands
 
-* When ArangoDB is started/stopped manually via the start/stop commands, the
+* When AvocadoDB is started/stopped manually via the start/stop commands, the
   main process will wait for up to 10 seconds after it forks the supervisor
-  and arangod child processes. If the startup fails within that period, the
+  and avocadod child processes. If the startup fails within that period, the
   start/stop script will fail with an exit code other than zero. If the
-  startup of the supervisor or arangod is still ongoing after 10 seconds,
+  startup of the supervisor or avocadod is still ongoing after 10 seconds,
   the main program will still return with exit code 0. The limit of 10 seconds
   is arbitrary because the time required for a startup is not known in advance.
 
@@ -3385,18 +3385,18 @@ v2.7.0-rc1 (2015-09-17)
 
   The default value is *false*.
 
-* added better control-C support in arangosh
+* added better control-C support in avocadosh
 
-  When CTRL-C is pressed in arangosh, it will now print a `^C` first. Pressing
+  When CTRL-C is pressed in avocadosh, it will now print a `^C` first. Pressing
   CTRL-C again will reset the prompt if something was entered before, or quit
-  arangosh if no command was entered directly before.
+  avocadosh if no command was entered directly before.
 
-  This affects the arangosh version build with Readline-support only (Linux
+  This affects the avocadosh version build with Readline-support only (Linux
   and MacOS).
 
-  The MacOS version of ArangoDB for Homebrew now depends on Readline, too. The
+  The MacOS version of AvocadoDB for Homebrew now depends on Readline, too. The
   Homebrew formula has been changed accordingly.
-  When self-compiling ArangoDB on MacOS without Homebrew, Readline now is a
+  When self-compiling AvocadoDB on MacOS without Homebrew, Readline now is a
   prerequisite.
 
 * increased default value for collection-specific `indexBuckets` value from 1 to 8
@@ -3415,12 +3415,12 @@ v2.7.0-rc1 (2015-09-17)
   The index buckets will be filled in parallel when loading a collection if the collection
   has an `indexBuckets` value greater than 1 and the collection contains a significant
   amount of documents/edges (the current threshold is 256K documents but this value
-  may change in future versions of ArangoDB).
+  may change in future versions of AvocadoDB).
 
 * changed HTTP client to use poll instead of select on Linux and MacOS
 
-  This affects the ArangoShell and user-defined JavaScript code running inside
-  arangod that initiates its own HTTP calls.
+  This affects the AvocadoShell and user-defined JavaScript code running inside
+  avocadod that initiates its own HTTP calls.
 
   Using poll instead of select allows using arbitrary high file descriptors
   (bigger than the compiled in FD_SETSIZE). Server connections are still handled using
@@ -3435,16 +3435,16 @@ v2.7.0-rc1 (2015-09-17)
 
   This change also introduces `DISTINCT` as an AQL keyword.
 
-* removed `createNamedQueue()` and `addJob()` functions from org/arangodb/tasks
+* removed `createNamedQueue()` and `addJob()` functions from org/avocadodb/tasks
 
 * use less locks and more atomic variables in the internal dispatcher
   and V8 context handling implementations. This leads to improved throughput in
-  some ArangoDB internals and allows for higher HTTP request throughput for
+  some AvocadoDB internals and allows for higher HTTP request throughput for
   many operations.
 
   A short overview of the improvements can be found here:
 
-  https://www.arangodb.com/2015/08/throughput-enhancements/
+  https://www.avocadodb.com/2015/08/throughput-enhancements/
 
 * added shorthand notation for attribute names in AQL object literals:
 
@@ -3465,7 +3465,7 @@ v2.7.0-rc1 (2015-09-17)
 * removed configure option `--enable-figures`
 
   This option previously controlled whether HTTP request statistics code was
-  compiled into ArangoDB or not. The previous default value was `true` so
+  compiled into AvocadoDB or not. The previous default value was `true` so
   statistics code was available in official packages. Setting the option to
   `false` led to compile errors so it is doubtful the default value was
   ever changed. By removing the option some internal statistics code was also
@@ -3500,11 +3500,11 @@ v2.7.0-rc1 (2015-09-17)
 
   The following JavaScript functions have been added for controlling the query cache:
 
-  * `require("org/arangodb/aql/cache").properties()`: returns the global query cache configuration
-  * `require("org/arangodb/aql/cache").properties(properties)`: modifies the global query cache configuration
-  * `require("org/arangodb/aql/cache").clear()`: invalidates all results in the query cache
+  * `require("org/avocadodb/aql/cache").properties()`: returns the global query cache configuration
+  * `require("org/avocadodb/aql/cache").properties(properties)`: modifies the global query cache configuration
+  * `require("org/avocadodb/aql/cache").clear()`: invalidates all results in the query cache
 
-* do not link arangoimp against V8
+* do not link avocadoimp against V8
 
 * AQL function call arguments optimization
 
@@ -3516,11 +3516,11 @@ v2.7.0-rc1 (2015-09-17)
 
 * removed deprecated AQL `SKIPLIST` function.
 
-  This function was introduced in older versions of ArangoDB with a less powerful query optimizer to
-  retrieve data from a skiplist index using a `LIMIT` clause. It was marked as deprecated in ArangoDB
+  This function was introduced in older versions of AvocadoDB with a less powerful query optimizer to
+  retrieve data from a skiplist index using a `LIMIT` clause. It was marked as deprecated in AvocadoDB
   2.6.
 
-  Since ArangoDB 2.3 the behavior of the `SKIPLIST` function can be emulated using regular AQL
+  Since AvocadoDB 2.3 the behavior of the `SKIPLIST` function can be emulated using regular AQL
   constructs, e.g.
 
       FOR doc IN @@collection
@@ -3567,7 +3567,7 @@ v2.7.0-rc1 (2015-09-17)
 
   The web interface now has a new design.
 
-  The API documentation for ArangoDB has been moved from "Tools" to "Links" in the web interface.
+  The API documentation for AvocadoDB has been moved from "Tools" to "Links" in the web interface.
 
   The "Applications" tab in the web interfaces has been renamed to "Services".
 
@@ -3602,7 +3602,7 @@ v2.6.10 (2015-11-10)
 * disable replication appliers when starting in modes `--upgrade`, `--no-server`
   and `--check-upgrade`
 
-* more detailed output in arango-dfdb
+* more detailed output in avocado-dfdb
 
 * fixed potential deadlock in collection status changing on Windows
 
@@ -3632,28 +3632,28 @@ v2.6.8 (2015-09-09)
 
 * ARM only:
 
-  The ArangoDB packages for ARM require the kernel to allow unaligned memory access.
+  The AvocadoDB packages for ARM require the kernel to allow unaligned memory access.
   How the kernel handles unaligned memory access is configurable at runtime by
   checking and adjusting the contents `/proc/cpu/alignment`.
 
-  In order to operate on ARM, ArangoDB requires the bit 1 to be set. This will
+  In order to operate on ARM, AvocadoDB requires the bit 1 to be set. This will
   make the kernel trap and adjust unaligned memory accesses. If this bit is not
-  set, the kernel may send a SIGBUS signal to ArangoDB and terminate it.
+  set, the kernel may send a SIGBUS signal to AvocadoDB and terminate it.
 
   To set bit 1 in `/proc/cpu/alignment` use the following command as a privileged
   user (e.g. root):
 
       echo "2" > /proc/cpu/alignment
 
-  Note that this setting affects all user processes and not just ArangoDB. Setting
+  Note that this setting affects all user processes and not just AvocadoDB. Setting
   the alignment with the above command will also not make the setting permanent,
   so it will be lost after a restart of the system. In order to make the setting
-  permanent, it should be executed during system startup or before starting arangod.
+  permanent, it should be executed during system startup or before starting avocadod.
 
-  The ArangoDB start/stop scripts do not adjust the alignment setting, but rely on
+  The AvocadoDB start/stop scripts do not adjust the alignment setting, but rely on
   the environment to have the correct alignment setting already. The reason for this
-  is that the alignment settings also affect all other user processes (which ArangoDB
-  is not aware of) and thus may have side-effects outside of ArangoDB. It is therefore
+  is that the alignment settings also affect all other user processes (which AvocadoDB
+  is not aware of) and thus may have side-effects outside of AvocadoDB. It is therefore
   more reasonable to have the system administrator carry out the change.
 
 
@@ -3703,7 +3703,7 @@ v2.6.5 (2015-08-17)
 * fixed busy wait loop in scheduler threads that sometimes consumed 100% CPU while
   waiting for events on connections closed unexpectedly by the client side
 
-* handle attribute `indexBuckets` when restoring collections via arangorestore.
+* handle attribute `indexBuckets` when restoring collections via avocadorestore.
   Previously the `indexBuckets` attribute value from the dump was ignored, and the
    server default value for `indexBuckets` was used when restoring a collection.
 
@@ -3716,7 +3716,7 @@ v2.6.4 (2015-08-01)
 
 * V8: Upgrade to version 4.1.0.27 - this is intended to be the stable V8 version.
 
-* fixed issue #1424: Arango shell should not processing arrows pushing on keyboard
+* fixed issue #1424: Avocado shell should not processing arrows pushing on keyboard
 
 
 v2.6.3 (2015-07-21)
@@ -3749,7 +3749,7 @@ v2.6.0 (2015-06-20)
 -------------------
 
 * using negative values for `SimpleQuery.skip()` is deprecated.
-  This functionality will be removed in future versions of ArangoDB.
+  This functionality will be removed in future versions of AvocadoDB.
 
 * The following simple query functions are now deprecated:
 
@@ -3785,11 +3785,11 @@ v2.6.0 (2015-06-20)
         RETURN doc`
 
   The above simple query functions and REST API methods may be removed in future versions
-  of ArangoDB.
+  of AvocadoDB.
 
 * deprecated now-obsolete AQL `SKIPLIST` function
 
-  The function was introduced in older versions of ArangoDB with a less powerful query optimizer to
+  The function was introduced in older versions of AvocadoDB with a less powerful query optimizer to
   retrieve data from a skiplist index using a `LIMIT` clause.
 
   Since 2.3 the same goal can be achieved by using regular AQL constructs, e.g.
@@ -3804,7 +3804,7 @@ v2.6.0 (2015-06-20)
 
 * added `--enable-tcmalloc` configure option.
 
-  When this option is set, arangod and the client tools will be linked against tcmalloc, which replaces
+  When this option is set, avocadod and the client tools will be linked against tcmalloc, which replaces
   the system allocator. When the option is set, a tcmalloc library must be present on the system under
   one of the names `libtcmalloc`, `libtcmalloc_minimal` or `libtcmalloc_debug`.
 
@@ -3813,10 +3813,10 @@ v2.6.0 (2015-06-20)
 
 * issue #1353: Windows: HTTP API - incorrect path in errorMessage
 
-* issue #1347: added option `--create-database` for arangorestore.
+* issue #1347: added option `--create-database` for avocadorestore.
 
   Setting this option to `true` will now create the target database if it does not exist. When creating
-  the target database, the username and passwords passed to arangorestore will be used to create an
+  the target database, the username and passwords passed to avocadorestore will be used to create an
   initial user for the new database.
 
 * issue #1345: advanced debug information for User Functions
@@ -3827,11 +3827,11 @@ v2.6.0 (2015-06-20)
 
 * changed default value of option `--database.ignore-datafile-errors` from `true` to `false`
 
-  If the new default value of `false` is used, then arangod will refuse loading collections that contain
+  If the new default value of `false` is used, then avocadod will refuse loading collections that contain
   datafiles with CRC mismatches or other errors. A collection with datafile errors will then become
   unavailable. This prevents follow up errors from happening.
 
-  The only way to access such collection is to use the datafile debugger (arango-dfdb) and try to repair
+  The only way to access such collection is to use the datafile debugger (avocado-dfdb) and try to repair
   or truncate the datafile with it.
 
   If `--database.ignore-datafile-errors` is set to `true`, then collections will become available
@@ -3841,9 +3841,9 @@ v2.6.0 (2015-06-20)
 * added server startup option `--server.session-timeout` for controlling the timeout of user sessions
   in the web interface
 
-* add sessions and cookie authentication for ArangoDB's web interface
+* add sessions and cookie authentication for AvocadoDB's web interface
 
-  ArangoDB's built-in web interface now uses sessions. Session information ids are stored in cookies,
+  AvocadoDB's built-in web interface now uses sessions. Session information ids are stored in cookies,
   so clients using the web interface must accept cookies in order to use it
 
 * web interface: display query execution time in AQL editor
@@ -3884,7 +3884,7 @@ v2.6.0 (2015-06-20)
 * make fulltext index also index text values contained in direct sub-objects of the indexed
   attribute.
 
-  Previous versions of ArangoDB only indexed the attribute value if it was a string. Sub-attributes
+  Previous versions of AvocadoDB only indexed the attribute value if it was a string. Sub-attributes
   of the index attribute were ignored when fulltext indexing.
 
   Now, if the index attribute value is an object, the object's values will each be included in the
@@ -3898,7 +3898,7 @@ v2.6.0 (2015-06-20)
       c.ensureFulltextIndex("translations");
       c.insert({ translations: { en: "fox", de: "Fuchs", fr: "renard", ru: "лиса" } });
       c.insert({ translations: "Fox is the English translation of the German word Fuchs" });
-      c.insert({ translations: [ "ArangoDB", "document", "database", "Foxx" ] });
+      c.insert({ translations: [ "AvocadoDB", "document", "database", "Foxx" ] });
 
       c.fulltext("translations", "лиса").toArray();       // returns only first document
       c.fulltext("translations", "Fox").toArray();        // returns first and second documents
@@ -3910,7 +3910,7 @@ v2.6.0 (2015-06-20)
       collection.removeByKeys(keys)
 
   These commands can be used to perform multi-document lookup and removal operations efficiently
-  from the ArangoShell. The argument to these operations is an array of document keys.
+  from the AvocadoShell. The argument to these operations is an array of document keys.
 
   Also added HTTP APIs for batch document commands:
 
@@ -3921,13 +3921,13 @@ v2.6.0 (2015-06-20)
   API method GET `/_api/document?collection=...` (that method will return partial URLs to all
   documents in the collection).
 
-  Previous versions of ArangoDB returned the URLs starting with `/_api/` but without the current
+  Previous versions of AvocadoDB returned the URLs starting with `/_api/` but without the current
   database name, e.g. `/_api/document/mycollection/mykey`. Starting with 2.6, the response URLs
   will include the database name as well, e.g. `/_db/_system/_api/document/mycollection/mykey`.
 
 * added dedicated collection export HTTP REST API
 
-  ArangoDB now provides a dedicated collection export API, which can take snapshots of entire
+  AvocadoDB now provides a dedicated collection export API, which can take snapshots of entire
   collections more efficiently than the general-purpose cursor API. The export API is useful
   to transfer the contents of an entire collection to a client application. It provides optional
   filtering on specific attributes.
@@ -3955,7 +3955,7 @@ v2.6.0 (2015-06-20)
 
 * speed up AQL queries containing big `IN` lists for index lookups
 
-  `IN` lists used for index lookups had performance issues in previous versions of ArangoDB.
+  `IN` lists used for index lookups had performance issues in previous versions of AvocadoDB.
   These issues have been addressed in 2.6 so using bigger `IN` lists for filtering is much
   faster.
 
@@ -4009,7 +4009,7 @@ v2.6.0 (2015-06-20)
 
 * simplified return value syntax for data-modification AQL queries
 
-  ArangoDB 2.4 since version allows to return results from data-modification AQL queries. The
+  AvocadoDB 2.4 since version allows to return results from data-modification AQL queries. The
   syntax for this was quite limited and verbose:
 
       FOR i IN 1..10
@@ -4074,13 +4074,13 @@ v2.6.0 (2015-06-20)
   This changes the behavior of the AQL `LENGTH` function as follows:
 
   - if the single argument to `LENGTH()` is `null`, then the result will now be `0`. In previous
-    versions of ArangoDB, the result of `LENGTH(null)` was `4`.
+    versions of AvocadoDB, the result of `LENGTH(null)` was `4`.
 
   - if the single argument to `LENGTH()` is `true`, then the result will now be `1`. In previous
-    versions of ArangoDB, the result of `LENGTH(true)` was `4`.
+    versions of AvocadoDB, the result of `LENGTH(true)` was `4`.
 
   - if the single argument to `LENGTH()` is `false`, then the result will now be `0`. In previous
-    versions of ArangoDB, the result of `LENGTH(false)` was `5`.
+    versions of AvocadoDB, the result of `LENGTH(false)` was `5`.
 
   The results of `LENGTH()` with string, numeric, array object argument values do not change.
 
@@ -4122,13 +4122,13 @@ v2.6.0 (2015-06-20)
   (in this case the `updated` attribute may contain non-zero values) or `ignore` (in this case the
   `ignored` attribute may contain a non-zero value).
 
-  To support the feature, arangoimp also has a new command line option `--on-duplicate` which can
+  To support the feature, avocadoimp also has a new command line option `--on-duplicate` which can
   have one of the values `error`, `update`, `replace`, `ignore`. The default value is `error`.
 
-  A few examples for using arangoimp with the `--on-duplicate` option can be found here:
-  http://jsteemann.github.io/blog/2015/04/14/updating-documents-with-arangoimp/
+  A few examples for using avocadoimp with the `--on-duplicate` option can be found here:
+  http://jsteemann.github.io/blog/2015/04/14/updating-documents-with-avocadoimp/
 
-* changed behavior of `db._query()` in the ArangoShell:
+* changed behavior of `db._query()` in the AvocadoShell:
 
   if the command's result is printed in the shell, the first 10 results will be printed. Previously
   only a basic description of the underlying query result cursor was printed. Additionally, if the
@@ -4137,8 +4137,8 @@ v2.6.0 (2015-06-20)
 
   Example:
 
-      arangosh [_system]> db._query("FOR i IN 1..15 RETURN i")
-      [object ArangoQueryCursor, count: 15, hasMore: true]
+      avocadosh [_system]> db._query("FOR i IN 1..15 RETURN i")
+      [object AvocadoQueryCursor, count: 15, hasMore: true]
 
       [
         1,
@@ -4156,8 +4156,8 @@ v2.6.0 (2015-06-20)
       type 'more' to show more documents
 
 
-      arangosh [_system]> more
-      [object ArangoQueryCursor, count: 15, hasMore: false]
+      avocadosh [_system]> more
+      [object AvocadoQueryCursor, count: 15, hasMore: false]
 
       [
         11,
@@ -4170,7 +4170,7 @@ v2.6.0 (2015-06-20)
 * Disallow batchSize value 0 in HTTP `POST /_api/cursor`:
 
   The HTTP REST API `POST /_api/cursor` does not accept a `batchSize` parameter value of
-  `0` any longer. A batch size of 0 never made much sense, but previous versions of ArangoDB
+  `0` any longer. A batch size of 0 never made much sense, but previous versions of AvocadoDB
   did not check for this value. Now creating a cursor using a `batchSize` value 0 will
   result in an HTTP 400 error response
 
@@ -4197,7 +4197,7 @@ v2.6.0 (2015-06-20)
   Using only the id values can lead to significantly improved performance if this is the only information
   required.
 
-  In order to get the old result format prior to ArangoDB 2.6, please use the function EDGES instead.
+  In order to get the old result format prior to AvocadoDB 2.6, please use the function EDGES instead.
   Edges allows for a new option 'includeVertices' which, set to true, returns exactly the format of NEIGHBORS.
   Example:
 
@@ -4228,9 +4228,9 @@ v2.6.0 (2015-06-20)
 
   If provided, `includeData` is set to `true`, all vertices in the result will be returned
   with all their attributes. The default value of `includeData` is `false`.
-  This makes the default function results incompatible with previous versions of ArangoDB.
+  This makes the default function results incompatible with previous versions of AvocadoDB.
 
-  To get the old result style in ArangoDB 2.6, please set the options as follows in calls
+  To get the old result style in AvocadoDB 2.6, please set the options as follows in calls
   to `GRAPH_NEIGHBORS`:
 
       GRAPH_NEIGHBORS(<graph>, <vertex>, { includeData: true })
@@ -4244,9 +4244,9 @@ v2.6.0 (2015-06-20)
 
   If provided, `includeData` is set to `true`, all vertices in the result will be returned
   with all their attributes. The default value of `includeData` is `false`.
-  This makes the default function results incompatible with previous versions of ArangoDB.
+  This makes the default function results incompatible with previous versions of AvocadoDB.
 
-  To get the old result style in ArangoDB 2.6, please set the options as follows in calls
+  To get the old result style in AvocadoDB 2.6, please set the options as follows in calls
   to `GRAPH_COMMON_NEIGHBORS`:
 
       GRAPH_COMMON_NEIGHBORS(<graph>, <vertexExamples1>, <vertexExamples2>, { includeData: true }, { includeData: true })
@@ -4266,15 +4266,15 @@ v2.6.0 (2015-06-20)
   `includePath.vertices == true` and all edges if `includePath.edges == true` respectively.
 
   The default value of `includeData` is `false`, and paths are now excluded by default.
-  This makes the default function results incompatible with previous versions of ArangoDB.
+  This makes the default function results incompatible with previous versions of AvocadoDB.
 
-  To get the old result style in ArangoDB 2.6, please set the options as follows in calls
+  To get the old result style in AvocadoDB 2.6, please set the options as follows in calls
   to `GRAPH_SHORTEST_PATH`:
 
       GRAPH_SHORTEST_PATH(<graph>, <source>, <target>, { includeData: true, includePath: { edges: true, vertices: true } })
 
   The attributes `startVertex` and `vertex` that were present in the results of `GRAPH_SHORTEST_PATH`
-  in previous versions of ArangoDB will not be produced in 2.6. To calculate these attributes in 2.6,
+  in previous versions of AvocadoDB will not be produced in 2.6. To calculate these attributes in 2.6,
   please extract the first and last elements from the `vertices` result attribute.
 
 * INCOMPATIBLE CHANGE:
@@ -4327,10 +4327,10 @@ v2.6.0 (2015-06-20)
 * improve system error messages in Windows port
 
 * increased default value of `--server.request-timeout` from 300 to 1200 seconds for client tools
-  (arangosh, arangoimp, arangodump, arangorestore)
+  (avocadosh, avocadoimp, avocadodump, avocadorestore)
 
 * increased default value of `--server.connect-timeout` from 3 to 5 seconds for client tools
-  (arangosh, arangoimp, arangodump, arangorestore)
+  (avocadosh, avocadoimp, avocadodump, avocadorestore)
 
 * added startup option `--server.foxx-queues-poll-interval`
 
@@ -4361,7 +4361,7 @@ v2.6.0 (2015-06-20)
   avoid name conflicts, e.g.:
 
       var queueName = "myQueue";
-      var Foxx = require("org/arangodb/foxx");
+      var Foxx = require("org/avocadodb/foxx");
       Foxx.queues.create(db._name() + ":" + queueName);
 
 * added support for Foxx queue job types defined as app scripts.
@@ -4404,7 +4404,7 @@ v2.6.0 (2015-06-20)
   the number of live documents in the collection on unload. It is read when the collection is
   (re)loaded to determine the initial size for the collection's primary index
 
-* removed remainders of MRuby integration, removed arangoirb
+* removed remainders of MRuby integration, removed avocadoirb
 
 * simplified `controllers` property in Foxx manifests. You can now specify a filename directly
   if you only want to use a single file mounted at the base URL of your Foxx app.
@@ -4421,7 +4421,7 @@ v2.6.0 (2015-06-20)
   app-specific scripts that can be executed from the web interface or the CLI.
 
 * added `tests` property to Foxx manifests. You can now define test cases using the `mocha`
-  framework which can then be executed inside ArangoDB.
+  framework which can then be executed inside AvocadoDB.
 
 * updated `joi` package to 6.0.8.
 
@@ -4496,16 +4496,16 @@ v2.5.3 (2015-04-29)
 * issue #1315: queries to a collection fail with an empty response if the
   collection contains specific JSON data
 
-* issue #1300: Make arangodump not fail if target directory exists but is empty
+* issue #1300: Make avocadodump not fail if target directory exists but is empty
 
 * allow specifying higher values than SOMAXCONN for `--server.backlog-size`
 
-  Previously, arangod would not start when a `--server.backlog-size` value was
+  Previously, avocadod would not start when a `--server.backlog-size` value was
   specified that was higher than the platform's SOMAXCONN header value.
 
-  Now, arangod will use the user-provided value for `--server.backlog-size` and
+  Now, avocadod will use the user-provided value for `--server.backlog-size` and
   pass it to the listen system call even if the value is higher than SOMAXCONN.
-  If the user-provided value is higher than SOMAXCONN, arangod will log a warning
+  If the user-provided value is higher than SOMAXCONN, avocadod will log a warning
   on startup.
 
 * Fixed a cluster deadlock bug. Mark a thread that is in a RemoteBlock as
@@ -4592,15 +4592,15 @@ v2.5.1 (2015-03-19)
 
 * INCOMPATIBLE CHANGE:
 
-  make the arangod server refuse to start if during startup it finds a non-readable
+  make the avocadod server refuse to start if during startup it finds a non-readable
   `parameter.json` file for a database or a collection.
 
   Stopping the startup process in this case requires manual intervention (fixing
   the unreadable files), but prevents follow-up errors due to ignored databases or
   collections from happening.
 
-* datafiles and `parameter.json` files written by arangod are now created with read and write
-  privileges for the arangod process user, and with read and write privileges for the arangod
+* datafiles and `parameter.json` files written by avocadod are now created with read and write
+  privileges for the avocadod process user, and with read and write privileges for the avocadod
   process group.
 
   Previously, these files were created with user read and write permissions only.
@@ -4614,7 +4614,7 @@ v2.5.1 (2015-03-19)
   never try to raise the privileges after dropping them, this can lead to a race condition while
   running the recovery
 
-  If you require to run ArangoDB on a port lower than 1024, you must run ArangoDB as root.
+  If you require to run AvocadoDB on a port lower than 1024, you must run AvocadoDB as root.
 
 * fixed inefficiencies in `remove` methods of general-graph module
 
@@ -4631,7 +4631,7 @@ v2.5.1 (2015-03-19)
 
 * add the ICU_DATA environment variable to the fatal error messages
 
-* fixed issue #1265: arangod crashed with SIGSEGV
+* fixed issue #1265: avocadod crashed with SIGSEGV
 
 * fixed issue #1241: Wildcards in examples
 
@@ -4655,7 +4655,7 @@ v2.5.0-beta4 (2015-03-05)
 v2.5.0-beta3 (2015-02-27)
 -------------------------
 
-* fix Windows install path calculation in arango
+* fix Windows install path calculation in avocado
 
 * fix Windows logging of long strings
 
@@ -4720,7 +4720,7 @@ v2.5.0-beta2 (2015-02-23)
 
   * Foxx install process
 
-    Installing Foxx apps has been a two step process: import them into ArangoDB and mount them at a
+    Installing Foxx apps has been a two step process: import them into AvocadoDB and mount them at a
     specific mountpoint. These operations have been joined together. You can install an app at one
     mountpoint, that's it. No fetch, mount, unmount, purge cycle anymore. The commands have been
     simplified to just:
@@ -4751,7 +4751,7 @@ v2.5.0-beta2 (2015-02-23)
   the familiar Console API in their global scope, which can be used to log diagnostic
   messages to the database.
 
-* added `org/arangodb/request` module, which provides a simple API for making HTTP requests
+* added `org/avocadodb/request` module, which provides a simple API for making HTTP requests
   to external services.
 
 * added optimizer rule `propagate-constant-attributes`
@@ -4911,9 +4911,9 @@ v2.5.0-beta2 (2015-02-23)
 
   No selectivity estimates will be provided when running in cluster mode.
 
-* fixed issue #1226: arangod log issues
+* fixed issue #1226: avocadod log issues
 
-* added additional logger if arangod is started in foreground mode on a tty
+* added additional logger if avocadod is started in foreground mode on a tty
 
 * added AQL optimizer rule "move-calculations-down"
 
@@ -4940,7 +4940,7 @@ v2.5.0-beta2 (2015-02-23)
 
 * Windows (debug only): print stacktraces on crash and run minidump
 
-* Windows (cygwin): if you run arangosh in a cygwin shell or via ssh we will detect this and use
+* Windows (cygwin): if you run avocadosh in a cygwin shell or via ssh we will detect this and use
   the appropriate output functions.
 
 * Windows: improve process management
@@ -4995,15 +4995,15 @@ v2.4.6 (2015-03-18)
 
 * INCOMPATIBLE CHANGE:
 
-  make the arangod server refuse to start if during startup it finds a non-readable
+  make the avocadod server refuse to start if during startup it finds a non-readable
   `parameter.json` file for a database or a collection.
 
   Stopping the startup process in this case requires manual intervention (fixing
   the unreadable files), but prevents follow-up errors due to ignored databases or
   collections from happening.
 
-* datafiles and `parameter.json` files written by arangod are now created with read and write
-  privileges for the arangod process user, and with read and write privileges for the arangod
+* datafiles and `parameter.json` files written by avocadod are now created with read and write
+  privileges for the avocadod process user, and with read and write privileges for the avocadod
   process group.
 
   Previously, these files were created with user read and write permissions only.
@@ -5017,7 +5017,7 @@ v2.4.6 (2015-03-18)
   never try to raise the privileges after dropping them, this can lead to a race condition while
   running the recovery
 
-  If you require to run ArangoDB on a port lower than 1024, you must run ArangoDB as root.
+  If you require to run AvocadoDB on a port lower than 1024, you must run AvocadoDB as root.
 
 * fixed inefficiencies in `remove` methods of general-graph module
 
@@ -5047,13 +5047,13 @@ v2.4.5 (2015-03-16)
 
   The following JavaScript APIs have been added:
 
-  - require("org/arangodb/aql/queries").current();
-  - require("org/arangodb/aql/queries").slow();
-  - require("org/arangodb/aql/queries").clearSlow();
-  - require("org/arangodb/aql/queries").properties();
-  - require("org/arangodb/aql/queries").kill();
+  - require("org/avocadodb/aql/queries").current();
+  - require("org/avocadodb/aql/queries").slow();
+  - require("org/avocadodb/aql/queries").clearSlow();
+  - require("org/avocadodb/aql/queries").properties();
+  - require("org/avocadodb/aql/queries").kill();
 
-* fixed issue #1265: arangod crashed with SIGSEGV
+* fixed issue #1265: avocadod crashed with SIGSEGV
 
 * fixed issue #1241: Wildcards in examples
 
@@ -5096,9 +5096,9 @@ v2.4.2 (2015-01-30)
 * added AQL explain helper to explain arbitrary AQL queries
 
   The helper function prints the query execution plan and the indexes to be used in the
-  query. It can be invoked from the ArangoShell or the web interface as follows:
+  query. It can be invoked from the AvocadoShell or the web interface as follows:
 
-      require("org/arangodb/aql/explainer").explain(query);
+      require("org/avocadodb/aql/explainer").explain(query);
 
 * enable use of indexes for certain AQL conditions with non-equality predicates, in
   case the condition(s) also refer to indexed attributes
@@ -5132,7 +5132,7 @@ v2.4.2 (2015-01-30)
   In Production the route will return a status 500 with a body {error: "Error statement"}.
   In Development the route will return a status 500 with a body {error: "Error statement", stack: "..."}
 
-  Before, it was status 500 with a plain text stack including ArangoDB internal routing information.
+  Before, it was status 500 with a plain text stack including AvocadoDB internal routing information.
 
 * The Applications tab in web interface will now request development apps more often.
   So if you have a fixed a syntax error in your app it should always be visible after reload.
@@ -5145,7 +5145,7 @@ v2.4.1 (2015-01-19)
 
 * fixed certain OR optimizations in AQL optimizer
 
-* better diagnostics for arangoimp
+* better diagnostics for avocadoimp
 
 * fixed invalid result of HTTP REST API method `/_admin/foxx/rescan`
 
@@ -5199,11 +5199,11 @@ v2.4.0-beta1 (2014-12-26)
 
   The built-in version of V8 has been upgraded from 3.16.14 to 3.29.59.
   This activates several ES6 (also dubbed *Harmony* or *ES.next*) features in
-  ArangoDB, both in the ArangoShell and the ArangoDB server. They can be
+  AvocadoDB, both in the AvocadoShell and the AvocadoDB server. They can be
   used for scripting and in server-side actions such as Foxx routes, traversals
   etc.
 
-  The following ES6 features are available in ArangoDB 2.4 by default:
+  The following ES6 features are available in AvocadoDB 2.4 by default:
 
   * iterators
   * the `of` operator
@@ -5212,7 +5212,7 @@ v2.4.0-beta1 (2014-12-26)
   * typed arrays
 
   Many other ES6 features are disabled by default, but can be made available by
-  starting arangod or arangosh with the appropriate options:
+  starting avocadod or avocadosh with the appropriate options:
 
   * arrow functions
   * proxies
@@ -5221,22 +5221,22 @@ v2.4.0-beta1 (2014-12-26)
   * constants
   * enhanced object and numeric literals
 
-  To activate all these ES6 features in arangod or arangosh, start it with
+  To activate all these ES6 features in avocadod or avocadosh, start it with
   the following options:
 
-      arangosh --javascript.v8-options="--harmony --harmony_generators"
+      avocadosh --javascript.v8-options="--harmony --harmony_generators"
 
   More details on the available ES6 features can be found in
-  [this blog](https://jsteemann.github.io/blog/2014/12/19/using-es6-features-in-arangodb/).
+  [this blog](https://jsteemann.github.io/blog/2014/12/19/using-es6-features-in-avocadodb/).
 
 * Added Foxx generator for building Hypermedia APIs
 
-  A more detailed description is [here](https://www.arangodb.com/2014/12/08/building-hypermedia-apis-foxxgenerator)
+  A more detailed description is [here](https://www.avocadodb.com/2014/12/08/building-hypermedia-apis-foxxgenerator)
 
 * New `Applications` tab in web interface:
 
   The `applications` tab got a complete redesign.
-  It will now only show applications that are currently running on ArangoDB.
+  It will now only show applications that are currently running on AvocadoDB.
   For a selected application, a new detailed view has been created.
   This view provides a better overview of the app:
   * author
@@ -5250,7 +5250,7 @@ v2.4.0-beta1 (2014-12-26)
   It provides the features already available in the console application `foxx-manager` plus some more:
   * install an application from Github
   * install an application from a zip file
-  * install an application from ArangoDB's application store
+  * install an application from AvocadoDB's application store
   * create a new application from scratch: this feature uses a generator to
     create a Foxx application with pre-defined CRUD methods for a given list
     of collections. The generated Foxx app can either be downloaded as a zip file or
@@ -5342,11 +5342,11 @@ v2.4.0-beta1 (2014-12-26)
 
 * fixed issue #1134: Change the default endpoint to localhost
 
-  This change will modify the IP address ArangoDB listens on to 127.0.0.1 by default.
-  This will make new ArangoDB installations unaccessible from clients other than
+  This change will modify the IP address AvocadoDB listens on to 127.0.0.1 by default.
+  This will make new AvocadoDB installations unaccessible from clients other than
   localhost unless changed. This is a security feature.
 
-  To make ArangoDB accessible from any client, change the server's configuration
+  To make AvocadoDB accessible from any client, change the server's configuration
   (`--server.endpoint`) to either `tcp://0.0.0.0:8529` or the server's publicly
   visible IP address.
 
@@ -5418,7 +5418,7 @@ v2.3.5 (2015-01-16)
 v2.3.4 (2014-12-23)
 -------------------
 
-* fixed cerberus path for MyArangoDB
+* fixed cerberus path for MyAvocadoDB
 
 
 v2.3.3 (2014-12-17)
@@ -5517,7 +5517,7 @@ v2.3.0 (2014-11-18)
 
 * fixed syslog flags. `--log.syslog` is deprecated and setting it has no effect,
   `--log.facility` now works as described. Application name has been changed from
-  `triagens` to `arangod`. It can be changed using `--log.application`. The syslog
+  `triagens` to `avocadod`. It can be changed using `--log.application`. The syslog
   will only contain the actual log message. The datetime prefix is omitted.
 
 * fixed deflate in SimpleHttpClient
@@ -5578,7 +5578,7 @@ v2.3.0-beta2 (2014-11-08)
 
 * front-end: added collection truncation feature
 
-* fixed issue #1086: arangoimp: Odd errors if arguments are not given properly
+* fixed issue #1086: avocadoimp: Odd errors if arguments are not given properly
 
 * performance improvements for AQL queries that use JavaScript-based expressions
   internally
@@ -5626,7 +5626,7 @@ v2.3.0-beta1 (2014-11-01)
   - `||`: logical or
   - `!`: negation
 
-  ArangoDB 2.3 introduces the alternative variants for these operators:
+  AvocadoDB 2.3 introduces the alternative variants for these operators:
   - `AND`: logical and
   - `OR`: logical or
   - `NOT`: negation
@@ -5634,20 +5634,20 @@ v2.3.0-beta1 (2014-11-01)
   The new syntax is just an alternative to the old syntax, allowing easier
   migration from SQL. The old syntax is still fully supported and will be.
 
-* improved output of `ArangoStatement.parse()` and POST `/_api/query`
+* improved output of `AvocadoStatement.parse()` and POST `/_api/query`
 
   If an AQL query can be parsed without problems, The return value of
-  `ArangoStatement.parse()` now contains an attribute `ast` with the abstract
+  `AvocadoStatement.parse()` now contains an attribute `ast` with the abstract
   syntax tree of the query (before optimizations). Though this is an internal
   representation of the query and is subject to change, it can be used to inspect
-  how ArangoDB interprets a given query.
+  how AvocadoDB interprets a given query.
 
-* improved `ArangoStatement.explain()` and POST `/_api/explain`
+* improved `AvocadoStatement.explain()` and POST `/_api/explain`
 
   The commands for explaining AQL queries have been improved.
 
 * added command-line option `--javascript.v8-contexts` to control the number of
-  V8 contexts created in arangod.
+  V8 contexts created in avocadod.
 
   Previously, the number of V8 contexts was equal to the number of server threads
   (as specified by option `--server.threads`).
@@ -5670,17 +5670,17 @@ v2.3.0-beta1 (2014-11-01)
 * removed index type "bitarray"
 
   Bitarray indexes were only half-way documented and integrated in previous versions
-  of ArangoDB so their benefit was limited. The support for bitarray indexes has
-  thus been removed in ArangoDB 2.3. It is not possible to create indexes of type
-  "bitarray" with ArangoDB 2.3.
+  of AvocadoDB so their benefit was limited. The support for bitarray indexes has
+  thus been removed in AvocadoDB 2.3. It is not possible to create indexes of type
+  "bitarray" with AvocadoDB 2.3.
 
   When a collection is opened that contains a bitarray index definition created
-  with a previous version of ArangoDB, ArangoDB will ignore it and log the following
+  with a previous version of AvocadoDB, AvocadoDB will ignore it and log the following
   warning:
 
-      index type 'bitarray' is not supported in this version of ArangoDB and is ignored
+      index type 'bitarray' is not supported in this version of AvocadoDB and is ignored
 
-  Future versions of ArangoDB may automatically remove such index definitions so the
+  Future versions of AvocadoDB may automatically remove such index definitions so the
   warnings will eventually disappear.
 
 * removed internal "_admin/modules/flush" in order to fix requireApp
@@ -5731,14 +5731,14 @@ v2.3.0-beta1 (2014-11-01)
   used as the value for the `--server.disable-authentication` options
   (which requires a boolean value):
 
-      arangod --server.disable-authentication --server.endpoint tcp://127.0.0.1:8529 data
+      avocadod --server.disable-authentication --server.endpoint tcp://127.0.0.1:8529 data
 
   In 2.3, running this command will fail with an error and requires to
   be modified to:
 
-      arangod --server.disable-authentication true --server.endpoint tcp://127.0.0.1:8529 data
+      avocadod --server.disable-authentication true --server.endpoint tcp://127.0.0.1:8529 data
 
-* improved performance of CSV import in arangoimp
+* improved performance of CSV import in avocadoimp
 
 * fixed issue #1027: Stack traces are off-by-one
 
@@ -5750,7 +5750,7 @@ v2.3.0-beta1 (2014-11-01)
 * added a _relation function in the general-graph module.
 
   This deprecated _directedRelation and _undirectedRelation.
-  ArangoDB does not offer any constraints for undirected edges
+  AvocadoDB does not offer any constraints for undirected edges
   which caused some confusion of users how undirected relations
   have to be handled. Relation now only supports directed relations
   and the user can actively simulate undirected relations.
@@ -5767,9 +5767,9 @@ v2.3.0-beta1 (2014-11-01)
 
 * prevent XSS in AQL editor and logs view
 
-* integrated tutorial into ArangoShell and web interface
+* integrated tutorial into AvocadoShell and web interface
 
-* added option `--backslash-escape` for arangoimp when running CSV file imports
+* added option `--backslash-escape` for avocadoimp when running CSV file imports
 
 * front-end: added download feature for (filtered) documents
 
@@ -5905,7 +5905,7 @@ v2.2.4 (2014-10-01)
   These internal attributes were not handled properly in the mentioned functions, so
   searching for them did not always produce documents
 
-* fixed issue #1030: arangoimp 2.2.3 crashing, not logging on large Windows CSV file
+* fixed issue #1030: avocadoimp 2.2.3 crashing, not logging on large Windows CSV file
 
 * fixed issue #1025: Traversal not as expected in undirected graph
 
@@ -5949,7 +5949,7 @@ v2.2.4 (2014-10-01)
   but will modify the JavaScript object (which can be written back to the database using
   `db.collection.update` or `db.collection.replace`)
 
-* fixed issue #997: arangoimp apparently doesn't support files >2gig on Windows
+* fixed issue #997: avocadoimp apparently doesn't support files >2gig on Windows
 
   large file support (requires using `_stat64` instead of `stat`) is now supported on
   Windows
@@ -5989,7 +5989,7 @@ v2.2.3 (2014-09-02)
       ]
 
 
-* properly capitalize HTTP response header field names in case the `x-arango-async`
+* properly capitalize HTTP response header field names in case the `x-avocado-async`
   HTTP header was used in a request.
 
 * fixed several documentation issues
@@ -6003,7 +6003,7 @@ v2.2.2 (2014-08-08)
 
 * allow storing non-reserved attribute names starting with an underscore
 
-  Previous versions of ArangoDB parsed away all attribute names that started with an
+  Previous versions of AvocadoDB parsed away all attribute names that started with an
   underscore (e.g. `_test', '_foo', `_bar`) on all levels of a document (root level
   and sub-attribute levels). While this behavior was documented, it was unintuitive and
   prevented storing documents inside other documents, e.g.:
@@ -6025,7 +6025,7 @@ v2.2.2 (2014-08-08)
         ]
       }
 
-  In the above example, previous versions of ArangoDB removed all attributes and
+  In the above example, previous versions of AvocadoDB removed all attributes and
   sub-attributes that started with underscores, meaning the embedded documents would lose
   some of their attributes. 2.2.2 should preserve such attributes, and will also allow
   storing user-defined attribute names on the top-level even if they start with underscores
@@ -6036,7 +6036,7 @@ v2.2.2 (2014-08-08)
   Objects created in JavaScript using `new Number(...)`, `new String(...)`, or
   `new Boolean(...)` were not converted to JSON correctly.
 
-* fixed a race condition on task registration (i.e. `require("org/arangodb/tasks").register()`)
+* fixed a race condition on task registration (i.e. `require("org/avocadodb/tasks").register()`)
 
   this race condition led to undefined behavior when a just-created task with no offset and
   no period was instantly executed and deleted by the task scheduler, before the `register`
@@ -6065,7 +6065,7 @@ v2.2.1 (2014-07-24)
 
   Setting this option to `true` will reduce memory and disk space usage and require
   less CPU time when modifying documents or edges. It should therefore be turned on
-  for standalone ArangoDB servers. However, for servers that are used as replication
+  for standalone AvocadoDB servers. However, for servers that are used as replication
   masters, setting this option to `true` will effectively disable the usage of the
   write-ahead log for replication, so it should be set to `false` for any replication
   master servers.
@@ -6084,7 +6084,7 @@ v2.2.1 (2014-07-24)
   The problem was that in Google's V8, signed and unsigned chars are not always declared cleanly.
   so we need to force v8 to compile with forced signed chars which is done by the Flag:
     -fsigned-char
-  at least it is enough to follow the instructions of compiling arango on rasperry
+  at least it is enough to follow the instructions of compiling avocado on rasperry
   and add "CFLAGS='-fsigned-char'" to the make command of V8 and remove the armv7=0
 
 * Fixed a bug with the replication client. In the case of single document
@@ -6095,9 +6095,9 @@ v2.2.0 (2014-07-10)
 -------------------
 
 * The replication methods `logger.start`, `logger.stop` and `logger.properties` are
-  no-ops in ArangoDB 2.2 as there is no separate replication logger anymore. Data changes
-  are logged into the write-ahead log in ArangoDB 2.2, and not separately by the
-  replication logger. The replication logger object is still there in ArangoDB 2.2 to
+  no-ops in AvocadoDB 2.2 as there is no separate replication logger anymore. Data changes
+  are logged into the write-ahead log in AvocadoDB 2.2, and not separately by the
+  replication logger. The replication logger object is still there in AvocadoDB 2.2 to
   ensure backwards-compatibility, however, logging cannot be started, stopped or
   configured anymore. Using any of these methods will do nothing.
 
@@ -6108,7 +6108,7 @@ v2.2.0 (2014-07-10)
   - `PUT /_api/replication/logger-config`
 
   Using any of these methods is discouraged from now on as they will be removed in
-  future versions of ArangoDB.
+  future versions of AvocadoDB.
 
 * INCOMPATIBLE CHANGE: replication of transactions has changed. Previously, transactions
   were logged on a master in one big block and shipped to a slave in one block, too.
@@ -6120,20 +6120,20 @@ v2.2.0 (2014-07-10)
   restarted using the `start` method, any transactions that were unfinished at the
   point of stopping will be aborted on a slave, even if they later commit on the master.
 
-  In ArangoDB 2.2, stopping the replication applier manually should be avoided unless the
+  In AvocadoDB 2.2, stopping the replication applier manually should be avoided unless the
   goal is to stop replication permanently or to do a full resync with the master anyway.
   If the replication applier still must be stopped, it should be made sure that the
   slave has fetched and applied all pending operations from a master, and that no
   extra transactions are started on the master before the `stop` command on the slave
   is executed.
 
-  Replication of transactions in ArangoDB 2.2 might also lock the involved collections on
+  Replication of transactions in AvocadoDB 2.2 might also lock the involved collections on
   the slave while a transaction is either committed or aborted on the master and the
   change has been replicated to the slave. This change in behavior may be important for
   slave servers that are used for read-scaling. In order to avoid long lasting collection
   locks on the slave, transactions should be kept small.
 
-  The `_replication` system collection is not used anymore in ArangoDB 2.2 and its usage is
+  The `_replication` system collection is not used anymore in AvocadoDB 2.2 and its usage is
   discouraged.
 
 * INCOMPATIBLE CHANGE: the figures reported by the `collection.figures` method
@@ -6159,11 +6159,11 @@ v2.2.0 (2014-07-10)
   support data-modification AQL queries.
 
   Unquoted usage of these keywords for attribute names in AQL queries will likely
-  fail in ArangoDB 2.2. If any such attribute name needs to be used in a query, it
+  fail in AvocadoDB 2.2. If any such attribute name needs to be used in a query, it
   should be enclosed in backticks to indicate the usage of a literal attribute
   name.
 
-  For example, the following query will fail in ArangoDB 2.2 with a parse error:
+  For example, the following query will fail in AvocadoDB 2.2 with a parse error:
 
       FOR i IN foo RETURN i.remove
 
@@ -6191,9 +6191,9 @@ v2.2.0 (2014-07-10)
       db.test.save({ foo: String(new Date()) });
 
 * The replication methods `logger.start`, `logger.stop` and `logger.properties` are
-  no-ops in ArangoDB 2.2 as there is no separate replication logger anymore. Data changes
-  are logged into the write-ahead log in ArangoDB 2.2, and not separately by the
-  replication logger. The replication logger object is still there in ArangoDB 2.2 to
+  no-ops in AvocadoDB 2.2 as there is no separate replication logger anymore. Data changes
+  are logged into the write-ahead log in AvocadoDB 2.2, and not separately by the
+  replication logger. The replication logger object is still there in AvocadoDB 2.2 to
   ensure backwards-compatibility, however, logging cannot be started, stopped or
   configured anymore. Using any of these methods will do nothing.
 
@@ -6204,7 +6204,7 @@ v2.2.0 (2014-07-10)
   - `PUT /_api/replication/logger-config`
 
   Using any of these methods is discouraged from now on as they will be removed in
-  future versions of ArangoDB.
+  future versions of AvocadoDB.
 
 * INCOMPATIBLE CHANGE: replication of transactions has changed. Previously, transactions
   were logged on a master in one big block and shipped to a slave in one block, too.
@@ -6216,20 +6216,20 @@ v2.2.0 (2014-07-10)
   restarted using the `start` method, any transactions that were unfinished at the
   point of stopping will be aborted on a slave, even if they later commit on the master.
 
-  In ArangoDB 2.2, stopping the replication applier manually should be avoided unless the
+  In AvocadoDB 2.2, stopping the replication applier manually should be avoided unless the
   goal is to stop replication permanently or to do a full resync with the master anyway.
   If the replication applier still must be stopped, it should be made sure that the
   slave has fetched and applied all pending operations from a master, and that no
   extra transactions are started on the master before the `stop` command on the slave
   is executed.
 
-  Replication of transactions in ArangoDB 2.2 might also lock the involved collections on
+  Replication of transactions in AvocadoDB 2.2 might also lock the involved collections on
   the slave while a transaction is either committed or aborted on the master and the
   change has been replicated to the slave. This change in behavior may be important for
   slave servers that are used for read-scaling. In order to avoid long lasting collection
   locks on the slave, transactions should be kept small.
 
-  The `_replication` system collection is not used anymore in ArangoDB 2.2 and its usage is
+  The `_replication` system collection is not used anymore in AvocadoDB 2.2 and its usage is
   discouraged.
 
 * INCOMPATIBLE CHANGE: the figures reported by the `collection.figures` method
@@ -6255,11 +6255,11 @@ v2.2.0 (2014-07-10)
   support data-modification AQL queries.
 
   Unquoted usage of these keywords for attribute names in AQL queries will likely
-  fail in ArangoDB 2.2. If any such attribute name needs to be used in a query, it
+  fail in AvocadoDB 2.2. If any such attribute name needs to be used in a query, it
   should be enclosed in backticks to indicate the usage of a literal attribute
   name.
 
-  For example, the following query will fail in ArangoDB 2.2 with a parse error:
+  For example, the following query will fail in AvocadoDB 2.2 with a parse error:
 
       FOR i IN foo RETURN i.remove
 
@@ -6294,7 +6294,7 @@ v2.2.0 (2014-07-10)
 
 * removed startup option `--random.no-seed`
 
-  This option had no effect in previous versions of ArangoDB and was thus removed.
+  This option had no effect in previous versions of AvocadoDB and was thus removed.
 
 * removed startup option `--database.remove-on-drop`
 
@@ -6307,7 +6307,7 @@ v2.2.0 (2014-07-10)
 
 * introduced write-ahead log
 
-  All write operations in an ArangoDB server instance are automatically logged
+  All write operations in an AvocadoDB server instance are automatically logged
   to the server's write-ahead log. The write-ahead log is a set of append-only
   logfiles, and it is used in case of a crash recovery and for replication.
   Data from the write-ahead log will eventually be moved into the journals or
@@ -6315,47 +6315,47 @@ v2.2.0 (2014-07-10)
   logfiles. Figures of collections will be updated when data are moved from the
   write-ahead log into the journals or datafiles of collections.
 
-  Cross-collection transactions in ArangoDB should benefit considerably by this
+  Cross-collection transactions in AvocadoDB should benefit considerably by this
   change, as less writes than in previous versions are required to ensure the data
   of multiple collections are atomically and durably committed. All data-modifying
   operations inside transactions (insert, update, remove) will write their
   operations into the write-ahead log directly, making transactions with multiple
-  operations also require less physical memory than in previous versions of ArangoDB,
+  operations also require less physical memory than in previous versions of AvocadoDB,
   that required all transaction data to fit into RAM.
 
-  The `_trx` system collection is not used anymore in ArangoDB 2.2 and its usage is
+  The `_trx` system collection is not used anymore in AvocadoDB 2.2 and its usage is
   discouraged.
 
   The data in the write-ahead log can also be used in the replication context.
-  The `_replication` collection that was used in previous versions of ArangoDB to
-  store all changes on the server is not used anymore in ArangoDB 2.2. Instead,
+  The `_replication` collection that was used in previous versions of AvocadoDB to
+  store all changes on the server is not used anymore in AvocadoDB 2.2. Instead,
   slaves can read from a master's write-ahead log to get informed about most
   recent changes. This removes the need to store data-modifying operations in
   both the actual place and the `_replication` collection.
 
 * removed startup option `--server.disable-replication-logger`
 
-  This option is superfluous in ArangoDB 2.2. There is no dedicated replication
-  logger in ArangoDB 2.2. There is now always the write-ahead log, and it is also
+  This option is superfluous in AvocadoDB 2.2. There is no dedicated replication
+  logger in AvocadoDB 2.2. There is now always the write-ahead log, and it is also
   used as the server's replication log. Specifying the startup option
-  `--server.disable-replication-logger` will do nothing in ArangoDB 2.2, but the
+  `--server.disable-replication-logger` will do nothing in AvocadoDB 2.2, but the
   option should not be used anymore as it might be removed in a future version.
 
 * changed behavior of replication logger
 
-  There is no dedicated replication logger in ArangoDB 2.2 as there is the
+  There is no dedicated replication logger in AvocadoDB 2.2 as there is the
   write-ahead log now. The existing APIs for starting and stopping the replication
-  logger still exist in ArangoDB 2.2 for downwards-compatibility, but calling
-  the start or stop operations are no-ops in ArangoDB 2.2. When querying the
+  logger still exist in AvocadoDB 2.2 for downwards-compatibility, but calling
+  the start or stop operations are no-ops in AvocadoDB 2.2. When querying the
   replication logger status via the API, the server will always report that the
   replication logger is running. Configuring the replication logger is a no-op
-  in ArangoDB 2.2, too. Changing the replication logger configuration has no
+  in AvocadoDB 2.2, too. Changing the replication logger configuration has no
   effect. Instead, the write-ahead log configuration can be changed.
 
-* removed MRuby integration for arangod
+* removed MRuby integration for avocadod
 
-  ArangoDB had an experimental MRuby integration in some of the publish builds.
-  This wasn't continuously developed, and so it has been removed in ArangoDB 2.2.
+  AvocadoDB had an experimental MRuby integration in some of the publish builds.
+  This wasn't continuously developed, and so it has been removed in AvocadoDB 2.2.
 
   This change has led to the following startup options being superfluous:
 
@@ -6364,7 +6364,7 @@ v2.2.0 (2014-07-10)
   - `--ruby.modules-path`
   - `--ruby.startup-directory`
 
-  Specifying these startup options will do nothing in ArangoDB 2.2, but the
+  Specifying these startup options will do nothing in AvocadoDB 2.2, but the
   options should be avoided from now on as they might be removed in future versions.
 
 * reclaim index memory when last document in collection is deleted
@@ -6393,12 +6393,12 @@ v2.2.0 (2014-07-10)
 
 * added mountedApp function for foxx-manager
 
-* fixed issue #883: arango 2.1 - when starting multi-machine cluster, UI web
+* fixed issue #883: avocado 2.1 - when starting multi-machine cluster, UI web
   does not change to cluster overview
 
 * fixed dfdb: should not start any other V8 threads
 
-* cleanup of version-check, added module org/arangodb/database-version,
+* cleanup of version-check, added module org/avocadodb/database-version,
   added --check-version option
 
 * fixed issue #881: [2.1.0] Bombarded (every 10 sec or so) with
@@ -6407,12 +6407,12 @@ v2.2.0 (2014-07-10)
 * specialized primary index implementation to allow faster hash table
   rebuilding and reduce lookups in datafiles for the actual value of `_key`.
 
-* issue #862: added `--overwrite` option to arangoimp
+* issue #862: added `--overwrite` option to avocadoimp
 
 * removed number of property lookups for documents during AQL queries that
   access documents
 
-* prevent buffering of long print results in arangosh's and arangod's print
+* prevent buffering of long print results in avocadosh's and avocadod's print
   command
 
   this change will emit buffered intermediate print results and discard the
@@ -6427,13 +6427,13 @@ v2.2.0 (2014-07-10)
   was removed. Collections with many different attribute names should
   benefit from this change by faster inserts and slightly less memory usage.
 
-* fixed a bug in arangodump which got the collection name in _from and _to
+* fixed a bug in avocadodump which got the collection name in _from and _to
   attributes of edges wrong (all were "_unknown")
 
-* fixed a bug in arangorestore which did not recognize wrong _from and _to
+* fixed a bug in avocadorestore which did not recognize wrong _from and _to
   attributes of edges
 
-* improved error detection and reporting in arangorestore
+* improved error detection and reporting in avocadorestore
 
 
 v2.1.1 (2014-06-06)
@@ -6484,10 +6484,10 @@ v2.1.0-rc1 (XXXX-XX-XX)
 
 * added server-side periodic task management functions:
 
-  - require("org/arangodb/tasks").register(): registers a periodic task
-  - require("org/arangodb/tasks").unregister(): unregisters and removes a
+  - require("org/avocadodb/tasks").register(): registers a periodic task
+  - require("org/avocadodb/tasks").unregister(): unregisters and removes a
     periodic task
-  - require("org/arangodb/tasks").get(): retrieves a specific tasks or all
+  - require("org/avocadodb/tasks").get(): retrieves a specific tasks or all
     existing tasks
 
   the previous undocumented function `internal.definePeriodic` is now
@@ -6531,17 +6531,17 @@ v2.1.0-rc1 (XXXX-XX-XX)
 
 * require C++ compiler support (requires g++ 4.8, clang++ 3.4 or Visual Studio 13)
 
-* less string copying returning JSONified documents from ArangoDB, e.g. via
+* less string copying returning JSONified documents from AvocadoDB, e.g. via
   HTTP GET `/_api/document/<collection>/<document>`
 
-* issue #798: Lower case http headers from arango
+* issue #798: Lower case http headers from avocado
 
   This change allows returning capitalized HTTP headers, e.g.
   `Content-Length` instead of `content-length`.
   The HTTP spec says that headers are case-insensitive, but
   in fact several clients rely on a specific case in response
   headers.
-  This change will capitalize HTTP headers if the `X-Arango-Version`
+  This change will capitalize HTTP headers if the `X-Avocado-Version`
   request header is sent by the client and contains a value of at
   least `20100` (for version 2.1). The default value for the
   compatibility can also be set at server start, using the
@@ -6558,12 +6558,12 @@ v2.1.0-rc1 (XXXX-XX-XX)
   object as its parameter. From now on, it's possible to call the function with
   just the query string.
 
-* make ArangoDB not send back a `WWW-Authenticate` header to a client in case the
+* make AvocadoDB not send back a `WWW-Authenticate` header to a client in case the
   client sends the `X-Omit-WWW-Authenticate` HTTP header.
 
   This is done to prevent browsers from showing their built-in HTTP authentication
   dialog for AJAX requests that require authentication.
-  ArangoDB will still return an HTTP 401 (Unauthorized) if the request doesn't
+  AvocadoDB will still return an HTTP 401 (Unauthorized) if the request doesn't
   contain valid credentials, but it will omit the `WWW-Authenticate` header,
   allowing clients to bypass the browser's authentication dialog.
 
@@ -6593,11 +6593,11 @@ v2.1.0-rc1 (XXXX-XX-XX)
 * don't requeue identical context methods in V8 threads in case a method is
   already registered
 
-* removed arangod command line option `--database.remove-on-compacted`
+* removed avocadod command line option `--database.remove-on-compacted`
 
 * export the sort attribute for graph traversals to the HTTP interface
 
-* add support for arangodump/arangorestore for clusters
+* add support for avocadodump/avocadorestore for clusters
 
 
 v2.0.8 (XXXX-XX-XX)
@@ -6644,7 +6644,7 @@ v2.0.7 (2014-05-05)
 v2.0.6 (2014-04-22)
 -------------------
 
-* fixed issue #835: arangosh doesn't show correct database name
+* fixed issue #835: avocadosh doesn't show correct database name
 
 
 
@@ -6695,16 +6695,16 @@ v2.0.2 (2014-04-06)
 v2.0.1 (2014-03-31)
 -------------------
 
-* make ArangoDB not send back a `WWW-Authenticate` header to a client in case the
+* make AvocadoDB not send back a `WWW-Authenticate` header to a client in case the
   client sends the `X-Omit-WWW-Authenticate` HTTP header.
 
   This is done to prevent browsers from showing their built-in HTTP authentication
   dialog for AJAX requests that require authentication.
-  ArangoDB will still return an HTTP 401 (Unauthorized) if the request doesn't
+  AvocadoDB will still return an HTTP 401 (Unauthorized) if the request doesn't
   contain valid credentials, but it will omit the `WWW-Authenticate` header,
   allowing clients to bypass the browser's authentication dialog.
 
-* fixed isses in arango-dfdb:
+* fixed isses in avocado-dfdb:
 
   the dfdb was not able to unload certain system collections, so these couldn't be
   inspected with the dfdb sometimes. Additionally, it did not truncate corrupt
@@ -6729,12 +6729,12 @@ v2.0.1 (2014-03-31)
 
 * fixed issue #781: Cant save current query from AQL editor ui
 
-* bumped version in `X-Arango-Version` compatibility header sent by arangosh and other
+* bumped version in `X-Avocado-Version` compatibility header sent by avocadosh and other
   client tools from `1.5` to `2.0`.
 
-* fixed startup options for arango-dfdb, added details option for arango-dfdb
+* fixed startup options for avocado-dfdb, added details option for avocado-dfdb
 
-* fixed display of missing error messages and codes in arangosh
+* fixed display of missing error messages and codes in avocadosh
 
 * when creating a collection via the web interface, the collection type was always
   "document", regardless of the user's choice
@@ -6817,7 +6817,7 @@ v2.0.0-rc1 (2014-02-28)
 
 * made module loader more node compatible
 
-* the startup option `--javascript.package-path` for arangosh is now deprecated and does
+* the startup option `--javascript.package-path` for avocadosh is now deprecated and does
   nothing. Using it will not cause an error, but the option is ignored.
 
 * added coffee script support
@@ -6839,7 +6839,7 @@ v2.0.0-rc1 (2014-02-28)
       })
 
       // using the following custom filter functions
-      var aqlfunctions = require("org/arangodb/aql/functions");
+      var aqlfunctions = require("org/avocadodb/aql/functions");
       aqlfunctions.register("myfunctions::checkedge", function (config, vertex, edge, path) {
         return (edge.type !== 'dislikes'); // don't follow these edges
       }, false);
@@ -6859,17 +6859,17 @@ v2.0.0-rc1 (2014-02-28)
 * issue #751: Create database through API should return HTTP status code 201
 
   By default, the server now returns HTTP 201 (created) when creating a new
-  database successfully. To keep compatibility with older ArangoDB versions, the
+  database successfully. To keep compatibility with older AvocadoDB versions, the
   startup parameter `--server.default-api-compatibility` can be set to a value
-  of `10400` to indicate API compatibility with ArangoDB 1.4. The compatibility
-  can also be enforced by setting the `X-Arango-Version` HTTP header in a
+  of `10400` to indicate API compatibility with AvocadoDB 1.4. The compatibility
+  can also be enforced by setting the `X-Avocado-Version` HTTP header in a
   client request to this API on a per-request basis.
 
 * allow direct access from the `db` object to collections whose names start
   with an underscore (e.g. db._users).
 
   Previously, access to such collections via the `db` object was possible from
-  arangosh, but not from arangod (and thus Foxx and actions). The only way
+  avocadosh, but not from avocadod (and thus Foxx and actions). The only way
   to access such collections from these places was via the `db._collection(<name>)`
   workaround.
 
@@ -6884,38 +6884,38 @@ v2.0.0-rc1 (2014-02-28)
 
 * added "static" Graph.drop() method for graphs API
 
-* fixed issue #695: arangosh server.password error
+* fixed issue #695: avocadosh server.password error
 
 * use pretty-printing in `--console` mode by default
 
-* simplified ArangoDB startup options
+* simplified AvocadoDB startup options
 
   Some startup options are now superfluous or their usage is simplified. The
   following options have been changed:
 
   * `--javascript.modules-path`: this option has been removed. The modules paths
-    are determined by arangod and arangosh automatically based on the value of
+    are determined by avocadod and avocadosh automatically based on the value of
     `--javascript.startup-directory`.
 
     If the option is set on startup, it is ignored so startup will not abort with
     an error `unrecognized option`.
 
   * `--javascript.action-directory`: this option has been removed. The actions
-    directory is determined by arangod automatically based on the value of
+    directory is determined by avocadod automatically based on the value of
     `--javascript.startup-directory`.
 
     If the option is set on startup, it is ignored so startup will not abort with
     an error `unrecognized option`.
 
   * `--javascript.package-path`: this option is still available but it is not
-    required anymore to set the standard package paths (e.g. `js/npm`). arangod
+    required anymore to set the standard package paths (e.g. `js/npm`). avocadod
     will automatically use this standard package path regardless of whether it
     was specified via the options.
 
     It is possible to use this option to add additional package paths to the
     standard value.
 
-  Configuration files included with arangod are adjusted accordingly.
+  Configuration files included with avocadod are adjusted accordingly.
 
 * layout of the graphs tab adapted to better fit with the other tabs
 
@@ -6929,7 +6929,7 @@ v2.0.0-rc1 (2014-02-28)
 
 * removed separate shape collections
 
-  When upgrading to ArangoDB 2.0, existing collections will be converted to include
+  When upgrading to AvocadoDB 2.0, existing collections will be converted to include
   shapes and attribute markers in the datafiles instead of using separate files for
   shapes.
 
@@ -6947,14 +6947,14 @@ v2.0.0-rc1 (2014-02-28)
 
 * added AQL functions `NTH` and `POSITION`
 
-* added signal handler for arangosh to save last command in more cases
+* added signal handler for avocadosh to save last command in more cases
 
-* added extra prompt placeholders for arangosh:
+* added extra prompt placeholders for avocadosh:
   - `%e`: current endpoint
   - `%u`: current user
 
-* added arangosh option `--javascript.gc-interval` to control amount of
-  garbage collection performed by arangosh
+* added avocadosh option `--javascript.gc-interval` to control amount of
+  garbage collection performed by avocadosh
 
 * fixed issue #651: Allow addEdge() to take vertex ids in the JS library
 
@@ -6965,7 +6965,7 @@ v2.0.0-rc1 (2014-02-28)
 
 * removed C++ logger implementation
 
-  Logging inside ArangoDB is now done using the LOG_XXX() macros. The LOGGER_XXX()
+  Logging inside AvocadoDB is now done using the LOG_XXX() macros. The LOGGER_XXX()
   macros are gone.
 
 * added collection status "loading"
@@ -7022,9 +7022,9 @@ v1.4.13 (2014-03-14)
 
 * added diagnostic output for Foxx application upload
 
-* allow dump & restore from ArangoDB 1.4 with an ArangoDB 2.0 server
+* allow dump & restore from AvocadoDB 1.4 with an AvocadoDB 2.0 server
 
-* allow startup options `temp-path` and `default-language` to be specified from the arangod
+* allow startup options `temp-path` and `default-language` to be specified from the avocadod
   configuration file and not only from the command line
 
 * fixed too eager compaction
@@ -7055,7 +7055,7 @@ v1.4.11 (2014-02-27)
   this calculates the shortest paths between two vertices, using the Dijkstra
   algorithm, employing a min-heap
 
-  By default, ArangoDB does not know the distance between any two vertices and
+  By default, AvocadoDB does not know the distance between any two vertices and
   will use a default distance of 1. A custom distance function can be registered
   as an AQL user function to make the distance calculation use any document
   attributes or custom logic:
@@ -7066,7 +7066,7 @@ v1.4.11 (2014-02-27)
       })
 
       // using the following custom distance function
-      var aqlfunctions = require("org/arangodb/aql/functions");
+      var aqlfunctions = require("org/avocadodb/aql/functions");
       aqlfunctions.register("myfunctions::distance", function (config, vertex1, vertex2, edge) {
         return Math.sqrt(Math.pow(vertex1.x - vertex2.x) + Math.pow(vertex1.y - vertex2.y));
       }, false);
@@ -7097,14 +7097,14 @@ v1.4.10 (2014-02-21)
 
 * issue #756: set access-control-expose-headers on CORS response
 
-  the following headers are now whitelisted by ArangoDB in CORS responses:
+  the following headers are now whitelisted by AvocadoDB in CORS responses:
   - etag
   - content-encoding
   - content-length
   - location
   - server
-  - x-arango-errors
-  - x-arango-async-id
+  - x-avocado-errors
+  - x-avocado-async-id
 
 
 v1.4.9 (2014-02-07)
@@ -7147,14 +7147,14 @@ v1.4.9 (2014-02-07)
 
   with this option, authentication can be disabled for all requests coming
   in via UNIX domain sockets, enabling clients located on the same host as
-  the ArangoDB server to connect without authentication.
+  the AvocadoDB server to connect without authentication.
   Other connections (e.g. TCP/IP) are not affected by this option.
 
   The default value for this option is `false`.
   Note: this option is only supported on platforms that support Unix domain
   sockets.
 
-* call global arangod instance destructor on shutdown
+* call global avocadod instance destructor on shutdown
 
 * issue #755: TRAVERSAL does not use strategy, order and itemOrder options
 
@@ -7171,7 +7171,7 @@ v1.4.9 (2014-02-07)
       })
 
       // using the following custom filter functions
-      var aqlfunctions = require("org/arangodb/aql/functions");
+      var aqlfunctions = require("org/avocadodb/aql/functions");
       aqlfunctions.register("myfunctions::checkedge", function (config, vertex, edge, path) {
         return (edge.type !== 'dislikes'); // don't follow these edges
       }, false);
@@ -7197,7 +7197,7 @@ v1.4.8 (2014-01-31)
 v1.4.7 (2014-01-23)
 -------------------
 
-* issue #744: Add usage example arangoimp from Command line
+* issue #744: Add usage example avocadoimp from Command line
 
 * issue #738: added __dirname, __filename pseudo-globals. Fixes #733. (@by pluma)
 
@@ -7213,7 +7213,7 @@ v1.4.6 (2014-01-20)
 
 * fixed issue #734: foxx cookie and route problem
 
-* added method `fm.configJson` for arangosh
+* added method `fm.configJson` for avocadosh
 
 * include `startupPath` in result of API `/_api/foxx/config`
 
@@ -7241,18 +7241,18 @@ v1.4.5 (2014-01-15)
 
 * fixed potential deadlock in global context method execution
 
-* added override file "arangod.conf.local" (and co)
+* added override file "avocadod.conf.local" (and co)
 
 
 v1.4.4 (2013-12-24)
 -------------------
 
 * uid and gid are now set in the scripts, there is no longer a separate config file for
-  arangod when started from a script
+  avocadod when started from a script
 
-* foxx-manager is now an alias for arangosh
+* foxx-manager is now an alias for avocadosh
 
-* arango-dfdb is now an alias for arangod, moved from bin to sbin
+* avocado-dfdb is now an alias for avocadod, moved from bin to sbin
 
 * changed from readline to linenoise for Windows
 
@@ -7260,15 +7260,15 @@ v1.4.4 (2013-12-24)
 
 * removed --daemon and --supervisor for Windows
 
-* arangosh and arangod now uses the config-file which maps the binary name, i. e. if you
-  rename arangosh to foxx-manager it will use the config file foxx-manager.conf
+* avocadosh and avocadod now uses the config-file which maps the binary name, i. e. if you
+  rename avocadosh to foxx-manager it will use the config file foxx-manager.conf
 
 * fixed lock file for Windows
 
 * fixed issue #711, #687: foxx-manager throws internal errors
 
 * added `--server.ssl-protocol` option for client tools
-  this allows connecting from arangosh, arangoimp, arangoimp etc. to an ArangoDB
+  this allows connecting from avocadosh, avocadoimp, avocadoimp etc. to an AvocadoDB
   server that uses a non-default value for `--server.ssl-protocol`. The default
   value for the SSL protocol is 4 (TLSv1). If the server is configured to use a
   different protocol, it was not possible to connect to it with the client tools.
@@ -7278,26 +7278,26 @@ v1.4.4 (2013-12-24)
   This adds the number of async-executed HTTP requests plus the number of HTTP
   requests per individual HTTP method type.
 
-* added `--force` option for arangorestore
+* added `--force` option for avocadorestore
   this option allows continuing a restore operation even if the server reports errors
   in the middle of the restore operation
 
-* better error reporting for arangorestore
-  in case the server returned an HTTP error, arangorestore previously reported this
+* better error reporting for avocadorestore
+  in case the server returned an HTTP error, avocadorestore previously reported this
   error as `internal error` without any details only. Now server-side errors are
-  reported by arangorestore with the server's error message
+  reported by avocadorestore with the server's error message
 
-* include more system collections in dumps produced by arangodump
+* include more system collections in dumps produced by avocadodump
   previously some system collections were intentionally excluded from dumps, even if the
   dump was run with `--include-system-collections`. for example, the collections `_aal`,
   `_modules`, `_routing`, and `_users` were excluded. This makes sense in a replication
   context but not always in a dump context.
-  When specifying `--include-system-collections`, arangodump will now include the above-
+  When specifying `--include-system-collections`, avocadodump will now include the above-
   mentioned collections in the dump, too. Some other system collections are still excluded
   even when the dump is run with `--include-system-collections`, for example `_replication`
   and `_trx`.
 
-* fixed issue #701: ArangoStatement undefined in arangosh
+* fixed issue #701: AvocadoStatement undefined in avocadosh
 
 * fixed typos in configuration files
 
@@ -7333,7 +7333,7 @@ v1.4.2 (2013-11-20)
       Minimum supported server:
       Windows Vista [desktop apps | Windows Store apps]
 
-* fixed issue #662: ArangoDB on Windows hanging
+* fixed issue #662: AvocadoDB on Windows hanging
 
   This fixes a deadlock issue that occurred on Windows when documents were written to
   a collection at the same time when some other thread tried to drop the collection.
@@ -7355,7 +7355,7 @@ v1.4.2 (2013-11-20)
 
 * added documentation for JavaScript traversals
 
-* added --code-page command-line option for Windows version of arangosh
+* added --code-page command-line option for Windows version of avocadosh
 
 * fixed a problem when creating edges via the web interface.
 
@@ -7369,15 +7369,15 @@ v1.4.2 (2013-11-20)
   an older version of the web interface can reload the collections page if they
   are affected.
 
-* fixed a caching problem in arangosh: if a collection was created using the web
-  interface, and then removed via arangosh, arangosh did not actually drop the
+* fixed a caching problem in avocadosh: if a collection was created using the web
+  interface, and then removed via avocadosh, avocadosh did not actually drop the
   collection due to caching.
 
   Because the `drop` operation was not carried out, this caused misleading error
   messages when trying to re-create the collection (e.g. `cannot create collection:
   duplicate name`).
 
-* fixed ALT-introduced characters for arangosh console input on Windows
+* fixed ALT-introduced characters for avocadosh console input on Windows
 
   The Windows readline port was not able to handle characters that are built
   using CTRL or ALT keys. Regular characters entered using the CTRL or ALT keys
@@ -7394,9 +7394,9 @@ v1.4.2 (2013-11-20)
   case of a unique constraint violation into a collection with multiple secondary
   indexes (with at least one of them unique)
 
-* fixed issue #664: ArangoDB installer on Windows requires drive c:
+* fixed issue #664: AvocadoDB installer on Windows requires drive c:
 
-* partly fixed issue #662: ArangoDB on Windows hanging
+* partly fixed issue #662: AvocadoDB on Windows hanging
 
   This fixes dropping databases on Windows. In previous 1.4 versions on Windows,
   one shape collection file was not unloaded and removed when dropping a database,
@@ -7444,13 +7444,13 @@ v1.4.1-rc1 (2013-11-07)
       DOCUMENT(users, [ 'users/john', 'users/amy' ])
       DOCUMENT(users, [ 'john', 'amy' ])
 
-* simplified usage of ArangoDB batch API
+* simplified usage of AvocadoDB batch API
 
   It is not necessary anymore to send the batch boundary in the HTTP `Content-Type`
   header. Previously, the batch API expected the client to send a Content-Type header
   of`multipart/form-data; boundary=<some boundary value>`. This is still supported in
-  ArangoDB 2.0, but clients can now also omit this header. If the header is not
-  present in a client request, ArangoDB will ignore the request content type and
+  AvocadoDB 2.0, but clients can now also omit this header. If the header is not
+  present in a client request, AvocadoDB will ignore the request content type and
   read the MIME boundary from the beginning of the request body.
 
   This also allows using the batch API with the Swagger "Try it out" feature (which is
@@ -7485,11 +7485,11 @@ v1.4.0 (2013-10-29)
 
 * fixed issue #620: added startup option `--server.default-api-compatibility`
 
-  This adds the following changes to the ArangoDB server and clients:
+  This adds the following changes to the AvocadoDB server and clients:
   - the server provides a new startup option `--server.default-api-compatibility`.
     This option can be used to determine the compatibility of (some) server API
     return values. The value for this parameter is a server version number,
-    calculated as follows: `10000 * major + 100 * minor` (e.g. `10400` for ArangoDB
+    calculated as follows: `10000 * major + 100 * minor` (e.g. `10400` for AvocadoDB
     1.3). The default value is `10400` (1.4), the minimum allowed value is `10300`
     (1.3).
 
@@ -7498,13 +7498,13 @@ v1.4.0 (2013-10-29)
     compatibility with "old" (non-up-to-date) clients.
 
   - the server will on each incoming request check for an HTTP header
-    `x-arango-version`. Clients can optionally set this header to the API
+    `x-avocado-version`. Clients can optionally set this header to the API
     version number they support. For example, if a client sends the HTTP header
-    `x-arango-version: 10300`, the server will pick this up and might send ArangoDB
+    `x-avocado-version: 10300`, the server will pick this up and might send AvocadoDB
     1.3-style responses in some situations.
 
     Setting either the startup parameter or using the HTTP header (or both) allows
-    running "old" clients with newer versions of ArangoDB, without having to adjust
+    running "old" clients with newer versions of AvocadoDB, without having to adjust
     the clients too much.
 
   - the `location` headers returned by the server for the APIs `/_api/document/...`
@@ -7548,7 +7548,7 @@ v1.4.0 (2013-10-29)
 
 * fixed issue #609: Graph viz tool - different background color
 
-* fixed issue #608: arangosh config files - eventually missing in the manual
+* fixed issue #608: avocadosh config files - eventually missing in the manual
 
 * fixed issue #607: Admin interface: no core documentation
 
@@ -7564,7 +7564,7 @@ v1.4.0 (2013-10-29)
 * create less system collections when creating a new database
 
   This is achieved by deferring collection creation until the collections are actually
-  needed by ArangoDB. The following collections are affected by the change:
+  needed by AvocadoDB. The following collections are affected by the change:
   - `_fishbowl`
   - `_structures`
 
@@ -7591,23 +7591,23 @@ v1.4.0-beta2 (2013-10-14)
   - `_aqlfunctions`
   - `_graphs`
 
-  In previous versions of ArangoDB, all system collections were excluded from the
+  In previous versions of AvocadoDB, all system collections were excluded from the
   replication.
 
   The change also caused a change in the replication logger and applier:
-  in previous versions of ArangoDB, only a collection's id was logged for an operation.
+  in previous versions of AvocadoDB, only a collection's id was logged for an operation.
   This has not caused problems for non-system collections but for system collections
-  there ids might differ. In addition to a collection id ArangoDB will now also log the
+  there ids might differ. In addition to a collection id AvocadoDB will now also log the
   name of a collection for each replication event.
 
   The replication applier will now look for the collection name attribute in logged
   events preferably.
 
-* added database selection to arango-dfdb
+* added database selection to avocado-dfdb
 
-* provide foxx-manager, arangodump, and arangorestore in Windows build
+* provide foxx-manager, avocadodump, and avocadorestore in Windows build
 
-* ArangoDB 1.4 will refuse to start if option `--javascript.app-path` is not set.
+* AvocadoDB 1.4 will refuse to start if option `--javascript.app-path` is not set.
 
 * added startup option `--server.allow-method-override`
 
@@ -7629,16 +7629,16 @@ v1.4.0-beta2 (2013-10-14)
   Setting the `details` URL parameter to `true` in a call to POST `/_api/import` will make
   the import return details about non-imported documents in the `details` attribute. If
   `details` is `false` or omitted, no `details` attribute will be present in the response.
-  This is the same behavior that previous ArangoDB versions exposed.
+  This is the same behavior that previous AvocadoDB versions exposed.
 
 * added "complete" option for bulk import API
 
   Setting the `complete` URL parameter to `true` in a call to POST `/_api/import` will make
   the import completely fail if at least one of documents cannot be imported successfully.
 
-  It defaults to `false`, which will make ArangoDB continue importing the other documents
+  It defaults to `false`, which will make AvocadoDB continue importing the other documents
   from the import even if some documents cannot be imported. This is the same behavior that
-  previous ArangoDB versions exposed.
+  previous AvocadoDB versions exposed.
 
 * added missing swagger documentation for `/_api/log`
 
@@ -7661,11 +7661,11 @@ v1.4.0-beta2 (2013-10-14)
 
 * issue #601: Show DB in prompt
 
-  arangosh now displays the database name as part of the prompt by default.
+  avocadosh now displays the database name as part of the prompt by default.
 
   Can change the prompt by using the `--prompt` option, e.g.
 
-      > arangosh --prompt "my db is named \"%d\"> "
+      > avocadosh --prompt "my db is named \"%d\"> "
 
 
 v1.4.0-beta1 (2013-10-01)
@@ -7681,7 +7681,7 @@ v1.4.0-beta1 (2013-10-01)
 
 * only trigger an engine reset in development mode for URLs starting with `/dev/`
 
-  This prevents ArangoDB from reloading all Foxx applications when it is not
+  This prevents AvocadoDB from reloading all Foxx applications when it is not
   actually necessary.
 
 * changed error code from 10 (bad parameter) to 1232 (invalid key generator) for
@@ -7698,8 +7698,8 @@ v1.4.0-beta1 (2013-10-01)
 
 * issue #360: added support for asynchronous requests
 
-  Incoming HTTP requests with the headers `x-arango-async: true` or
-  `x-arango-async: store` will be answered by the server instantly with a generic
+  Incoming HTTP requests with the headers `x-avocado-async: true` or
+  `x-avocado-async: store` will be answered by the server instantly with a generic
   HTTP 202 (Accepted) response.
 
   The actual requests will be queued and processed by the server asynchronously,
@@ -7715,12 +7715,12 @@ v1.4.0-beta1 (2013-10-01)
   tasks and a new asynchronous request comes in, the server will reject it with an
   HTTP 500 (internal server error) response.
 
-  Results of incoming requests marked with header `x-arango-async: true` will be
+  Results of incoming requests marked with header `x-avocado-async: true` will be
   discarded by the server immediately. Clients have no way of accessing the result
   of such asynchronously executed request. This is just _fire and forget_.
 
   To later retrieve the result of an asynchronously executed request, clients can
-  mark a request with the header `x-arango-async: keep`. This makes the server
+  mark a request with the header `x-avocado-async: keep`. This makes the server
   store the result of the request in memory until explicitly fetched by a client
   via the `/_api/job` API. The `/_api/job` API also provides methods for basic
   inspection of which pending or already finished requests there are on the server,
@@ -7730,21 +7730,21 @@ v1.4.0-beta1 (2013-10-01)
 
 * issue #590: Manifest Lint
 
-* added data dump and restore tools, arangodump and arangorestore.
+* added data dump and restore tools, avocadodump and avocadorestore.
 
-  arangodump can be used to create a logical dump of an ArangoDB database, or
+  avocadodump can be used to create a logical dump of an AvocadoDB database, or
   just dedicated collections. It can be used to dump both a collection's structure
   (properties and indexes) and data (documents).
 
-  arangorestore can be used to restore data from a dump created with arangodump.
-  arangorestore currently does not re-create any indexes, and doesn't yet handle
+  avocadorestore can be used to restore data from a dump created with avocadodump.
+  avocadorestore currently does not re-create any indexes, and doesn't yet handle
   referenced documents in edges properly when doing just partial restores.
   This will be fixed until 1.4 stable.
 
-* introduced `--server.database` option for arangosh, arangoimp, and arangob.
+* introduced `--server.database` option for avocadosh, avocadoimp, and avocadob.
 
   The option allows these client tools to use a certain database for their actions.
-  In arangosh, the current database can be switched at any time using the command
+  In avocadosh, the current database can be switched at any time using the command
 
       db._useDatabase(<name>);
 
@@ -7756,21 +7756,21 @@ v1.4.0-beta1 (2013-10-01)
   New databases can be created using the REST API POST `/_api/database` and the
   shell command `db._createDatabase(<name>)`.
 
-  The default database in ArangoDB is called `_system`. This database is always
-  present and cannot be deleted by the user. When an older version of ArangoDB is
+  The default database in AvocadoDB is called `_system`. This database is always
+  present and cannot be deleted by the user. When an older version of AvocadoDB is
   upgraded to 1.4, the previously only database will automatically become the
   `_system` database.
 
   New databases can be created with the above commands, and can be deleted with the
   REST API DELETE `/_api/database/<name>` or the shell command `db._dropDatabase(<name>);`.
 
-  Deleting databases is still unstable in ArangoDB 1.4 alpha and might crash the
+  Deleting databases is still unstable in AvocadoDB 1.4 alpha and might crash the
   server. This will be fixed until 1.4 stable.
 
   To access a specific database via the HTTP REST API, the `/_db/<name>/` prefix
-  can be used in all URLs. ArangoDB will check if an incoming request starts with
+  can be used in all URLs. AvocadoDB will check if an incoming request starts with
   this prefix, and will automatically pick the database name from it. If the prefix
-  is not there, ArangoDB will assume the request is made for the default database
+  is not there, AvocadoDB will assume the request is made for the default database
   (`_system`). This is done for downwards-compatibility reasons.
 
   That means, the following URL pathnames are logically identical:
@@ -7788,7 +7788,7 @@ v1.4.0-beta1 (2013-10-01)
 
   Cross-database operations are unintended and unsupported. The intention of the
   multi-database feature is to have the possibility to have a few databases managed
-  by ArangoDB in parallel, but to only access one database at a time from a connection
+  by AvocadoDB in parallel, but to only access one database at a time from a connection
   or a request.
 
   When accessing the web interface via the URL pathname `/_admin/html/` or `/_admin/aardvark`,
@@ -7825,7 +7825,7 @@ v1.4.0-beta1 (2013-10-01)
 
   The "old" redirection to `_admin/html/index.html` will now produce a 404 error.
 
-  When starting ArangoDB with the `--upgrade` option, this will automatically be remedied
+  When starting AvocadoDB with the `--upgrade` option, this will automatically be remedied
   by putting in a redirection from `/` to `/_admin/aardvark/index.html`, and from
   `/_admin/html/index.html` to `/_admin/aardvark/index.html`.
 
@@ -7836,8 +7836,8 @@ v1.4.0-beta1 (2013-10-01)
   when using these now obsolete options when the server is started, no error is produced
   for downwards-compatibility.
 
-* changed User-Agent value sent by arangoimp, arangosh, and arangod from "VOC-Agent" to
-  "ArangoDB"
+* changed User-Agent value sent by avocadoimp, avocadosh, and avocadod from "VOC-Agent" to
+  "AvocadoDB"
 
 * changed journal file creation behavior as follows:
 
@@ -7902,7 +7902,7 @@ v1.4.0-beta1 (2013-10-01)
 
 * updated mruby to 2013-08-22
 
-* issue #587: Add db._create() in help for startup arangosh
+* issue #587: Add db._create() in help for startup avocadosh
 
 * issue #586: Share a link on installation instructions in the User Manual
 
@@ -7977,7 +7977,7 @@ v1.4.0-alpha1 (2013-08-02)
 
 * added example queries in web interface AQL editor
 
-* added arango.reconnect(<host>) method for arangosh to dynamically switch server or
+* added avocado.reconnect(<host>) method for avocadosh to dynamically switch server or
   user name
 
 * added AQL range operator `..`
@@ -8005,7 +8005,7 @@ v1.4.0-alpha1 (2013-08-02)
 
 * INCOMPATIBLE CHANGE: changed AQL user function namespace resolution operator from `:` to `::`
 
-  AQL user-defined functions were introduced in ArangoDB 1.3, and the namespace resolution
+  AQL user-defined functions were introduced in AvocadoDB 1.3, and the namespace resolution
   operator for them was the single colon (`:`). A function call looked like this:
 
       RETURN mygroup:myfunc()
@@ -8017,7 +8017,7 @@ v1.4.0-alpha1 (2013-08-02)
 
   The change of the namespace resolution operator from `:` to `::` fixes this ambiguity.
 
-  Existing user functions in the database will be automatically fixed when starting ArangoDB
+  Existing user functions in the database will be automatically fixed when starting AvocadoDB
   1.4 with the `--upgrade` option. However, queries using user-defined functions need to be
   adjusted on the client side to use the new operator.
 
@@ -8035,7 +8035,7 @@ v1.4.0-alpha1 (2013-08-02)
   Previously, when the AQL `DOCUMENT` function was called with the id of a document and
   the document could not be found, it returned `undefined`. This value is not part of the
   JSON type system and this has caused some problems.
-  Starting with ArangoDB 1.4, the `DOCUMENT` function will return `null` if the document
+  Starting with AvocadoDB 1.4, the `DOCUMENT` function will return `null` if the document
   looked for cannot be found.
 
   In case the function is called with a list of documents, it will continue to return all
@@ -8053,7 +8053,7 @@ v1.4.0-alpha1 (2013-08-02)
 
   This can be used to
   - check if data in a collection has changed
-  - compare the contents of two collections on different ArangoDB instances
+  - compare the contents of two collections on different AvocadoDB instances
 
 * issue #565: add description line to aal.listAvailable()
 
@@ -8071,9 +8071,9 @@ v1.4.0-alpha1 (2013-08-02)
 * introduced new command-line option `--log.content-filter` to optionally restrict
   logging to just specific log messages (containing the filter string, case-sensitive).
 
-  For example, to filter on just log entries which contain `ArangoDB`, use:
+  For example, to filter on just log entries which contain `AvocadoDB`, use:
 
-      --log.content-filter "ArangoDB"
+      --log.content-filter "AvocadoDB"
 
 * added optional command-line option `--log.requests-file` to log incoming HTTP
   requests to a file.
@@ -8084,9 +8084,9 @@ v1.4.0-alpha1 (2013-08-02)
 
 * added a signal handler for SIGUSR1 signal:
 
-  when ArangoDB receives this signal, it will respond all further incoming requests
+  when AvocadoDB receives this signal, it will respond all further incoming requests
   with an HTTP 503 (Service Unavailable) error. This will be the case until another
-  SIGUSR1 signal is caught. This will make ArangoDB start serving requests regularly
+  SIGUSR1 signal is caught. This will make AvocadoDB start serving requests regularly
   again. Note: this is not implemented on Windows.
 
 * limited maximum request URI length to 16384 bytes:
@@ -8102,12 +8102,12 @@ v1.4.0-alpha1 (2013-08-02)
 * updated manual on indexes:
 
   using system attributes such as `_id`, `_key`, `_from`, `_to`, `_rev` in indexes is
-  disallowed and will be rejected by the server. This was the case since ArangoDB 1.3,
+  disallowed and will be rejected by the server. This was the case since AvocadoDB 1.3,
   but was not properly documented.
 
 * issue #563: can aal become a default object?
 
-  aal is now a prefab object in arangosh
+  aal is now a prefab object in avocadosh
 
 * prevent certain system collections from being renamed, dropped, or even unloaded.
 
@@ -8122,7 +8122,7 @@ v1.4.0-alpha1 (2013-08-02)
 * added server startup option `--server.authenticate-system-only`. This option can be
   used to restrict the need for HTTP authentication to internal functionality and APIs,
   such as `/_api/*` and `/_admin/*`.
-  Setting this option to `true` will thus force authentication for the ArangoDB APIs
+  Setting this option to `true` will thus force authentication for the AvocadoDB APIs
   and the web interface, but allow unauthenticated requests for other URLs (including
   user defined actions and Foxx applications).
   The default value of this option is `false`, meaning that if authentication is turned
@@ -8142,7 +8142,7 @@ v1.4.0-alpha1 (2013-08-02)
   The arguments for creating a cap constraint are now:
   `collection.ensureCapConstraint(<count>, <byteSize>);`
 
-  It is supported to specify just a count as in ArangoDB 1.3 and before, to specify
+  It is supported to specify just a count as in AvocadoDB 1.3 and before, to specify
   just a fileSize, or both. The first met constraint will trigger the automated
   document removal.
 
@@ -8243,11 +8243,11 @@ v1.3.1 (2013-05-24)
 
 * removed currently unused _ids collection
 
-* fixed usage of --temp-path in aranogd and arangosh
+* fixed usage of --temp-path in aranogd and avocadosh
 
 * issue #540: suppress return of temporary internal variables in AQL
 
-* issue #530: ReferenceError: ArangoError is not a constructor
+* issue #530: ReferenceError: AvocadoError is not a constructor
 
 * issue #535: Problem with AQL user functions javascript API
 
@@ -8255,11 +8255,11 @@ v1.3.1 (2013-05-24)
 
 * issue #532: Graph _edgesCache returns invalid data?
 
-* issue #531: Arangod errors
+* issue #531: Avocadod errors
 
 * issue #529: Really weird transaction issue
 
-* fixed usage of --temp-path in aranogd and arangosh
+* fixed usage of --temp-path in aranogd and avocadosh
 
 
 v1.3.0 (2013-05-10)
@@ -8290,7 +8290,7 @@ v1.3.0-rc1 (2013-04-24)
   documents (byte size-wise)
 
 * issue #498: fixed reload of authentication info when using
-  `require("org/arangodb/users").reload()`
+  `require("org/avocadodb/users").reload()`
 
 * issue #495: Passing an empty array to create a document results in a
   "phantom" document
@@ -8320,7 +8320,7 @@ v1.3.0-rc1 (2013-04-24)
 * added missing documentation for AQL UNION function
 
 * added transaction support.
-  This provides ACID transactions for ArangoDB. Transactions can be invoked
+  This provides ACID transactions for AvocadoDB. Transactions can be invoked
   using the `db._executeTransaction()` function, or the `/_api/transaction`
   REST API.
 
@@ -8331,7 +8331,7 @@ v1.3.0-rc1 (2013-04-24)
 v1.3.alpha1 (2013-04-05)
 ------------------------
 
-* cleanup of Module, Package, ArangoApp and modules "internal", "fs", "console"
+* cleanup of Module, Package, AvocadoApp and modules "internal", "fs", "console"
 
 * use Error instead of string in throw to allow stack-trace
 
@@ -8360,12 +8360,12 @@ v1.3.alpha1 (2013-04-05)
   saved.
 
   Though using reserved or empty attribute names in documents was not really and
-  consistently supported in previous versions of ArangoDB, this change might cause
+  consistently supported in previous versions of AvocadoDB, this change might cause
   an incompatibility for clients that rely on this feature.
 
 * added server startup flag `--database.force-sync-properties` to force syncing of
   collection properties on collection creation, deletion and on property update.
-  The default value is true to mimic the behavior of previous versions of ArangoDB.
+  The default value is true to mimic the behavior of previous versions of AvocadoDB.
   If set to false, collection properties are written to disk but no call to sync()
   is made.
 
@@ -8381,7 +8381,7 @@ v1.3.alpha1 (2013-04-05)
   On server start, this number is enforced on systems that have rlimit. If the limit
   cannot be enforced, starting the server will fail.
   Note: 256 is considered to be the absolute minimum value. Depending on the use case
-  for ArangoDB, a much higher number of file descriptors should be used.
+  for AvocadoDB, a much higher number of file descriptors should be used.
 
   To avoid checking & potentially changing the number of maximum open files, use the
   startup option `--server.descriptors-minimum 0`
@@ -8415,11 +8415,11 @@ v1.3.alpha1 (2013-04-05)
   attributes of the result.
 
 * removed configure option `--enable-zone-debug`
-  memory zone debugging is now automatically turned on when compiling with ArangoDB
+  memory zone debugging is now automatically turned on when compiling with AvocadoDB
   `--enable-maintainer-mode`
 
-* removed configure option `--enable-arangob`
-  arangob is now always included in the build
+* removed configure option `--enable-avocadob`
+  avocadob is now always included in the build
 
 
 v1.2.3 (XXXX-XX-XX)
@@ -8433,7 +8433,7 @@ v1.2.3 (XXXX-XX-XX)
 
 * fixed firstExample() query with `_id` and `_key` attributes
 
-* issue triAGENS/ArangoDB-PHP#55: AQL optimizer may have mis-optimized duplicate
+* issue triAGENS/AvocadoDB-PHP#55: AQL optimizer may have mis-optimized duplicate
   filter statements with limit
 
 
@@ -8471,7 +8471,7 @@ v1.2.2 (2013-03-26)
   - `increment`: `1`
 
   The only other available key generator type currently is `traditional`.
-  The `traditional` key generator will auto-generate keys in a fashion as ArangoDB
+  The `traditional` key generator will auto-generate keys in a fashion as AvocadoDB
   always did (some increasing integer value, with a more or less unpredictable
   increment value).
 
@@ -8503,9 +8503,9 @@ v1.2.2 (2013-03-26)
     of the collection's properties. The previous optional attribute `createOptions`
     is now gone.
 
-* fixed `ArangoStatement.explain()` method with bind variables
+* fixed `AvocadoStatement.explain()` method with bind variables
 
-* fixed misleading "cursor not found" error message in arangosh that occurred when
+* fixed misleading "cursor not found" error message in avocadosh that occurred when
   `count()` was called for client-side cursors
 
 * fixed handling of empty attribute names, which may have crashed the server under
@@ -8518,7 +8518,7 @@ v1.2.2 (2013-03-26)
 v1.2.1 (2013-03-14)
 -------------------
 
-* issue #444: please darken light color in arangosh
+* issue #444: please darken light color in avocadosh
 
 * issue #442: pls update post install info on osx
 
@@ -8543,21 +8543,21 @@ v1.2.0 (2013-03-01)
 -------------------
 
 * by default statistics are now switch off; in order to enable comment out
-  the "disable-statistics = yes" line in "arangod.conf"
+  the "disable-statistics = yes" line in "avocadod.conf"
 
 * fixed issue #435: csv parser skips data at buffer border
 
 * added server startup option `--server.disable-statistics` to turn off statistics
-  gathering without recompilation of ArangoDB.
+  gathering without recompilation of AvocadoDB.
   This partly addresses issue #432.
 
 * fixed dropping of indexes without collection name, e.g.
   `db.xxx.dropIndex("123456");`
   Dropping an index like this failed with an assertion error.
 
-* fixed issue #426: arangoimp should be able to import edges into edge collections
+* fixed issue #426: avocadoimp should be able to import edges into edge collections
 
-* fixed issue #425: In case of conflict ArangoDB returns HTTP 400 Bad request
+* fixed issue #425: In case of conflict AvocadoDB returns HTTP 400 Bad request
   (with 1207 Error) instead of HTTP 409 Conflict
 
 * fixed too greedy token consumption in AQL for negative values:
@@ -8568,7 +8568,7 @@ v1.2.0 (2013-03-01)
 v1.2.beta3 (2013-02-22)
 -----------------------
 
-* issue #427: ArangoDB Importer Manual has no navigation links (previous|home|next)
+* issue #427: AvocadoDB Importer Manual has no navigation links (previous|home|next)
 
 * issue #319: Documentation missing for Emergency console and incomplete for datafile debugger.
 
@@ -8577,9 +8577,9 @@ v1.2.beta3 (2013-02-22)
 * issue #393: added REST API for user management at /_api/user
 
 * issue #393, #128: added simple cryptographic functions for user actions in module "crypto":
-  * require("org/arangodb/crypto").md5()
-  * require("org/arangodb/crypto").sha256()
-  * require("org/arangodb/crypto").rand()
+  * require("org/avocadodb/crypto").md5()
+  * require("org/avocadodb/crypto").sha256()
+  * require("org/avocadodb/crypto").rand()
 
 * added replaceByExample() Javascript and REST API method
 
@@ -8600,7 +8600,7 @@ v1.2.beta2 (2013-02-15)
 
 * fixed issue #405: 1.2 compile warnings
 
-* fixed issue #333: [debian] Group "arangodb" is not used when starting vie init.d script
+* fixed issue #333: [debian] Group "avocadodb" is not used when starting vie init.d script
 
 * added optional parameter 'excludeSystem' to GET /_api/collection
   This parameter can be used to disable returning system collections in the list
@@ -8637,7 +8637,7 @@ v1.2.beta2 (2013-02-15)
 * replaced redundant error return code 1520 (Unable to open collection) with error code
   1203 (Collection not found). These error codes have the same meanings, but one of
   them was returned from AQL queries only, the other got thrown by other parts of
-  ArangoDB. Now, error 1203 (Collection not found) is used in AQL too in case a
+  AvocadoDB. Now, error 1203 (Collection not found) is used in AQL too in case a
   non-existing collection is used.
 
 v1.2.beta1 (2013-02-01)
@@ -8645,12 +8645,12 @@ v1.2.beta1 (2013-02-01)
 
 * fixed issue #382: [Documentation error] Maschine... should be Machine...
 
-* unified history file locations for arangod, arangosh, and arangoirb.
-  - The readline history for arangod (emergency console) is now stored in file
-    $HOME/.arangod. It was stored in $HOME/.arango before.
-  - The readline history for arangosh is still stored in $HOME/.arangosh.
-  - The readline history for arangoirb is now stored in $HOME/.arangoirb. It was
-    stored in $HOME/.arango-mrb before.
+* unified history file locations for avocadod, avocadosh, and avocadoirb.
+  - The readline history for avocadod (emergency console) is now stored in file
+    $HOME/.avocadod. It was stored in $HOME/.avocado before.
+  - The readline history for avocadosh is still stored in $HOME/.avocadosh.
+  - The readline history for avocadoirb is now stored in $HOME/.avocadoirb. It was
+    stored in $HOME/.avocado-mrb before.
 
 * fixed issue #381: _users user should have a unique constraint
 
@@ -8658,42 +8658,42 @@ v1.2.beta1 (2013-02-01)
   e.g. ```RETURN values[-1]``` will return the last element of the `values` list.
 
 * collection ids, index ids, cursor ids, and document revision ids created and
-  returned by ArangoDB are now returned as strings with numeric content inside.
+  returned by AvocadoDB are now returned as strings with numeric content inside.
   This is done to prevent some value overrun/truncation in any part of the
   complete client/server workflow.
-  In ArangoDB 1.1 and before, these values were previously returned as
+  In AvocadoDB 1.1 and before, these values were previously returned as
   (potentially very big) integer values. This may cause problems (clipping, overrun,
   precision loss) for clients that do not support big integers natively and store
   such values in IEEE754 doubles internally. This type loses precision after about
   52 bits and is thus not safe to hold an id.
   Javascript and 32 bit-PHP are examples for clients that may cause such problems.
-  Therefore, ids are now returned by ArangoDB as strings, with the string
+  Therefore, ids are now returned by AvocadoDB as strings, with the string
   content being the integer value as before.
 
   Example for documents ("_rev" attribute):
-  - Document returned by ArangoDB 1.1: { "_rev": 1234, ... }
-  - Document returned by ArangoDB 1.2: { "_rev": "1234", ... }
+  - Document returned by AvocadoDB 1.1: { "_rev": 1234, ... }
+  - Document returned by AvocadoDB 1.2: { "_rev": "1234", ... }
 
   Example for collections ("id" attribute / "_id" property):
-  - Collection returned by ArangoDB 1.1: { "id": 9327643, "name": "test", ... }
-  - Collection returned by ArangoDB 1.2: { "id": "9327643", "name": "test", ... }
+  - Collection returned by AvocadoDB 1.1: { "id": 9327643, "name": "test", ... }
+  - Collection returned by AvocadoDB 1.2: { "id": "9327643", "name": "test", ... }
 
   Example for cursors ("id" attribute):
-  - Collection returned by ArangoDB 1.1: { "id": 11734292, "hasMore": true, ... }
-  - Collection returned by ArangoDB 1.2: { "id": "11734292", "hasMore": true, ... }
+  - Collection returned by AvocadoDB 1.1: { "id": 11734292, "hasMore": true, ... }
+  - Collection returned by AvocadoDB 1.2: { "id": "11734292", "hasMore": true, ... }
 
 * global variables are not automatically available anymore when starting the
-  arangod Javascript emergency console (i.e. ```arangod --console```).
+  avocadod Javascript emergency console (i.e. ```avocadod --console```).
 
   Especially, the variables `db`, `edges`, and `internal` are not available
   anymore. `db` and `internal` can be made available in 1.2 by
-  ```var db = require("org/arangodb").db;``` and
+  ```var db = require("org/avocadodb").db;``` and
   ```var internal = require("internal");```, respectively.
   The reason for this change is to get rid of global variables in the server
   because this will allow more specific inclusion of functionality.
 
   For convenience, the global variable `db` is still available by default in
-  arangosh. The global variable `edges`, which since ArangoDB 1.1 was kind of
+  avocadosh. The global variable `edges`, which since AvocadoDB 1.1 was kind of
   a redundant wrapper of `db`, has been removed in 1.2 completely.
   Please use `db` instead, and if creating an edge collection, use the explicit
   ```db._createEdgeCollection()``` command.
@@ -8706,9 +8706,9 @@ v1.2.beta1 (2013-02-01)
 * issue #358: added support for CORS
 
 * honor optional waitForSync property for document removal, replace, update, and
-  save operations in arangosh. The waitForSync parameter for these operations
+  save operations in avocadosh. The waitForSync parameter for these operations
   was previously honored by the REST API and on the server-side, but not when
-  the waitForSync parameter was specified for a document operation in arangosh.
+  the waitForSync parameter was specified for a document operation in avocadosh.
 
 * calls to db.collection.figures() and /_api/collection/<collection>/figures now
   additionally return the number of shapes used in the collection in the
@@ -8723,7 +8723,7 @@ v1.2.beta1 (2013-02-01)
 * removed internal server-side AQL functions from global scope.
 
   Now the AQL internal functions can only be accessed via the exports of the
-  ahuacatl module, which can be included via ```require("org/arangodb/ahuacatl")```.
+  ahuacatl module, which can be included via ```require("org/avocadodb/ahuacatl")```.
   It shouldn't be necessary for clients to access this module at all, but
   internal code may use this module.
 
@@ -8738,7 +8738,7 @@ v1.2.beta1 (2013-02-01)
      AHUACATL_PARSE     => require("internal").AQL_PARSE
 
   Again, clients shouldn't have used these functions at all as there is the
-  ArangoStatement object to execute AQL queries.
+  AvocadoStatement object to execute AQL queries.
 
 * fixed issue #366: Edges index returns strange description
 
@@ -8746,8 +8746,8 @@ v1.2.beta1 (2013-02-01)
 
 * added documentation and tests for db.collection.removeByExample
 
-* added --progress option for arangoimp. This will show the percentage of the input
-  file that has been processed by arangoimp while the import is still running. It can
+* added --progress option for avocadoimp. This will show the percentage of the input
+  file that has been processed by avocadoimp while the import is still running. It can
   be used as a rough indicator of progress for the entire import.
 
 * make the server log documents that cannot be imported via /_api/import into the
@@ -8779,10 +8779,10 @@ v1.2.beta1 (2013-02-01)
   that cannot be re-created otherwise.
   Some platforms, namely Windows, currently do not support this collection type.
   When creating an in-memory collection on such platform, an error message will be
-  returned by ArangoDB telling the user the platform does not support it.
+  returned by AvocadoDB telling the user the platform does not support it.
 
   Note: in-memory collections are an experimental feature. The feature might
-  change drastically or even be removed altogether in a future version of ArangoDB.
+  change drastically or even be removed altogether in a future version of AvocadoDB.
 
 * fixed issue #353: Please include "pretty print" in Emergency Console
 
@@ -8809,7 +8809,7 @@ v1.2.beta1 (2013-02-01)
 
 * issue #346: adaptively determine NUMBER_HEADERS_PER_BLOCK
 
-* issue #338: arangosh cursor positioning problems
+* issue #338: avocadosh cursor positioning problems
 
 * issue #326: use limit optimization with filters
 
@@ -8817,9 +8817,9 @@ v1.2.beta1 (2013-02-01)
 
 * issue #324: add limit optimization to AQL
 
-* removed arango-password script and added Javascript functionality to add/delete
+* removed avocado-password script and added Javascript functionality to add/delete
   users instead. The functionality is contained in module `users` and can be invoked
-  as follows from arangosh and arangod:
+  as follows from avocadosh and avocadod:
   * require("users").save("name", "passwd");
   * require("users").replace("name", "newPasswd");
   * require("users").remove("name");
@@ -8827,12 +8827,12 @@ v1.2.beta1 (2013-02-01)
   These functions are intentionally not offered via the web interface.
   This also addresses issue #313
 
-* changed print output in arangosh and the web interface for JSON objects.
-  Previously, printing a JSON object in arangosh resulted in the attribute values
+* changed print output in avocadosh and the web interface for JSON objects.
+  Previously, printing a JSON object in avocadosh resulted in the attribute values
   being printed as proper JSON, but attribute names were printed unquoted and
-  unescaped. This was fine for the purpose of arangosh, but lead to invalid
-  JSON being produced. Now, arangosh will produce valid JSON that can be used
-  to send it back to ArangoDB or use it with arangoimp etc.
+  unescaped. This was fine for the purpose of avocadosh, but lead to invalid
+  JSON being produced. Now, avocadosh will produce valid JSON that can be used
+  to send it back to AvocadoDB or use it with avocadoimp etc.
 
 * fixed issue #300: allow importing documents via the REST /_api/import API
   from a JSON list, too.
@@ -8840,17 +8840,17 @@ v1.2.beta1 (2013-02-01)
   on each line. This is sometimes inconvenient, e.g. when the result of an AQL
   query or any other list is to be imported. This list is a JSON list and does not
   necessary have a document per line if pretty-printed.
-  arangoimp now supports the JSON list format, too. However, the format requires
-  arangoimp and the server to read the entire dataset at once. If the dataset is
+  avocadoimp now supports the JSON list format, too. However, the format requires
+  avocadoimp and the server to read the entire dataset at once. If the dataset is
   too big (bigger than --max-upload-size) then the import will be rejected. Even if
   increased, the entire list must fit in memory on both the client and the server,
   and this may be more resource-intensive than importing individual lines in chunks.
 
-* removed unused parameter --reuse-ids for arangoimp. This parameter did not have
+* removed unused parameter --reuse-ids for avocadoimp. This parameter did not have
   any effect in 1.2, was never publicly announced and did evil (TM) things.
 
 * fixed issue #297 (partly): added whitespace between command line and
-  command result in arangosh, added shell colors for better usability
+  command result in avocadosh, added shell colors for better usability
 
 * fixed issue #296: system collections not usable from AQL
 
@@ -8872,7 +8872,7 @@ v1.2.beta1 (2013-02-01)
     punctuation characters cannot be used inside key values
 
   Specifying a document key is optional when creating new documents. If no
-  document key is specified, ArangoDB will create a document key itself.
+  document key is specified, AvocadoDB will create a document key itself.
   There are no guarantees about the format and pattern of auto-generated document
   keys other than the above restrictions.
   Clients should therefore treat auto-generated document keys as opaque values.
@@ -8881,16 +8881,16 @@ v1.2.beta1 (2013-02-01)
   * looking up a document: `db.users.document("fred")`
   * referencing other documents: `edges.relations.save("users/fred", "users/john", ...)`
 
-  This change is downwards-compatible to ArangoDB 1.1 because in ArangoDB 1.1
+  This change is downwards-compatible to AvocadoDB 1.1 because in AvocadoDB 1.1
   users were not able to define their own keys. If the user does not supply a _key
-  attribute when creating a document, ArangoDB 1.2 will still generate a key of
-  its own as ArangoDB 1.1 did. However, all documents returned by ArangoDB 1.2 will
+  attribute when creating a document, AvocadoDB 1.2 will still generate a key of
+  its own as AvocadoDB 1.1 did. However, all documents returned by AvocadoDB 1.2 will
   include a _key attribute and clients should be able to handle that (e.g. by
   ignoring it if not needed). Documents returned will still include the _id attribute
-  as in ArangoDB 1.1.
+  as in AvocadoDB 1.1.
 
 * require collection names everywhere where a collection id was allowed in
-  ArangoDB 1.1 & 1.0
+  AvocadoDB 1.1 & 1.0
   This change requires clients to use a collection name in place of a collection id
   at all places the client deals with collections.
   Examples:
@@ -8901,7 +8901,7 @@ v1.2.beta1 (2013-02-01)
   * looking up documents: db.users.document("fred") or db._document("users/fred")
 
   Collection names must be used in REST API calls instead of collection ids, too.
-  This change is thus not completely downwards-compatible to ArangoDB 1.1. ArangoDB 1.1
+  This change is thus not completely downwards-compatible to AvocadoDB 1.1. AvocadoDB 1.1
   required users to use collection ids in many places instead of collection names.
   This was unintuitive and caused overhead in cases when just the collection name was
   known on client-side but not its id. This overhead can now be avoided so clients can
@@ -8912,7 +8912,7 @@ v1.2.beta1 (2013-02-01)
   the _id value of returned documents contained the collection id, a slash separator and
   the document number. Since 1.2, _id will contain the collection name, a slash separator
   and the document key. The same applies to the _from and _to attribute values of edges
-  that are returned by ArangoDB.
+  that are returned by AvocadoDB.
 
   Also removed (now unnecessary) location header in responses of the collections REST API.
   The location header was previously returned because it was necessary for clients.
@@ -8921,7 +8921,7 @@ v1.2.beta1 (2013-02-01)
   collection id for further API calls, e.g. when creating edges etc. Therefore, the
   full collection URL, also containing the collection id, was returned by the server in
   responses to the collection API, in the HTTP location header.
-  Returning the location header has become unnecessary in ArangoDB 1.2 because users
+  Returning the location header has become unnecessary in AvocadoDB 1.2 because users
   can access collections by name and do not need to care about collection ids.
 
 
@@ -8935,7 +8935,7 @@ v1.1.3 (2013-XX-XX)
 
 * fixed issue #381:  db._collection("_users").getIndexes();
 
-* fixed issue #379: arango-password fatal issue javscript.startup-directory
+* fixed issue #379: avocado-password fatal issue javscript.startup-directory
 
 * fixed issue #372: Command-Line Options for the Authentication and Authorization
 
@@ -8949,9 +8949,9 @@ v1.1.2 (2013-01-20)
 
 * fixed issue #355: fix quotes in pdf manual
 
-* fixed issue #351: Strange arangosh error message for long running query
+* fixed issue #351: Strange avocadosh error message for long running query
 
-* fixed randomly hanging connections in arangosh on MacOS
+* fixed randomly hanging connections in avocadosh on MacOS
 
 * added "any" query method: this returns a random document from a collection. It
   is also available via REST HTTP at /_api/simple/any.
@@ -8966,14 +8966,14 @@ v1.1.2 (2013-01-20)
 * fixed truncation of human-readable log messages for web interface: the trailing \0
   byte was not appended for messages longer than 256 bytes
 
-* fixed issue #341: ArangoDB crashes when stressed with Batch jobs
+* fixed issue #341: AvocadoDB crashes when stressed with Batch jobs
   Contrary to the issue title, this did not have anything to do with batch jobs but
-  with too high memory usage. The memory usage of ArangoDB is now reduced for cases
+  with too high memory usage. The memory usage of AvocadoDB is now reduced for cases
    when there are lots of small collections with few documents each
 
 * started with issue #317: Feature Request (from Google Groups): DATE handling
 
-* backported issue #300: Extend arangoImp to Allow importing resultset-like
+* backported issue #300: Extend avocadoImp to Allow importing resultset-like
   (list of documents) formatted files
 
 * fixed issue #337: "WaitForSync" on new collection does not work on Win/X64
@@ -8982,14 +8982,14 @@ v1.1.2 (2013-01-20)
 
 * fixed issue #335: mmap errors due to wrong memory address calculation
 
-* fixed issue #332: arangoimp --use-ids parameter seems to have no impact
+* fixed issue #332: avocadoimp --use-ids parameter seems to have no impact
 
-* added option '--server.disable-authentication' for arangosh as well. No more passwd
+* added option '--server.disable-authentication' for avocadosh as well. No more passwd
   prompts if not needed
 
-* fixed issue #330: session logging for arangosh
+* fixed issue #330: session logging for avocadosh
 
-* fixed issue #329: Allow passing script file(s) as parameters for arangosh to run
+* fixed issue #329: Allow passing script file(s) as parameters for avocadosh to run
 
 * fixed issue #328: 1.1 compile warnings
 
@@ -9006,7 +9006,7 @@ v1.1.1 (2012-12-18)
   to the error code. The error message string is now parameter #4.
   Any client code that uses this function in custom actions must be adjusted.
 
-* fixed issue #321: Problem upgrading arangodb 1.0.4 to 1.1.0 with Homebrew (OSX 10.8.2)
+* fixed issue #321: Problem upgrading avocadodb 1.0.4 to 1.1.0 with Homebrew (OSX 10.8.2)
 
 * fixed issue #230: add navigation and search for online documentation
 
@@ -9022,14 +9022,14 @@ v1.1.0 (2012-12-05)
 -------------------
 
 * WARNING:
-  arangod now performs a database version check at startup. It will look for a file
-  named "VERSION" in its database directory. If the file is not present, arangod will
+  avocadod now performs a database version check at startup. It will look for a file
+  named "VERSION" in its database directory. If the file is not present, avocadod will
   perform an automatic upgrade of the database directory. This should be the normal
-  case when upgrading from ArangoDB 1.0 to ArangoDB 1.1.
+  case when upgrading from AvocadoDB 1.0 to AvocadoDB 1.1.
 
-  If the VERSION file is present but is from an older version of ArangoDB, arangod
+  If the VERSION file is present but is from an older version of AvocadoDB, avocadod
   will refuse to start and ask the user to run a manual upgrade first. A manual upgrade
-  can be performed by starting arangod with the option `--upgrade`.
+  can be performed by starting avocadod with the option `--upgrade`.
 
   This upgrade procedure shall ensure that users have full control over when they
   perform any updates/upgrades of their data, and can plan backups accordingly. The
@@ -9105,7 +9105,7 @@ v1.1.0 (2012-12-05)
 v1.1.beta2 (2012-11-13)
 -----------------------
 
-* fixed arangoirb compilation
+* fixed avocadoirb compilation
 
 * fixed doxygen
 
@@ -9116,9 +9116,9 @@ v1.1.beta1 (2012-10-24)
 * fixed AQL optimizer bug
 
 * WARNING:
-  - the user has changed from "arango" to "arangodb", the start script has changed from
-    "arangod" to "arangodb", the database directory has changed from "/var/arangodb" to
-    "/var/lib/arangodb" to be compliant with various Linux policies
+  - the user has changed from "avocado" to "avocadodb", the start script has changed from
+    "avocadod" to "avocadodb", the database directory has changed from "/var/avocadodb" to
+    "/var/lib/avocadodb" to be compliant with various Linux policies
 
   - In 1.1, we have introduced types for collections: regular documents go into document
     collections, and edges go into edge collections. The prefixing (db.xxx vs. edges.xxx)
@@ -9133,7 +9133,7 @@ v1.1.beta1 (2012-10-24)
     is now available via a dedicated URL suffix only: /_admin/html
     The reason for this is that routing and URLs are now subject to changes by the end user,
     and only URLs parts prefixed with underscores (e.g. /_admin or /_api) are reserved
-    for ArangoDB's internal usage.
+    for AvocadoDB's internal usage.
 
 * the server now handles requests with invalid Content-Length header values as follows:
   - if Content-Length is negative, the server will respond instantly with HTTP 411
@@ -9154,8 +9154,8 @@ v1.1.beta1 (2012-10-24)
 
 * issue #265: allow optional base64 encoding/decoding of action response data
 
-* issue #252: create _modules collection using arango-upgrade (note: arango-upgrade was
-  finally replaced by the `--upgrade` option for arangod)
+* issue #252: create _modules collection using avocado-upgrade (note: avocado-upgrade was
+  finally replaced by the `--upgrade` option for avocadod)
 
 * issue #251: allow passing arbitrary options to V8 engine using new command line option:
   --javascript.v8-options. Using this option, the Harmony features or other settings in
@@ -9168,9 +9168,9 @@ v1.1.beta1 (2012-10-24)
 
 * issue #247: added AQL function MERGE_RECURSIVE
 
-* issue #246: added clear() function in arangosh
+* issue #246: added clear() function in avocadosh
 
-* issue #245: Documentation: Central place for naming rules/limits inside ArangoDB
+* issue #245: Documentation: Central place for naming rules/limits inside AvocadoDB
 
 * reduced size of hash index elements by 50 %, allowing more index elements to fit in
   memory
@@ -9181,7 +9181,7 @@ v1.1.beta1 (2012-10-24)
 
 * issue #228: remove unfinished APIs (/_admin/config/*)
 
-* having the OpenSSL library installed is now a prerequisite to compiling ArangoDB
+* having the OpenSSL library installed is now a prerequisite to compiling AvocadoDB
   Also removed the --enable-ssl configure option because ssl is always required.
 
 * added AQL functions TO_LIST, NOT_LIST
@@ -9189,7 +9189,7 @@ v1.1.beta1 (2012-10-24)
 * issue #224: add optional Content-Id for batch requests
 
 * issue #221: more documentation on AQL explain functionality. Also added
-  ArangoStatement.explain() client method
+  AvocadoStatement.explain() client method
 
 * added db._createStatement() method on server as well (was previously available
   on the client only)
@@ -9216,7 +9216,7 @@ v1.1.beta1 (2012-10-24)
   the default value is 10, the maximum value is platform-dependent
 
 * introduced new configure option "--enable-maintainer-mode" for
-  ArangoDB maintainers. this option replaces the previous compile switches
+  AvocadoDB maintainers. this option replaces the previous compile switches
   --with-boost-test, --enable-bison, --enable-flex and --enable-errors-dependency
   the individual configure options have been removed. --enable-maintainer-mode
   turns them all on.
@@ -9234,8 +9234,8 @@ v1.1.beta1 (2012-10-24)
 
 * issue #189: key store should use ISO datetime format bug
 
-* issue #187: run arango-upgrade on server start (note: arango-upgrade was finally
-  replaced by the `--upgrade` option for arangod)n
+* issue #187: run avocado-upgrade on server start (note: avocado-upgrade was finally
+  replaced by the `--upgrade` option for avocadod)n
 
 * fixed issue #183: strange unittest error
 
@@ -9243,7 +9243,7 @@ v1.1.beta1 (2012-10-24)
 
 * fixed issue #181: use getaddrinfo
 
-* moved default database directory to "/var/lib/arangodb" in accordance with
+* moved default database directory to "/var/lib/avocadodb" in accordance with
   http://www.pathname.com/fhs/pub/fhs-2.3.html
 
 * fixed issue #179: strange text in import manual
@@ -9253,22 +9253,22 @@ v1.1.beta1 (2012-10-24)
 * fixed issue #177: a misleading error message was returned if unknown variables
   were used in certain positions in an AQL query.
 
-* fixed issue #176: explain how to use AQL from the arangosh
+* fixed issue #176: explain how to use AQL from the avocadosh
 
 * issue #175: re-added hidden (and deprecated) option --server.http-port. This
-  option is only there to be downwards-compatible to Arango 1.0.
+  option is only there to be downwards-compatible to Avocado 1.0.
 
 * fixed issue #174: missing Documentation for `within`
 
-* fixed issue #170: add db.<coll_name>.all().toArray() to arangosh help screen
+* fixed issue #170: add db.<coll_name>.all().toArray() to avocadosh help screen
 
 * fixed issue #169: missing argument in Simple Queries
 
-* added program arango-upgrade. This program must be run after installing ArangoDB
-  and after upgrading from a previous version of ArangoDB. The arango-upgrade script
+* added program avocado-upgrade. This program must be run after installing AvocadoDB
+  and after upgrading from a previous version of AvocadoDB. The avocado-upgrade script
   will ensure all system collections are created and present in the correct state.
   It will also perform any necessary data updates.
-  Note: arango-upgrade was finally replaced by the `--upgrade` option for arangod.
+  Note: avocado-upgrade was finally replaced by the `--upgrade` option for avocadod.
 
 * issue #153: edge collection should be a flag for a collection
   collections now have a type so that the distinction between document and edge
@@ -9280,7 +9280,7 @@ v1.1.beta1 (2012-10-24)
   To explicitly create a collection of a specific/different type, use the methods
   _createDocumentCollection() or _createEdgeCollection(), which are available for
   both the db and the edges object.
-  The Javascript objects ArangoEdges and ArangoEdgesCollection have been removed
+  The Javascript objects AvocadoEdges and AvocadoEdgesCollection have been removed
   completely.
   All internal and test code has been adjusted for this, and client code
   that uses edges.* should also still work because edges is still there and creates
@@ -9289,7 +9289,7 @@ v1.1.beta1 (2012-10-24)
   INCOMPATIBLE CHANGE: Client code might still need to be changed in the following aspect:
   Previously, collections did not have a type so documents and edges could be inserted
   in the same collection. This is now disallowed. Edges can only be inserted into
-  edge collections now. As there were no collection types in 1.0, ArangoDB will perform
+  edge collections now. As there were no collection types in 1.0, AvocadoDB will perform
   an automatic upgrade when migrating from 1.0 to 1.1.
   The automatic upgrade will check every collection and determine its type as follows:
   - if among the first 50 documents in the collection there are documents with
@@ -9310,7 +9310,7 @@ v1.1.beta1 (2012-10-24)
 v1.0.4 (2012-11-12)
 -------------------
 
-* issue #275: strange error message in arangosh 1.0.3 at startup
+* issue #275: strange error message in avocadosh 1.0.3 at startup
 
 
 v1.0.3 (2012-11-08)
@@ -9318,7 +9318,7 @@ v1.0.3 (2012-11-08)
 
 * fixed AQL optimizer bug
 
-* issue #273: fixed segfault in arangosh on HTTP 40x
+* issue #273: fixed segfault in avocadosh on HTTP 40x
 
 * issue #265: allow optional base64 encoding/decoding of action response data
 
@@ -9451,17 +9451,17 @@ v1.0.beta1 (2012-07-29)
 * fixed issue #126: Access-Shaper must be cached
 
 * INCOMPATIBLE CHANGE: renamed parameters "connect-timeout" and "request-timeout"
-  for arangosh and arangoimp to "--server.connect-timeout" and "--server.request-timeout"
+  for avocadosh and avocadoimp to "--server.connect-timeout" and "--server.request-timeout"
 
 * INCOMPATIBLE CHANGE: authorization is now required on the server side
   Clients sending requests without HTTP authorization will be rejected with HTTP 401
   To allow backwards compatibility, the server can be started with the option
   "--server.disable-authentication"
 
-* added options "--server.username" and "--server.password" for arangosh and arangoimp
+* added options "--server.username" and "--server.password" for avocadosh and avocadoimp
   These parameters must be used to specify the user and password to be used when
-  connecting to the server. If no password is given on the command line, arangosh/
-  arangoimp will interactively prompt for a password.
+  connecting to the server. If no password is given on the command line, avocadosh/
+  avocadoimp will interactively prompt for a password.
   If no user name is specified on the command line, the default user "root" will be
   used.
 
@@ -9481,16 +9481,16 @@ v1.0.beta1 (2012-07-29)
   later using privileges.
 
 * INCOMPATIBLE CHANGE: removed startup options "--port", "--server.port", and
-  "--server.http-port" for arangod.
+  "--server.http-port" for avocadod.
   These options have been replaced by the new "--server.endpoint" parameter
 
-* INCOMPATIBLE CHANGE: removed startup option "--server" for arangosh and arangoimp.
+* INCOMPATIBLE CHANGE: removed startup option "--server" for avocadosh and avocadoimp.
   These options have been replaced by the new "--server.endpoint" parameter
 
-* Added "--server.endpoint" option to arangod, arangosh, and arangoimp.
-  For arangod, this option allows specifying the bind endpoints for the server
-  The server can be bound to one or multiple endpoints at once. For arangosh
-  and arangoimp, the option specifies the server endpoint to connect to.
+* Added "--server.endpoint" option to avocadod, avocadosh, and avocadoimp.
+  For avocadod, this option allows specifying the bind endpoints for the server
+  The server can be bound to one or multiple endpoints at once. For avocadosh
+  and avocadoimp, the option specifies the server endpoint to connect to.
   The following endpoint syntax is currently supported:
   - tcp://host:port or http@tcp://host:port (HTTP over IPv4)
   - tcp://[host]:port or http@tcp://[host]:port (HTTP over IPv6)
@@ -9519,7 +9519,7 @@ v1.0.beta1 (2012-07-29)
 
 * changed implementation of TRI_BlockCrc32 algorithm to use 8 bytes at a time
 
-* fixed issue #122: arangod doesn't start if <log.file> cannot be created
+* fixed issue #122: avocadod doesn't start if <log.file> cannot be created
 
 * fixed issue #121: wrong collection size reported
 
@@ -9599,4 +9599,4 @@ v1.0.alpha2 (2012-06-24)
 v1.0.alpha1 (2012-05-28)
 ------------------------
 
-Alpha Release of ArangoDB 1.0
+Alpha Release of AvocadoDB 1.0

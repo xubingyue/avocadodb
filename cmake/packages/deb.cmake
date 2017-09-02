@@ -9,7 +9,7 @@ set(PACKAGING_HANDLE_CONFIG_FILES true)
 
 FILE(READ "${PROJECT_SOURCE_DIR}/Installation/debian/packagedesc.txt" CPACK_DEBIAN_PACKAGE_DESCRIPTION)
 set(CPACK_DEBIAN_PACKAGE_SECTION "database")
-set(CPACK_DEBIAN_PACKAGE_CONFLICTS "arangodb, ${CPACKG_PACKAGE_CONFLICTS}, ${CPACKG_PACKAGE_CONFLICTS}-client, ${CPACK_PACKAGE_NAME}-client")
+set(CPACK_DEBIAN_PACKAGE_CONFLICTS "avocadodb, ${CPACKG_PACKAGE_CONFLICTS}, ${CPACKG_PACKAGE_CONFLICTS}-client, ${CPACK_PACKAGE_NAME}-client")
 set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 if(NOT DISABLE_XZ_DEB)
   set(CPACK_DEBIAN_COMPRESSION_TYPE "xz")
@@ -77,7 +77,7 @@ list(APPEND CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${DH_CONFFILES_NAME}")
 if (SYSTEMD_FOUND)
   # deploy the Init script:
   install(
-    FILES ${PROJECT_BINARY_DIR}/arangodb3.service
+    FILES ${PROJECT_BINARY_DIR}/avocadodb3.service
     PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
     DESTINATION ${SYSTEMD_UNIT_DIR}/
     RENAME ${SERVICE_NAME}.service
@@ -86,7 +86,7 @@ if (SYSTEMD_FOUND)
 
   # deploy the logrotate config:
   install(
-    FILES ${PROJECT_BINARY_DIR}/arangod.systemd
+    FILES ${PROJECT_BINARY_DIR}/avocadod.systemd
     PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
     DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/logrotate.d
     RENAME ${SERVICE_NAME}
@@ -95,16 +95,16 @@ if (SYSTEMD_FOUND)
 else ()
   # deploy the Init script:
   install(
-    FILES ${PROJECT_SOURCE_DIR}/Installation/debian/arangodb.init
+    FILES ${PROJECT_SOURCE_DIR}/Installation/debian/avocadodb.init
     PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
     DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/init.d
-    RENAME arangodb3
+    RENAME avocadodb3
     COMPONENT debian-extras
     )
 
   # deploy the logrotate config:
   install(
-    FILES ${PROJECT_BINARY_DIR}/arangod.sysv
+    FILES ${PROJECT_BINARY_DIR}/avocadod.sysv
     PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
     DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/logrotate.d
     RENAME ${SERVICE_NAME}
@@ -129,7 +129,7 @@ set(CPACK_CLIENT_PACKAGE_NAME "${CPACK_PACKAGE_NAME}-client")
 
 set(ARANGODB_CLIENT_PACKAGE_FILE_NAME "${CPACK_CLIENT_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${ARANGODB_PACKAGE_REVISION}_${ARANGODB_PACKAGE_ARCHITECTURE}")
 
-set(CLIENT_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/packages/arangodb-client)
+set(CLIENT_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/packages/avocadodb-client)
 configure_file(cmake/packages/client/deb.txt ${CLIENT_BUILD_DIR}/CMakeLists.txt @ONLY)
 add_custom_target(package-arongodb-client
   COMMAND ${CMAKE_COMMAND} .
@@ -169,7 +169,7 @@ list(APPEND CLEAN_PACKAGES_LIST remove_packages)
 ################################################################################
 # hook to build the debug package
 ################################################################################
-set(DEBUG_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/packages/arangodb3-dbg)
+set(DEBUG_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/packages/avocadodb3-dbg)
 configure_file(cmake/packages/dbg/deb.txt ${DEBUG_BUILD_DIR}/CMakeLists.txt @ONLY)
 
 add_custom_target(package-arongodb-dbg

@@ -8,5 +8,5 @@ Returns the filesystem path of the current database as a string. When using the 
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_OUTPUT{dbPath}
-  require("@arangodb").db._path();
+  require("@avocadodb").db._path();
 @END_EXAMPLE_ARANGOSH_OUTPUT

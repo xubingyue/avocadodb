@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,8 +44,8 @@
 #include "Logger/Logger.h"
 #include "Random/RandomGenerator.h"
 
-using namespace arangodb::basics;
-using namespace arangodb;
+using namespace avocadodb::basics;
+using namespace avocadodb;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief read buffer size (used for bulk file reading)
@@ -228,11 +228,11 @@ static void ListTreeRecursively(char const* full, char const* path,
   for (size_t j = 0; j < 2; ++j) {
     for (auto const& filename : dirs) {
       std::string const newFull =
-          arangodb::basics::FileUtils::buildFilename(full, filename);
+          avocadodb::basics::FileUtils::buildFilename(full, filename);
       std::string newPath;
 
       if (*path) {
-        newPath = arangodb::basics::FileUtils::buildFilename(path, filename);
+        newPath = avocadodb::basics::FileUtils::buildFilename(path, filename);
       } else {
         newPath = filename;
       }
@@ -564,7 +564,7 @@ int TRI_RemoveEmptyDirectory(char const* filename) {
   int res = TRI_RMDIR(filename);
 
   if (res != 0) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "cannot remove directory '" << filename
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "cannot remove directory '" << filename
                << "': " << TRI_LAST_ERROR_STR;
     return TRI_set_errno(TRI_ERROR_SYS_ERROR);
   }
@@ -578,10 +578,10 @@ int TRI_RemoveEmptyDirectory(char const* filename) {
 
 int TRI_RemoveDirectory(char const* filename) {
   if (TRI_IsSymbolicLink(filename)) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "removing symbolic link '" << filename << "'";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "removing symbolic link '" << filename << "'";
     return TRI_UnlinkFile(filename);
   } else if (TRI_IsDirectory(filename)) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "removing directory '" << filename << "'";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "removing directory '" << filename << "'";
 
     int res = TRI_ERROR_NO_ERROR;
     std::vector<std::string> files = TRI_FilesDirectory(filename);
@@ -602,11 +602,11 @@ int TRI_RemoveDirectory(char const* filename) {
 
     return res;
   } else if (TRI_ExistsFile(filename)) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "removing file '" << filename << "'";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "removing file '" << filename << "'";
 
     return TRI_UnlinkFile(filename);
   } else {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "attempt to remove non-existing file/directory '" << filename
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "attempt to remove non-existing file/directory '" << filename
                << "'";
 
     // TODO: why do we actually return "no error" here?
@@ -629,7 +629,7 @@ int TRI_RemoveDirectoryDeterministic(char const* filename) {
     return lhs.size() > rhs.size();
   });
 
-  // LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "removing files in directory '" << filename << "' in this order: " << files;
+  // LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "removing files in directory '" << filename << "' in this order: " << files;
 
   int res = TRI_ERROR_NO_ERROR;
 
@@ -885,7 +885,7 @@ int TRI_RenameFile(char const* old, char const* filename, long* systemError,
     if (systemErrorStr != nullptr) {
       *systemErrorStr = windowsErrorBuf;
     }
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "cannot rename file from '" << old << "' to '" << filename
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "cannot rename file from '" << old << "' to '" << filename
                << "': " << errno << " - " << windowsErrorBuf;
     res = -1;
   } else {
@@ -902,7 +902,7 @@ int TRI_RenameFile(char const* old, char const* filename, long* systemError,
     if (systemErrorStr != nullptr) {
       *systemErrorStr = TRI_LAST_ERROR_STR;
     }
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "cannot rename file from '" << old << "' to '" << filename
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "cannot rename file from '" << old << "' to '" << filename
                << "': " << TRI_LAST_ERROR_STR;
     return TRI_set_errno(TRI_ERROR_SYS_ERROR);
   }
@@ -920,7 +920,7 @@ int TRI_UnlinkFile(char const* filename) {
   if (res != 0) {
     int e = errno;
     TRI_set_errno(TRI_ERROR_SYS_ERROR);
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "cannot unlink file '" << filename
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "cannot unlink file '" << filename
                << "': " << TRI_LAST_ERROR_STR;
     if (e == ENOENT) {
       return TRI_ERROR_FILE_NOT_FOUND;
@@ -946,11 +946,11 @@ bool TRI_ReadPointer(int fd, void* buffer, size_t length) {
 
     if (n < 0) {
       TRI_set_errno(TRI_ERROR_SYS_ERROR);
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot read: " << TRI_LAST_ERROR_STR;
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot read: " << TRI_LAST_ERROR_STR;
       return false;
     } else if (n == 0) {
       TRI_set_errno(TRI_ERROR_SYS_ERROR);
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot read, end-of-file";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot read, end-of-file";
       return false;
     }
 
@@ -973,7 +973,7 @@ bool TRI_WritePointer(int fd, void const* buffer, size_t length) {
 
     if (n < 0) {
       TRI_set_errno(TRI_ERROR_SYS_ERROR);
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot write: " << TRI_LAST_ERROR_STR;
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot write: " << TRI_LAST_ERROR_STR;
       return false;
     }
 
@@ -1115,7 +1115,7 @@ int TRI_CreateLockFile(char const* filename) {
 
   if (fd == INVALID_HANDLE_VALUE) {
     TRI_SYSTEM_ERROR();
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create Lockfile '" << filename
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create Lockfile '" << filename
              << "': " << TRI_GET_ERRORBUF;
     return TRI_set_errno(TRI_ERROR_SYS_ERROR);
   }
@@ -1127,7 +1127,7 @@ int TRI_CreateLockFile(char const* filename) {
 
   if (!r || len != strlen(buf)) {
     TRI_SYSTEM_ERROR();
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot write Lockfile '" << filename
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot write Lockfile '" << filename
              << "': " << TRI_GET_ERRORBUF;
     res = TRI_set_errno(TRI_ERROR_SYS_ERROR);
 
@@ -1150,7 +1150,7 @@ int TRI_CreateLockFile(char const* filename) {
 
   if (!r) {
     TRI_SYSTEM_ERROR();
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot set Lockfile status '" << filename
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot set Lockfile status '" << filename
              << "': " << TRI_GET_ERRORBUF;
     res = TRI_set_errno(TRI_ERROR_SYS_ERROR);
 
@@ -1275,7 +1275,7 @@ int TRI_VerifyLockFile(char const* filename) {
 
   if (fd < 0) {
     TRI_set_errno(TRI_ERROR_SYS_ERROR);
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "cannot open lockfile '" << filename << "' in write mode: " << TRI_last_error();
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "cannot open lockfile '" << filename << "' in write mode: " << TRI_last_error();
     
     if (errno == EACCES) {
       return TRI_ERROR_CANNOT_WRITE_FILE;
@@ -1343,7 +1343,7 @@ int TRI_VerifyLockFile(char const* filename) {
 
     if (res != TRI_ERROR_NO_ERROR) {
       canLock = errno;
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "fcntl on lockfile '" << filename
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "fcntl on lockfile '" << filename
                 << "' failed: " << TRI_errno_string(canLock) 
                 << ". a possible reason is that the filesystem does not support file-locking";
     }
@@ -1359,7 +1359,7 @@ int TRI_VerifyLockFile(char const* filename) {
   // from man 2 fcntl: "If a conflicting lock is held by another process, 
   // this call returns -1 and sets errno to EACCES or EAGAIN."
   if (canLock != EACCES && canLock != EAGAIN) {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "fcntl on lockfile '" << filename
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "fcntl on lockfile '" << filename
               << "' failed: " << TRI_last_error()
               << ". a possible reason is that the filesystem does not support file-locking";
   }
@@ -2088,7 +2088,7 @@ int TRI_Crc32File(char const* path, uint32_t* crc) {
 /// call to TRI_GetTempPath
 ////////////////////////////////////////////////////////////////////////////////
 
-static std::string TRI_ApplicationName = "arangodb";
+static std::string TRI_ApplicationName = "avocadodb";
 
 void TRI_SetApplicationName(char const* name) {
   TRI_ASSERT(name != nullptr);
@@ -2138,7 +2138,7 @@ std::string TRI_GetTempPath() {
     char* res = mkdtemp(SystemTempPath.get());
 
     if (res == nullptr) {
-      system = "/tmp/arangodb";
+      system = "/tmp/avocadodb";
       SystemTempPath.reset(new char[system.size() + 1]);
       path = SystemTempPath.get();
       TRI_CopyString(path, system.c_str(), system.size());
@@ -2190,7 +2190,7 @@ std::string TRI_GetTempPath() {
 
   if ((dwReturnValue > LOCAL_MAX_PATH_BUFFER) || (dwReturnValue == 0)) {
     // something wrong
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "GetTempPathA failed: LOCAL_MAX_PATH_BUFFER="
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "GetTempPathA failed: LOCAL_MAX_PATH_BUFFER="
                << LOCAL_MAX_PATH_BUFFER << ":dwReturnValue=" << dwReturnValue;
     // attempt to simply use the current directory
     _tcscpy(tempFileName, TEXT("."));
@@ -2204,7 +2204,7 @@ std::string TRI_GetTempPath() {
   uReturnValue = GetTempFileName(tempPathName, TEXT("TRI_"), 0, tempFileName);
 
   if (uReturnValue == 0) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "GetTempFileNameA failed";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "GetTempFileNameA failed";
     _tcscpy(tempFileName, TEXT("TRI_tempFile"));
   }
 
@@ -2217,21 +2217,21 @@ std::string TRI_GetTempPath() {
                               NULL);                  // no template
 
   if (tempFileHandle == INVALID_HANDLE_VALUE) {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "Cannot create temporary file '" << (LPTSTR) tempFileName;
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Cannot create temporary file '" << (LPTSTR) tempFileName;
     THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot create temporary file"); 
   }
 
   ok = CloseHandle(tempFileHandle);
 
   if (!ok) {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "Cannot close handle of temporary file";
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Cannot close handle of temporary file";
     THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot close handle of temporary file"); 
   }
 
   ok = DeleteFile(tempFileName);
 
   if (!ok) {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "Cannot delete temporary file";
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Cannot delete temporary file";
     THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, "cannot delete temporary file"); 
   }
 
@@ -2253,7 +2253,7 @@ std::string TRI_GetTempPath() {
     for (j = 0; j < pathSize; ++j) {
       if (tempPathName[j] > 127) {
         TRI_Free(TRI_UNKNOWN_MEM_ZONE, temp);
-        LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "Invalid characters in temporary path name";
+        LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "Invalid characters in temporary path name";
       }
       temp[j] = (char)(tempPathName[j]);
     }
@@ -2475,12 +2475,12 @@ int TRI_CreateDatafile(std::string const& filename, size_t maximalSize) {
   if (fd < 0) {
     if (errno == ENOSPC) {
       TRI_set_errno(TRI_ERROR_ARANGO_FILESYSTEM_FULL);
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_last_error();
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_last_error();
     } else {
       TRI_SYSTEM_ERROR();
 
       TRI_set_errno(TRI_ERROR_SYS_ERROR);
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_GET_ERRORBUF;
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_GET_ERRORBUF;
     }
     return -1;
   }
@@ -2518,11 +2518,11 @@ int TRI_CreateDatafile(std::string const& filename, size_t maximalSize) {
       if (writeResult < 0) {
         if (errno == ENOSPC) {
           TRI_set_errno(TRI_ERROR_ARANGO_FILESYSTEM_FULL);
-          LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_last_error();
+          LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_last_error();
         } else {
           TRI_SYSTEM_ERROR();
           TRI_set_errno(TRI_ERROR_SYS_ERROR);
-          LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_GET_ERRORBUF;
+          LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot create datafile '" << filename << "': " << TRI_GET_ERRORBUF;
         }
 
         TRI_TRACKED_CLOSE_FILE(fd);
@@ -2546,7 +2546,7 @@ int TRI_CreateDatafile(std::string const& filename, size_t maximalSize) {
     // remove empty file
     TRI_UnlinkFile(filename.c_str());
 
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot seek in datafile '" << filename << "': '" << TRI_GET_ERRORBUF << "'";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot seek in datafile '" << filename << "': '" << TRI_GET_ERRORBUF << "'";
     return -1;
   }
 

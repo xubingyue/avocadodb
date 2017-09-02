@@ -64,7 +64,7 @@ function deprecate(fn, msg) {
   };
 }
 
-function arangoPrint(obj) {
+function avocadoPrint(obj) {
   var ctx = {output: ''};
   obj._PRINT(ctx);
   return ctx.output;
@@ -76,7 +76,7 @@ exports.format = function(f) {
     var objects = [];
     for (var i = 0; i < arguments.length; i++) {
       if (arguments[i] && typeof arguments[i]._PRINT === 'function') {
-        objects.push(arangoPrint(arguments[i]));
+        objects.push(avocadoPrint(arguments[i]));
       } else {
         objects.push(inspect(arguments[i]));
       }
@@ -111,7 +111,7 @@ exports.format = function(f) {
       str += ' ' + x;
     } else {
       if (x && typeof x._PRINT === 'function') {
-        str += ' ' + arangoPrint(x);
+        str += ' ' + avocadoPrint(x);
       } else {
         str += ' ' + inspect(x);
       }
@@ -403,7 +403,7 @@ function formatValue(ctx, value, recurseTimes) {
   }
 
   if (!base && typeof value._PRINT === 'function') {
-    base = ' ' + arangoPrint(value);
+    base = ' ' + avocadoPrint(value);
   }
 
   // Add constructor name if available

@@ -3,7 +3,7 @@
 'use strict';
 
 // //////////////////////////////////////////////////////////////////////////////
-// / @brief ArangoShell client API
+// / @brief AvocadoShell client API
 // /
 // / @file
 // /
@@ -68,15 +68,15 @@ global.stop_pager = function stop_pager () {
 
 global.help = function help () {
   var internal = require('internal');
-  var arangodb = require('@arangodb');
-  var arangosh = require('@arangodb/arangosh');
+  var avocadodb = require('@avocadodb');
+  var avocadosh = require('@avocadodb/avocadosh');
 
-  internal.print(arangosh.HELP);
-  arangodb.ArangoDatabase.prototype._help();
-  arangodb.ArangoCollection.prototype._help();
-  arangodb.ArangoStatement.prototype._help();
-  arangodb.ArangoQueryCursor.prototype._help();
-  internal.print(arangosh.helpExtended);
+  internal.print(avocadosh.HELP);
+  avocadodb.AvocadoDatabase.prototype._help();
+  avocadodb.AvocadoCollection.prototype._help();
+  avocadodb.AvocadoStatement.prototype._help();
+  avocadodb.AvocadoQueryCursor.prototype._help();
+  internal.print(avocadosh.helpExtended);
 };
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -103,37 +103,37 @@ global.console = global.console || require('console');
 // / @brief global 'db'
 // //////////////////////////////////////////////////////////////////////////////
 
-global.db = require('@arangodb').db;
+global.db = require('@avocadodb').db;
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief template string generator for building an AQL query
 // //////////////////////////////////////////////////////////////////////////////
 
-global.aql = global.aqlQuery = require('@arangodb').aql;
+global.aql = global.aqlQuery = require('@avocadodb').aql;
 
 // //////////////////////////////////////////////////////////////////////////////
-// / @brief global 'arango'
+// / @brief global 'avocado'
 // //////////////////////////////////////////////////////////////////////////////
 
-global.arango = require('@arangodb').arango;
+global.avocado = require('@avocadodb').avocado;
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief global 'fm'
 // //////////////////////////////////////////////////////////////////////////////
 
-global.fm = require('@arangodb/foxx/manager');
+global.fm = require('@avocadodb/foxx/manager');
 
 // //////////////////////////////////////////////////////////////////////////////
-// / @brief global 'ArangoStatement'
+// / @brief global 'AvocadoStatement'
 // //////////////////////////////////////////////////////////////////////////////
 
-global.ArangoStatement = require('@arangodb/arango-statement').ArangoStatement;
+global.AvocadoStatement = require('@avocadodb/avocado-statement').AvocadoStatement;
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief shell tutorial
 // //////////////////////////////////////////////////////////////////////////////
 
-global.tutorial = require('@arangodb/tutorial');
+global.tutorial = require('@avocadodb/tutorial');
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief prints help
@@ -149,9 +149,9 @@ var initHelp = function () {
   }
 
   if (internal.quiet !== true) {
-    require('@arangodb').checkAvailableVersions();
+    require('@avocadodb').checkAvailableVersions();
 
-    if (internal.arango && internal.arango.isConnected && internal.arango.isConnected()) {
+    if (internal.avocado && internal.avocado.isConnected && internal.avocado.isConnected()) {
       internal.print("Type 'tutorial' for a tutorial or 'help' to see common examples");
     }
   }
@@ -162,7 +162,7 @@ var initHelp = function () {
 // //////////////////////////////////////////////////////////////////////////////
 
 if (typeof window === 'undefined') {
-  // We're in arangosh
+  // We're in avocadosh
   initHelp();
   // these variables are not defined in the browser context
   if (!(
@@ -175,7 +175,7 @@ if (typeof window === 'undefined') {
     try {
       // this will not work from within a browser
       var __fs__ = require('fs');
-      var __rcf__ = __fs__.join(__fs__.home(), '.arangosh.rc');
+      var __rcf__ = __fs__.join(__fs__.home(), '.avocadosh.rc');
 
       if (__fs__.exists(__rcf__)) {
         /* jshint evil: true */
@@ -183,7 +183,7 @@ if (typeof window === 'undefined') {
         eval(__content__);
       }
     } catch (e) {
-      require('console').warn('arangosh.rc: %s', String(e));
+      require('console').warn('avocadosh.rc: %s', String(e));
     }
   }
 

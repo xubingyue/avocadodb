@@ -4,7 +4,7 @@
 // / DISCLAIMER
 // /
 // / Copyright 2010-2013 triAGENS GmbH, Cologne, Germany
-// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Alan Plum
 // //////////////////////////////////////////////////////////////////////////////
@@ -29,14 +29,14 @@ const dd = require('dedent');
 const fs = require('fs');
 const joi = require('joi');
 
-const actions = require('@arangodb/actions');
-const ArangoError = require('@arangodb').ArangoError;
-const errors = require('@arangodb').errors;
-const jsonml2xml = require('@arangodb/util').jsonml2xml;
-const swaggerJson = require('@arangodb/foxx/legacy/swagger').swaggerJson;
-const FoxxManager = require('@arangodb/foxx/manager');
-const createRouter = require('@arangodb/foxx/router');
-const reporters = Object.keys(require('@arangodb/mocha').reporters);
+const actions = require('@avocadodb/actions');
+const AvocadoError = require('@avocadodb').AvocadoError;
+const errors = require('@avocadodb').errors;
+const jsonml2xml = require('@avocadodb/util').jsonml2xml;
+const swaggerJson = require('@avocadodb/foxx/legacy/swagger').swaggerJson;
+const FoxxManager = require('@avocadodb/foxx/manager');
+const createRouter = require('@avocadodb/foxx/router');
+const reporters = Object.keys(require('@avocadodb/mocha').reporters);
 const schemas = require('./schemas');
 
 const router = createRouter();
@@ -71,7 +71,7 @@ function prepareServiceRequestBody (req, res, next) {
       req.body.configuration = JSON.parse(req.body.configuration);
     }
   } catch (e) {
-    throw new ArangoError({
+    throw new AvocadoError({
       errorNum: errors.ERROR_SERVICE_OPTIONS_MALFORMED.code,
       errorMessage: dd`
         ${errors.ERROR_SERVICE_OPTIONS_MALFORMED.message}
@@ -86,8 +86,8 @@ router.use((req, res, next) => {
   try {
     next();
   } catch (e) {
-    if (e.isArangoError) {
-      const status = actions.arangoErrorToHttpCode(e.errorNum);
+    if (e.isAvocadoError) {
+      const status = actions.avocadoErrorToHttpCode(e.errorNum);
       res.throw(status, e.errorMessage, {
         errorNum: e.errorNum,
         cause: e

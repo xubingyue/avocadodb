@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,9 +28,9 @@
 #include "ProgramOptions/ProgramOptions.h"
 #include "ProgramOptions/Section.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::options;
 
 namespace {
 class ArrayBufferAllocator : public v8::ArrayBuffer::Allocator {
@@ -84,7 +84,7 @@ static void gcEpilogueCallback(v8::Isolate* isolate, v8::GCType type,
   size_t stillFree = heapSizeLimit - usedHeadSize;
 
   if (stillFree <= LIMIT_ABS && freed <= minFreed) {
-    LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "reached heap-size limit, interrupting V8 execution ("
+    LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "reached heap-size limit, interrupting V8 execution ("
               << "heap size limit " << heapSizeLimit << ", used "
               << usedHeadSize << ")";
 
@@ -98,9 +98,9 @@ static void gcEpilogueCallback(v8::Isolate* isolate, v8::GCType type,
 // terminate the entire process
 static void oomCallback(char const* location, bool isHeapOOM) {
   if (isHeapOOM) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "out of heap hemory in V8 (" << location << ")";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "out of heap hemory in V8 (" << location << ")";
   } else {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "out of memory in V8 (" << location << ")";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "out of memory in V8 (" << location << ")";
   }
   FATAL_ERROR_EXIT(); 
 }
@@ -112,7 +112,7 @@ static void fatalCallback(char const* location, char const* message) {
   if (message == nullptr) {
     message = "no message";
   }
-  LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "fatal error in V8 (" << location << "): " << message;
+  LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "fatal error in V8 (" << location << "): " << message;
   FATAL_ERROR_EXIT(); 
 }
 
@@ -151,7 +151,7 @@ void V8PlatformFeature::validateOptions(
   
   if (0 < _v8MaxHeap) {
     if (_v8MaxHeap > (std::numeric_limits<int>::max)()) {
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "value for '--javascript.v8-max-heap' exceeds maximum value " << (std::numeric_limits<int>::max)();
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "value for '--javascript.v8-max-heap' exceeds maximum value " << (std::numeric_limits<int>::max)();
       FATAL_ERROR_EXIT();
     }
   }

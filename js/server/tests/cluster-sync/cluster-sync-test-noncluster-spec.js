@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2017 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Andreas Streichardt
 // //////////////////////////////////////////////////////////////////////////////
 
 const wait = require('internal').wait;
 const db = require('internal').db;
-const cluster = require('@arangodb/cluster');
+const cluster = require('@avocadodb/cluster');
 const expect = require('chai').expect;
-const ArangoCollection = require('@arangodb/arango-collection').ArangoCollection;
+const AvocadoCollection = require('@avocadodb/avocado-collection').AvocadoCollection;
 
 describe('Cluster sync', function() {
   before(function() {
-    require('@arangodb/sync-replication-debug').setup();
+    require('@avocadodb/sync-replication-debug').setup();
   });
 
   describe('Databaseplan to local', function() {
@@ -91,7 +91,7 @@ describe('Cluster sync', function() {
   describe('Collection plan to local', function() {
     let numSystemCollections;
     before(function() {
-      require('@arangodb/sync-replication-debug').setup();
+      require('@avocadodb/sync-replication-debug').setup();
     });
 
     beforeEach(function() {
@@ -156,7 +156,7 @@ describe('Cluster sync', function() {
       db._useDatabase('test');
       let collections = db._collections();
       expect(collections.map(collection => collection.name())).to.contain('s100001');
-      expect(db._collection('s100001').status()).to.equal(ArangoCollection.STATUS_LOADED);
+      expect(db._collection('s100001').status()).to.equal(AvocadoCollection.STATUS_LOADED);
     });
     it('should create a collection if it does not exist (unloaded case)', function() {
       let plan = {
@@ -208,14 +208,14 @@ describe('Cluster sync', function() {
       let collections = db._collections();
       expect(collections.map(collection => collection.name())).to.contain('s100001');
       let count = 0;
-      while (db._collection('s100001').status() === ArangoCollection.STATUS_UNLOADING && count++ < 100) {
+      while (db._collection('s100001').status() === AvocadoCollection.STATUS_UNLOADING && count++ < 100) {
         wait(0.1);
       }
-      expect(db._collection('s100001').status()).to.equal(ArangoCollection.STATUS_UNLOADED);
+      expect(db._collection('s100001').status()).to.equal(AvocadoCollection.STATUS_UNLOADED);
     });
     it('should unload an existing collection', function() {
       db._create('s100001');
-      expect(db._collection('s100001').status()).to.equal(ArangoCollection.STATUS_LOADED);
+      expect(db._collection('s100001').status()).to.equal(AvocadoCollection.STATUS_LOADED);
       let plan = {
         test: {
           "100001": {
@@ -261,10 +261,10 @@ describe('Cluster sync', function() {
       cluster.executePlanForCollections(plan);
       db._useDatabase('test');
       let count = 0;
-      while (db._collection('s100001').status() === ArangoCollection.STATUS_UNLOADING && count++ < 100) {
+      while (db._collection('s100001').status() === AvocadoCollection.STATUS_UNLOADING && count++ < 100) {
         wait(0.1);
       }
-      expect(db._collection('s100001').status()).to.equal(ArangoCollection.STATUS_UNLOADED);
+      expect(db._collection('s100001').status()).to.equal(AvocadoCollection.STATUS_UNLOADED);
     });
     it('should delete a stale collection', function() {
       db._create('s100001');
@@ -886,9 +886,9 @@ describe('Cluster sync', function() {
         }
       };
       let result = cluster.updateCurrentForDatabases({}, current);
-      expect(result).to.have.property('/arango/Current/Databases/testi/repltest');
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.property('op', 'set');
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.deep.property('new.name', 'testi');
+      expect(result).to.have.property('/avocado/Current/Databases/testi/repltest');
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.property('op', 'set');
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.deep.property('new.name', 'testi');
     });
     it('should not do anything if there is nothing to do', function() {
       let current = {
@@ -918,9 +918,9 @@ describe('Cluster sync', function() {
         }
       };
       let result = cluster.updateCurrentForDatabases({}, current);
-      expect(result).to.have.property('/arango/Current/Databases/testi/repltest');
+      expect(result).to.have.property('/avocado/Current/Databases/testi/repltest');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.property('op', 'delete');
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.property('op', 'delete');
     });
     it('should not delete other server database entries when removing', function() {
       let current = {
@@ -942,7 +942,7 @@ describe('Cluster sync', function() {
         }
       };
       let result = cluster.updateCurrentForDatabases({}, current);
-      expect(result).to.have.property('/arango/Current/Databases/testi/repltest');
+      expect(result).to.have.property('/avocado/Current/Databases/testi/repltest');
       expect(Object.keys(result)).to.have.lengthOf(1);
     });
     it('should report any errors during database creation', function() {
@@ -955,10 +955,10 @@ describe('Cluster sync', function() {
         },
       };
       let result = cluster.updateCurrentForDatabases({testi: {"error": true, name: "testi"}}, current);
-      expect(result).to.have.property('/arango/Current/Databases/testi/repltest');
+      expect(result).to.have.property('/avocado/Current/Databases/testi/repltest');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.property('op', 'set');
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.deep.property('new.error', true);
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.property('op', 'set');
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.deep.property('new.error', true);
     });
     it('should override any previous error if creation finally worked', function() {
       let current = {
@@ -978,11 +978,11 @@ describe('Cluster sync', function() {
       };
       db._createDatabase('testi');
       let result = cluster.updateCurrentForDatabases({}, current);
-      expect(result).to.have.property('/arango/Current/Databases/testi/repltest');
+      expect(result).to.have.property('/avocado/Current/Databases/testi/repltest');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.property('op', 'set');
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.deep.property('new.name', 'testi');
-      expect(result['/arango/Current/Databases/testi/repltest']).to.have.deep.property('new.error', false);
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.property('op', 'set');
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.deep.property('new.name', 'testi');
+      expect(result['/avocado/Current/Databases/testi/repltest']).to.have.deep.property('new.error', false);
     });
     it('should not do anything if nothing happened', function() {
       let current = {
@@ -1016,9 +1016,9 @@ describe('Cluster sync', function() {
       };
       let result = cluster.updateCurrentForCollections({}, current);
       expect(Object.keys(result)).to.have.length.of.at.least(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi');
-      expect(result['/arango/Current/Collections/testung/888111/testi']).to.have.property('op', 'set');
-      expect(result['/arango/Current/Collections/testung/888111/testi']).to.have.deep.property('new.servers')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi');
+      expect(result['/avocado/Current/Collections/testung/888111/testi']).to.have.property('op', 'set');
+      expect(result['/avocado/Current/Collections/testung/888111/testi']).to.have.deep.property('new.servers')
         .that.is.an('array')
         .that.deep.equals(['repltest']);
     });
@@ -1062,9 +1062,9 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections({}, {}, current);
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi/servers')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi/servers')
         .that.have.property('op', 'set');
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi/servers')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi/servers')
         .that.has.property('new')
         .with.deep.equal(["_repltest"]);
     });
@@ -1082,9 +1082,9 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections({}, {}, current);
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.have.property('op', 'set');
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.has.deep.property('new.servers')
         .with.deep.equal(["repltest"]);
     });
@@ -1099,7 +1099,7 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections({}, {}, current);
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.has.deep.property('op', 'delete');
     });
     it('should report newly created indices', function() {
@@ -1117,9 +1117,9 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections({}, {}, current);
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.have.property('op', 'set');
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.has.deep.property('new.indexes')
         .with.lengthOf(2);
     });
@@ -1142,9 +1142,9 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections(errors, {});
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.have.property('op', 'set');
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.has.deep.property('new.error')
         .equals(true);
     });
@@ -1175,9 +1175,9 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections(errors, current);
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.have.property('op', 'set');
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.has.deep.property('new.indexes.1.error')
         .equals(true);
     });
@@ -1207,9 +1207,9 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections({}, current);
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.have.property('op', 'set');
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.has.deep.property('new.indexes')
         .that.has.lengthOf(1);
     });
@@ -1230,9 +1230,9 @@ describe('Cluster sync', function() {
       let result = cluster.updateCurrentForCollections({}, current);
       expect(result).to.be.an('object');
       expect(Object.keys(result)).to.have.lengthOf(1);
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.have.property('op', 'set');
-      expect(result).to.have.property('/arango/Current/Collections/testung/888111/testi')
+      expect(result).to.have.property('/avocado/Current/Collections/testung/888111/testi')
         .that.has.deep.property('new.indexes')
         .that.has.lengthOf(2);
     });

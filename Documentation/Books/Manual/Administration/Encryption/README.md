@@ -2,13 +2,13 @@
 
 __This feature is only available in the Enterprise Edition.__
 
-When you store sensitive data in your ArangoDB database, you want 
+When you store sensitive data in your AvocadoDB database, you want 
 to protect that data under all circumstances. 
 At runtime you will protect it with SSL transport encryption and strong authentication, 
 but when the data is already on disk, you also need protection. 
 That is where the Encryption feature comes in. 
 
-The Encryption feature of ArangoDB will encrypt all data that ArangoDB 
+The Encryption feature of AvocadoDB will encrypt all data that AvocadoDB 
 is storing in your database before it is written to disk.
 
 The data is encrypted with AES-256-CTR, which is a strong encryption
@@ -21,7 +21,7 @@ Note: The Encryption feature requires the RocksDB storage engine.
 
 ## Encryption keys 
 
-The Encryption feature of ArangoDB requires a single 32-byte key per server.
+The Encryption feature of AvocadoDB requires a single 32-byte key per server.
 It is recommended to use a different key for each server (when operating in a cluster configuration).
 Make sure to protect these keys! 
 
@@ -32,10 +32,10 @@ That means:
 
 ## Configuration
 
-To activate encryption of your database, pass the following option to `arangod`.
+To activate encryption of your database, pass the following option to `avocadod`.
 
 ```
-$ arangod \
+$ avocadod \
     --rocksdb.encryption-keyfile=/mytmpfs/mySecretKey \
     --server.storage-engine=rocksdb
 ```

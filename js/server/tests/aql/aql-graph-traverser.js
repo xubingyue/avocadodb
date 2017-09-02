@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2014 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 "use strict";
@@ -34,11 +34,11 @@ const jsunity = require("jsunity");
 
 const internal = require("internal");
 const db = internal.db;
-const errors = require("@arangodb").errors;
-const gm = require("@arangodb/general-graph");
+const errors = require("@avocadodb").errors;
+const gm = require("@avocadodb/general-graph");
 const vn = "UnitTestVertexCollection";
 const en = "UnitTestEdgeCollection";
-const isCluster = require("@arangodb/cluster").isCluster();
+const isCluster = require("@avocadodb/cluster").isCluster();
 var _ = require("lodash");
 var vertex = {};
 var edge = {};
@@ -3683,7 +3683,7 @@ function optimizeNonVertexCentricIndexesSuite () {
 };
 
 function exampleGraphsSuite () {
-  let ex = require('@arangodb/graph-examples/example-graph');
+  let ex = require('@avocadodb/graph-examples/example-graph');
 
   return {
     setUpAll: () => {

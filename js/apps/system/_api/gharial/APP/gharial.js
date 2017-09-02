@@ -4,7 +4,7 @@
 // / DISCLAIMER
 // /
 // / Copyright 2010-2013 triAGENS GmbH, Cologne, Germany
-// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
 // / @author Alan Plum
@@ -29,16 +29,16 @@ const joi = require('joi');
 const dd = require('dedent');
 const statuses = require('statuses');
 const httperr = require('http-errors');
-const errors = require('@arangodb').errors;
-const cluster = require('@arangodb/cluster');
-const Graph = require('@arangodb/general-graph');
-const createRouter = require('@arangodb/foxx/router');
-const actions = require('@arangodb/actions');
+const errors = require('@avocadodb').errors;
+const cluster = require('@avocadodb/cluster');
+const Graph = require('@avocadodb/general-graph');
+const createRouter = require('@avocadodb/foxx/router');
+const actions = require('@avocadodb/actions');
 const isEnterprise = require('internal').isEnterprise();
 
 let SmartGraph = {};
 if (isEnterprise) {
-  SmartGraph = require('@arangodb/smart-graph');
+  SmartGraph = require('@avocadodb/smart-graph');
 }
 
 const NOT_MODIFIED = statuses('not modified');
@@ -57,7 +57,7 @@ const loadGraph = (name) => {
       return Graph._graph(name);
     }
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_GRAPH_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_GRAPH_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -71,8 +71,8 @@ router.use((req, res, next) => {
   try {
     next();
   } catch (e) {
-    if (e.isArangoError) {
-      const status = actions.arangoErrorToHttpCode(e.errorNum);
+    if (e.isAvocadoError) {
+      const status = actions.avocadoErrorToHttpCode(e.errorNum);
       res.throw(status, e.errorMessage, {errorNum: e.errorNum, cause: e});
     }
     if (e.statusCode === NOT_MODIFIED) {
@@ -263,7 +263,7 @@ router.post('/', function (req, res) {
       }
     }
   } catch (e) {
-    if (e.isArangoError) {
+    if (e.isAvocadoError) {
       switch (e.errorNum) {
         case errors.ERROR_BAD_PARAMETER.code:
         case errors.ERROR_GRAPH_VERTEX_COL_DOES_NOT_EXIST.code:
@@ -326,7 +326,7 @@ router.delete('/:graph', function (req, res) {
   try {
     Graph._drop(name, dropCollections);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_GRAPH_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_GRAPH_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -370,7 +370,7 @@ router.post('/:graph/vertex', function (req, res) {
   try {
     g._addVertexCollection(req.body.collection);
   } catch (e) {
-    if (e.isArangoError) {
+    if (e.isAvocadoError) {
       switch (e.errorNum) {
         case errors.ERROR_BAD_PARAMETER.code:
         case errors.ERROR_GRAPH_WRONG_COLLECTION_TYPE_VERTEX.code:
@@ -407,13 +407,13 @@ router.delete('/:graph/vertex/:collection', function (req, res) {
   try {
     g._removeVertexCollection(defName, dropCollection);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_GRAPH_VERTEX_COL_DOES_NOT_EXIST.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_GRAPH_VERTEX_COL_DOES_NOT_EXIST.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
       );
     }
-    if (e.isArangoError && e.errorNum === errors.ERROR_GRAPH_NOT_IN_ORPHAN_COLLECTION.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_GRAPH_NOT_IN_ORPHAN_COLLECTION.code) {
       throw Object.assign(
         new httperr.BadRequest(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -447,7 +447,7 @@ router.post('/:graph/edge', function (req, res) {
   try {
     g._extendEdgeDefinitions(req.body);
   } catch (e) {
-    if (e.isArangoError) {
+    if (e.isAvocadoError) {
       switch (e.errorNum) {
         case errors.ERROR_GRAPH_COLLECTION_MULTI_USE.code:
         case errors.ERROR_GRAPH_COLLECTION_USE_IN_MULTI_GRAPHS.code:
@@ -486,7 +486,7 @@ router.put('/:graph/edge/:definition', function (req, res) {
   try {
     g._editEdgeDefinitions(req.body);
   } catch (e) {
-    if (e.isArangoError) {
+    if (e.isAvocadoError) {
       switch (e.errorNum) {
         case errors.ERROR_GRAPH_EDGE_COLLECTION_NOT_USED.code:
         case errors.ERROR_GRAPH_CREATE_MALFORMED_EDGE_DEFINITION.code:
@@ -521,7 +521,7 @@ router.delete('/:graph/edge/:definition', function (req, res) {
   try {
     g._deleteEdgeDefinition(defName, dropCollection);
   } catch (e) {
-    if (e.isArangoError &&
+    if (e.isAvocadoError &&
         errors.ERROR_GRAPH_EDGE_COLLECTION_NOT_USED.code === e.errorNum) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
@@ -555,7 +555,7 @@ router.post('/:graph/vertex/:collection', function (req, res) {
   try {
     meta = g[collection].save(req.body, {waitForSync});
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_GRAPH_INVALID_EDGE.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_GRAPH_INVALID_EDGE.code) {
       throw Object.assign(
         new httperr.BadRequest(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -585,7 +585,7 @@ router.get('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -615,7 +615,7 @@ router.put('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -653,7 +653,7 @@ router.patch('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -691,7 +691,7 @@ router.delete('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -704,7 +704,7 @@ router.delete('/:graph/vertex/:collection/:key', function (req, res) {
   try {
     didRemove = g[collection].remove(id, {waitForSync});
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -771,7 +771,7 @@ router.get('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -801,7 +801,7 @@ router.put('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -839,7 +839,7 @@ router.patch('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -877,7 +877,7 @@ router.delete('/:graph/edge/:collection/:key', function (req, res) {
   try {
     doc = g[collection].document(id);
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}
@@ -890,7 +890,7 @@ router.delete('/:graph/edge/:collection/:key', function (req, res) {
   try {
     didRemove = g[collection].remove(id, {waitForSync});
   } catch (e) {
-    if (e.isArangoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
+    if (e.isAvocadoError && e.errorNum === errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code) {
       throw Object.assign(
         new httperr.NotFound(e.errorMessage),
         {errorNum: e.errorNum, cause: e}

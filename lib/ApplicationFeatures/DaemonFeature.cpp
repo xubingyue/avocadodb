@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,10 +31,10 @@
 #include "ProgramOptions/ProgramOptions.h"
 #include "ProgramOptions/Section.h"
 
-using namespace arangodb;
-using namespace arangodb::application_features;
-using namespace arangodb::basics;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::application_features;
+using namespace avocadodb::basics;
+using namespace avocadodb::options;
 
 DaemonFeature::DaemonFeature(application_features::ApplicationServer* server)
     : ApplicationFeature(server, "Daemon") {
@@ -67,7 +67,7 @@ void DaemonFeature::validateOptions(std::shared_ptr<ProgramOptions> options) {
   }
 
   if (_pidFile.empty()) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "need --pid-file in --daemon mode";
     FATAL_ERROR_EXIT();
   }
@@ -85,10 +85,10 @@ void DaemonFeature::validateOptions(std::shared_ptr<ProgramOptions> options) {
   if (absoluteFile != nullptr) {
     _pidFile = std::string(absoluteFile);
     TRI_Free(TRI_UNKNOWN_MEM_ZONE, absoluteFile);
-    LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "using absolute pid file '"
+    LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "using absolute pid file '"
                                               << _pidFile << "'";
   } else {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "cannot determine absolute path";
     FATAL_ERROR_EXIT();
   }
@@ -109,7 +109,7 @@ void DaemonFeature::daemonize() {
 
   // main process
   if (pid != 0) {
-    TRI_SetProcessTitle("arangodb [daemon]");
+    TRI_SetProcessTitle("avocadodb [daemon]");
     writePidFile(pid);
 
     int result = waitForChildProcess(pid);
@@ -130,7 +130,7 @@ void DaemonFeature::unprepare() {
 
   // remove pid file
   if (!FileUtils::remove(_pidFile)) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot remove pid file '"
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot remove pid file '"
                                             << _pidFile << "'";
   }
 }
@@ -139,7 +139,7 @@ void DaemonFeature::checkPidFile() {
   // check if the pid-file exists
   if (!_pidFile.empty()) {
     if (FileUtils::isDirectory(_pidFile)) {
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "pid-file '" << _pidFile
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "pid-file '" << _pidFile
                                                 << "' is a directory";
       FATAL_ERROR_EXIT();
     } else if (FileUtils::exists(_pidFile) && FileUtils::size(_pidFile) > 0) {
@@ -155,7 +155,7 @@ void DaemonFeature::checkPidFile() {
         f >> oldPid;
 
         if (oldPid == 0) {
-          LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "pid-file '" << _pidFile
+          LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "pid-file '" << _pidFile
                                                     << "' is unreadable";
           FATAL_ERROR_EXIT();
         }
@@ -165,7 +165,7 @@ void DaemonFeature::checkPidFile() {
         int r = kill(oldPid, 0);
 
         if (r == 0 || errno == EPERM) {
-          LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+          LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
               << "pid-file '" << _pidFile << "' exists and process with pid "
               << oldPid << " is still running, refusing to start twice";
           FATAL_ERROR_EXIT();
@@ -175,7 +175,7 @@ void DaemonFeature::checkPidFile() {
                                           << oldPid << " exists";
 
           if (!FileUtils::remove(_pidFile)) {
-            LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+            LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
                 << "pid-file '" << _pidFile << "' exists, no process with pid "
                 << oldPid << " exists, but pid-file cannot be removed";
             FATAL_ERROR_EXIT();
@@ -184,7 +184,7 @@ void DaemonFeature::checkPidFile() {
           LOG_TOPIC(INFO, Logger::STARTUP) << "removed stale pid-file '"
                                            << _pidFile << "'";
         } else {
-          LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+          LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
               << "pid-file '" << _pidFile << "' exists and kill " << oldPid
               << " failed";
           FATAL_ERROR_EXIT();
@@ -193,7 +193,7 @@ void DaemonFeature::checkPidFile() {
 
       // failed to open file
       else {
-        LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+        LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
             << "pid-file '" << _pidFile << "' exists, but cannot be opened";
         FATAL_ERROR_EXIT();
       }
@@ -208,7 +208,7 @@ int DaemonFeature::forkProcess() {
   TRI_pid_t pid = fork();
 
   if (pid < 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "cannot fork";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "cannot fork";
     FATAL_ERROR_EXIT();
   }
 
@@ -229,7 +229,7 @@ int DaemonFeature::forkProcess() {
   TRI_pid_t sid = setsid();
 
   if (sid < 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "cannot create sid";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "cannot create sid";
     FATAL_ERROR_EXIT();
   }
 
@@ -237,7 +237,7 @@ int DaemonFeature::forkProcess() {
   FileResultString cwd = FileUtils::currentDirectory();
 
   if (!cwd.ok()) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "cannot get current directory: " << cwd.errorMessage();
     FATAL_ERROR_EXIT();
   }
@@ -249,12 +249,12 @@ int DaemonFeature::forkProcess() {
     FileResult res = FileUtils::changeDirectory(_workingDirectory);
 
     if (!res.ok()) {
-      LOG_TOPIC(FATAL, arangodb::Logger::STARTUP)
+      LOG_TOPIC(FATAL, avocadodb::Logger::STARTUP)
           << "cannot change into working directory '" << _workingDirectory
           << "': " << res.errorMessage();
       FATAL_ERROR_EXIT();
     } else {
-      LOG_TOPIC(INFO, arangodb::Logger::STARTUP)
+      LOG_TOPIC(INFO, avocadodb::Logger::STARTUP)
           << "changed working directory for child process to '"
           << _workingDirectory << "'";
     }
@@ -265,24 +265,24 @@ int DaemonFeature::forkProcess() {
   int fd = open("/dev/null", O_RDWR | O_CREAT, 0644);
 
   if (fd < 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "cannot open /dev/null";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "cannot open /dev/null";
     FATAL_ERROR_EXIT();
   }
 
   if (dup2(fd, STDIN_FILENO) < 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "cannot re-map stdin to /dev/null";
     FATAL_ERROR_EXIT();
   }
 
   if (dup2(fd, STDOUT_FILENO) < 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "cannot re-map stdout to /dev/null";
     FATAL_ERROR_EXIT();
   }
 
   if (dup2(fd, STDERR_FILENO) < 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "cannot re-map stderr to /dev/null";
     FATAL_ERROR_EXIT();
   }
@@ -296,7 +296,7 @@ void DaemonFeature::writePidFile(int pid) {
   std::ofstream out(_pidFile.c_str(), std::ios::trunc);
 
   if (!out) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "cannot write pid-file '"
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "cannot write pid-file '"
                                               << _pidFile << "'";
     FATAL_ERROR_EXIT();
   }
@@ -342,8 +342,8 @@ int DaemonFeature::waitForChildProcess(int pid) {
       }
 
       // failure!
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME)
-          << "unable to start arangod. please check the logfiles for errors";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME)
+          << "unable to start avocadod. please check the logfiles for errors";
       return EXIT_FAILURE;
     }
 

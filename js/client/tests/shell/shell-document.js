@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false, maxlen: 5000 */
-/*global arango, assertEqual */
+/*global avocado, assertEqual */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test the document interface
@@ -29,8 +29,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var db = avocadodb.db;
 
 function CollectionDocumentKeysSuite () {
   'use strict';
@@ -79,11 +79,11 @@ function CollectionDocumentKeysSuite () {
         var doc = { _key: key, value: "test" };
 
         // create document
-        var result = arango.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
+        var result = avocado.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
         assertEqual(202, result.code);
 
         // read document back
-        result = arango.GET_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key));
+        result = avocado.GET_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key));
         assertEqual(200, result.code);
 
         assertEqual(index + 1, collection.count());
@@ -99,11 +99,11 @@ function CollectionDocumentKeysSuite () {
         var doc = { _key: key, value: "test" };
 
         // create document
-        var result = arango.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
+        var result = avocado.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
         assertEqual(202, result.code);
 
         // read document back
-        result = arango.HEAD_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key));
+        result = avocado.HEAD_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key));
         assertEqual(200, result.code);
 
         assertEqual(index + 1, collection.count());
@@ -119,14 +119,14 @@ function CollectionDocumentKeysSuite () {
         var doc = { _key: key, value: "test" };
 
         // create document
-        var result = arango.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
+        var result = avocado.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
         assertEqual(202, result.code);
 
         // update document
         doc.test = "testmann";
         doc.value = 12345;
 
-        result = arango.PATCH_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key), JSON.stringify(doc));
+        result = avocado.PATCH_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key), JSON.stringify(doc));
         assertEqual(202, result.code);
         
         assertEqual(index + 1, collection.count());
@@ -142,14 +142,14 @@ function CollectionDocumentKeysSuite () {
         var doc = { _key: key, value: "test" };
 
         // create document
-        var result = arango.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
+        var result = avocado.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
         assertEqual(202, result.code);
 
         // update document
         doc.test = "testmann";
         doc.value = 12345;
 
-        result = arango.PUT_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key), JSON.stringify(doc));
+        result = avocado.PUT_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key), JSON.stringify(doc));
         assertEqual(202, result.code);
         
         assertEqual(index + 1, collection.count());
@@ -165,11 +165,11 @@ function CollectionDocumentKeysSuite () {
         var doc = { _key: key, value: "test" };
 
         // create document
-        var result = arango.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
+        var result = avocado.POST_RAW("/_api/document/" + encodeURIComponent(cn), JSON.stringify(doc));
         assertEqual(202, result.code);
 
         // remove document
-        result = arango.DELETE_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key));
+        result = avocado.DELETE_RAW("/_api/document/" + encodeURIComponent(cn) + "/" + encodeURIComponent(key));
         assertEqual(202, result.code);
         
         assertEqual(0, collection.count());

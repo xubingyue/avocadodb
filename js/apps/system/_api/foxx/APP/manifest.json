@@ -1,17 +1,17 @@
 {
   "name": "foxx-manager",
   "description": "Foxx management service.",
-  "author": "ArangoDB GmbH",
+  "author": "AvocadoDB GmbH",
   "version": "3.2.0",
   "license": "Apache-2.0",
 
   "engines": {
-    "arangodb": "^3.2.0-0 || ^3.2.0"
+    "avocadodb": "^3.2.0-0 || ^3.2.0"
   },
 
   "repository": {
     "type": "git",
-    "url": "https://github.com/arangodb/arangodb.git"
+    "url": "https://github.com/avocadodb/avocadodb.git"
   },
 
   "contributors": [

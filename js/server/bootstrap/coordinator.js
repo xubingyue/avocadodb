@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Dr. Frank Celler
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -33,12 +33,12 @@
 
 (function () {
   const internal = require('internal');
-  const errors = require('@arangodb').errors;
+  const errors = require('@avocadodb').errors;
 
   // statistics can be turned off
   if (internal.enableStatistics && internal.threadNumber === 0) {
     try {
-      require('@arangodb/statistics').startup();
+      require('@avocadodb/statistics').startup();
     } catch (e) {
       if (e.errorNum === errors.ERROR_TASK_DUPLICATE_ID.code) {
         console.warn(e);
@@ -54,14 +54,14 @@
 
   if (internal.threadNumber === 0) {
     try {
-      require('@arangodb/foxx/manager')._startup();
+      require('@avocadodb/foxx/manager')._startup();
       try {
-        require('@arangodb/tasks').register({
+        require('@avocadodb/tasks').register({
           id: 'self-heal',
           isSystem: true,
           period: 5 * 60, // secs
           command: function () {
-            const FoxxManager = require('@arangodb/foxx/manager');
+            const FoxxManager = require('@avocadodb/foxx/manager');
             FoxxManager.healAll();
           }
         });
@@ -73,20 +73,20 @@
         }
       }
       // start the queue manager once
-      require('@arangodb/foxx/queues/manager').run();
-      const systemCollectionsCreated = global.ArangoAgency.get('SystemCollectionsCreated');
-      if (!(systemCollectionsCreated && systemCollectionsCreated.arango && systemCollectionsCreated.arango.SystemCollectionsCreated)) {
+      require('@avocadodb/foxx/queues/manager').run();
+      const systemCollectionsCreated = global.AvocadoAgency.get('SystemCollectionsCreated');
+      if (!(systemCollectionsCreated && systemCollectionsCreated.avocado && systemCollectionsCreated.avocado.SystemCollectionsCreated)) {
         // Wait for synchronous replication of system colls to settle:
         console.info('Waiting for initial replication of system collections...');
         const db = internal.db;
         const colls = db._collections().filter(c => c.name()[0] === '_');
-        if (!require('@arangodb/cluster').waitForSyncRepl('_system', colls)) {
+        if (!require('@avocadodb/cluster').waitForSyncRepl('_system', colls)) {
           throw new Error('System collections not properly set up. Refusing startup!');
         } else {
-          global.ArangoAgency.set('SystemCollectionsCreated', true);
+          global.AvocadoAgency.set('SystemCollectionsCreated', true);
         }
       }
-      console.info('bootstrapped coordinator %s', global.ArangoServerState.id());
+      console.info('bootstrapped coordinator %s', global.AvocadoServerState.id());
     } catch (e) {
       console.error(e);
       return false;

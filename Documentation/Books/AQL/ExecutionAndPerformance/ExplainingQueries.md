@@ -10,7 +10,7 @@ return the execution plan and some information about what optimizations could be
 the query. The query will not be executed.
 
 Explaining a query can be achieved by calling the [HTTP REST API](../../HTTP/AqlQuery/index.html).
-A query can also be explained from the ArangoShell using `ArangoStatement`'s `explain` method.
+A query can also be explained from the AvocadoShell using `AvocadoStatement`'s `explain` method.
 
 By default, the query optimizer will return what it considers to be the *optimal plan*. The
 optimal plan will be returned in the `plan` attribute of the result. If `explain` is
@@ -114,11 +114,11 @@ version of a query's execution plan, the following commands can be used:
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer3
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer3}
     var query = "FOR doc IN mycollection FILTER doc.value > 42 RETURN doc";
-    require("@arangodb/aql/explainer").explain(query, {colors:false});
+    require("@avocadodb/aql/explainer").explain(query, {colors:false});
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer3
 
-The above command prints the query's execution plan in the ArangoShell directly, focusing
+The above command prints the query's execution plan in the AvocadoShell directly, focusing
 on the most important information.
 
 

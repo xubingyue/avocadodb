@@ -31,8 +31,8 @@
 
 #include "Basics/StringBuffer.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 using namespace std;
 
 TEST_CASE("StringBufferTest", "[string]") {

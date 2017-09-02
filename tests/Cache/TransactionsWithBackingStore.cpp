@@ -1,11 +1,11 @@
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief test suite for arangodb::cache::TransactionalCache with backing store
+/// @brief test suite for avocadodb::cache::TransactionalCache with backing store
 ///
 /// @file
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Daniel H. Larkin
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Basics/Common.h"
@@ -39,8 +39,8 @@
 #include <thread>
 #include <vector>
 
-using namespace arangodb;
-using namespace arangodb::cache;
+using namespace avocadodb;
+using namespace avocadodb::cache;
 
 /*
 Planned Tests

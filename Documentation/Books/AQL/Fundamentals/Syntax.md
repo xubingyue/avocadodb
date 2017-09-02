@@ -91,7 +91,7 @@ mixed case in queries. In this documentation, all keywords are written in upper
 case to make them distinguishable from other query parts.
 
 There are a few more keywords in addition to the higher-level operation keywords.
-Additional keywords may be added in future versions of ArangoDB.
+Additional keywords may be added in future versions of AvocadoDB.
 The complete list of keywords is currently:
 
 <div class="columns-3">
@@ -164,7 +164,7 @@ FOR f IN ´filter´
 Collection names can be used in queries as they are. If a collection happens to
 have the same name as a keyword, the name must be enclosed in backticks.
 
-Please refer to the [Naming Conventions in ArangoDB](../../Manual/DataModeling/NamingConventions/CollectionNames.html)
+Please refer to the [Naming Conventions in AvocadoDB](../../Manual/DataModeling/NamingConventions/CollectionNames.html)
 about collection naming conventions.
 
 AQL currently has a limit of up to 256 collections used in one AQL query.
@@ -177,7 +177,7 @@ attribute name must be used. This is because multiple collections with ambiguous
 attribute names may be used in a query.  To avoid any ambiguity, it is not
 allowed to refer to an unqualified attribute name.
 
-Please refer to the [Naming Conventions in ArangoDB](../../Manual/DataModeling/NamingConventions/AttributeNames.html)
+Please refer to the [Naming Conventions in AvocadoDB](../../Manual/DataModeling/NamingConventions/AttributeNames.html)
 for more information about the attribute naming conventions.
 
 ```js

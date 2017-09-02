@@ -1,13 +1,13 @@
 /*global describe, it, before, beforeEach, afterEach */
 'use strict';
 const expect = require('chai').expect;
-const fm = require('@arangodb/foxx/manager');
-const request = require('@arangodb/request');
+const fm = require('@avocadodb/foxx/manager');
+const request = require('@avocadodb/request');
 const fs = require('fs');
 const internal = require('internal');
 const basePath = fs.makeAbsolute(fs.join(internal.startupPath, 'common', 'test-data', 'apps'));
-const arango = require('@arangodb').arango;
-const baseUrl = arango.getEndpoint().replace('tcp://', 'http://') + '/_db/_system';
+const avocado = require('@avocadodb').avocado;
+const baseUrl = avocado.getEndpoint().replace('tcp://', 'http://') + '/_db/_system';
 
 describe('Foxx service path handling', () => {
   const mount = '/unittest/paths';

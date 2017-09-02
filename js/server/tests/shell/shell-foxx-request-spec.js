@@ -1,9 +1,9 @@
 /* global describe, it */
 'use strict';
 const expect = require('chai').expect;
-const crypto = require('@arangodb/crypto');
-const SyntheticRequest = require('@arangodb/foxx/router/request');
-const createNativeRequest = require('@arangodb/foxx/test-utils').createNativeRequest;
+const crypto = require('@avocadodb/crypto');
+const SyntheticRequest = require('@avocadodb/foxx/router/request');
+const createNativeRequest = require('@avocadodb/foxx/test-utils').createNativeRequest;
 
 describe('SyntheticRequest', function () {
   describe('protocol/secure', function () {

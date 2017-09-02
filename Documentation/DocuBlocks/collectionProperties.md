@@ -12,7 +12,7 @@ Returns an object containing all collection properties.
   This option is meaningful for the MMFiles storage engine only.
 
 * *isVolatile*: If *true* then the collection data will be
-  kept in memory only and ArangoDB will not write or sync the data
+  kept in memory only and AvocadoDB will not write or sync the data
   to disk.
   This option is meaningful for the MMFiles storage engine only.
 
@@ -40,7 +40,7 @@ Returns an object containing all collection properties.
   are resized individually and can be initially built in parallel. For
   example, 64 might be a sensible value for a collection with 100
   000 000 documents. Currently, only the edge index respects this
-  value, but other index types might follow in future ArangoDB versions.
+  value, but other index types might follow in future AvocadoDB versions.
   Changes (see below) are applied when the collection is loaded the next
   time.
 

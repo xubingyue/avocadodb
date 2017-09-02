@@ -5,10 +5,10 @@ Write-ahead log
 
 This module provides functionality for administering the write-ahead logs.
 Most of these functions only return sensible values when invoked with the 
-[mmfiles engine being active](../../Administration/Configuration/GeneralArangod.md#storage-engine).
+[mmfiles engine being active](../../Administration/Configuration/GeneralAvocadod.md#storage-engine).
 
 ### Configuration
-<!-- arangod/V8Server/v8-vocbase.h -->
+<!-- avocadod/V8Server/v8-vocbase.h -->
 
 
 retrieves the configuration of the write-ahead log
@@ -20,7 +20,7 @@ array with the following attributes:
   single logfile can be executed and stored
 - *logfileSize*: the size of each write-ahead logfile
 - *historicLogfiles*: the maximum number of historic logfiles to keep
-- *reserveLogfiles*: the maximum number of reserve logfiles that ArangoDB
+- *reserveLogfiles*: the maximum number of reserve logfiles that AvocadoDB
   allocates in the background
 - *syncInterval*: the interval for automatic synchronization of not-yet
   synchronized write-ahead log data (in milliseconds)
@@ -41,7 +41,7 @@ array with the following attributes:
     @endDocuBlock WalPropertiesGet
 
 
-<!-- arangod/V8Server/v8-vocbase.h -->
+<!-- avocadod/V8Server/v8-vocbase.h -->
 
 
 configures the write-ahead log
@@ -53,7 +53,7 @@ JSON object with the following attributes:
   single logfile can be executed and stored
 - *logfileSize*: the size of each write-ahead logfile
 - *historicLogfiles*: the maximum number of historic logfiles to keep
-- *reserveLogfiles*: the maximum number of reserve logfiles that ArangoDB
+- *reserveLogfiles*: the maximum number of reserve logfiles that AvocadoDB
   allocates in the background
 - *throttleWait*: the maximum wait time that operations will wait before
   they get aborted if case of write-throttling (in milliseconds)
@@ -79,7 +79,7 @@ will be ignored and the configuration for them will not be modified.
 
 ### Flushing
 
-<!-- arangod/V8Server/v8-vocbase.h -->
+<!-- avocadod/V8Server/v8-vocbase.h -->
 
 
 flushes the currently open WAL logfile

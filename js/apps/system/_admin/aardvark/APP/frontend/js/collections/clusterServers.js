@@ -1,4 +1,4 @@
-/* global window, arangoHelper */
+/* global window, avocadoHelper */
 (function () {
   'use strict';
 
@@ -6,7 +6,7 @@
     model: window.ClusterServer,
     host: '',
 
-    url: arangoHelper.databaseUrl('/_admin/aardvark/cluster/DBServers'),
+    url: avocadoHelper.databaseUrl('/_admin/aardvark/cluster/DBServers'),
 
     updateUrl: function () {
       // this.url = window.App.getNewRoute("DBServers")

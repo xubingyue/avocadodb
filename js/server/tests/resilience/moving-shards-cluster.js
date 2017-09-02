@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2016-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016-2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -22,22 +22,22 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
-/// @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 const jsunity = require("jsunity");
 
-const arangodb = require("@arangodb");
-const db = arangodb.db;
+const avocadodb = require("@avocadodb");
+const db = avocadodb.db;
 const _ = require("lodash");
 const wait = require("internal").wait;
-const supervisionState = require("@arangodb/cluster").supervisionState;
+const supervisionState = require("@avocadodb/cluster").supervisionState;
 
 function getDBServers() {
-  var tmp = global.ArangoClusterInfo.getDBServers();
+  var tmp = global.AvocadoClusterInfo.getDBServers();
   var servers = [];
   for (var i = 0; i < tmp.length; ++i) {
     servers[i] = tmp[i].serverId;
@@ -63,7 +63,7 @@ function MovingShardsSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
   function findCollectionServers(database, collection) {
-    var cinfo = global.ArangoClusterInfo.getCollectionInfo(database, collection);
+    var cinfo = global.AvocadoClusterInfo.getCollectionInfo(database, collection);
     var shard = Object.keys(cinfo.shards)[0];
     return cinfo.shards[shard];
   }
@@ -74,16 +74,16 @@ function MovingShardsSuite () {
 
   function waitForSynchronousReplication(database) {
     console.info("Waiting for synchronous replication to settle...");
-    global.ArangoClusterInfo.flush();
+    global.AvocadoClusterInfo.flush();
     for (var i = 0; i < c.length; ++i) {
-      var cinfo = global.ArangoClusterInfo.getCollectionInfo(
+      var cinfo = global.AvocadoClusterInfo.getCollectionInfo(
         database, c[i].name());
       var shards = Object.keys(cinfo.shards);
       var replFactor = cinfo.shards[shards[0]].length;
       var count = 0;
       while (++count <= 180) {
         var ccinfo = shards.map(
-          s => global.ArangoClusterInfo.getCollectionInfoCurrent(
+          s => global.AvocadoClusterInfo.getCollectionInfoCurrent(
             database, c[i].name(), s)
         );
         let replicas = ccinfo.map(s => s.servers.length);
@@ -92,7 +92,7 @@ function MovingShardsSuite () {
           break;
         }
         wait(0.5);
-        global.ArangoClusterInfo.flush();
+        global.AvocadoClusterInfo.flush();
       }
       if (count > 120) {
         return false;
@@ -107,10 +107,10 @@ function MovingShardsSuite () {
 
   function getCleanedOutServers() {
     var coordEndpoint =
-        global.ArangoClusterInfo.getServerEndpoint("Coordinator0001");
+        global.AvocadoClusterInfo.getServerEndpoint("Coordinator0001");
 
-    var request = require("@arangodb/request");
-    var endpointToURL = require("@arangodb/cluster").endpointToURL;
+    var request = require("@avocadodb/request");
+    var endpointToURL = require("@avocadodb/cluster").endpointToURL;
     var url = endpointToURL(coordEndpoint);
     var res;
     try {
@@ -174,16 +174,16 @@ function MovingShardsSuite () {
         
         while (--count > 0) {
           wait(1.0);
-          global.ArangoClusterInfo.flush();
+          global.AvocadoClusterInfo.flush();
           var servers = findCollectionServers("_system", c[i].name());
           if (servers.indexOf(id) === -1) {
             // Now check current as well:
             var collInfo =
-                global.ArangoClusterInfo.getCollectionInfo("_system", c[i].name());
+                global.AvocadoClusterInfo.getCollectionInfo("_system", c[i].name());
             var shards = collInfo.shards;
             var collInfoCurr =
                 Object.keys(shards).map(
-                  s => global.ArangoClusterInfo.getCollectionInfoCurrent(
+                  s => global.AvocadoClusterInfo.getCollectionInfoCurrent(
                     "_system", c[i].name(), s).servers);
             var idxs = collInfoCurr.map(l => l.indexOf(id));
             ok = true;
@@ -213,9 +213,9 @@ function MovingShardsSuite () {
 
   function cleanOutServer(id) {
     var coordEndpoint =
-        global.ArangoClusterInfo.getServerEndpoint("Coordinator0001");
-    var request = require("@arangodb/request");
-    var endpointToURL = require("@arangodb/cluster").endpointToURL;
+        global.AvocadoClusterInfo.getServerEndpoint("Coordinator0001");
+    var request = require("@avocadodb/request");
+    var endpointToURL = require("@avocadodb/cluster").endpointToURL;
     var url = endpointToURL(coordEndpoint);
     var body = {"server": id};
     try {
@@ -235,9 +235,9 @@ function MovingShardsSuite () {
 
   function shrinkCluster(toNum) {
     var coordEndpoint =
-        global.ArangoClusterInfo.getServerEndpoint("Coordinator0001");
-    var request = require("@arangodb/request");
-    var endpointToURL = require("@arangodb/cluster").endpointToURL;
+        global.AvocadoClusterInfo.getServerEndpoint("Coordinator0001");
+    var request = require("@avocadodb/request");
+    var endpointToURL = require("@avocadodb/cluster").endpointToURL;
     var url = endpointToURL(coordEndpoint);
     var body = {"numberOfDBServers":toNum};
     try {
@@ -257,9 +257,9 @@ function MovingShardsSuite () {
 
   function resetCleanedOutServers() {
     var coordEndpoint =
-        global.ArangoClusterInfo.getServerEndpoint("Coordinator0001");
-    var request = require("@arangodb/request");
-    var endpointToURL = require("@arangodb/cluster").endpointToURL;
+        global.AvocadoClusterInfo.getServerEndpoint("Coordinator0001");
+    var request = require("@avocadodb/request");
+    var endpointToURL = require("@avocadodb/cluster").endpointToURL;
     var url = endpointToURL(coordEndpoint);
     var numberOfDBServers = servers.length;
     var body = {"cleanedServers":[], "numberOfDBServers":numberOfDBServers};
@@ -282,9 +282,9 @@ function MovingShardsSuite () {
 
   function moveShard(database, collection, shard, fromServer, toServer) {
     var coordEndpoint =
-        global.ArangoClusterInfo.getServerEndpoint("Coordinator0001");
-    var request = require("@arangodb/request");
-    var endpointToURL = require("@arangodb/cluster").endpointToURL;
+        global.AvocadoClusterInfo.getServerEndpoint("Coordinator0001");
+    var request = require("@avocadodb/request");
+    var endpointToURL = require("@avocadodb/cluster").endpointToURL;
     var url = endpointToURL(coordEndpoint);
     var body = {database, collection, shard, fromServer, toServer};
     try {
@@ -429,7 +429,7 @@ function MovingShardsSuite () {
       var servers = findCollectionServers("_system", c[0].name());
       var fromServer = servers[1];
       var toServer = findServerNotOnList(servers);
-      var cinfo = global.ArangoClusterInfo.getCollectionInfo(
+      var cinfo = global.AvocadoClusterInfo.getCollectionInfo(
           "_system", c[0].name());
       var shard = Object.keys(cinfo.shards)[0];
       assertTrue(moveShard("_system", c[0]._id, shard, fromServer, toServer));
@@ -446,7 +446,7 @@ function MovingShardsSuite () {
       var servers = findCollectionServers("_system", c[0].name());
       var fromServer = servers[0];
       var toServer = findServerNotOnList(servers);
-      var cinfo = global.ArangoClusterInfo.getCollectionInfo(
+      var cinfo = global.AvocadoClusterInfo.getCollectionInfo(
           "_system", c[0].name());
       var shard = Object.keys(cinfo.shards)[0];
       assertTrue(moveShard("_system", c[0]._id, shard, fromServer, toServer));
@@ -464,7 +464,7 @@ function MovingShardsSuite () {
       var servers = findCollectionServers("_system", c[1].name());
       var fromServer = servers[0];
       var toServer = findServerNotOnList(servers);
-      var cinfo = global.ArangoClusterInfo.getCollectionInfo(
+      var cinfo = global.AvocadoClusterInfo.getCollectionInfo(
           "_system", c[1].name());
       var shard = Object.keys(cinfo.shards)[0];
       assertTrue(moveShard("_system", c[1]._id, shard, fromServer, toServer));
@@ -482,7 +482,7 @@ function MovingShardsSuite () {
       var servers = findCollectionServers("_system", c[1].name());
       var fromServer = servers[1];
       var toServer = findServerNotOnList(servers);
-      var cinfo = global.ArangoClusterInfo.getCollectionInfo(
+      var cinfo = global.AvocadoClusterInfo.getCollectionInfo(
           "_system", c[1].name());
       var shard = Object.keys(cinfo.shards)[0];
       assertTrue(moveShard("_system", c[1]._id, shard, fromServer, toServer));
@@ -500,7 +500,7 @@ function MovingShardsSuite () {
       var servers = findCollectionServers("_system", c[1].name());
       var fromServer = servers[2];
       var toServer = findServerNotOnList(servers);
-      var cinfo = global.ArangoClusterInfo.getCollectionInfo(
+      var cinfo = global.AvocadoClusterInfo.getCollectionInfo(
           "_system", c[1].name());
       var shard = Object.keys(cinfo.shards)[0];
       assertTrue(moveShard("_system", c[1]._id, shard, fromServer, toServer));
@@ -518,7 +518,7 @@ function MovingShardsSuite () {
       var servers = findCollectionServers("_system", c[1].name());
       var fromServer = servers[0];
       var toServer = findServerNotOnList(servers);
-      var cinfo = global.ArangoClusterInfo.getCollectionInfo(
+      var cinfo = global.AvocadoClusterInfo.getCollectionInfo(
           "_system", c[1].name());
       var shard = Object.keys(cinfo.shards)[0];
       assertTrue(moveShard("_system", c[1]._id, shard, fromServer, toServer));

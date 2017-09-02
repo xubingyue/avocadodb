@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@ namespace {
 std::unordered_map<std::string, std::string> environment;
 }
 
-void arangodb::options::DefineEnvironment(std::string const& keyValues) {
+void avocadodb::options::DefineEnvironment(std::string const& keyValues) {
   std::vector<std::string> kvs = basics::StringUtils::split(keyValues, ',', '\0');
 
   for (auto const& keyValue : kvs) {
@@ -51,7 +51,7 @@ void arangodb::options::DefineEnvironment(std::string const& keyValues) {
   }
 }
 
-std::string arangodb::options::EnvironmentTranslator(std::string const& value,
+std::string avocadodb::options::EnvironmentTranslator(std::string const& value,
                                                      char const* binaryPath) {
   if (value.empty()) {
     return value;

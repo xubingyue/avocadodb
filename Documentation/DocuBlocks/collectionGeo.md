@@ -30,8 +30,8 @@ this particular index.
 
 **Note**: this method is not yet supported by the RocksDB storage engine.
 
-Note: the *geo* simple query helper function is **deprecated** as of ArangoDB
-2.6. The function may be removed in future versions of ArangoDB. The preferred
+Note: the *geo* simple query helper function is **deprecated** as of AvocadoDB
+2.6. The function may be removed in future versions of AvocadoDB. The preferred
 way for running geo queries is to use their AQL equivalents.
 
 @EXAMPLES

@@ -1,11 +1,11 @@
-/*global ArangoServerState, ArangoClusterComm*/
+/*global AvocadoServerState, AvocadoClusterComm*/
 'use strict';
 
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
 /// Copyright 2014 triAGENS GmbH, Cologne, Germany
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Alan Plum
@@ -27,17 +27,17 @@
 
 const internal = require('internal');
 const download = internal.clusterDownload;
-const cluster = require('@arangodb/cluster');
+const cluster = require('@avocadodb/cluster');
 
-const db = require('@arangodb').db;
+const db = require('@avocadodb').db;
 const _ = require('lodash');
 
-const STATISTICS_INTERVAL = require('@arangodb/statistics').STATISTICS_INTERVAL;
-const STATISTICS_HISTORY_INTERVAL = require('@arangodb/statistics').STATISTICS_HISTORY_INTERVAL;
+const STATISTICS_INTERVAL = require('@avocadodb/statistics').STATISTICS_INTERVAL;
+const STATISTICS_HISTORY_INTERVAL = require('@avocadodb/statistics').STATISTICS_HISTORY_INTERVAL;
 
 const joi = require('joi');
 const httperr = require('http-errors');
-const createRouter = require('@arangodb/foxx/router');
+const createRouter = require('@avocadodb/foxx/router');
 
 const router = createRouter();
 module.exports = router;
@@ -48,7 +48,7 @@ const startOffsetSchema = joi.number().default(
 );
 
 const clusterIdSchema = joi.string().default(
-  () => cluster.isCluster() ? ArangoServerState.id() : undefined,
+  () => cluster.isCluster() ? AvocadoServerState.id() : undefined,
   'Default DB server'
 );
 
@@ -494,10 +494,10 @@ router.get("/coordshort", function(req, res) {
     });
   };
 
-  var coordinators = global.ArangoClusterInfo.getCoordinators();
+  var coordinators = global.AvocadoClusterInfo.getCoordinators();
   if (Array.isArray(coordinators)) {
     var coordinatorStats = coordinators.map(coordinator => {
-      var endpoint = global.ArangoClusterInfo.getServerEndpoint(coordinator);
+      var endpoint = global.AvocadoClusterInfo.getServerEndpoint(coordinator);
       if (endpoint.substring(0, 3) === 'ssl') {
         // if protocol ssl is returned, change it to https
         endpoint = 'https' + endpoint.substring(3);
@@ -585,7 +585,7 @@ router.get("/cluster", function (req, res) {
 
   url += sep + "DBserver=" + encodeURIComponent(DBserver);
 
-  const op = ArangoClusterComm.asyncRequest(
+  const op = AvocadoClusterComm.asyncRequest(
     "GET",
     "server:" + DBserver,
     "_system",
@@ -595,7 +595,7 @@ router.get("/cluster", function (req, res) {
     options
   );
 
-  const r = ArangoClusterComm.wait(op);
+  const r = AvocadoClusterComm.wait(op);
 
   if (r.status === "RECEIVED") {
     res.set("content-type", "application/json; charset=utf-8");

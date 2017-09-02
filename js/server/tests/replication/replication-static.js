@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false, unused: false */
-/*global fail, assertEqual, assertTrue, assertFalse, assertNull, arango, ARGUMENTS */
+/*global fail, assertEqual, assertTrue, assertFalse, assertNull, avocado, ARGUMENTS */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test the replication
@@ -29,14 +29,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var errors = arangodb.errors;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var errors = avocadodb.errors;
+var db = avocadodb.db;
 
-var replication = require("@arangodb/replication");
+var replication = require("@avocadodb/replication");
 var console = require("console");
 var internal = require("internal");
-var masterEndpoint = arango.getEndpoint();
+var masterEndpoint = avocado.getEndpoint();
 var slaveEndpoint = ARGUMENTS[0];
 var mmfilesEngine = (db._engine().name === "mmfiles");
 
@@ -54,11 +54,11 @@ function ReplicationSuite() {
   var replicatorPassword = "replicator-password";
 
   var connectToMaster = function() {
-    arango.reconnect(masterEndpoint, db._name(), replicatorUser, replicatorPassword);
+    avocado.reconnect(masterEndpoint, db._name(), replicatorUser, replicatorPassword);
   };
 
   var connectToSlave = function() {
-    arango.reconnect(slaveEndpoint, db._name(), "root", "");
+    avocado.reconnect(slaveEndpoint, db._name(), "root", "");
   };
 
   var collectionChecksum = function(name) {
@@ -750,7 +750,7 @@ function ReplicationSuite() {
                 write: cn
               },
               action: function(params) {
-                var c = require("@arangodb").db._collection(params.cn);
+                var c = require("@avocadodb").db._collection(params.cn);
                 for (var i = 0; i < 1000; ++i) {
                   c.save({
                     "_key": "test" + i
@@ -795,7 +795,7 @@ function ReplicationSuite() {
               write: cn
             },
             action: function(params) {
-              var c = require("@arangodb").db._collection(params.cn);
+              var c = require("@avocadodb").db._collection(params.cn);
               for (var i = 0; i < 1000; ++i) {
                 c.remove("test" + i);
               }
@@ -835,7 +835,7 @@ function ReplicationSuite() {
                 write: cn
               },
               action: function(params) {
-                var c = require("@arangodb").db._collection(params.cn);
+                var c = require("@avocadodb").db._collection(params.cn);
                 for (var i = 0; i < 1000; ++i) {
                   c.remove("test" + i);
                 }

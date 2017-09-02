@@ -6,11 +6,11 @@
 // / upgrades.
 // /
 // / If you add any task here, please update the database version in
-// / @arangodb/database-version.js.
+// / @avocadodb/database-version.js.
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 // / Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
@@ -25,7 +25,7 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Jan Steemann
 // / @author Copyright 2014, triAGENS GmbH, Cologne, Germany
@@ -39,10 +39,10 @@
   const errors = internal.errors;
   const fs = require('fs');
   const console = require('console');
-  const userManager = require('@arangodb/users');
-  const currentVersion = require('@arangodb/database-version').CURRENT_VERSION;
+  const userManager = require('@avocadodb/users');
+  const currentVersion = require('@avocadodb/database-version').CURRENT_VERSION;
   const db = internal.db;
-  const shallowCopy = require('@arangodb/util').shallowCopy;
+  const shallowCopy = require('@avocadodb/util').shallowCopy;
 
   function upgrade () { 
 
@@ -322,7 +322,7 @@
       // cluster
       let cluster;
 
-      if (global.ArangoAgency.prefix() === '') {
+      if (global.AvocadoAgency.prefix() === '') {
         cluster = CLUSTER_NONE;
       } else {
         if (args.isCluster) {
@@ -384,9 +384,9 @@
           logger.error('Database directory version (' + lastVersion +
             ') is higher than current version (' + currentVersion + ').');
 
-          logger.error('It seems like you are running ArangoDB on a database directory' +
-            ' that was created with a newer version of ArangoDB. Maybe this' +
-            ' is what you wanted but it is not supported by ArangoDB.');
+          logger.error('It seems like you are running AvocadoDB on a database directory' +
+            ' that was created with a newer version of AvocadoDB. Maybe this' +
+            ' is what you wanted but it is not supported by AvocadoDB.');
 
           // still, allow the start
           return true;
@@ -405,15 +405,15 @@
             ') is lower than current version (' + currentVersion + ').');
 
           logger.error('----------------------------------------------------------------------');
-          logger.error('It seems like you have upgraded the ArangoDB binary.');
+          logger.error('It seems like you have upgraded the AvocadoDB binary.');
           logger.error('If this is what you wanted to do, please restart with the');
           logger.error('  --database.auto-upgrade true');
           logger.error('option to upgrade the data in the database directory.');
 
           logger.error('Normally you can use the control script to upgrade your database');
-          logger.error('  /etc/init.d/arangodb stop');
-          logger.error('  /etc/init.d/arangodb upgrade');
-          logger.error('  /etc/init.d/arangodb start');
+          logger.error('  /etc/init.d/avocadodb stop');
+          logger.error('  /etc/init.d/avocadodb upgrade');
+          logger.error('  /etc/init.d/avocadodb start');
           logger.error('----------------------------------------------------------------------');
 
           // do not start unless started with --database.auto-upgrade
@@ -652,7 +652,7 @@
           routing.save({
             url: src,
             action: {
-              'do': '@arangodb/actions/redirectRequest',
+              'do': '@avocadodb/actions/redirectRequest',
               options: {
                 permanently: true,
                 destination: '/_db/' + db._name() + '/_admin/aardvark/index.html'
@@ -694,7 +694,7 @@
       database: [DATABASE_INIT, DATABASE_UPGRADE, DATABASE_EXISTING],
 
       task: function () {
-        return require('@arangodb/statistics').createStatisticsCollections();
+        return require('@avocadodb/statistics').createStatisticsCollections();
       }
     });
 

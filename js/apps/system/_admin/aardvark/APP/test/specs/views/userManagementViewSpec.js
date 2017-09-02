@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* global describe, beforeEach, afterEach, it, spyOn, expect, jQuery*/
 /* global runs, waitsFor, jasmine, waits*/
-/* global $, console, arangoHelper */
+/* global $, console, avocadoHelper */
 (function () {
   'use strict';
   describe('User Management View', function () {
@@ -33,7 +33,7 @@
 
       spyOn(window.App.notificationList, 'add');
 
-      myStore = new window.ArangoUsers();
+      myStore = new window.AvocadoUsers();
 
       myView = {
         collection: myStore

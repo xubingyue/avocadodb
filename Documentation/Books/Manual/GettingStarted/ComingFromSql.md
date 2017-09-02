@@ -5,15 +5,15 @@ If you worked with a relational database management system (RDBMS) such as MySQL
 MariaDB or PostgreSQL, you will be familiar with its query language, a dialect
 of SQL (Structured Query Language).
 
-ArangoDB's query language is called AQL. There are some similarities between both
+AvocadoDB's query language is called AQL. There are some similarities between both
 languages despite the different data models of the database systems. The most
 notable difference is probably the concept of loops in AQL, which makes it feel
 more like a programming language. It suites the schema-less model more natural
 and makes the query language very powerful while remaining easy to read and write.
 
 To get started with AQL, have a look at our detailed
-[comparison of SQL and AQL](https://arangodb.com/why-arangodb/sql-aql-comparison/).
-It will also help you to translate SQL queries to AQL when migrating to ArangoDB.
+[comparison of SQL and AQL](https://avocadodb.com/why-avocadodb/sql-aql-comparison/).
+It will also help you to translate SQL queries to AQL when migrating to AvocadoDB.
 
 ### How do browse vectors translate into document queries?
 

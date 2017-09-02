@@ -1,4 +1,4 @@
-/*global describe, it, ArangoAgency, afterEach */
+/*global describe, it, AvocadoAgency, afterEach */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief cluster collection creation tests
@@ -24,7 +24,7 @@
 /// Copyright holder is triAGENS GmbH, Cologne, Germany
 ///
 /// @author Andreas Streichardt
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 'use strict';
@@ -32,7 +32,7 @@
 const expect = require('chai').expect;
 
 var internal = require("internal");
-var db = require("org/arangodb").db;
+var db = require("org/avocadodb").db;
 
 describe('Cluster collection creation options', function() {
     afterEach(function() {
@@ -53,9 +53,9 @@ describe('Cluster collection creation options', function() {
     });
     it('should cleanup current after creating a faulty index', function() {
         db._create("testi", {numberOfShards: 1});
-        let current = ArangoAgency.get('Current/Collections/_system');
-        let plan = ArangoAgency.get('Plan/Collections/_system');
-        let collectionId = Object.values(plan.arango.Plan.Collections['_system']).reduce((result, collectionDef) => {
+        let current = AvocadoAgency.get('Current/Collections/_system');
+        let plan = AvocadoAgency.get('Plan/Collections/_system');
+        let collectionId = Object.values(plan.avocado.Plan.Collections['_system']).reduce((result, collectionDef) => {
             if (result) {
                 return result;
             }
@@ -72,8 +72,8 @@ describe('Cluster collection creation options', function() {
         }).to.throw();
         // wait for the schmutz
         internal.wait(1.0);
-        current = ArangoAgency.get('Current/Collections/_system/' + collectionId);
-        Object.values(current.arango.Current.Collections['_system'][collectionId]).forEach(entry => {
+        current = AvocadoAgency.get('Current/Collections/_system/' + collectionId);
+        Object.values(current.avocado.Current.Collections['_system'][collectionId]).forEach(entry => {
             expect(entry.indexes).to.have.lengthOf(1);
         });
     });

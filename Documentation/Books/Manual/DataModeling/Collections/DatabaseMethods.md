@@ -2,7 +2,7 @@ Database Methods
 ================
 
 ### Collection
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 returns a single collection or null
@@ -32,8 +32,8 @@ Get a collection by name:
 Get a collection by id:
 
 ```
-arangosh> db._collection(123456);
-[ArangoCollection 123456, "demo" (type document, status loaded)]
+avocadosh> db._collection(123456);
+[AvocadoCollection 123456, "demo" (type document, status loaded)]
 ```
 
 Unknown collection:
@@ -46,7 +46,7 @@ Unknown collection:
 
 
 ### Create
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+<!-- avocadod/V8Server/v8-vocindex.cpp -->
 
 
 creates a new document or edge collection
@@ -81,7 +81,7 @@ to the [naming conventions](../NamingConventions/README.md).
   or re-starting the server will also cause full loss of data in the
   collection. The collection itself will remain however (only the data is
   volatile). Setting this option will make the resulting collection be
-  slightly faster than regular collections because ArangoDB does not
+  slightly faster than regular collections because AvocadoDB does not
   enforce any synchronization to disk and does not calculate any CRC
   checksums for datafiles (as there are no datafiles).
   This option is meaningful for the MMFiles storage engine only.
@@ -146,7 +146,7 @@ to the [naming conventions](../NamingConventions/README.md).
 - *distributeShardsLike* distribute the shards of this collection
   cloning the shard distribution of another.
 
-  When using the *Enterprise* version of ArangoDB the replicationFactor
+  When using the *Enterprise* version of AvocadoDB the replicationFactor
   may be set to "satellite" making the collection locally joinable
   on every database server. This reduces the number of network hops
   dramatically when using joins in AQL at the costs of reduced write
@@ -210,7 +210,7 @@ With a special key option:
     @endDocuBlock collectionDatabaseCreateSpecialKey
 
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+<!-- avocadod/V8Server/v8-vocindex.cpp -->
 
 
 creates a new edge collection
@@ -233,7 +233,7 @@ for *waitForSync* is *false*.
 
 
 
-<!-- arangod/V8Server/v8-vocindex.cpp -->
+<!-- avocadod/V8Server/v8-vocindex.cpp -->
 
 
 creates a new document collection
@@ -244,7 +244,7 @@ document name already exists and error is thrown.
 
 
 ### All Collections
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 returns all collections
@@ -267,7 +267,7 @@ Returns all collections of the given database.
 
 
 ### Collection Name
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 selects a collection from the vocbase
@@ -292,7 +292,7 @@ default properties.
 
 
 ### Drop
-<!-- js/server/modules/@arangodb/arango-database.js -->
+<!-- js/server/modules/@avocadodb/avocado-database.js -->
 
 
 drops a collection
@@ -356,7 +356,7 @@ Drops a system collection
     @endDocuBlock collectionDatabaseDropSystem
 
 ### Truncate
-<!-- js/server/modules/@arangodb/arango-database.js -->
+<!-- js/server/modules/@avocadodb/avocado-database.js -->
 
 
 truncates a collection

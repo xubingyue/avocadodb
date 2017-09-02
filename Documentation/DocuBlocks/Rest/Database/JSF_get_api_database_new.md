@@ -28,7 +28,7 @@ log into the database.
 
 @RESTSTRUCT{extra,JSF_get_api_database_new_USERS,object,optional,}
 A JSON object with extra user information. The data contained in *extra*
-will be stored for the user but not be interpreted further by ArangoDB.
+will be stored for the user but not be interpreted further by AvocadoDB.
 
 @RESTDESCRIPTION
 Creates a new database

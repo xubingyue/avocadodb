@@ -51,7 +51,7 @@ for ($i=0;$i -lt $AgentCount;$i++) {
     $processes += Start-Process `
         -RedirectStandardError "cluster\$port.err" `
         -RedirectStandardOutput "cluster\$port.out" `
-        -FilePath .\build\bin\arangod.exe `
+        -FilePath .\build\bin\avocadod.exe `
         -ArgumentList $arguments `
         -NoNewWindow `
         -PassThru
@@ -89,7 +89,7 @@ foreach ($it in $map.GetEnumerator()) {
         $processes += Start-Process `
             -RedirectStandardError "cluster\$port.err" `
             -RedirectStandardOutput "cluster\$port.out" `
-            -FilePath .\build\bin\arangod.exe `
+            -FilePath .\build\bin\avocadod.exe `
             -ArgumentList $roleArguments `
             -NoNewWindow `
             -PassThru
@@ -106,7 +106,7 @@ while ($ports -gt 0) {
                 "URI"="http://[::1]:$port/_api/version";
             }
             if ($JwtSecret) {
-                $InvokeWebRequestArgs["Headers"] = @{"Authorization"="bearer $(jwtgen -a HS256 -s $JwtSecret -c 'iss=arangodb' -c 'server_id=setup')"}
+                $InvokeWebRequestArgs["Headers"] = @{"Authorization"="bearer $(jwtgen -a HS256 -s $JwtSecret -c 'iss=avocadodb' -c 'server_id=setup')"}
             }
             $req=Invoke-WebRequest @InvokeWebRequestArgs
             Write-Host "$port became ready!"
@@ -122,7 +122,7 @@ while ($ports -gt 0) {
 }
 
 Write-Host ""
-Write-Host "ArangoDB Cluster is ready!"
-Write-Host "Connect using an arangosh:"
+Write-Host "AvocadoDB Cluster is ready!"
+Write-Host "Connect using an avocadosh:"
 Write-Host ""
-Write-Host "    .\build\bin\arangosh --server.endpoint=tcp://[::1]:$CoordinatorStartPort"
+Write-Host "    .\build\bin\avocadosh --server.endpoint=tcp://[::1]:$CoordinatorStartPort"

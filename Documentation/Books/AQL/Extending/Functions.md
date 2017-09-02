@@ -5,12 +5,12 @@ AQL user functions can be registered in the selected database
 using the *aqlfunctions* object as follows:
 
 ```js
-var aqlfunctions = require("@arangodb/aql/functions");
+var aqlfunctions = require("@avocadodb/aql/functions");
 ```
 
 To register a function, the fully qualified function name plus the
 function code must be specified. This can easily be done in
-[arangosh](../../Manual/GettingStarted/Arangosh.html). The [HTTP Interface
+[avocadosh](../../Manual/GettingStarted/Avocadosh.html). The [HTTP Interface
 ](../../HTTP/AqlUserFunctions/index.html) also offers User Functions management.
 
 Documents in the *_aqlfunctions* collection (or any other system collection)
@@ -42,8 +42,8 @@ module.exports = greeting;
 Then require it in the shell in order to register a user-defined function:
 
 ```
-arangosh> var func = require("path/to/file.js");
-arangosh> aqlfunctions.register("HUMAN::GREETING", func, true);
+avocadosh> var func = require("path/to/file.js");
+avocadosh> aqlfunctions.register("HUMAN::GREETING", func, true);
 ```
 
 Note that a return value of *false* means that the function `HUMAN::GREETING`
@@ -80,7 +80,7 @@ when it detects syntactially invalid function code.
 
 
 ```js
-require("@arangodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
+require("@avocadodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
 function (celsius) {
   return celsius * 1.8 + 32;
 });
@@ -91,7 +91,7 @@ default. In order to make a user function being run in strict mode, use
 `use strict` explicitly, e.g.:
 
 ```js
-require("@arangodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
+require("@avocadodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
 function (celsius) {
   "use strict";
   return celsius * 1.8 + 32;
@@ -102,11 +102,11 @@ You can access the name under which the AQL function is registered by accessing
 the `name` property of `this` inside the JavaScript code:
 
 ```js
-require("@arangodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
+require("@avocadodb/aql/functions").register("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT",
 function (celsius) {
   "use strict";
   if (typeof celsius === "undefined") {
-    const error = require("@arangodb").errors.ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH;
+    const error = require("@avocadodb").errors.ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH;
     AQL_WARNING(error.code, require("util").format(error.message, this.name, 1, 1));
   }
   return celsius * 1.8 + 32;
@@ -114,7 +114,7 @@ function (celsius) {
 ```
 
 `AQL_WARNING()` is automatically available to the code of user-defined
-functions. The error code and message is retrieved via `@arangodb` module.
+functions. The error code and message is retrieved via `@avocadodb` module.
 The *argument number mismatch* message has placeholders, which we can substitute
 using [format()](http://nodejs.org/api/util.html):
 
@@ -127,8 +127,8 @@ and both `%d` placeholders by `1` (number of expected arguments). If you call
 the function without an argument, you will see this:
 
 ```
-arangosh> db._query("RETURN MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT()")
-[object ArangoQueryCursor, count: 1, hasMore: false, warning: 1541 - invalid
+avocadosh> db._query("RETURN MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT()")
+[object AvocadoQueryCursor, count: 1, hasMore: false, warning: 1541 - invalid
 number of arguments for function 'MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT()',
 expected number of arguments: minimum: 1, maximum: 1]
 
@@ -152,12 +152,12 @@ exception.
 
 
 ```js
-require("@arangodb/aql/functions").unregister("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT");
+require("@avocadodb/aql/functions").unregister("MYFUNCTIONS::TEMPERATURE::CELSIUSTOFAHRENHEIT");
 ```
 
 
 ### Unregister Group
-<!-- js/common/modules/@arangodb/aql/functions.js -->
+<!-- js/common/modules/@avocadodb/aql/functions.js -->
 
 
 delete a group of AQL user functions
@@ -173,9 +173,9 @@ This will return the number of functions unregistered.
 
 
 ```js
-require("@arangodb/aql/functions").unregisterGroup("MYFUNCTIONS::TEMPERATURE");
+require("@avocadodb/aql/functions").unregisterGroup("MYFUNCTIONS::TEMPERATURE");
 
-require("@arangodb/aql/functions").unregisterGroup("MYFUNCTIONS");
+require("@avocadodb/aql/functions").unregisterGroup("MYFUNCTIONS");
 ```
 
 
@@ -197,17 +197,17 @@ by specifying a group prefix:
 To list all available user functions:
 
 ```js
-require("@arangodb/aql/functions").toArray();
+require("@avocadodb/aql/functions").toArray();
 ```
 
 To list all available user functions in the *MYFUNCTIONS* namespace:
 
 ```js
-require("@arangodb/aql/functions").toArray("MYFUNCTIONS");
+require("@avocadodb/aql/functions").toArray("MYFUNCTIONS");
 ```
 
 To list all available user functions in the *MYFUNCTIONS::TEMPERATURE* namespace:
 
 ```js
-require("@arangodb/aql/functions").toArray("MYFUNCTIONS::TEMPERATURE");
+require("@avocadodb/aql/functions").toArray("MYFUNCTIONS::TEMPERATURE");
 ```

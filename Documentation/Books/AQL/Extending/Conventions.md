@@ -4,7 +4,7 @@ Conventions
 Naming
 ------
 
-Built-in AQL functions that are shipped with ArangoDB reside in the namespace
+Built-in AQL functions that are shipped with AvocadoDB reside in the namespace
 *_aql*, which is also the default namespace to look in if an unqualified
 function name is found.
 

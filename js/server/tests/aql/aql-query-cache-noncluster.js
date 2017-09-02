@@ -30,7 +30,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 var internal = require("internal");
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +101,7 @@ function ahuacatlQueryCacheTestSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testRenameCollection1 : function () {
-      if (require("@arangodb/cluster").isCluster()) {
+      if (require("@avocadodb/cluster").isCluster()) {
         // renaming collections not supported in cluster
         return;
       }
@@ -147,7 +147,7 @@ function ahuacatlQueryCacheTestSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testRenameCollection2 : function () {
-      if (require("@arangodb/cluster").isCluster()) {
+      if (require("@avocadodb/cluster").isCluster()) {
         // renaming collections not supported in cluster
         return;
       }
@@ -898,7 +898,7 @@ function ahuacatlQueryCacheTestSuite () {
       db._executeTransaction({
         collections: { write: c1.name() },
         action: function(params) {
-          var db = require("@arangodb").db;
+          var db = require("@avocadodb").db;
           db._collection(params.c1).insert({ value: "foo" });
         },
         params: { c1: c1.name() }
@@ -934,7 +934,7 @@ function ahuacatlQueryCacheTestSuite () {
             assertTrue(result.cached);
             assertEqual([ ], result.json);
 
-            var db = require("@arangodb").db;
+            var db = require("@avocadodb").db;
             db._collection(params.c1).insert({ value: "foo" });
         
             result = AQL_EXECUTE(query, { "@collection": c1.name() });

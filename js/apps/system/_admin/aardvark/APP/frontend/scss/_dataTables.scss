@@ -1,4 +1,4 @@
-.arangoDataTable {
+.avocadoDataTable {
   display: block;
   position: relative;
   width: 100%;
@@ -77,12 +77,12 @@
 
 // Odd / Even coloring
 .api-container #resources > li.resource:nth-child(even),
-table.arangoDataTable tr.even {
+table.avocadoDataTable tr.even {
   background-color: $c-white;
 }
 
 .api-container #resources > li.resource:nth-child(odd),
-table.arangoDataTable tr.odd {
+table.avocadoDataTable tr.odd {
   background-color: $c-table-odd-color;
 }
 

@@ -1,45 +1,45 @@
-General HTTP Request Handling in ArangoDB
+General HTTP Request Handling in AvocadoDB
 =========================================
 
 Protocol
 --------
 
-ArangoDB exposes its API via HTTP, making the server accessible easily with
+AvocadoDB exposes its API via HTTP, making the server accessible easily with
 a variety of clients and tools (e.g. browsers, curl, telnet). The communication
 can optionally be SSL-encrypted.
 
-ArangoDB uses the standard HTTP methods (e.g. *GET*, *POST*, *PUT*, *DELETE*) plus
+AvocadoDB uses the standard HTTP methods (e.g. *GET*, *POST*, *PUT*, *DELETE*) plus
 the *PATCH* method described in [RFC 5789](http://tools.ietf.org/html/rfc5789).
 
 Most server APIs expect clients to send any payload data in [JSON](http://www.json.org) 
 format. Details on the expected format and JSON attributes can be found in the
 documentation of the individual server methods.
 
-Clients sending requests to ArangoDB must use either HTTP 1.0 or HTTP 1.1.
-Other HTTP versions are not supported by ArangoDB and any attempt to send 
+Clients sending requests to AvocadoDB must use either HTTP 1.0 or HTTP 1.1.
+Other HTTP versions are not supported by AvocadoDB and any attempt to send 
 a different HTTP version signature will result in the server responding with
 an HTTP 505 (HTTP version not supported) error.
 
-ArangoDB will always respond to client requests with HTTP 1.1. Clients
+AvocadoDB will always respond to client requests with HTTP 1.1. Clients
 should therefore support HTTP version 1.1. 
 
 Clients are required to include the *Content-Length* HTTP header with the 
 correct content length in every request that can have a body (e.g. *POST*, 
-*PUT* or *PATCH*) request. ArangoDB will not process requests without a
+*PUT* or *PATCH*) request. AvocadoDB will not process requests without a
 *Content-Length* header - thus chunked transfer encoding for POST-documents
 is not supported.
 
 HTTP Keep-Alive
 ---------------
 
-ArangoDB supports HTTP keep-alive. If the client does not send a *Connection*
-header in its request, and the client uses HTTP version 1.1, ArangoDB will assume 
+AvocadoDB supports HTTP keep-alive. If the client does not send a *Connection*
+header in its request, and the client uses HTTP version 1.1, AvocadoDB will assume 
 the client wants to keep alive the connection. 
 If clients do not wish to use the keep-alive feature, they should
 explicitly indicate that by sending a *Connection: Close* HTTP header in 
 the request.
 
-ArangoDB will close connections automatically for clients that send requests
+AvocadoDB will close connections automatically for clients that send requests
 using HTTP 1.0, except if they send an *Connection: Keep-Alive* header.
 
 The default Keep-Alive timeout can be specified at server start using the
@@ -56,9 +56,9 @@ one of those then idle connections for subsequent requests.
 Blocking vs. Non-blocking HTTP Requests
 ---------------------------------------
 
-ArangoDB supports both blocking and non-blocking HTTP requests.
+AvocadoDB supports both blocking and non-blocking HTTP requests.
 
-ArangoDB is a multi-threaded server, allowing the processing of multiple 
+AvocadoDB is a multi-threaded server, allowing the processing of multiple 
 client requests at the same time. Request/response handling and the actual 
 work are performed on the server in parallel by multiple worker threads.
 
@@ -71,10 +71,10 @@ the same connection. For clients that are single-threaded and/or are
 blocking on I/O themselves, waiting idle for the server response may be 
 non-optimal.
 
-To reduce blocking on the client side, ArangoDB offers a generic mechanism for
+To reduce blocking on the client side, AvocadoDB offers a generic mechanism for
 non-blocking, asynchronous execution: clients can add the
-HTTP header *x-arango-async: true* to any of their requests, marking 
-them as to be executed asynchronously on the server. ArangoDB will put such 
+HTTP header *x-avocado-async: true* to any of their requests, marking 
+them as to be executed asynchronously on the server. AvocadoDB will put such 
 requests into an in-memory task queue and return an *HTTP 202* (accepted) 
 response to the client instantly and thus finish this HTTP-request.
 The server will execute the tasks from the queue asynchronously as fast
@@ -110,24 +110,24 @@ Authentication
 --------------
 
 Client authentication can be achieved by using the *Authorization* HTTP header in
-client requests. ArangoDB supports authentication via HTTP Basic or JWT.
+client requests. AvocadoDB supports authentication via HTTP Basic or JWT.
 
 Authentication is turned on by default for all internal database APIs but turned off for custom Foxx apps.
-To toggle authentication for incoming requests to the internal database APIs, use the option [--server.authentication](../../Manual/Administration/Configuration/GeneralArangod.html).
+To toggle authentication for incoming requests to the internal database APIs, use the option [--server.authentication](../../Manual/Administration/Configuration/GeneralAvocadod.html).
 This option is turned on by default so authentication is required for the database APIs.
 
 Please note that requests using the HTTP OPTIONS method will be answered by
-ArangoDB in any case, even if no authentication data is sent by the client or if
+AvocadoDB in any case, even if no authentication data is sent by the client or if
 the authentication data is wrong. This is required for handling CORS preflight
 requests (see [Cross Origin Resource Sharing requests](#cross-origin-resource-sharing-cors-requests)).
 The response to an HTTP OPTIONS request will be generic and not expose any private data.
 
 There is an additional option to control authentication for custom Foxx apps. The option
-[--server.authentication-system-only](../../Manual/Administration/Configuration/GeneralArangod.html)
+[--server.authentication-system-only](../../Manual/Administration/Configuration/GeneralAvocadod.html)
 controls whether authentication is required only for requests to the internal database APIs and the admin interface. 
 It is turned on by default, meaning that other APIs (this includes custom Foxx apps) do not require authentication.
 
-The default values allow exposing a public custom Foxx API built with ArangoDB to the outside
+The default values allow exposing a public custom Foxx API built with AvocadoDB to the outside
 world without the need for HTTP authentication, but still protecting the usage of the
 internal database APIs (i.e. */_api/*, */_admin/*) with HTTP authentication.
 
@@ -147,14 +147,14 @@ Here's a short summary:
 * `--server.authentication false`: authentication disabled for all requests
 
 Whenever authentication is required and the client has not yet authenticated, 
-ArangoDB will return *HTTP 401* (Unauthorized). It will also send the *WWW-Authenticate*
+AvocadoDB will return *HTTP 401* (Unauthorized). It will also send the *WWW-Authenticate*
 response header, indicating that the client should prompt the user for username and 
 password if supported. If the client is a browser, then sending back this header will
 normally trigger the display of the browser-side HTTP authentication dialog.
 As showing the browser HTTP authentication dialog is undesired in AJAX requests, 
-ArangoDB can be told to not send the *WWW-Authenticate* header back to the client.
+AvocadoDB can be told to not send the *WWW-Authenticate* header back to the client.
 Whenever a client sends the *X-Omit-WWW-Authenticate* HTTP header (with an arbitrary value)
-to ArangoDB, ArangoDB will only send status code 401, but no *WWW-Authenticate* header.
+to AvocadoDB, AvocadoDB will only send status code 401, but no *WWW-Authenticate* header.
 This allows clients to implement credentials handling and bypassing the browser's
 built-in dialog.
 
@@ -183,7 +183,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
 
 Please note that the JWT will expire after 1 month and needs to be updated.
 
-ArangoDB uses a standard JWT authentication. The secret may either be set using
+AvocadoDB uses a standard JWT authentication. The secret may either be set using
 `--server.jwt-secret` or will be randomly generated upon server startup.
 
 For more information on JWT please consult RFC7519 and https://jwt.io
@@ -191,37 +191,37 @@ For more information on JWT please consult RFC7519 and https://jwt.io
 Error Handling
 --------------
 
-The following should be noted about how ArangoDB handles client errors in its
+The following should be noted about how AvocadoDB handles client errors in its
 HTTP layer:
 
 * client requests using an HTTP version signature different than *HTTP/1.0* or 
   *HTTP/1.1* will get an *HTTP 505* (HTTP version not supported) error in return.
-* ArangoDB will reject client requests with a negative value in the
+* AvocadoDB will reject client requests with a negative value in the
   *Content-Length* request header with *HTTP 411* (Length Required).
-* Arangodb doesn't support POST with *transfer-encoding: chunked* which forbids
+* Avocadodb doesn't support POST with *transfer-encoding: chunked* which forbids
   the *Content-Length* header above.
-* the maximum URL length accepted by ArangoDB is 16K. Incoming requests with
+* the maximum URL length accepted by AvocadoDB is 16K. Incoming requests with
   longer URLs will be rejected with an *HTTP 414* (Request-URI too long) error.
 * if the client sends a *Content-Length* header with a value bigger than 0 for
-  an HTTP GET, HEAD, or DELETE request, ArangoDB will process the request, but
+  an HTTP GET, HEAD, or DELETE request, AvocadoDB will process the request, but
   will write a warning to its log file.
 * when the client sends a *Content-Length* header that has a value that is lower
-  than the actual size of the body sent, ArangoDB will respond with *HTTP 400*
+  than the actual size of the body sent, AvocadoDB will respond with *HTTP 400*
   (Bad Request).
 * if clients send a *Content-Length* value bigger than the actual size of the
-  body of the request, ArangoDB will wait for about 90 seconds for the client to
+  body of the request, AvocadoDB will wait for about 90 seconds for the client to
   complete its request. If the client does not send the remaining body data
-  within this time, ArangoDB will close the connection. Clients should avoid
+  within this time, AvocadoDB will close the connection. Clients should avoid
   sending such malformed requests as this will block one tcp connection,
   and may lead to a temporary filedescriptor leak.
 * when clients send a body or a *Content-Length* value bigger than the maximum
-  allowed value (512 MB), ArangoDB will respond with *HTTP 413* (Request Entity
+  allowed value (512 MB), AvocadoDB will respond with *HTTP 413* (Request Entity
   Too Large).
 * if the overall length of the HTTP headers a client sends for one request
   exceeds the maximum allowed size (1 MB), the server will fail with *HTTP 431*
   (Request Header Fields Too Large).
-* if clients request an HTTP method that is not supported by the server, ArangoDB
-  will return with *HTTP 405* (Method Not Allowed). ArangoDB offers general
+* if clients request an HTTP method that is not supported by the server, AvocadoDB
+  will return with *HTTP 405* (Method Not Allowed). AvocadoDB offers general
   support for the following HTTP methods:
   * GET
   * POST
@@ -236,12 +236,12 @@ HTTP layer:
   in the manual.
 
   Requests using any other HTTP method (such as for example CONNECT, TRACE etc.)
-  will be rejected by ArangoDB as mentioned before.
+  will be rejected by AvocadoDB as mentioned before.
 
 Cross-Origin Resource Sharing (CORS) requests
 ---------------------------------------------
 
-ArangoDB will automatically handle CORS requests as follows:
+AvocadoDB will automatically handle CORS requests as follows:
 
 ### Preflight
 
@@ -249,13 +249,13 @@ When a browser is told to make a cross-origin request that includes explicit
 headers, credentials or uses HTTP methods other than `GET` or `POST`, it will
 first perform a so-called preflight request using the `OPTIONS` method.
 
-ArangoDB will respond to `OPTIONS` requests with an HTTP 200 status response
+AvocadoDB will respond to `OPTIONS` requests with an HTTP 200 status response
 with an empty body. Since preflight requests are not expected to include or
 even indicate the presence of authentication credentials even when they will
-be present in the actual request, ArangoDB does not enforce authentication for
+be present in the actual request, AvocadoDB does not enforce authentication for
 `OPTIONS` requests even when authentication is enabled.
 
-ArangoDB will set the following headers in the response:
+AvocadoDB will set the following headers in the response:
 
 * `access-control-allow-credentials`: will be set to `false` by default.
   For details on when it will be set to `true` see the next section on cookies.
@@ -273,14 +273,14 @@ ArangoDB will set the following headers in the response:
   request's `origin` header.
 
 * `access-control-expose-headers`: will be set to a list of response headers used
-  by the ArangoDB HTTP API.
+  by the AvocadoDB HTTP API.
 
 * `access-control-max-age`: will be set to an implementation-specifc value.
 
 ### Actual request
 
 If a request using any other HTTP method than `OPTIONS` includes an `origin` header,
-ArangoDB will add the following headers to the response:
+AvocadoDB will add the following headers to the response:
 
 * `access-control-allow-credentials`: will be set to `false` by default.
   For details on when it will be set to `true` see the next section on cookies.
@@ -289,7 +289,7 @@ ArangoDB will add the following headers to the response:
   request's `origin` header.
 
 * `access-control-expose-headers`: will be set to a list of response headers used
-  by the ArangoDB HTTP API.
+  by the AvocadoDB HTTP API.
 
 When making CORS requests to endpoints of Foxx services, the value of the
 `access-control-expose-headers` header will instead be set to a list of
@@ -299,13 +299,13 @@ response headers used in the response itself (but not including the
 ### Cookies and authentication
 
 In order for the client to be allowed to correctly provide authentication
-credentials or handle cookies, ArangoDB needs to set the
+credentials or handle cookies, AvocadoDB needs to set the
 `access-control-allow-credentials` response header to `true` instead of `false`.
 
-ArangoDB will automatically set this header to `true` if the value of the
+AvocadoDB will automatically set this header to `true` if the value of the
 request's `origin` header matches a trusted origin in the `http.trusted-origin`
-configuration option. To make ArangoDB trust a certain origin, you can provide
-a startup option when running `arangod` like this:
+configuration option. To make AvocadoDB trust a certain origin, you can provide
+a startup option when running `avocadod` like this:
 
 `--http.trusted-origin "http://localhost:8529"`
 
@@ -348,7 +348,7 @@ requests unless explicitly told to do so:
 HTTP method overriding
 ----------------------
 
-ArangoDB provides a startup option *--http.allow-method-override*.
+AvocadoDB provides a startup option *--http.allow-method-override*.
 This option can be set to allow overriding the HTTP request method (e.g. GET, POST,
 PUT, DELETE, PATCH) of a request using one of the following custom HTTP headers:
 

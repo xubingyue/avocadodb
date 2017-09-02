@@ -8,11 +8,11 @@ Retrieving data from the database with AQL does always include a **RETURN**
 operation. It can be used to return a static value, such as a string:
 
 ```js
-RETURN "Hello ArangoDB!"
+RETURN "Hello AvocadoDB!"
 ```
 
 The query result is always an array of elements, even if a single element was
-returned and contains a single element in that case: `["Hello ArangoDB!"]`
+returned and contains a single element in that case: `["Hello AvocadoDB!"]`
 
 The function `DOCUMENT()` can be called to retrieve a single document via
 its document handle, for instance:
@@ -102,7 +102,7 @@ INSERT {
 } IN users
 ```
 
-You may provide a key for the new document; if not provided, ArangoDB will create one for you.  
+You may provide a key for the new document; if not provided, AvocadoDB will create one for you.  
 
 ```js
 INSERT {
@@ -113,7 +113,7 @@ INSERT {
 } IN users
 ```
 
-As ArangoDB is schema-free, attributes of the documents may vary: 
+As AvocadoDB is schema-free, attributes of the documents may vary: 
 
 ```js
 INSERT {
@@ -311,4 +311,4 @@ In a cluster, AQL data-modification queries are currently not executed transacti
 Additionally, *update*, *replace*, *upsert* and *remove* AQL queries currently 
 require the *_key* attribute to be specified for all documents that should be 
 modified or removed, even if a shared key attribute other than *_key* was chosen 
-for the collection. This restriction may be overcome in a future release of ArangoDB.
+for the collection. This restriction may be overcome in a future release of AvocadoDB.

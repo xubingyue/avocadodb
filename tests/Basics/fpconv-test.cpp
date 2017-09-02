@@ -33,7 +33,7 @@
 #include "Basics/json.h"
 #include "Basics/StringBuffer.h"
 
-using namespace arangodb::basics;
+using namespace avocadodb::basics;
 
 // -----------------------------------------------------------------------------
 // --SECTION--                                                        test suite

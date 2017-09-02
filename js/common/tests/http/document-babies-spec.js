@@ -5,7 +5,7 @@
 // //////////////////////////////////////////////////////////////////////////////
 // / DISCLAIMER
 // /
-// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -19,22 +19,22 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Max Neunhoeffer
 // //////////////////////////////////////////////////////////////////////////////
 
 const expect = require('chai').expect;
 
-const arangodb = require('@arangodb');
-const request = require('@arangodb/request');
+const avocadodb = require('@avocadodb');
+const request = require('@avocadodb/request');
 
-const ERRORS = arangodb.errors;
-const db = arangodb.db;
+const ERRORS = avocadodb.errors;
+const db = avocadodb.db;
 const wait = require('internal').wait;
 const extend = require('lodash').extend;
 
-const errorHeader = 'x-arango-error-codes';
+const errorHeader = 'x-avocado-error-codes';
 const uniqueCode = ERRORS.ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED.code;
 const invalidCode = ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code;
 const keyBadCode = ERRORS.ERROR_ARANGO_DOCUMENT_KEY_BAD.code;

@@ -1,10 +1,10 @@
 Deprecated Features
 -------------------
 
-This file lists all features that have been deprecated in ArangoDB
-or are known to become deprecated in a future version of ArangoDB.
+This file lists all features that have been deprecated in AvocadoDB
+or are known to become deprecated in a future version of AvocadoDB.
 Deprecated features will likely be removed in upcoming versions of
-ArangoDB and shouldn't be used if possible.
+AvocadoDB and shouldn't be used if possible.
 
 
 ## 2.5
@@ -16,9 +16,9 @@ ArangoDB and shouldn't be used if possible.
 * Foxx: the signature of method `requestContext.queryParam()` has changed. `requestContext.queryParam({type: "string"})` does not work anymore. Please use `requestContext.queryParam({type: joi.string()})` instead.
 * Foxx: the signature of method `requestContext.pathParam()` has changed. `requestContext.pathParam({type: "string"})` does not work anymore. Please use `requestContext.pathParam({type: joi.string()})` instead.
 * Foxx: method `Model#toJSONSchema(id)` is deprecated, it will raise a warning if you use it. Please use `Foxx.toJSONSchema(id, model)` instead.
-* General-Graph: In the module `org/arangodb/general-graph` the functions `_undirectedRelation` and `_directedRelation` are no longer available. Both functions have been unified to `_relation`.
+* General-Graph: In the module `org/avocadodb/general-graph` the functions `_undirectedRelation` and `_directedRelation` are no longer available. Both functions have been unified to `_relation`.
 
-* Graphs: The modules `org/arangodb/graph` and `org/arangodb/graph-blueprint` are deprecated. Please use module `org/arangodb/general-graph` instead.
+* Graphs: The modules `org/avocadodb/graph` and `org/avocadodb/graph-blueprint` are deprecated. Please use module `org/avocadodb/general-graph` instead.
 * HTTP API: The api `_api/graph` is deprecated. Please use the general graph api `_api/gharial` instead.
 
 
@@ -28,9 +28,9 @@ ArangoDB and shouldn't be used if possible.
 * Foxx: the Foxx sessions option `jwt` is deprecated, it will raise a warning if you use it. Please use the `sesssions-jwt` app from the Foxx app store or use the `crypto` module's JWT functions directly.
 * Foxx: the Foxx sessions option `type` is deprecated, it will raise a warning if you use it. Please use the options `cookie` and `header` instead.
 * Foxx: the Foxx sessions option `sessionStorageApp` is deprecated, it will raise a warning if you use it. Please use the option `sessionStorage` instead.
-* AQL: the AQL function `SKIPLIST` is deprecated. It will be removed in a future version of ArangoDB. Please use regular AQL constructs instead (e.g. `FOR doc IN collection FILTER doc.value >= @value SORT doc.value DESC LIMIT 1 RETURN doc`).
+* AQL: the AQL function `SKIPLIST` is deprecated. It will be removed in a future version of AvocadoDB. Please use regular AQL constructs instead (e.g. `FOR doc IN collection FILTER doc.value >= @value SORT doc.value DESC LIMIT 1 RETURN doc`).
 * Simple queries: the following simple query functions are now deprecated: collection.near(), collection.within(), collection.geo(), collection.fulltext(), collection.range(), collection.closedRange(). It is recommended to replace calls to these functions with equivalent AQL queries, which are more flexible.
-* Simple queries: using negative values for SimpleQuery.skip() is deprecated. This functionality will be removed in future versions of ArangoDB.
+* Simple queries: using negative values for SimpleQuery.skip() is deprecated. This functionality will be removed in future versions of AvocadoDB.
 
 
 ## 2.7

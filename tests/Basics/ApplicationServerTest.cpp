@@ -22,7 +22,7 @@
 /// Copyright holder is triAGENS GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Basics/Common.h"
@@ -34,7 +34,7 @@
 #include "ProgramOptions/ProgramOptions.h"
 #include "Basics/Exceptions.h"
 
-using namespace arangodb;
+using namespace avocadodb;
 
 // -----------------------------------------------------------------------------
 // --SECTION--                                                        test suite
@@ -68,7 +68,7 @@ SECTION("test_startsAfterValid") {
     failed = true;
   };
 
-  auto options = std::make_shared<options::ProgramOptions>("arangod", "something", "", "path");
+  auto options = std::make_shared<options::ProgramOptions>("avocadod", "something", "", "path");
   application_features::ApplicationServer server(options, "path");
 
   auto feature1 = std::make_unique<TestFeature>(&server, "feature1", std::vector<std::string>{ }, std::vector<std::string>{ });
@@ -99,7 +99,7 @@ SECTION("test_startsAfterCyclic") {
     failed = true;
   };
 
-  auto options = std::make_shared<options::ProgramOptions>("arangod", "something", "", "path");
+  auto options = std::make_shared<options::ProgramOptions>("avocadod", "something", "", "path");
   application_features::ApplicationServer server(options, "path");
 
   auto feature1 = std::make_unique<TestFeature>(&server, "feature1", std::vector<std::string>{ "feature2" }, std::vector<std::string>{ });
@@ -127,7 +127,7 @@ SECTION("test_startsBeforeCyclic") {
     failed = true;
   };
 
-  auto options = std::make_shared<options::ProgramOptions>("arangod", "something", "", "path");
+  auto options = std::make_shared<options::ProgramOptions>("avocadod", "something", "", "path");
   application_features::ApplicationServer server(options, "path");
 
   auto feature1 = std::make_unique<TestFeature>(&server, "feature1", std::vector<std::string>{ }, std::vector<std::string>{ "feature2" });

@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2017 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License");
 // / you may not use this file except in compliance with the License.
@@ -22,29 +22,29 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
 // / @author Mark Vollmary
-// / @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
 const expect = require('chai').expect;
-const users = require('@arangodb/users');
-const helper = require('@arangodb/user-helper');
-const tasks = require('@arangodb/tasks');
-const pu = require('@arangodb/process-utils');
+const users = require('@avocadodb/users');
+const helper = require('@avocadodb/user-helper');
+const tasks = require('@avocadodb/tasks');
+const pu = require('@avocadodb/process-utils');
 const download = require('internal').download;
-const graphModule = require('@arangodb/general-graph');
+const graphModule = require('@avocadodb/general-graph');
 const namePrefix = helper.namePrefix;
 const dbName = helper.dbName;
 const rightLevels = helper.rightLevels;
 const testGraphName = `${namePrefix}GraphNew`;
 const testEdgeColName = `${namePrefix}EdgeColNew`;
 const testVertexColName = `${namePrefix}VertexColNew`;
-const errors = require('@arangodb').errors;
+const errors = require('@avocadodb').errors;
 const keySpaceId = 'task_drop_graph_keyspace';
 
 const userSet = helper.userSet;
@@ -52,7 +52,7 @@ const systemLevel = helper.systemLevel;
 const dbLevel = helper.dbLevel;
 const colLevel = helper.colLevel;
 
-const arango = require('internal').arango;
+const avocado = require('internal').avocado;
 const db = require('internal').db;
 for (let l of rightLevels) {
   systemLevel[l] = new Set();
@@ -91,13 +91,13 @@ const executeJS = (code) => {
   httpOptions.method = 'POST';
   httpOptions.timeout = 1800;
   httpOptions.returnBodyOnError = true;
-  return download(arango.getEndpoint().replace('tcp', 'http') + `/_db/${dbName}/_admin/execute?returnAsJSON=true`,
+  return download(avocado.getEndpoint().replace('tcp', 'http') + `/_db/${dbName}/_admin/execute?returnAsJSON=true`,
     code,
     httpOptions);
 };
 
 const switchUser = (user, dbname) => {
-  arango.reconnect(arango.getEndpoint(), dbname, user, '');
+  avocado.reconnect(avocado.getEndpoint(), dbname, user, '');
 };
 
 switchUser('root', '_system');
@@ -213,7 +213,7 @@ describe('User Rights Management', () => {
                   name: taskId,
                   command: `(function (params) {
                     try {
-                      require('@arangodb/general-graph')._drop('${testGraphName}', true);
+                      require('@avocadodb/general-graph')._drop('${testGraphName}', true);
                     } finally {
                       global.KEY_SET('${keySpaceId}', '${name}', true);
                     }
@@ -264,7 +264,7 @@ describe('User Rights Management', () => {
                   name: taskId,
                   command: `(function (params) {
                     try {
-                      require('@arangodb/general-graph')._drop('${testGraphName}', true);
+                      require('@avocadodb/general-graph')._drop('${testGraphName}', true);
                     } finally {
                       global.KEY_SET('${keySpaceId}', '${name}_specified_collection_access', true);
                     }

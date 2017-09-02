@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, location, document, _, arangoHelper, window, setTimeout, $, templateEngine, frontendConfig */
+/* global Backbone, location, document, _, avocadoHelper, window, setTimeout, $, templateEngine, frontendConfig */
 
 (function () {
   'use strict';
@@ -31,9 +31,9 @@
         var url;
 
         if (!user) {
-          url = arangoHelper.databaseUrl('/_api/database/user');
+          url = avocadoHelper.databaseUrl('/_api/database/user');
         } else {
-          url = arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database', '_system');
+          url = avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database', '_system');
         }
 
         if (frontendConfig.authenticationEnabled === false) {
@@ -72,7 +72,7 @@
       };
 
       if (frontendConfig.authenticationEnabled && loggedIn !== true) {
-        var usr = arangoHelper.getCurrentJwtUsername();
+        var usr = avocadoHelper.getCurrentJwtUsername();
         if (usr !== null && usr !== 'undefined' && usr !== undefined) {
           // try if existent jwt is valid
           var errCallback = function () {
@@ -81,14 +81,14 @@
               $('#loginUsername').focus();
             }, 300);
           };
-          continueRender(arangoHelper.getCurrentJwtUsername(), errCallback);
+          continueRender(avocadoHelper.getCurrentJwtUsername(), errCallback);
         } else {
           window.setTimeout(function () {
             $('#loginUsername').focus();
           }, 300);
         }
       } else if (frontendConfig.authenticationEnabled && loggedIn) {
-        continueRender(arangoHelper.getCurrentJwtUsername(), null, 4);
+        continueRender(avocadoHelper.getCurrentJwtUsername(), null, 4);
       } else {
         continueRender(null, null, 3);
       }
@@ -171,10 +171,10 @@
 
     renderDBSelection: function (username) {
       var self = this;
-      var url = arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(username) + '/database', '_system');
+      var url = avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(username) + '/database', '_system');
 
       if (frontendConfig.authenticationEnabled === false) {
-        url = arangoHelper.databaseUrl('/_api/database/user');
+        url = avocadoHelper.databaseUrl('/_api/database/user');
       }
 
       $('.wrong-credentials').hide();
@@ -233,7 +233,7 @@
 
       var callback2 = function (error) {
         if (error) {
-          arangoHelper.arangoError('User', 'Could not fetch user settings');
+          avocadoHelper.avocadoError('User', 'Could not fetch user settings');
         }
       };
 

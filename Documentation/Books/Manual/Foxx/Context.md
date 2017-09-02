@@ -7,7 +7,7 @@ The service context provides access to methods and attributes that are specific 
 
 ```js
 // in service /my-foxx-1
-const createRouter = require('@arangodb/foxx/router');
+const createRouter = require('@avocadodb/foxx/router');
 const router = createRouter();
 
 // See the chapter on dependencies for more info on
@@ -21,7 +21,7 @@ router.get(function (req, res) {
 });
 
 // in service /my-foxx-2
-const createRouter = require('@arangodb/foxx/router');
+const createRouter = require('@avocadodb/foxx/router');
 const router2 = createRouter();
 
 module.context.use(router2);
@@ -44,11 +44,11 @@ The service context specifies the following properties:
 
 * **basePath**: `string`
 
-  The file system path of the service, i.e. the folder in which the service was installed to by ArangoDB.
+  The file system path of the service, i.e. the folder in which the service was installed to by AvocadoDB.
 
 * **baseUrl**: `string`
 
-  The base URL of the service, relative to the ArangoDB server, e.g. `/_db/_system/my-foxx`.
+  The base URL of the service, relative to the AvocadoDB server, e.g. `/_db/_system/my-foxx`.
 
 * **collectionPrefix**: `string`
 
@@ -87,7 +87,7 @@ apiDocumentation
 
 Creates a request handler that serves the API documentation.
 
-**Note**: This method has been deprecated in ArangoDB 3.1 and replaced with the more straightforward `createDocumentationRouter` method providing the same functionality.
+**Note**: This method has been deprecated in AvocadoDB 3.1 and replaced with the more straightforward `createDocumentationRouter` method providing the same functionality.
 
 **Arguments**
 
@@ -162,9 +162,9 @@ router.use('/docs', module.context.createDocumentationRouter(function (req) {
 
 // -- or --
 
-// Serve the API docs only for users authenticated with ArangoDB
+// Serve the API docs only for users authenticated with AvocadoDB
 router.use('/docs', module.context.createDocumentationRouter(function (req, res) {
-  if (req.suffix === 'swagger.json' && !req.arangoUser) {
+  if (req.suffix === 'swagger.json' && !req.avocadoUser) {
     res.throw(401, 'Not authenticated');
   }
 }));
@@ -173,7 +173,7 @@ router.use('/docs', module.context.createDocumentationRouter(function (req, res)
 collection
 ----------
 
-`module.context.collection(name): ArangoCollection | null`
+`module.context.collection(name): AvocadoCollection | null`
 
 Passes the given name to *collectionName*, then looks up the collection with the prefixed name.
 

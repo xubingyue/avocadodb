@@ -1,0 +1,7 @@
+etc/avocadodb/avocadosh.conf
+etc/avocadodb/foxx-manager.conf
+usr/bin/avocadosh
+usr/bin/foxx-manager
+usr/share/avocadodb/js/common
+usr/share/avocadodb/js/client
+usr/share/avocadodb/js/node

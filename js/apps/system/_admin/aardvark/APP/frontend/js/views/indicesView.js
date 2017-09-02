@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global _, arangoHelper, Backbone, window, templateEngine, $ */
+/* global _, avocadoHelper, Backbone, window, templateEngine, $ */
 
 (function () {
   'use strict';
@@ -24,7 +24,7 @@
       $.ajax({
         type: 'GET',
         cache: false,
-        url: arangoHelper.databaseUrl('/_api/engine'),
+        url: avocadoHelper.databaseUrl('/_api/engine'),
         contentType: 'application/json',
         processData: false,
         success: function (data) {
@@ -34,15 +34,15 @@
           }));
 
           self.breadcrumb();
-          window.arangoHelper.buildCollectionSubNav(self.collectionName, 'Indexes');
+          window.avocadoHelper.buildCollectionSubNav(self.collectionName, 'Indexes');
 
           self.getIndex();
 
           // check permissions and adjust views
-          arangoHelper.checkCollectionPermissions(self.collectionName, self.changeViewToReadOnly);
+          avocadoHelper.checkCollectionPermissions(self.collectionName, self.changeViewToReadOnly);
         },
         error: function () {
-          arangoHelper.arangoNotification('Index', 'Could not fetch index information.');
+          avocadoHelper.avocadoNotification('Index', 'Could not fetch index information.');
         }
       });
     },
@@ -64,7 +64,7 @@
     getIndex: function () {
       var callback = function (error, data, id) {
         if (error) {
-          window.arangoHelper.arangoError('Index', data.errorMessage);
+          window.avocadoHelper.avocadoError('Index', data.errorMessage);
         } else {
           this.renderIndex(data, id);
         }
@@ -148,9 +148,9 @@
         if (error) {
           if (msg) {
             var message = JSON.parse(msg.responseText);
-            arangoHelper.arangoError('Document error', message.errorMessage);
+            avocadoHelper.avocadoError('Document error', message.errorMessage);
           } else {
-            arangoHelper.arangoError('Document error', 'Could not create index.');
+            avocadoHelper.avocadoError('Document error', 'Could not create index.');
           }
         }
         // toggle back
@@ -251,9 +251,9 @@
     deleteIndex: function () {
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('Could not delete index');
+          avocadoHelper.avocadoError('Could not delete index');
           $("tr th:contains('" + this.lastId + "')").parent().children().last().html(
-            '<span class="deleteIndex icon_arangodb_roundminus"' +
+            '<span class="deleteIndex icon_avocadodb_roundminus"' +
             ' data-original-title="Delete index" title="Delete index"></span>'
           );
           this.model.set('locked', false);
@@ -276,24 +276,24 @@
       // get pending jobs
       var checkState = function (error, data) {
         if (error) {
-          arangoHelper.arangoError('Jobs', 'Could not read pending jobs.');
+          avocadoHelper.avocadoError('Jobs', 'Could not read pending jobs.');
         } else {
           var readJob = function (error, data, job) {
             if (error) {
               if (data.responseJSON.code === 404) {
                 // delete non existing aardvark job
-                arangoHelper.deleteAardvarkJob(job);
+                avocadoHelper.deleteAardvarkJob(job);
               } else if (data.responseJSON.code === 400) {
                 // index job failed -> print error
-                arangoHelper.arangoError('Index creation failed', data.responseJSON.errorMessage);
+                avocadoHelper.avocadoError('Index creation failed', data.responseJSON.errorMessage);
                 // delete non existing aardvark job
-                arangoHelper.deleteAardvarkJob(job);
+                avocadoHelper.deleteAardvarkJob(job);
               } else if (data.responseJSON.code === 204) {
                 // job is still in quere or pending
-                arangoHelper.arangoMessage('Index', 'There is at least one new index in the queue or in the process of being created.');
+                avocadoHelper.avocadoMessage('Index', 'There is at least one new index in the queue or in the process of being created.');
               }
             } else {
-              arangoHelper.deleteAardvarkJob(job);
+              avocadoHelper.deleteAardvarkJob(job);
             }
           };
 
@@ -302,7 +302,7 @@
               $.ajax({
                 type: 'PUT',
                 cache: false,
-                url: arangoHelper.databaseUrl('/_api/job/' + job.id),
+                url: avocadoHelper.databaseUrl('/_api/job/' + job.id),
                 contentType: 'application/json',
                 success: function (data, a, b) {
                   readJob(false, data, job.id);
@@ -316,7 +316,7 @@
         }
       };
 
-      arangoHelper.getAardvarkJobs(checkState);
+      avocadoHelper.getAardvarkJobs(checkState);
 
       var cssClass = 'collectionInfoTh modal-text';
       if (this.index) {
@@ -325,10 +325,10 @@
 
         _.each(this.index.indexes, function (v) {
           if (v.type === 'primary' || v.type === 'edge') {
-            actionString = '<span class="icon_arangodb_locked" ' +
+            actionString = '<span class="icon_avocadodb_locked" ' +
               'data-original-title="No action"></span>';
           } else {
-            actionString = '<span class="deleteIndex icon_arangodb_roundminus" ' +
+            actionString = '<span class="deleteIndex icon_avocadodb_roundminus" ' +
               'data-original-title="Delete index" title="Delete index"></span>';
           }
 
@@ -396,8 +396,8 @@
           $('#createIndex').detach().appendTo(elem);
         }
 
-        arangoHelper.createTooltips('.index-tooltip');
-        arangoHelper.fixTooltips('.icon_arangodb, .arangoicon', 'right');
+        avocadoHelper.createTooltips('.index-tooltip');
+        avocadoHelper.fixTooltips('.icon_avocadodb, .avocadoicon', 'right');
         this.resetIndexForms();
       }
     },

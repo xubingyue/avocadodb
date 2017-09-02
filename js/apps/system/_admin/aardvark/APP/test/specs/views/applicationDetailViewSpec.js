@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* global describe, beforeEach, afterEach, it, spyOn, expect*/
 /* global runs, waitsFor, jasmine*/
-/* global $, arangoHelper */
+/* global $, avocadoHelper */
 
 (function () {
   'use strict';
@@ -18,7 +18,7 @@
           callback();
         }
       };
-      spyOn(arangoHelper, 'currentDatabase').andReturn('_system');
+      spyOn(avocadoHelper, 'currentDatabase').andReturn('_system');
       modalDiv = document.createElement('div');
       modalDiv.id = 'modalPlaceholder';
       document.body.appendChild(modalDiv);
@@ -27,7 +27,7 @@
       div.id = 'content';
       document.body.appendChild(div);
       appDummy = new window.Foxx({
-        'author': 'ArangoDB GmbH',
+        'author': 'AvocadoDB GmbH',
         'name': 'MyApp',
         'mount': '/my/app',
         'version': '1.0.0',

@@ -1,16 +1,16 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/aql-builtin"
   prefix = "api-aql-builtin"
 
   context "dealing with the builtin AQL functions:" do
 
     it "fetches the list of functions" do
-      doc = ArangoDB.log_get("#{prefix}-fetch", api)
+      doc = AvocadoDB.log_get("#{prefix}-fetch", api)
         
       doc.code.should eq(200)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")

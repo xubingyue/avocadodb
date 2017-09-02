@@ -1,7 +1,7 @@
 Hash cache options
 ==================
 
-Since ArangoDB 3.2, the several core components of the server use a cache system
+Since AvocadoDB 3.2, the several core components of the server use a cache system
 which pools memory across many different cache tables. In order to provide
 intelligent internal memory management, the system periodically reclaims memory
 from caches which are used less often and reallocates it to caches which get

@@ -25,16 +25,16 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Christoph Uhde
-/// @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 const expect = require('chai').expect;
 var internal = require("internal");
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
+var helper = require("@avocadodb/aql-helper");
 var isEqual = helper.isEqual;
 var findExecutionNodes = helper.findExecutionNodes;
 var findReferencedNodes = helper.findReferencedNodes;

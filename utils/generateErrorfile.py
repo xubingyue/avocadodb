@@ -82,7 +82,7 @@ def genCHeaderFile(errors):
   wiki = "////////////////////////////////////////////////////////////////////////////////\n"\
        + "/// Error codes and meanings\n"\
        + "///\n"\
-       + "/// The following errors might be raised when running ArangoDB:\n"\
+       + "/// The following errors might be raised when running AvocadoDB:\n"\
        + "///\n"
   
   for e in errors:
@@ -106,7 +106,7 @@ def genCHeaderFile(errors):
            + "#define REG_ERROR(id, label) TRI_set_errno_string(TRI_ ## id, label);\n"\
            + "\n"\
            + "////////////////////////////////////////////////////////////////////////////////\n"\
-           + "/// @brief register all errors for ArangoDB\n"\
+           + "/// @brief register all errors for AvocadoDB\n"\
            + "////////////////////////////////////////////////////////////////////////////////\n"\
            + "\n"\
            + "void TRI_InitializeErrorMessages ();\n"\

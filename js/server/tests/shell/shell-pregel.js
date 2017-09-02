@@ -9,7 +9,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -23,15 +23,15 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Simon Grätzer
-// / @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
-var graph_module = require("@arangodb/general-graph");
+var db = require("@avocadodb").db;
+var graph_module = require("@avocadodb/general-graph");
 var internal = require("internal");
 var console = require("console");
 var EPS = 0.0001;
@@ -161,7 +161,7 @@ function exampleTestSuite () {
     ////////////////////////////////////////////////////////////////////////////////
     
     setUp : function () {
-      var examples = require("@arangodb/graph-examples/example-graph.js"); 
+      var examples = require("@avocadodb/graph-examples/example-graph.js"); 
       var graph = examples.loadGraph("social");
     },
     

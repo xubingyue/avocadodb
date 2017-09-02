@@ -12,7 +12,7 @@ There are four different possibilities to create a new service:
 
 1. Create service via zip file
 2. Create service via github repository
-3. Create service via official ArangoDB store
+3. Create service via official AvocadoDB store
 4. Create a blank service from scratch
 
 ![Create Service](images/installService.png)

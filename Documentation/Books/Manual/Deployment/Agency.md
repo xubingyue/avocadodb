@@ -1,7 +1,7 @@
-Launching ArangoDB's standalone "agency"
+Launching AvocadoDB's standalone "agency"
 ----------------------------------------
 
-### Multiple ArangoDB instances can be deployed as a fault-tolerant distributed state machine.
+### Multiple AvocadoDB instances can be deployed as a fault-tolerant distributed state machine.
 
 What is a fault-tolerant state machine in the first place?
 
@@ -9,7 +9,7 @@ In many service deployments consisting of arbitrary components distributed over 
 
 Consensus is the keyword here and its realisation on a network proves to be far from trivial. Many papers and conference proceedings have discussed and evaluated this key challenge. Two algorithms, historically far apart, have become widely popular, namely Paxos and its derivatives and Raft. Discussing them and their differences, although highly enjoyable, must remain far beyond the scope of this document. Find the references to the main publications at the bottom of this page.
 
-At ArangoDB, we decided to implement Raft as it is arguably the easier to understand and thus implement. In simple terms, Raft guarantees that a linear stream of transactions, is replicated in realtime among a group of machines through an elected leader, who in turn must have access to and project leadership upon an overall majority of participating instances. In ArangoDB we like to call the entirety of the components of the replicated transaction log, that is the machines and the ArangoDB instances, which constitute the replicated log, the agency.
+At AvocadoDB, we decided to implement Raft as it is arguably the easier to understand and thus implement. In simple terms, Raft guarantees that a linear stream of transactions, is replicated in realtime among a group of machines through an elected leader, who in turn must have access to and project leadership upon an overall majority of participating instances. In AvocadoDB we like to call the entirety of the components of the replicated transaction log, that is the machines and the AvocadoDB instances, which constitute the replicated log, the agency.
 
 ### Startup
 
@@ -24,9 +24,9 @@ Typically, one achieves fairly high fault-tolerance with low, odd number of agen
 The below commands start up a 3-host agency on one physical/logical box with ports 8529, 8530 and 8531 for demonstration purposes. The adress of the first instance, port 8529, is known to the other two. After atmost 2 rounds of gossipping, the last 2 agents will have a complete picture of their surrounding and persist it for the next restart.
 
 ```
-./build/bin/arangod --agency.activate true --agency.size 3 --agency.my-address tcp://localhost:8529 --server.authentication false --server.endpoint tcp://0.0.0.0:8529 agency-8529
-./build/bin/arangod --agency.activate true --agency.size 3 --agency.endpoint tcp://localhost:8529 --agency.my-address tcp://localhost:8530 --server.authentication false --server.endpoint tcp://0.0.0.0:8530 agency-8530
-./build/bin/arangod --agency.activate true --agency.size 3 --agency.endpoint tcp://localhost:8529 --agency.my-address tcp://localhost:8531 --server.authentication false --server.endpoint tcp://0.0.0.0:8531 agency-8531 
+./build/bin/avocadod --agency.activate true --agency.size 3 --agency.my-address tcp://localhost:8529 --server.authentication false --server.endpoint tcp://0.0.0.0:8529 agency-8529
+./build/bin/avocadod --agency.activate true --agency.size 3 --agency.endpoint tcp://localhost:8529 --agency.my-address tcp://localhost:8530 --server.authentication false --server.endpoint tcp://0.0.0.0:8530 agency-8530
+./build/bin/avocadod --agency.activate true --agency.size 3 --agency.endpoint tcp://localhost:8529 --agency.my-address tcp://localhost:8531 --server.authentication false --server.endpoint tcp://0.0.0.0:8531 agency-8531 
 ```
 
 The parameter `agency.endpoint` is the key ingredient for the second and third instances to find the first instance and thus form a complete agency. Please refer to the the shell-script `scripts/startStandaloneAgency.sh` on github or in the source directory.

@@ -92,22 +92,22 @@ body {
   margin-top: 48px;
 }
 
-.arangodb-logo, .arangodb-logo-small {
+.avocadodb-logo, .avocadodb-logo-small {
   display: inline;
   float: left;
   padding-top: 12px;
   margin-left: 10px;
 }
 
-.arangodb-logo img {
+.avocadodb-logo img {
   height: 23px;
 }
 
-.arangodb-logo-small {
+.avocadodb-logo-small {
   display: none;
 }
 
-.arangodb-version-switcher {
+.avocadodb-version-switcher {
   width: 65px;
   height: 44px;
   margin-left: 16px;
@@ -119,38 +119,38 @@ body {
   border: 0;
 }
 
-.arangodb-version-switcher option {
+.avocadodb-version-switcher option {
   background-color: white;
   color: black;
 }
 
 
-.arangodb-header {
+.avocadodb-header {
   position: fixed;
   width: 100%;
   height: 48px;
   z-index: 1;
 }
 
-.arangodb-header .socialIcons-googlegroups a img {
+.avocadodb-header .socialIcons-googlegroups a img {
   position: relative;
   height: 14px;
   top: 3px;
 }
 
-.arangodb-navmenu {
+.avocadodb-navmenu {
   display: block;
   float: right;
   margin: 0;
   padding: 0;
 }
 
-.arangodb-navmenu li {
+.avocadodb-navmenu li {
   display: block;
   float: left;
 }
 
-.arangodb-navmenu li a {
+.avocadodb-navmenu li a {
   display: block;
   float: left;
   padding: 0 10px;
@@ -162,7 +162,7 @@ body {
   font-family: Roboto, Helvetica, sans-serif;
 }
 
-.arangodb-navmenu li.active-tab a, .arangodb-navmenu li a:hover {
+.avocadodb-navmenu li.active-tab a, .avocadodb-navmenu li a:hover {
   background-color: #88A049 !important;
 }
 
@@ -173,7 +173,7 @@ body {
 /** simple responsive updates **/
 
 @media screen and (max-width: 1000px) {
-  .arangodb-logo {
+  .avocadodb-logo {
     margin-left: 10px;
   }
 
@@ -199,32 +199,32 @@ body {
     width: 130px !important;
   }
 
-  .arangodb-navmenu li a {
+  .avocadodb-navmenu li a {
     font-size: 15px;
     padding: 0 7px;
   }
 
-  .arangodb-logo {
+  .avocadodb-logo {
     display: none;
   }
 
-  .arangodb-logo-small {
+  .avocadodb-logo-small {
     display: inline;
     margin-left: 10px;
   }
 
-  .arangodb-logo-small img {
+  .avocadodb-logo-small img {
     height: 20px;
   }
 
-  .arangodb-version-switcher {
+  .avocadodb-version-switcher {
     margin: 0;
   }
 
 }
 
 @media screen and (max-width: 530px) {
-  .arangodb-version-switcher,
+  .avocadodb-version-switcher,
   .downloadIcon {
     display: none !important;
   }
@@ -236,7 +236,7 @@ body {
   }
 
   .google-search .gsc-input-box input[style] {
-    background: url(https://docs.arangodb.com/assets/searchIcon.png) left center no-repeat rgb(255, 255, 255) !important;
+    background: url(https://docs.avocadodb.com/assets/searchIcon.png) left center no-repeat rgb(255, 255, 255) !important;
   }
 
   .google-search .gsc-input-box input:focus {
@@ -249,7 +249,7 @@ body {
 }
 
 @media screen and (max-width: 330px) {
-  .arangodb-logo-small, .google-search {
+  .avocadodb-logo-small, .google-search {
     display: none;
   }
 }

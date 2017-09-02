@@ -14,7 +14,7 @@ collection with corrupted datafiles, from which only a subset of the
 original data can be recovered. Working with such collection could lead
 to data loss and follow up errors.
 In order to access such collection, it is required to inspect and repair
-the collection datafile with the datafile debugger (arango-dfdb).
+the collection datafile with the datafile debugger (avocado-dfdb).
 
 If set to `true`, CRC mismatch and other errors during the loading of a
 collection will lead to the datafile being partially loaded, up to the

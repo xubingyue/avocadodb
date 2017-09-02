@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false, unused: false */
-/*global fail, assertEqual, assertTrue, assertFalse, assertNull, arango, ARGUMENTS */
+/*global fail, assertEqual, assertTrue, assertFalse, assertNull, avocado, ARGUMENTS */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test the sync method of the replication
@@ -29,15 +29,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var errors = arangodb.errors;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var errors = avocadodb.errors;
+var db = avocadodb.db;
 var _ = require('lodash');
 
-var replication = require("@arangodb/replication");
+var replication = require("@avocadodb/replication");
 var console = require("console");
 var internal = require("internal");
-var masterEndpoint = arango.getEndpoint();
+var masterEndpoint = avocado.getEndpoint();
 var slaveEndpoint = ARGUMENTS[0];
 
 var mmfilesEngine = false;
@@ -54,12 +54,12 @@ function ReplicationSuite() {
   var cn = "UnitTestsReplication";
 
   var connectToMaster = function() {
-    arango.reconnect(masterEndpoint, db._name(), "root", "");
+    avocado.reconnect(masterEndpoint, db._name(), "root", "");
     db._flushCache();
   };
 
   var connectToSlave = function() {
-    arango.reconnect(slaveEndpoint, db._name(), "root", "");
+    avocado.reconnect(slaveEndpoint, db._name(), "root", "");
     db._flushCache();
   };
 

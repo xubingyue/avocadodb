@@ -1,7 +1,7 @@
 A Hello World Example
 ---------------------
 
-The client API or browser sends a HTTP request to the ArangoDB server and the
+The client API or browser sends a HTTP request to the AvocadoDB server and the
 server returns a HTTP response to the client. A HTTP request consists of a
 method, normally *GET* or *POST* when using a browser, and a request path like
 */hello/world*. For a real Web server there are a zillion of other thing to
@@ -9,7 +9,7 @@ consider, we will ignore this for the moment. The HTTP response contains a
 content type, describing how to interpret the returned data, and the data
 itself.
 
-In the following example, we want to define an action in ArangoDB, so that the
+In the following example, we want to define an action in AvocadoDB, so that the
 server returns the HTML document
 
 ```html
@@ -24,7 +24,7 @@ if asked *GET /hello/world*.
 
 The server needs to know what function to call or what document to deliver if it
 receives a request. This is called routing. All the routing information of
-ArangoDB is stored in a collection *_routing*. Each entry in this collections
+AvocadoDB is stored in a collection *_routing*. Each entry in this collections
 describes how to deal with a particular request path.
 
 For the above example, add the following document to the _routing collection:

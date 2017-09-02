@@ -1,7 +1,7 @@
 Basics and Terminology
 ======================
 
-Documents in ArangoDB are JSON objects. These objects can be nested (to
+Documents in AvocadoDB are JSON objects. These objects can be nested (to
 any depth) and may contain lists. Each document has a unique 
 [primary key](../../Appendix/Glossary.md#document-key) which 
 identifies it within its collection. Furthermore, each document is 
@@ -40,7 +40,7 @@ as a string in `_id`, the
 [document revision](../../Appendix/Glossary.md#document-revision) in
 `_rev`. The value of the `_key` attribute can be specified by the user when
 creating a document. `_id` and `_key` values are immutable once the document
-has been created. The `_rev` value is maintained by ArangoDB automatically.
+has been created. The `_rev` value is maintained by AvocadoDB automatically.
 
 
 ### Document Handle
@@ -55,10 +55,10 @@ is a string and consists of the collection's name and the document key
 A document key uniquely identifies a document in the collection it is
 stored in. It can and should be used by clients when specific documents
 are queried. The document key is stored in the `_key` attribute of
-each document. The key values are automatically indexed by ArangoDB in
+each document. The key values are automatically indexed by AvocadoDB in
 a collection's primary index. Thus looking up a document by its
 key is a fast operation. The _key value of a document is
-immutable once the document has been created. By default, ArangoDB will
+immutable once the document has been created. By default, AvocadoDB will
 auto-generate a document key if no _key attribute is specified, and use
 the user-specified _key otherwise. The generated _key is guaranteed to
 be unique in the collection it was generated for. This also applies to
@@ -75,14 +75,14 @@ values.
 
 ### Document Revision
 
-As ArangoDB supports MVCC (Multiple Version Concurrency Control),
+As AvocadoDB supports MVCC (Multiple Version Concurrency Control),
 documents can exist in more than one
 revision. The document revision is the MVCC token used to specify 
 a particular revision of a document (identified by its `_id`). 
-It is a string value that contained (up to ArangoDB 3.0)
+It is a string value that contained (up to AvocadoDB 3.0)
 an integer number and is unique within the list of document
 revisions for a single document. 
-In ArangoDB >= 3.1 the _rev strings
+In AvocadoDB >= 3.1 the _rev strings
 are in fact time stamps. They use the local clock of the DBserver that
 actually writes the document and have millisecond accuracy. 
 Actually, a "Hybrid Logical Clock" is used (for
@@ -109,14 +109,14 @@ however still produce ever increasing timestamps. If the clock skew is
 small, then your timestamps will relatively accurately describe the time
 when the document revision was actually written.
 
-ArangoDB uses 64bit unsigned integer values to maintain
+AvocadoDB uses 64bit unsigned integer values to maintain
 document revisions internally. At this stage we intentionally do not
 document the exact format of the revision values. When returning 
 document revisions to
-clients, ArangoDB will put them into a string to ensure the revision
+clients, AvocadoDB will put them into a string to ensure the revision
 is not clipped by clients that do not support big integers. Clients
-should treat the revision returned by ArangoDB as an opaque string
-when they store or use it locally. This will allow ArangoDB to change
+should treat the revision returned by AvocadoDB as an opaque string
+when they store or use it locally. This will allow AvocadoDB to change
 the format of revisions later if this should be required (as has happened
 with 3.1 with the Hybrid Logical Clock). Clients can
 use revisions to perform simple equality/non-equality comparisons
@@ -133,7 +133,7 @@ handle or key, and the document revision.
 
 ### Multiple Documents in a single Command
 
-Beginning with ArangoDB 3.0 the basic document API has been extended
+Beginning with AvocadoDB 3.0 the basic document API has been extended
 to handle not only single documents but multiple documents in a single
 command. This is crucial for performance, in particular in the cluster
 situation, in which a single request can involve multiple network hops

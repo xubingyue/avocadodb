@@ -311,8 +311,8 @@ a.headerButton {
     width: 27px;
   }
 
-  .icon_arangodb_arrowleft,
-  .icon_arangodb_arrowright {
+  .icon_avocadodb_arrowleft,
+  .icon_avocadodb_arrowright {
     font-weight: bold;
   }
 
@@ -418,7 +418,7 @@ h6 {
 
 
 a.pagination-button,
-ul.arango-pagination a {
+ul.avocado-pagination a {
   @include border-radius(3px);
 }
 

@@ -1,5 +1,5 @@
 /* jshint strict: false */
-/*global ArangoClusterInfo */
+/*global AvocadoClusterInfo */
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief querying and managing collections
@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -22,16 +22,16 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Achim Brandt
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var arangodb = require('@arangodb');
-var actions = require('@arangodb/actions');
-var cluster = require('@arangodb/cluster');
+var avocadodb = require('@avocadodb');
+var actions = require('@avocadodb/actions');
+var cluster = require('@avocadodb/cluster');
 var errors = require('internal').errors;
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ var errors = require('internal').errors;
 
 function databasePrefix (req, url) {
   // location response (e.g. /_db/dbname/_api/collection/xyz)
-  return '/_db/' + encodeURIComponent(arangodb.db._name()) + url;
+  return '/_db/' + encodeURIComponent(avocadodb.db._name()) + url;
 }
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ function parseBodyForCreateCollection (req, res) {
     r.name = body.name;
   }
   r.parameters = { waitForSync: require('internal').options()['database.wait-for-sync']};
-  r.type = arangodb.ArangoCollection.TYPE_DOCUMENT;
+  r.type = avocadodb.AvocadoCollection.TYPE_DOCUMENT;
 
   if (body.hasOwnProperty('doCompact')) {
     r.parameters.doCompact = body.doCompact;
@@ -200,7 +200,7 @@ function post_api_collection (req, res) {
   }
 
   if (r.name === '') {
-    actions.resultBad(req, res, arangodb.ERROR_ARANGO_ILLEGAL_NAME,
+    actions.resultBad(req, res, avocadodb.ERROR_ARANGO_ILLEGAL_NAME,
       'name must be non-empty');
     return;
   }
@@ -218,14 +218,14 @@ function post_api_collection (req, res) {
     var collection;
     if (typeof (r.type) === 'string') {
       if (r.type.toLowerCase() === 'edge' || r.type === '3') {
-        r.type = arangodb.ArangoCollection.TYPE_EDGE;
+        r.type = avocadodb.AvocadoCollection.TYPE_EDGE;
       }
     }
 
-    if (r.type === arangodb.ArangoCollection.TYPE_EDGE) {
-      collection = arangodb.db._createEdgeCollection(r.name, r.parameters, options);
+    if (r.type === avocadodb.AvocadoCollection.TYPE_EDGE) {
+      collection = avocadodb.db._createEdgeCollection(r.name, r.parameters, options);
     } else {
-      collection = arangodb.db._createDocumentCollection(r.name, r.parameters, options);
+      collection = avocadodb.db._createDocumentCollection(r.name, r.parameters, options);
     }
 
     var result = {};
@@ -261,7 +261,7 @@ function post_api_collection (req, res) {
 
 function get_api_collections (req, res) {
   var excludeSystem;
-  var collections = arangodb.db._collections();
+  var collections = avocadodb.db._collections();
 
   excludeSystem = false;
   if (req.parameters.hasOwnProperty('excludeSystem')) {
@@ -329,7 +329,7 @@ function get_api_collection (req, res) {
 
   name = req.suffix[0];
 
-  var collection = arangodb.db._collection(name);
+  var collection = avocadodb.db._collection(name);
 
   if (collection === null) {
     actions.collectionNotFound(req, res, name);
@@ -432,16 +432,16 @@ function get_api_collection (req, res) {
     
     else if (sub === 'shards') {
       result = collectionRepresentation(collection, false, false, false);
-      result.shards = Object.keys(ArangoClusterInfo.getCollectionInfo(arangodb.db._name(), collection.name()).shardShorts);
+      result.shards = Object.keys(AvocadoClusterInfo.getCollectionInfo(avocadodb.db._name(), collection.name()).shardShorts);
       actions.resultOk(req, res, actions.HTTP_OK, result);
 
     } else {
-      actions.resultNotFound(req, res, arangodb.ERROR_HTTP_NOT_FOUND,
+      actions.resultNotFound(req, res, avocadodb.ERROR_HTTP_NOT_FOUND,
         "expecting one of the resources 'checksum', 'count',"
         + " 'figures', 'properties', 'revision', 'shards'");
     }
   } else {
-    actions.resultBad(req, res, arangodb.ERROR_HTTP_BAD_PARAMETER,
+    actions.resultBad(req, res, avocadodb.ERROR_HTTP_BAD_PARAMETER,
       'expect GET /_api/collection/<collection-name>/<method>');
   }
 }
@@ -576,7 +576,7 @@ function put_api_collection_rename (req, res, collection) {
   }
 
   if (!body.hasOwnProperty('name')) {
-    actions.resultBad(req, res, arangodb.ERROR_ARANGO_ILLEGAL_NAME,
+    actions.resultBad(req, res, avocadodb.ERROR_ARANGO_ILLEGAL_NAME,
       'name must be non-empty');
     return;
   }
@@ -614,13 +614,13 @@ function put_api_collection_rotate (req, res, collection) {
 
 function put_api_collection (req, res) {
   if (req.suffix.length !== 2) {
-    actions.resultBad(req, res, arangodb.ERROR_HTTP_BAD_PARAMETER,
+    actions.resultBad(req, res, avocadodb.ERROR_HTTP_BAD_PARAMETER,
       'expected PUT /_api/collection/<collection-name>/<action>');
     return;
   }
 
   var name = req.suffix[0];
-  var collection = arangodb.db._collection(name);
+  var collection = avocadodb.db._collection(name);
 
   if (collection === null) {
     actions.collectionNotFound(req, res, name);
@@ -647,7 +647,7 @@ function put_api_collection (req, res) {
   } else if (sub === 'loadIndexesIntoMemory') {
     put_api_collection_load_indexes_in_memory(req, res, collection);
   } else {
-    actions.resultNotFound(req, res, arangodb.ERROR_HTTP_NOT_FOUND,
+    actions.resultNotFound(req, res, avocadodb.ERROR_HTTP_NOT_FOUND,
       "expecting one of the actions 'load', 'unload',"
       + " 'truncate', 'properties', 'rename', 'loadIndexesIntoMemory'");
   }
@@ -659,11 +659,11 @@ function put_api_collection (req, res) {
 
 function delete_api_collection (req, res) {
   if (req.suffix.length !== 1) {
-    actions.resultBad(req, res, arangodb.ERROR_HTTP_BAD_PARAMETER,
+    actions.resultBad(req, res, avocadodb.ERROR_HTTP_BAD_PARAMETER,
       'expected DELETE /_api/collection/<collection-name>');
   } else {
     var name = req.suffix[0];
-    var collection = arangodb.db._collection(name);
+    var collection = avocadodb.db._collection(name);
 
     if (collection === null) {
       actions.collectionNotFound(req, res, name);

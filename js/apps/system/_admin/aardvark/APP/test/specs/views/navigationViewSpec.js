@@ -133,7 +133,7 @@
 
       it('should navigate to the selected value from options div', function () {
         var toNavigate = '#collections';
-        $('#arangoCollectionSelect').val(toNavigate);
+        $('#avocadoCollectionSelect').val(toNavigate);
         view.navigateBySelect();
         expect(window.App.navigate).toHaveBeenCalledWith(toNavigate, {trigger: true});
       });

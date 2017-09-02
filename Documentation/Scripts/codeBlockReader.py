@@ -61,7 +61,7 @@ def example_content(filepath, fh, tag):
   """ Fetches an example file and inserts it using code
   """
 
-  arangosh = False
+  avocadosh = False
   curl = False
   first = True
   lastline = None
@@ -83,14 +83,14 @@ def example_content(filepath, fh, tag):
 
   for line in infile:
     if first:
-      arangosh = line.startswith("arangosh&gt;")
+      avocadosh = line.startswith("avocadosh&gt;")
       curl = line.startswith("shell> curl")
       first = False
-      if not curl and not arangosh:
-        raise Exception("failed to detect curl or arangosh example in %s while inpecting %s", filepath, tag)
+      if not curl and not avocadosh:
+        raise Exception("failed to detect curl or avocadosh example in %s while inpecting %s", filepath, tag)
 
-    if arangosh:
-      if line.startswith("arangosh&gt;") or line.startswith("........&gt;"):
+    if avocadosh:
+      if line.startswith("avocadosh&gt;") or line.startswith("........&gt;"):
         if lastline != None:
           # short = short + lastline
           # shortLines = shortLines + 1
@@ -168,7 +168,7 @@ def example_content(filepath, fh, tag):
     fh.write("%s" % short)
 #    fh.write("```\n")
 
-    if arangosh:
+    if avocadosh:
       fh.write("</pre><div class=\"example_show_button\">show execution results</div>\n")
     elif curl:
       fh.write("</pre><div class=\"example_show_button\">show response body</div>\n")
@@ -240,7 +240,7 @@ if __name__ == "__main__":
   errorsFile.close()
   for i in searchPaths:
     print "Searching for docublocks in " + i + ": "
-    dirpath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir,"ArangoDB/../../"+i))
+    dirpath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir,"AvocadoDB/../../"+i))
     fetch_comments(dirpath)
     os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'templates'))
   if not fullSuccess: 

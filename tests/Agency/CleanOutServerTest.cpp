@@ -5,7 +5,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Andreas Streichardt
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "catch.hpp"
@@ -37,16 +37,16 @@
 #include <velocypack/Slice.h>
 #include <velocypack/velocypack-aliases.h>
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::consensus;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::consensus;
 using namespace fakeit;
 
-namespace arangodb {
+namespace avocadodb {
 namespace tests {
 namespace cleanout_server_test {
 
-const std::string PREFIX = "arango";
+const std::string PREFIX = "avocado";
 const std::string SERVER = "leader";
 const std::string JOBID = "1";
 
@@ -86,13 +86,13 @@ void checkFailed(JOB_STATUS status, query_t const& q) {
 
   auto writes = q->slice()[0][0];
   if (status == JOB_STATUS::PENDING) {
-    REQUIRE(std::string(writes.get("/arango/Supervision/DBServers/leader").get("op").typeName()) == "string");
-    REQUIRE(writes.get("/arango/Supervision/DBServers/leader").get("op").copyString() == "delete");
+    REQUIRE(std::string(writes.get("/avocado/Supervision/DBServers/leader").get("op").typeName()) == "string");
+    REQUIRE(writes.get("/avocado/Supervision/DBServers/leader").get("op").copyString() == "delete");
   }
-  REQUIRE(std::string(writes.get("/arango" + pos[status] + "1").typeName()) == "object");
-  REQUIRE(std::string(writes.get("/arango" + pos[status] + "1").get("op").typeName()) == "string");
-  CHECK(writes.get("/arango" + pos[status] + "1").get("op").copyString() == "delete");
-  CHECK(std::string(writes.get("/arango/Target/Failed/1").typeName()) == "object");
+  REQUIRE(std::string(writes.get("/avocado" + pos[status] + "1").typeName()) == "object");
+  REQUIRE(std::string(writes.get("/avocado" + pos[status] + "1").get("op").typeName()) == "string");
+  CHECK(writes.get("/avocado" + pos[status] + "1").get("op").copyString() == "delete");
+  CHECK(std::string(writes.get("/avocado/Target/Failed/1").typeName()) == "object");
 }
 
 Node createNodeFromBuilder(VPackBuilder const& builder) {
@@ -128,7 +128,7 @@ Node createRootNode() {
 }
 
 Node createAgency() {
-  return createNode(agency)("arango");
+  return createNode(agency)("avocado");
 }
 
 Node createAgency(TestStructureType const& createTestStructure) {
@@ -136,7 +136,7 @@ Node createAgency(TestStructureType const& createTestStructure) {
   auto finalAgency = createTestStructure(node.toBuilder().slice(), "");
 
   auto finalAgencyNode = createNodeFromBuilder(*finalAgency);
-  return finalAgencyNode("arango");
+  return finalAgencyNode("avocado");
 }
 
 VPackBuilder createJob(std::string const& server) {
@@ -192,7 +192,7 @@ SECTION("cleanout server should fail if the server does not exist") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob("bogus").slice());
       }
       builder->close();
@@ -237,9 +237,9 @@ SECTION("cleanout server should wait if the server is currently blocked") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Supervision/DBServers") {
+      } else if (path == "/avocado/Supervision/DBServers") {
         builder->add(SERVER, VPackValue("1"));
       }
       builder->close();
@@ -278,14 +278,14 @@ SECTION("cleanout server should wait if the server is not healthy right now") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Supervision/DBServers") {
+      } else if (path == "/avocado/Supervision/DBServers") {
         builder->add(SERVER, VPackValue("1"));
       }
       builder->close();
     } else {
-      if (path == "/arango/Supervision/Health/" + SERVER +"/Status") {
+      if (path == "/avocado/Supervision/Health/" + SERVER +"/Status") {
         builder->add(VPackValue("BAD"));
       } else {
         builder->add(s);
@@ -323,12 +323,12 @@ SECTION("cleanout server should fail if the server is already cleaned") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob(SERVER).slice());
       }
       builder->close();
     } else {
-      if (path == "/arango/Target/CleanedServers") {
+      if (path == "/avocado/Target/CleanedServers") {
         builder->add(VPackValue(VPackValueType::Array));
         builder->add(VPackValue(SERVER));
         builder->close();
@@ -374,9 +374,9 @@ SECTION("cleanout server should fail if the server is failed") {
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Target/FailedServers") {
+      } else if (path == "/avocado/Target/FailedServers") {
         builder->add(SERVER, VPackValue("s99"));
       }
       builder->close();
@@ -421,9 +421,9 @@ SECTION("cleanout server should fail if the replicationFactor is too big for any
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Target/FailedServers") {
+      } else if (path == "/avocado/Target/FailedServers") {
         builder->add("follower1", VPackValue("s99"));
         builder->add("follower2", VPackValue("s99"));
         builder->add("free", VPackValue("s99"));
@@ -470,12 +470,12 @@ SECTION("cleanout server should fail if the replicationFactor is too big for any
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob(SERVER).slice());
       }
       builder->close();
     } else {
-      if (path == "/arango/Target/CleanedServers") {
+      if (path == "/avocado/Target/CleanedServers") {
         builder->add(VPackValue(VPackValueType::Array));
         builder->add(VPackValue("free"));
         builder->close();
@@ -520,7 +520,7 @@ SECTION("a cleanout server job should move into pending when everything is ok") 
         }
       }
 
-      if (path == "/arango/Target/ToDo") {
+      if (path == "/avocado/Target/ToDo") {
         builder->add(JOBID, createJob(SERVER).slice());
       }
       builder->close();
@@ -541,20 +541,20 @@ SECTION("a cleanout server job should move into pending when everything is ok") 
     REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
 
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Target/ToDo/1").typeName()) == "object");
-    REQUIRE(std::string(writes.get("/arango/Target/ToDo/1").get("op").typeName()) == "string");
-    CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-    REQUIRE(std::string(writes.get("/arango/Target/Pending/1").typeName()) == "object");
-    CHECK(std::string(writes.get("/arango/Target/Pending/1").get("timeStarted").typeName()) == "string");
-    REQUIRE(std::string(writes.get("/arango/Supervision/DBServers/" + SERVER).typeName()) == "string");
-    REQUIRE(writes.get("/arango/Supervision/DBServers/" + SERVER).copyString() == JOBID);
-    REQUIRE(writes.get("/arango/Target/ToDo/1-0").get("toServer").copyString() == "free");
+    REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1").get("op").typeName()) == "string");
+    CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+    REQUIRE(std::string(writes.get("/avocado/Target/Pending/1").typeName()) == "object");
+    CHECK(std::string(writes.get("/avocado/Target/Pending/1").get("timeStarted").typeName()) == "string");
+    REQUIRE(std::string(writes.get("/avocado/Supervision/DBServers/" + SERVER).typeName()) == "string");
+    REQUIRE(writes.get("/avocado/Supervision/DBServers/" + SERVER).copyString() == JOBID);
+    REQUIRE(writes.get("/avocado/Target/ToDo/1-0").get("toServer").copyString() == "free");
 
     auto preconditions = q->slice()[0][1];
-    REQUIRE(preconditions.get("/arango/Supervision/DBServers/leader").get("oldEmpty").getBool() == true);
-    REQUIRE(preconditions.get("/arango/Supervision/Health/leader/Status").get("old").copyString() == "GOOD");
-    REQUIRE(preconditions.get("/arango/Target/CleanedServers").get("old").toJson() == "[]");
-    REQUIRE(preconditions.get("/arango/Target/FailedServers").get("old").toJson() == "{}");
+    REQUIRE(preconditions.get("/avocado/Supervision/DBServers/leader").get("oldEmpty").getBool() == true);
+    REQUIRE(preconditions.get("/avocado/Supervision/Health/leader/Status").get("old").copyString() == "GOOD");
+    REQUIRE(preconditions.get("/avocado/Target/CleanedServers").get("old").toJson() == "[]");
+    REQUIRE(preconditions.get("/avocado/Target/FailedServers").get("old").toJson() == "{}");
     return fakeWriteResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
@@ -587,7 +587,7 @@ SECTION("a cleanout server job should abort after a long timeout") {
         }
       }
 
-      if (path == "/arango/Target/Pending") {
+      if (path == "/avocado/Target/Pending") {
         auto job = createJob(SERVER);
         builder->add(VPackValue(JOBID));
         builder->add(VPackValue(VPackValueType::Object));
@@ -599,7 +599,7 @@ SECTION("a cleanout server job should abort after a long timeout") {
           }
         }
         builder->close();
-      } else if (path == "/arango/Target/ToDo") {
+      } else if (path == "/avocado/Target/ToDo") {
         VPackBuilder moveBuilder = createMoveShardJob();
         builder->add("1-0", moveBuilder.slice());
       }
@@ -624,11 +624,11 @@ SECTION("a cleanout server job should abort after a long timeout") {
       REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
 
       auto writes = q->slice()[0][0];
-      REQUIRE(std::string(writes.get("/arango/Target/ToDo/1-0").typeName()) == "object");
-      REQUIRE(std::string(writes.get("/arango/Target/ToDo/1-0").get("op").typeName()) == "string");
-      CHECK(writes.get("/arango/Target/ToDo/1-0").get("op").copyString() == "delete");
+      REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1-0").typeName()) == "object");
+      REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1-0").get("op").typeName()) == "string");
+      CHECK(writes.get("/avocado/Target/ToDo/1-0").get("op").copyString() == "delete");
       // a not yet started job will be moved to finished
-      CHECK(std::string(writes.get("/arango/Target/Finished/1-0").typeName()) == "object");
+      CHECK(std::string(writes.get("/avocado/Target/Finished/1-0").typeName()) == "object");
     } else {
       // finally cleanout should be failed
       checkFailed(JOB_STATUS::PENDING, q);
@@ -665,9 +665,9 @@ SECTION("when there are still subjobs to be done it should wait") {
         }
       }
 
-      if (path == "/arango/Target/Pending") {
+      if (path == "/avocado/Target/Pending") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Target/ToDo") {
+      } else if (path == "/avocado/Target/ToDo") {
         VPackBuilder moveBuilder = createMoveShardJob();
         builder->add("1-0", moveBuilder.slice());
       }
@@ -705,9 +705,9 @@ SECTION("once all subjobs were successful then the job should be finished") {
         }
       }
 
-      if (path == "/arango/Target/Pending") {
+      if (path == "/avocado/Target/Pending") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Target/Finished") {
+      } else if (path == "/avocado/Target/Finished") {
         VPackBuilder moveBuilder = createMoveShardJob();
         builder->add("1-0", moveBuilder.slice());
       }
@@ -728,12 +728,12 @@ SECTION("once all subjobs were successful then the job should be finished") {
     REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
 
     auto writes = q->slice()[0][0];
-    REQUIRE(std::string(writes.get("/arango/Supervision/DBServers/leader").get("op").typeName()) == "string");
-    REQUIRE(writes.get("/arango/Supervision/DBServers/leader").get("op").copyString() == "delete");
-    REQUIRE(std::string(writes.get("/arango/Target/Pending/1").typeName()) == "object");
-    REQUIRE(std::string(writes.get("/arango/Target/Pending/1").get("op").typeName()) == "string");
-    CHECK(writes.get("/arango/Target/Pending/1").get("op").copyString() == "delete");
-    CHECK(std::string(writes.get("/arango/Target/Finished/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Supervision/DBServers/leader").get("op").typeName()) == "string");
+    REQUIRE(writes.get("/avocado/Supervision/DBServers/leader").get("op").copyString() == "delete");
+    REQUIRE(std::string(writes.get("/avocado/Target/Pending/1").typeName()) == "object");
+    REQUIRE(std::string(writes.get("/avocado/Target/Pending/1").get("op").typeName()) == "string");
+    CHECK(writes.get("/avocado/Target/Pending/1").get("op").copyString() == "delete");
+    CHECK(std::string(writes.get("/avocado/Target/Finished/1").typeName()) == "object");
     return fakeWriteResult;
   });
   When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
@@ -764,9 +764,9 @@ SECTION("if there was a failed subjob then the job should also fail") {
         }
       }
 
-      if (path == "/arango/Target/Pending") {
+      if (path == "/avocado/Target/Pending") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Target/Failed") {
+      } else if (path == "/avocado/Target/Failed") {
         VPackBuilder moveBuilder = createMoveShardJob();
         builder->add("1-0", moveBuilder.slice());
       }
@@ -809,9 +809,9 @@ SECTION("when the cleanout server job is aborted all subjobs should be aborted t
         }
       }
 
-      if (path == "/arango/Target/Pending") {
+      if (path == "/avocado/Target/Pending") {
         builder->add(JOBID, createJob(SERVER).slice());
-      } else if (path == "/arango/Target/ToDo") {
+      } else if (path == "/avocado/Target/ToDo") {
         VPackBuilder moveBuilder = createMoveShardJob();
         builder->add("1-0", moveBuilder.slice());
       }
@@ -835,11 +835,11 @@ SECTION("when the cleanout server job is aborted all subjobs should be aborted t
       REQUIRE(std::string(q->slice()[0][0].typeName()) == "object");
 
       auto writes = q->slice()[0][0];
-      REQUIRE(std::string(writes.get("/arango/Target/ToDo/1-0").typeName()) == "object");
-      REQUIRE(std::string(writes.get("/arango/Target/ToDo/1-0").get("op").typeName()) == "string");
-      CHECK(writes.get("/arango/Target/ToDo/1-0").get("op").copyString() == "delete");
+      REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1-0").typeName()) == "object");
+      REQUIRE(std::string(writes.get("/avocado/Target/ToDo/1-0").get("op").typeName()) == "string");
+      CHECK(writes.get("/avocado/Target/ToDo/1-0").get("op").copyString() == "delete");
       // a not yet started job will be moved to finished
-      CHECK(std::string(writes.get("/arango/Target/Finished/1-0").typeName()) == "object");
+      CHECK(std::string(writes.get("/avocado/Target/Finished/1-0").typeName()) == "object");
     } else {
       checkFailed(JOB_STATUS::PENDING, q);
     }

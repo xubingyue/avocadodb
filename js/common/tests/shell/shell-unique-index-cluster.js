@@ -31,7 +31,7 @@
 var jsunity = require("jsunity");
 var internal = require("internal");
 var errors = internal.errors;
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite: check unique indexes

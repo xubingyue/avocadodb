@@ -1,31 +1,31 @@
 {
   "name": "aardvark",
-  "description": "ArangoDB Admin Web Interface",
-  "author": "ArangoDB GmbH",
+  "description": "AvocadoDB Admin Web Interface",
+  "author": "AvocadoDB GmbH",
   "version": "3.0.0",
   "license": "Apache-2.0",
 
   "engines": {
-    "arangodb": "^3.0.0-0 || ^3.0.0"
+    "avocadodb": "^3.0.0-0 || ^3.0.0"
   },
 
   "repository": {
     "type": "git",
-    "url": "https://github.com/arangodb/arangodb.git"
+    "url": "https://github.com/avocadodb/avocadodb.git"
   },
 
   "contributors": [
     {
       "name": "Heiko Kernbach",
-      "email": "heiko@arangodb.com"
+      "email": "heiko@avocadodb.com"
     },
     {
       "name": "Michael Hackstein",
-      "email": "m.hackstein@arangodb.com"
+      "email": "m.hackstein@avocadodb.com"
     },
     {
       "name": "Lucas Dohmen",
-      "email": "lucas@arangodb.com"
+      "email": "lucas@avocadodb.com"
     }
   ],
 
@@ -63,7 +63,7 @@
     "/fonts": "frontend/fonts",
     "/img": "frontend/compressed-img",
     "/data": "frontend/data",
-    "/js/arango/aqltemplates.json": "frontend/aqltemplates.json",
+    "/js/avocado/aqltemplates.json": "frontend/aqltemplates.json",
     "/worker-json.js": {
       "path": "frontend/src/worker-json.js",
       "gzip": true

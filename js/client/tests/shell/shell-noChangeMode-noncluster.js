@@ -29,8 +29,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var db = avocadodb.db;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite
@@ -55,9 +55,9 @@ function changeOperationModeNegativeCaseTestSuite () {
     },
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief tests if the change of the operation mode of the arango server
+/// @brief tests if the change of the operation mode of the avocado server
 ///        can be done.
-///        Note: this test needs an arango server with endpoint unix:...
+///        Note: this test needs an avocado server with endpoint unix:...
 ///        See target unittests-shell-client-readonly
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +75,7 @@ function changeOperationModeNegativeCaseTestSuite () {
         fail();
       }
       catch (e) {
-        assertEqual(arangodb.errors.ERROR_FORBIDDEN.code, e.errorNum);
+        assertEqual(avocadodb.errors.ERROR_FORBIDDEN.code, e.errorNum);
       }
     }
 

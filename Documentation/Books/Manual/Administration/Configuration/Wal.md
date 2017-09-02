@@ -1,10 +1,10 @@
 MMFiles Write-ahead log options
 ===============================
 
-Since ArangoDB 2.2, the MMFiles storage engine will write all data-modification
+Since AvocadoDB 2.2, the MMFiles storage engine will write all data-modification
 operations into its write-ahead log.
 
-With ArangoDB 3.2 another Storage engine option becomes available - [RocksDB](RocksDB.md).
+With AvocadoDB 3.2 another Storage engine option becomes available - [RocksDB](RocksDB.md).
 In case of using RocksDB most of the subsequent options don't have a useful meaning.
 
 The write-ahead log is a sequence of logfiles that are written in an append-only
@@ -15,7 +15,7 @@ a replication backlog.
 
 ### Directory
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 
 The WAL logfiles directory: `--wal.directory`
 
@@ -26,37 +26,37 @@ not present, it will be created.
 
 ### Logfile size
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileSize
 
 ### Allow oversize entries
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileAllowOversizeEntries
 
 ### Number of reserve logfiles
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileReserveLogfiles
 
 ### Number of historic logfiles
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileHistoricLogfiles
 
 ### Sync interval
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileSyncInterval
 
 ### Flush timeout
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileFlushTimeout
 
 ### Throttling
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 
 Throttle writes to WAL when at least such many operations are
 waiting for garbage collection:
@@ -90,7 +90,7 @@ non-zero value, which is not the default.
 
 ### Number of slots
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 
 Maximum number of slots to be used in parallel:
 `--wal.slots`
@@ -106,7 +106,7 @@ fast disks may only require a value lower than the default.
 
 ### Ignore logfile errors
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 
 Ignore logfile errors when opening logfiles:
 `--wal.ignore-logfile-errors`
@@ -126,7 +126,7 @@ might cause data loss.
 
 ### Ignore recovery errors
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 
 Ignore recovery errors:
 `--wal.ignore-recovery-errors`
@@ -137,7 +137,7 @@ have been manually edited or the server is somehow misconfigured.
 
 ### Ignore (non-WAL) datafile errors
 
-<!-- arangod/RestServer/ArangoServer.h -->
+<!-- avocadod/RestServer/AvocadoServer.h -->
 
 Ignore datafile errors when loading collections:
 `--database.ignore-datafile-errors boolean`
@@ -153,7 +153,7 @@ collection with corrupted datafiles, from which only a subset of the
 original data can be recovered. Working with such collection could lead
 to data loss and follow up errors.
 In order to access such collection, it is required to inspect and repair
-the collection datafile with the datafile debugger (arango-dfdb).
+the collection datafile with the datafile debugger (avocado-dfdb).
 
 If set to `true`, CRC mismatch and other errors during the loading of a
 collection will lead to the datafile being partially loaded, up to the

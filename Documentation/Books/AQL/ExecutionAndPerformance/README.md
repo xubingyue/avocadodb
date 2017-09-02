@@ -5,7 +5,7 @@ This chapter describes AQL features related to query executions and query perfor
 
 * [Execution statistics](QueryStatistics.md): A query that has been executed also returns statistics about its execution. 
 
-* [Query parsing](ParsingQueries.md): Clients can use ArangoDB to check if a given AQL query is syntactically valid. 
+* [Query parsing](ParsingQueries.md): Clients can use AvocadoDB to check if a given AQL query is syntactically valid. 
 
 * [Query execution plan](ExplainingQueries.md): If it is unclear how a given query will perform, clients can retrieve a query's execution plan from the AQL query optimizer without actually executing the query; this is called explaining.
 

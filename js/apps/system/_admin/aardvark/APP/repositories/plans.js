@@ -4,7 +4,7 @@
 /// DISCLAIMER
 ///
 /// Copyright 2010-2013 triAGENS GmbH, Cologne, Germany
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -18,14 +18,14 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
 /// @author Alan Plum
 ////////////////////////////////////////////////////////////////////////////////
 
-const db = require('@arangodb').db;
-const version = String(require('@arangodb/database-version').CURRENT_VERSION);
+const db = require('@avocadodb').db;
+const version = String(require('@avocadodb/database-version').CURRENT_VERSION);
 const collection = db._collection('_cluster_kickstarter_plans');
 
 module.exports = {

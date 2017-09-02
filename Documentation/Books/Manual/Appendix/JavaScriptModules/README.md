@@ -1,26 +1,26 @@
 JavaScript Modules
 ==================
 
-ArangoDB uses a Node.js compatible module system. You can use the function *require* in order to load a module or library. It returns the exported variables and functions of the module.
+AvocadoDB uses a Node.js compatible module system. You can use the function *require* in order to load a module or library. It returns the exported variables and functions of the module.
 
-The global variables `global`, `process`, `console`, `Buffer`, `__filename` and `__dirname` are available throughout ArangoDB and Foxx.
+The global variables `global`, `process`, `console`, `Buffer`, `__filename` and `__dirname` are available throughout AvocadoDB and Foxx.
 
 Node compatibility modules
 --------------------------
 
-ArangoDB supports a number of modules for compatibility with Node.js, including:
+AvocadoDB supports a number of modules for compatibility with Node.js, including:
 
 * [assert](http://nodejs.org/api/assert.html) implements basic assertion and testing functions.
 
 * [buffer](http://nodejs.org/api/buffer.html) implements a binary data type for JavaScript.
 
 * [console](Console.md) is a well known logging facility to all the JavaScript developers.
-  ArangoDB implements most of the [Console API](http://wiki.commonjs.org/wiki/Console),
+  AvocadoDB implements most of the [Console API](http://wiki.commonjs.org/wiki/Console),
   with the exceptions of *profile* and *count*.
 
 * [events](http://nodejs.org/api/events.html) implements an event emitter.
 
-* [fs](FileSystem.md) provides a file system API for the manipulation of paths, directories, files, links, and the construction of file streams. ArangoDB implements most [Filesystem/A](http://wiki.commonjs.org/wiki/Filesystem/A) functions.
+* [fs](FileSystem.md) provides a file system API for the manipulation of paths, directories, files, links, and the construction of file streams. AvocadoDB implements most [Filesystem/A](http://wiki.commonjs.org/wiki/Filesystem/A) functions.
 
 * [module](http://nodejs.org/api/modules.html) provides direct access to the module system.
 
@@ -38,7 +38,7 @@ ArangoDB supports a number of modules for compatibility with Node.js, including:
 
 * [util](http://nodejs.org/api/util.html) provides general utility functions like `format` and `inspect`.
 
-Additionally ArangoDB provides partial implementations for the following modules:
+Additionally AvocadoDB provides partial implementations for the following modules:
 
 * `net`:
   only `isIP`, `isIPv4` and `isIPv6`.
@@ -60,11 +60,11 @@ The following Node.js modules are not available at all:
 `child_process`,
 `cluster`,
 `constants`,
-`crypto` (but see `@arangodb/crypto` below),
+`crypto` (but see `@avocadodb/crypto` below),
 `dgram`,
 `dns`,
 `domain`,
-`http` (but see `@arangodb/request` below),
+`http` (but see `@avocadodb/request` below),
 `https`,
 `os`,
 `sys`,
@@ -72,26 +72,26 @@ The following Node.js modules are not available at all:
 `v8`,
 `zlib`.
 
-ArangoDB Specific Modules
+AvocadoDB Specific Modules
 -------------------------
 
-There are a large number of ArangoDB-specific modules using the `@arangodb` namespace, mostly for internal use by ArangoDB itself. The following however are noteworthy:
+There are a large number of AvocadoDB-specific modules using the `@avocadodb` namespace, mostly for internal use by AvocadoDB itself. The following however are noteworthy:
 
-* [@arangodb](ArangoDB.md) provides direct access to the database and its collections.
+* [@avocadodb](AvocadoDB.md) provides direct access to the database and its collections.
 
-* [@arangodb/crypto](Crypto.md) provides various cryptography functions including hashing algorithms.
+* [@avocadodb/crypto](Crypto.md) provides various cryptography functions including hashing algorithms.
 
-* [@arangodb/request](Request.md) provides the functionality for making synchronous HTTP/HTTPS requests.
+* [@avocadodb/request](Request.md) provides the functionality for making synchronous HTTP/HTTPS requests.
 
-* [@arangodb/foxx](../../Foxx/README.md) is the namespace providing the various building blocks of the Foxx microservice framework.
+* [@avocadodb/foxx](../../Foxx/README.md) is the namespace providing the various building blocks of the Foxx microservice framework.
 
 Bundled NPM Modules
 -------------------
 
 The following [NPM modules](https://www.npmjs.com) are preinstalled:
 
-* [aqb](https://github.com/arangodb/aqbjs)
-  is the ArangoDB Query Builder and can be used to construct AQL queries with a chaining JavaScript API.
+* [aqb](https://github.com/avocadodb/aqbjs)
+  is the AvocadoDB Query Builder and can be used to construct AQL queries with a chaining JavaScript API.
 
 * [chai](http://chaijs.com)
   is a full-featured assertion library for writing JavaScript tests.
@@ -106,8 +106,8 @@ The following [NPM modules](https://www.npmjs.com) are preinstalled:
 
 <!-- * [extendible] (https://github.com/3rd-Eden/extendible) (only for legacy mode) -->
 
-* [graphql-sync](https://github.com/arangodb/graphql-sync)
-  is an ArangoDB-compatible GraphQL server/schema implementation.
+* [graphql-sync](https://github.com/avocadodb/graphql-sync)
+  is an AvocadoDB-compatible GraphQL server/schema implementation.
 
 * [highlight.js](https://highlightjs.org)
   is an HTML syntax highlighter.

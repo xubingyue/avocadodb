@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,8 +25,8 @@
 
 #include <thread>
 
-using namespace arangodb;
-using namespace arangodb::utilities;
+using namespace avocadodb;
+using namespace avocadodb::utilities;
 
 #ifdef TRI_MISSING_MEMRCHR
 void* memrchr(void const* block, int c, size_t size) {
@@ -172,7 +172,7 @@ size_t TRI_numberProcessors() {
   return static_cast<size_t>(std::thread::hardware_concurrency());
 }
 
-std::string arangodb::utilities::timeString(char sep, char fin) {
+std::string avocadodb::utilities::timeString(char sep, char fin) {
   time_t tt = time(0);
   struct tm tb;
   TRI_gmtime(tt, &tb);
@@ -188,7 +188,7 @@ std::string arangodb::utilities::timeString(char sep, char fin) {
   return std::string(buffer, len);
 }
 
-std::string arangodb::utilities::hostname() {
+std::string avocadodb::utilities::hostname() {
   char buffer[1024];
 
   int res = gethostname(buffer, sizeof(buffer) - 1);

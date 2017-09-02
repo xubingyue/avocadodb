@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2013 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -26,9 +26,9 @@
 #include "Logger/LogAppender.h"
 #include "Logger/Logger.h"
 
-using namespace arangodb;
+using namespace avocadodb;
 
-arangodb::basics::ConditionVariable* LogThread::CONDITION = nullptr;
+avocadodb::basics::ConditionVariable* LogThread::CONDITION = nullptr;
 boost::lockfree::queue<LogMessage*>* LogThread::MESSAGES = nullptr;
 
 LogThread::LogThread(std::string const& name) : Thread(name), _messages(0) {

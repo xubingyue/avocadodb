@@ -2,7 +2,7 @@
 
 # Summary
 * [How to invoke AQL](Invocation/README.md)
-  * [with Arangosh](Invocation/WithArangosh.md)
+  * [with Avocadosh](Invocation/WithAvocadosh.md)
   * [with the Web Interface](Invocation/WithWebInterface.md)
 * [AQL Fundamentals](Fundamentals/README.md)
   * [AQL Syntax](Fundamentals/Syntax.md)

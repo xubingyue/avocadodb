@@ -39,7 +39,7 @@ If the task *id* already exists or the rest body is not accurate, *HTTP 400* is 
     var sampleTask = {
       id: "SampleTask",
       name: "SampleTask",
-      command: "(function(params) { require('@arangodb').print(params); })(params)",
+      command: "(function(params) { require('@avocadodb').print(params); })(params)",
       params: { "foo": "bar", "bar": "foo"},
       period: 2
     }

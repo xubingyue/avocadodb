@@ -1,7 +1,7 @@
 Foxx Service configuration / dependencies
 =========================================
 
-This is an introduction to ArangoDB's HTTP interface for managing Foxx services configuration and dependencies.
+This is an introduction to AvocadoDB's HTTP interface for managing Foxx services configuration and dependencies.
 
 @startDocuBlock api_foxx_configuration_get
 

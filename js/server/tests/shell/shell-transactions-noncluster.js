@@ -30,10 +30,10 @@
 
 var jsunity = require("jsunity");
 var internal = require("internal");
-var arangodb = require("@arangodb");
-var helper = require("@arangodb/aql-helper");
-var db = arangodb.db;
-var testHelper = require("@arangodb/test-helper").Helper;
+var avocadodb = require("@avocadodb");
+var helper = require("@avocadodb/aql-helper");
+var db = avocadodb.db;
+var testHelper = require("@avocadodb/test-helper").Helper;
 
 var compareStringIds = function (l, r) {
   'use strict';
@@ -477,7 +477,7 @@ function transactionInvocationSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_BAD_PARAMETER.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_BAD_PARAMETER.code, err.errorNum);
       }
     },
 
@@ -517,7 +517,7 @@ function transactionInvocationSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_NESTED.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_NESTED.code, err.errorNum);
       }
     },
 
@@ -642,7 +642,7 @@ function transactionCollectionsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, err.errorNum);
       }
     },
 
@@ -665,7 +665,7 @@ function transactionCollectionsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_ARANGO_COLLECTION_NOT_FOUND.code, err.errorNum);
       }
     },
 
@@ -688,7 +688,7 @@ function transactionCollectionsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
       }
     },
 
@@ -712,7 +712,7 @@ function transactionCollectionsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
       }
     },
 
@@ -736,7 +736,7 @@ function transactionCollectionsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
       }
     },
 
@@ -1098,7 +1098,7 @@ function transactionCollectionsSuite () {
             fail();
           }
           catch (err) {
-            assertEqual(arangodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
+            assertEqual(avocadodb.errors.ERROR_TRANSACTION_UNREGISTERED_COLLECTION.code, err.errorNum);
           }
 
           assertEqual(10, c1.count());
@@ -1211,7 +1211,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1236,7 +1236,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1261,7 +1261,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1286,7 +1286,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1311,7 +1311,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1336,7 +1336,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1361,7 +1361,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1387,7 +1387,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1416,7 +1416,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1445,7 +1445,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -1471,7 +1471,7 @@ function transactionOperationsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
+        assertEqual(avocadodb.errors.ERROR_TRANSACTION_DISALLOWED_OPERATION.code, err.errorNum);
       }
     },
 
@@ -2154,7 +2154,7 @@ function transactionGraphSuite () {
   var cn1 = "UnitTestsVertices";
   var cn2 = "UnitTestsEdges";
 
-  var G = require('@arangodb/general-graph');
+  var G = require('@avocadodb/general-graph');
 
   var c1 = null;
   var c2 = null;

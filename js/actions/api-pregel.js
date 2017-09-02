@@ -15,14 +15,14 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Simon Grätzer
-// / @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var arangodb = require('@arangodb');
-var actions = require('@arangodb/actions');
+var avocadodb = require('@avocadodb');
+var actions = require('@avocadodb/actions');
 var internal = require('internal');
 var db = internal.db;
 
@@ -33,7 +33,7 @@ var db = internal.db;
 function badParam (req, res, message) {
   actions.resultBad(req,
     res,
-    arangodb.ERROR_HTTP_BAD_PARAMETER,
+    avocadodb.ERROR_HTTP_BAD_PARAMETER,
     message);
 }
 
@@ -77,9 +77,9 @@ function post_api_pregel (req, res) {
   } else if (json.graphName &&  typeof json.graphName === 'string') {
     var graph_module;
     if (internal.isEnterprise()) {
-      graph_module = require('@arangodb/smart-graph');
+      graph_module = require('@avocadodb/smart-graph');
     } else {
-      graph_module = require('@arangodb/general-graph');
+      graph_module = require('@avocadodb/general-graph');
     }
     var graph = graph_module._graph(json.graphName);
     if (graph) {
@@ -99,7 +99,7 @@ function post_api_pregel (req, res) {
         return badParam(req, res, "No edge collection specified");
       }
     } else {
-      return notFound(req, res, arangodb.ERROR_GRAPH_NOT_FOUND,
+      return notFound(req, res, avocadodb.ERROR_GRAPH_NOT_FOUND,
                       'invalid graphname');
     }
   } else {

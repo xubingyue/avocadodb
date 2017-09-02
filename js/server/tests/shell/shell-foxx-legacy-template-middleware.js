@@ -29,8 +29,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity"),
-  arangodb = require("@arangodb"),
-  db = arangodb.db;
+  avocadodb = require("@avocadodb"),
+  db = avocadodb.db;
 
 function TemplateMiddlewareSpec () {
   'use strict';
@@ -42,7 +42,7 @@ function TemplateMiddlewareSpec () {
       response = {};
       options = {};
       next = function () {};
-      TemplateMiddleware = require("@arangodb/foxx/legacy/template_middleware").TemplateMiddleware;
+      TemplateMiddleware = require("@avocadodb/foxx/legacy/template_middleware").TemplateMiddleware;
       db._drop("templateTest");
       templateCollection = db._create("templateTest");
     },

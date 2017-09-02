@@ -1,7 +1,7 @@
 HTTP tasks Interface
 ====================
 
-Following you have ArangoDB's HTTP Interface for Tasks.
+Following you have AvocadoDB's HTTP Interface for Tasks.
 
 There are also some examples provided for every API action. 
 

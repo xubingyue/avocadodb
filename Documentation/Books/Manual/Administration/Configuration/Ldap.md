@@ -15,18 +15,18 @@ There are two modes of operation: *simple auth* and *bind+search*.
 
 ### simple auth
 
-ArangoDB connects to the ldap server and authenticates with the username and password provided by the 
+AvocadoDB connects to the ldap server and authenticates with the username and password provided by the 
 api authentication request and searches for the database permissions using the attribute name 
 provided by `--ldap.permissions-attribute-name`.
 
 Example:
 
     --ldap.enabled true --ldap.server ldap.company.com \
-    --ldap.permissions-attribute-name arangodbPermissions \
+    --ldap.permissions-attribute-name avocadodbPermissions \
     --ldap.prefix uid= --ldap.suffix ,dc=company,dc=com
 
-`--ldap.prefix` and `--ldap.suffix` build the distinguished name (DN). ArangoDB trys to authenticate
-with *prefix* + *ArangoDB username* + *suffix* against the ldap server and searches for the database permissions.
+`--ldap.prefix` and `--ldap.suffix` build the distinguished name (DN). AvocadoDB trys to authenticate
+with *prefix* + *AvocadoDB username* + *suffix* against the ldap server and searches for the database permissions.
 
 ### bind+search
 
@@ -34,19 +34,19 @@ Example with anonymous auth:
 
     --ldap.enabled true --ldap.server ldap.company.com \
     --ldap.basedn dc=company,dc=com \
-    --ldap.permissions-attribute-name arangodbPermissions
+    --ldap.permissions-attribute-name avocadodbPermissions
 
-With this configuration ArangoDB binds anonymously to the ldap server and searches for the user.
+With this configuration AvocadoDB binds anonymously to the ldap server and searches for the user.
 If the user is found a authentication is done with the users DN and password and then database permissions are fetched.
 
 Example with DN and password:
 
     --ldap.enabled true --ldap.server ldap.company.com \
     --ldap.basedn dc=company,dc=com \
-    --ldap.permissions-attribute-name arangodbPermissions
+    --ldap.permissions-attribute-name avocadodbPermissions
     --ldap.binddn cn=admin,dc=company,dc=com --ldap.bindpasswd admin
 
-With this configuration ArangoDB binds with `--ldap.bindn` and `--ldap.bindpasswd` to the ldap server and searches for the user.
+With this configuration AvocadoDB binds with `--ldap.bindn` and `--ldap.bindpasswd` to the ldap server and searches for the user.
 If the user is found a authentication is done with the users DN and password and then database permissions are fetched.
 
 #### additional options

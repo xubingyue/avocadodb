@@ -35,8 +35,8 @@
 #include "Endpoint/EndpointIpV6.h"
 #include "Endpoint/EndpointUnixDomain.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 using namespace std;
 
 // -----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ using namespace std;
 
 #define FACTORY_NAME(name) name ## Factory  
 
-#define FACTORY(name, specification) arangodb::Endpoint::FACTORY_NAME(name)(specification)
+#define FACTORY(name, specification) avocadodb::Endpoint::FACTORY_NAME(name)(specification)
 
 #define CHECK_ENDPOINT_FEATURE(type, specification, feature, expected) \
   e = FACTORY(type, specification); \
@@ -53,7 +53,7 @@ using namespace std;
   delete e;
 
 #define CHECK_ENDPOINT_SERVER_FEATURE(type, specification, feature, expected) \
-  e = arangodb::Endpoint::serverFactory(specification, 1, true); \
+  e = avocadodb::Endpoint::serverFactory(specification, 1, true); \
   CHECK((expected) == (e->feature())); \
   delete e;
 
@@ -66,33 +66,33 @@ TEST_CASE("EndpointTest", "[endpoints]") {
 SECTION("EndpointInvalid") {
   Endpoint* e = nullptr;
 
-  CHECK(e == arangodb::Endpoint::clientFactory(""));
-  CHECK(e == arangodb::Endpoint::clientFactory("@"));
+  CHECK(e == avocadodb::Endpoint::clientFactory(""));
+  CHECK(e == avocadodb::Endpoint::clientFactory("@"));
 
-  CHECK(e == arangodb::Endpoint::clientFactory("http://"));
-  CHECK(e == arangodb::Endpoint::clientFactory("ssl://"));
-  CHECK(e == arangodb::Endpoint::clientFactory("unix://"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("http://"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("ssl://"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("unix://"));
 
-  CHECK(e == arangodb::Endpoint::clientFactory("fish://127.0.0.1:8529"));
-  CHECK(e == arangodb::Endpoint::clientFactory("http://127.0.0.1:8529"));
-  CHECK(e == arangodb::Endpoint::clientFactory("https://127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("fish://127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("http://127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("https://127.0.0.1:8529"));
   
-  CHECK(e == arangodb::Endpoint::clientFactory("tcp//127.0.0.1:8529"));
-  CHECK(e == arangodb::Endpoint::clientFactory("tcp:127.0.0.1:8529"));
-  CHECK(e == arangodb::Endpoint::clientFactory("ssl:localhost"));
-  CHECK(e == arangodb::Endpoint::clientFactory("ssl//:localhost"));
-  CHECK(e == arangodb::Endpoint::clientFactory("unix///tmp/socket"));
-  CHECK(e == arangodb::Endpoint::clientFactory("unix:tmp/socket"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("tcp//127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("tcp:127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("ssl:localhost"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("ssl//:localhost"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("unix///tmp/socket"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("unix:tmp/socket"));
   
-  CHECK(e == arangodb::Endpoint::clientFactory("fish@tcp://127.0.0.1:8529"));
-  CHECK(e == arangodb::Endpoint::clientFactory("ssl@tcp://127.0.0.1:8529"));
-  CHECK(e == arangodb::Endpoint::clientFactory("https@tcp://127.0.0.1:8529"));
-  CHECK(e == arangodb::Endpoint::clientFactory("https@tcp://127.0.0.1:"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("fish@tcp://127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("ssl@tcp://127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("https@tcp://127.0.0.1:8529"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("https@tcp://127.0.0.1:"));
   
-  CHECK(e == arangodb::Endpoint::clientFactory("tcp://127.0.0.1:65536"));
-  CHECK(e == arangodb::Endpoint::clientFactory("tcp://127.0.0.1:65537"));
-  CHECK(e == arangodb::Endpoint::clientFactory("tcp://127.0.0.1:-1"));
-  CHECK(e == arangodb::Endpoint::clientFactory("tcp://127.0.0.1:6555555555"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("tcp://127.0.0.1:65536"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("tcp://127.0.0.1:65537"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("tcp://127.0.0.1:-1"));
+  CHECK(e == avocadodb::Endpoint::clientFactory("tcp://127.0.0.1:6555555555"));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -120,20 +120,20 @@ SECTION("EndpointSpecification") {
 SECTION("EndpointTypes") {
   Endpoint* e;
 
-  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", type, arangodb::Endpoint::EndpointType::CLIENT);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", type, arangodb::Endpoint::EndpointType::CLIENT);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", type, arangodb::Endpoint::EndpointType::CLIENT);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", type, arangodb::Endpoint::EndpointType::CLIENT);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", type, avocadodb::Endpoint::EndpointType::CLIENT);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", type, avocadodb::Endpoint::EndpointType::CLIENT);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", type, avocadodb::Endpoint::EndpointType::CLIENT);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", type, avocadodb::Endpoint::EndpointType::CLIENT);
 #ifndef _WIN32
-  CHECK_ENDPOINT_FEATURE(client, "unix:///path/to/socket", type, arangodb::Endpoint::EndpointType::CLIENT);
+  CHECK_ENDPOINT_FEATURE(client, "unix:///path/to/socket", type, avocadodb::Endpoint::EndpointType::CLIENT);
 #endif
 
-  CHECK_ENDPOINT_SERVER_FEATURE(server, "tcp://127.0.0.1", type, arangodb::Endpoint::EndpointType::SERVER);
-  CHECK_ENDPOINT_SERVER_FEATURE(server, "tcp://localhost", type, arangodb::Endpoint::EndpointType::SERVER);
-  CHECK_ENDPOINT_SERVER_FEATURE(server, "ssl://127.0.0.1", type, arangodb::Endpoint::EndpointType::SERVER);
-  CHECK_ENDPOINT_SERVER_FEATURE(server, "ssl://localhost", type, arangodb::Endpoint::EndpointType::SERVER);
+  CHECK_ENDPOINT_SERVER_FEATURE(server, "tcp://127.0.0.1", type, avocadodb::Endpoint::EndpointType::SERVER);
+  CHECK_ENDPOINT_SERVER_FEATURE(server, "tcp://localhost", type, avocadodb::Endpoint::EndpointType::SERVER);
+  CHECK_ENDPOINT_SERVER_FEATURE(server, "ssl://127.0.0.1", type, avocadodb::Endpoint::EndpointType::SERVER);
+  CHECK_ENDPOINT_SERVER_FEATURE(server, "ssl://localhost", type, avocadodb::Endpoint::EndpointType::SERVER);
 #ifndef _WIN32
-  CHECK_ENDPOINT_SERVER_FEATURE(server, "unix:///path/to/socket", type, arangodb::Endpoint::EndpointType::SERVER);
+  CHECK_ENDPOINT_SERVER_FEATURE(server, "unix:///path/to/socket", type, avocadodb::Endpoint::EndpointType::SERVER);
 #endif
 }
 
@@ -147,10 +147,10 @@ SECTION("EndpointDomains") {
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "tcp://192.168.173.13", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", domain, AF_INET);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org", domain, AF_INET);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:8529", domain, AF_INET);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org:8529", domain, AF_INET);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org:8529", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", domain, AF_INET6);
   CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", domain, AF_INET6);
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", domain, AF_INET6);
@@ -160,10 +160,10 @@ SECTION("EndpointDomains") {
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "ssl://192.168.173.13", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", domain, AF_INET);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org", domain, AF_INET);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:8529", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:8529", domain, AF_INET);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org:8529", domain, AF_INET);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org:8529", domain, AF_INET);
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", domain, AF_INET6);
   CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", domain, AF_INET6);
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", domain, AF_INET6);
@@ -173,8 +173,8 @@ SECTION("EndpointDomains") {
   
 #ifndef _WIN32
   CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", domain, AF_UNIX);
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/arango.sock", domain, AF_UNIX);
-  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/arango.sock", domain, AF_UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/avocado.sock", domain, AF_UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/avocado.sock", domain, AF_UNIX);
 #endif
 }
 
@@ -185,45 +185,45 @@ SECTION("EndpointDomains") {
 SECTION("EndpointDomainTypes") {
   Endpoint* e;
 
-  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:8529", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org:8529", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]:8529", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[2001:0db8:0000:0000:0000:ff00:0042:8329]:8529", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "TCP://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "Tcp://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "tCP://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "http@tcp://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:8529", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org:8529", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]:8529", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[2001:0db8:0000:0000:0000:ff00:0042:8329]:8529", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "TCP://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "Tcp://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "tCP://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "http@tcp://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
   
-  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:8529", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:8529", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org:8529", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]:8529", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[2001:0db8:0000:0000:0000:ff00:0042:8329]:8529", domainType, arangodb::Endpoint::DomainType::IPV6);
-  CHECK_ENDPOINT_FEATURE(client, "SSL://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "Ssl://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "sSL://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
-  CHECK_ENDPOINT_FEATURE(client, "http@ssl://127.0.0.1", domainType, arangodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:8529", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:8529", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org:8529", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]:8529", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[2001:0db8:0000:0000:0000:ff00:0042:8329]:8529", domainType, avocadodb::Endpoint::DomainType::IPV6);
+  CHECK_ENDPOINT_FEATURE(client, "SSL://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "Ssl://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "sSL://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
+  CHECK_ENDPOINT_FEATURE(client, "http@ssl://127.0.0.1", domainType, avocadodb::Endpoint::DomainType::IPV4);
   
 #ifndef _WIN32
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", domainType, arangodb::Endpoint::DomainType::UNIX);
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/arango.sock", domainType, arangodb::Endpoint::DomainType::UNIX);
-  CHECK_ENDPOINT_FEATURE(client, "UNIX:///tmp/socket", domainType, arangodb::Endpoint::DomainType::UNIX);
-  CHECK_ENDPOINT_FEATURE(client, "Unix:///tmp/socket", domainType, arangodb::Endpoint::DomainType::UNIX);
-  CHECK_ENDPOINT_FEATURE(client, "uNIX:///tmp/socket", domainType, arangodb::Endpoint::DomainType::UNIX);
-  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket", domainType, arangodb::Endpoint::DomainType::UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", domainType, avocadodb::Endpoint::DomainType::UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/avocado.sock", domainType, avocadodb::Endpoint::DomainType::UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "UNIX:///tmp/socket", domainType, avocadodb::Endpoint::DomainType::UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "Unix:///tmp/socket", domainType, avocadodb::Endpoint::DomainType::UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "uNIX:///tmp/socket", domainType, avocadodb::Endpoint::DomainType::UNIX);
+  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket", domainType, avocadodb::Endpoint::DomainType::UNIX);
 #endif
 }
 
@@ -236,7 +236,7 @@ SECTION("EndpointPorts") {
 
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", port, EndpointIp::_defaultPortHttp);
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", port, EndpointIp::_defaultPortHttp);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org", port, EndpointIp::_defaultPortHttp); 
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org", port, EndpointIp::_defaultPortHttp); 
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", port, 8529);
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8532", port, 8532);
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:80", port, 80);
@@ -247,8 +247,8 @@ SECTION("EndpointPorts") {
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:80", port, 80);
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:443", port, 443);
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:65535", port, 65535);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org:8529", port, 8529);
-  CHECK_ENDPOINT_FEATURE(client, "http@tcp://www.arangodb.org:8529", port, 8529);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org:8529", port, 8529);
+  CHECK_ENDPOINT_FEATURE(client, "http@tcp://www.avocadodb.org:8529", port, 8529);
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", port, EndpointIp::_defaultPortHttp);
   CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", port, EndpointIp::_defaultPortHttp);
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", port, 8529);
@@ -266,7 +266,7 @@ SECTION("EndpointPorts") {
   
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", port, EndpointIp::_defaultPortHttp);
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", port, EndpointIp::_defaultPortHttp);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org", port, EndpointIp::_defaultPortHttp);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org", port, EndpointIp::_defaultPortHttp);
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:8529", port, 8529);
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:8532", port, 8532);
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:80", port, 80);
@@ -277,8 +277,8 @@ SECTION("EndpointPorts") {
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:80", port, 80);
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:443", port, 443);
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:65535", port, 65535);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org:8529", port, 8529);
-  CHECK_ENDPOINT_FEATURE(client, "http@ssl://www.arangodb.org:8529", port, 8529);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org:8529", port, 8529);
+  CHECK_ENDPOINT_FEATURE(client, "http@ssl://www.avocadodb.org:8529", port, 8529);
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", port, EndpointIp::_defaultPortHttp);
   CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", port, EndpointIp::_defaultPortHttp);
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", port, 8529);
@@ -296,8 +296,8 @@ SECTION("EndpointPorts") {
   
 #ifndef _WIN32
   CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", port, 0);
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/arango.sock", port, 0);
-  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/arango.sock", port, 0);
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/avocado.sock", port, 0);
+  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/avocado.sock", port, 0);
 #endif
 }
 
@@ -308,42 +308,42 @@ SECTION("EndpointPorts") {
 SECTION("EndpointEncryption") {
   Endpoint* e;
 
-  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:8529", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org:8529", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]:8529", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "tcp://[2001:0db8:0000:0000:0000:ff00:0042:8329]:666", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "http@tcp://[2001:0db8:0000:0000:0000:ff00:0042:8329]:666", encryption, arangodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:8529", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org:8529", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[::]:8529", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "tcp://[2001:0db8:0000:0000:0000:ff00:0042:8329]:666", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "http@tcp://[2001:0db8:0000:0000:0000:ff00:0042:8329]:666", encryption, avocadodb::Endpoint::EncryptionType::NONE);
   
-  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[2001:0db8:0000:0000:0000:ff00:0042:8329]:666", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "SSL://[::]:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "Ssl://[::]:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "sSL://[::]:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
-  CHECK_ENDPOINT_FEATURE(client, "http@ssl://[::]:8529", encryption, arangodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[2001:0db8:0000:0000:0000:ff00:0042:8329]:666", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "ssl://[::]:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "SSL://[::]:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "Ssl://[::]:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "sSL://[::]:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
+  CHECK_ENDPOINT_FEATURE(client, "http@ssl://[::]:8529", encryption, avocadodb::Endpoint::EncryptionType::SSL);
   
 #ifndef _WIN32
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/arango.sock", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "UNIX:///tmp/socket/arango.sock", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "Unix:///tmp/socket/arango.sock", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "uNIX:///tmp/socket/arango.sock", encryption, arangodb::Endpoint::EncryptionType::NONE);
-  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/arango.sock", encryption, arangodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/avocado.sock", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "UNIX:///tmp/socket/avocado.sock", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "Unix:///tmp/socket/avocado.sock", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "uNIX:///tmp/socket/avocado.sock", encryption, avocadodb::Endpoint::EncryptionType::NONE);
+  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/avocado.sock", encryption, avocadodb::Endpoint::EncryptionType::NONE);
 #endif
 }
 
@@ -356,14 +356,14 @@ SECTION("EndpointHost") {
 
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", host, "127.0.0.1");
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", host, "127.0.0.1");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org", host, "www.arangodb.org");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://arangodb.org", host, "arangodb.org");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://DE.triagens.ArangoDB.org", host, "de.triagens.arangodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org", host, "www.avocadodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://avocadodb.org", host, "avocadodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://DE.triagens.AvocadoDB.org", host, "de.triagens.avocadodb.org");
   CHECK_ENDPOINT_FEATURE(client, "tcp://192.168.173.13:8529", host, "192.168.173.13");
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", host, "127.0.0.1");
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:8529", host, "127.0.0.1");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org:8529", host, "www.arangodb.org");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://arangodb.org:8529", host, "arangodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org:8529", host, "www.avocadodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://avocadodb.org:8529", host, "avocadodb.org");
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", host, "127.0.0.1");
   CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", host, "::");
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", host, "127.0.0.1");
@@ -374,12 +374,12 @@ SECTION("EndpointHost") {
   
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", host, "127.0.0.1");
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", host, "127.0.0.1");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org", host, "www.arangodb.org");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://arangodb.org", host, "arangodb.org");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://DE.triagens.ArangoDB.org", host, "de.triagens.arangodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org", host, "www.avocadodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://avocadodb.org", host, "avocadodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://DE.triagens.AvocadoDB.org", host, "de.triagens.avocadodb.org");
   CHECK_ENDPOINT_FEATURE(client, "ssl://192.168.173.13:8529", host, "192.168.173.13");
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:8529", host, "127.0.0.1");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org:8529", host, "www.arangodb.org");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org:8529", host, "www.avocadodb.org");
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", host, "127.0.0.1");
   CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", host, "::");
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", host, "127.0.0.1");
@@ -390,8 +390,8 @@ SECTION("EndpointHost") {
   
 #ifndef _WIN32
   CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", host, "localhost");
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/arango.sock", host, "localhost");
-  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/arango.sock", host, "localhost");
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/avocado.sock", host, "localhost");
+  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/avocado.sock", host, "localhost");
 #endif
 }
 
@@ -404,17 +404,17 @@ SECTION("EndpointHostString") {
 
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1", hostAndPort, "127.0.0.1:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost", hostAndPort, "127.0.0.1:8529");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org", hostAndPort, "www.arangodb.org:8529");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://arangodb.org", hostAndPort, "arangodb.org:8529");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://DE.triagens.ArangoDB.org", hostAndPort, "de.triagens.arangodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org", hostAndPort, "www.avocadodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://avocadodb.org", hostAndPort, "avocadodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://DE.triagens.AvocadoDB.org", hostAndPort, "de.triagens.avocadodb.org:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://192.168.173.13:8529", hostAndPort, "192.168.173.13:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://192.168.173.13:678", hostAndPort, "192.168.173.13:678");
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:8529", hostAndPort, "127.0.0.1:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://127.0.0.1:44", hostAndPort, "127.0.0.1:44");
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:8529", hostAndPort, "127.0.0.1:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://localhost:65535", hostAndPort, "127.0.0.1:65535");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://www.arangodb.org:8529", hostAndPort, "www.arangodb.org:8529");
-  CHECK_ENDPOINT_FEATURE(client, "tcp://arangodb.org:8529", hostAndPort, "arangodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://www.avocadodb.org:8529", hostAndPort, "www.avocadodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "tcp://avocadodb.org:8529", hostAndPort, "avocadodb.org:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]", hostAndPort, "[127.0.0.1]:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://[::]", hostAndPort, "[::]:8529");
   CHECK_ENDPOINT_FEATURE(client, "tcp://[127.0.0.1]:8529", hostAndPort, "[127.0.0.1]:8529");
@@ -431,15 +431,15 @@ SECTION("EndpointHostString") {
   
   CHECK_ENDPOINT_FEATURE(client, "ssl://127.0.0.1", hostAndPort, "127.0.0.1:8529");
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost", hostAndPort, "127.0.0.1:8529");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org", hostAndPort, "www.arangodb.org:8529");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://arangodb.org", hostAndPort, "arangodb.org:8529");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://DE.triagens.ArangoDB.org", hostAndPort, "de.triagens.arangodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org", hostAndPort, "www.avocadodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://avocadodb.org", hostAndPort, "avocadodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://DE.triagens.AvocadoDB.org", hostAndPort, "de.triagens.avocadodb.org:8529");
   CHECK_ENDPOINT_FEATURE(client, "ssl://192.168.173.13:8529", hostAndPort, "192.168.173.13:8529");
   CHECK_ENDPOINT_FEATURE(client, "ssl://192.168.173.13:1234", hostAndPort, "192.168.173.13:1234");
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:8529", hostAndPort, "127.0.0.1:8529");
   CHECK_ENDPOINT_FEATURE(client, "ssl://localhost:5", hostAndPort, "127.0.0.1:5");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org:8529", hostAndPort, "www.arangodb.org:8529");
-  CHECK_ENDPOINT_FEATURE(client, "ssl://www.arangodb.org:12345", hostAndPort, "www.arangodb.org:12345");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org:8529", hostAndPort, "www.avocadodb.org:8529");
+  CHECK_ENDPOINT_FEATURE(client, "ssl://www.avocadodb.org:12345", hostAndPort, "www.avocadodb.org:12345");
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]", hostAndPort, "[127.0.0.1]:8529");
   CHECK_ENDPOINT_FEATURE(client, "ssl://[::]", hostAndPort, "[::]:8529");
   CHECK_ENDPOINT_FEATURE(client, "ssl://[127.0.0.1]:8529", hostAndPort, "[127.0.0.1]:8529");
@@ -452,8 +452,8 @@ SECTION("EndpointHostString") {
   
 #ifndef _WIN32
   CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket", hostAndPort, "localhost");
-  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/arango.sock", hostAndPort, "localhost");
-  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/arango.sock", hostAndPort, "localhost");
+  CHECK_ENDPOINT_FEATURE(client, "unix:///tmp/socket/avocado.sock", hostAndPort, "localhost");
+  CHECK_ENDPOINT_FEATURE(client, "http@unix:///tmp/socket/avocado.sock", hostAndPort, "localhost");
 #endif
 }
 
@@ -464,7 +464,7 @@ SECTION("EndpointHostString") {
 SECTION("EndpointIsConnectedServer1") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::serverFactory("tcp://127.0.0.1", 1, true);
+  e = avocadodb::Endpoint::serverFactory("tcp://127.0.0.1", 1, true);
   CHECK(false == e->isConnected());
   delete e;
 }
@@ -476,7 +476,7 @@ SECTION("EndpointIsConnectedServer1") {
 SECTION("EndpointIsConnectedServer2") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::serverFactory("ssl://127.0.0.1", 1, true);
+  e = avocadodb::Endpoint::serverFactory("ssl://127.0.0.1", 1, true);
   CHECK(false == e->isConnected());
   delete e;
 }
@@ -489,7 +489,7 @@ SECTION("EndpointIsConnectedServer2") {
 SECTION("EndpointIsConnectedServer3") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::serverFactory("unix:///tmp/socket", 1, true);
+  e = avocadodb::Endpoint::serverFactory("unix:///tmp/socket", 1, true);
   CHECK(false == e->isConnected());
   delete e;
 }
@@ -502,7 +502,7 @@ SECTION("EndpointIsConnectedServer3") {
 SECTION("EndpointIsConnectedClient1") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::clientFactory("tcp://127.0.0.1");
+  e = avocadodb::Endpoint::clientFactory("tcp://127.0.0.1");
   CHECK(false == e->isConnected());
   delete e;
 }
@@ -514,7 +514,7 @@ SECTION("EndpointIsConnectedClient1") {
 SECTION("EndpointIsConnectedClient2") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::clientFactory("ssl://127.0.0.1");
+  e = avocadodb::Endpoint::clientFactory("ssl://127.0.0.1");
   CHECK(false == e->isConnected());
   delete e;
 }
@@ -527,7 +527,7 @@ SECTION("EndpointIsConnectedClient2") {
 SECTION("EndpointIsConnectedClient3") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::clientFactory("unix:///tmp/socket");
+  e = avocadodb::Endpoint::clientFactory("unix:///tmp/socket");
   CHECK(false == e->isConnected());
   delete e;
 }
@@ -540,11 +540,11 @@ SECTION("EndpointIsConnectedClient3") {
 SECTION("EndpointServerTcpIpv4WithPort") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::serverFactory("tcp://127.0.0.1:667", 1, true);
+  e = avocadodb::Endpoint::serverFactory("tcp://127.0.0.1:667", 1, true);
   CHECK("http+tcp://127.0.0.1:667" == e->specification());
-  CHECK(arangodb::Endpoint::EndpointType::SERVER == e->type());
-  CHECK(arangodb::Endpoint::DomainType::IPV4 == e->domainType());
-  CHECK(arangodb::Endpoint::EncryptionType::NONE == e->encryption());
+  CHECK(avocadodb::Endpoint::EndpointType::SERVER == e->type());
+  CHECK(avocadodb::Endpoint::DomainType::IPV4 == e->domainType());
+  CHECK(avocadodb::Endpoint::EncryptionType::NONE == e->encryption());
   CHECK(AF_INET == e->domain());
   CHECK("127.0.0.1" == e->host());
   CHECK(667 == e->port());
@@ -561,11 +561,11 @@ SECTION("EndpointServerTcpIpv4WithPort") {
 SECTION("EndpointServerUnix") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::serverFactory("unix:///path/to/arango.sock", 1, true);
-  CHECK("http+unix:///path/to/arango.sock" == e->specification());
-  CHECK(arangodb::Endpoint::EndpointType::SERVER == e->type());
-  CHECK(arangodb::Endpoint::DomainType::UNIX == e->domainType());
-  CHECK(arangodb::Endpoint::EncryptionType::NONE == e->encryption());
+  e = avocadodb::Endpoint::serverFactory("unix:///path/to/avocado.sock", 1, true);
+  CHECK("http+unix:///path/to/avocado.sock" == e->specification());
+  CHECK(avocadodb::Endpoint::EndpointType::SERVER == e->type());
+  CHECK(avocadodb::Endpoint::DomainType::UNIX == e->domainType());
+  CHECK(avocadodb::Endpoint::EncryptionType::NONE == e->encryption());
   CHECK(AF_UNIX == e->domain());
   CHECK("localhost" == e->host());
   CHECK(0 == e->port());
@@ -582,11 +582,11 @@ SECTION("EndpointServerUnix") {
 SECTION("EndpointClientSslIpV6WithPortHttp") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::clientFactory("http+ssl://[0001:0002:0003:0004:0005:0006:0007:0008]:43425");
+  e = avocadodb::Endpoint::clientFactory("http+ssl://[0001:0002:0003:0004:0005:0006:0007:0008]:43425");
   CHECK("http+ssl://[0001:0002:0003:0004:0005:0006:0007:0008]:43425" == e->specification());
-  CHECK(arangodb::Endpoint::EndpointType::CLIENT == e->type());
-  CHECK(arangodb::Endpoint::DomainType::IPV6 == e->domainType());
-  CHECK(arangodb::Endpoint::EncryptionType::SSL == e->encryption());
+  CHECK(avocadodb::Endpoint::EndpointType::CLIENT == e->type());
+  CHECK(avocadodb::Endpoint::DomainType::IPV6 == e->domainType());
+  CHECK(avocadodb::Endpoint::EncryptionType::SSL == e->encryption());
   CHECK(AF_INET6 == e->domain());
   CHECK("0001:0002:0003:0004:0005:0006:0007:0008" == e->host());
   CHECK(43425 == e->port());
@@ -602,11 +602,11 @@ SECTION("EndpointClientSslIpV6WithPortHttp") {
 SECTION("EndpointClientTcpIpv6WithoutPort") {
   Endpoint* e;
 
-  e = arangodb::Endpoint::clientFactory("tcp://[::]");
+  e = avocadodb::Endpoint::clientFactory("tcp://[::]");
   CHECK("http+tcp://[::]:8529" == e->specification());
-  CHECK(arangodb::Endpoint::EndpointType::CLIENT == e->type());
-  CHECK(arangodb::Endpoint::DomainType::IPV6 == e->domainType());
-  CHECK(arangodb::Endpoint::EncryptionType::NONE == e->encryption());
+  CHECK(avocadodb::Endpoint::EndpointType::CLIENT == e->type());
+  CHECK(avocadodb::Endpoint::DomainType::IPV6 == e->domainType());
+  CHECK(avocadodb::Endpoint::EncryptionType::NONE == e->encryption());
   CHECK(AF_INET6 == e->domain());
   CHECK("::" == e->host());
   CHECK(8529 == e->port());

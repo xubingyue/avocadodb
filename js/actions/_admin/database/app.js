@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014-2015 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014-2015 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,16 +21,16 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Dr. Frank Celler
-// / @author Copyright 2014-2015, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014-2015, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2012-2014, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var actions = require('@arangodb/actions');
+var actions = require('@avocadodb/actions');
 
-var targetDatabaseVersion = require('@arangodb/database-version').CURRENT_VERSION;
+var targetDatabaseVersion = require('@avocadodb/database-version').CURRENT_VERSION;
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief was docuBlock JSF_get_admin_database_version

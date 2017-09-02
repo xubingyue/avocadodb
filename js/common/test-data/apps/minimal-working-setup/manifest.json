@@ -5,6 +5,6 @@
     "setup": "setup.js"
   },
   "engines": {
-    "arangodb": "^2.8.0"
+    "avocadodb": "^2.8.0"
   }
 }

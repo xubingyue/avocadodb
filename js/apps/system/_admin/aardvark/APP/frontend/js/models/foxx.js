@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* eslint-env browser */
-/* global Backbone, $, _, arangoHelper, window */
+/* global Backbone, $, _, avocadoHelper, window */
 (function () {
   'use strict';
 
@@ -15,7 +15,7 @@
     var qs = _.reduce(args, function (base, value, key) {
       return base + encodeURIComponent(key) + '=' + encodeURIComponent(value) + '&';
     }, '?');
-    req.url = arangoHelper.databaseUrl('/_admin/aardvark/foxxes' + (part ? '/' + part : '') + qs.slice(0, qs.length - 1));
+    req.url = avocadoHelper.databaseUrl('/_admin/aardvark/foxxes' + (part ? '/' + part : '') + qs.slice(0, qs.length - 1));
     if (body !== undefined) {
       req.data = JSON.stringify(body);
     }
@@ -152,7 +152,7 @@
           console.error(err.responseJSON);
           return;
         }
-        window.location.href = arangoHelper.databaseUrl('/_admin/aardvark/foxxes/download/zip?mount=' + this.encodedMount() + '&nonce=' + data.nonce);
+        window.location.href = avocadoHelper.databaseUrl('/_admin/aardvark/foxxes/download/zip?mount=' + this.encodedMount() + '&nonce=' + data.nonce);
       }.bind(this), 'POST', 'download/nonce');
     },
 
@@ -165,8 +165,8 @@
       }.bind(this);
       xhr.onerror = cb;
       xhr.open('GET', 'foxxes/thumbnail?mount=' + this.encodedMount());
-      if (window.arangoHelper.getCurrentJwt()) {
-        xhr.setRequestHeader('Authorization', 'bearer ' + window.arangoHelper.getCurrentJwt());
+      if (window.avocadoHelper.getCurrentJwt()) {
+        xhr.setRequestHeader('Authorization', 'bearer ' + window.avocadoHelper.getCurrentJwt());
       }
       xhr.send();
     }

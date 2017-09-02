@@ -188,7 +188,7 @@
           dropDownSelector = '#configureDropdown .dropdownInner ul';
         expect($(menuSelector).length).toEqual(1);
         expect($('span', menuSelector).attr('title')).toEqual('Configure');
-        expect($('span', menuSelector)).toBeOfClass('icon_arangodb_settings2');
+        expect($('span', menuSelector)).toBeOfClass('icon_avocadodb_settings2');
         expect($(dropDownSelector + ' #control_adapter_graph').length).toEqual(1);
         expect($(dropDownSelector + ' #control_node_labelandcolourlist').length).toEqual(1);
         expect($(dropDownSelector + ' #control_adapter_priority').length).toEqual(1);
@@ -199,7 +199,7 @@
           dropDownSelector = '#filterDropdown .dropdownInner ul';
         expect($(menuSelector).length).toEqual(1);
         expect($('span', menuSelector).attr('title')).toEqual('Filter');
-        expect($('span', menuSelector)).toBeOfClass('icon_arangodb_filter');
+        expect($('span', menuSelector)).toBeOfClass('icon_avocadodb_filter');
       });
 
       it('should have the same layout as the web interface', function () {

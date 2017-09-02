@@ -34,8 +34,8 @@ range query, a skip-list index on the queried attribute must be present.
 
 Returns a cursor containing the result, see [Http Cursor](../AqlQueryCursor/README.md) for details.
 
-Note: the *range* simple query is **deprecated** as of ArangoDB 2.6. 
-The function may be removed in future versions of ArangoDB. The preferred
+Note: the *range* simple query is **deprecated** as of AvocadoDB 2.6. 
+The function may be removed in future versions of AvocadoDB. The preferred
 way for retrieving documents from a collection within a specific range
 is to use an AQL query as follows: 
 

@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* jshint unused: false */
 /* global describe, beforeEach, afterEach, it, spyOn, expect,
- require, jasmine,  exports, window, $, arangoLog */
+ require, jasmine,  exports, window, $, avocadoLog */
 (function () {
   'use strict';
 

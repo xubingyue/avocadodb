@@ -4,7 +4,7 @@
 // / DISCLAIMER
 // /
 // / Copyright 2010-2013 triAGENS GmbH, Cologne, Germany
-// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License");
 // / you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
 // / @author Alan Plum
@@ -28,14 +28,14 @@ const fs = require('fs');
 const joi = require('joi');
 const dd = require('dedent');
 const internal = require('internal');
-const crypto = require('@arangodb/crypto');
+const crypto = require('@avocadodb/crypto');
 const marked = require('marked');
 const highlightAuto = require('highlightjs').highlightAuto;
-const errors = require('@arangodb').errors;
-const FoxxManager = require('@arangodb/foxx/manager');
+const errors = require('@avocadodb').errors;
+const FoxxManager = require('@avocadodb/foxx/manager');
 const FoxxGenerator = require('./generator');
-const fmu = require('@arangodb/foxx/manager-utils');
-const createRouter = require('@arangodb/foxx/router');
+const fmu = require('@avocadodb/foxx/manager-utils');
+const createRouter = require('@avocadodb/foxx/router');
 const joinPath = require('path').join;
 
 const DEFAULT_THUMBNAIL = module.context.fileName('default-thumbnail.png');
@@ -54,7 +54,7 @@ router.use((req, res, next) => {
   }
   next();
 })
-.header('authorization', joi.string().optional(), 'ArangoDB credentials.');
+.header('authorization', joi.string().optional(), 'AvocadoDB credentials.');
 
 const foxxRouter = createRouter();
 router.use(foxxRouter)
@@ -94,7 +94,7 @@ installer.use(function (req, res, next) {
       service = FoxxManager.install(appInfo, mount, options);
     }
   } catch (e) {
-    if (e.isArangoError && [
+    if (e.isAvocadoError && [
       errors.ERROR_MODULE_FAILURE.code,
       errors.ERROR_MALFORMED_MANIFEST_FILE.code,
       errors.ERROR_INVALID_SERVICE_MANIFEST.code
@@ -102,13 +102,13 @@ installer.use(function (req, res, next) {
       res.throw('bad request', e);
     }
     if (
-      e.isArangoError &&
+      e.isAvocadoError &&
       e.errorNum === errors.ERROR_SERVICE_NOT_FOUND.code
     ) {
       res.throw('not found', e);
     }
     if (
-      e.isArangoError &&
+      e.isAvocadoError &&
       e.errorNum === errors.ERROR_SERVICE_MOUNTPOINT_CONFLICT.code
     ) {
       res.throw('conflict', e);

@@ -12,7 +12,7 @@ the database name on the master (if not specified, defaults to the
 name of the local current database).
 
 @RESTBODYPARAM{username,string,optional,string}
-an optional ArangoDB username to use when connecting to the master.
+an optional AvocadoDB username to use when connecting to the master.
 
 @RESTBODYPARAM{password,string,required,string}
 the password to use when connecting to the master.
@@ -110,7 +110,7 @@ replication
 problems only.
 
 @RESTDESCRIPTION
-Starts a full data synchronization from a remote endpoint into the local ArangoDB
+Starts a full data synchronization from a remote endpoint into the local AvocadoDB
 database and afterwards starts the continuous replication.
 The operation works on a per-database level.
 
@@ -185,7 +185,7 @@ attributes:
   active) or will connect to (if applier is currently inactive)
 
 WARNING: calling this method will sychronize data from the collections found
-on the remote master to the local ArangoDB database. All data in the local
+on the remote master to the local AvocadoDB database. All data in the local
 collections will be purged and replaced with data from the master.
 
 Use with caution!

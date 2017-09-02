@@ -9,7 +9,7 @@ Downloads a zip bundle of the service directory.
 When development mode is enabled, this always creates a new bundle.
 
 Otherwise the bundle will represent the version of a service that
-is installed on that ArangoDB instance.
+is installed on that AvocadoDB instance.
 
 @RESTQUERYPARAMETERS
 

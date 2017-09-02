@@ -1,16 +1,16 @@
 Edges, Identifiers, Handles
 ===========================
 
-This is an introduction to ArangoDB's interface for edges.
+This is an introduction to AvocadoDB's interface for edges.
 Edges may be [used in graphs](../README.md).
-Here we work with edges from the JavaScript shell *arangosh*.
+Here we work with edges from the JavaScript shell *avocadosh*.
 For other languages see the corresponding language API.
 
 A graph data model always consists of at least two collections: the relations between the
 nodes in the graphs are stored in an "edges collection", the nodes in the graph
 are stored in documents in regular collections.
 
-Edges in ArangoDB are special documents. In addition to the system
+Edges in AvocadoDB are special documents. In addition to the system
 attributes *_key*, *_id* and *_rev*, they have the attributes *_from* and *_to*, 
 which contain [document handles](../../Appendix/Glossary.md#document-handle), namely the start-point and the end-point of the edge.
 

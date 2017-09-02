@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@
 #include "Basics/Mutex.h"
 #include "Basics/WorkDescription.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 class Builder;
 }
@@ -77,7 +77,7 @@ class WorkMonitor : public Thread {
   static void vpackWorkDescription(VPackBuilder*, WorkDescription*);
   static void cancelWorkDescriptions(Thread* thread);
 
-  // implemented in WorkMonitorArangod.cpp
+  // implemented in WorkMonitorAvocadod.cpp
   static void addWorkOverview(std::shared_ptr<rest::RestHandler>,
                               std::shared_ptr<velocypack::Buffer<uint8_t>>);
   static bool cancelAql(WorkDescription*);

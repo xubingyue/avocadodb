@@ -1,7 +1,7 @@
 Header Session Transport
 ========================
 
-`const headerTransport = require('@arangodb/foxx/sessions/transports/header');`
+`const headerTransport = require('@avocadodb/foxx/sessions/transports/header');`
 
 The header transport stores session identifiers in headers on the request and response objects.
 

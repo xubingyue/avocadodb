@@ -13,8 +13,8 @@ operator.
 An attribute name of the form *a.b* is interpreted as attribute path,
 not as attribute.
 
-Note: the *closedRange* simple query function is **deprecated** as of ArangoDB 2.6. 
-The function may be removed in future versions of ArangoDB. The preferred
+Note: the *closedRange* simple query function is **deprecated** as of AvocadoDB 2.6. 
+The function may be removed in future versions of AvocadoDB. The preferred
 way for retrieving documents from a collection within a specific range
 is to use an AQL query as follows: 
 

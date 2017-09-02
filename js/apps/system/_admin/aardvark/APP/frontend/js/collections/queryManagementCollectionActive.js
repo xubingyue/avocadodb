@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global window, Backbone, arangoHelper, $, frontendConfig */
+/* global window, Backbone, avocadoHelper, $, frontendConfig */
 (function () {
   'use strict';
   window.QueryManagementActive = Backbone.Collection.extend({
@@ -10,7 +10,7 @@
       var url = frontendConfig.basePath + '/_api/query/current';
 
       if (window.frontendConfig.db !== '_system') {
-        url = arangoHelper.databaseUrl('/_api/query/current');
+        url = avocadoHelper.databaseUrl('/_api/query/current');
       }
 
       return url;
@@ -20,7 +20,7 @@
       var url = frontendConfig.basePath + '/_api/query/' + encodeURIComponent(id);
 
       if (window.frontendConfig.db !== '_system') {
-        url = arangoHelper.databaseUrl('/_api/query/' + encodeURIComponent(id));
+        url = avocadoHelper.databaseUrl('/_api/query/' + encodeURIComponent(id));
       }
 
       $.ajax({

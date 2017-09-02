@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ApplicationFeatures/LanguageFeature.h"
-#include "Basics/ArangoGlobalContext.h"
+#include "Basics/AvocadoGlobalContext.h"
 
 #include "Basics/FileUtils.h"
 #include "Basics/Utf8Helper.h"
@@ -31,9 +31,9 @@
 #include "ProgramOptions/ProgramOptions.h"
 #include "ProgramOptions/Section.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::options;
 
 LanguageFeature::LanguageFeature(
     application_features::ApplicationServer* server)
@@ -70,7 +70,7 @@ void* LanguageFeature::prepareIcu(std::string const& binaryPath,
 
   if (path.empty() || !TRI_IsRegularFile(path.c_str())) {
     if (!path.empty()) {
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME)
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME)
           << "failed to locate '" << fn << "' at '" << path << "'";
     }
 
@@ -100,7 +100,7 @@ void* LanguageFeature::prepareIcu(std::string const& binaryPath,
       }
       msg += "' should point to the directory containing '" + fn + "'";
 
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << msg;
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << msg;
       FATAL_ERROR_EXIT();
     } else {
       std::string icu_path = path.substr(0, path.length() - fn.length());
@@ -117,7 +117,7 @@ void* LanguageFeature::prepareIcu(std::string const& binaryPath,
   void* icuDataPtr = TRI_SlurpFile(TRI_UNKNOWN_MEM_ZONE, path.c_str(), nullptr);
 
   if (icuDataPtr == nullptr) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "failed to load '" << fn << "' at '" << path << "' - "
         << TRI_last_error();
     FATAL_ERROR_EXIT();
@@ -127,7 +127,7 @@ void* LanguageFeature::prepareIcu(std::string const& binaryPath,
 
 void LanguageFeature::prepare() {
   std::string p;
-  auto context = ArangoGlobalContext::CONTEXT;
+  auto context = AvocadoGlobalContext::CONTEXT;
   std::string binaryExecutionPath = context->getBinaryPath();
   std::string binaryName = context->binaryName();
   _icuDataPtr = LanguageFeature::prepareIcu(_binaryPath, binaryExecutionPath, p,
@@ -135,7 +135,7 @@ void LanguageFeature::prepare() {
 
   if (!Utf8Helper::DefaultUtf8Helper.setCollatorLanguage(_language,
                                                          _icuDataPtr)) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "error initializing ICU with the contents of '" << p << "'";
     FATAL_ERROR_EXIT();
   }
@@ -152,6 +152,6 @@ void LanguageFeature::start() {
     languageName = Utf8Helper::DefaultUtf8Helper.getCollatorLanguage();
   }
 
-  LOG_TOPIC(DEBUG, arangodb::Logger::FIXME)
+  LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME)
       << "using default language '" << languageName << "'";
 }

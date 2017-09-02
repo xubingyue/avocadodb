@@ -94,7 +94,7 @@ which is sufficient for most use cases such as location-aware services.
 - returns **distance** (number): the distance between both coordinates in meters
 
 ```js
-// Distance between Brandenburg Gate (Berlin) and ArangoDB headquarters (Cologne)
+// Distance between Brandenburg Gate (Berlin) and AvocadoDB headquarters (Cologne)
 DISTANCE(52.5163, 13.3777, 50.9322, 6.94) // 476918.89688380965 (~477km)
 
 // Sort a small number of documents based on distance to Central Park (New York)

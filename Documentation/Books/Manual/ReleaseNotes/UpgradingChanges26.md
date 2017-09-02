@@ -1,13 +1,13 @@
-Incompatible changes in ArangoDB 2.6
+Incompatible changes in AvocadoDB 2.6
 ====================================
 
 It is recommended to check the following list of incompatible changes **before** 
-upgrading to ArangoDB 2.6, and adjust any client programs if necessary.
+upgrading to AvocadoDB 2.6, and adjust any client programs if necessary.
 
 Requirements
 ------------
 
-ArangoDB's built-in web interface now uses cookies for session management.
+AvocadoDB's built-in web interface now uses cookies for session management.
 Session information ids are stored in cookies, so clients using the web interface must 
 accept cookies in order to log in and use it.
 
@@ -55,11 +55,11 @@ AQL changes
 The return value of the AQL `LENGTH` function was changed if `LENGTH` is applied on `null` or a
 boolean value:
 
-* `LENGTH(null)` now returns `0`. In previous versions of ArangoDB, this returned `4`.
+* `LENGTH(null)` now returns `0`. In previous versions of AvocadoDB, this returned `4`.
 
-* `LENGTH(false)` now returns `0`. In previous versions of ArangoDB, the return value was `5`.
+* `LENGTH(false)` now returns `0`. In previous versions of AvocadoDB, the return value was `5`.
 
-* `LENGTH(true)` now returns `1`. In previous versions of ArangoDB, the return value was `4`.
+* `LENGTH(true)` now returns `1`. In previous versions of AvocadoDB, the return value was `4`.
 
 ### AQL graph functions
 
@@ -216,7 +216,7 @@ A batchSize value `0` is now disallowed when calling the cursor API via HTTP
 `POST /_api/cursor`.
 
 The HTTP REST API `POST /_api/cursor` does not accept a `batchSize` parameter value of 
-`0` any longer. A batch size of 0 never made much sense, but previous versions of ArangoDB
+`0` any longer. A batch size of 0 never made much sense, but previous versions of AvocadoDB
 did not check for this value. Now creating a cursor using a `batchSize` value 0 will
 result in an HTTP 400 error response.
 
@@ -226,7 +226,7 @@ The REST API method GET `/_api/document?collection=...` (that method will return
 to all documents in the collection) will now properly prefix document address URLs with the 
 current database name.
 
-Previous versions of ArangoDB returned the URLs starting with `/_api/` but without the current 
+Previous versions of AvocadoDB returned the URLs starting with `/_api/` but without the current 
 database name, e.g. `/_api/document/mycollection/mykey`. Starting with 2.6, the response URLs
 will include the database name as well, e.g. `/_db/_system/_api/document/mycollection/mykey`.
 
@@ -235,7 +235,7 @@ will include the database name as well, e.g. `/_db/_system/_api/document/mycolle
 Fulltext indexes will now also index text values contained in direct sub-objects of the indexed 
 attribute.
 
-Previous versions of ArangoDB only indexed the attribute value if it was a string. Sub-attributes
+Previous versions of AvocadoDB only indexed the attribute value if it was a string. Sub-attributes
 of the index attribute were ignored when fulltext indexing.
 
 Now, if the index attribute value is an object, the object's values will each be included in the
@@ -281,16 +281,16 @@ which are more flexible because they can be combined with other operations:
       RETURN doc`
   
 The above simple query functions and REST API methods may be removed in future versions 
-of ArangoDB.
+of AvocadoDB.
 
 Using negative values for `SimpleQuery.skip()` is also deprecated. 
-This functionality will be removed in future versions of ArangoDB.
+This functionality will be removed in future versions of AvocadoDB.
 
 ### AQL functions
 
 The AQL `SKIPLIST` function has been deprecated because it is obsolete.
 
-The function was introduced in older versions of ArangoDB with a less powerful query optimizer to
+The function was introduced in older versions of AvocadoDB with a less powerful query optimizer to
 retrieve data from a skiplist index using a `LIMIT` clause.
 
 Since 2.3 the same goal can be achieved by using regular AQL constructs, e.g. 
@@ -351,15 +351,15 @@ The default values for the following options have changed in 2.6:
 * `--database.ignore-datafile-errors`: the default value for this option was changed from `true` 
   to `false`.
 
-  If the new default value of `false` is used, then arangod will refuse loading collections that 
+  If the new default value of `false` is used, then avocadod will refuse loading collections that 
   contain datafiles with CRC mismatches or other errors. A collection with datafile errors will 
   then become unavailable. This prevents follow up errors from happening.
   
-  The only way to access such collection is to use the datafile debugger (arango-dfdb) and try to 
+  The only way to access such collection is to use the datafile debugger (avocado-dfdb) and try to 
   repair or truncate the datafile with it.
 
 * `--server.request-timeout`: the default value was increased from 300 to 1200 seconds for all
-  client tools (arangosh, arangoimp, arangodump, arangorestore).
+  client tools (avocadosh, avocadoimp, avocadodump, avocadorestore).
 
 * `--server.connect-timeout`: the default value was increased from 3 to 5 seconds for all client 
-  tools (arangosh, arangoimp, arangodump, arangorestore).
+  tools (avocadosh, avocadoimp, avocadodump, avocadorestore).

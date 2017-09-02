@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,8 +37,8 @@
 
 #include <algorithm>
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 Endpoint::Endpoint(DomainType domainType, EndpointType type,
                    TransportType transport, EncryptionType encryption,
@@ -268,7 +268,7 @@ Endpoint* Endpoint::factory(const Endpoint::EndpointType type,
       int64_t value = StringUtils::int64(copy.substr(found + 2));
       // check port over-/underrun
       if (value < (std::numeric_limits<uint16_t>::min)() || value > (std::numeric_limits<uint16_t>::max)()) {
-        LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "specified port number '" << value << "' is outside the allowed range"; 
+        LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "specified port number '" << value << "' is outside the allowed range"; 
         return nullptr;
       }
       uint16_t port = static_cast<uint16_t>(value);
@@ -300,7 +300,7 @@ Endpoint* Endpoint::factory(const Endpoint::EndpointType type,
     int64_t value = StringUtils::int64(copy.substr(found + 1));
     // check port over-/underrun
     if (value < (std::numeric_limits<uint16_t>::min)() || value > (std::numeric_limits<uint16_t>::max)()) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "specified port number '" << value << "' is outside the allowed range"; 
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "specified port number '" << value << "' is outside the allowed range"; 
       return nullptr;
     }
     uint16_t port = static_cast<uint16_t>(value);
@@ -366,7 +366,7 @@ bool Endpoint::setSocketFlags(TRI_socket_t s) {
   bool ok = TRI_SetNonBlockingSocket(s);
 
   if (!ok) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot switch to non-blocking: " << errno << " ("
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot switch to non-blocking: " << errno << " ("
              << strerror(errno) << ")";
 
     return false;
@@ -376,7 +376,7 @@ bool Endpoint::setSocketFlags(TRI_socket_t s) {
   ok = TRI_SetCloseOnExecSocket(s);
 
   if (!ok) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot set close-on-exit: " << errno << " (" << strerror(errno)
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot set close-on-exit: " << errno << " (" << strerror(errno)
              << ")";
 
     return false;
@@ -386,12 +386,12 @@ bool Endpoint::setSocketFlags(TRI_socket_t s) {
 }
 
 std::ostream& operator<<(std::ostream& stream,
-                         arangodb::Endpoint::TransportType type) {
+                         avocadodb::Endpoint::TransportType type) {
   switch (type) {
-    case arangodb::Endpoint::TransportType::HTTP:
+    case avocadodb::Endpoint::TransportType::HTTP:
       stream << "http";
       break;
-    case arangodb::Endpoint::TransportType::VST:
+    case avocadodb::Endpoint::TransportType::VST:
       stream << "vst";
       break;
   }
@@ -399,12 +399,12 @@ std::ostream& operator<<(std::ostream& stream,
 }
 
 std::ostream& operator<<(std::ostream& stream,
-                         arangodb::Endpoint::EndpointType type) {
+                         avocadodb::Endpoint::EndpointType type) {
   switch (type) {
-    case arangodb::Endpoint::EndpointType::SERVER:
+    case avocadodb::Endpoint::EndpointType::SERVER:
       stream << "server";
       break;
-    case arangodb::Endpoint::EndpointType::CLIENT:
+    case avocadodb::Endpoint::EndpointType::CLIENT:
       stream << "client";
       break;
   }
@@ -412,12 +412,12 @@ std::ostream& operator<<(std::ostream& stream,
 }
 
 std::ostream& operator<<(std::ostream& stream,
-                         arangodb::Endpoint::EncryptionType type) {
+                         avocadodb::Endpoint::EncryptionType type) {
   switch (type) {
-    case arangodb::Endpoint::EncryptionType::NONE:
+    case avocadodb::Endpoint::EncryptionType::NONE:
       stream << "none";
       break;
-    case arangodb::Endpoint::EncryptionType::SSL:
+    case avocadodb::Endpoint::EncryptionType::SSL:
       stream << "ssl";
       break;
   }
@@ -425,21 +425,21 @@ std::ostream& operator<<(std::ostream& stream,
 }
 
 std::ostream& operator<<(std::ostream& stream,
-                         arangodb::Endpoint::DomainType type) {
+                         avocadodb::Endpoint::DomainType type) {
   switch (type) {
-    case arangodb::Endpoint::DomainType::UNIX:
+    case avocadodb::Endpoint::DomainType::UNIX:
       stream << "unix";
       break;
-    case arangodb::Endpoint::DomainType::IPV4:
+    case avocadodb::Endpoint::DomainType::IPV4:
       stream << "ipv4";
       break;
-    case arangodb::Endpoint::DomainType::IPV6:
+    case avocadodb::Endpoint::DomainType::IPV6:
       stream << "ipv6";
       break;
-    case arangodb::Endpoint::DomainType::SRV:
+    case avocadodb::Endpoint::DomainType::SRV:
       stream << "srv";
       break;
-    case arangodb::Endpoint::DomainType::UNKNOWN:
+    case avocadodb::Endpoint::DomainType::UNKNOWN:
       stream << "unknown";
       break;
   }

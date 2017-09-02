@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* jshint unused: false */
 /* global Backbone, $, setTimeout, localStorage, ace, Storage, window, _, console, btoa */
-/* global _, arangoHelper, numeral, templateEngine, Joi */
+/* global _, avocadoHelper, numeral, templateEngine, Joi */
 
 (function () {
   'use strict';
@@ -10,7 +10,7 @@
     bindParamId: '#bindParamEditor',
     myQueriesId: '#queryTable',
     template: templateEngine.createTemplate('queryView.ejs'),
-    table: templateEngine.createTemplate('arangoTable.ejs'),
+    table: templateEngine.createTemplate('avocadoTable.ejs'),
 
     outputDiv: '#outputEditors',
     outputTemplate: templateEngine.createTemplate('queryViewOutput.ejs'),
@@ -46,13 +46,13 @@
     bindParamMode: 'table',
 
     bindParamTableDesc: {
-      id: 'arangoBindParamTable',
+      id: 'avocadoBindParamTable',
       titles: ['Key', 'Value'],
       rows: []
     },
 
     myQueriesTableDesc: {
-      id: 'arangoMyQueriesTable',
+      id: 'avocadoMyQueriesTable',
       titles: ['Name', 'Actions'],
       rows: []
     },
@@ -88,16 +88,16 @@
       'click #deleteQuery': 'selectAndDeleteQueryFromTable',
       'click #explQuery': 'selectAndExplainQueryFromTable',
       'click .closeProfile': 'closeProfile',
-      'keydown #arangoBindParamTable input': 'updateBindParams',
-      'change #arangoBindParamTable input': 'updateBindParams',
+      'keydown #avocadoBindParamTable input': 'updateBindParams',
+      'change #avocadoBindParamTable input': 'updateBindParams',
       'change #querySize': 'storeQuerySize',
-      'click #arangoMyQueriesTable tbody tr': 'showQueryPreview',
-      'dblclick #arangoMyQueriesTable tbody tr': 'selectQueryFromTable',
-      'click #arangoMyQueriesTable #copyQuery': 'selectQueryFromTable',
+      'click #avocadoMyQueriesTable tbody tr': 'showQueryPreview',
+      'dblclick #avocadoMyQueriesTable tbody tr': 'selectQueryFromTable',
+      'click #avocadoMyQueriesTable #copyQuery': 'selectQueryFromTable',
       'click #closeQueryModal': 'closeExportDialog',
       'click #confirmQueryImport': 'importCustomQueries',
       'click #switchTypes': 'toggleBindParams',
-      'click #arangoMyQueriesTable #runQuery': 'selectAndRunQueryFromTable'
+      'click #avocadoMyQueriesTable #runQuery': 'selectAndRunQueryFromTable'
     },
 
     clearQuery: function () {
@@ -145,7 +145,7 @@
           this.renderBindParamTable();
         }
       } else {
-        arangoHelper.arangoError('Bind parameter', 'Could not parse bind parameter');
+        avocadoHelper.avocadoError('Bind parameter', 'Could not parse bind parameter');
       }
       this.resize();
     },
@@ -184,7 +184,7 @@
               $('#queryImportDialog').modal('hide');
             },
             error: function (data) {
-              arangoHelper.arangoError('Custom Queries', data.responseText);
+              avocadoHelper.avocadoError('Custom Queries', data.responseText);
             }
           });
         }.bind(this);
@@ -248,7 +248,7 @@
           name = 'root';
         }
         var url = 'query/download/' + encodeURIComponent(name);
-        arangoHelper.download(url);
+        avocadoHelper.download(url);
       });
     },
 
@@ -296,7 +296,7 @@
     },
 
     showQueryPreview: function (e) {
-      $('#arangoMyQueriesTable tr').removeClass('selected');
+      $('#avocadoMyQueriesTable tr').removeClass('selected');
       $(e.currentTarget).addClass('selected');
 
       var name = this.getQueryNameFromTable(e);
@@ -380,7 +380,7 @@
       $('#lastQuery').remove();
 
       if (lastQueryName !== name) {
-        $('#queryContent .arangoToolbarTop .pull-left')
+        $('#queryContent .avocadoToolbarTop .pull-left')
           .append('<span id="lastQuery" class="clickable">Previous Query</span>');
 
         this.breadcrumb(name);
@@ -413,7 +413,7 @@
     deleteAQL: function (name) {
       var callbackRemove = function (error) {
         if (error) {
-          arangoHelper.arangoError('Query', 'Could not delete query.');
+          avocadoHelper.avocadoError('Query', 'Could not delete query.');
         } else {
           this.updateLocalQueries();
           this.updateQueryTable();
@@ -481,9 +481,9 @@
             bindVars: this.queriesHistory[counter].bindParam
           })));
         }
-        arangoHelper.download(url);
+        avocadoHelper.download(url);
       } else {
-        arangoHelper.arangoError('Query error', 'Could not download the result.');
+        avocadoHelper.avocadoError('Query error', 'Could not download the result.');
       }
     },
 
@@ -538,14 +538,14 @@
 
         $.ajax({
           type: 'POST',
-          url: arangoHelper.databaseUrl('/_admin/aardvark/query/explain/'),
+          url: avocadoHelper.databaseUrl('/_admin/aardvark/query/explain/'),
           data: queryData,
           contentType: 'application/json',
           processData: false,
           success: function (data) {
             if (data.msg && data.msg.errorMessage) {
               self.removeOutputEditor(counter);
-              arangoHelper.arangoError('Explain', data.msg);
+              avocadoHelper.avocadoError('Explain', data.msg);
             } else {
               // cache explain results
               self.cachedQueries[counter] = data;
@@ -564,9 +564,9 @@
           error: function (data) {
             try {
               var temp = JSON.parse(data.responseText);
-              arangoHelper.arangoError('Explain', temp.errorMessage);
+              avocadoHelper.avocadoError('Explain', temp.errorMessage);
             } catch (e) {
-              arangoHelper.arangoError('Explain', 'ERROR');
+              avocadoHelper.avocadoError('Explain', 'ERROR');
             }
             self.handleResult(counter);
             self.removeOutputEditor(counter);
@@ -615,7 +615,7 @@
               self.bindParamTableObj = JSON.parse(queryObject.parameter);
 
               var key;
-              _.each($('#arangoBindParamTable input'), function (element) {
+              _.each($('#avocadoBindParamTable input'), function (element) {
                 key = $(element).attr('name');
                 if (typeof self.bindParamTableObj[key] === 'object') {
                   $(element).val(JSON.parse(self.bindParamTableObj[key]));
@@ -824,21 +824,21 @@
     resizeFunction: function () {
       if ($('#toggleQueries1').is(':visible')) {
         this.aqlEditor.resize();
-        $('#arangoBindParamTable thead').css('width', $('#bindParamEditor').width());
-        $('#arangoBindParamTable thead th').css('width', $('#bindParamEditor').width() / 2);
-        $('#arangoBindParamTable tr').css('width', $('#bindParamEditor').width());
-        $('#arangoBindParamTable tbody').css('height', $('#aqlEditor').height() - 35);
-        $('#arangoBindParamTable tbody').css('width', $('#bindParamEditor').width());
-        $('#arangoBindParamTable tbody tr').css('width', $('#bindParamEditor').width());
-        $('#arangoBindParamTable tbody td').css('width', $('#bindParamEditor').width() / 2);
+        $('#avocadoBindParamTable thead').css('width', $('#bindParamEditor').width());
+        $('#avocadoBindParamTable thead th').css('width', $('#bindParamEditor').width() / 2);
+        $('#avocadoBindParamTable tr').css('width', $('#bindParamEditor').width());
+        $('#avocadoBindParamTable tbody').css('height', $('#aqlEditor').height() - 35);
+        $('#avocadoBindParamTable tbody').css('width', $('#bindParamEditor').width());
+        $('#avocadoBindParamTable tbody tr').css('width', $('#bindParamEditor').width());
+        $('#avocadoBindParamTable tbody td').css('width', $('#bindParamEditor').width() / 2);
       } else {
         this.queryPreview.resize();
-        $('#arangoMyQueriesTable thead').css('width', $('#queryTable').width());
-        $('#arangoMyQueriesTable thead th').css('width', $('#queryTable').width() / 2);
-        $('#arangoMyQueriesTable tr').css('width', $('#queryTable').width());
-        $('#arangoMyQueriesTable tbody').css('height', $('#queryTable').height() - 35);
-        $('#arangoMyQueriesTable tbody').css('width', $('#queryTable').width());
-        $('#arangoMyQueriesTable tbody td').css('width', $('#queryTable').width() / 2);
+        $('#avocadoMyQueriesTable thead').css('width', $('#queryTable').width());
+        $('#avocadoMyQueriesTable thead th').css('width', $('#queryTable').width() / 2);
+        $('#avocadoMyQueriesTable tr').css('width', $('#queryTable').width());
+        $('#avocadoMyQueriesTable tbody').css('height', $('#queryTable').height() - 35);
+        $('#avocadoMyQueriesTable tbody').css('width', $('#queryTable').width());
+        $('#avocadoMyQueriesTable tbody td').css('width', $('#queryTable').width() / 2);
       }
     },
 
@@ -891,7 +891,7 @@
       if (e) {
         id = $(e.currentTarget).attr('name');
         // this.bindParamTableObj[id] = $(e.currentTarget).val()
-        this.bindParamTableObj[id] = arangoHelper.parseInput(e.currentTarget);
+        this.bindParamTableObj[id] = avocadoHelper.parseInput(e.currentTarget);
 
         var types = [
           'arraytype', 'objecttype', 'booleantype', 'numbertype', 'stringtype'
@@ -901,9 +901,9 @@
         });
         $(e.currentTarget).addClass(self.checkType($(e.currentTarget).val()));
       } else {
-        _.each($('#arangoBindParamTable input'), function (element) {
+        _.each($('#avocadoBindParamTable input'), function (element) {
           id = $(element).attr('name');
-          self.bindParamTableObj[id] = arangoHelper.parseInput(element);
+          self.bindParamTableObj[id] = avocadoHelper.parseInput(element);
         });
       }
       this.setCachedQuery(this.aqlEditor.getValue(), JSON.stringify(this.bindParamTableObj));
@@ -1055,7 +1055,7 @@
     },
 
     renderBindParamTable: function (init) {
-      $('#arangoBindParamTable tbody').html('');
+      $('#avocadoBindParamTable tbody').html('');
 
       if (init) {
         this.getCachedQuery();
@@ -1064,14 +1064,14 @@
       var counter = 0;
 
       _.each(this.bindParamTableObj, function (val, key) {
-        $('#arangoBindParamTable tbody').append(
+        $('#avocadoBindParamTable tbody').append(
           '<tr>' +
           '<td>' + key + '</td>' +
           '<td><input name=' + key + ' type="text"></input></td>' +
           '</tr>'
         );
         counter++;
-        _.each($('#arangoBindParamTable input'), function (element) {
+        _.each($('#avocadoBindParamTable input'), function (element) {
           if ($(element).attr('name') === key) {
             if (val instanceof Array) {
               $(element).val(JSON.stringify(val)).addClass('arraytype');
@@ -1084,7 +1084,7 @@
         });
       });
       if (counter === 0) {
-        $('#arangoBindParamTable tbody').append(
+        $('#avocadoBindParamTable tbody').append(
           '<tr class="noBgColor">' +
           '<td>No bind parameters defined.</td>' +
           '<td></td>' +
@@ -1103,7 +1103,7 @@
 
       if (query) {
         var attributeName;
-        _.each($('#arangoBindParamTable input'), function (elem) {
+        _.each($('#avocadoBindParamTable input'), function (elem) {
           attributeName = $(elem).attr('name');
           _.each(query.parameter, function (qVal, qKey) {
             if (qKey === attributeName) {
@@ -1116,7 +1116,7 @@
 
     fillBindParamTable: function (object) {
       _.each(object, function (val, key) {
-        _.each($('#arangoBindParamTable input'), function (element) {
+        _.each($('#avocadoBindParamTable input'), function (element) {
           if ($(element).attr('name') === key) {
             $(element).val(val);
           }
@@ -1390,10 +1390,10 @@
 
         var callback = function (error) {
           if (error) {
-            arangoHelper.arangoError('Query', 'Could not save query');
+            avocadoHelper.avocadoError('Query', 'Could not save query');
           } else {
             var self = this;
-            arangoHelper.arangoNotification('Saved query', '"' + queryName + '"');
+            avocadoHelper.avocadoNotification('Saved query', '"' + queryName + '"');
             this.collection.fetch({
               success: function () {
                 self.updateLocalQueries();
@@ -1511,7 +1511,7 @@
           try {
             bindVars = JSON.parse(bindVars);
           } catch (err) {
-            arangoHelper.arangoError('Query', 'Could not parse bind parameter');
+            avocadoHelper.avocadoError('Query', 'Could not parse bind parameter');
           }
         }
         this.collection.add({
@@ -1523,7 +1523,7 @@
 
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('Query', 'Could not save query');
+          avocadoHelper.avocadoError('Query', 'Could not save query');
         } else {
           var self = this;
           this.collection.fetch({
@@ -1556,7 +1556,7 @@
       var quit = false;
 
       if (this.aqlEditor.getValue().length === 0) {
-        arangoHelper.arangoError('Query', 'Your query is empty');
+        avocadoHelper.avocadoError('Query', 'Your query is empty');
         quit = true;
       }
 
@@ -1568,7 +1568,7 @@
         }
       });
       if (keys.length > 0) {
-        arangoHelper.arangoError('Bind Parameter', JSON.stringify(keys) + ' not defined.');
+        avocadoHelper.avocadoError('Bind Parameter', JSON.stringify(keys) + ' not defined.');
       }
 
       return quit;
@@ -1630,9 +1630,9 @@
       }
       if (data.query.length === 0) {
         if (selected) {
-          arangoHelper.arangoError('Query', 'Your query selection is empty!');
+          avocadoHelper.avocadoError('Query', 'Your query selection is empty!');
         } else {
-          arangoHelper.arangoError('Query', 'Your query is empty!');
+          avocadoHelper.avocadoError('Query', 'Your query is empty!');
         }
         data = false;
       } else {
@@ -1672,16 +1672,16 @@
       if (queryData) {
         $.ajax({
           type: 'POST',
-          url: arangoHelper.databaseUrl('/_api/cursor'),
+          url: avocadoHelper.databaseUrl('/_api/cursor'),
           headers: {
-            'x-arango-async': 'store'
+            'x-avocado-async': 'store'
           },
           data: queryData,
           contentType: 'application/json',
           processData: false,
           success: function (data, textStatus, xhr) {
-            if (xhr.getResponseHeader('x-arango-async-id')) {
-              self.queryCallbackFunction(xhr.getResponseHeader('x-arango-async-id'), counter);
+            if (xhr.getResponseHeader('x-avocado-async-id')) {
+              self.queryCallbackFunction(xhr.getResponseHeader('x-avocado-async-id'), counter);
             }
             $.noty.clearQueue();
             $.noty.closeAll();
@@ -1690,9 +1690,9 @@
           error: function (data) {
             try {
               var temp = JSON.parse(data.responseText);
-              arangoHelper.arangoError('[' + temp.errorNum + ']', temp.errorMessage);
+              avocadoHelper.avocadoError('[' + temp.errorNum + ']', temp.errorMessage);
             } catch (e) {
-              arangoHelper.arangoError('Query error', 'ERROR');
+              avocadoHelper.avocadoError('Query error', 'ERROR');
             }
             self.handleResult(counter);
           }
@@ -1770,7 +1770,7 @@
           // handle usual query
           result = self.analyseQuery(data.result);
           if (result.defaultType === 'table') {
-            $('#outputEditorWrapper' + counter + ' .arangoToolbarTop').after(
+            $('#outputEditorWrapper' + counter + ' .avocadoToolbarTop').after(
               '<div id="outputTable' + counter + '" class="outputTable"></div>'
             );
             $('#outputTable' + counter).show();
@@ -1783,7 +1783,7 @@
             $('#outputEditor' + counter).hide();
             success = true;
           } else if (result.defaultType === 'graph') {
-            $('#outputEditorWrapper' + counter + ' .arangoToolbarTop').after('<div id="outputGraph' + counter + '"></div>');
+            $('#outputEditorWrapper' + counter + ' .avocadoToolbarTop').after('<div id="outputGraph' + counter + '"></div>');
             $('#outputGraph' + counter).show();
             success = self.renderOutputGraph(result, counter);
 
@@ -1810,7 +1810,7 @@
             if (!css) {
               css = '';
             }
-            $('#outputEditorWrapper' + counter + ' .arangoToolbarTop .pull-left').append(
+            $('#outputEditorWrapper' + counter + ' .avocadoToolbarTop .pull-left').append(
               '<span class="' + css + '"><i class="fa ' + icon + '"></i><i class="iconText">' + value + '</i></span>'
             );
           };
@@ -1877,10 +1877,10 @@
         // deletion only necessary if result was not fully fetched
         var url;
         if (queryID && data.hasMore) {
-          url = arangoHelper.databaseUrl('/_api/cursor/' + encodeURIComponent(queryID));
+          url = avocadoHelper.databaseUrl('/_api/cursor/' + encodeURIComponent(queryID));
         } else {
           if (data.id && data.hasMore) {
-            url = arangoHelper.databaseUrl('/_api/cursor/' + encodeURIComponent(data.id));
+            url = avocadoHelper.databaseUrl('/_api/cursor/' + encodeURIComponent(data.id));
           }
         }
 
@@ -1921,7 +1921,7 @@
         self.cachedQueries[counter] = data;
         self.cachedQueries[counter].sentQuery = self.lastSentQueryString;
 
-        arangoHelper.arangoNotification('Query finished', 'Return to queries view to see the result.');
+        avocadoHelper.avocadoNotification('Query finished', 'Return to queries view to see the result.');
       }
     },
 
@@ -1931,12 +1931,12 @@
       if (queryID) {
         var cancelRunningQuery = function (id, counter) {
           $.ajax({
-            url: arangoHelper.databaseUrl('/_api/job/' + encodeURIComponent(id) + '/cancel'),
+            url: avocadoHelper.databaseUrl('/_api/job/' + encodeURIComponent(id) + '/cancel'),
             type: 'PUT',
             success: function () {
               window.clearTimeout(self.checkQueryTimer);
               $('#outputEditorWrapper' + counter).remove();
-              arangoHelper.arangoNotification('Query', 'Query canceled.');
+              avocadoHelper.avocadoNotification('Query', 'Query canceled.');
             }
           });
         };
@@ -1983,7 +1983,7 @@
       try {
         userLimit = parseInt($('#querySize').val());
       } catch (e) {
-        arangoHelper.arangoError('Parse Error', 'Could not parse defined user limit.');
+        avocadoHelper.avocadoError('Parse Error', 'Could not parse defined user limit.');
       }
       if (isNaN(userLimit)) {
         userLimit = true;
@@ -2016,9 +2016,9 @@
 
       // check if async query is finished
       var checkQueryStatus = function (cursorID) {
-        var url = arangoHelper.databaseUrl('/_api/job/' + encodeURIComponent(queryID));
+        var url = avocadoHelper.databaseUrl('/_api/job/' + encodeURIComponent(queryID));
         if (cursorID) {
-          url = arangoHelper.databaseUrl('/_api/cursor/' + encodeURIComponent(cursorID));
+          url = avocadoHelper.databaseUrl('/_api/cursor/' + encodeURIComponent(cursorID));
         }
 
         $.ajax({
@@ -2063,13 +2063,13 @@
 
             try {
               if (resp.statusText === 'Gone') {
-                arangoHelper.arangoNotification('Query', 'Query execution aborted.');
+                avocadoHelper.avocadoNotification('Query', 'Query execution aborted.');
                 self.removeOutputEditor(counter);
                 return;
               }
 
               error = JSON.parse(resp.responseText);
-              arangoHelper.arangoError('Query', error.errorMessage);
+              avocadoHelper.avocadoError('Query', error.errorMessage);
               if (error.errorMessage) {
                 if (error.errorMessage.match(/\d+:\d+/g) !== null) {
                   self.markPositionError(
@@ -2089,7 +2089,7 @@
                 return;
               }
               if (error.code !== 400 && error.code !== 404 && error.code !== 500 && error.code !== 403) {
-                arangoHelper.arangoNotification('Query', 'Successfully aborted.');
+                avocadoHelper.avocadoNotification('Query', 'Successfully aborted.');
               }
             }
 
@@ -2384,7 +2384,7 @@
 
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('Query', 'Could not reload queries');
+          avocadoHelper.avocadoError('Query', 'Could not reload queries');
         } else {
           self.updateLocalQueries();
           self.updateQueryTable();
@@ -2404,7 +2404,7 @@
       $.ajax({
         type: 'GET',
         cache: false,
-        url: 'js/arango/aqltemplates.json',
+        url: 'js/avocado/aqltemplates.json',
         contentType: 'application/json',
         processData: false,
         success: function (data) {
@@ -2417,7 +2417,7 @@
           if (callback) {
             callback(true);
           }
-          arangoHelper.arangoNotification('Query', 'Error while loading system templates');
+          avocadoHelper.avocadoNotification('Query', 'Error while loading system templates');
         }
       });
     },
@@ -2476,7 +2476,7 @@
     renderOutputGraph: function (data, counter) {
       this.graphViewers[counter] = new window.GraphViewer({
         name: undefined,
-        documentStore: window.App.arangoDocumentStore,
+        documentStore: window.App.avocadoDocumentStore,
         collection: new window.GraphCollection(),
         userConfig: window.App.userConfig,
         id: '#outputGraph' + counter,
@@ -2500,7 +2500,7 @@
 
       window.App.graphViewer = new window.GraphViewer({
         name: undefined,
-        documentStore: window.App.arangoDocumentStore,
+        documentStore: window.App.avocadoDocumentStore,
         collection: new window.GraphCollection(),
         userConfig: window.App.userConfig,
         noDefinedGraph: true,
@@ -2530,7 +2530,7 @@
 
             var callback = function (error) {
               if (error) {
-                arangoHelper.arangoError(
+                avocadoHelper.avocadoError(
                   'Custom Queries',
                   'Could not import old local storage queries'
                 );
@@ -2603,9 +2603,9 @@
       });
 
       if (csv.length > 0) {
-        arangoHelper.downloadLocalBlob(csv, 'csv');
+        avocadoHelper.downloadLocalBlob(csv, 'csv');
       } else {
-        arangoHelper.arangoError('Query error', 'Could not download the result.');
+        avocadoHelper.avocadoError('Query error', 'Could not download the result.');
       }
     }
 

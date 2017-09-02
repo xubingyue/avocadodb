@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Oreste Costa-Panaia
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@
 #include "Basics/tri-strings.h"
 #include "Basics/directories.h"
 
-using namespace arangodb::basics;
+using namespace avocadodb::basics;
 
 // .............................................................................
 // Some global variables which may be required later
@@ -98,7 +98,7 @@ void TRI_usleep(unsigned long waitTime) {
   }
 
   if (GetLastError() == ERROR_ALREADY_EXISTS) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "internal error in TRI_usleep()";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "internal error in TRI_usleep()";
     FATAL_ERROR_EXIT();
   }
 
@@ -114,7 +114,7 @@ void TRI_usleep(unsigned long waitTime) {
 
   if (result != WAIT_OBJECT_0) {
     CloseHandle(hTimer);
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "couldn't wait for timer in TRI_usleep()";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "couldn't wait for timer in TRI_usleep()";
     FATAL_ERROR_EXIT();
   }
 
@@ -136,7 +136,7 @@ static void InvalidParameterHandler(
     const wchar_t* file,        // file where code resides - NULL
     unsigned int line,          // line within file - NULL
     uintptr_t pReserved) {      // in case microsoft forget something
-  LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "Invalid handle parameter passed";
+  LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Invalid handle parameter passed";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -225,13 +225,13 @@ int initializeWindows(const TRI_win_initialize_e initializeWhat,
       errorCode = WSAStartup(wVersionRequested, &wsaData);
 
       if (errorCode != 0) {
-        LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "Could not find a usable Winsock DLL. WSAStartup returned "
+        LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Could not find a usable Winsock DLL. WSAStartup returned "
                     "an error.";
         return -1;
       }
 
       if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2) {
-        LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "Could not find a usable Winsock DLL. WSAStartup did not "
+        LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Could not find a usable Winsock DLL. WSAStartup did not "
                     "return version 2.2.";
         WSACleanup();
         return -1;
@@ -240,7 +240,7 @@ int initializeWindows(const TRI_win_initialize_e initializeWhat,
     }
 
     default: {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "Invalid windows initialization called";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Invalid windows initialization called";
       return -1;
     }
   }
@@ -481,7 +481,7 @@ int TRI_MapSystemError(DWORD error) {
 static HANDLE hEventLog = INVALID_HANDLE_VALUE;
 
 bool TRI_InitWindowsEventLog(void) {
-  hEventLog = RegisterEventSource(NULL, "ArangoDB");
+  hEventLog = RegisterEventSource(NULL, "AvocadoDB");
   if (NULL == hEventLog) {
     // well, fail then.
     return false;
@@ -498,7 +498,7 @@ void TRI_CloseWindowsEventlog(void) {
 /// @brief logs a message to the windows event log.
 /// we rather are keen on logging something at all then on being able to work
 /// with fancy dynamic buffers; thus we work with a static buffer.
-/// the arango internal logging will handle that usually.
+/// the avocado internal logging will handle that usually.
 ////////////////////////////////////////////////////////////////////////////////
 
 // No clue why there is no header for these...

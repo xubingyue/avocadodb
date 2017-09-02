@@ -5,7 +5,7 @@ Geo Queries
 It is recommended to use AQL instead, see [**Geo functions**](../../../AQL/Functions/Geo.html).
 {% endhint %}
 
-The ArangoDB allows to select documents based on geographic coordinates. In
+The AvocadoDB allows to select documents based on geographic coordinates. In
 order for this to work, a geo-spatial index must be defined.  This index will
 use a very elaborate algorithm to lookup neighbors that is a magnitude faster
 than a simple R* index.
@@ -41,20 +41,20 @@ this case you must give a hint using the *geo* operator which of indexes
 should be used in a query.
 
 ### Near
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 @startDocuBlock collectionNear
 
 ### Within
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 @startDocuBlock collectionWithin
 
 ### Geo
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 @startDocuBlock collectionGeo
 
 ### Related topics
 
-Other ArangoDB geographic features are described in: 
+Other AvocadoDB geographic features are described in: 
 - [AQL Geo functions](../../../AQL/Functions/Geo.html)
 - [Geo indexes](../../Indexing/Geo.md)  
 

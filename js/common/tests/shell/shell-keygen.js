@@ -30,9 +30,9 @@
 
 var jsunity = require("jsunity");
 
-var arangodb = require("@arangodb");
-var db = arangodb.db;
-var ERRORS = arangodb.errors;
+var avocadodb = require("@avocadodb");
+var db = avocadodb.db;
+var ERRORS = avocadodb.errors;
 
 
 ////////////////////////////////////////////////////////////////////////////////

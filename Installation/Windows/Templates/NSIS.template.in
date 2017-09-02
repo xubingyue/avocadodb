@@ -26,11 +26,11 @@
 !define VERSION "@CPACK_PACKAGE_VERSION@"
 !define PATCH  "@CPACK_PACKAGE_VERSION_PATCH@"
 !define INST_DIR "@CPACK_TEMPORARY_DIRECTORY@"
-!define ARANGO_INI "etc\arangodb3\arangod.conf"
+!define ARANGO_INI "etc\avocadodb3\avocadod.conf"
 ;--------------------------------
 ; custom defines for the DRY people of us.
 !define TRI_UNINSTALL_REG_PATH "Software\Microsoft\Windows\CurrentVersion\Uninstall\@CPACK_PACKAGE_INSTALL_REGISTRY_KEY@";
-# Comes from WaitForService: !define TRI_SVC_NAME 'ArangoDB'
+# Comes from WaitForService: !define TRI_SVC_NAME 'AvocadoDB'
 ; Put some of the more custom ones in from the CMakeFile:
 @CPACK_ARANGODB_NSIS_DEFINES@
 
@@ -134,16 +134,16 @@ RequestExecutionLevel highest
     ${OrIf} $0 == 1
       StrCpy $INSTDIR "@CPACK_NSIS_INSTALL_ROOT@\@CPACK_PACKAGE_INSTALL_DIRECTORY@"
     ${EndIf}
-    StrCpy $DATADIR "$APPDATA\ArangoDB\"
-    StrCpy $APPDIR "$APPDATA\ArangoDB-apps\"
+    StrCpy $DATADIR "$APPDATA\AvocadoDB\"
+    StrCpy $APPDIR "$APPDATA\AvocadoDB-apps\"
   ${Else}
     SetShellVarContext current
     ${If} $INSTDIR == ""
     ${OrIf} $0 == 1
       StrCpy $INSTDIR "$LOCALAPPDATA\@CPACK_PACKAGE_INSTALL_DIRECTORY@"
     ${EndIf}
-    StrCpy $DATADIR "$LOCALAPPDATA\ArangoDB\"
-    StrCpy $APPDIR "$LOCALAPPDATA\ArangoDB-apps\"
+    StrCpy $DATADIR "$LOCALAPPDATA\AvocadoDB\"
+    StrCpy $APPDIR "$LOCALAPPDATA\AvocadoDB-apps\"
   ${EndIf}
 FunctionEnd
 !macroend
@@ -167,11 +167,11 @@ Function edit_finish_page
   IfSilent 0 continueUI
   Return
 continueUI:
-  ${NSD_CreateCheckbox} 120u -20u 50% 20u "Launch ArangoDB?"
+  ${NSD_CreateCheckbox} 120u -20u 50% 20u "Launch AvocadoDB?"
   Pop $CB_Launch
   ${NSD_Check} $CB_Launch
 FunctionEnd
-Function check_launch_arangodb
+Function check_launch_avocadodb
   ${NSD_GetState} $CB_Launch $0
   ${If} $0 <> 0
     StrCpy $LaunchAfterInstall "1"
@@ -423,7 +423,7 @@ Var AR_RegFlags
   !insertmacro MUI_PAGE_INSTFILES
 
   !define MUI_PAGE_CUSTOMFUNCTION_SHOW edit_finish_page
-  !define MUI_PAGE_CUSTOMFUNCTION_LEAVE check_launch_arangodb
+  !define MUI_PAGE_CUSTOMFUNCTION_LEAVE check_launch_avocadodb
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro MUI_UNPAGE_WELCOME
@@ -512,7 +512,7 @@ displayAgain:
   ${NSD_CreateLabel} 0 20 100% 6% "Choose to install @CPACK_PACKAGE_NAME@ for all users or the current user:"
   Pop $0 ; Don't care...
 
-  StrCpy $ForAllTxt "for all users (and ArangoDB as a service)"
+  StrCpy $ForAllTxt "for all users (and AvocadoDB as a service)"
   ${If} $AllowGlobalInstall == "0"
     StrCpy $ForAllTxt "$ForAllTxt (only available for privileged users)"
   ${EndIf}
@@ -526,10 +526,10 @@ displayAgain:
   ${NSD_CreateCheckBox} 0 -100 100% 6% "Choose custom install paths for databases and installation"
   Pop $Dlg1_CB_custom_path
 
-  ;${NSD_CreateCheckBox} 0 -120 100% 6% "Enable ArangoDBs own logfiles"
+  ;${NSD_CreateCheckBox} 0 -120 100% 6% "Enable AvocadoDBs own logfiles"
   ;Pop $Dlg1_CB_custom_logging
 
-  ${NSD_CreateCheckBox} 0 -80 100% 6% "Automatically update existing ArangoDB database"
+  ${NSD_CreateCheckBox} 0 -80 100% 6% "Automatically update existing AvocadoDB database"
   Pop $Dlg1_CB_automatic_update
   ${NSD_SetState} $Dlg1_CB_automatic_update ${BST_CHECKED}
 
@@ -653,7 +653,7 @@ continueUI:
 
   !insertmacro MUI_HEADER_TEXT "Configure @CPACK_PACKAGE_NAME@" "Choose configuration options for @CPACK_NSIS_PACKAGE_NAME@"
 
-  ${NSD_CreateLabel} 0, 0, 100% 6% "Type password for the ArangoDB root user:"
+  ${NSD_CreateLabel} 0, 0, 100% 6% "Type password for the AvocadoDB root user:"
   Pop $0 ; Don't care...
   ${NSD_CreatePassword} 5u 30 30% 6% ""
   Pop $Dlg2_PW_1
@@ -664,7 +664,7 @@ continueUI:
   ${NSD_CreateLabel} 35% 50 40% 6% "Password (Again)"
   Pop $0 ; Don't care...
 
-  ${NSD_CreateLabel} 0, 90, 100% 6% "Choose the stogare engine to use for this ArangoDB Installation"
+  ${NSD_CreateLabel} 0, 90, 100% 6% "Choose the stogare engine to use for this AvocadoDB Installation"
   Pop $0 ; Don't care...
 
   ${NSD_CreateDropList} 5, 110, 30% 6% ""
@@ -716,7 +716,7 @@ FunctionEnd
 Function UpgradeExisting
   ; Check whether we acutally should upgrade:
   DetailPrint "Checking whether an existing database needs upgrade: "
-  ExecWait "$INSTDIR\${SBIN_DIR}\arangod.exe --server.rest-server false --log.foreground-tty false --database.check-version" $0
+  ExecWait "$INSTDIR\${SBIN_DIR}\avocadod.exe --server.rest-server false --log.foreground-tty false --database.check-version" $0
   DetailPrint "done Checking whether an existing database needs upgrade: $0"
   ${If} $0 == 1
   ${AndIf} $AUTOMATIC_UPDATE == "1"
@@ -738,7 +738,7 @@ Function UpgradeExisting
     ${EndIf}
     DetailPrint "Attempting to run database upgrade: "
     ; Now actually do the upgrade
-    ExecWait "$INSTDIR\${SBIN_DIR}\arangod.exe --server.rest-server false  --log.level error --database.auto-upgrade true" $0
+    ExecWait "$INSTDIR\${SBIN_DIR}\avocadod.exe --server.rest-server false  --log.level error --database.auto-upgrade true" $0
     DetailPrint "Done running database upgrade: $0"
     ${If} $0 == 1
       MessageBox MB_ICONEXCLAMATION "the Upgrade failed, please do a manual upgrade"
@@ -753,7 +753,7 @@ Function SetDBPassword
   DetailPrint "preserved password: $0"
   StrCmp $0 0 error
   DetailPrint "Attempting to initialize the database with a password: "
-  ExecWait "$INSTDIR\${SBIN_DIR}\arangod.exe --database.init-database --server.rest-server false --server.statistics false --foxx.queues false" $0
+  ExecWait "$INSTDIR\${SBIN_DIR}\avocadod.exe --database.init-database --server.rest-server false --server.statistics false --foxx.queues false" $0
   DetailPrint "Done initializing password: $0"
   ${If} $0 == 0
     return
@@ -765,7 +765,7 @@ FunctionEnd
 
 Function InstallService
      DetailPrint "Installing service ${TRI_SVC_NAME}: "
-     SimpleSC::InstallService '${TRI_SVC_NAME}' ''  '16'  '2'  '"$INSTDIR\${SBIN_DIR}\arangod.exe" --start-service' '' '' ''
+     SimpleSC::InstallService '${TRI_SVC_NAME}' ''  '16'  '2'  '"$INSTDIR\${SBIN_DIR}\avocadod.exe" --start-service' '' '' ''
      Pop $0
      DetailPrint "Status: $0; Setting Description: ${TRI_FRIENDLY_SVC_NAME}"
      SimpleSC::SetServiceDescription '${TRI_SVC_NAME}' '${TRI_FRIENDLY_SVC_NAME}'
@@ -779,7 +779,7 @@ Function InstallService
        Pop $2
        Pop $1
        Pop $0
-       !define SC_WAITED "Waited 40 seconds for the ArangoDB service to come up;"
+       !define SC_WAITED "Waited 40 seconds for the AvocadoDB service to come up;"
        !define SC_SV "Please look at $\r$\n`sc query ${TRI_SVC_NAME}`"
        !define SC_EVLOG "and the Windows Eventlog for eventual errors!"
        ${If} $1 == "1066"
@@ -887,21 +887,21 @@ Section "-Core installation"
 
   ;Create shortcuts
   CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
-  CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Arango Shell.lnk"  "$INSTDIR\${BIN_DIR}\arangosh.exe"  '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMAXIMIZED
-  StrCpy $LaunchLink "$SMPROGRAMS\$STARTMENU_FOLDER\Arango Server.lnk"
-  CreateShortCut  "$LaunchLink" "$INSTDIR\${SBIN_DIR}\arangod.exe"   '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMINIMIZED
+  CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Avocado Shell.lnk"  "$INSTDIR\${BIN_DIR}\avocadosh.exe"  '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMAXIMIZED
+  StrCpy $LaunchLink "$SMPROGRAMS\$STARTMENU_FOLDER\Avocado Server.lnk"
+  CreateShortCut  "$LaunchLink" "$INSTDIR\${SBIN_DIR}\avocadod.exe"   '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMINIMIZED
   CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall.lnk"     "$INSTDIR\Uninstall.exe"
 
   ;Read a value from an InstallOptions INI file
 
   StrCmp "0" "$ADD_DESKTOP_ICON" noDesktopIcon
-  CreateShortCut  "$DESKTOP\Arango Shell.lnk"  "$INSTDIR\${BIN_DIR}\arangosh.exe"  '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMAXIMIZED
-  CreateShortCut  "$DESKTOP\Arango Management Interface.lnk"  "http://127.0.0.1:8529"  '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMAXIMIZED
+  CreateShortCut  "$DESKTOP\Avocado Shell.lnk"  "$INSTDIR\${BIN_DIR}\avocadosh.exe"  '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMAXIMIZED
+  CreateShortCut  "$DESKTOP\Avocado Management Interface.lnk"  "http://127.0.0.1:8529"  '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMAXIMIZED
 
   ${If} $TRI_INSTALL_SERVICE == "0"
   ${AndIf} $ADD_DESKTOP_ICON == "1"
     ; if we don't install a service, add a desktop icon for the server.
-    CreateShortCut  "$DESKTOP\ArangoDB Server.lnk"  "$INSTDIR\${SBIN_DIR}\arangod.exe"  '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMINIMIZED
+    CreateShortCut  "$DESKTOP\AvocadoDB Server.lnk"  "$INSTDIR\${SBIN_DIR}\avocadod.exe"  '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMINIMIZED
   ${EndIf}
   noDesktopIcon:
 
@@ -926,7 +926,7 @@ Section "-Core installation"
     StrCpy $ini_LOGFILE "[log]$\r$\nfile = $LOGFILE$\r$\n"
   ${EndIf}
   StrCpy $newCfgValues "$ini_APPDIR$ini_DATADIR[server]$\r$\nstorage-engine = $STORAGE_ENGINE$\r$\n"
-  StrCpy $newCfgValuesFile "$INSTDIR\etc\arangodb3\newValues.ini"
+  StrCpy $newCfgValuesFile "$INSTDIR\etc\avocadodb3\newValues.ini"
   FileOpen $4  "$newCfgValuesFile" w
   FileWrite $4 "$newCfgValues"
   FileClose $4
@@ -992,7 +992,7 @@ Function check_installation_directory
    StrCmp $1 "0" handle_error
    return
    handle_error:
-     MessageBox MB_YESNO "you aren't allowed to install arango in $INSTDIR do you want try once more?" IDNO no
+     MessageBox MB_YESNO "you aren't allowed to install avocado in $INSTDIR do you want try once more?" IDNO no
        Abort
      no: Quit
 FunctionEnd
@@ -1007,7 +1007,7 @@ Function insert_registration_keys
   ${EndIf}
   Return
 there_are_erros: ;nothing
-  MessageBox MB_OK "There was an error during adding the installation keys to the registry$\nArango will work fine but there may be trouble during the deinstallation$\nplease contact @CPACK_NSIS_CONTACT@"
+  MessageBox MB_OK "There was an error during adding the installation keys to the registry$\nAvocado will work fine but there may be trouble during the deinstallation$\nplease contact @CPACK_NSIS_CONTACT@"
 
 FunctionEnd
 
@@ -1022,8 +1022,8 @@ Function un.onInit
     StrCpy $AllowGlobalInstall "0"
   ${EndIf}
 
-; arango may be installed on diferent places
-; determine if the arango was installed for a local user
+; avocado may be installed on diferent places
+; determine if the avocado was installed for a local user
   ${GetParameters} $R0
   ${GetOptions} $R0 "/PURGE_DB="    $PURGE_DB
   IfErrors 0 +2
@@ -1076,10 +1076,10 @@ Section "Uninstall"
   ;MessageBox MB_OK "Install to desktop: $ADD_DESKTOP_ICON "
 
   StrCmp "0" "$ADD_DESKTOP_ICON" noDesktopIconRemove
-  Delete  "$DESKTOP\Arango Shell.lnk"
-  Delete  "$DESKTOP\Arango Management Interface.lnk"
+  Delete  "$DESKTOP\Avocado Shell.lnk"
+  Delete  "$DESKTOP\Avocado Management Interface.lnk"
   ${If} $TRI_INSTALL_SERVICE == "0"
-    Delete "$DESKTOP\ArangoDB Server.lnk"
+    Delete "$DESKTOP\AvocadoDB Server.lnk"
   ${EndIf}
   noDesktopIconRemove:
 
@@ -1096,42 +1096,42 @@ Section "Uninstall"
     SimpleSC::GetServiceBinaryPath '${TRI_SVC_NAME}'
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
     Pop $1 ; returns the binary path of the service
-    ; $1 should contain '"$INSTDIR\${SBIN_DIR}\arangod.exe" --start-service' - if $INSTDIR is equal
+    ; $1 should contain '"$INSTDIR\${SBIN_DIR}\avocadod.exe" --start-service' - if $INSTDIR is equal
     ; to our $INSTDIR uninstall the service - else its another installation and we jump to Done instead.
-    ; MessageBox MB_OK ' current service: $1 ---- "$INSTDIR\${SBIN_DIR}\arangod.exe"'
-    StrCmp $1 '"$INSTDIR\${SBIN_DIR}\arangod.exe" --start-service' '' Done
+    ; MessageBox MB_OK ' current service: $1 ---- "$INSTDIR\${SBIN_DIR}\avocadod.exe"'
+    StrCmp $1 '"$INSTDIR\${SBIN_DIR}\avocadod.exe" --start-service' '' Done
     DetailPrint 'Shutting down Service ${TRI_SVC_NAME}'
     SimpleSC::StopService  '${TRI_SVC_NAME}' 0 30
     Call un.WaitForServiceDown
-    DetailPrint 'Removing ArangoDB Service'
+    DetailPrint 'Removing AvocadoDB Service'
     SimpleSC::RemoveService  '${TRI_SVC_NAME}'
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
     IntCmp $0 0 Done
     Push $0
     SimpleSC::GetErrorMessage
     Pop $0
-    DetailPrint 'Stopping ArangoDB fails - Reason: $0'
-    MessageBox MB_OK 'Stopping ArangoDB fails - Reason: $0'
+    DetailPrint 'Stopping AvocadoDB fails - Reason: $0'
+    MessageBox MB_OK 'Stopping AvocadoDB fails - Reason: $0'
   ${Else}
     IfFileExists "$DATADIR/LOCK" 0 +2
-    MessageBox MB_ICONEXCLAMATION "please stop the ArangoDB before continueing with the uninstallation!"
+    MessageBox MB_ICONEXCLAMATION "please stop the AvocadoDB before continueing with the uninstallation!"
   ${EndIf}
 Done:
   DetailPrint 'Removing files'
 
-  Delete "$INSTDIR\etc\arangodb3\arangod.conf.old"
+  Delete "$INSTDIR\etc\avocadodb3\avocadod.conf.old"
 
   StrCmp $PURGE_DB "0" dontDeleteDatabases
   DetailPrint 'Removing database files from $DATADIR: '
   RMDir /r "$DATADIR"
   DetailPrint 'Removing foxx services files from $APPDIR: '
   RMDir /r "$APPDIR"
-  RMDir /r "$INSTDIR\var\lib\arangodb3-apps"
+  RMDir /r "$INSTDIR\var\lib\avocadodb3-apps"
   RMDir    "$INSTDIR\var\lib"
-  RMDir /r "$INSTDIR\var\log\arangodb3"
+  RMDir /r "$INSTDIR\var\log\avocadodb3"
   dontDeleteDatabases:
     DetailPrint 'Removing programm files:'
-    DetailPrint "      RMDir $INSTDIR\usr\share\arangodb3\js\node\node_modules\graphql-sync"
+    DetailPrint "      RMDir $INSTDIR\usr\share\avocadodb3\js\node\node_modules\graphql-sync"
 
   ;Remove files we installed.
   ;Keep the list of directories here in sync with the File commands above.
@@ -1157,8 +1157,8 @@ Done:
   Delete "$SMPROGRAMS\$MUI_TEMP\Uninstall.lnk"
   ; Note, short cuts are created in $SMPROGRAMS\$STARTMENU_FOLDER but
   ; they are deleted from '$SMPROGRAMS\$MUI_TEMP'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Server.lnk'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Shell.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Server.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Shell.lnk'
 
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
@@ -1179,8 +1179,8 @@ Done:
   Delete "$SMPROGRAMS\$MUI_TEMP\Uninstall.lnk"
   ; Note, short cuts are created in $SMPROGRAMS\$STARTMENU_FOLDER but
   ; they are deleted from '$SMPROGRAMS\$MUI_TEMP'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Server.lnk'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Shell.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Server.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Shell.lnk'
 
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
@@ -1196,7 +1196,7 @@ Done:
   secondStartMenuDeleteLoopDone:
 
   DeleteRegKey /ifempty SHCTX "Software\@CPACK_PACKAGE_VENDOR@\@CPACK_PACKAGE_INSTALL_REGISTRY_KEY@"
-  ; Delete flag which controls if arango is started as service or no
+  ; Delete flag which controls if avocado is started as service or no
   ${If} ${UAC_IsInnerInstance}
      DeleteRegKey HKCC "Software\@CPACK_NSIS_PACKAGE_NAME@"
   ${Else}

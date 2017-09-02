@@ -8,7 +8,7 @@ out="$1"
 
 echo "" > $out
 
-progs="arangobench arangosh arangoimp arangodump arangorestore arangod"
+progs="avocadobench avocadosh avocadoimp avocadodump avocadorestore avocadod"
 
 for progname in $progs
   do
@@ -31,4 +31,4 @@ for progname in $progs
   done
 
 echo "completions stored in file $out"
-echo "now copy this file to /etc/bash_completion.d/arangodb"
+echo "now copy this file to /etc/bash_completion.d/avocadodb"

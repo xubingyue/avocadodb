@@ -25,11 +25,11 @@
 /// Copyright holder is triAGENS GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite for VelocyPack Externals

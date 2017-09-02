@@ -1,7 +1,7 @@
 itzpapalotl
 ===========
 
-This ia a simple example application written for ArangoDB-Foxx.
+This ia a simple example application written for AvocadoDB-Foxx.
 It returns a random Aztec deity name.
 
 The application provides a simple REST API with the following methods:

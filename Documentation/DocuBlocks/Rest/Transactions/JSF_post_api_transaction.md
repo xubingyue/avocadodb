@@ -30,7 +30,7 @@ transaction to write all data to disk before returning.
 @RESTBODYPARAM{lockTimeout,integer,optional,int64}
 an optional numeric value that can be used to set a
 timeout for waiting on collection locks. If not specified, a default
-value will be used. Setting *lockTimeout* to *0* will make ArangoDB
+value will be used. Setting *lockTimeout* to *0* will make AvocadoDB
 not time out waiting for a lock.
 
 @RESTBODYPARAM{params,string,optional,string}
@@ -115,7 +115,7 @@ Executing a transaction on a single collection
       collections: {
         write : "products"
       },
-      action: "function () { var db = require('@arangodb').db; db.products.save({});  return db.products.count(); }"
+      action: "function () { var db = require('@avocadodb').db; db.products.save({});  return db.products.count(); }"
     };
 
     var response = logCurlRequest('POST', url, body);
@@ -143,7 +143,7 @@ Executing a transaction using multiple collections
       },
       action: (
         "function () {" +
-        "var db = require('@arangodb').db;" +
+        "var db = require('@avocadodb').db;" +
         "db.products.save({});" +
         "db.materials.save({});" +
         "return 'worked!';" +
@@ -172,7 +172,7 @@ Aborting a transaction due to an internal error
       },
       action : (
         "function () {" +
-        "var db = require('@arangodb').db;" +
+        "var db = require('@avocadodb').db;" +
         "db.products.save({ _key: 'abc'});" +
         "db.products.save({ _key: 'abc'});" +
         "}"

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, Backbone, templateEngine, $, window, _ */
+/* global avocadoHelper, Backbone, templateEngine, $, window, _ */
 (function () {
   'use strict';
 
@@ -45,10 +45,10 @@
                 window.modalView.hide();
                 self.setCoordSize(number);
               } else {
-                arangoHelper.arangoError('Error', 'Invalid value. Must be a number.');
+                avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
               }
             } catch (e) {
-              arangoHelper.arangoError('Error', 'Invalid value. Must be a number.');
+              avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
             }
           } else if (e.target.id === 'plannedDBs') {
             try {
@@ -57,10 +57,10 @@
                 window.modalView.hide();
                 self.setDBsSize(number);
               } else {
-                arangoHelper.arangoError('Error', 'Invalid value. Must be a number.');
+                avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
               }
             } catch (e) {
-              arangoHelper.arangoError('Error', 'Invalid value. Must be a number.');
+              avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
             }
           }
         };
@@ -113,7 +113,7 @@
       if (window.confirm('Do you want to delete this node?')) {
         $.ajax({
           type: 'POST',
-          url: arangoHelper.databaseUrl('/_admin/cluster/removeServer'),
+          url: avocadoHelper.databaseUrl('/_admin/cluster/removeServer'),
           contentType: 'application/json',
           async: true,
           data: JSON.stringify(name),
@@ -122,7 +122,7 @@
           },
           error: function () {
             if (window.location.hash === '#nodes') {
-              arangoHelper.arangoError('Cluster', 'Could not fetch cluster information');
+              avocadoHelper.avocadoError('Cluster', 'Could not fetch cluster information');
             }
           }
         });
@@ -145,17 +145,17 @@
         var self = this;
 
         if ($('#content').is(':empty')) {
-          arangoHelper.renderEmpty('Please wait. Requesting cluster information...', 'fa fa-spin fa-circle-o-notch');
+          avocadoHelper.renderEmpty('Please wait. Requesting cluster information...', 'fa fa-spin fa-circle-o-notch');
         }
 
         if (navi !== false) {
-          arangoHelper.buildNodesSubNav('Overview');
+          avocadoHelper.buildNodesSubNav('Overview');
         }
 
         var scalingFunc = function (nodes) {
           $.ajax({
             type: 'GET',
-            url: arangoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
+            url: avocadoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
             contentType: 'application/json',
             success: function (data) {
               if (window.location.hash === '#nodes') {
@@ -168,7 +168,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/cluster/health'),
+          url: avocadoHelper.databaseUrl('/_admin/cluster/health'),
           contentType: 'application/json',
           processData: false,
           async: true,
@@ -179,7 +179,7 @@
           },
           error: function () {
             if (window.location.hash === '#nodes') {
-              arangoHelper.arangoError('Cluster', 'Could not fetch cluster information');
+              avocadoHelper.avocadoError('Cluster', 'Could not fetch cluster information');
             }
           }
         });
@@ -242,14 +242,14 @@
 
       $.ajax({
         type: 'PUT',
-        url: arangoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function () {
           self.updatePlanned(data);
         },
         error: function () {
-          arangoHelper.arangoError('Scale', 'Could not set coordinator size.');
+          avocadoHelper.avocadoError('Scale', 'Could not set coordinator size.');
         }
       });
     },
@@ -262,14 +262,14 @@
 
       $.ajax({
         type: 'PUT',
-        url: arangoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function () {
           self.updatePlanned(data);
         },
         error: function () {
-          arangoHelper.arangoError('Scale', 'Could not set coordinator size.');
+          avocadoHelper.avocadoError('Scale', 'Could not set coordinator size.');
         }
       });
     },
@@ -301,7 +301,7 @@
         this.setCoordSize(coords);
         this.setDBsSize(dbs);
       } catch (ignore) {
-        arangoHelper.arangoError('Plan', 'Could not abort Cluster Plan');
+        avocadoHelper.avocadoError('Plan', 'Could not abort Cluster Plan');
       }
     },
 
@@ -351,7 +351,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
+          url: avocadoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
           contentType: 'application/json',
           processData: false,
           success: function (data) {
@@ -384,7 +384,7 @@
       $.ajax({
         type: 'GET',
         cache: false,
-        url: arangoHelper.databaseUrl('/_admin/cluster/health'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/health'),
         contentType: 'application/json',
         processData: false,
         success: function (data) {
@@ -416,7 +416,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        arangoHelper.arangoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
         $('.noty_buttons .button-danger').remove();
       }
     },
@@ -430,7 +430,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        arangoHelper.arangoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
         $('.noty_buttons .button-danger').remove();
       }
     },
@@ -444,7 +444,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        arangoHelper.arangoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
         $('.noty_buttons .button-danger').remove();
       }
     },
@@ -458,7 +458,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        arangoHelper.arangoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
         $('.noty_buttons .button-danger').remove();
       }
     },

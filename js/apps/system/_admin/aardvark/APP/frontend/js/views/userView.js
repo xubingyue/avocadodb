@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global CryptoJS, _, arangoHelper, Backbone, window $ */
+/* global CryptoJS, _, avocadoHelper, Backbone, window $ */
 
 (function () {
   'use strict';
@@ -210,9 +210,9 @@
 
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('User', 'Could not edit user settings');
+          avocadoHelper.avocadoError('User', 'Could not edit user settings');
         } else {
-          arangoHelper.arangoNotification('User', 'Changes confirmed.');
+          avocadoHelper.avocadoNotification('User', 'Changes confirmed.');
           this.updateUserProfile();
         }
       }.bind(this);
@@ -236,25 +236,25 @@
 
       // check confirmation
       if (newPasswd !== confirmPasswd) {
-        arangoHelper.arangoError('User', 'New passwords do not match.');
+        avocadoHelper.avocadoError('User', 'New passwords do not match.');
         hasError = true;
       }
 
       if (!hasError) {
         this.currentUser.setPassword(newPasswd);
-        arangoHelper.arangoNotification('User', 'Password changed.');
+        avocadoHelper.avocadoNotification('User', 'Password changed.');
         window.modalView.hide();
       }
     },
 
     validateUsername: function (username) {
       if (username === '') {
-        arangoHelper.arangoError('You have to define an username');
+        avocadoHelper.avocadoError('You have to define an username');
         $('#newUsername').closest('th').css('backgroundColor', 'red');
         return false;
       }
       if (!username.match(/^[a-zA-Z][a-zA-Z0-9_-]*$/)) {
-        arangoHelper.arangoError(
+        avocadoHelper.avocadoError(
           'Wrong Username', 'Username may only contain numbers, letters, _ and -'
         );
         return false;
@@ -272,7 +272,7 @@
         return true;
       }
       if (!name.match(/^[a-zA-Z][a-zA-Z0-9_-]*$/)) {
-        arangoHelper.arangoError(
+        avocadoHelper.avocadoError(
           'Wrong Username', 'Username may only contain numbers, letters, _ and -'
         );
         return false;
@@ -296,10 +296,10 @@
       user.save({'extra': {'name': name}, 'active': status}, {
         type: 'PATCH',
         success: function () {
-          arangoHelper.arangoNotification('User', user.get('user') + ' updated.');
+          avocadoHelper.avocadoNotification('User', user.get('user') + ' updated.');
         },
         error: function () {
-          arangoHelper.arangoError('User', 'Could not update ' + user.get('user') + '.');
+          avocadoHelper.avocadoError('User', 'Could not update ' + user.get('user') + '.');
         }
       });
     },
@@ -311,7 +311,7 @@
         $('#subNavigationBar .breadcrumb').html(
           'User: ' + this.username
         );
-        arangoHelper.buildUserSubNav(self.currentUser.get('user'), 'General');
+        avocadoHelper.buildUserSubNav(self.currentUser.get('user'), 'General');
       } else {
         window.setTimeout(function () {
           self.breadcrumb();

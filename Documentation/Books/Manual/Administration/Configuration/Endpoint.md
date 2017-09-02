@@ -1,10 +1,10 @@
 Managing Endpoints
 ==================
 
-The ArangoDB server can listen for incoming requests on multiple *endpoints*.
+The AvocadoDB server can listen for incoming requests on multiple *endpoints*.
 
-The endpoints are normally specified either in ArangoDB's configuration file or
-on the command-line, using the `--server.endpoint`.  ArangoDB supports different
+The endpoints are normally specified either in AvocadoDB's configuration file or
+on the command-line, using the `--server.endpoint`.  AvocadoDB supports different
 types of endpoints:
 
 - tcp://ipv4-address:port - TCP/IP endpoint, using IPv4
@@ -17,19 +17,19 @@ If a TCP/IP endpoint is specified without a port number, then the default port
 (8529) will be used.  If multiple endpoints need to be used, the option can be
 repeated multiple times.
 
-The default endpoint for ArangoDB is *tcp://127.0.0.1:8529* or
+The default endpoint for AvocadoDB is *tcp://127.0.0.1:8529* or
 *tcp://localhost:8529*.
 
 **EXAMPLES**
 
 ```
-unix> ./arangod --server.endpoint tcp://127.0.0.1:8529
+unix> ./avocadod --server.endpoint tcp://127.0.0.1:8529
                 --server.endpoint ssl://127.0.0.1:8530
                 --ssl.keyfile server.pem /tmp/vocbase
 2012-07-26T07:07:47Z [8161] INFO using SSL protocol version 'TLSv1'
 2012-07-26T07:07:48Z [8161] INFO using endpoint 'ssl://127.0.0.1:8530' for http ssl requests
 2012-07-26T07:07:48Z [8161] INFO using endpoint 'tcp://127.0.0.1:8529' for http tcp requests
-2012-07-26T07:07:49Z [8161] INFO ArangoDB (version 1.1.alpha) is ready for business
+2012-07-26T07:07:49Z [8161] INFO AvocadoDB (version 1.1.alpha) is ready for business
 2012-07-26T07:07:49Z [8161] INFO Have Fun!
 ```
 
@@ -60,20 +60,20 @@ which is a virtual interface. By convention it always has the address
 host.  Ethernet interfaces usually have names like *eth0*, *wlan0*, *eth1:17*,
 *le0* or a plain text name in Windows.
 
-To find out which services already use ports (so ArangoDB can't bind them
+To find out which services already use ports (so AvocadoDB can't bind them
 anymore), you can use the
 [netstat command](http://en.wikipedia.org/wiki/Netstat)
 (it behaves a little different on each platform, run it with *-lnpt* on Linux,
 *-p tcp* on MacOSX or with *-an* on windows for valuable information).
 
-ArangoDB can also do a so called *broadcast bind* using
+AvocadoDB can also do a so called *broadcast bind* using
 *tcp://0.0.0.0:8529*. This way it will be reachable on all interfaces of the
 host. This may be useful on development systems that frequently change their
 network setup like laptops.
 
 ### Special note on IPv6 link-local addresses
 
-ArangoDB can also listen to IPv6 link-local addresses via adding the zone ID
+AvocadoDB can also listen to IPv6 link-local addresses via adding the zone ID
 to the IPv6 address in the form `[ipv6-link-local-address%zone-id]`. However,
 what you probably instead want is to bind to a local IPv6 address. Local IPv6
 addresses start with `fd`. If you only see a `fe80:` IPv6 address in your
@@ -89,8 +89,8 @@ Bind to a link-local and local IPv6 address.
 
 This command lists all interfaces and assigned ip addresses. The link-local
 address may be `fe80::6257:18ff:fe82:3ec6%eth0` (IPv6 address plus interface name).
-A local IPv6 address may be `fd12:3456::789a`. To bind ArangoDB to it start
-*arangod* with `--server.endpoint tcp://[fe80::6257:18ff:fe82:3ec6%eth0]:8529`.
+A local IPv6 address may be `fd12:3456::789a`. To bind AvocadoDB to it start
+*avocadod* with `--server.endpoint tcp://[fe80::6257:18ff:fe82:3ec6%eth0]:8529`.
 Use telnet to test the connection.
 
     unix> telnet fe80::6257:18ff:fe82:3ec6%eth0 8529
@@ -102,7 +102,7 @@ Use telnet to test the connection.
     HTTP/1.1 301 Moved Permanently
     Location: /_db/_system/_admin/aardvark/index.html
     Content-Type: text/html
-    Server: ArangoDB
+    Server: AvocadoDB
     Connection: Keep-Alive
     Content-Length: 197
     
@@ -121,7 +121,7 @@ again. This is why this is activated by default.
 
 Please note however that under some operating systems this can be a security
 risk because it might be possible for another process to bind to the same
-address and port, possibly hijacking network traffic. Under Windows, ArangoDB
+address and port, possibly hijacking network traffic. Under Windows, AvocadoDB
 additionally sets the flag SO_EXCLUSIVEADDRUSE as a measure to alleviate this
 problem.
 

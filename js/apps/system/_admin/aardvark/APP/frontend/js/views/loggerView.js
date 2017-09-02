@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, arangoHelper, $, _, window, templateEngine */
+/* global Backbone, avocadoHelper, $, _, window, templateEngine */
 
 (function () {
   'use strict';
@@ -39,7 +39,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/log/level'),
+          url: avocadoHelper.databaseUrl('/_admin/log/level'),
           contentType: 'application/json',
           processData: false,
           success: function (data) {
@@ -233,7 +233,7 @@
           active: active || false
         };
 
-        var color = arangoHelper.statusColors[name];
+        var color = avocadoHelper.statusColors[name];
 
         if (color) {
           self.logLevelOptions[name].color = color;
@@ -300,7 +300,7 @@
             date = new Date(model.get('timestamp') * 1000);
             entries.push({
               status: model.getLogStatus(),
-              date: arangoHelper.formatDT(date),
+              date: avocadoHelper.formatDT(date),
               timestamp: model.get('timestamp'),
               msg: model.get('text'),
               topic: model.get('topic')
@@ -354,7 +354,7 @@
       } else {
         $('#loadMoreEntries').attr('disabled', false);
       }
-      arangoHelper.createTooltips();
+      avocadoHelper.createTooltips();
       this.applyFilter();
     }
 

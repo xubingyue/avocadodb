@@ -1374,10 +1374,10 @@ textarea,
 ul.link-dropdown-menu, ul.user-dropdown-menu, ul.gv-dropdown-menu, div.navlogo, ul.navlist li, div.footer-left, div.footer-left p, a.headerButton, a.button-gui, div .tile, div .bigtile, div .tile a span.add-Icon, div .bigtile a span.add-Icon, div.centralContent, .contentDiv li, div.dropdownInner ul, .search-field, .fixedDropdown .notificationItemContent, .fixedDropdown .notificationItem i, .innerDropdownInnerUL, .dashboard-large-chart, .dashboard-medium-chart, .dashboard-small-chart, .dashboard-tendency-chart, .dashboard-subtitle-bar, .dashboard-tendency, .dashboard-interior-chart, .dashboard-legend, .modal-chart-detail, .modal-inner-detail, .modal-dashboard-legend, .dashboard-half-height-legend, .dashboard-title-bar .dashboard-half-title-bar, .dashboard-figure, .dashboardModal, .pagination-line li a {
   float: left; }
 
-div.navmenu, div.footer-right, div.footer-right p, ul.headerButtonList li, div .tile div.iconSet span, div .bigtile div.iconSet span, div.headerBar > div.headerButtonBar, .fixedDropdown button, .query-button, .arango-tab li, .show-save-state, div.gv_colour_list, .docsThirdCol {
+div.navmenu, div.footer-right, div.footer-right p, ul.headerButtonList li, div .tile div.iconSet span, div .bigtile div.iconSet span, div.headerBar > div.headerButtonBar, .fixedDropdown button, .query-button, .avocado-tab li, .show-save-state, div.gv_colour_list, .docsThirdCol {
   float: right; }
 
-div.tileList:after, div.resizecontainer:after, div.headerBar > div.headerButtonBar:after, .detail-chart:after, .dashboard-half-height-chart:after, .dashboard-row:after, #distributionChartDiv:after, .lineChartDiv:after, .arango-tab:after, .pagination-line li:after {
+div.tileList:after, div.resizecontainer:after, div.headerBar > div.headerButtonBar:after, .detail-chart:after, .dashboard-half-height-chart:after, .dashboard-row:after, #distributionChartDiv:after, .lineChartDiv:after, .avocado-tab:after, .pagination-line li:after {
   clear: both;
   content: '.';
   display: block;
@@ -1385,7 +1385,7 @@ div.tileList:after, div.resizecontainer:after, div.headerBar > div.headerButtonB
   height: 0;
   visibility: hidden; }
 
-.addButton, .deleteButton, a.headerButton, a.button-gui, div.toolbox div.gv_action_button, .clusterDownBtn button, div .tile a span.icon, div .bigtile a span.icon, div .tile a svg, div .bigtile a svg, div .tile div.iconSet span, div .bigtile div.iconSet span, div .bigtile, .contentDiv .icon, .icon-info-sign, .arangoicon, div.headerDropdown.headerDropdown input[type=checkbox].css-checkbox + label.css-label, .search-submit-icon, .gv-search-submit-icon, .fixedDropdown .notificationItem i, .fullNotification:hover, .contentTables tr.contentRowInactive a, .arango-tab a, .arango-tab li, .pagination-line li a, .link > line, .node, .edit-index-table .icon_arangodb_roundminus {
+.addButton, .deleteButton, a.headerButton, a.button-gui, div.toolbox div.gv_action_button, .clusterDownBtn button, div .tile a span.icon, div .bigtile a span.icon, div .tile a svg, div .bigtile a svg, div .tile div.iconSet span, div .bigtile div.iconSet span, div .bigtile, .contentDiv .icon, .icon-info-sign, .avocadoicon, div.headerDropdown.headerDropdown input[type=checkbox].css-checkbox + label.css-label, .search-submit-icon, .gv-search-submit-icon, .fixedDropdown .notificationItem i, .fullNotification:hover, .contentTables tr.contentRowInactive a, .avocado-tab a, .avocado-tab li, .pagination-line li a, .link > line, .node, .edit-index-table .icon_avocadodb_roundminus {
   cursor: pointer; }
 
 nav.navbar, footer.footer {
@@ -1402,9 +1402,9 @@ nav.navbar, footer.footer {
   .button-danger:hover, .button-danger:focus {
     background-color: #be342e; }
 
-.deleteButton, .contentTables td span, .edit-index-table .icon_arangodb_roundminus {
+.deleteButton, .contentTables td span, .edit-index-table .icon_avocadodb_roundminus {
   color: #da4f49; }
-  .deleteButton:hover, .contentTables td span:hover, .edit-index-table .icon_arangodb_roundminus:hover, .deleteButton:focus, .contentTables td span:focus, .edit-index-table .icon_arangodb_roundminus:focus {
+  .deleteButton:hover, .contentTables td span:hover, .edit-index-table .icon_avocadodb_roundminus:hover, .deleteButton:focus, .contentTables td span:focus, .edit-index-table .icon_avocadodb_roundminus:focus {
     color: #be342e; }
 
 .button-success {
@@ -1571,7 +1571,7 @@ ul.gv-dropdown-menu {
       background-color: #8aa051 !important;
       background-image: none; }
 
-#arangoCollectionSelect {
+#avocadoCollectionSelect {
   display: none;
   float: right;
   margin-bottom: 0;
@@ -1591,10 +1591,10 @@ ul.gv-dropdown-menu {
 .applications-menu {
   display: block; }
 
-.arango-logo {
+.avocado-logo {
   height: 34px;
   padding: 0 !important; }
-  .arango-logo img {
+  .avocado-logo img {
     margin-left: 22px; }
 
 .footer {
@@ -1698,15 +1698,15 @@ a.headerButton {
   padding-bottom: 2px;
   position: relative;
   width: 9px; }
-  a.headerButton .icon_arangodb_filter {
+  a.headerButton .icon_avocadodb_filter {
     top: 3px !important; }
-  a.headerButton .icon_arangodb_import {
+  a.headerButton .icon_avocadodb_import {
     top: 1px !important; }
-  a.headerButton .icon_arangodb_checklist {
+  a.headerButton .icon_avocadodb_checklist {
     right: 5px;
     top: 3px !important; }
-  a.headerButton .icon_arangodb_arrowleft,
-  a.headerButton .icon_arangodb_arrowright {
+  a.headerButton .icon_avocadodb_arrowleft,
+  a.headerButton .icon_avocadodb_arrowright {
     font-weight: bold; }
   a.headerButton.activated {
     background-color: #788f3d;
@@ -1840,7 +1840,7 @@ button.gv-zoom-btn {
     background-image: url("../img/gv_arrow_bottom.png"); }
 
 a.pagination-button,
-ul.arango-pagination a {
+ul.avocado-pagination a {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px; }
@@ -2039,20 +2039,20 @@ div.resizecontainer {
   margin: 0 auto; }
 
 @media (max-width: 798px) {
-  #arangoCollectionUl {
+  #avocadoCollectionUl {
     display: none; }
 
   #collectionsDropdown ul {
     width: auto !important; }
 
-  #arangoCollectionSelect {
+  #avocadoCollectionSelect {
     display: inline-block; } }
 @media (min-width: 799px) and (max-width: 1041px) {
-  #arangoCollectionUl a {
+  #avocadoCollectionUl a {
     font-size: 12px;
     padding: 10px 5px; } }
 @media (min-width: 1042px) and (max-width: 1284px) {
-  #arangoCollectionUl a {
+  #avocadoCollectionUl a {
     font-size: 14px; } }
 @media (min-width: 240px) and (max-width: 479px) {
   div.resizecontainer {
@@ -2673,12 +2673,12 @@ div.centralContent {
   .waitModal.message {
     font-size: 20px; }
 
-.icon_arangodb_info {
+.icon_avocadodb_info {
   color: #333333;
   font-size: 23px; }
 
-li a [class^="icon_arangodb"],
-li a [class*=" icon_arangodb"] {
+li a [class^="icon_avocadodb"],
+li a [class*=" icon_avocadodb"] {
   font-size: 18px;
   position: absolute;
   right: 4px;
@@ -2879,8 +2879,8 @@ div.headerBar {
   div.headerBar input[type="radio"]:checked + label span {
     background: url("../img/check_radio_sheet.png") -57px top no-repeat; }
 
-div.headerBar a.arangoHeader,
-.modal-header .arangoHeader {
+div.headerBar a.avocadoHeader,
+.modal-header .avocadoHeader {
   color: white;
   font-size: 16px;
   left: 5px;
@@ -2897,7 +2897,7 @@ div.headerBar > div.breadcrumb {
 div.breadcrumb a.disabledBread {
   color: white; }
 
-.arangoHeader {
+.avocadoHeader {
   font-weight: 400; }
 
 #transparentHeader input[type=checkbox].css-checkbox {
@@ -3017,7 +3017,7 @@ pre.gv-object-view {
   padding-right: 10px;
   padding-top: 4px; }
 
-.modal-header .arangoHeader {
+.modal-header .avocadoHeader {
   position: relative;
   top: 3px; }
 
@@ -3032,14 +3032,14 @@ pre.gv-object-view {
 .modal-header .close:hover {
   opacity: 1; }
 
-.modal-body .icon_arangodb_info {
+.modal-body .icon_avocadodb_info {
   color: #736b68;
   font-size: 18px;
   margin-top: -10px;
   position: absolute;
   right: 12px; }
 
-.modal-body .icon_arangodb_info:hover {
+.modal-body .icon_avocadodb_info:hover {
   color: black; }
 
 .modal.fade.in {
@@ -3229,7 +3229,7 @@ pre.gv-object-view {
   color: #736b68; }
   .index-tooltip:hover {
     color: black; }
-  .index-tooltip span.arangoicon {
+  .index-tooltip span.avocadoicon {
     font-size: 18px !important; }
 
 .tooltipInfoTh {
@@ -3471,7 +3471,7 @@ pre.gv-object-view {
     font-size: 18px;
     position: relative;
     top: -2px; }
-  .editor-toolbar .arango-icon-disk {
+  .editor-toolbar .avocado-icon-disk {
     margin-top: 1px; }
 
 .aql-editor {
@@ -3632,7 +3632,7 @@ pre.gv-object-view {
   display: none; }
   .query-div > * {
     border: 0 !important; }
-  .query-div .icon_arangodb {
+  .query-div .icon_avocadodb {
     cursor: pointer;
     margin-bottom: 5px; }
 
@@ -3653,14 +3653,14 @@ pre.gv-object-view {
   margin-right: 20px;
   width: auto !important; }
 
-.arango-tab {
+.avocado-tab {
   border-bottom: 1px solid #dddddd;
   list-style: none;
   margin-bottom: -1px;
   margin-left: 0;
   margin-right: 15px;
   padding-bottom: 0; }
-  .arango-tab a {
+  .avocado-tab a {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -3675,14 +3675,14 @@ pre.gv-object-view {
     min-width: 50px;
     padding: 2px 15px;
     text-align: center; }
-  .arango-tab li {
+  .avocado-tab li {
     background-color: transparent;
     border: 0;
     margin-bottom: -1px;
     margin-left: 2px;
     position: relative;
     z-index: 900; }
-    .arango-tab li.active a {
+    .avocado-tab li.active a {
       background: white;
       border-bottom-color: white;
       border-left-color: #888888;
@@ -3779,15 +3779,15 @@ pre.gv-object-view {
 .collection-pagination {
   margin-left: 23px !important; }
 
-.arango-pagination i.fa, .pre-pagi i.fa,
+.avocado-pagination i.fa, .pre-pagi i.fa,
 .las-pagi i.fa {
   font-size: 19px;
   position: relative;
   top: -2px; }
 
-.arango-pagination li:first-child {
+.avocado-pagination li:first-child {
   margin-right: 20px; }
-.arango-pagination li:last-child {
+.avocado-pagination li:last-child {
   margin-left: 30px; }
 
 .pre-pagi {
@@ -3939,7 +3939,7 @@ textarea,
     border-collapse: separate;
     border-spacing: 0 5px;
     table-layout: fixed !important; }
-  .log-content-id .arango-tab {
+  .log-content-id .avocado-tab {
     border-bottom: 0 !important; }
   .log-content-id .tab-content {
     margin-top: 1px !important; }
@@ -4006,13 +4006,13 @@ textarea,
 .dataTables_info {
   display: none; }
 
-#arangoLogTable tbody td:nth-child(1) {
+#avocadoLogTable tbody td:nth-child(1) {
   text-align: center;
   width: 80px; }
-#arangoLogTable tbody td:nth-child(2) {
+#avocadoLogTable tbody td:nth-child(2) {
   text-align: center;
   width: 80px; }
-#arangoLogTable tbody td:nth-child(3) {
+#avocadoLogTable tbody td:nth-child(3) {
   width: auto; }
 
 div.gv_zoom_widget {
@@ -4115,7 +4115,7 @@ input.gv-radio-button {
 .addCollection table tr {
   border-bottom: 0 !important;
   height: 53px; }
-.addCollection .icon_arangodb_info {
+.addCollection .icon_avocadodb_info {
   margin-left: 20px !important;
   position: relative;
   top: 2px !important; }
@@ -4209,7 +4209,7 @@ input.gv-radio-button {
 #confirmCreateEdge {
   margin-left: 20px; }
 
-.collection-info-figures .icon_arangodb_info {
+.collection-info-figures .icon_avocadodb_info {
   position: relative !important;
   right: -4px !important; }
 
@@ -4237,82 +4237,82 @@ input.gv-radio-button {
     color: #00f; }
 
 @media (max-width: 798px) {
-  .arango-collection-ul {
+  .avocado-collection-ul {
     display: none; }
 
   .collection-dropdown ul {
     width: auto !important; }
 
-  .arango-collection-select {
+  .avocado-collection-select {
     display: inline-block; } }
 @media (min-width: 799px) and (max-width: 1041px) {
-  .arango-collection-ul a {
+  .avocado-collection-ul a {
     font-size: 11px;
     padding: 7px 5px 10px; } }
 @media (min-width: 1042px) and (max-width: 1284px) {
-  .arango-collection-ul a {
+  .avocado-collection-ul a {
     font-size: 13px; } }
-.arango-table {
+.avocado-table {
   border-top: 1px solid #000;
   width: 100%; }
-  .arango-table thead {
+  .avocado-table thead {
     background-color: #fff; }
-    .arango-table thead th {
+    .avocado-table thead th {
       border-bottom: 1px solid #c2c2c2;
       height: 43px; }
-  .arango-table tbody tr:nth-child(even) {
+  .avocado-table tbody tr:nth-child(even) {
     background-color: #fff; }
-  .arango-table tbody tr:nth-child(odd) {
+  .avocado-table tbody tr:nth-child(odd) {
     background: #f1f0ee; }
-  .arango-table tbody td {
+  .avocado-table tbody td {
     padding: 10px 18px; }
 
-.arango-tabbar {
+.avocado-tabbar {
   height: 27px;
   width: 100%; }
-  .arango-tabbar button {
+  .avocado-tabbar button {
     background: #f1f0ee;
     border: 0;
     float: right;
     height: 27px;
     width: 82px; }
-  .arango-tabbar .arango-active-tab {
+  .avocado-tabbar .avocado-active-tab {
     background-color: #fff;
     border-left: 1px solid #000;
     border-right: 1px solid #000;
     border-top: 1px solid #000; }
 
-.arangoDataTable {
+.avocadoDataTable {
   border-spacing: 0 0;
   position: relative;
   table-layout: fixed !important;
   width: 100% !important; }
-  .arangoDataTable thead {
+  .avocadoDataTable thead {
     background-color: #fff !important;
     font-weight: 400 !important;
     text-align: left; }
-    .arangoDataTable thead th {
+    .avocadoDataTable thead th {
       border-bottom: 0;
       cursor: default !important;
       font-weight: 400 !important;
       padding: 10px 14px !important; }
-    .arangoDataTable thead tr {
+    .avocadoDataTable thead tr {
       border-bottom: 1px solid #c2c2c2; }
-  .arangoDataTable tr {
+  .avocadoDataTable tr {
     cursor: pointer; }
-  .arangoDataTable td {
+  .avocadoDataTable td {
     padding: 10px 18px !important; }
-  .arangoDataTable .key {
+  .avocadoDataTable .key {
     margin-top: 4px; }
-  .arangoDataTable .dataTable .noPointer tr {
+  .avocadoDataTable .dataTable .noPointer tr {
     cursor: default; }
 
 .api-container #resources > li.resource:nth-child(even),
-table.arangoDataTable tr.even {
+table.avocadoDataTable tr.even {
   background-color: #fff; }
 
 .api-container #resources > li.resource:nth-child(odd),
-table.arangoDataTable tr.odd {
+table.avocadoDataTable tr.odd {
   background-color: #f1f0ee; }
 
 #tableDiv table.dataTable td {
@@ -4384,18 +4384,18 @@ table .sorting {
     padding-bottom: 5px;
     padding-left: 5px;
     padding-top: 5px; }
-  .edit-index-table .icon_arangodb_locked {
+  .edit-index-table .icon_avocadodb_locked {
     color: rgba(0, 0, 0, 0.5);
     cursor: default;
     font-size: 20px;
     margin-left: 10px; }
-  .edit-index-table .icon_arangodb_roundminus {
+  .edit-index-table .icon_avocadodb_roundminus {
     font-size: 20px;
     margin-left: 10px; }
 
 .contentIn > div {
   padding: 10px; }
-.contentIn .arangoicon {
+.contentIn .avocadoicon {
   font-size: 25px;
   position: relative;
   top: -3px !important; }

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@
 #include <libplatform/libplatform.h>
 #include <v8.h>
 
-namespace arangodb {
+namespace avocadodb {
 class V8PlatformFeature final
     : public application_features::ApplicationFeature {
  private:
@@ -81,7 +81,7 @@ class V8PlatformFeature final
   std::unique_ptr<v8::ArrayBuffer::Allocator> _allocator;
   std::string _v8CombinedOptions;
   
-  arangodb::Mutex _lock; // to protect vector _isolateData
+  avocadodb::Mutex _lock; // to protect vector _isolateData
   std::unordered_map<v8::Isolate*, std::unique_ptr<IsolateData>> _isolateData;
 };
 }

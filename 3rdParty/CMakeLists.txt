@@ -1,7 +1,7 @@
 # -*- mode: CMAKE; -*-
 
 # ------------------------------------------------------------------------------
-# External Projects used by ArangoDB
+# External Projects used by AvocadoDB
 # ------------------------------------------------------------------------------
 
 include(ExternalProject)

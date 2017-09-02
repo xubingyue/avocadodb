@@ -3,15 +3,15 @@ Request objects
 
 The request object specifies the following properties:
 
-* **arangoUser**: `string | null`
+* **avocadoUser**: `string | null`
 
-  The authenticated ArangoDB username used to make the request.
-  This value is only set if authentication is enabled in ArangoDB and the request set an `authorization` header ArangoDB was able to verify.
-  You are strongly encouraged to implement your own authentication logic for your own services but this property can be useful if you need to integrate with ArangoDB's own authentication mechanisms.
+  The authenticated AvocadoDB username used to make the request.
+  This value is only set if authentication is enabled in AvocadoDB and the request set an `authorization` header AvocadoDB was able to verify.
+  You are strongly encouraged to implement your own authentication logic for your own services but this property can be useful if you need to integrate with AvocadoDB's own authentication mechanisms.
 
-* **arangoVersion**: `number`
+* **avocadoVersion**: `number`
 
-  The numeric value of the `x-arango-version` header or the numeric version of the ArangoDB server (e.g. `30102` for version 3.1.2) if no valid header was provided.
+  The numeric value of the `x-avocado-version` header or the numeric version of the AvocadoDB server (e.g. `30102` for version 3.1.2) if no valid header was provided.
 
 * **baseUrl**: `string`
 
@@ -74,7 +74,7 @@ The request object specifies the following properties:
 
   The protocol used for the request.
 
-  Defaults to `"https"` or `"http"` depending on whether ArangoDB is configured to use SSL or not.
+  Defaults to `"https"` or `"http"` depending on whether AvocadoDB is configured to use SSL or not.
 
   If the request was made using a trusted proxy (see *trustProxy*),
   this is set to the value of the `X-Forwarded-Proto` header if present.
@@ -122,12 +122,12 @@ The request object specifies the following properties:
 
   The trailing path relative to the current route if the current route ends in a wildcard (e.g. `/something/*`).
 
-  **Note**: Starting with ArangoDB 3.2 is passed into the service as-is, i.e. percentage escape sequences like `%2F` will no longer be unescaped. Also note that the suffix may contain path segments like `..` which may have special meaning if the suffix is used to build filesystem paths.
+  **Note**: Starting with AvocadoDB 3.2 is passed into the service as-is, i.e. percentage escape sequences like `%2F` will no longer be unescaped. Also note that the suffix may contain path segments like `..` which may have special meaning if the suffix is used to build filesystem paths.
 
 * **trustProxy**: `boolean`
 
   Indicates whether the request was made using a trusted proxy.
-  If the origin server's address was specified in the ArangoDB configuration using `--frontend.trusted-proxy` or the service's `trustProxy` setting is enabled, this will be `true`, otherwise it will be `false`.
+  If the origin server's address was specified in the AvocadoDB configuration using `--frontend.trusted-proxy` or the service's `trustProxy` setting is enabled, this will be `true`, otherwise it will be `false`.
 
 * **url**: `string`
 

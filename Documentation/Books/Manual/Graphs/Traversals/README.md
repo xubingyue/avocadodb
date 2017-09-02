@@ -1,10 +1,10 @@
 Traversals
 ==========
 
-ArangoDB provides [several ways to query graph data](../README.md).
+AvocadoDB provides [several ways to query graph data](../README.md).
 Very simple operations can be composed with the low-level edge methods *edges*, *inEdges*, and *outEdges* for
 [edge collections](../Edges/README.md). These work on named and anonymous graphs. For more complex operations,
-ArangoDB provides predefined traversal objects.
+AvocadoDB provides predefined traversal objects.
 
 Also Traversals have been added to AQL.
 Please read the [chapter about AQL traversersals](../../../AQL/Graphs/Traversals.html) before you continue reading here.
@@ -18,7 +18,7 @@ populated with continents, countries and capitals data listed below (see [Exampl
 Starting from Scratch
 ---------------------
 
-ArangoDB provides the *edges*, *inEdges*, and *outEdges* methods for edge collections.
+AvocadoDB provides the *edges*, *inEdges*, and *outEdges* methods for edge collections.
 These methods can be used to quickly determine if a vertex is connected to other vertices,
 and which.
 This functionality can be exploited to write very simple graph queries in JavaScript.
@@ -27,7 +27,7 @@ For example, to determine which edges are linked to the *world* vertex, we can u
 
 ```js
 db.e.inEdges('v/world').forEach(function(edge) { 
-  require("@arangodb").print(edge._from, "->", edge.type, "->", edge._to); 
+  require("@avocadodb").print(edge._from, "->", edge.type, "->", edge._to); 
 });
 ```
 
@@ -48,7 +48,7 @@ the linked vertices, we can use each edges' *_from* and *_to* attributes as foll
 
 ```js
 db.e.inEdges('v/world').forEach(function(edge) { 
-  require("@arangodb").print(db._document(edge._from).name, "->", edge.type, "->", db._document(edge._to).name); 
+  require("@avocadodb").print(db._document(edge._from).name, "->", edge.type, "->", db._document(edge._to).name); 
 });
 ```
 

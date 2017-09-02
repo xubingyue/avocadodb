@@ -1,0 +1,123 @@
+'use strict';
+
+// //////////////////////////////////////////////////////////////////////////////
+// / DISCLAIMER
+// /
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
+// / Copyright 2012 triagens GmbH, Cologne, Germany
+// /
+// / Licensed under the Apache License, Version 2.0 (the "License")
+// / you may not use this file except in compliance with the License.
+// / You may obtain a copy of the License at
+// /
+// /     http://www.apache.org/licenses/LICENSE-2.0
+// /
+// / Unless required by applicable law or agreed to in writing, software
+// / distributed under the License is distributed on an "AS IS" BASIS,
+// / WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// / See the License for the specific language governing permissions and
+// / limitations under the License.
+// /
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
+// /
+// / @author Dr. Frank Celler
+// //////////////////////////////////////////////////////////////////////////////
+
+var internal = require('internal');
+var common = require('@avocadodb/common');
+
+Object.keys(common).forEach(function (key) {
+  exports[key] = common[key];
+});
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief isServer
+// //////////////////////////////////////////////////////////////////////////////
+
+exports.isServer = false;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief isClient
+// //////////////////////////////////////////////////////////////////////////////
+
+exports.isClient = true;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief class "AvocadoCollection"
+// //////////////////////////////////////////////////////////////////////////////
+
+// cannot yet not use avocadodb
+exports.AvocadoCollection = require('@avocadodb/avocado-collection').AvocadoCollection;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief class "AvocadoConnection"
+// //////////////////////////////////////////////////////////////////////////////
+
+exports.AvocadoConnection = internal.AvocadoConnection;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief class "AvocadoDatabase"
+// //////////////////////////////////////////////////////////////////////////////
+
+// cannot yet not use avocadodb
+exports.AvocadoDatabase = require('@avocadodb/avocado-database').AvocadoDatabase;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief class "AvocadoStatement"
+// //////////////////////////////////////////////////////////////////////////////
+
+// cannot yet not use avocadodb
+exports.AvocadoStatement = require('@avocadodb/avocado-statement').AvocadoStatement;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief class "AvocadoQueryCursor"
+// //////////////////////////////////////////////////////////////////////////////
+
+// cannot yet not use avocadodb
+exports.AvocadoQueryCursor = require('@avocadodb/avocado-query-cursor').AvocadoQueryCursor;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief class "AvocadoView"
+// //////////////////////////////////////////////////////////////////////////////
+
+// cannot yet not use avocadodb
+exports.AvocadoView = require('@avocadodb/avocado-view').AvocadoView;
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief the global "db" and "avocado" object
+// //////////////////////////////////////////////////////////////////////////////
+
+if (typeof internal.avocado !== 'undefined') {
+  try {
+    exports.avocado = internal.avocado;
+    exports.db = new exports.AvocadoDatabase(internal.avocado);
+    internal.db = exports.db; // TODO remove
+  } catch (err) {
+    internal.print('cannot connect to server: ' + String(err));
+  }
+}
+
+// //////////////////////////////////////////////////////////////////////////////
+// / @brief the server version
+// //////////////////////////////////////////////////////////////////////////////
+
+exports.plainServerVersion = function () {
+  if (internal.avocado) {
+    let version = internal.avocado.getVersion();
+    let devel = version.match(/(.*)\.devel/);
+
+    if (devel !== null) {
+      version = devel[1] + '.0';
+    } else {
+      devel = version.match(/(.*)((milestone|alpha|beta|devel|rc)[0-9]*)$/);
+
+      if (devel !== null) {
+        version = devel[1] + '0';
+      }
+    }
+
+    return version;
+  } else {
+    return undefined;
+  }
+};

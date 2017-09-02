@@ -24,7 +24,7 @@ You can also use the scripts as queued jobs:
 
 ```js
 'use strict';
-const queues = require('@arangodb/foxx/queues');
+const queues = require('@avocadodb/foxx/queues');
 queues.get('default').push(
   {mount: '/my-service-mount-point', name: 'send-mail'},
   {to: 'user@example.com', body: 'Hello'}
@@ -78,7 +78,7 @@ The setup script is typically used to create collections your service needs or i
 
 ```js
 'use strict';
-const db = require('@arangodb').db;
+const db = require('@avocadodb').db;
 const textsCollectionName = module.context.collectionName('texts');
 // `textsCollectionName` is now the prefixed name of this service's "texts" collection.
 // e.g. "example_texts" if the service has been mounted at `/example`
@@ -106,7 +106,7 @@ This script typically removes the collections and/or documents created by your s
 
 ```js
 'use strict';
-const db = require('@arangodb').db;
+const db = require('@avocadodb').db;
 
 const textsCollection = module.context.collection('texts');
 
@@ -118,7 +118,7 @@ if (textsCollection) {
 Queues
 ------
 
-`const queues = require('@arangodb/foxx/queues')`
+`const queues = require('@avocadodb/foxx/queues')`
 
 Foxx allows defining job queues that let you perform slow or expensive actions asynchronously. These queues can be used to send e-mails, call external APIs or perform other actions that you do not want to perform directly or want to retry on failure.
 
@@ -323,7 +323,7 @@ The *success* and *failure* callbacks receive the following arguments:
 
 * **job**: `object`
 
-  ArangoDB document representing the job's current state.
+  AvocadoDB document representing the job's current state.
 
 **Examples**
 
@@ -331,7 +331,7 @@ Let's say we have an service mounted at `/mailer` that provides a script called 
 
 ```js
 'use strict';
-const queues = require('@arangodb/foxx/queues');
+const queues = require('@avocadodb/foxx/queues');
 const queue = queues.create('my-queue');
 queue.push(
   {mount: '/mailer', name: 'send-mail'},
@@ -344,7 +344,7 @@ This will *not* work, because `log` was defined outside the callback function (t
 ```js
 // WARNING: THIS DOES NOT WORK!
 'use strict';
-const queues = require('@arangodb/foxx/queues');
+const queues = require('@avocadodb/foxx/queues');
 const queue = queues.create('my-queue');
 const log = require('console').log; // outside the callback's function scope
 queue.push(
@@ -360,7 +360,7 @@ Here's an example of a job that will be executed every 5 seconds until tomorrow:
 
 ```js
 'use strict';
-const queues = require('@arangodb/foxx').queues;
+const queues = require('@avocadodb/foxx').queues;
 const queue = queues.create('my-queue');
 queue.push(
   {mount: '/mailer', name: 'send-mail'},

@@ -1,7 +1,7 @@
 Collection Session Storage
 ==========================
 
-`const collectionStorage = require('@arangodb/foxx/sessions/storages/collection');`
+`const collectionStorage = require('@avocadodb/foxx/sessions/storages/collection');`
 
 The collection session storage persists sessions to a collection in the database.
 
@@ -18,7 +18,7 @@ Creates a [Storage](README.md) that can be used in the sessions middleware.
 
   An object with the following properties:
 
-  * **collection**: `ArangoCollection`
+  * **collection**: `AvocadoCollection`
 
     The collection that should be used to persist the sessions.
     If a string is passed instead of a collection it is assumed to be the fully qualified name of a collection in the current database.

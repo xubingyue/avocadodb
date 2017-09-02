@@ -29,12 +29,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var db = avocadodb.db;
 var internal = require("internal");
 var wait = internal.wait;
 var print = internal.print;
-var ArangoCollection = arangodb.ArangoCollection;
+var AvocadoCollection = avocadodb.AvocadoCollection;
 
 var mmfilesEngine = false;
 if (db._engine().name === "mmfiles") {
@@ -120,11 +120,11 @@ function EdgeIndexBucketsSuite () {
       edge3 = null;
 
       internal.wal.flush(true, true);
-      while (db._collection(en2).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(en2).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(en2).unload();
         wait(0.5);
       }
-      while (db._collection(en3).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(en3).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(en3).unload();
         wait(0.5);
       }
@@ -176,11 +176,11 @@ function EdgeIndexBucketsSuite () {
       edge3 = null;
 
       internal.wal.flush(true, true);
-      while (db._collection(en2).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(en2).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(en2).unload();
         wait(0.5);
       }
-      while (db._collection(en3).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(en3).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(en3).unload();
         wait(0.5);
       }

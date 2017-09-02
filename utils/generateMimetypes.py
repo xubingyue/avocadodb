@@ -123,7 +123,7 @@ prologue = "////////////////////////////////////////////////////////////////////
          + "////////////////////////////////////////////////////////////////////////////////\n"\
          + "/// DISCLAIMER\n"\
          + "///\n"\
-         + "/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany\n"\
+         + "/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany\n"\
          + "/// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany\n"\
          + "///\n"\
          + "/// Licensed under the Apache License, Version 2.0 (the \"License\");\n"\
@@ -138,7 +138,7 @@ prologue = "////////////////////////////////////////////////////////////////////
          + "/// See the License for the specific language governing permissions and\n"\
          + "/// limitations under the License.\n"\
          + "///\n"\
-         + "/// Copyright holder is ArangoDB GmbH, Cologne, Germany\n"\
+         + "/// Copyright holder is AvocadoDB GmbH, Cologne, Germany\n"\
          + "////////////////////////////////////////////////////////////////////////////////\n"\
  
 if len(sys.argv) < 3:

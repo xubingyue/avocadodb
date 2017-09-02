@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,16 +36,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 v8::Handle<v8::Value> TRI_VPackToV8(
-    v8::Isolate* isolate, arangodb::velocypack::Slice const&,
-    arangodb::velocypack::Options const* options =
-        &arangodb::velocypack::Options::Defaults,
-    arangodb::velocypack::Slice const* base = nullptr);
+    v8::Isolate* isolate, avocadodb::velocypack::Slice const&,
+    avocadodb::velocypack::Options const* options =
+        &avocadodb::velocypack::Options::Defaults,
+    avocadodb::velocypack::Slice const* base = nullptr);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief convert a V8 value to VPack value
 ////////////////////////////////////////////////////////////////////////////////
 
-int TRI_V8ToVPack(v8::Isolate* isolate, arangodb::velocypack::Builder& builder,
+int TRI_V8ToVPack(v8::Isolate* isolate, avocadodb::velocypack::Builder& builder,
                   v8::Handle<v8::Value> const value, bool keepTopLevelOpen);
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ int TRI_V8ToVPack(v8::Isolate* isolate, arangodb::velocypack::Builder& builder,
 /// does not contain types such as Function, Date or RegExp
 ////////////////////////////////////////////////////////////////////////////////
 
-int TRI_V8ToVPackSimple(v8::Isolate* isolate, arangodb::velocypack::Builder& builder,
+int TRI_V8ToVPackSimple(v8::Isolate* isolate, avocadodb::velocypack::Builder& builder,
                         v8::Handle<v8::Value> const value);
 
 #endif

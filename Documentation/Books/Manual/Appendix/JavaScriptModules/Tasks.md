@@ -1,19 +1,19 @@
 Task Management
 ===============
 
-`const tasks = require('@arangodb/tasks')`
+`const tasks = require('@avocadodb/tasks')`
 
 **Note**: If you are trying to schedule tasks in Foxx you should
 consider using the [Foxx queues module](../../Foxx/Scripts.md#queues) instead,
 which provides a more high-level API that also persists tasks across reboots.
 
-## Introduction to Task Management in ArangoDB
+## Introduction to Task Management in AvocadoDB
 
-ArangoDB can execute user-defined JavaScript functions as one-shot
+AvocadoDB can execute user-defined JavaScript functions as one-shot
 or periodic tasks. This functionality can be used to implement timed
 or recurring jobs in the database.
 
-Tasks in ArangoDB consist of a JavaScript snippet or function that is
+Tasks in AvocadoDB consist of a JavaScript snippet or function that is
 executed when the task is scheduled. A task can be a one-shot task
 (meaning it is run once and not repeated) or a periodic task (meaning
 that it is re-scheduled after each execution). Tasks can have optional
@@ -31,20 +31,20 @@ of this database will remain active. It is therefore sensible to
 first unregister all active tasks for a database before dropping the
 database.
 
-Tasks registered in ArangoDB will be executed until the server
+Tasks registered in AvocadoDB will be executed until the server
 gets shut down or restarted. After a restart of the server, any 
 user-defined one-shot or periodic tasks will be lost. 
 
 ## Commands for Working with Tasks
 
-ArangoDB provides the following commands for working with tasks.
+AvocadoDB provides the following commands for working with tasks.
 All commands can be accessed via the *tasks* module, which can be
 loaded like this:
 
-`require("@arangodb/tasks")`
+`require("@avocadodb/tasks")`
 
-Please note that the *tasks* module is available inside the ArangoDB
-server only. It cannot be used from the ArangoShell or ArangoDB's web
+Please note that the *tasks* module is available inside the AvocadoDB
+server only. It cannot be used from the AvocadoShell or AvocadoDB's web
 interface.
 
 ## Register a task
@@ -62,7 +62,7 @@ server's logfile:
 
 
 ```js
-const tasks = require("@arangodb/tasks");
+const tasks = require("@avocadodb/tasks");
 
 tasks.register({
   id: "mytask-1",
@@ -80,7 +80,7 @@ it is invoked.
 Tasks can also be set up using a JavaScript callback function like this:
 
 ```js
-const tasks = require("@arangodb/tasks");
+const tasks = require("@avocadodb/tasks");
 
 tasks.register({
   id: "mytask-2",
@@ -104,7 +104,7 @@ usable in JSON (meaning no callback functions can be passed as parameters
 into a task):
 
 ```js
-const tasks = require("@arangodb/tasks");
+const tasks = require("@avocadodb/tasks");
 
 tasks.register({
   id: "mytask-3",
@@ -125,7 +125,7 @@ task will be executed just once. The task invocation delay can optionally
 be specified with the *offset* attribute:
 
 ```js
-const tasks = require("@arangodb/tasks");
+const tasks = require("@avocadodb/tasks");
 
 tasks.register({
   id: "mytask-once",
@@ -137,7 +137,7 @@ tasks.register({
 });
 ```
 
-**Note**: When specifying an *offset* value of 0, ArangoDB will internally add 
+**Note**: When specifying an *offset* value of 0, AvocadoDB will internally add 
 a very small value to the offset so will be slightly greater than zero.
 
 ## Unregister a task
@@ -145,7 +145,7 @@ a very small value to the offset so will be slightly greater than zero.
 After a task has been registered, it can be unregistered using its id:
 
 ```js
-const tasks = require("@arangodb/tasks");
+const tasks = require("@avocadodb/tasks");
 tasks.unregister("mytask-1");
 ```
 
@@ -159,7 +159,7 @@ method. If the *get* method is called without any arguments, it will
 return an array of all tasks:
 
 ```js
-const tasks = require("@arangodb/tasks");
+const tasks = require("@avocadodb/tasks");
 tasks.get();
 ```
 
@@ -167,7 +167,7 @@ If *get* is called with a task id argument, it will return information
 about this particular task:
 
 ```js
-const tasks = require("@arangodb/tasks");
+const tasks = require("@avocadodb/tasks");
 tasks.get("mytask-3");
 ```
 

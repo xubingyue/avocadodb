@@ -1,0 +1,22 @@
+.TH avocadod 8 "3.2.2" "AvocadoDB" "AvocadoDB"
+.SH NAME
+avocadod - the AvocadoDB database server
+.SH SYNOPSIS
+avocadod [options] database-directory
+.SH DESCRIPTION
+The avocadod binary can be used to start the AvocadoDB database
+server. By default, the server will run in a mode that allows clients
+to connect to it via the network. The server also has an emergency
+console mode that can be used for any sort of maintenance
+operations. In the emergency console mode, the server does not allow
+any clients to connect.  The server can be stopped gracefully at any
+time by pressing CTRL-C or by sending the SIGINT signal to the
+process.
+.SH OPTIONS
+The avocadod binary has many options that can be used to control its
+behavior.  For a complete list of options, please refer to the
+AvocadoDB online manual, available at https://www.avocadodb.com/
+
+.SH AUTHOR
+Copyright AvocadoDB GmbH, Cologne, Germany
+

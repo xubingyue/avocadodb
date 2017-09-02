@@ -5,7 +5,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Kaveh Vahedipour
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 #include "catch.hpp"
 #include "fakeit.hpp"
@@ -39,16 +39,16 @@
 #include <velocypack/Slice.h>
 #include <velocypack/velocypack-aliases.h>
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::consensus;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::consensus;
 using namespace fakeit;
 
-namespace arangodb {
+namespace avocadodb {
 namespace tests {
 namespace add_follower_test {
 
-const std::string PREFIX = "arango";
+const std::string PREFIX = "avocado";
 const std::string DATABASE = "database";
 const std::string COLLECTION = "collection";
 const std::string SHARD = "s99";
@@ -108,7 +108,7 @@ inline static std::string typeName (Slice const& slice) {
 TEST_CASE("AddFollower", "[agency][supervision]") {
   
   auto baseStructure = createRootNode();
-  arangodb::RandomGenerator::initialize(arangodb::RandomGenerator::RandomType::MERSENNE);
+  avocadodb::RandomGenerator::initialize(avocadodb::RandomGenerator::RandomType::MERSENNE);
     
   Builder builder;
   baseStructure.toBuilder(builder);
@@ -123,7 +123,7 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
 
     When(Method(mockAgent, write)).AlwaysDo([&](query_t const& q, bool d) -> write_ret_t {
         INFO(q->slice().toJson());
-        auto expectedJobKey = "/arango/Target/ToDo/" + jobId;
+        auto expectedJobKey = "/avocado/Target/ToDo/" + jobId;
         REQUIRE(typeName(q->slice()) == "array" );
         REQUIRE(q->slice().length() == 1);
         REQUIRE(typeName(q->slice()[0]) == "array");
@@ -164,7 +164,7 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
       Slice const& s, std::string const& path) {
 
       std::unique_ptr<Builder> builder;
-      if (path == "/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
+      if (path == "/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
         return builder;
       }
       builder = std::make_unique<Builder>();
@@ -177,7 +177,7 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Target/ToDo") {
+        if (path == "/avocado/Target/ToDo") {
           builder->add(jobId, createBuilder(todo).slice());
         }
         builder->close();
@@ -203,16 +203,16 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
         
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1")) == "object");
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-        CHECK(typeName(writes.get("/arango/Target/Finished/1")) == "object");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1")) == "object");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+        CHECK(typeName(writes.get("/avocado/Target/Finished/1")) == "object");
         return fakeWriteResult;
       });
     
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     auto& agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::TODO, jobId).start();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::TODO, jobId).start();
     
   }
   
@@ -234,10 +234,10 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
+        if (path == "/avocado/Plan/Collections/" + DATABASE + "/" + COLLECTION) {
           builder->add("distributeShardsLike", VPackValue("PENG"));
         }
-        if (path == "/arango/Target/ToDo") {
+        if (path == "/avocado/Target/ToDo") {
           builder->add(jobId, createBuilder(todo).slice());
         }
       } else {
@@ -261,15 +261,15 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
 
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1")) == "object");
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-        CHECK(typeName(writes.get("/arango/Target/Failed/1")) == "object");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1")) == "object");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+        CHECK(typeName(writes.get("/avocado/Target/Failed/1")) == "object");
         return fakeWriteResult;
       });
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     auto& agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::TODO, jobId).start();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::TODO, jobId).start();
     
   }
   
@@ -291,11 +291,11 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Target/ToDo") {
+        if (path == "/avocado/Target/ToDo") {
           builder->add(jobId, createBuilder(todo).slice());
         }
       } else {
-        if (path == "/arango/Plan/Collections/" + DATABASE + "/" +
+        if (path == "/avocado/Plan/Collections/" + DATABASE + "/" +
             COLLECTION + "/shards/" + SHARD) {
           VPackArrayBuilder a(builder.get());
           for (auto const& serv : VPackArrayIterator(s)) {
@@ -324,17 +324,17 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
 
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1")) == "object");
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-        CHECK(writes.get("/arango/Target/Finished/1").get("collection").copyString() == COLLECTION);
-        CHECK(writes.get("/arango/Target/Pending/1").get("op").copyString() == "delete");
-        CHECK(typeName(writes.get("/arango/Target/Failed/1")) == "none");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1")) == "object");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+        CHECK(writes.get("/avocado/Target/Finished/1").get("collection").copyString() == COLLECTION);
+        CHECK(writes.get("/avocado/Target/Pending/1").get("op").copyString() == "delete");
+        CHECK(typeName(writes.get("/avocado/Target/Failed/1")) == "none");
         return fakeWriteResult;
       });
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     AgentInterface &agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::TODO, jobId).start();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::TODO, jobId).start();
     
   }
   
@@ -354,10 +354,10 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Target/ToDo") {
+        if (path == "/avocado/Target/ToDo") {
           builder->add(jobId, createBuilder(todo).slice());
         }
-        if (path == "/arango/Supervision/Shards") {
+        if (path == "/avocado/Supervision/Shards") {
           builder->add(SHARD, VPackValue("2"));
         }
       } else {
@@ -381,13 +381,13 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
 
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1")) == "object");
-        CHECK(writes.get("/arango/Target/Finished/1").get("collection").copyString() == COLLECTION);
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1")) == "object");
+        CHECK(writes.get("/avocado/Target/Finished/1").get("collection").copyString() == COLLECTION);
         return fakeWriteResult;
       });
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     auto& agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::TODO, jobId).start();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::TODO, jobId).start();
     
   }
   
@@ -407,13 +407,13 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Target/ToDo") {
+        if (path == "/avocado/Target/ToDo") {
           builder->add(jobId, createBuilder(todo).slice());
         }
-        if (path == "/arango/Supervision/Health/follower2") {
+        if (path == "/avocado/Supervision/Health/follower2") {
           builder->add("Status", VPackValue("FAILED"));
         }
-        if (path == "/arango/Supervision/Health/free") {
+        if (path == "/avocado/Supervision/Health/free") {
           builder->add("Status", VPackValue("FAILED"));
         }
       } else {
@@ -436,13 +436,13 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
 
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1")) == "object");
-        CHECK(writes.get("/arango/Target/Finished/1").get("collection").copyString() == COLLECTION);
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1")) == "object");
+        CHECK(writes.get("/avocado/Target/Finished/1").get("collection").copyString() == COLLECTION);
         return fakeWriteResult;
       });
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     AgentInterface &agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::TODO, jobId).start();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::TODO, jobId).start();
 
   }
 
@@ -463,7 +463,7 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Target/ToDo") {
+        if (path == "/avocado/Target/ToDo") {
           builder->add(jobId, createBuilder(todo).slice());
         }
       } else {
@@ -487,17 +487,17 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
 
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1")) == "object");
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-        CHECK(writes.get("/arango/Target/Finished/1").get("collection").copyString() == COLLECTION);
-        CHECK(typeName(writes.get("/arango/Target/Pending/1")) == "none");
-        CHECK(typeName(writes.get("/arango/Target/Failed/1")) == "none");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1")) == "object");
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+        CHECK(writes.get("/avocado/Target/Finished/1").get("collection").copyString() == COLLECTION);
+        CHECK(typeName(writes.get("/avocado/Target/Pending/1")) == "none");
+        CHECK(typeName(writes.get("/avocado/Target/Failed/1")) == "none");
         return fakeWriteResult;
       });
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     AgentInterface &agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::TODO, jobId).start();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::TODO, jobId).start();
     
   }
   
@@ -518,7 +518,7 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Target/ToDo") {
+        if (path == "/avocado/Target/ToDo") {
           builder->add(jobId, createBuilder(todo).slice());
         }
       } else {
@@ -542,17 +542,17 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
 
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/Failed/1")) == "object");
-        CHECK(writes.get("/arango/Target/Failed/1").get("collection").copyString() == COLLECTION);
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-        REQUIRE(typeName(writes.get("/arango/Target/Pending/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/Pending/1").get("op").copyString() == "delete");
+        REQUIRE(typeName(writes.get("/avocado/Target/Failed/1")) == "object");
+        CHECK(writes.get("/avocado/Target/Failed/1").get("collection").copyString() == COLLECTION);
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+        REQUIRE(typeName(writes.get("/avocado/Target/Pending/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/Pending/1").get("op").copyString() == "delete");
         return fakeWriteResult;
       });
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     AgentInterface &agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::PENDING, jobId).abort();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::PENDING, jobId).abort();
 
   }
 
@@ -571,7 +571,7 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
             builder->add(it.key.copyString(), childBuilder->slice());
           }
         }
-        if (path == "/arango/Target/Pending") {
+        if (path == "/avocado/Target/Pending") {
           builder->add(jobId, createBuilder(todo).slice());
         }
       } else {
@@ -595,17 +595,17 @@ TEST_CASE("AddFollower", "[agency][supervision]") {
         REQUIRE(typeName(q->slice()[0][0]) == "object");
 
         auto writes = q->slice()[0][0];
-        REQUIRE(typeName(writes.get("/arango/Target/Failed/1")) == "object");
-        CHECK(writes.get("/arango/Target/Failed/1").get("collection").copyString() == COLLECTION);
-        REQUIRE(typeName(writes.get("/arango/Target/ToDo/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/ToDo/1").get("op").copyString() == "delete");
-        REQUIRE(typeName(writes.get("/arango/Target/Pending/1").get("op")) == "string");
-        CHECK(writes.get("/arango/Target/Pending/1").get("op").copyString() == "delete");
+        REQUIRE(typeName(writes.get("/avocado/Target/Failed/1")) == "object");
+        CHECK(writes.get("/avocado/Target/Failed/1").get("collection").copyString() == COLLECTION);
+        REQUIRE(typeName(writes.get("/avocado/Target/ToDo/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/ToDo/1").get("op").copyString() == "delete");
+        REQUIRE(typeName(writes.get("/avocado/Target/Pending/1").get("op")) == "string");
+        CHECK(writes.get("/avocado/Target/Pending/1").get("op").copyString() == "delete");
         return fakeWriteResult;
       });
     When(Method(mockAgent, waitFor)).AlwaysReturn(AgentInterface::raft_commit_t::OK);
     AgentInterface &agent = mockAgent.get();
-    AddFollower(agency("arango"), &agent, JOB_STATUS::TODO, jobId).abort();
+    AddFollower(agency("avocado"), &agent, JOB_STATUS::TODO, jobId).abort();
 
   }
   

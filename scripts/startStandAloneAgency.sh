@@ -158,8 +158,8 @@ printf " start-delays: %s," "$START_DELAYS"
 printf " random-delays: %s," "$RANDOM_DELAYS"
 printf " gossip-mode: %s\n" "$GOSSIP_MODE"
 
-if [ ! -d arangod ] || [ ! -d arangosh ] || [ ! -d UnitTests ] ; then
-  echo Must be started in the main ArangoDB source directory.
+if [ ! -d avocadod ] || [ ! -d avocadosh ] || [ ! -d UnitTests ] ; then
+  echo Must be started in the main AvocadoDB source directory.
   exit 1
 fi
 
@@ -171,16 +171,16 @@ fi
 
 if [ ! -z "$INTERACTIVE_MODE" ] ; then
     if [ "$INTERACTIVE_MODE" == "C" ] ; then
-        ARANGOD="${BUILD}/bin/arangod "
-        CO_ARANGOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/arangod --console "
+        ARANGOD="${BUILD}/bin/avocadod "
+        CO_ARANGOD="$XTERM $XTERMOPTIONS -e ${BUILD}/bin/avocadod --console "
         echo "Starting one coordinator in terminal with --console"
     elif [ "$INTERACTIVE_MODE" == "R" ] ; then
-        ARANGOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/arangod --console "
+        ARANGOD="$XTERM $XTERMOPTIONS -e rr ${BUILD}/bin/avocadod --console "
         CO_ARANGOD=$ARANGOD
         echo Running cluster in rr with --console.
     fi
 else
-    ARANGOD="${BUILD}/bin/arangod "
+    ARANGOD="${BUILD}/bin/avocadod "
     CO_ARANGOD=$ARANGOD
 fi
 

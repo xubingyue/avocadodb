@@ -57,7 +57,7 @@ is returned if the logger state could not be determined.
 Returns the state of the replication logger.
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationLoggerStateActive}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
 
     var url = "/_api/replication/logger-state";
 

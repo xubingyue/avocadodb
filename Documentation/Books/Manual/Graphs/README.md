@@ -1,4 +1,4 @@
-ArangoDB Graphs
+AvocadoDB Graphs
 ---------------
 
 ### First Steps with Graphs
@@ -10,7 +10,7 @@ A named graph can contain more than one *edge definition*, at least one is neede
 Graphs allow you to structure your models in line with your domain and group them logically in collections and giving you the power to query them in the same graph queries.
 
 {% hint 'info' %}
-New to graphs? [**Take our free graph course for freshers**](https://www.arangodb.com/arangodb-graph-course/)
+New to graphs? [**Take our free graph course for freshers**](https://www.avocadodb.com/avocadodb-graph-course/)
 and get from zero knowledge to advanced query techniques.
 {% endhint %}
 
@@ -27,8 +27,8 @@ In queries you can define in which directions the edge relations may be followed
 
 ### Named Graphs
 
-Named graphs are completely managed by arangodb, and thus also [visible in the webinterface](../Administration/WebInterface/Graphs.md).
-They use the full spectrum of ArangoDBs graph features. You may access them via several interfaces.
+Named graphs are completely managed by avocadodb, and thus also [visible in the webinterface](../Administration/WebInterface/Graphs.md).
+They use the full spectrum of AvocadoDBs graph features. You may access them via several interfaces.
 
 - [AQL Graph Operations](../../AQL/Graphs/index.html) with several flavors:
   - [AQL Traversals](../../AQL/Graphs/Traversals.html) on both named and anonymous graphs
@@ -90,7 +90,7 @@ collection containing them is not traversed at all, there will never be a reason
 `type` attribute with `FILTER`.
 
 The multiple edge collections approach is limited by the [number of collections that can be used simultaneously in one query](../../AQL/Fundamentals/Syntax.html#collection-names).
-Every collection used in a query requires some resources inside of ArangoDB and the number is therefore limited
+Every collection used in a query requires some resources inside of AvocadoDB and the number is therefore limited
 to cap the resource requirements. You may also have constraints on other edge attributes, such as a hash index
 with a unique constraint, which requires the documents to be in a single collection for the uniqueness guarantee,
 and it may thus not be possible to store the different types of edges in multiple edeg collections.
@@ -106,7 +106,7 @@ For each type of object, a document collection (also called vertex collection) s
 Entities can be connected by edges to express and classify relations between vertices. It often makes sense to have
 an edge collection per relation type.
 
-ArangoDB does not require you to store your data in graph structures with edges and vertices, you can also decide
+AvocadoDB does not require you to store your data in graph structures with edges and vertices, you can also decide
 to embed attributes such as which groups a user is part of, or `_id`s of documents in another document instead of
 connecting the documents with edges. It can be a meaningful performance optimization for *1:n* relationships, if
 your data is not focused on relations and you don't need graph traversal with varying depth. It usually means
@@ -145,8 +145,8 @@ flexible ways, whereas it would cause headache to handle it in a relational data
 
 ### Backup and restore
 
-For sure you want to have backups of your graph data, you can use [Arangodump](../Administration/Arangodump.md) to create the backup,
-and [Arangorestore](../Administration/Arangorestore.md) to restore a backup into a new ArangoDB. You should however note that:
+For sure you want to have backups of your graph data, you can use [Avocadodump](../Administration/Avocadodump.md) to create the backup,
+and [Avocadorestore](../Administration/Avocadorestore.md) to restore a backup into a new AvocadoDB. You should however note that:
 
 - you need the system collection `_graphs` if you backup named graphs.
 - you need to backup the complete set of all edge and vertex collections your graph consists of. Partial dump/restore may not work.
@@ -154,15 +154,15 @@ and [Arangorestore](../Administration/Arangorestore.md) to restore a backup into
 ### Managing graphs
 By default you should use [the interface your driver provides to manage graphs](../HTTP/Gharial/Management.html).
 
-This is i.e. documented [in Graphs-Section of the ArangoDB Java driver](https://github.com/arangodb/arangodb-java-driver#graphs).
+This is i.e. documented [in Graphs-Section of the AvocadoDB Java driver](https://github.com/avocadodb/avocadodb-java-driver#graphs).
 
 ### Example Graphs
 
-ArangoDB comes with a set of easily graspable graphs that are used to demonstrate the APIs.
-You can use the `add samples` tab in the `create graph` window in the webinterface, or load the module `@arangodb/graph-examples/example-graph` in arangosh and use it to create instances of these graphs in your ArangoDB.
+AvocadoDB comes with a set of easily graspable graphs that are used to demonstrate the APIs.
+You can use the `add samples` tab in the `create graph` window in the webinterface, or load the module `@avocadodb/graph-examples/example-graph` in avocadosh and use it to create instances of these graphs in your AvocadoDB.
 Once you've created them, you can [inspect them in the webinterface](../Administration/WebInterface/Graphs.md) - which was used to create the pictures below.
 
-You [can easily look into the innards of this script](https://github.com/arangodb/arangodb/blob/devel/js/common/modules/%40arangodb/graph-examples/example-graph.js) for reference about howto manage graphs programatically.
+You [can easily look into the innards of this script](https://github.com/avocadodb/avocadodb/blob/devel/js/common/modules/%40avocadodb/graph-examples/example-graph.js) for reference about howto manage graphs programatically.
 
 #### The Knows\_Graph
 
@@ -183,7 +183,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
     @startDocuBlockInline graph_create_knows_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     db.persons.toArray()
     db.knows.toArray();
@@ -203,7 +203,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
     @startDocuBlockInline graph_create_social_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var graph = examples.loadGraph("social");
     db.female.toArray()
     db.male.toArray()
@@ -223,7 +223,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
 
     @startDocuBlockInline graph_create_cities_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("routeplanner");
     db.frenchCity.toArray();
     db.germanCity.toArray();
@@ -245,7 +245,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
 
     @startDocuBlockInline graph_create_traversal_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("traversalGraph");
     db.circles.toArray();
     db.edges.toArray();
@@ -260,7 +260,7 @@ It is used to demonstrate raw traversal operations.
 
     @startDocuBlockInline graph_create_world_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("worldCountry");
     db.worldVertices.toArray();
     db.worldEdges.toArray();
@@ -273,14 +273,14 @@ It is used to demonstrate raw traversal operations.
 
 ### Cookbook examples
 
-The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
+The above referenced chapters describe the various APIs of AvocadoDBs graph engine with small examples. Our cookbook has some more real life examples:
 
- - [Traversing a graph in full depth](https://docs.arangodb.com/cookbook/Graph/FulldepthTraversal.html)
- - [Using an example vertex with the java driver](https://docs.arangodb.com/cookbook/Graph/JavaDriverGraphExampleVertex.html)
- - [Retrieving documents from ArangoDB without knowing the structure](https://docs.arangodb.com/cookbook/Graph/JavaDriverBaseDocument.html)
- - [Using a custom visitor from node.js](https://docs.arangodb.com/cookbook/Graph/CustomVisitorFromNodeJs.html)
- - [AQL Example Queries on an Actors and Movies Database](https://docs.arangodb.com/cookbook/Graph/ExampleActorsAndMovies.html)
+ - [Traversing a graph in full depth](https://docs.avocadodb.com/cookbook/Graph/FulldepthTraversal.html)
+ - [Using an example vertex with the java driver](https://docs.avocadodb.com/cookbook/Graph/JavaDriverGraphExampleVertex.html)
+ - [Retrieving documents from AvocadoDB without knowing the structure](https://docs.avocadodb.com/cookbook/Graph/JavaDriverBaseDocument.html)
+ - [Using a custom visitor from node.js](https://docs.avocadodb.com/cookbook/Graph/CustomVisitorFromNodeJs.html)
+ - [AQL Example Queries on an Actors and Movies Database](https://docs.avocadodb.com/cookbook/Graph/ExampleActorsAndMovies.html)
 
 ### Higher volume graph examples
 
-All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works. There are however several datasets freely available on the web that are a lot bigger. [We collected some of them with import scripts](https://github.com/arangodb/example-datasets) so you may play around with them. Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/soc-pokec.html) from Slovakia that we [used for performance testing on several databases](https://www.arangodb.com/2015/06/multi-model-benchmark/); You will find importing scripts etc. in this blogpost.
+All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works. There are however several datasets freely available on the web that are a lot bigger. [We collected some of them with import scripts](https://github.com/avocadodb/example-datasets) so you may play around with them. Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/soc-pokec.html) from Slovakia that we [used for performance testing on several databases](https://www.avocadodb.com/2015/06/multi-model-benchmark/); You will find importing scripts etc. in this blogpost.

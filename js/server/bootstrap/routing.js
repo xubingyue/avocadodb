@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Dr. Frank Celler
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 // //////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@
         var name = databases[i];
         try {
           db._useDatabase(name);
-          require('@arangodb/actions').reloadRouting();
+          require('@avocadodb/actions').reloadRouting();
         } catch (e) {
           console.info('trying to loading actions of a new database %s, ignored', name);
         }

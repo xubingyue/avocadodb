@@ -1,0 +1,30 @@
+# config file for avocado-dfdb
+
+[database]
+auto-upgrade = false
+upgrade-check = false
+directory= @LOCALSTATEDIR@/lib/avocadodb3
+
+[server]
+rest-server = false
+authentication = true
+# username = root
+# password = 
+@DEFINEUID@uid = avocadodb
+
+statistics = false
+# set number of threads to 1 so we don't have concurrency
+threads = 1
+
+[javascript]
+startup-directory = @PKGDATADIR@/js
+app-path = @LOCALSTATEDIR@/lib/avocadodb3-apps
+script = @PKGDATADIR@/js/server/avocado-dfdb.js
+v8-contexts = 1
+
+[foxx]
+queues = false
+
+[log]
+level = info
+@COMMENT_LOGFILE@file = -

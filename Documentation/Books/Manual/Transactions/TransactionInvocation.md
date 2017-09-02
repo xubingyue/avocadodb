@@ -1,7 +1,7 @@
 Transaction invocation
 ======================
 
-ArangoDB transactions are different from transactions in SQL.
+AvocadoDB transactions are different from transactions in SQL.
 
 In SQL, transactions are started with explicit *BEGIN* or *START TRANSACTION*
 command. Following any series of data retrieval or modification operations, an
@@ -9,13 +9,13 @@ SQL transaction is finished with a *COMMIT* command, or rolled back with a
 *ROLLBACK* command. There may be client/server communication between the start
 and the commit/rollback of an SQL transaction.
 
-In ArangoDB, a transaction is always a server-side operation, and is executed
+In AvocadoDB, a transaction is always a server-side operation, and is executed
 on the server in one go, without any client interaction. All operations to be
 executed inside a transaction need to be known by the server when the transaction
 is started.
 
 There are no individual *BEGIN*, *COMMIT* or *ROLLBACK* transaction commands
-in ArangoDB. Instead, a transaction in ArangoDB is started by providing a
+in AvocadoDB. Instead, a transaction in AvocadoDB is started by providing a
 description of the transaction to the *db._executeTransaction* JavaScript
 function:
 
@@ -29,7 +29,7 @@ commit the transaction. If an error occurs during transaction execution, the
 transaction is automatically aborted, and all changes are rolled back.
 
 ### Execute transaction
-<!-- js/server/modules/@arangodb/arango-database.js -->
+<!-- js/server/modules/@avocadodb/avocado-database.js -->
 
 
 executes a transaction
@@ -55,7 +55,7 @@ Additionally, *object* can have the following optional attributes:
   is forced to be synchronous.
 - *lockTimeout*: a numeric value that can be used to set a timeout for
   waiting on collection locks. If not specified, a default value will be
-  used. Setting *lockTimeout* to *0* will make ArangoDB not time
+  used. Setting *lockTimeout* to *0* will make AvocadoDB not time
   out waiting for a lock.
 - *params*: optional arguments passed to the function specified in
   *action*.
@@ -130,7 +130,7 @@ db._executeTransaction({
                              than specified */
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     return db.foobar.toArray(); /* will fail because db.foobar must not be accessed
                                    for reading inside this transaction */
   }
@@ -203,7 +203,7 @@ db._executeTransaction({
     write: "users"
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     db.users.save({ _key: "hello" });
     // will abort and roll back the transaction
     throw "doh!";
@@ -223,7 +223,7 @@ db._executeTransaction({
     write: "users"
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     db.users.save({ _key: "hello" });
     // will commit the transaction and return the value "hello"
     return "hello";
@@ -272,7 +272,7 @@ db._executeTransaction({
     write: [ "c1" ]
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     db.c1.save({ _key: "key1" });
     db.c1.save({ _key: "key2" });
     db.c1.save({ _key: "key3" });
@@ -293,7 +293,7 @@ db._executeTransaction({
     write: [ "c1" ]
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     db.c1.save({ _key: "key1" });
     db.c1.count(); // 1
     db.c1.save({ _key: "key2" });
@@ -317,7 +317,7 @@ db._executeTransaction({
     write: [ "c1" ]
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     db.c1.save({ _key: "key1" });
     // will throw duplicate a key error, not explicitly requested by the user
     db.c1.save({ _key: "key1" });  
@@ -348,7 +348,7 @@ db._executeTransaction({
     write: [ "c1", "c2" ]
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     db.c1.save({ _key: "key1" });
     db.c2.save({ _key: "key2" });
   }
@@ -371,7 +371,7 @@ db._executeTransaction({
     write: [ "c1", "c2" ]
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
     for (var i = 0; i < 100; ++i) {
       db.c1.save({ _key: "key" + i });
       db.c2.save({ _key: "key" + i });

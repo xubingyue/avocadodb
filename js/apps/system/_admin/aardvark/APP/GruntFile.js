@@ -35,7 +35,7 @@
             "frontend/css/jsoneditor.css",
             "frontend/css/grids-responsive-min.css",
             "frontend/css/tippy.css",
-            "frontend/ttf/arangofont/style.css"
+            "frontend/ttf/avocadofont/style.css"
           ]
         },
         standalone: {
@@ -99,8 +99,8 @@
             "frontend/src/mode-aql.js"
           ],
           modules: [
-            "frontend/js/arango/arango.js",
-            "frontend/js/arango/templateEngine.js",
+            "frontend/js/avocado/avocado.js",
+            "frontend/js/avocado/templateEngine.js",
             "frontend/js/modules/underscore.js"
           ],
           js: [
@@ -219,7 +219,7 @@
       cssmin: {
         dist: {
           options: {
-            banner: '/* arangodb */'
+            banner: '/* avocadodb */'
           },
           files: {
             'frontend/build/style-minified.css': ['frontend/build/style.css'],
@@ -332,7 +332,7 @@
         },
         target: [
           'frontend/js/views/*.js',
-          'frontend/js/arango/*.js',
+          'frontend/js/avocado/*.js',
           'frontend/js/models/*.js',
           'frontend/js/collections/*.js',
           'frontend/js/routers/*.js'

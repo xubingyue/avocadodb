@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global frontendConfig, arangoHelper, Joi, Backbone, window, $ */
+/* global frontendConfig, avocadoHelper, Joi, Backbone, window, $ */
 
 (function () {
   'use strict';
@@ -19,7 +19,7 @@
 
     render: function () {
       this.breadcrumb();
-      arangoHelper.buildCollectionSubNav(this.collectionName, 'Settings');
+      avocadoHelper.buildCollectionSubNav(this.collectionName, 'Settings');
 
       this.renderSettings();
     },
@@ -34,7 +34,7 @@
       if (!this.readOnly) {
         var unloadCollectionCallback = function (error) {
           if (error) {
-            arangoHelper.arangoError('Collection error', this.model.get('name') + ' could not be unloaded.');
+            avocadoHelper.avocadoError('Collection error', this.model.get('name') + ' could not be unloaded.');
           } else if (error === undefined) {
             this.model.set('status', 'unloading');
             this.render();
@@ -43,7 +43,7 @@
               this.model.set('status', 'unloaded');
               this.render();
             } else {
-              arangoHelper.arangoNotification('Collection ' + this.model.get('name') + ' unloaded.');
+              avocadoHelper.avocadoNotification('Collection ' + this.model.get('name') + ' unloaded.');
             }
           }
         }.bind(this);
@@ -57,7 +57,7 @@
       if (!this.readOnly) {
         var loadCollectionCallback = function (error) {
           if (error) {
-            arangoHelper.arangoError('Collection error', this.model.get('name') + ' could not be loaded.');
+            avocadoHelper.avocadoError('Collection error', this.model.get('name') + ' could not be loaded.');
           } else if (error === undefined) {
             this.model.set('status', 'loading');
             this.render();
@@ -66,7 +66,7 @@
               this.model.set('status', 'loaded');
               this.render();
             } else {
-              arangoHelper.arangoNotification('Collection ' + this.model.get('name') + ' loaded.');
+              avocadoHelper.avocadoNotification('Collection ' + this.model.get('name') + ' loaded.');
             }
           }
         }.bind(this);
@@ -97,7 +97,7 @@
         this.model.destroy(
           {
             error: function () {
-              arangoHelper.arangoError('Could not delete collection.');
+              avocadoHelper.avocadoError('Could not delete collection.');
             },
             success: function () {
               window.App.navigate('#collections', {trigger: true});
@@ -111,7 +111,7 @@
       if (!this.readOnly) {
         var callback = function (error, isCoordinator) {
           if (error) {
-            arangoHelper.arangoError('Error', 'Could not get coordinator info');
+            avocadoHelper.avocadoError('Error', 'Could not get coordinator info');
           } else {
             var newname;
             if (isCoordinator) {
@@ -127,7 +127,7 @@
                 try {
                   journalSize = JSON.parse($('#change-collection-size').val() * 1024 * 1024);
                 } catch (e) {
-                  arangoHelper.arangoError('Please enter a valid journal size number.');
+                  avocadoHelper.avocadoError('Please enter a valid journal size number.');
                   return 0;
                 }
               }
@@ -140,22 +140,22 @@
                     throw new Error('invalid indexBuckets value');
                   }
                 } catch (e) {
-                  arangoHelper.arangoError('Please enter a valid number of index buckets.');
+                  avocadoHelper.avocadoError('Please enter a valid number of index buckets.');
                   return 0;
                 }
               }
               var callbackChange = function (error) {
                 if (error) {
-                  arangoHelper.arangoError('Collection error: ' + error.responseText);
+                  avocadoHelper.avocadoError('Collection error: ' + error.responseText);
                 } else {
-                  arangoHelper.arangoNotification('Collection: ' + 'Successfully changed.');
+                  avocadoHelper.avocadoNotification('Collection: ' + 'Successfully changed.');
                   window.App.navigate('#cSettings/' + newname, {trigger: true});
                 }
               };
 
               var callbackRename = function (error) {
                 if (error) {
-                  arangoHelper.arangoError('Collection error: ' + error.responseText);
+                  avocadoHelper.avocadoError('Collection error: ' + error.responseText);
                 } else {
                   var wfs = $('#change-collection-sync').val();
                   this.model.changeCollection(wfs, journalSize, indexBuckets, callbackChange);
@@ -171,9 +171,9 @@
               if (this.model.get('name') !== newname) {
                 var callbackRename2 = function (error, data) {
                   if (error) {
-                    arangoHelper.arangoError('Collection' + data.responseText);
+                    avocadoHelper.avocadoError('Collection' + data.responseText);
                   } else {
-                    arangoHelper.arangoNotification('Collection' + 'Successfully changed.');
+                    avocadoHelper.avocadoNotification('Collection' + 'Successfully changed.');
                     window.App.navigate('#cSettings/' + newname, {trigger: true});
                   }
                 };
@@ -209,7 +209,7 @@
 
       var callback = function (error, isCoordinator) {
         if (error) {
-          arangoHelper.arangoError('Error', 'Could not get coordinator info');
+          avocadoHelper.avocadoError('Error', 'Could not get coordinator info');
         } else {
           var collectionIsLoaded = false;
 
@@ -321,7 +321,7 @@
           if (collectionIsLoaded) {
             var callback2 = function (error, data) {
               if (error) {
-                arangoHelper.arangoError('Collection', 'Could not fetch properties');
+                avocadoHelper.avocadoError('Collection', 'Could not fetch properties');
               } else {
                 if (data.journalSize) {
                   var journalSize = data.journalSize / (1024 * 1024);
@@ -378,14 +378,14 @@
               after();
 
               // check permissions and adjust views
-              arangoHelper.checkCollectionPermissions(self.collectionName, self.changeViewToReadOnly.bind(this));
+              avocadoHelper.checkCollectionPermissions(self.collectionName, self.changeViewToReadOnly.bind(this));
             };
 
             this.model.getProperties(callback2);
           } else {
             after();
             // check permissions and adjust views
-            arangoHelper.checkCollectionPermissions(self.collectionName, self.changeViewToReadOnly.bind(this));
+            avocadoHelper.checkCollectionPermissions(self.collectionName, self.changeViewToReadOnly.bind(this));
           }
         }
       }.bind(this);

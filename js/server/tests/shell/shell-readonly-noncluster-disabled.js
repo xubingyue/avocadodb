@@ -2,7 +2,7 @@
 /*global fail, assertTrue, assertEqual */
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief tests for readonly mode of arango
+/// @brief tests for readonly mode of avocado
 ///
 /// @file
 ///
@@ -29,7 +29,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
+var avocadodb = require("@avocadodb");
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ function databaseTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -146,7 +146,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -170,7 +170,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -184,7 +184,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -198,7 +198,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -212,7 +212,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -226,7 +226,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -240,7 +240,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -254,7 +254,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     },
 
@@ -268,7 +268,7 @@ function operationsTestSuite () {
         fail();
       } 
       catch (e) {
-        assertEqual(arangodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
+        assertEqual(avocadodb.ERROR_ARANGO_READ_ONLY, e.errorNum);
       }
     }
 

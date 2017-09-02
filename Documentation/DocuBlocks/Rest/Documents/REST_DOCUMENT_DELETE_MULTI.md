@@ -55,7 +55,7 @@ is returned under the *old* attribute in the result.
 
 Note that if any precondition is violated or an error occurred with
 some of the documents, the return code is still 200 or 202, but
-the additional HTTP header *X-Arango-Error-Codes* is set, which
+the additional HTTP header *X-Avocado-Error-Codes* is set, which
 contains a map of the error codes that occurred together with their
 multiplicities, as in: *1200:17,1205:10* which means that in 17
 cases the error 1200 "revision conflict" and in 10 cases the error

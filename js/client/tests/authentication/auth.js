@@ -29,11 +29,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arango = require("@arangodb").arango;
+var avocado = require("@avocadodb").avocado;
 var db = require("internal").db;
-var users = require("@arangodb/users");
-var request = require('@arangodb/request');
-var crypto = require('@arangodb/crypto');
+var users = require("@avocadodb/users");
+var request = require('@avocadodb/request');
+var crypto = require('@avocadodb/crypto');
 const expect = require('chai').expect;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ const expect = require('chai').expect;
 function AuthSuite () {
   'use strict';
   var baseUrl = function () {
-    return arango.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:');
+    return avocado.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:');
   };
 
   const jwtSecret = 'haxxmann';
@@ -55,10 +55,10 @@ function AuthSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     setUp : function () {
-      arango.reconnect(arango.getEndpoint(), db._name(), "root", "");
+      avocado.reconnect(avocado.getEndpoint(), db._name(), "root", "");
 
       try {
-        users.remove("hackers@arangodb.com");
+        users.remove("hackers@avocadodb.com");
       }
       catch (err) {
       }
@@ -70,7 +70,7 @@ function AuthSuite () {
 
     tearDown : function () {
       try {
-        users.remove("hackers@arangodb.com");
+        users.remove("hackers@avocadodb.com");
       }
       catch (err) {
       }
@@ -81,12 +81,12 @@ function AuthSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testNewUser : function () {
-      users.save("hackers@arangodb.com", "foobar");
-      users.grantDatabase('hackers@arangodb.com', db._name());
-      users.grantCollection('hackers@arangodb.com', db._name(), "*");
+      users.save("hackers@avocadodb.com", "foobar");
+      users.grantDatabase('hackers@avocadodb.com', db._name());
+      users.grantCollection('hackers@avocadodb.com', db._name(), "*");
       users.reload();
 
-      arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "foobar");
+      avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "foobar");
 
       // this will issue a request using the new user
       assertTrue(db._collections().length > 0);
@@ -95,7 +95,7 @@ function AuthSuite () {
       let isBroken;
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "foobar2");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "foobar2");
       }
       catch (err1) {
         isBroken = false;
@@ -103,7 +103,7 @@ function AuthSuite () {
 
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "");
       }
       catch (err2) {
         isBroken = false;
@@ -115,12 +115,12 @@ function AuthSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testEmptyPassword : function () {
-      users.save("hackers@arangodb.com", "");
-      users.grantDatabase('hackers@arangodb.com', db._name());
-      users.grantCollection('hackers@arangodb.com', db._name(), "*");
+      users.save("hackers@avocadodb.com", "");
+      users.grantDatabase('hackers@avocadodb.com', db._name());
+      users.grantCollection('hackers@avocadodb.com', db._name(), "*");
       users.reload();
 
-      arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "");
+      avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "");
 
       // this will issue a request using the new user
       assertTrue(db._collections().length > 0);
@@ -129,7 +129,7 @@ function AuthSuite () {
       let isBroken;
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "foobar");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "foobar");
       }
       catch (err1) {
         isBroken = false;
@@ -141,12 +141,12 @@ function AuthSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testPasswordCase : function () {
-      users.save("hackers@arangodb.com", "FooBar");
-      users.grantDatabase('hackers@arangodb.com', db._name());
-      users.grantCollection('hackers@arangodb.com', db._name(), "*", "ro");
+      users.save("hackers@avocadodb.com", "FooBar");
+      users.grantDatabase('hackers@avocadodb.com', db._name());
+      users.grantCollection('hackers@avocadodb.com', db._name(), "*", "ro");
       users.reload();
 
-      arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "FooBar");
+      avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "FooBar");
 
       // this will issue a request using the new user
       assertTrue(db._collections().length > 0);
@@ -155,7 +155,7 @@ function AuthSuite () {
       let isBroken;
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "Foobar");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "Foobar");
         assertTrue(db._collections().length > 0);
       }
       catch (err1) {
@@ -167,7 +167,7 @@ function AuthSuite () {
 
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "foobar");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "foobar");
       }
       catch (err2) {
         isBroken = false;
@@ -178,7 +178,7 @@ function AuthSuite () {
 
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "FOOBAR");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "FOOBAR");
       }
       catch (err3) {
         isBroken = false;
@@ -193,12 +193,12 @@ function AuthSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testColon : function () {
-      users.save("hackers@arangodb.com", "fuxx::bar");
-      users.grantDatabase('hackers@arangodb.com', db._name());
-      users.grantCollection('hackers@arangodb.com', db._name(), "*", "ro");
+      users.save("hackers@avocadodb.com", "fuxx::bar");
+      users.grantDatabase('hackers@avocadodb.com', db._name());
+      users.grantCollection('hackers@avocadodb.com', db._name(), "*", "ro");
       users.reload();
 
-      arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "fuxx::bar");
+      avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "fuxx::bar");
 
       // this will issue a request using the new user
       assertTrue(db._collections().length > 0);
@@ -207,7 +207,7 @@ function AuthSuite () {
       let isBroken;
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "fuxx");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "fuxx");
       }
       catch (err1) {
         isBroken = false;
@@ -218,7 +218,7 @@ function AuthSuite () {
 
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "bar");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "bar");
       }
       catch (err2) {
         isBroken = false;
@@ -229,7 +229,7 @@ function AuthSuite () {
 
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "");
       }
       catch (err3) {
         isBroken = false;
@@ -244,12 +244,12 @@ function AuthSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testSpecialChars : function () {
-      users.save("hackers@arangodb.com", ":\\abc'def:foobar@04. x-a");
-      users.grantDatabase('hackers@arangodb.com', db._name());
-      users.grantCollection('hackers@arangodb.com', db._name(), "*", "ro");
+      users.save("hackers@avocadodb.com", ":\\abc'def:foobar@04. x-a");
+      users.grantDatabase('hackers@avocadodb.com', db._name());
+      users.grantCollection('hackers@avocadodb.com', db._name(), "*", "ro");
       users.reload();
 
-      arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", ":\\abc'def:foobar@04. x-a");
+      avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", ":\\abc'def:foobar@04. x-a");
 
       // this will issue a request using the new user
       assertTrue(db._collections().length > 0);
@@ -258,7 +258,7 @@ function AuthSuite () {
       let isBroken;
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "foobar");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "foobar");
       }
       catch (err1) {
         isBroken = false;
@@ -269,7 +269,7 @@ function AuthSuite () {
 
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "\\abc'def: x-a");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "\\abc'def: x-a");
       }
       catch (err2) {
         isBroken = false;
@@ -280,7 +280,7 @@ function AuthSuite () {
 
       isBroken = true;
       try {
-        arango.reconnect(arango.getEndpoint(), db._name(), "hackers@arangodb.com", "");
+        avocado.reconnect(avocado.getEndpoint(), db._name(), "hackers@avocadodb.com", "");
       }
       catch (err3) {
         isBroken = false;
@@ -313,12 +313,12 @@ function AuthSuite () {
     },
     
     testAuthNewUser: function() {
-      users.save("hackers@arangodb.com", "foobar");
+      users.save("hackers@avocadodb.com", "foobar");
       users.reload();
 
       var res = request.post({
         url: baseUrl() + "/_open/auth",
-        body: JSON.stringify({"username": "hackers@arangodb.com", "password": "foobar"})
+        body: JSON.stringify({"username": "hackers@avocadodb.com", "password": "foobar"})
       });
       expect(res).to.be.an.instanceof(request.Response);
       expect(res).to.have.property('statusCode', 200);
@@ -330,12 +330,12 @@ function AuthSuite () {
     },
     
     testAuthNewWrongPassword: function() {
-      users.save("hackers@arangodb.com", "foobarJAJA");
+      users.save("hackers@avocadodb.com", "foobarJAJA");
       users.reload();
 
       var res = request.post({
         url: baseUrl() + "/_open/auth",
-        body: JSON.stringify({"username": "hackers@arangodb.com", "password": "foobar"})
+        body: JSON.stringify({"username": "hackers@avocadodb.com", "password": "foobar"})
       });
       expect(res).to.be.an.instanceof(request.Response);
       expect(res).to.have.property('statusCode', 401);
@@ -344,7 +344,7 @@ function AuthSuite () {
     testAuthNoPassword: function() {
       var res = request.post({
         url: baseUrl() + "/_open/auth",
-        body: JSON.stringify({"username": "hackers@arangodb.com", "passwordaa": "foobar"}),
+        body: JSON.stringify({"username": "hackers@avocadodb.com", "passwordaa": "foobar"}),
       });
       expect(res).to.be.an.instanceof(request.Response);
       expect(res).to.have.property('statusCode', 400);
@@ -353,7 +353,7 @@ function AuthSuite () {
     testAuthNoUsername: function() {
       var res = request.post({
         url: baseUrl() + "/_open/auth",
-        body: JSON.stringify({"usern": "hackers@arangodb.com", "password": "foobar"}),
+        body: JSON.stringify({"usern": "hackers@avocadodb.com", "password": "foobar"}),
       });
       expect(res).to.be.an.instanceof(request.Response);
       expect(res).to.have.property('statusCode', 400);
@@ -384,7 +384,7 @@ function AuthSuite () {
     },
     
     testViaJS: function() {
-      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "arangodb", "exp": Math.floor(Date.now() / 1000) + 3600}, 'HS256');
+      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "avocadodb", "exp": Math.floor(Date.now() / 1000) + 3600}, 'HS256');
 
       var res = request.get({
         url: baseUrl() + "/_api/version",
@@ -397,7 +397,7 @@ function AuthSuite () {
     },
     
     testNoneAlgDisabled: function() {
-      var jwt = (new Buffer(JSON.stringify({"typ": "JWT","alg": "none"})).toString('base64')) + "." + (new Buffer(JSON.stringify({"preferred_username": "root", "iss": "arangodb"})).toString('base64'));
+      var jwt = (new Buffer(JSON.stringify({"typ": "JWT","alg": "none"})).toString('base64')) + "." + (new Buffer(JSON.stringify({"preferred_username": "root", "iss": "avocadodb"})).toString('base64'));
       // not supported
       var res = request.get({
         url: baseUrl() + "/_api/version",
@@ -422,8 +422,8 @@ function AuthSuite () {
       expect(res).to.have.property('statusCode', 401);
     },
     
-    testIssArangodb: function() {
-      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "arangodbaaa", "exp": Math.floor(Date.now() / 1000) + 3600 }, 'HS256');
+    testIssAvocadodb: function() {
+      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "avocadodbaaa", "exp": Math.floor(Date.now() / 1000) + 3600 }, 'HS256');
       // not supported
       var res = request.get({
         url: baseUrl() + "/_api/version",
@@ -436,7 +436,7 @@ function AuthSuite () {
     },
     
     testExpOptional: function() {
-      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "arangodb" }, 'HS256');
+      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "avocadodb" }, 'HS256');
       // not supported
       var res = request.get({
         url: baseUrl() + "/_api/version",
@@ -449,7 +449,7 @@ function AuthSuite () {
     },
     
     testExp: function() {
-      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "arangodbaaa", "exp": Math.floor(Date.now() / 1000) - 1000 }, 'HS256');
+      var jwt = crypto.jwtEncode(jwtSecret, {"preferred_username": "root", "iss": "avocadodbaaa", "exp": Math.floor(Date.now() / 1000) - 1000 }, 'HS256');
       // not supported
       var res = request.get({
         url: baseUrl() + "/_api/version",

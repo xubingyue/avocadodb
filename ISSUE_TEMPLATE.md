@@ -1,5 +1,5 @@
-## my environment running ArangoDB
-I'm using the latest ArangoDB of the respective release series:
+## my environment running AvocadoDB
+I'm using the latest AvocadoDB of the respective release series:
 - [ ] 2.8
 - [ ] 3.0
 - [ ] 3.1
@@ -37,7 +37,7 @@ On this operating system:
 
 I'm issuing AQL via:
 - [ ] web interface with this browser:     running on this OS:
-- [ ] arangosh
+- [ ] avocadosh
 - [ ] this Driver:
 
 I've run `db._explain("<my aql query>")` and it didn't shed more light on this.
@@ -45,7 +45,7 @@ The AQL query in question is:
 
 The issue can be reproduced using this dataset:
 
-Please provide a way to create the dataset to run the above query on; either by a gist with an arangodump, or `db.collection.save({my: "values"}) statements. If it can be reproduced with one of the ArangoDB example datasets, it's a plus.
+Please provide a way to create the dataset to run the above query on; either by a gist with an avocadodump, or `db.collection.save({my: "values"}) statements. If it can be reproduced with one of the AvocadoDB example datasets, it's a plus.
 
 ### Foxx
 

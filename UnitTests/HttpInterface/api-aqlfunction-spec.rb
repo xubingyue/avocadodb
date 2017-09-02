@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/aqlfunction"
   prefix = "api-aqlfunction"
 
@@ -17,7 +17,7 @@ describe ArangoDB do
 
       it "add function, without name" do
         body = "{ \"code\" : \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-no-name", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-no-name", api, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -28,7 +28,7 @@ describe ArangoDB do
     
       it "add function, invalid name" do
         body = "{ \"name\" : \"\", \"code\" : \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-invalid1", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-invalid1", api, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -39,7 +39,7 @@ describe ArangoDB do
       
       it "add function, invalid name" do
         body = "{ \"name\" : \"_aql::foobar\", \"code\" : \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-invalid2", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-invalid2", api, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -50,7 +50,7 @@ describe ArangoDB do
       
       it "add function, invalid name" do
         body = "{ \"name\" : \"foobar\", \"code\" : \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-invalid3", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-invalid3", api, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -61,7 +61,7 @@ describe ArangoDB do
       
       it "add function, no code" do
         body = "{ \"name\" : \"myfunc::mytest\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-no-code", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-no-code", api, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -72,7 +72,7 @@ describe ArangoDB do
       
       it "add function, invalid code" do
         body = "{ \"name\" : \"myfunc::mytest\", \"code\" : \"function ()\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-invalid-code", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-invalid-code", api, :body => body)
 
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -82,7 +82,7 @@ describe ArangoDB do
       end
     
       it "deleting non-existing function" do
-        doc = ArangoDB.log_delete("#{prefix}-delete", api + "/mytest%3A%3Amynonfunc")
+        doc = AvocadoDB.log_delete("#{prefix}-delete", api + "/mytest%3A%3Amynonfunc")
 
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -98,16 +98,16 @@ describe ArangoDB do
 
     context "adding and deleting functions" do
       before do
-        ArangoDB.delete("/_api/aqlfunction/UnitTests%3A%3Amytest")
+        AvocadoDB.delete("/_api/aqlfunction/UnitTests%3A%3Amytest")
       end
 
       after do
-        ArangoDB.delete("/_api/aqlfunction/UnitTests%3A%3Amytest")
+        AvocadoDB.delete("/_api/aqlfunction/UnitTests%3A%3Amytest")
       end
 
       it "add function, valid code" do
         body = "{ \"name\" : \"UnitTests::mytest\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-function1", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-function1", api, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -117,14 +117,14 @@ describe ArangoDB do
   
       it "add function, update" do
         body = "{ \"name\" : \"UnitTests::mytest\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-function2", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-function2", api, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(false)
         doc.parsed_response['code'].should eq(201)
         
-        doc = ArangoDB.log_post("#{prefix}-add-function2", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-function2", api, :body => body)
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(false)
@@ -133,20 +133,20 @@ describe ArangoDB do
       
       it "add function, delete" do
         body = "{ \"name\" : \"UnitTests::mytest\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-function3", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-function3", api, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(false)
         doc.parsed_response['code'].should eq(201)
         
-        doc = ArangoDB.log_delete("#{prefix}-add-function3", api + "/UnitTests%3A%3Amytest")
+        doc = AvocadoDB.log_delete("#{prefix}-add-function3", api + "/UnitTests%3A%3Amytest")
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(false)
         doc.parsed_response['code'].should eq(200)
         
-        doc = ArangoDB.log_delete("#{prefix}-add-function3", api + "/UnitTests%3A%3Amytest")
+        doc = AvocadoDB.log_delete("#{prefix}-add-function3", api + "/UnitTests%3A%3Amytest")
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(true)
@@ -156,28 +156,28 @@ describe ArangoDB do
       
       it "add function, delete multiple" do
         body = "{ \"name\" : \"UnitTests::mytest::one\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-function4", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-function4", api, :body => body)
         doc.code.should eq(201)
         
         body = "{ \"name\" : \"UnitTests::mytest::two\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-function4", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-function4", api, :body => body)
         doc.code.should eq(201)
         
         body = "{ \"name\" : \"UnitTests::foo\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-add-function4", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-add-function4", api, :body => body)
         doc.code.should eq(201)
         
-        doc = ArangoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Amytest?group=true")
+        doc = AvocadoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Amytest?group=true")
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(false)
         doc.parsed_response['code'].should eq(200)
         
-        doc = ArangoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Amytest%3A%3Aone")
+        doc = AvocadoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Amytest%3A%3Aone")
         doc.code.should eq(404)
-        doc = ArangoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Amytest%3A%3Atwo")
+        doc = AvocadoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Amytest%3A%3Atwo")
         doc.code.should eq(404)
-        doc = ArangoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Afoo")
+        doc = AvocadoDB.log_delete("#{prefix}-add-function4", api + "/UnitTests%3A%3Afoo")
         doc.code.should eq(200)
       end
     end
@@ -188,23 +188,23 @@ describe ArangoDB do
 
     context "retrieving functions" do
       before do
-        ArangoDB.delete("/_api/aqlfunction/UnitTests?group=true")
+        AvocadoDB.delete("/_api/aqlfunction/UnitTests?group=true")
       end
 
       after do
-        ArangoDB.delete("/_api/aqlfunction/UnitTests?group=true")
+        AvocadoDB.delete("/_api/aqlfunction/UnitTests?group=true")
       end
 
       it "add function and retrieve the list" do
         body = "{ \"name\" : \"UnitTests::mytest\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-list-functions1", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-list-functions1", api, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(false)
         doc.parsed_response['code'].should eq(201)
         
-        doc = ArangoDB.log_get("#{prefix}-list-functions1", api + "?prefix=UnitTests")
+        doc = AvocadoDB.log_get("#{prefix}-list-functions1", api + "?prefix=UnitTests")
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response.length.should eq(1)
@@ -214,10 +214,10 @@ describe ArangoDB do
       
       it "add functions and retrieve the list" do
         body = "{ \"name\" : \"UnitTests::mytest1\", \"code\": \"function () { return 1; }\" }"
-        doc = ArangoDB.log_post("#{prefix}-list-functions2", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-list-functions2", api, :body => body)
         doc.code.should eq(201)
         
-        doc = ArangoDB.log_get("#{prefix}-list-functions2", api + "?prefix=UnitTests")
+        doc = AvocadoDB.log_get("#{prefix}-list-functions2", api + "?prefix=UnitTests")
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response.length.should eq(1)
@@ -225,10 +225,10 @@ describe ArangoDB do
         doc.parsed_response[0]['code'].should eq("function () { return 1; }")
 
         body = "{ \"name\" : \"UnitTests::mytest1\", \"code\": \"( function () { return   3 * 5; } ) \" }"
-        doc = ArangoDB.log_post("#{prefix}-list-functions2", api, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-list-functions2", api, :body => body)
         doc.code.should eq(200)
         
-        doc = ArangoDB.log_get("#{prefix}-list-functions2", api + "?prefix=UnitTests")
+        doc = AvocadoDB.log_get("#{prefix}-list-functions2", api + "?prefix=UnitTests")
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response.length.should eq(1)

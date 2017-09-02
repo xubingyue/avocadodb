@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global describe, beforeEach, arangoHelper, afterEach, it, console, spyOn, expect*/
+/* global describe, beforeEach, avocadoHelper, afterEach, it, console, spyOn, expect*/
 /* global $, jasmine, _*/
 
 (function () {
@@ -216,18 +216,18 @@
       spyOn(window, 'DocumentsView').andReturn(documentsViewDummy);
       spyOn(window, 'GraphManagementView').andReturn(graphManagementView);
       spyOn(window, 'DocumentView').andReturn(documentViewDummy);
-      spyOn(window, 'arangoCollections').andReturn(storeDummy);
-      spyOn(window, 'ArangoUsers').andReturn(sessionDummy);
-      spyOn(window, 'arangoDocuments').andReturn(documentsDummy);
-      spyOn(window, 'arangoDocument').andReturn(documentDummy);
-      spyOn(window, 'ArangoDatabase').andReturn(databaseDummy);
+      spyOn(window, 'avocadoCollections').andReturn(storeDummy);
+      spyOn(window, 'AvocadoUsers').andReturn(sessionDummy);
+      spyOn(window, 'avocadoDocuments').andReturn(documentsDummy);
+      spyOn(window, 'avocadoDocument').andReturn(documentDummy);
+      spyOn(window, 'AvocadoDatabase').andReturn(databaseDummy);
       spyOn(window, 'FoxxCollection').andReturn(foxxDummy);
       spyOn(window, 'StatisticsDescriptionCollection').andReturn(
         statisticsDescriptionCollectionDummy
       );
       spyOn(window, 'StatisticsCollection').andReturn(statisticsCollectionDummy);
       spyOn(window, 'CollectionsView').andReturn(collectionsViewDummy);
-      spyOn(window, 'ArangoLogs').andCallFake(function (opts) {
+      spyOn(window, 'AvocadoLogs').andCallFake(function (opts) {
         if (opts.upto) {
           return logsDummy.all;
         }
@@ -246,7 +246,7 @@
       spyOn(window, 'DashboardView').andReturn(dashboardDummy);
       spyOn(window, 'StatisticBarView').andReturn(statisticBarDummy);
       spyOn(window, 'UserBarView').andReturn(userBarDummy);
-      spyOn(window, 'ArangoQueries');
+      spyOn(window, 'AvocadoQueries');
 
       spyOn(window, 'checkVersion');
     });
@@ -440,7 +440,7 @@
 
         spyOn(documentsViewDummy, 'render');
         spyOn(documentsViewDummy, 'setCollectionId');
-        spyOn(arangoHelper, 'collectionApiType').andReturn(1);
+        spyOn(avocadoHelper, 'collectionApiType').andReturn(1);
         simpleNavigationCheck(
           {
             url: 'collection/:colid/documents/:pageid',
@@ -477,7 +477,7 @@
       it('should route to document', function () {
         var colid = 5,
           docid = 6;
-        spyOn(arangoHelper, 'collectionApiType').andReturn(5);
+        spyOn(avocadoHelper, 'collectionApiType').andReturn(5);
         spyOn(documentViewDummy, 'render');
         spyOn(documentViewDummy, 'setType');
         simpleNavigationCheck(
@@ -494,12 +494,12 @@
         );
         expect(r.documentView.colid).toEqual(colid);
         expect(r.documentView.docid).toEqual(docid);
-        expect(arangoHelper.collectionApiType).toHaveBeenCalledWith(colid);
+        expect(avocadoHelper.collectionApiType).toHaveBeenCalledWith(colid);
         expect(documentViewDummy.setType).toHaveBeenCalledWith(colid);
       });
 
       it('should route to databases', function () {
-        spyOn(arangoHelper, 'databaseAllowed').andReturn(true);
+        spyOn(avocadoHelper, 'databaseAllowed').andReturn(true);
         simpleNavigationCheck(
           'databases',
           'databaseView',
@@ -512,7 +512,7 @@
       });
 
       it('should not route to databases and hide database navi', function () {
-        spyOn(arangoHelper, 'databaseAllowed').andReturn(false);
+        spyOn(avocadoHelper, 'databaseAllowed').andReturn(false);
         spyOn(r, 'navigate');
         spyOn(jQueryDummy, 'css');
 

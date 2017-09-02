@@ -1,14 +1,14 @@
 Manifest
 ========
 
-Many of the fields that were required in ArangoDB 2.x are now optional and can be safely omitted.
+Many of the fields that were required in AvocadoDB 2.x are now optional and can be safely omitted.
 
-To avoid compatibility problems with future versions of ArangoDB you should always specify the `engines` field, e.g.:
+To avoid compatibility problems with future versions of AvocadoDB you should always specify the `engines` field, e.g.:
 
 ```json
 {
   "engines": {
-    "arangodb": "^3.0.0"
+    "avocadodb": "^3.0.0"
   }
 }
 ```
@@ -16,7 +16,7 @@ To avoid compatibility problems with future versions of ArangoDB you should alwa
 Controllers & exports
 ---------------------
 
-Previously Foxx distinguished between `exports` and `controllers`, each of which could be specified as an object. In ArangoDB 3.0 these have been merged into a single `main` field specifying an entry file.
+Previously Foxx distinguished between `exports` and `controllers`, each of which could be specified as an object. In AvocadoDB 3.0 these have been merged into a single `main` field specifying an entry file.
 
 The easiest way to migrate services using multiple exports and/or controllers is to create a separate entry file that imports these files:
 
@@ -60,7 +60,7 @@ module.exports = {
 Index redirect
 --------------
 
-If you previously did not define the `defaultDocument` field, please note that in ArangoDB 3.0 the field will no longer default to the value `index.html` when omitted:
+If you previously did not define the `defaultDocument` field, please note that in AvocadoDB 3.0 the field will no longer default to the value `index.html` when omitted:
 
 Old:
 
@@ -99,7 +99,7 @@ New:
 Assets
 ------
 
-The `assets` field is no longer supported in ArangoDB 3.0 outside of legacy compatibility mode.
+The `assets` field is no longer supported in AvocadoDB 3.0 outside of legacy compatibility mode.
 
 If you previously used the field to serve individual files as-is you can simply use the `files` field instead:
 
@@ -129,7 +129,7 @@ New:
 }
 ```
 
-If you relied on being able to specify multiple files that should be concatenated, you will have to use build tools outside of ArangoDB to prepare these files accordingly.
+If you relied on being able to specify multiple files that should be concatenated, you will have to use build tools outside of AvocadoDB to prepare these files accordingly.
 
 Root element
 ------------
@@ -141,4 +141,4 @@ If your controllers relied on this field being available you need to adjust your
 System services
 ---------------
 
-The `isSystem` field is no longer supported. The presence or absence of the field had no effect in most recent versions of ArangoDB 2.x and has now been removed entirely.
+The `isSystem` field is no longer supported. The presence or absence of the field had no effect in most recent versions of AvocadoDB 2.x and has now been removed entirely.

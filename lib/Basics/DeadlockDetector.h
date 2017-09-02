@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@
 #include "Basics/MutexLocker.h"
 #include "Basics/Thread.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 
 template <typename T>
@@ -308,7 +308,7 @@ class DeadlockDetector {
 
  private:
   /// @brief lock for managing the data structures
-  arangodb::Mutex _lock;
+  avocadodb::Mutex _lock;
 
   /// @brief threads currently blocked
   std::unordered_map<TRI_tid_t, std::pair<T const*, bool>> _blocked;
@@ -321,7 +321,7 @@ class DeadlockDetector {
   bool _enabled;
 };
 
-}  // namespace arangodb::basics
-}  // namespace arangodb
+}  // namespace avocadodb::basics
+}  // namespace avocadodb
 
 #endif

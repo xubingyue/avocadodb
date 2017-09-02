@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Achim Brandt
@@ -28,7 +28,7 @@
 #include "Endpoint/ConnectionInfo.h"
 #include "Rest/GeneralRequest.h"
 
-namespace arangodb {
+namespace avocadodb {
 class RestBatchHandler;
 
 namespace rest {
@@ -70,8 +70,8 @@ class HttpRequest final : public GeneralRequest {
   bool isHttp11() const { return _version == ProtocolVersion::HTTP_1_1; }
 
  public:
-  arangodb::Endpoint::TransportType transportType() override {
-    return arangodb::Endpoint::TransportType::HTTP;
+  avocadodb::Endpoint::TransportType transportType() override {
+    return avocadodb::Endpoint::TransportType::HTTP;
   }
   // the content length
   int64_t contentLength() const override { return _contentLength; }
@@ -104,7 +104,7 @@ class HttpRequest final : public GeneralRequest {
   void setBody(char const* body, size_t length);
 
   // Payload
-  VPackSlice payload(arangodb::velocypack::Options const*) override final;
+  VPackSlice payload(avocadodb::velocypack::Options const*) override final;
 
   /// @brief sets a key/value header
   //  this function is called by setHeaders and get offsets to

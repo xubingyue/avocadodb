@@ -51,8 +51,8 @@ function createTests {
     $tests = @(
       "agency",
       @("boost", "boost", "--skipCache false"),
-      "arangobench",
-      "arangosh",
+      "avocadobench",
+      "avocadosh",
       "authentication",
       "authentication_parameters",
       "cluster_sync",
@@ -83,8 +83,8 @@ function createTests {
     $cluster = "true"
 
     $tests = @(
-      "arangobench",
-      "arangosh",
+      "avocadobench",
+      "avocadosh",
       "authentication",
       "authentication_parameters",
       "config",
@@ -130,15 +130,15 @@ function createTests {
         # ridiculous...first allow it to continue because as soon as something will write to stderr it will fail
         # however some of these tests trigger these and actually some errors are to be expected.
         $ErrorActionPreference="SilentlyContinue"
-        .\build\bin\arangosh.exe --log.level warning --javascript.execute UnitTests\unittest.js $test -- --cluster $cluster --storageEngine $engine --minPort $myport --maxPort $maxPort --skipNondeterministic true --skipTimeCritical true  --configDir etc/jenkins --skipLogAnalysis true $testargs *>&1 | Tee-Object -FilePath $log
+        .\build\bin\avocadosh.exe --log.level warning --javascript.execute UnitTests\unittest.js $test -- --cluster $cluster --storageEngine $engine --minPort $myport --maxPort $maxPort --skipNondeterministic true --skipTimeCritical true  --configDir etc/jenkins --skipLogAnalysis true $testargs *>&1 | Tee-Object -FilePath $log
         # $? will actually be false on those bogus "errors". however $LASTEXITCODE seems to always contain the real result we are interested in
         $result=$LASTEXITCODE
-        # the only one who really knows if it broke or not is arangosh itself. so catch the error code
+        # the only one who really knows if it broke or not is avocadosh itself. so catch the error code
         # THEN REENABLE THE FCKING ERROR HANDLING
         $ErrorActionPreference="Stop"
         # and finally throw an error only if there really was an error
         if ($result -ne 0) {
-          throw "arangosh returned a non zero exit code: $result!"
+          throw "avocadosh returned a non zero exit code: $result!"
         }
       }
       args=@($name, $myport, $maxPort, $test, $cluster, $engine, $testArgs, $log)

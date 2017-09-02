@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,8 +32,8 @@
 #include <sys/sysinfo.h>
 #endif
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 EnvironmentFeature::EnvironmentFeature(
     application_features::ApplicationServer* server)
@@ -47,8 +47,8 @@ EnvironmentFeature::EnvironmentFeature(
 void EnvironmentFeature::prepare() {
   if (sizeof(void*) == 4) {
     // 32 bit build
-    LOG_TOPIC(WARN, arangodb::Logger::MEMORY)
-        << "this is a 32 bit build of ArangoDB. "
+    LOG_TOPIC(WARN, avocadodb::Logger::MEMORY)
+        << "this is a 32 bit build of AvocadoDB. "
         << "it is recommended to run a 64 bit build instead because it can "
         << "address significantly bigger regions of memory";
   }
@@ -65,7 +65,7 @@ void EnvironmentFeature::prepare() {
       uint64_t upper = basics::StringUtils::uint64(parts[1]);
 
       if (lower > upper || (upper - lower) < 16384) {
-        LOG_TOPIC(WARN, arangodb::Logger::COMMUNICATION)
+        LOG_TOPIC(WARN, avocadodb::Logger::COMMUNICATION)
             << "local port range for ipv4/ipv6 ports is " << lower << " - " << upper
             << ", which does not look right. it is recommended to make at least 16K ports available";
         LOG_TOPIC(WARN, Logger::MEMORY) << "execute 'sudo bash -c \"echo -e \\\"32768\\t60999\\\" > "
@@ -101,10 +101,10 @@ void EnvironmentFeature::prepare() {
 
   if (v == nullptr) {
     // environment variable not set
-    LOG_TOPIC(WARN, arangodb::Logger::MEMORY)
+    LOG_TOPIC(WARN, avocadodb::Logger::MEMORY)
         << "environment variable GLIBCXX_FORCE_NEW' is not set. "
         << "it is recommended to set it to some value to avoid unnecessary memory pooling in glibc++";
-    LOG_TOPIC(WARN, arangodb::Logger::MEMORY)
+    LOG_TOPIC(WARN, avocadodb::Logger::MEMORY)
         << "execute 'export GLIBCXX_FORCE_NEW=1'";
   }
 #endif

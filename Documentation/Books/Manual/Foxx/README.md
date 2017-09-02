@@ -9,10 +9,10 @@ that had to access the database. Additionally, tools to abstract away the
 underlying database calls could incur a lot of network overhead when using remote
 databases without careful optimization.
 
-ArangoDB allows application developers to write their data access and domain logic
+AvocadoDB allows application developers to write their data access and domain logic
 as microservices running directly within the database with native access to
 in-memory data. The **Foxx microservice framework** makes it easy to extend
-ArangoDB's own REST API with custom HTTP endpoints using modern JavaScript running
+AvocadoDB's own REST API with custom HTTP endpoints using modern JavaScript running
 on the same V8 engine you know from Node.js and the Google Chrome web browser.
 
 Unlike traditional approaches to storing logic in the database (like stored

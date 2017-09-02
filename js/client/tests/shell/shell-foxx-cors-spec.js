@@ -1,12 +1,12 @@
-/* global arango, describe, beforeEach, afterEach, it*/
+/* global avocado, describe, beforeEach, afterEach, it*/
 'use strict';
 
 var expect = require('chai').expect;
-var FoxxManager = require('org/arangodb/foxx/manager');
+var FoxxManager = require('org/avocadodb/foxx/manager');
 var fs = require('fs');
 var internal = require('internal');
 var basePath = fs.makeAbsolute(fs.join(internal.startupPath, 'common', 'test-data', 'apps', 'headers'));
-var origin = arango.getEndpoint().replace(/\+vpp/, '').replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:');
+var origin = avocado.getEndpoint().replace(/\+vpp/, '').replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:');
 
 describe('HTTP headers in Foxx services', function () {
   describe('Check request-response', function () {
@@ -29,7 +29,7 @@ describe('HTTP headers in Foxx services', function () {
       var opts = { headers: { origin }, method: "OPTIONS" };
       var result = internal.download(origin + "/unittest/headers/header-echo", "", opts);
       expect(result.code).to.equal(200);
-      expect(result.headers['access-control-expose-headers']).to.equal('etag, content-encoding, content-length, location, server, x-arango-errors, x-arango-async-id');
+      expect(result.headers['access-control-expose-headers']).to.equal('etag, content-encoding, content-length, location, server, x-avocado-errors, x-avocado-async-id');
       expect(result.headers).not.to.have.property('access-control-allow-headers');
       expect(result.headers['access-control-allow-credentials']).to.equal('true');
       expect(result.headers['access-control-allow-origin']).to.equal(origin);

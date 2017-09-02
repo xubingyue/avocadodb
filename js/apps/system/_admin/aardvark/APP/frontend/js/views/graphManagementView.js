@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, $, _, window, templateEngine, arangoHelper, GraphViewerUI, require, Joi, frontendConfig */
+/* global Backbone, $, _, window, templateEngine, avocadoHelper, GraphViewerUI, require, Joi, frontendConfig */
 
 (function () {
   'use strict';
@@ -21,7 +21,7 @@
 
     events: {
       'click #deleteGraph': 'deleteGraph',
-      'click .icon_arangodb_settings2.editGraph': 'editGraph',
+      'click .icon_avocadodb_settings2.editGraph': 'editGraph',
       'click #createGraph': 'addNewGraph',
       'keyup #graphManagementSearchInput': 'search',
       'click #graphManagementSearchSubmit': 'search',
@@ -77,7 +77,7 @@
     loadGraphViewer: function (graphName, refetch) {
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('', '');
+          avocadoHelper.avocadoError('', '');
         } else {
           var edgeDefs = this.collection.get(graphName).get('edgeDefinitions');
           if (!edgeDefs || edgeDefs.length === 0) {
@@ -87,12 +87,12 @@
           var adapterConfig = {
             type: 'gharial',
             graphName: graphName,
-            baseUrl: arangoHelper.databaseUrl('/')
+            baseUrl: avocadoHelper.databaseUrl('/')
           };
           var width = $('#content').width() - 75;
           $('#content').html('');
 
-          var height = arangoHelper.calculateCenterDivHeight();
+          var height = avocadoHelper.calculateCenterDivHeight();
 
           this.ui = new GraphViewerUI($('#content')[0], adapterConfig, width, $('.centralRow').height() - 135, {
             nodeShaper: {
@@ -155,7 +155,7 @@
             window.modalView.hide();
           } else {
             window.modalView.hide();
-            arangoHelper.arangoError('Graph', 'Could not delete Graph.');
+            avocadoHelper.avocadoError('Graph', 'Could not delete Graph.');
           }
         };
 
@@ -169,7 +169,7 @@
           error: function (xhr, err) {
             var response = JSON.parse(err.responseText);
             var msg = response.errorMessage;
-            arangoHelper.arangoError(msg);
+            avocadoHelper.avocadoError(msg);
             window.modalView.hide();
           }
         });
@@ -212,23 +212,23 @@
 
       $.ajax({
         type: 'POST',
-        url: arangoHelper.databaseUrl('/_admin/aardvark/graph-examples/create/' + encodeURIComponent(graph)),
+        url: avocadoHelper.databaseUrl('/_admin/aardvark/graph-examples/create/' + encodeURIComponent(graph)),
         success: function () {
           window.modalView.hide();
           self.updateGraphManagementView();
-          arangoHelper.arangoNotification('Example Graphs', 'Graph: ' + graph + ' created.');
+          avocadoHelper.avocadoNotification('Example Graphs', 'Graph: ' + graph + ' created.');
         },
         error: function (err) {
           window.modalView.hide();
           if (err.responseText) {
             try {
               var msg = JSON.parse(err.responseText);
-              arangoHelper.arangoError('Example Graphs', msg.errorMessage);
+              avocadoHelper.avocadoError('Example Graphs', msg.errorMessage);
             } catch (e) {
-              arangoHelper.arangoError('Example Graphs', 'Could not create example graph: ' + graph);
+              avocadoHelper.avocadoError('Example Graphs', 'Could not create example graph: ' + graph);
             }
           } else {
-            arangoHelper.arangoError('Example Graphs', 'Could not create example graph: ' + graph);
+            avocadoHelper.avocadoError('Example Graphs', 'Could not create example graph: ' + graph);
           }
         }
       });
@@ -345,8 +345,8 @@
               }
             }
           };
-          arangoHelper.setCheckboxStatus('#graphManagementDropdown');
-          arangoHelper.checkDatabasePermissions(self.setReadOnly.bind(self));
+          avocadoHelper.setCheckboxStatus('#graphManagementDropdown');
+          avocadoHelper.checkDatabasePermissions(self.setReadOnly.bind(self));
         }
       });
 
@@ -588,14 +588,14 @@
       var edgeDefinitionElements;
 
       if (!name) {
-        arangoHelper.arangoError(
+        avocadoHelper.avocadoError(
           'A name for the graph has to be provided.'
         );
         return 0;
       }
 
       if (this.collection.findWhere({_key: name})) {
-        arangoHelper.arangoError(
+        avocadoHelper.avocadoError(
           "The graph '" + name + "' already exists."
         );
         return 0;
@@ -648,7 +648,7 @@
       // if smart graph
       if ($('#tab-smartGraph').parent().hasClass('active')) {
         if ($('#new-numberOfShards').val() === '' || $('#new-smartGraphAttribute').val() === '') {
-          arangoHelper.arangoError('Smart Graph creation', 'numberOfShards and/or smartGraphAttribute not set!');
+          avocadoHelper.avocadoError('Smart Graph creation', 'numberOfShards and/or smartGraphAttribute not set!');
           return;
         } else {
           newCollectionObject.isSmart = true;
@@ -687,7 +687,7 @@
           // Gritter does not display <>
           msg = msg.replace('<', '');
           msg = msg.replace('>', '');
-          arangoHelper.arangoError(msg);
+          avocadoHelper.avocadoError(msg);
         }
       });
     },
@@ -1003,7 +1003,7 @@
       test.remove();
 
       window.modalView.hide();
-      arangoHelper.arangoNotification('Graph', 'Reset successful.');
+      avocadoHelper.avocadoNotification('Graph', 'Reset successful.');
     },
 
     addRemoveDefinition: function (e) {

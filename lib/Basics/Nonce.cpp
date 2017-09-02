@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Frank Celler
 /// @author Achim Brandt
@@ -29,8 +29,8 @@
 #include "Logger/Logger.h"
 #include "Random/RandomGenerator.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 namespace {
 Mutex MutexNonce;
@@ -50,7 +50,7 @@ static uint32_t StatisticsNonces[32][5] = {
     {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}};
 }
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 namespace Nonce {
 
@@ -63,7 +63,7 @@ void create(size_t size) {
 
   destroy();
 
-  LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "creating nonces with size: " << size;
+  LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "creating nonces with size: " << size;
   TimestampNonces = new uint32_t[size];
 
   memset(TimestampNonces, 0, sizeof(uint32_t) * size);
@@ -77,7 +77,7 @@ void create(size_t size) {
 
 void destroy() {
   if (TimestampNonces != nullptr) {
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "destroying nonces";
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "destroying nonces";
     delete[] TimestampNonces;
     TimestampNonces = nullptr;
   }
@@ -164,7 +164,7 @@ bool checkAndMark(uint32_t timestamp, uint64_t random) {
     age >>= 1;
   }
 
-  LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "age of timestamp " << timestamp << " is " << age << " (log " << l2age << ")";
+  LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "age of timestamp " << timestamp << " is " << age << " (log " << l2age << ")";
 
   StatisticsNonces[l2age][proofs]++;
 

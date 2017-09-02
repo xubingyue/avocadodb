@@ -91,7 +91,7 @@ is returned if an error occurred while assembling the response.
 Fetching the state of an inactive applier:
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationApplierStateNotRunning}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
     re.applier.shutdown();
 
     var url = "/_api/replication/applier-state";
@@ -104,7 +104,7 @@ Fetching the state of an inactive applier:
 Fetching the state of an active applier:
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationApplierStateRunning}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
     re.applier.shutdown();
     re.applier.start();
 

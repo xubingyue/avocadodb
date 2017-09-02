@@ -2,7 +2,7 @@ Clusters Options
 ================
 
 ### Agency endpoint
-<!-- arangod/Cluster/ClusterFeature.h -->
+<!-- avocadod/Cluster/ClusterFeature.h -->
 
 
 List of agency endpoints:
@@ -17,8 +17,8 @@ Endpoints have the following pattern:
 - ssl://ipv4-address:port - TCP/IP endpoint, using IPv4, SSL encryption
 - ssl://[ipv6-address]:port - TCP/IP endpoint, using IPv6, SSL encryption
 
-At least one endpoint must be specified or ArangoDB will refuse to start.
-It is recommended to specify at least two endpoints so ArangoDB has an
+At least one endpoint must be specified or AvocadoDB will refuse to start.
+It is recommended to specify at least two endpoints so AvocadoDB has an
 alternative endpoint if one of them becomes unavailable.
 
 **Examples**
@@ -29,7 +29,7 @@ alternative endpoint if one of them becomes unavailable.
 
 ### My address
 
-<!-- arangod/Cluster/ClusterFeature.h -->
+<!-- avocadod/Cluster/ClusterFeature.h -->
 
 
 This server's address / endpoint:
@@ -44,7 +44,7 @@ must have the following pattern:
 
 If no *endpoint* is specified, the server will look up its internal
 endpoint address in the agency. If no endpoint can be found in the agency
-for the server's id, ArangoDB will refuse to start.
+for the server's id, AvocadoDB will refuse to start.
 
 **Examples**
 
@@ -60,7 +60,7 @@ Listen on all ipv4 and ipv6 addresses, which are configured on port `8530`
 
 ### My role
 
-<!-- arangod/Cluster/ClusterFeature.h -->
+<!-- avocadod/Cluster/ClusterFeature.h -->
 
 
 This server's role:
@@ -70,7 +70,7 @@ The server's role. Is this instance a db server (backend data server)
 or a coordinator (frontend server for external and application access)
 
 ### Node ID (deprecated)
-<!-- arangod/Cluster/ClusterFeature.h -->
+<!-- avocadod/Cluster/ClusterFeature.h -->
 
 
 This server's id: `--cluster.my-local-info info`
@@ -85,7 +85,7 @@ This option is deprecated and will be removed in a future release. The
 cluster node ids have been dropped in favour of once generated UUIDs.
 
 ### More advanced options (should generally remain untouched)
-<!-- arangod/Cluster/ClusterFeature.h -->
+<!-- avocadod/Cluster/ClusterFeature.h -->
 
 
 Synchroneous replication timing: `--cluster.synchronous-replication-timeout-factor double`

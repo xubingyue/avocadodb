@@ -10,8 +10,8 @@ Details about the fulltext query syntax can be found below.
 
 **Note**: this method is not yet supported by the RocksDB storage engine.
 
-Note: the *fulltext* simple query function is **deprecated** as of ArangoDB 2.6.
-The function may be removed in future versions of ArangoDB. The preferred
+Note: the *fulltext* simple query function is **deprecated** as of AvocadoDB 2.6.
+The function may be removed in future versions of AvocadoDB. The preferred
 way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
 [AQL function](../Aql/FulltextFunctions.md) as follows:
 

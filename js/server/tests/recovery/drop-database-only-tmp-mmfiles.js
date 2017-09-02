@@ -27,7 +27,7 @@
 // / @author Copyright 2013, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var db = require('@arangodb').db;
+var db = require('@avocadodb').db;
 var internal = require('internal');
 var fs = require('fs');
 var jsunity = require('jsunity');

@@ -3,7 +3,7 @@ Date functions
 
 AQL offers functionality to work with dates. Dates are no data types of their own in
 AQL (neither are they in JSON, which is usually used as format to ship data into and
-out of ArangoDB). Instead, dates in AQL are typically represented by either numbers
+out of AvocadoDB). Instead, dates in AQL are typically represented by either numbers
 (timestamps) or strings.
 
 All functions that require dates as arguments accept the following input values:
@@ -26,7 +26,7 @@ All functions that require dates as arguments accept the following input values:
   522 milliseconds, UTC / Zulu time. Another example value without time component is
   *2014-05-07Z*.
 
-  Please note that if no timezone offset is specified in a date string, ArangoDB will
+  Please note that if no timezone offset is specified in a date string, AvocadoDB will
   assume UTC time automatically. This is done to ensure portability of queries across
   servers with different timezone settings, and because timestamps will always be
   UTC-based.
@@ -622,7 +622,7 @@ FOR user IN users
 Working with dates and indices
 ------------------------------
 
-There are two recommended ways to store timestamps in ArangoDB:
+There are two recommended ways to store timestamps in AvocadoDB:
   - as string with [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC timestamp
   - as [Epoch number](https://en.wikipedia.org/wiki/Epoch_%28reference_date%29)
 

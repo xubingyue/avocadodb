@@ -1,21 +1,21 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/collection"
   prefix = "api-collection"
 
   context "dealing with collections:" do
     before do
       @cn = "UnitTestsCollectionBasics"
-      ArangoDB.drop_collection(@cn)
-      @cid = ArangoDB.create_collection(@cn)
+      AvocadoDB.drop_collection(@cn)
+      @cid = AvocadoDB.create_collection(@cn)
     end
 
     after do
-      ArangoDB.drop_collection(@cn)
+      AvocadoDB.drop_collection(@cn)
     end
 
 ################################################################################
@@ -26,7 +26,7 @@ describe ArangoDB do
       # checksum
       it "calculating the checksum for a collection" do
         cmd = api + "/" + @cn + "/checksum"
-        doc = ArangoDB.log_get("#{prefix}-get-collection-checksum", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-checksum", cmd)
 
         # empty collection
         doc.code.should eq(200)
@@ -45,10 +45,10 @@ describe ArangoDB do
 
         # create a new document
         body = "{ \"test\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-get-collection-checksum", "/_api/document/?collection=" + @cn, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-get-collection-checksum", "/_api/document/?collection=" + @cn, :body => body)
         
         # fetch checksum again
-        doc = ArangoDB.log_get("#{prefix}-get-collection-checksum", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-checksum", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -64,10 +64,10 @@ describe ArangoDB do
         c2.should_not eq(c1);
 
         # create another document
-        doc = ArangoDB.log_post("#{prefix}-get-collection-checksum", "/_api/document/?collection=" + @cn, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-get-collection-checksum", "/_api/document/?collection=" + @cn, :body => body)
         
         # fetch checksum again
-        doc = ArangoDB.log_get("#{prefix}-get-collection-checksum", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-checksum", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -85,7 +85,7 @@ describe ArangoDB do
         c3.should_not eq(c2);
         
         # fetch checksum <withData>
-        doc = ArangoDB.log_get("#{prefix}-get-collection-checksum", cmd + "?withData=true")
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-checksum", cmd + "?withData=true")
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -102,10 +102,10 @@ describe ArangoDB do
         c4.should_not eq(c3);
 
         # truncate
-        doc = ArangoDB.log_put("#{prefix}-get-collection-checksum", "/_api/collection/#{@cn}/truncate", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-get-collection-checksum", "/_api/collection/#{@cn}/truncate", :body => "")
         
         # fetch checksum again
-        doc = ArangoDB.log_get("#{prefix}-get-collection-checksum", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-checksum", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -132,18 +132,18 @@ describe ArangoDB do
       it "create collection with explicit keyOptions property, autoinc keygen" do
         cn = "UnitTestsCollectionKeygen"
 
-        ArangoDB.drop_collection(cn)
+        AvocadoDB.drop_collection(cn)
 
         cmd = "/_api/collection"
         body = "{ \"name\" : \"#{cn}\", \"waitForSync\" : false, \"type\" : 2, \"keyOptions\" : {\"type\": \"autoincrement\", \"offset\": 7, \"increment\": 99, \"allowUserKeys\": false } }"
-        doc = ArangoDB.log_post("#{prefix}-with-create-options", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-with-create-options", cmd, :body => body)
 
         doc.code.should eq(200)
         cid = doc.parsed_response['id']
 
         cmd = api + "/" + cn + "/properties"
         body = "{ \"waitForSync\" : true }"
-        doc = ArangoDB.log_put("#{prefix}-with-create-options", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-with-create-options", cmd, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -159,7 +159,7 @@ describe ArangoDB do
         doc.parsed_response['keyOptions']['offset'].should eq(7)
         doc.parsed_response['keyOptions']['allowUserKeys'].should eq(false)
         
-        ArangoDB.drop_collection(cn)
+        AvocadoDB.drop_collection(cn)
       end
       
     end
@@ -174,18 +174,18 @@ describe ArangoDB do
         body = "{ \"Hallo\" : \"World\" }"
 
         for i in ( 1 .. 10 )
-          doc = ArangoDB.post(cmd, :body => body)
+          doc = AvocadoDB.post(cmd, :body => body)
         end
 
-        ArangoDB.size_collection(@cid).should eq(10)
-        ArangoDB.size_collection(@cn).should eq(10)
+        AvocadoDB.size_collection(@cid).should eq(10)
+        AvocadoDB.size_collection(@cn).should eq(10)
 
         cn2 = "UnitTestsCollectionBasics2"
-        ArangoDB.drop_collection(cn2)
+        AvocadoDB.drop_collection(cn2)
 
         body = "{ \"name\" : \"#{cn2}\" }"
         cmd = api + "/" + @cn + "/rename"
-        doc = ArangoDB.log_put("#{prefix}-identifier-rename", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-identifier-rename", cmd, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -195,56 +195,56 @@ describe ArangoDB do
         doc.parsed_response['name'].should eq(cn2)
         doc.parsed_response['status'].should eq(3)
 
-        ArangoDB.size_collection(@cid).should eq(10)
-        ArangoDB.size_collection(cn2).should eq(10)
+        AvocadoDB.size_collection(@cid).should eq(10)
+        AvocadoDB.size_collection(cn2).should eq(10)
 
         cmd = api + "/" + @cn
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(404)
         doc.parsed_response['error'].should eq(true)
         doc.parsed_response['errorNum'].should eq(1203)
 
         cmd = api + "/" + cn2
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.parsed_response['error'].should eq(false)
         doc.parsed_response['name'].should eq(cn2)
         doc.parsed_response['status'].should eq(3)
 
-        ArangoDB.drop_collection(@cn)
-        ArangoDB.drop_collection(cn2)
+        AvocadoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(cn2)
       end
 
       it "rename a collection by identifier with conflict" do
         cn2 = "UnitTestsCollectionBasics2"
-        ArangoDB.drop_collection(cn2)
-        cid2 = ArangoDB.create_collection(cn2)
+        AvocadoDB.drop_collection(cn2)
+        cid2 = AvocadoDB.create_collection(cn2)
 
         body = "{ \"Hallo\" : \"World\" }"
 
         cmd = "/_api/document?collection=#{@cn}"
 
         for i in ( 1 .. 10 )
-          doc = ArangoDB.post(cmd, :body => body)
+          doc = AvocadoDB.post(cmd, :body => body)
         end
 
-        ArangoDB.size_collection(@cid).should eq(10)
-        ArangoDB.size_collection(@cn).should eq(10)
+        AvocadoDB.size_collection(@cid).should eq(10)
+        AvocadoDB.size_collection(@cn).should eq(10)
 
         cmd = "/_api/document?collection=#{cn2}"
 
         for i in ( 1 .. 20 )
-          doc = ArangoDB.post(cmd, :body => body)
+          doc = AvocadoDB.post(cmd, :body => body)
         end
 
-        ArangoDB.size_collection(cid2).should eq(20)
-        ArangoDB.size_collection(cn2).should eq(20)
+        AvocadoDB.size_collection(cid2).should eq(20)
+        AvocadoDB.size_collection(cn2).should eq(20)
 
         body = "{ \"name\" : \"#{cn2}\" }"
         cmd = api + "/" + @cn + "/rename"
-        doc = ArangoDB.log_put("#{prefix}-identifier-rename-conflict", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-identifier-rename-conflict", cmd, :body => body)
 
         doc.code.should eq(409)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -252,23 +252,23 @@ describe ArangoDB do
         doc.parsed_response['code'].should eq(409)
         doc.parsed_response['errorNum'].should eq(1207)
 
-        ArangoDB.size_collection(@cid).should eq(10)
-        ArangoDB.size_collection(@cn).should eq(10)
+        AvocadoDB.size_collection(@cid).should eq(10)
+        AvocadoDB.size_collection(@cn).should eq(10)
 
-        ArangoDB.size_collection(cid2).should eq(20)
-        ArangoDB.size_collection(cn2).should eq(20)
+        AvocadoDB.size_collection(cid2).should eq(20)
+        AvocadoDB.size_collection(cn2).should eq(20)
 
-        ArangoDB.drop_collection(@cn)
-        ArangoDB.drop_collection(cn2)
+        AvocadoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(cn2)
       end
 
       it "rename a new-born collection by identifier" do
         cn2 = "UnitTestsCollectionBasics2"
-        ArangoDB.drop_collection(cn2)
+        AvocadoDB.drop_collection(cn2)
 
         body = "{ \"name\" : \"#{cn2}\" }"
         cmd = api + "/" + @cn + "/rename"
-        doc = ArangoDB.log_put("#{prefix}-identifier-rename-new-born", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-identifier-rename-new-born", cmd, :body => body)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -279,34 +279,34 @@ describe ArangoDB do
         doc.parsed_response['status'].should eq(3)
 
         cmd = api + "/" + @cn
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(404)
         doc.parsed_response['error'].should eq(true)
         doc.parsed_response['errorNum'].should eq(1203)
 
         cmd = api + "/" + cn2
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.parsed_response['error'].should eq(false)
         doc.parsed_response['name'].should eq(cn2)
         doc.parsed_response['status'].should eq(3)
 
-        ArangoDB.drop_collection(@cn)
-        ArangoDB.drop_collection(cn2)
+        AvocadoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(cn2)
       end
 
       it "rename a new-born collection by identifier with conflict" do
         cn2 = "UnitTestsCollectionBasics2"
-        ArangoDB.drop_collection(cn2)
-        cid2 = ArangoDB.create_collection(cn2)
+        AvocadoDB.drop_collection(cn2)
+        cid2 = AvocadoDB.create_collection(cn2)
 
         cmd = "/_api/document?collection=#{cn2}"
 
         body = "{ \"name\" : \"#{cn2}\" }"
         cmd = api + "/" + @cn + "/rename"
-        doc = ArangoDB.log_put("#{prefix}-identifier-rename-conflict", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-identifier-rename-conflict", cmd, :body => body)
 
         doc.code.should eq(409)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -314,8 +314,8 @@ describe ArangoDB do
         doc.parsed_response['code'].should eq(409)
         doc.parsed_response['errorNum'].should eq(1207)
 
-        ArangoDB.drop_collection(@cn)
-        ArangoDB.drop_collection(cn2)
+        AvocadoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(cn2)
       end
     end
 

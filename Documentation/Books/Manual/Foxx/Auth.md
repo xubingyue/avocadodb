@@ -1,7 +1,7 @@
 Authentication
 ==============
 
-`const createAuth = require('@arangodb/foxx/auth');`
+`const createAuth = require('@avocadodb/foxx/auth');`
 
 Authenticators allow implementing basic password mechanism using simple built-in hashing functions.
 

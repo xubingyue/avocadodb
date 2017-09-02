@@ -123,7 +123,7 @@ add_library(${LIB_ARANGO} STATIC
   ApplicationFeatures/TempFeature.cpp
   ApplicationFeatures/V8PlatformFeature.cpp
   ApplicationFeatures/VersionFeature.cpp
-  Basics/ArangoGlobalContext.cpp
+  Basics/AvocadoGlobalContext.cpp
   Basics/AttributeNameParser.cpp
   Basics/ConditionLocker.cpp
   Basics/ConditionVariable.cpp

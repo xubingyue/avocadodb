@@ -3,12 +3,12 @@ Geo Indexes
 
 ### Introduction to Geo Indexes
 
-This is an introduction to ArangoDB's geo indexes.
+This is an introduction to AvocadoDB's geo indexes.
 
 AQL's geographic features are described in [Geo functions](../../AQL/Functions/Geo.html).
 
-ArangoDB uses Hilbert curves to implement geo-spatial indexes.
-See this [blog](https://www.arangodb.com/2012/03/31/using-hilbert-curves-and-polyhedrons-for-geo-indexing)
+AvocadoDB uses Hilbert curves to implement geo-spatial indexes.
+See this [blog](https://www.avocadodb.com/2012/03/31/using-hilbert-curves-and-polyhedrons-for-geo-indexing)
 for details.
 
 A geo-spatial index assumes that the latitude is between -90 and 90 degree and
@@ -18,7 +18,7 @@ documents which do not fulfill these requirements.
 Accessing Geo Indexes from the Shell
 ------------------------------------
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 
 ensures that a geo index exists
@@ -128,13 +128,13 @@ Use GeoIndex with AQL FILTER statement:
     @endDocuBlock geoIndexFilterOptimization
 
 
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 @startDocuBlock collectionGeo
 
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 @startDocuBlock collectionNear
 
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 @startDocuBlock collectionWithin
 
 
@@ -143,7 +143,7 @@ Use GeoIndex with AQL FILTER statement:
 ensures that a geo index exists
 `collection.ensureIndex({ type: "geo", fields: [ "location" ] })`
 
-Since ArangoDB 2.5, this method is an alias for *ensureGeoIndex* since
+Since AvocadoDB 2.5, this method is an alias for *ensureGeoIndex* since
 geo indexes are always sparse, meaning that documents that do not contain
 the index attributes or have non-numeric values in the index attributes
 will not be indexed. *ensureGeoConstraint* is deprecated and *ensureGeoIndex*

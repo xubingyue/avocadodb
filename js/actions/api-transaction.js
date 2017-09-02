@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -22,15 +22,15 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Jan Steemann
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var arangodb = require('@arangodb');
-var actions = require('@arangodb/actions');
+var avocadodb = require('@avocadodb');
+var actions = require('@avocadodb/actions');
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief was docuBlock JSF_post_api_transaction
@@ -40,7 +40,7 @@ function post_api_transaction (req, res) {
   var json = actions.getJsonBody(req, res);
 
   if (json === undefined) {
-    actions.resultBad(req, res, arangodb.ERROR_HTTP_BAD_PARAMETER);
+    actions.resultBad(req, res, avocadodb.ERROR_HTTP_BAD_PARAMETER);
     return;
   }
 

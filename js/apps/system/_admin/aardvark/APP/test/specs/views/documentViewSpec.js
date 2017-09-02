@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* global describe, beforeEach, afterEach, it, spyOn, expect*/
-/* global arangoHelper, $*/
+/* global avocadoHelper, $*/
 
 (function () {
   'use strict';
@@ -13,14 +13,14 @@
       div.id = 'content';
       document.body.appendChild(div);
 
-      model = new window.arangoDocumentModel({
+      model = new window.avocadoDocumentModel({
         _key: '123',
         _id: 'v/123',
         _rev: '123',
         name: 'alice'
       });
 
-      collection = new window.arangoDocument();
+      collection = new window.avocadoDocument();
 
       view = new window.DocumentView({
         collection: collection
@@ -154,11 +154,11 @@
 
         it('should insert the error in the notification box', function () {
           saveCheck.result = false;
-          spyOn(arangoHelper, 'arangoError');
+          spyOn(avocadoHelper, 'avocadoError');
           var doc = {name: 'Bob'};
           setEditorInput(JSON.stringify(doc));
           $('#saveDocumentButton').click();
-          expect(arangoHelper.arangoError).toHaveBeenCalled();
+          expect(avocadoHelper.avocadoError).toHaveBeenCalled();
         });
       });
 
@@ -223,11 +223,11 @@
 
         it('should insert the error in the notification box', function () {
           saveCheck.result = false;
-          spyOn(arangoHelper, 'arangoError');
+          spyOn(avocadoHelper, 'avocadoError');
           var doc = {name: 'Bob'};
           setEditorInput(JSON.stringify(doc));
           $('#saveDocumentButton').click();
-          expect(arangoHelper.arangoError).toHaveBeenCalled();
+          expect(avocadoHelper.avocadoError).toHaveBeenCalled();
         });
       });
 

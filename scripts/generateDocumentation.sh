@@ -47,7 +47,7 @@ test_tools(){
 
     if test ! -d ${NODE_MODULES_DIR}; then
         echo "Your docker container doesn't contain the needed modules to build the documentation: ${NODE_MODULES_DIR}"
-        echo "Please delete the old arangodb/documentation-builder container, and re-run this script so it will pull "
+        echo "Please delete the old avocadodb/documentation-builder container, and re-run this script so it will pull "
         echo "the latest version."
         exit 1
     fi
@@ -108,8 +108,8 @@ if test "$1" != "docker"; then
     fi
     WD=`pwd`
 
-    docker pull arangodb/documentation-builder 
-    docker run -it --volume ${WD}:/build arangodb/documentation-builder /bin/bash /build/scripts/generateDocumentation.sh docker $DOCTarget $@ 
+    docker pull avocadodb/documentation-builder 
+    docker run -it --volume ${WD}:/build avocadodb/documentation-builder /bin/bash /build/scripts/generateDocumentation.sh docker $DOCTarget $@ 
 
 else
     cd /build

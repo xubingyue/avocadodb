@@ -31,7 +31,7 @@ var internal = require("internal");
 var db = internal.db;
 var errors = internal.errors;
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 var assertQueryError = helper.assertQueryError;
 var assertQueryWarningAndNull = helper.assertQueryWarningAndNull;
@@ -2634,7 +2634,7 @@ function ahuacatlFunctionsTestSuite () {
         [ [ [ [ 1 ], [ 2 ] ], [ [ 2 ], [ 4 ] ] ], [ [ 1 ], [ 4 ] ] ]
       ];
 
-      var sorter = require("@arangodb/aql").RELATIONAL_CMP;
+      var sorter = require("@avocadodb/aql").RELATIONAL_CMP;
 
       queries.forEach(function(query) {
         var actual = getQueryResults("RETURN OUTERSECTION(" + JSON.stringify(query[0]).replace(/^\[(.*)\]$/, "$1") + ")");

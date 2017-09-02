@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, templateEngine, $, window, arangoHelper, _ */
+/* global Backbone, templateEngine, $, window, avocadoHelper, _ */
 (function () {
   'use strict';
   window.NavigationView = Backbone.View.extend({
@@ -8,10 +8,10 @@
     subEl: '#subNavigationBar',
 
     events: {
-      'change #arangoCollectionSelect': 'navigateBySelect',
+      'change #avocadoCollectionSelect': 'navigateBySelect',
       'click .tab': 'navigateByTab',
       'click li': 'switchTab',
-      'click .arangodbLogo': 'selectMenuItem',
+      'click .avocadodbLogo': 'selectMenuItem',
       'mouseenter .dropdown > *': 'showDropdown',
       'click .shortcut-icons p': 'showShortcutModal',
       'mouseleave .dropdown': 'hideDropdown'
@@ -53,7 +53,7 @@
     },
 
     showShortcutModal: function () {
-      arangoHelper.hotkeysFunctions.showHotkeysModal();
+      avocadoHelper.hotkeysFunctions.showHotkeysModal();
     },
 
     handleSelectDatabase: function () {
@@ -96,7 +96,7 @@
 
         this.selectMenuItem();
 
-        $('.arangodbLogo').on('click', function () {
+        $('.avocadodbLogo').on('click', function () {
           self.selectMenuItem();
         });
 
@@ -108,10 +108,10 @@
       self.resize();
 
       if (window.frontendConfig.isEnterprise === true) {
-        $('#ArangoDBLogo').after('<span id="enterpriseLabel" style="display: none">Enterprise Edition</span>');
+        $('#AvocadoDBLogo').after('<span id="enterpriseLabel" style="display: none">Enterprise Edition</span>');
         $('#enterpriseLabel').fadeIn('slow');
       } else {
-        $('#ArangoDBLogo').after('<span id="communityLabel" style="display: none">Community Edition</span>');
+        $('#AvocadoDBLogo').after('<span id="communityLabel" style="display: none">Community Edition</span>');
         $('#communityLabel').fadeIn('slow');
         $('.enterprise-menu').show();
       }
@@ -127,12 +127,12 @@
     },
 
     navigateBySelect: function () {
-      var navigateTo = $('#arangoCollectionSelect').find('option:selected').val();
+      var navigateTo = $('#avocadoCollectionSelect').find('option:selected').val();
       window.App.navigate(navigateTo, {trigger: true});
     },
 
     handleKeyboardHotkeys: function () {
-      arangoHelper.enableKeyboardHotkeys(true);
+      avocadoHelper.enableKeyboardHotkeys(true);
     },
 
     navigateByTab: function (e) {
@@ -174,7 +174,7 @@
 
     handleSelectNavigation: function () {
       var self = this;
-      $('#arangoCollectionSelect').change(function () {
+      $('#avocadoCollectionSelect').change(function () {
         self.navigateBySelect();
       });
     },
@@ -290,7 +290,7 @@
       var id = $(e.currentTarget).children().first().attr('id');
 
       if (id === 'enterprise') {
-        window.open('https://www.arangodb.com/download-arangodb-enterprise/', '_blank');
+        window.open('https://www.avocadodb.com/download-avocadodb-enterprise/', '_blank');
         return;
       }
 
@@ -344,7 +344,7 @@
           $('.' + menuItem + '-menu').addClass('active');
         }
       }
-      arangoHelper.hideArangoNotifications();
+      avocadoHelper.hideAvocadoNotifications();
     },
 
     showSubDropdown: function (e) {

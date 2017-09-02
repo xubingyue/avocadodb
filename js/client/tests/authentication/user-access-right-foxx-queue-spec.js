@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2017 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License");
 // / you may not use this file except in compliance with the License.
@@ -22,22 +22,22 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
 // / @author Mark Vollmary
-// / @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
 const expect = require('chai').expect;
-const users = require('@arangodb/users');
-const helper = require('@arangodb/user-helper');
-const foxxManager = require('@arangodb/foxx/manager');
+const users = require('@avocadodb/users');
+const helper = require('@avocadodb/user-helper');
+const foxxManager = require('@avocadodb/foxx/manager');
 const dbName = helper.dbName;
 const rightLevels = helper.rightLevels;
-const errors = require('@arangodb').errors;
+const errors = require('@avocadodb').errors;
 const fs = require('fs');
 const basePath = fs.makeAbsolute(fs.join(require('internal').startupPath, 'common', 'test-data', 'apps'));
 const download = require('internal').download;
@@ -47,9 +47,9 @@ const systemLevel = helper.systemLevel;
 const dbLevel = helper.dbLevel;
 const colLevel = helper.colLevel;
 
-const arangodb = require('@arangodb');
-const arango = require('@arangodb').arango;
-const aql = arangodb.aql;
+const avocadodb = require('@avocadodb');
+const avocado = require('@avocadodb').avocado;
+const aql = avocadodb.aql;
 const db = require('internal').db;
 for (let l of rightLevels) {
   systemLevel[l] = new Set();
@@ -58,7 +58,7 @@ for (let l of rightLevels) {
 }
 
 const switchUser = (user, dbname) => {
-  arango.reconnect(arango.getEndpoint(), dbname, user, '');
+  avocado.reconnect(avocado.getEndpoint(), dbname, user, '');
 };
 
 switchUser('root', '_system');
@@ -98,7 +98,7 @@ describe.skip('User Rights Management', () => {
 
           after(() => {
             switchUser('root', dbName);
-            download(`${arango.getEndpoint().replace('tcp://', 'http://')}/_db/${dbName}/${mount}`, '', {
+            download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/_db/${dbName}/${mount}`, '', {
               method: 'delete'
             });
             foxxManager.uninstall(mount, {force: true});
@@ -106,7 +106,7 @@ describe.skip('User Rights Management', () => {
 
           it('register a foxx queue/job', () => {
             if (dbLevel['rw'].has(name)) {
-              const res = download(`${arango.getEndpoint().replace('tcp://', 'http://')}/_db/${dbName}/${mount}`, '', {
+              const res = download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/_db/${dbName}/${mount}`, '', {
                 method: 'post'
               });
               expect(res.code).to.equal(204);
@@ -124,7 +124,7 @@ describe.skip('User Rights Management', () => {
               `).toArray().length;
               expect(job).to.equal(1, `${name} could not register foxx job with sufficient rights`);
             } else {
-              const res = download(`${arango.getEndpoint().replace('tcp://', 'http://')}/_db/${dbName}/${mount}`, '', {
+              const res = download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/_db/${dbName}/${mount}`, '', {
                 method: 'post'
               });
               expect(res.code).to.equal(403);

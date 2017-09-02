@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Andreas Streichardt
 /// @author Frank Celler
@@ -30,9 +30,9 @@
 #include "Logger/Logger.h"
 #include "Rest/HttpRequest.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::communicator;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::communicator;
 
 namespace {
 
@@ -253,7 +253,7 @@ void Communicator::wait() {
 
 void Communicator::createRequestInProgress(NewRequest const& newRequest) {
   if (!_enabled) {
-    LOG_TOPIC(DEBUG, arangodb::Logger::COMMUNICATION) << "Request to  '" << newRequest._destination.url() << "' was not even started because communication is disabled";
+    LOG_TOPIC(DEBUG, avocadodb::Logger::COMMUNICATION) << "Request to  '" << newRequest._destination.url() << "' was not even started because communication is disabled";
     newRequest._callbacks._onError(TRI_COMMUNICATOR_DISABLED, {nullptr});
     return;
   }
@@ -437,7 +437,7 @@ void Communicator::handleResult(CURL* handle, CURLcode rc) {
       rip->_callbacks._onError(TRI_ERROR_CLUSTER_TIMEOUT, {nullptr});
       break;
     default:
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "Curl return " << rc;
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "Curl return " << rc;
       rip->_callbacks._onError(TRI_ERROR_INTERNAL, {nullptr});
       break;
   } 
@@ -493,7 +493,7 @@ void Communicator::logHttpHeaders(std::string const& prefix,
 
 int Communicator::curlDebug(CURL* handle, curl_infotype type, char* data,
                             size_t size, void* userptr) {
-  arangodb::communicator::RequestInProgress* request = nullptr;
+  avocadodb::communicator::RequestInProgress* request = nullptr;
   curl_easy_getinfo(handle, CURLINFO_PRIVATE, &request);
   TRI_ASSERT(request != nullptr);
   TRI_ASSERT(data != nullptr);

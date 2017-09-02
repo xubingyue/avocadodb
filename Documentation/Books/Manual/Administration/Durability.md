@@ -20,7 +20,7 @@ Per-collection configuration
 ----------------------------
 
 You can also configure the durability behavior on a per-collection basis.
-Use the ArangoDB shell to change these properties.
+Use the AvocadoDB shell to change these properties.
 
 
 @startDocuBlock collectionProperties
@@ -29,38 +29,38 @@ Use the ArangoDB shell to change these properties.
 Per-operation configuration
 ---------------------------
 
-Many data-modification operations and also ArangoDB's transactions allow to specify 
+Many data-modification operations and also AvocadoDB's transactions allow to specify 
 a *waitForSync* attribute, which when set ensures the operation data has been 
 synchronized to disk when the operation returns.
 
 Disk-Usage Configuration
 ------------------------
 
-The amount of disk space used by ArangoDB is determined by a few configuration
+The amount of disk space used by AvocadoDB is determined by a few configuration
 options. 
 
 Global Configuration
 --------------------
 
-The total amount of disk storage required by ArangoDB is determined by the size of
+The total amount of disk storage required by AvocadoDB is determined by the size of
 the write-ahead logfiles plus the sizes of the collection journals and datafiles.
 
 There are the following options for configuring the number and sizes of the write-ahead
 logfiles:
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileReserveLogfiles
 
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileHistoricLogfiles
 
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileSize
 
 
-<!-- arangod/Wal/LogfileManager.h -->
+<!-- avocadod/Wal/LogfileManager.h -->
 @startDocuBlock WalLogfileAllowOversizeEntries
 
 
@@ -68,7 +68,7 @@ When data gets copied from the write-ahead logfiles into the journals or datafil
 of collections, files will be created on the collection level. How big these files
 are is determined by the following global configuration value:
 
-<!-- arangod/RestServer/ArangoServer.h -->
+<!-- avocadod/RestServer/AvocadoServer.h -->
 @startDocuBlock databaseMaximalJournalSize
 
 

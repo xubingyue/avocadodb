@@ -15,7 +15,7 @@ Is returned if the module is available and the graphs could be listed.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{HttpGharialList}
-  var examples = require("@arangodb/graph-examples/example-graph.js");
+  var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   examples.loadGraph("social");
   examples.loadGraph("routeplanner");

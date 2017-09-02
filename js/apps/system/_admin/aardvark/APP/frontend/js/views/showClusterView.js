@@ -62,7 +62,7 @@
       this.coordinators = new window.ClusterCoordinators([], {
         interval: this.interval
       });
-      this.documentStore = new window.ArangoDocuments();
+      this.documentStore = new window.AvocadoDocuments();
       this.statisticsDescription = new window.StatisticsDescription();
       this.statisticsDescription.fetch({
         async: false

@@ -29,8 +29,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
-var helper = require("@arangodb/aql-helper");
+var db = require("@avocadodb").db;
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -146,9 +146,9 @@
         'mouseover #querySelect': jasmine.any(Function),
         'change #querySelect': 'importSelected',
         'keypress #aqlEditor': 'aqlShortcuts',
-        'click #arangoQueryTable .table-cell0': 'editCustomQuery',
-        'click #arangoQueryTable .table-cell1': 'editCustomQuery',
-        'click #arangoQueryTable .table-cell2 a': 'deleteAQL',
+        'click #avocadoQueryTable .table-cell0': 'editCustomQuery',
+        'click #avocadoQueryTable .table-cell1': 'editCustomQuery',
+        'click #avocadoQueryTable .table-cell2 a': 'deleteAQL',
         'click #confirmQueryImport': 'importCustomQueries',
         'click #confirmQueryExport': 'exportCustomQueries',
         'click #downloadQueryResult': 'downloadQueryResult',
@@ -576,7 +576,7 @@
       document.body.removeChild(div2);
     });
 
-    it('should import the selected arango query (arango query loop in function)', function () {
+    it('should import the selected avocado query (avocado query loop in function)', function () {
       div2 = document.createElement('div');
       div2.id = 'findme';
       document.body.appendChild(div2);
@@ -596,7 +596,7 @@
       document.body.removeChild(div2);
     });
 
-    it('should render the selectboxes for custom and arango queries', function () {
+    it('should render the selectboxes for custom and avocado queries', function () {
       jQueryDummy = {
         empty: function () {
           throw 'Should be a spy';

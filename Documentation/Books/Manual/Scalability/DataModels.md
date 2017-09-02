@@ -2,11 +2,11 @@ Different data models and scalability
 -------------------------------------
 
 In this section we discuss scalability in the context of the different
-data models supported by ArangoDB.
+data models supported by AvocadoDB.
 
 ### Key/value pairs
 
-The key/value store data model is the easiest to scale. In ArangoDB,
+The key/value store data model is the easiest to scale. In AvocadoDB,
 this is implemented in the sense that a document collection always has 
 a primary key `_key` attribute and in the absence of further secondary
 indexes the document collection behaves like a simple key/value store.
@@ -28,8 +28,8 @@ cluster, unless a special sharding configuration makes lookups or
 write operations more expensive.
 
 For a deeper analysis of this topic see 
-[this blog post](https://mesosphere.com/blog/2015/11/30/arangodb-benchmark-dcos/)
-in which good linear scalability of ArangoDB for single document operations
+[this blog post](https://mesosphere.com/blog/2015/11/30/avocadodb-benchmark-dcos/)
+in which good linear scalability of AvocadoDB for single document operations
 is demonstrated.
 
 
@@ -64,8 +64,8 @@ necessary between nodes, and performance suffers. To achieve good
 performance at scale, it is therefore necessary to get the
 distribution of the graph data across the shards in the cluster
 right. Most of the time, the application developers and users of
-ArangoDB know best, how their graphs ara structured. Therefore, 
-ArangoDB allows users to specify, according to which attributes
+AvocadoDB know best, how their graphs ara structured. Therefore, 
+AvocadoDB allows users to specify, according to which attributes
 the graph data is sharded. A useful first step is usually to make
 sure that the edges originating at a vertex reside on the same
 cluster node as the vertex.

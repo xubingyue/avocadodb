@@ -1,7 +1,7 @@
 HTTP Interface for User Management
 ==================================
 
-This is an introduction to ArangoDB's HTTP interface for managing users.
+This is an introduction to AvocadoDB's HTTP interface for managing users.
 
 The interface provides a simple means to add, update, and remove users.  All
 users managed through this interface will be stored in the system collection
@@ -10,7 +10,7 @@ users managed through this interface will be stored in the system collection
 This specialized interface intentionally does not provide all functionality that
 is available in the regular document REST API.
 
-Please note that user operations are not included in ArangoDB's replication.
+Please note that user operations are not included in AvocadoDB's replication.
 
 @startDocuBlock UserHandling_create
 @startDocuBlock UserHandling_grantDatabase

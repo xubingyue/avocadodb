@@ -1,7 +1,7 @@
 #!/bin/bash
 
-killall arangod
+killall avocadod
 sleep 2
-killall -9 arangod
-killall arangosh
+killall -9 avocadod
+killall avocadosh
 

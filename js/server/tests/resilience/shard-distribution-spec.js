@@ -2,7 +2,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016-2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Andreas Streichardt
-/// @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 'use strict';
 
@@ -27,12 +27,12 @@ const expect = require('chai').expect;
 const internal = require('internal');
 const download = require('internal').download;
 
-let coordinator = instanceInfo.arangods.filter(arangod => {
-  return arangod.role === 'coordinator';
+let coordinator = instanceInfo.avocadods.filter(avocadod => {
+  return avocadod.role === 'coordinator';
 })[0];
 
-let dbServerCount = instanceInfo.arangods.filter(arangod => {
-  return arangod.role === 'dbserver';
+let dbServerCount = instanceInfo.avocadods.filter(avocadod => {
+  return avocadod.role === 'dbserver';
 }).length;
 
 describe('Shard distribution', function () {

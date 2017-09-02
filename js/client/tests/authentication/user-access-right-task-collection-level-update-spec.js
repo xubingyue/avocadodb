@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2017 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License");
 // / you may not use this file except in compliance with the License.
@@ -22,21 +22,21 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
 // / @author Mark Vollmary
-// / @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
 const expect = require('chai').expect;
-const users = require('@arangodb/users');
-const helper = require('@arangodb/user-helper');
-const errors = require('@arangodb').errors;
-const tasks = require('@arangodb/tasks');
-const pu = require('@arangodb/process-utils');
+const users = require('@avocadodb/users');
+const helper = require('@avocadodb/user-helper');
+const errors = require('@avocadodb').errors;
+const tasks = require('@avocadodb/tasks');
+const pu = require('@avocadodb/process-utils');
 const download = require('internal').download;
 const dbName = helper.dbName;
 const colName = helper.colName;
@@ -48,7 +48,7 @@ const systemLevel = helper.systemLevel;
 const dbLevel = helper.dbLevel;
 const colLevel = helper.colLevel;
 
-const arango = require('internal').arango;
+const avocado = require('internal').avocado;
 const db = require('internal').db;
 for (let l of rightLevels) {
   systemLevel[l] = new Set();
@@ -57,7 +57,7 @@ for (let l of rightLevels) {
 }
 
 const switchUser = (user, dbname) => {
-  arango.reconnect(arango.getEndpoint(), dbname, user, '');
+  avocado.reconnect(avocado.getEndpoint(), dbname, user, '');
 };
 
 const wait = (keySpaceId, key) => {
@@ -91,7 +91,7 @@ const executeJS = (code) => {
   httpOptions.method = 'POST';
   httpOptions.timeout = 1800;
   httpOptions.returnBodyOnError = true;
-  return download(arango.getEndpoint().replace('tcp', 'http') + `/_db/${dbName}/_admin/execute?returnAsJSON=true`,
+  return download(avocado.getEndpoint().replace('tcp', 'http') + `/_db/${dbName}/_admin/execute?returnAsJSON=true`,
     code,
     httpOptions);
 };
@@ -165,7 +165,7 @@ describe('User Rights Management', () => {
                   name: taskIdUpdate,
                   command: `(function (params) {
                     try {
-                      const db = require('@arangodb').db;
+                      const db = require('@avocadodb').db;
                       db._collection('${colName}').update('123', {foo: 'bar'});
                       global.KEY_SET('${keySpaceId}', '${name}_update_status', true);
                     } catch (e) {
@@ -182,7 +182,7 @@ describe('User Rights Management', () => {
                   name: taskIdReplace,
                   command: `(function (params) {
                     try {
-                      const db = require('@arangodb').db;
+                      const db = require('@avocadodb').db;
                       db._collection('${colName}').replace('123', {foo: 'baz'});
                       global.KEY_SET('${keySpaceId}', '${name}_replace_status', true);
                     } catch (e) {
@@ -251,7 +251,7 @@ describe('User Rights Management', () => {
                   name: taskIdUpdate,
                   command: `(function (params) {
                     try {
-                      const db = require('@arangodb').db;
+                      const db = require('@avocadodb').db;
                       db._query("${q}");
                       global.KEY_SET('${keySpaceId}', '${name}_update_status', true);
                     } catch (e) {
@@ -268,7 +268,7 @@ describe('User Rights Management', () => {
                   name: taskIdReplace,
                   command: `(function (params) {
                     try {
-                      const db = require('@arangodb').db;
+                      const db = require('@avocadodb').db;
                       db._query("${q2}");
                       global.KEY_SET('${keySpaceId}', '${name}_replace_status', true);
                     } catch (e) {

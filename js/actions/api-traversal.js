@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,19 +21,19 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Jan Steemann
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2013, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var arangodb = require('@arangodb');
-var actions = require('@arangodb/actions');
+var avocadodb = require('@avocadodb');
+var actions = require('@avocadodb/actions');
 var db = require('internal').db;
-var traversal = require('@arangodb/graph/traversal');
+var traversal = require('@avocadodb/graph/traversal');
 var Traverser = traversal.Traverser;
-var graph = require('@arangodb/general-graph');
+var graph = require('@avocadodb/general-graph');
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief create a "bad parameter" error
@@ -42,7 +42,7 @@ var graph = require('@arangodb/general-graph');
 function badParam (req, res, message) {
   actions.resultBad(req,
     res,
-    arangodb.ERROR_HTTP_BAD_PARAMETER,
+    avocadodb.ERROR_HTTP_BAD_PARAMETER,
     message);
 }
 
@@ -81,7 +81,7 @@ function post_api_traversal (req, res) {
   try {
     doc = db._document(json.startVertex);
   } catch (err) {
-    return notFound(req, res, arangodb.ERROR_ARANGO_DOCUMENT_NOT_FOUND, 'invalid startVertex');
+    return notFound(req, res, avocadodb.ERROR_ARANGO_DOCUMENT_NOT_FOUND, 'invalid startVertex');
   }
 
   var datasource;
@@ -105,12 +105,12 @@ function post_api_traversal (req, res) {
 
     if (edgeCollection === undefined ||
       edgeCollection === null) {
-      return notFound(req, res, arangodb.ERROR_ARANGO_COLLECTION_NOT_FOUND,
+      return notFound(req, res, avocadodb.ERROR_ARANGO_COLLECTION_NOT_FOUND,
         'invalid edgeCollection');
     }
   } else {
     if (typeof json.graphName !== 'string' || !graph._exists(json.graphName)) {
-      return notFound(req, res, arangodb.ERROR_GRAPH_NOT_FOUND,
+      return notFound(req, res, avocadodb.ERROR_GRAPH_NOT_FOUND,
         'invalid graphname');
     }
     datasource = traversal.generalGraphDatasourceFactory(json.graphName);

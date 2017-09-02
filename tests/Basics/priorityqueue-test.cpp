@@ -17,10 +17,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Basics/Common.h"
@@ -63,7 +63,7 @@ TEST_CASE("CPriorityQueueTest", "[cpriorityqueue]") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_deque_case") {
-  arangodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
+  avocadodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
  
   CHECK(0 == (int) pq.size());
   CHECK(true == pq.empty());
@@ -155,7 +155,7 @@ SECTION("tst_deque_case") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_heap_case") {
-  arangodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
+  avocadodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
  
   CHECK(0 == (int) pq.size());
   CHECK(true == pq.empty());
@@ -247,7 +247,7 @@ SECTION("tst_heap_case") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_deque_case_with_lowering") {
-  arangodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
+  avocadodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
  
   CHECK(0 == (int) pq.size());
   CHECK(true == pq.empty());
@@ -341,7 +341,7 @@ SECTION("tst_deque_case_with_lowering") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_heap_case_with_lowering") {
-  arangodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
+  avocadodb::graph::ShortestPathPriorityQueue<std::string, MyValue, unsigned int> pq;
  
   CHECK(0 == (int) pq.size());
   CHECK(true == pq.empty());

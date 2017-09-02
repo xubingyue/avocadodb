@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@
 #include <openssl/err.h>
 #include <boost/asio/ssl.hpp>
 
-using namespace arangodb;
+using namespace avocadodb;
 
 #ifndef OPENSSL_NO_SSL3_METHOD
 extern "C" const SSL_METHOD* SSLv3_method(void);
@@ -38,7 +38,7 @@ extern "C" const SSL_METHOD* SSLv3_method(void);
 /// @brief creates an SSL context
 ////////////////////////////////////////////////////////////////////////////////
 
-boost::asio::ssl::context arangodb::sslContext(
+boost::asio::ssl::context avocadodb::sslContext(
     SslProtocol protocol, std::string const& keyfile) {
   // create our context
 
@@ -77,21 +77,21 @@ boost::asio::ssl::context arangodb::sslContext(
   if (sslctx.native_handle() == nullptr) {
     // could not create SSL context - this is mostly due to the OpenSSL
     // library not having been initialized
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "unable to create SSL context";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "unable to create SSL context";
     FATAL_ERROR_EXIT();
   }
 
   // load our keys and certificates
   if (!SSL_CTX_use_certificate_chain_file(sslctx.native_handle(),
                                           keyfile.c_str())) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot read certificate from '" << keyfile
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot read certificate from '" << keyfile
              << "': " << lastSSLError();
     THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "unable to read certificate from file");
   }
 
   if (!SSL_CTX_use_PrivateKey_file(sslctx.native_handle(), keyfile.c_str(),
                                    SSL_FILETYPE_PEM)) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot read key from '" << keyfile << "': " << lastSSLError();
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot read key from '" << keyfile << "': " << lastSSLError();
     THROW_ARANGO_EXCEPTION_MESSAGE(TRI_ERROR_BAD_PARAMETER, "unable to read key from keyfile");
   }
 
@@ -106,7 +106,7 @@ boost::asio::ssl::context arangodb::sslContext(
 /// @brief get the name of an SSL protocol version
 ////////////////////////////////////////////////////////////////////////////////
 
-std::string arangodb::protocolName(SslProtocol protocol) {
+std::string avocadodb::protocolName(SslProtocol protocol) {
   switch (protocol) {
     case SSL_V2:
       return "SSLv2";
@@ -132,7 +132,7 @@ std::string arangodb::protocolName(SslProtocol protocol) {
 /// @brief get last SSL error
 ////////////////////////////////////////////////////////////////////////////////
 
-std::string arangodb::lastSSLError() {
+std::string avocadodb::lastSSLError() {
   char buf[122];
   memset(buf, 0, sizeof(buf));
 

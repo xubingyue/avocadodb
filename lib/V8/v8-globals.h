@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ struct TRI_vocbase_t;
   try {
 /// @brief macro to terminate a try-catch sequence for V8 callbacks
 #define TRI_V8_TRY_CATCH_END                                       \
-  } catch (arangodb::basics::Exception const& ex) {                \
+  } catch (avocadodb::basics::Exception const& ex) {                \
     TRI_V8_THROW_EXCEPTION_FULL(ex.code(), ex.what());             \
   } catch (std::exception const& ex) {                             \
     TRI_V8_THROW_EXCEPTION_MESSAGE(TRI_ERROR_INTERNAL, ex.what()); \
@@ -104,7 +104,7 @@ struct TRI_vocbase_t;
 /// @brief shortcut for current v8 globals and scope
 #define TRI_V8_CURRENT_GLOBALS_AND_SCOPE                            \
   TRI_v8_global_t* v8g = static_cast<TRI_v8_global_t*>(             \
-      isolate->GetData(arangodb::V8PlatformFeature::V8_DATA_SLOT)); \
+      isolate->GetData(avocadodb::V8PlatformFeature::V8_DATA_SLOT)); \
   v8::HandleScope scope(isolate);                                   \
   do {                                                              \
   } while (0)
@@ -303,11 +303,11 @@ struct TRI_vocbase_t;
 ///   implicitly requires 'isolate' to be available
 #define TRI_GET_GLOBALS()                               \
   TRI_v8_global_t* v8g = static_cast<TRI_v8_global_t*>( \
-      isolate->GetData(arangodb::V8PlatformFeature::V8_DATA_SLOT))
+      isolate->GetData(avocadodb::V8PlatformFeature::V8_DATA_SLOT))
 
 #define TRI_GET_GLOBALS2(isolate)                       \
   TRI_v8_global_t* v8g = static_cast<TRI_v8_global_t*>( \
-      isolate->GetData(arangodb::V8PlatformFeature::V8_DATA_SLOT))
+      isolate->GetData(avocadodb::V8PlatformFeature::V8_DATA_SLOT))
 
 /// @brief fetch a string-member from the global into the local scope of the
 /// function
@@ -361,8 +361,8 @@ struct TRI_v8_global_t {
   /// @brief cluster comm template
   v8::Persistent<v8::ObjectTemplate> ClusterCommTempl;
 
-  /// @brief ArangoError template
-  v8::Persistent<v8::ObjectTemplate> ArangoErrorTempl;
+  /// @brief AvocadoError template
+  v8::Persistent<v8::ObjectTemplate> AvocadoErrorTempl;
 
   /// @brief VPack template
   v8::Persistent<v8::ObjectTemplate> VPackTempl;

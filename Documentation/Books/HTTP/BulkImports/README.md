@@ -1,7 +1,7 @@
 HTTP Interface for Bulk Imports
 ===============================
 
-ArangoDB provides an HTTP interface to import multiple documents at once into a
+AvocadoDB provides an HTTP interface to import multiple documents at once into a
 collection. This is known as a bulk import.
 
 The data uploaded must be provided in JSON format. There are two mechanisms to

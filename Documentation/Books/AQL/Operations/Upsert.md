@@ -58,7 +58,7 @@ document using the *OLD* pseudo-value.
 As in several above examples, the *ignoreErrors* option can be used to suppress query 
 errors that may occur when trying to violate unique key constraints.
 
-When updating or replacing an attribute with a null value, ArangoDB will not remove the 
+When updating or replacing an attribute with a null value, AvocadoDB will not remove the 
 attribute from the document but store a null value for it. To get rid of attributes in 
 an upsert operation, set them to null and provide the *keepNull* option.
 

@@ -3,7 +3,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2015 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2015 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 /// @author Jan Steemann
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <ostream>
@@ -36,8 +36,8 @@
 #include "velocypack/Slice.h"
 #include "velocypack/ValueType.h"
 
-using namespace arangodb::velocypack;
-using VT = arangodb::velocypack::ValueType;
+using namespace avocadodb::velocypack;
+using VT = avocadodb::velocypack::ValueType;
 
 ValueLength const SliceStaticData::FixedTypeLengths[256] = {
     /* 0x00 */ 1,                    /* 0x01 */ 1,
@@ -917,5 +917,5 @@ std::ostream& operator<<(std::ostream& stream, Slice const& slice) {
   return operator<<(stream, &slice);
 }
 
-static_assert(sizeof(arangodb::velocypack::Slice) ==
+static_assert(sizeof(avocadodb::velocypack::Slice) ==
               sizeof(void*), "Slice has an unexpected size");

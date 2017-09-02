@@ -1,7 +1,7 @@
 The "db" Object
 ===============
 
-The `db` object is available in [arangosh](../../GettingStarted/Arangosh.md) by
+The `db` object is available in [avocadosh](../../GettingStarted/Avocadosh.md) by
 default, and can also be imported and used in Foxx services.
 
 *db.name* returns a [collection object](CollectionObject.md) for the collection *name*.
@@ -26,7 +26,7 @@ The following methods exists on the *_db* object:
 * [db._isSystem()](../../DataModeling/Databases/WorkingWith.md#issystem)
 * [db._name()](../../DataModeling/Databases/WorkingWith.md#name)
 * [db._path()](../../DataModeling/Databases/WorkingWith.md#path)
-* [db._version()](../../DataModeling/Documents/DocumentMethods.md#get-the-version-of-arangodb)
+* [db._version()](../../DataModeling/Documents/DocumentMethods.md#get-the-version-of-avocadodb)
 
 *Collection*
 
@@ -37,8 +37,8 @@ The following methods exists on the *_db* object:
 
 *AQL*
 
-* [db._createStatement(query)](../../../AQL/Invocation/WithArangosh.html#with-createstatement-arangostatement)
-* [db._query(query)](../../../AQL/Invocation/WithArangosh.html#with-dbquery)
+* [db._createStatement(query)](../../../AQL/Invocation/WithAvocadosh.html#with-createstatement-avocadostatement)
+* [db._query(query)](../../../AQL/Invocation/WithAvocadosh.html#with-dbquery)
 * [db._explain(query)](../../ReleaseNotes/NewFeatures28.md#miscellaneous-improvements)
 
 *Document*

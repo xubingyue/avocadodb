@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@
 #include <iostream>
 
 #include "ApplicationFeatures/VersionFeature.h"
-#include "Basics/ArangoGlobalContext.h"
+#include "Basics/AvocadoGlobalContext.h"
 #include "Basics/FileUtils.h"
 #include "Basics/StringUtils.h"
 #include "Basics/directories.h"
@@ -35,10 +35,10 @@
 #include "ProgramOptions/Section.h"
 #include "ProgramOptions/Translator.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::rest;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::rest;
+using namespace avocadodb::options;
 
 ConfigFeature::ConfigFeature(application_features::ApplicationServer* server,
                              std::string const& progname)
@@ -73,7 +73,7 @@ void ConfigFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
 void ConfigFeature::loadOptions(std::shared_ptr<ProgramOptions> options,
                                 char const* binaryPath) {
   for (auto const& def : _defines) {
-    arangodb::options::DefineEnvironment(def);
+    avocadodb::options::DefineEnvironment(def);
   }
 
   loadConfigFile(options, _progname, binaryPath);
@@ -136,12 +136,12 @@ void ConfigFeature::loadConfigFile(std::shared_ptr<ProgramOptions> options,
   //
   //   <PRGNAME>.conf
   //   ./etc/relative/<PRGNAME>.conf
-  //   ${HOME}/.arangodb/<PRGNAME>.conf
-  //   /etc/arangodb/<PRGNAME>.conf
+  //   ${HOME}/.avocadodb/<PRGNAME>.conf
+  //   /etc/avocadodb/<PRGNAME>.conf
   //
   // clang-format on
 
-  auto context = ArangoGlobalContext::CONTEXT;
+  auto context = AvocadoGlobalContext::CONTEXT;
   std::string basename = progname;
 
   if (!StringUtils::isSuffix(basename, ".conf")) {
@@ -164,7 +164,7 @@ void ConfigFeature::loadConfigFile(std::shared_ptr<ProgramOptions> options,
   locations.emplace_back(current);
   locations.emplace_back(FileUtils::buildFilename(current, "etc", "relative"));
   locations.emplace_back(
-      FileUtils::buildFilename(FileUtils::homeDirectory(), ".arangodb"));
+      FileUtils::buildFilename(FileUtils::homeDirectory(), ".avocadodb"));
   locations.emplace_back(FileUtils::configDirectory(binaryPath));
 
   std::string filename;

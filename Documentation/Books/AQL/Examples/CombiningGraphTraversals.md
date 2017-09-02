@@ -14,7 +14,7 @@ We use [the city graph](../../Manual/Graphs/index.html#the-city-graph) and its g
     ~addIgnoreCollection("frenchHighway");
     ~addIgnoreCollection("frenchCity");
     ~addIgnoreCollection("internationalHighway");
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("routeplanner");
     var bonn=[50.7340, 7.0998];
     |db._query(`FOR startCity IN
@@ -68,7 +68,7 @@ Finally, we clean up again:
 
     @startDocuBlockInline COMBINING_GRAPH_04_cleanup
     @EXAMPLE_ARANGOSH_OUTPUT{COMBINING_GRAPH_04_cleanup}
-    ~var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~var examples = require("@avocadodb/graph-examples/example-graph.js");
     examples.dropGraph("routeplanner");
     ~removeIgnoreCollection("germanHighway");
     ~removeIgnoreCollection("germanCity");

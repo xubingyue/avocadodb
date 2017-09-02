@@ -1,5 +1,5 @@
 #!/bin/bash
-DOCKERIMAGE=arangodb/arangodb:3.0.0-p4
+DOCKERIMAGE=avocadodb/avocadodb:3.0.0-p4
 if [ -z "$XTERM" ] ; then
     XTERM=x-terminal-emulator
 fi
@@ -120,6 +120,6 @@ done
 
 echo Done, your cluster is ready at
 for p in `seq 8530 $PORTTOPCO` ; do
-    echo "   build/bin/arangosh --server.endpoint tcp://127.0.0.1:$p"
+    echo "   build/bin/avocadosh --server.endpoint tcp://127.0.0.1:$p"
 done
 

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,10 +73,10 @@ DstDurationT clockOffset(
 }
 }
 
-char arangodb::basics::HybridLogicalClock::encodeTable[65] =
+char avocadodb::basics::HybridLogicalClock::encodeTable[65] =
     "-_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-signed char arangodb::basics::HybridLogicalClock::decodeTable[256] = {
+signed char avocadodb::basics::HybridLogicalClock::decodeTable[256] = {
     -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1,  //   0 - 15
     -1, -1, -1, -1, -1, -1, -1, -1,
@@ -110,7 +110,7 @@ signed char arangodb::basics::HybridLogicalClock::decodeTable[256] = {
     -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1};  // 240 - 255
 
-uint64_t arangodb::basics::HybridLogicalClock::computeOffset1970() {
+uint64_t avocadodb::basics::HybridLogicalClock::computeOffset1970() {
   auto diff = clockOffset<std::chrono::system_clock::time_point,
                           HybridLogicalClock::ClockT::time_point>();
 

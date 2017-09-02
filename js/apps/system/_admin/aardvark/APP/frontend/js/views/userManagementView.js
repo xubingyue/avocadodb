@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global frontendConfig, window, document, Backbone, $, arangoHelper, templateEngine, Joi */
+/* global frontendConfig, window, document, Backbone, $, avocadoHelper, templateEngine, Joi */
 (function () {
   'use strict';
 
@@ -45,7 +45,7 @@
       var callback = function (error, user) {
         if (frontendConfig.authenticationEnabled === true) {
           if (error || user === null) {
-            arangoHelper.arangoError('User', 'Could not fetch user data');
+            avocadoHelper.avocadoError('User', 'Could not fetch user data');
           } else {
             this.currentUser = this.collection.findWhere({user: user});
           }
@@ -107,7 +107,7 @@
           this.editCurrentUser();
         }
 
-        arangoHelper.setCheckboxStatus('#userManagementDropdown');
+        avocadoHelper.setCheckboxStatus('#userManagementDropdown');
       }.bind(this);
 
       this.collection.fetch({
@@ -169,7 +169,7 @@
       this.collection.create(options, {
         wait: true,
         error: function (data, err) {
-          arangoHelper.parseError('User', err, data);
+          avocadoHelper.parseError('User', err, data);
         },
         success: function () {
           self.updateUserManagement();
@@ -180,7 +180,7 @@
 
     validateUserInfo: function (name, username, pw, status) {
       if (username === '') {
-        arangoHelper.arangoError('You have to define an username');
+        avocadoHelper.avocadoError('You have to define an username');
         $('#newUsername').closest('th').css('backgroundColor', 'red');
         return false;
       }

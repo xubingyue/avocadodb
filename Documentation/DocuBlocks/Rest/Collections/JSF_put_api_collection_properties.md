@@ -41,7 +41,7 @@ On success an object with the following attributes is returned:
 - *isSystem*: If *true* then the collection is a system collection.
 
 - *isVolatile*: If *true* then the collection data will be
-  kept in memory only and ArangoDB will not write or sync the data
+  kept in memory only and AvocadoDB will not write or sync the data
   to disk.
 
 - *doCompact*: Whether or not the collection will be compacted.

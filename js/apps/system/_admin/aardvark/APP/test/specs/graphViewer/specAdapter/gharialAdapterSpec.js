@@ -134,7 +134,7 @@
       nodes,
       edges,
       viewer,
-      arangodb = 'http://localhost:8529',
+      avocadodb = 'http://localhost:8529',
       nodesCollection,
       altNodesCollection,
       edgesCollection,
@@ -648,7 +648,7 @@
       });
 
       it('should be able to load a tree node from '
-        + 'ArangoDB by internal _id attribute', function () {
+        + 'AvocadoDB by internal _id attribute', function () {
           var c0, c1, c2, c3, c4;
 
           runs(function () {
@@ -693,7 +693,7 @@
         expect(adapter.loadNodeFromTreeById).toHaveBeenCalledWith('a', 'b');
       });
 
-      it('should be able to load a tree node from ArangoDB'
+      it('should be able to load a tree node from AvocadoDB'
         + ' by internal attribute and value', function () {
           var c0, c1, c2, c3, c4;
 
@@ -1191,7 +1191,7 @@
                   res = false;
                 $.ajax({
                   type: 'GET',
-                  url: arangodb + '/_api/document/' + id,
+                  url: avocadodb + '/_api/document/' + id,
                   contentType: 'application/json',
                   processData: false,
                   async: false,
@@ -1215,7 +1215,7 @@
                   res = false;
                 $.ajax({
                   type: 'GET',
-                  url: arangodb + '/_api/document/' + id,
+                  url: avocadodb + '/_api/document/' + id,
                   contentType: 'application/json',
                   processData: false,
                   async: false,
@@ -1236,7 +1236,7 @@
                   res = false;
                 $.ajax({
                   type: 'GET',
-                  url: arangodb + '/_api/document/' + id,
+                  url: avocadodb + '/_api/document/' + id,
                   contentType: 'application/json',
                   processData: false,
                   async: false,

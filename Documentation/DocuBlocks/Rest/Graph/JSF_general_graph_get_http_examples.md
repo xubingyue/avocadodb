@@ -24,7 +24,7 @@ Returned if no graph with this name could be found.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{HttpGharialGetGraph}
-  var graph = require("@arangodb/general-graph");
+  var graph = require("@avocadodb/general-graph");
 | if (graph._exists("myGraph")) {
 |    graph._drop("myGraph", true);
   }

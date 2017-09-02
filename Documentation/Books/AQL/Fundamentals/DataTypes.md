@@ -142,7 +142,7 @@ string. If a keyword is used as an attribute name, the attribute name must be qu
 { `return` : 1 }   /* works, too! */
 ```
 
-Since ArangoDB 2.6, object attribute names can be computed using dynamic expressions, too.
+Since AvocadoDB 2.6, object attribute names can be computed using dynamic expressions, too.
 To disambiguate regular attribute names from attribute name expressions, computed
 attribute names must be enclosed in *[* and *]*:
 
@@ -150,7 +150,7 @@ attribute names must be enclosed in *[* and *]*:
 { [ CONCAT("test/", "bar") ] : "someValue" }
 ```
 
-Since ArangoDB 2.7, there is also shorthand notation for attributes which is handy for
+Since AvocadoDB 2.7, there is also shorthand notation for attributes which is handy for
 returning existing variables easily:
 
 ```js

@@ -2,18 +2,18 @@ Contributing
 ============
 
 We welcome bug fixes and patches from 3rd party contributors. Please
-see the [Contributor Agreement](https://www.arangodb.com/community#contribute)
+see the [Contributor Agreement](https://www.avocadodb.com/community#contribute)
 for details.
 
-Please follow these guidelines if you want to contribute to ArangoDB:
+Please follow these guidelines if you want to contribute to AvocadoDB:
 
 Reporting Bugs
 --------------
 
 When reporting bugs, please use our issue tracker on GitHub.  Please make sure
-to include the version number of ArangoDB in your bug report, along with the
+to include the version number of AvocadoDB in your bug report, along with the
 platform you are using (e.g. `Linux OpenSuSE x86_64`).  Please also include the
-ArangoDB startup mode (daemon, console, supervisor mode) plus any special
+AvocadoDB startup mode (daemon, console, supervisor mode) plus any special
 configuration.  This will help us reproducing and finding bugs.
 
 Please also take the time to check there are no similar/identical issues open
@@ -33,7 +33,7 @@ Contributing features, documentation, tests
   commit message so the issues will get updated automatically with comments.
 
 * If the modifications change any documented behavior or add new features,
-  document the changes. The documentation can be found in arangod/Documentation
+  document the changes. The documentation can be found in avocadod/Documentation
   directory. To recreate the documentation locally, run make doxygen. This will
   re-create all documentation files in the Doxygen directory in your
   repository. You can inspect the documentation in this folder using a text
@@ -44,11 +44,11 @@ Contributing features, documentation, tests
   check [README_maintainers.md](README_maintainers.md) for test run instructions.
 
 * When finished, push the changes to your GitHub repository and send a pull
-  request from your fork to the ArangoDB repository. Please make sure to select
+  request from your fork to the AvocadoDB repository. Please make sure to select
   the appropriate branches there. This will most likely be **devel**.
 
 * You must use the Apache License for your changes and have signed our 
-  [CLA](https://www.arangodb.com/documents/cla.pdf). We cannot accept pull requests
+  [CLA](https://www.avocadodb.com/documents/cla.pdf). We cannot accept pull requests
   from contributors that didn't sign the CLA.
 
 * Please let us know if you plan to work on a ticket. This way we can make sure
@@ -58,9 +58,9 @@ Contributing features, documentation, tests
 Additional Resources
 --------------------
 
-* [ArangoDB website](https://www.arangodb.com/)
+* [AvocadoDB website](https://www.avocadodb.com/)
 
-* [ArangoDB on Twitter](https://twitter.com/arangodb)
+* [AvocadoDB on Twitter](https://twitter.com/avocadodb)
 
 * [General GitHub documentation](https://help.github.com/)
 

@@ -13,19 +13,19 @@
       div = document.createElement('div');
       div.id = 'content';
       document.body.appendChild(div);
-      allLogs = new window.ArangoLogs(
+      allLogs = new window.AvocadoLogs(
         {upto: true, loglevel: 4}
       );
-      debugLogs = new window.ArangoLogs(
+      debugLogs = new window.AvocadoLogs(
         {loglevel: 4}
       );
-      infoLogs = new window.ArangoLogs(
+      infoLogs = new window.AvocadoLogs(
         {loglevel: 3}
       );
-      warnLogs = new window.ArangoLogs(
+      warnLogs = new window.AvocadoLogs(
         {loglevel: 2}
       );
-      errLogs = new window.ArangoLogs(
+      errLogs = new window.AvocadoLogs(
         {loglevel: 1}
       );
 
@@ -57,12 +57,12 @@
       expect(view.currentLoglevel).toEqual('logall');
       expect(view.id).toEqual('#logContent');
       expect(view.events).toEqual({
-        'click #arangoLogTabbar button': 'setActiveLoglevel',
+        'click #avocadoLogTabbar button': 'setActiveLoglevel',
         'click #logTable_first': 'firstPage',
         'click #logTable_last': 'lastPage'
       });
       expect(view.tabbarElements).toEqual({
-        id: 'arangoLogTabbar',
+        id: 'avocadoLogTabbar',
         titles: [
           ['Debug', 'logdebug'],
           ['Warning', 'logwarning'],
@@ -72,7 +72,7 @@
         ]
       });
       expect(view.tableDescription).toEqual({
-        id: 'arangoLogTable',
+        id: 'avocadoLogTable',
         titles: ['Loglevel', 'Date', 'Message'],
         rows: []
       });

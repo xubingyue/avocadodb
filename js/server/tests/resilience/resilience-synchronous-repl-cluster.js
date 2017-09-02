@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2016-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016-2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -22,17 +22,17 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
-/// @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 const jsunity = require("jsunity");
 
-const arangodb = require("@arangodb");
-const db = arangodb.db;
-const ERRORS = arangodb.errors;
+const avocadodb = require("@avocadodb");
+const db = avocadodb.db;
+const ERRORS = avocadodb.errors;
 const _ = require("lodash");
 const wait = require("internal").wait;
 const suspendExternal = require("internal").suspendExternal;
@@ -57,7 +57,7 @@ function SynchronousReplicationSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
   function findCollectionServers(database, collection) {
-    var cinfo = global.ArangoClusterInfo.getCollectionInfo(database, collection);
+    var cinfo = global.AvocadoClusterInfo.getCollectionInfo(database, collection);
     var shard = Object.keys(cinfo.shards)[0];
     return cinfo.shards[shard];
   }
@@ -68,14 +68,14 @@ function SynchronousReplicationSuite () {
 
   function waitForSynchronousReplication(database) {
     console.info("Waiting for synchronous replication to settle...");
-    global.ArangoClusterInfo.flush();
-    cinfo = global.ArangoClusterInfo.getCollectionInfo(database, cn);
+    global.AvocadoClusterInfo.flush();
+    cinfo = global.AvocadoClusterInfo.getCollectionInfo(database, cn);
     shards = Object.keys(cinfo.shards);
     var count = 0;
     var replicas;
     while (++count <= 300) {
       ccinfo = shards.map(
-        s => global.ArangoClusterInfo.getCollectionInfoCurrent(database, cn, s)
+        s => global.AvocadoClusterInfo.getCollectionInfoCurrent(database, cn, s)
       );
       console.info("Plan:", cinfo.shards, "Current:", ccinfo.map(s => s.servers));
       replicas = ccinfo.map(s => s.servers.length);
@@ -84,7 +84,7 @@ function SynchronousReplicationSuite () {
         return true;
       }  
       wait(0.5);
-      global.ArangoClusterInfo.flush();
+      global.AvocadoClusterInfo.flush();
     }
     console.error("Replication did not finish");
     return false;
@@ -96,12 +96,12 @@ function SynchronousReplicationSuite () {
 
   function failFollower() {
     var follower = cinfo.shards[shards[0]][1];
-    var endpoint = global.ArangoClusterInfo.getServerEndpoint(follower);
+    var endpoint = global.AvocadoClusterInfo.getServerEndpoint(follower);
     // Now look for instanceInfo:
-    var pos = _.findIndex(global.instanceInfo.arangods,
+    var pos = _.findIndex(global.instanceInfo.avocadods,
                           x => x.endpoint === endpoint);
     assertTrue(pos >= 0);
-    assertTrue(suspendExternal(global.instanceInfo.arangods[pos].pid));
+    assertTrue(suspendExternal(global.instanceInfo.avocadods[pos].pid));
     console.info("Have failed follower", follower);
   }
 
@@ -111,12 +111,12 @@ function SynchronousReplicationSuite () {
 
   function healFollower() {
     var follower = cinfo.shards[shards[0]][1];
-    var endpoint = global.ArangoClusterInfo.getServerEndpoint(follower);
+    var endpoint = global.AvocadoClusterInfo.getServerEndpoint(follower);
     // Now look for instanceInfo:
-    var pos = _.findIndex(global.instanceInfo.arangods,
+    var pos = _.findIndex(global.instanceInfo.avocadods,
                           x => x.endpoint === endpoint);
     assertTrue(pos >= 0);
-    assertTrue(continueExternal(global.instanceInfo.arangods[pos].pid));
+    assertTrue(continueExternal(global.instanceInfo.avocadods[pos].pid));
     console.info("Have healed follower", follower);
   }
 
@@ -126,12 +126,12 @@ function SynchronousReplicationSuite () {
 
   function failLeader() {
     var leader = cinfo.shards[shards[0]][0];
-    var endpoint = global.ArangoClusterInfo.getServerEndpoint(leader);
+    var endpoint = global.AvocadoClusterInfo.getServerEndpoint(leader);
     // Now look for instanceInfo:
-    var pos = _.findIndex(global.instanceInfo.arangods,
+    var pos = _.findIndex(global.instanceInfo.avocadods,
                           x => x.endpoint === endpoint);
     assertTrue(pos >= 0);
-    assertTrue(suspendExternal(global.instanceInfo.arangods[pos].pid));
+    assertTrue(suspendExternal(global.instanceInfo.avocadods[pos].pid));
     console.info("Have failed leader", leader);
     return leader;
   }
@@ -142,12 +142,12 @@ function SynchronousReplicationSuite () {
 
   function healLeader() {
     var leader = cinfo.shards[shards[0]][0];
-    var endpoint = global.ArangoClusterInfo.getServerEndpoint(leader);
+    var endpoint = global.AvocadoClusterInfo.getServerEndpoint(leader);
     // Now look for instanceInfo:
-    var pos = _.findIndex(global.instanceInfo.arangods,
+    var pos = _.findIndex(global.instanceInfo.avocadods,
                           x => x.endpoint === endpoint);
     assertTrue(pos >= 0);
-    assertTrue(continueExternal(global.instanceInfo.arangods[pos].pid));
+    assertTrue(continueExternal(global.instanceInfo.avocadods[pos].pid));
     console.info("Have healed leader", leader);
   }
 
@@ -344,8 +344,8 @@ function SynchronousReplicationSuite () {
 
     tearDown : function () {
       db._drop(cn);
-      global.ArangoAgency.remove('Target/FailedServers');
-      global.ArangoAgency.set('Target/FailedServers', {});
+      global.AvocadoAgency.remove('Target/FailedServers');
+      global.AvocadoAgency.set('Target/FailedServers', {});
     },
 
 ////////////////////////////////////////////////////////////////////////////////

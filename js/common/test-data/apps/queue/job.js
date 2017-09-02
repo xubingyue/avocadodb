@@ -1,4 +1,4 @@
 'use strict';
 
-const db = require('@arangodb').db;
+const db = require('@avocadodb').db;
 db['foxx_queue_test'].save({job: true});

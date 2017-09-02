@@ -32,11 +32,11 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const createQuery = require('@arangodb/foxx/legacy/query').createQuery;
-const arangodb = require('@arangodb');
-const db = arangodb.db;
-const ArangoError = arangodb.ArangoError;
-const errors = arangodb.errors;
+const createQuery = require('@avocadodb/foxx/legacy/query').createQuery;
+const avocadodb = require('@avocadodb');
+const db = avocadodb.db;
+const AvocadoError = avocadodb.AvocadoError;
+const errors = avocadodb.errors;
 
 describe('createQuery(query)', function () {
   it('should execute queries with no arguments', function () {
@@ -51,19 +51,19 @@ describe('createQuery(query)', function () {
     expect(query()).to.eql([23]);
   });
 
-  it('should raise an ArangoError for unexpected arguments', function () {
+  it('should raise an AvocadoError for unexpected arguments', function () {
     const query = createQuery('RETURN 23');
     expect(function () {
       query({foo: 'chicken'});
-    }).to.throw(ArangoError)
+    }).to.throw(AvocadoError)
       .with.property('errorNum', errors.ERROR_QUERY_BIND_PARAMETER_UNDECLARED.code);
   });
 
-  it('should raise an ArangoError for missing arguments', function () {
+  it('should raise an AvocadoError for missing arguments', function () {
     const query = createQuery('RETURN @x');
     expect(function () {
       query();
-    }).to.throw(ArangoError)
+    }).to.throw(AvocadoError)
       .with.property('errorNum', errors.ERROR_QUERY_BIND_PARAMETER_MISSING.code);
   });
 

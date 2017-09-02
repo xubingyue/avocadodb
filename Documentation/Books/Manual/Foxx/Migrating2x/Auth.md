@@ -18,7 +18,7 @@ New:
 
 ```js
 'use strict';
-const createAuth = require('@arangodb/foxx/auth');
+const createAuth = require('@avocadodb/foxx/auth');
 const auth = createAuth(); // Use default configuration
 
 // ...

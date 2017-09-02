@@ -5,8 +5,8 @@ To use a traversal object, we first need to require the *traversal* module:
 
 
 ```js
-var traversal = require("@arangodb/graph/traversal");
-var examples = require("@arangodb/graph-examples/example-graph.js");
+var traversal = require("@avocadodb/graph/traversal");
+var examples = require("@avocadodb/graph-examples/example-graph.js");
 examples.loadGraph("worldCountry");
 ```
 
@@ -46,7 +46,7 @@ Finally, we can print the contents of the *results* object, limited to the visit
 We will only print the name and type of each visited vertex for brevity:
 
 ```js
-require("@arangodb").print(result.visited.vertices.map(function(vertex) {
+require("@avocadodb").print(result.visited.vertices.map(function(vertex) {
   return vertex.name + " (" + vertex.type + ")";
 }));
 ```
@@ -55,7 +55,7 @@ require("@arangodb").print(result.visited.vertices.map(function(vertex) {
 The full script, which includes all steps carried out so far is thus:
 
 ```js
-var traversal = require("@arangodb/graph/traversal");
+var traversal = require("@avocadodb/graph/traversal");
 
 var config = {
   datasource: traversal.generalGraphDatasourceFactory("worldCountry"),
@@ -77,7 +77,7 @@ var result = {
 var traverser = new traversal.Traverser(config);
 traverser.traverse(result, startVertex);
 
-require("@arangodb").print(result.visited.vertices.map(function(vertex) {
+require("@avocadodb").print(result.visited.vertices.map(function(vertex) {
   return vertex.name + " (" + vertex.type + ")";
 }));
 ```
@@ -142,7 +142,7 @@ start the traversal at the *v/world* vertex.
 Still, we can use the outbound expander if we start somewhere else in the graph, e.g. 
 
 ```js
-var traversal = require("@arangodb/graph/traversal");
+var traversal = require("@avocadodb/graph/traversal");
 
 var config = {
   datasource: traversal.generalGraphDatasourceFactory("world_graph"),
@@ -163,7 +163,7 @@ var result = {
 var traverser = new traversal.Traverser(config);
 traverser.traverse(result, startVertex);
 
-require("@arangodb").print(result.visited.vertices.map(function(vertex) {
+require("@avocadodb").print(result.visited.vertices.map(function(vertex) {
   return vertex.name + " (" + vertex.type + ")";
 }));
 ```
@@ -212,7 +212,7 @@ var result = {
 var traverser = new traversal.Traverser(config);
 traverser.traverse(result, startVertex);
 
-require("@arangodb").print(result.visited.vertices.map(function(vertex) {
+require("@avocadodb").print(result.visited.vertices.map(function(vertex) {
   return vertex.name + " (" + vertex.type + ")";
 }));
 ```
@@ -389,7 +389,7 @@ var config = {
   filter: traversal.visitAllFilter,
   expander: traversal.inboundExpander,
   visitor: function (config, result, vertex, path) {
-    require("@arangodb").print("visiting vertex", vertex.name);
+    require("@avocadodb").print("visiting vertex", vertex.name);
   }
 };
 
@@ -448,7 +448,7 @@ do not have any further connected edges):
 ```js
 config.visitor = function (config, result, vertex, path, connected) {
   if (connected && connected.length === 0) {
-    require("@arangodb").print("found a leaf-node: ", vertex);
+    require("@avocadodb").print("found a leaf-node: ", vertex);
   }
 }
 ```

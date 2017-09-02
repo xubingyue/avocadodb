@@ -19,7 +19,7 @@ Accessing Hash Indexes from the Shell
 
 ### Unique Hash Indexes
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 Ensures that a unique constraint exists:
 `collection.ensureIndex({ type: "hash", fields: [ "field1", ..., "fieldn" ], unique: true })`
@@ -63,7 +63,7 @@ details, including the index-identifier, is returned.
 
 ### Non-unique Hash Indexes
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 Ensures that a non-unique hash index exists:
 `collection.ensureIndex({ type: "hash", fields: [ "field1", ..., "fieldn" ] })`
@@ -122,7 +122,7 @@ Ensure uniqueness of relations in edge collections
 --------------------------------------------------
 
 It is possible to create secondary indexes using the edge attributes `_from`
-and `_to`, starting with ArangoDB 3.0. A combined index over both fields together
+and `_to`, starting with AvocadoDB 3.0. A combined index over both fields together
 with the unique option enabled can be used to prevent duplicate relations from
 being created.
 

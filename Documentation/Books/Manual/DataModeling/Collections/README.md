@@ -1,8 +1,8 @@
 JavaScript Interface to Collections
 ===================================
 
-This is an introduction to ArangoDB's interface for collections and how to handle
-collections from the JavaScript shell _arangosh_. For other languages see the
+This is an introduction to AvocadoDB's interface for collections and how to handle
+collections from the JavaScript shell _avocadosh_. For other languages see the
 corresponding language API.
 
 The most important call is the call to create a new collection.
@@ -10,9 +10,9 @@ The most important call is the call to create a new collection.
 Address of a Collection
 -----------------------
 
-All collections in ArangoDB have a unique identifier and a unique
-name. ArangoDB internally uses the collection's unique identifier to look up
-collections. This identifier, however, is managed by ArangoDB and the user has
+All collections in AvocadoDB have a unique identifier and a unique
+name. AvocadoDB internally uses the collection's unique identifier to look up
+collections. This identifier, however, is managed by AvocadoDB and the user has
 no control over it. In order to allow users to use their own names, each collection
 also has a unique name which is specified by the user. To access a collection
 from the user perspective, the [collection name](../../Appendix/Glossary.md#collection-name) should be used, i.e.:
@@ -38,7 +38,7 @@ This call will either return the collection named *db.collection-name* or create
 a new one with that name and a set of default properties.
 
 **Note**: Creating a collection on the fly using *db.collection-name* is
-not recommend and does not work in _arangosh_. To create a new collection, please
+not recommend and does not work in _avocadosh_. To create a new collection, please
 use
 
 ### Create
@@ -49,9 +49,9 @@ This method is a database method and is documented in detail at [Database Method
 
 ### Synchronous replication
 
-Starting in ArangoDB 3.0, the distributed version offers synchronous
+Starting in AvocadoDB 3.0, the distributed version offers synchronous
 replication, which means that there is the option to replicate all data
-automatically within the ArangoDB cluster. This is configured for sharded
+automatically within the AvocadoDB cluster. This is configured for sharded
 collections on a per collection basis by specifying a "replication factor"
 when the collection is created. A replication factor of k means that 
 altogether k copies of each shard are kept in the cluster on k different
@@ -61,7 +61,7 @@ replicated on all copies.
 This is organised using a leader/follower model. At all times, one of the
 servers holding replicas for a shard is "the leader" and all others
 are "followers", this configuration is held in the Agency (see 
-[Scalability](../../Scalability/README.md) for details of the ArangoDB
+[Scalability](../../Scalability/README.md) for details of the AvocadoDB
 cluster architecture). Every write operation is sent to the leader
 by one of the coordinators, and then replicated to all followers
 before the operation is reported to have succeeded. The leader keeps

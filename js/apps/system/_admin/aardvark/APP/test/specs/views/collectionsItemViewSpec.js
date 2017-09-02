@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* global describe, beforeEach, afterEach, it, spyOn, expect, jQuery*/
 /* global runs, waitsFor, jasmine, waits*/
-/* global $, console, arangoHelper */
+/* global $, console, avocadoHelper */
 (function () {
   'use strict';
   describe('CollectionsItem View', function () {
@@ -29,7 +29,7 @@
       modalDiv.id = 'modalPlaceholder';
       document.body.appendChild(modalDiv);
 
-      edgeCol = new window.arangoCollectionModel({
+      edgeCol = new window.avocadoCollectionModel({
         id: 'e',
         type: 'edge',
         isSystem: false,
@@ -37,7 +37,7 @@
         status: 'unloaded',
         journalSize: 33554432
       });
-      docCol = new window.arangoCollectionModel({
+      docCol = new window.avocadoCollectionModel({
         id: 'd',
         type: 'document',
         isSystem: false,
@@ -45,7 +45,7 @@
         status: 'loaded',
         journalSize: 33554432
       });
-      sysCol = new window.arangoCollectionModel({
+      sysCol = new window.avocadoCollectionModel({
         id: 's',
         type: 'document',
         isSystem: true,
@@ -58,7 +58,7 @@
       spyOn($, 'ajax').andCallFake(function (url) {
         return {done: function () {}};
       });
-      myStore = new window.arangoCollections(cols);
+      myStore = new window.avocadoCollections(cols);
       spyOn(window, 'isCoordinator').andReturn(isCoordinator);
       myView = new window.CollectionsView({
         collection: myStore
@@ -189,24 +189,24 @@
         });
 
         it('unloaded collection, save error', function () {
-          spyOn(arangoHelper, 'arangoError');
+          spyOn(avocadoHelper, 'avocadoError');
           spyOn(tile1.model, 'renameCollection');
 
           tile1.saveModifiedCollection();
 
           expect(tile1.model.renameCollection).toHaveBeenCalled();
-          expect(arangoHelper.arangoError).toHaveBeenCalled();
+          expect(avocadoHelper.avocadoError).toHaveBeenCalled();
         });
 
         it('should save a modified collection (loaded collection, save error)', function () {
           tile1.model.set('status', 'loaded');
-          spyOn(arangoHelper, 'arangoError');
+          spyOn(avocadoHelper, 'avocadoError');
           spyOn(tile1.model, 'renameCollection');
 
           tile1.saveModifiedCollection();
 
           expect(tile1.model.renameCollection).toHaveBeenCalled();
-          expect(arangoHelper.arangoError).toHaveBeenCalled();
+          expect(avocadoHelper.avocadoError).toHaveBeenCalled();
         });
       });
 
@@ -248,8 +248,8 @@
         document.body.appendChild(tempdiv);
         $('#change-collection-size').val(123123123123);
 
-        spyOn(arangoHelper, 'arangoError');
-        spyOn(arangoHelper, 'arangoNotification');
+        spyOn(avocadoHelper, 'avocadoError');
+        spyOn(avocadoHelper, 'avocadoNotification');
         spyOn(tile1.model, 'changeCollection').andReturn(false);
         spyOn(tile1.model, 'renameCollection').andReturn(false);
         spyOn(tile1.collectionsView, 'render');
@@ -259,7 +259,7 @@
         expect(window.modalView.hide).not.toHaveBeenCalled();
         expect(tile1.collectionsView.render).not.toHaveBeenCalled();
         expect(tile1.model.renameCollection).toHaveBeenCalled();
-        expect(arangoHelper.arangoError).toHaveBeenCalled();
+        expect(avocadoHelper.avocadoError).toHaveBeenCalled();
 
         document.body.removeChild(tempdiv);
       });
@@ -271,8 +271,8 @@
         document.body.appendChild(tempdiv);
         $('#change-collection-size').val(123123123123);
 
-        spyOn(arangoHelper, 'arangoError');
-        spyOn(arangoHelper, 'arangoNotification');
+        spyOn(avocadoHelper, 'avocadoError');
+        spyOn(avocadoHelper, 'avocadoNotification');
         spyOn(tile1.model, 'changeCollection').andReturn(false);
         spyOn(tile1.model, 'renameCollection').andReturn(true);
         spyOn(tile1.collectionsView, 'render');
@@ -282,7 +282,7 @@
         expect(window.modalView.hide).not.toHaveBeenCalled();
         expect(tile1.collectionsView.render).not.toHaveBeenCalled();
         expect(tile1.model.renameCollection).toHaveBeenCalled();
-        expect(arangoHelper.arangoNotification).toHaveBeenCalled();
+        expect(avocadoHelper.avocadoNotification).toHaveBeenCalled();
 
         document.body.removeChild(tempdiv);
       });

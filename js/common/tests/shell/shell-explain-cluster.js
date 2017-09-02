@@ -30,10 +30,10 @@
 
 var jsunity = require("jsunity");
 
-var arangodb = require("@arangodb");
-var ArangoStatement = require("@arangodb/arango-statement").ArangoStatement;
-var db = arangodb.db;
-var ERRORS = arangodb.errors;
+var avocadodb = require("@avocadodb");
+var AvocadoStatement = require("@avocadodb/avocado-statement").AvocadoStatement;
+var db = avocadodb.db;
+var ERRORS = avocadodb.errors;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainError : function () {
-      var st = new ArangoStatement(db, { query : "for u in" });
+      var st = new AvocadoStatement(db, { query : "for u in" });
       try {
         st.explain();
       }
@@ -82,7 +82,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainNoBindError : function () {
-      var st = new ArangoStatement(db, { query : "for i in [ 1 ] return @f" });
+      var st = new AvocadoStatement(db, { query : "for i in [ 1 ] return @f" });
       try {
         st.explain();
       }
@@ -96,7 +96,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainWithBind : function () {
-      var st = new ArangoStatement(db, { query : "for i in [ 1 ] return @f", bindVars: { f : 99 } });
+      var st = new AvocadoStatement(db, { query : "for i in [ 1 ] return @f", bindVars: { f : 99 } });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -120,7 +120,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainWithBindCollection : function () {
-      var st = new ArangoStatement(db, { query : "for i in @@cn return i", bindVars: { "@cn": cn } });
+      var st = new AvocadoStatement(db, { query : "for i in @@cn return i", bindVars: { "@cn": cn } });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -146,7 +146,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainOk1 : function () {
-      var st = new ArangoStatement(db, { query : "for u in [ 1, 2, 3 ] return u" });
+      var st = new AvocadoStatement(db, { query : "for u in [ 1, 2, 3 ] return u" });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -168,7 +168,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainOk2 : function () {
-      var st = new ArangoStatement(db, { query : "for u in [ 1, 2, 3 ] filter u != 1 for f in u return f" });
+      var st = new AvocadoStatement(db, { query : "for u in [ 1, 2, 3 ] filter u != 1 for f in u return f" });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -198,7 +198,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainRemove1 : function () {
-      var st = new ArangoStatement(db, { query : "for u in " + cn + " remove u in " + cn });
+      var st = new AvocadoStatement(db, { query : "for u in " + cn + " remove u in " + cn });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -219,7 +219,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainRemove2 : function () {
-      var st = new ArangoStatement(db, { query : "for u in @@cn remove u in @@cn", bindVars: { "@cn" : cn } });
+      var st = new AvocadoStatement(db, { query : "for u in @@cn remove u in @@cn", bindVars: { "@cn" : cn } });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -240,7 +240,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainInsert1 : function () {
-      var st = new ArangoStatement(db, { query : "for u in @@cn insert u in @@cn", bindVars: { "@cn": cn } });
+      var st = new AvocadoStatement(db, { query : "for u in @@cn insert u in @@cn", bindVars: { "@cn": cn } });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -279,7 +279,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainInsert2 : function () {
-      var st = new ArangoStatement(db, { query : "for u in " + cn + " insert u in " + cn });
+      var st = new AvocadoStatement(db, { query : "for u in " + cn + " insert u in " + cn });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -318,7 +318,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainUpdate1 : function () {
-      var st = new ArangoStatement(db, {
+      var st = new AvocadoStatement(db, {
         query : "for u in @@cn update u._key with u in @@cn",
         bindVars: { "@cn": cn }
       });
@@ -363,7 +363,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainUpdate2 : function () {
-      var st = new ArangoStatement(db, { query : "for u in " + cn + " update u._key with u in " + cn });
+      var st = new AvocadoStatement(db, { query : "for u in " + cn + " update u._key with u in " + cn });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -405,7 +405,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainUpdate3 : function () {
-      var st = new ArangoStatement(db, { query : "for u in @@cn update u in @@cn", bindVars: { "@cn": cn } });
+      var st = new AvocadoStatement(db, { query : "for u in @@cn update u in @@cn", bindVars: { "@cn": cn } });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -444,7 +444,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainUpdate4 : function () {
-      var st = new ArangoStatement(db, { query : "for u in " + cn + " update u in " + cn });
+      var st = new AvocadoStatement(db, { query : "for u in " + cn + " update u in " + cn });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -484,7 +484,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainReplace1 : function () {
-      var st = new ArangoStatement(db, {
+      var st = new AvocadoStatement(db, {
         query : "for u in @@cn replace u._key with u in @@cn",
         bindVars: { "@cn": cn }
       });
@@ -529,7 +529,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainReplace2 : function () {
-      var st = new ArangoStatement(db, { query : "for u in " + cn + " replace u._key with u in " + cn });
+      var st = new AvocadoStatement(db, { query : "for u in " + cn + " replace u._key with u in " + cn });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -572,7 +572,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainReplace3 : function () {
-      var st = new ArangoStatement(db, { query : "for u in @@cn replace u in @@cn", bindVars: { "@cn": cn } });
+      var st = new AvocadoStatement(db, { query : "for u in @@cn replace u in @@cn", bindVars: { "@cn": cn } });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];
@@ -611,7 +611,7 @@ function ExplainSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
     testExplainReplace4 : function () {
-      var st = new ArangoStatement(db, { query : "for u in " + cn + " replace u in " + cn });
+      var st = new AvocadoStatement(db, { query : "for u in " + cn + " replace u in " + cn });
       var nodes = st.explain().plan.nodes, node;
 
       node = nodes[0];

@@ -17,7 +17,7 @@ curl --data-binary @- -X POST --dump - "http://localhost:8529/_api/import?collec
 [ "Jane", "Doe", 31, "female" ]
 
 HTTP/1.1 201 Created
-Server: ArangoDB
+Server: AvocadoDB
 Connection: Keep-Alive
 Content-type: application/json; charset=utf-8
 

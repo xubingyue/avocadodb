@@ -1,4 +1,4 @@
 
-echo "killing arango* binaries"
-killall -9 "arangod" || true
-killall -9 "arangosh" || true
+echo "killing avocado* binaries"
+killall -9 "avocadod" || true
+killall -9 "avocadosh" || true

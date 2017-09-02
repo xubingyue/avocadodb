@@ -8,12 +8,12 @@ if the document exists. An error is thrown if no document with the given
 identifier exists, or if the specified *_rev* value does not match the
 current revision of the document.
 
-**Note**: If the method is executed on the arangod server (e.g. from
+**Note**: If the method is executed on the avocadod server (e.g. from
 inside a Foxx application), an immutable document object will be returned
 for performance reasons. It is not possible to change attributes of this
 immutable object. To update or patch the returned document, it needs to be
 cloned/copied into a regular JavaScript object first. This is not necessary
-if the *_document* method is called from out of arangosh or from any
+if the *_document* method is called from out of avocadosh or from any
 other client.
 
 `db._document(document-handle)`

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@
 #include "Exceptions.h"
 #include "Logger/Logger.h"
 
-using namespace arangodb::basics;
+using namespace avocadodb::basics;
 
 /// @brief controls if backtraces are printed with exceptions
 static bool WithBackTrace = false;
@@ -42,7 +42,7 @@ Exception::Exception(int code, char const* file, int line)
   appendLocation();
 }
 
-Exception::Exception(arangodb::Result const& result, char const* file, int line)
+Exception::Exception(avocadodb::Result const& result, char const* file, int line)
     : _errorMessage(result.errorMessage()),
       _file(file),
       _line(line),
@@ -51,7 +51,7 @@ Exception::Exception(arangodb::Result const& result, char const* file, int line)
   appendLocation();
 }
 
-Exception::Exception(arangodb::Result&& result, char const* file, int line)
+Exception::Exception(avocadodb::Result&& result, char const* file, int line)
     : _errorMessage(std::move(result).errorMessage()), //cast to rvalueref so the error stirng gets moved out
       _file(file),
       _line(line),
@@ -104,7 +104,7 @@ char const* Exception::what() const throw() { return _errorMessage.c_str(); }
 /// @brief append original error location to message
 void Exception::appendLocation () {
   if (_code == TRI_ERROR_INTERNAL) {
-    _errorMessage += std::string(" (exception location: ") + _file + ":" + std::to_string(_line) + "). Please report this error to arangodb.com";
+    _errorMessage += std::string(" (exception location: ") + _file + ":" + std::to_string(_line) + "). Please report this error to avocadodb.com";
   } else if (_code == TRI_ERROR_OUT_OF_MEMORY) {
     _errorMessage += std::string(" (exception location: ") + _file + ":" + std::to_string(_line) + ")";
   }

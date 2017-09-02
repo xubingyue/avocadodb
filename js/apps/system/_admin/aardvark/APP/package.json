@@ -1,7 +1,7 @@
 {
   "name": "aardvark",
   "version": "2.0.0",
-  "description": "The ArangoDB web interface",
+  "description": "The AvocadoDB web interface",
   "author": "Heiko Kernbach, Michael Hackstein, moonglum",
   "license": "Apache 2",
   "scripts": {
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/arangodb/arangodb.git"
+    "url": "git://github.com/avocadodb/avocadodb.git"
   },
   "dependencies": {
     "grunt": "^1.0.1",

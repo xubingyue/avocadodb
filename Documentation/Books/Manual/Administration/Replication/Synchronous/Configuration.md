@@ -3,7 +3,7 @@ Configuration
 
 ### Requirements
 
-Synchronous replication requires an operational ArangoDB cluster.
+Synchronous replication requires an operational AvocadoDB cluster.
 
 ### Enabling synchronous replication
 

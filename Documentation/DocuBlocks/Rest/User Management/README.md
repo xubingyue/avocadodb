@@ -13,7 +13,7 @@ The user password as a string. If no password is specified, the empty string
 will be used. If you pass the special value *ARANGODB_DEFAULT_ROOT_PASSWORD*,
 then the password will be set the value stored in the environment variable
 `ARANGODB_DEFAULT_ROOT_PASSWORD`. This can be used to pass an instance
-variable into ArangoDB. For example, the instance identifier from Amazon.
+variable into AvocadoDB. For example, the instance identifier from Amazon.
 
 @RESTBODYPARAM{active,boolean,optional,boolean}
 An optional flag that specifies whether the user is active.  If not
@@ -49,7 +49,7 @@ Returned if a user with the same name already exists.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestCreateUser}
-    ~try { require("@arangodb/users").remove("admin@example"); } catch (err) {}
+    ~try { require("@avocadodb/users").remove("admin@example"); } catch (err) {}
     var url = "/_api/user";
     var data = { user: "admin@example", passwd: "secure" };
     var response = logCurlRequest('POST', url, data);
@@ -57,7 +57,7 @@ Returned if a user with the same name already exists.
     assert(response.code === 201);
 
     logJsonResponse(response);
-    ~require("@arangodb/users").remove("admin@example");
+    ~require("@avocadodb/users").remove("admin@example");
 @END_EXAMPLE_ARANGOSH_RUN
 
 @endDocuBlock
@@ -109,7 +109,7 @@ Returned if you have *No access* server access level.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestGrantDatabase}
-    var users = require("@arangodb/users");
+    var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
 
@@ -159,7 +159,7 @@ from the request.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestRevokeDatabase}
-var users = require("@arangodb/users");
+var users = require("@avocadodb/users");
 var theUser = "admin@myapp";
 try { users.remove(theUser); } catch (err) {}
 users.save(theUser, "secret")
@@ -225,7 +225,7 @@ Returned if you have *No access* server access level.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestGrantCollection}
-    var users = require("@arangodb/users");
+    var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     try { users.remove(theUser); } catch (err) {}
     users.save(theUser, "secret")
@@ -279,7 +279,7 @@ If there was an error
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestRevokeCollection}
-var users = require("@arangodb/users");
+var users = require("@avocadodb/users");
 var theUser = "admin@myapp";
 try { users.remove(theUser); } catch (err) {}
 users.save(theUser, "secret")
@@ -344,7 +344,7 @@ Returned if you have *No access* server access level.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestFetchUserDatabaseList}
-    var users = require("@arangodb/users");
+    var users = require("@avocadodb/users");
     var theUser="anotherAdmin@secapp";
     users.save(theUser, "secret");
     users.grantDatabase(theUser, "_system", "rw");
@@ -361,7 +361,7 @@ Returned if you have *No access* server access level.
 With the full response format:
 
 @EXAMPLE_ARANGOSH_RUN{RestFetchUserDatabaseListFull}
-var users = require("@arangodb/users");
+var users = require("@avocadodb/users");
 var theUser="anotherAdmin@secapp";
 users.save(theUser, "secret");
 users.grantDatabase(theUser, "_system", "rw");
@@ -414,7 +414,7 @@ Returned if you have *No access* server access level.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestFetchUserDatabasePermission}
-var users = require("@arangodb/users");
+var users = require("@avocadodb/users");
 var theUser="anotherAdmin@secapp";
 users.save(theUser, "secret");
 users.grantDatabase(theUser, "_system", "rw");
@@ -470,7 +470,7 @@ Returned if you have *No access* server access level.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestFetchUserCollectionPermission}
-var users = require("@arangodb/users");
+var users = require("@avocadodb/users");
 var theUser="anotherAdmin@secapp";
 users.save(theUser, "secret");
 users.grantDatabase(theUser, "_system", "rw");
@@ -536,7 +536,7 @@ The specified user does not exist
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestReplaceUser}
-    var users = require("@arangodb/users");
+    var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
 
@@ -603,7 +603,7 @@ The specified user does not exist
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestUpdateUser}
-    var users = require("@arangodb/users");
+    var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
 
@@ -656,7 +656,7 @@ The specified user does not exist
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestDeleteUser}
-    var users = require("@arangodb/users");
+    var users = require("@avocadodb/users");
     var theUser = "userToDelete@myapp";
     users.save(theUser, "secret")
 
@@ -706,7 +706,7 @@ The user with the specified name does not exist.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestFetchUser}
-    var users = require("@arangodb/users");
+    var users = require("@avocadodb/users");
     var theUser = "admin@myapp";
     users.save(theUser, "secret")
 

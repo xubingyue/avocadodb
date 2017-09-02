@@ -1,5 +1,5 @@
 /*jshint browser: true */
-/*global SwaggerUi, $, hljs, arangoHelper */
+/*global SwaggerUi, $, hljs, avocadoHelper */
 (function() {
   "use strict";
   var query = window.location.search.substring(1);
@@ -23,7 +23,7 @@
     $("#swagger-ui-container").append(div);
     return;
   }
-  var url = arangoHelper.databaseUrl("/_admin/aardvark/foxxes/billboard?mount=" + appUrl);
+  var url = avocadoHelper.databaseUrl("/_admin/aardvark/foxxes/billboard?mount=" + appUrl);
   var swaggerUi = new SwaggerUi({
     discoveryUrl: url,
     apiKey: false,

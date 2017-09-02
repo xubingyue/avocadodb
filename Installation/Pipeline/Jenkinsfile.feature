@@ -108,13 +108,13 @@ restrictions = [:]
 
 
 // github proxy repositiory
-proxyRepo = 'http://c1:8088/github.com/arangodb/arangodb'
+proxyRepo = 'http://c1:8088/github.com/avocadodb/avocadodb'
 
 // github repositiory for resilience tests
-resilienceRepo = 'http://c1:8088/github.com/arangodb/resilience-tests'
+resilienceRepo = 'http://c1:8088/github.com/avocadodb/resilience-tests'
 
 // github repositiory for enterprise version
-enterpriseRepo = 'http://c1:8088/github.com/arangodb/enterprise'
+enterpriseRepo = 'http://c1:8088/github.com/avocadodb/enterprise'
 
 // Jenkins credentials for enterprise repositiory
 credentials = '8d893d23-6714-4f35-a239-c847c798e080'
@@ -123,10 +123,10 @@ credentials = '8d893d23-6714-4f35-a239-c847c798e080'
 sourceBranchLabel = env.BRANCH_NAME
 
 if (env.BRANCH_NAME =~ /^PR-/) {
-  def prUrl = new URL("https://api.github.com/repos/arangodb/arangodb/pulls/${env.CHANGE_ID}")
+  def prUrl = new URL("https://api.github.com/repos/avocadodb/avocadodb/pulls/${env.CHANGE_ID}")
   sourceBranchLabel = new groovy.json.JsonSlurper().parseText(prUrl.text).head.label
 
-  def reg = ~/^arangodb:/
+  def reg = ~/^avocadodb:/
   sourceBranchLabel = sourceBranchLabel - reg
 }
 

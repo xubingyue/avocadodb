@@ -2,7 +2,7 @@
 /*global applicationContext */
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief An example Foxx-Application for ArangoDB
+/// @brief An example Foxx-Application for AvocadoDB
 ///
 /// @file
 ///
@@ -32,15 +32,15 @@
   'use strict';
 
   // initialize a new FoxxApplication
-  var FoxxApplication = require("@arangodb/foxx").Controller;
+  var FoxxApplication = require("@avocadodb/foxx").Controller;
   var controller = new FoxxApplication(applicationContext);
 
   // include console module so we can log something (in the server's log)
   var console = require("console");
-  var ArangoError = require("@arangodb").ArangoError;
+  var AvocadoError = require("@avocadodb").AvocadoError;
 
   // we also need this module for custom responses
-  var actions = require("@arangodb/actions");
+  var actions = require("@avocadodb/actions");
 
   // use joi for validation 
   var joi = require("joi");
@@ -111,7 +111,7 @@
 
     if (deities.indexOf(deity) === -1) {
       // unknown deity
-      throw new ArangoError();
+      throw new AvocadoError();
     }
 
     console.log("summoning %s", deity);

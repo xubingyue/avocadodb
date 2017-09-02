@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@
 
 #define ARANGODB_PROGRAM_OPTIONS_PROGNAME "#progname#"
 
-using namespace arangodb::options;
+using namespace avocadodb::options;
   
 ProgramOptions::ProgramOptions(char const* progname, std::string const& usage,
                  std::string const& more,
@@ -323,12 +323,12 @@ bool ProgramOptions::unknownOption(std::string const& name) {
     if (now.empty()) {
       std::cerr << "Please note that the specified option '" << colorStart
                 << "--" << name << colorEnd
-                << "' has been removed in this ArangoDB version";
+                << "' has been removed in this AvocadoDB version";
     } else {
       std::cerr << "Please note that the specified option '" << colorStart
                 << "--" << name << colorEnd << "' has been renamed to '--"
                 << colorStart << now << colorEnd
-                << "' in this ArangoDB version";
+                << "' in this AvocadoDB version";
     }
 
     std::cerr

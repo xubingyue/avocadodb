@@ -1,0 +1,134 @@
+////////////////////////////////////////////////////////////////////////////////
+/// DISCLAIMER
+///
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
+/// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
+///
+/// Licensed under the Apache License, Version 2.0 (the "License");
+/// you may not use this file except in compliance with the License.
+/// You may obtain a copy of the License at
+///
+///     http://www.apache.org/licenses/LICENSE-2.0
+///
+/// Unless required by applicable law or agreed to in writing, software
+/// distributed under the License is distributed on an "AS IS" BASIS,
+/// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+/// See the License for the specific language governing permissions and
+/// limitations under the License.
+///
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
+///
+/// @author Michael Hackstein
+////////////////////////////////////////////////////////////////////////////////
+
+#ifndef ARANGOD_VOC_BASE_TRAVERSER_OPTIONS_H
+#define ARANGOD_VOC_BASE_TRAVERSER_OPTIONS_H 1
+
+#include "Aql/FixedVarExpressionContext.h"
+#include "Basics/Common.h"
+#include "Basics/StringRef.h"
+#include "Graph/BaseOptions.h"
+#include "StorageEngine/TransactionState.h"
+#include "Transaction/Methods.h"
+
+namespace avocadodb {
+class ManagedDocumentResult;
+
+namespace velocypack {
+class Builder;
+class Slice;
+}
+
+namespace aql {
+struct AstNode;
+class Expression;
+class Query;
+class TraversalNode;
+}
+
+namespace graph {
+class EdgeUniquenessChecker;
+class TraverserCache;
+}
+
+namespace traverser {
+
+class ClusterTraverser;
+
+struct TraverserOptions : public graph::BaseOptions {
+  friend class avocadodb::aql::TraversalNode;
+
+ public:
+  enum UniquenessLevel { NONE, PATH, GLOBAL };
+
+ protected:
+
+  std::unordered_map<uint64_t, std::vector<LookupInfo>> _depthLookupInfo;
+
+  std::unordered_map<uint64_t, aql::Expression*> _vertexExpressions;
+
+  aql::Expression* _baseVertexExpression;
+
+  avocadodb::traverser::ClusterTraverser* _traverser;
+
+ public:
+  uint64_t minDepth;
+
+  uint64_t maxDepth;
+
+  bool useBreadthFirst;
+
+  UniquenessLevel uniqueVertices;
+
+  UniquenessLevel uniqueEdges;
+
+  explicit TraverserOptions(transaction::Methods* trx);
+
+  TraverserOptions(transaction::Methods* trx, avocadodb::velocypack::Slice const& definition);
+
+  TraverserOptions(avocadodb::aql::Query*, avocadodb::velocypack::Slice,
+                   avocadodb::velocypack::Slice);
+
+  /// @brief This copy constructor is only working during planning phase.
+  ///        After planning this node should not be copied anywhere.
+  TraverserOptions(TraverserOptions const&);
+
+  virtual ~TraverserOptions();
+
+  /// @brief Build a velocypack for cloning in the plan.
+  void toVelocyPack(avocadodb::velocypack::Builder&) const;
+
+  /// @brief Build a velocypack for indexes
+  void toVelocyPackIndexes(avocadodb::velocypack::Builder&) const;
+
+  /// @brief Build a velocypack containing all relevant information
+  ///        for DBServer traverser engines.
+  void buildEngineInfo(avocadodb::velocypack::Builder&) const;
+
+  /// @brief Add a lookup info for specific depth
+  void addDepthLookupInfo(aql::ExecutionPlan* plan, std::string const& collectionName,
+                          std::string const& attributeName,
+                          aql::AstNode* condition, uint64_t depth);
+
+  bool vertexHasFilter(uint64_t) const;
+
+  bool hasEdgeFilter(int64_t, size_t) const;
+  
+  bool evaluateEdgeExpression(avocadodb::velocypack::Slice, StringRef vertexId,
+                              uint64_t, size_t) const;
+
+  bool evaluateVertexExpression(avocadodb::velocypack::Slice, uint64_t) const;
+
+  graph::EdgeCursor* nextCursor(ManagedDocumentResult*, StringRef vid, uint64_t);
+
+  void linkTraverser(avocadodb::traverser::ClusterTraverser*);
+
+  double estimateCost(size_t& nrItems) const;
+
+ private:
+
+  graph::EdgeCursor* nextCursorCoordinator(StringRef vid, uint64_t);
+};
+}
+}
+#endif

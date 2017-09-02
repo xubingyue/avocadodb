@@ -52,14 +52,14 @@ CPackSourceConfig.cmake
 CTestTestfile.cmake
 UnitTests/CTestTestfile.cmake
 UnitTests/cmake_install.cmake
-arangod/cmake_install.cmake
-arangosh/cmake_install.cmake
+avocadod/cmake_install.cmake
+avocadosh/cmake_install.cmake
 cmake_install.cmake
 lib/cmake_install.cmake
 
 Documentation/Examples/*.generated
 
-arangod/Aql/grammar.output
+avocadod/Aql/grammar.output
 
 UnitTests/HttpInterface/logs/
 
@@ -67,9 +67,9 @@ bin/
 logs/
 out/
 
-etc/arangodb/*.conf
+etc/avocadodb/*.conf
 
-Installation/epm/arangodb.sublist
+Installation/epm/avocadodb.sublist
 Installation/MacOSX/Bundle/Info.plist
 
 nbproject/

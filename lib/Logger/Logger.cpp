@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2013 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Achim Brandt
 /// @author Dr. Frank Celler
@@ -24,7 +24,7 @@
 
 #include "Logger.h"
 
-#include "Basics/ArangoGlobalContext.h"
+#include "Basics/AvocadoGlobalContext.h"
 #include "Basics/ConditionLocker.h"
 #include "Basics/Exceptions.h"
 #include "Basics/MutexLocker.h"
@@ -33,8 +33,8 @@
 #include "Basics/files.h"
 #include "Logger/LogAppender.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 Mutex Logger::_initializeMutex;
 
@@ -70,7 +70,7 @@ void Logger::setLogLevel(std::string const& levelName) {
 
   if (v.empty() || v.size() > 2) {
     Logger::setLogLevel(LogLevel::INFO);
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "strange log level '" << levelName
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "strange log level '" << levelName
              << "', using log level 'info'";
     return;
   }
@@ -100,10 +100,10 @@ void Logger::setLogLevel(std::string const& levelName) {
   } else {
     if (isGeneral) {
       Logger::setLogLevel(LogLevel::INFO);
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "strange log level '" << levelName
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "strange log level '" << levelName
                << "', using log level 'info'";
     } else {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "strange log level '" << levelName << "'";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "strange log level '" << levelName << "'";
     }
 
     return;
@@ -230,7 +230,7 @@ void Logger::log(char const* function, char const* file, long int line,
                  std::string const& message) {
 #ifdef _WIN32
   if (level == LogLevel::FATAL || level == LogLevel::ERR) {
-    if (ArangoGlobalContext::CONTEXT != nullptr && ArangoGlobalContext::CONTEXT->useEventLog()) {
+    if (AvocadoGlobalContext::CONTEXT != nullptr && AvocadoGlobalContext::CONTEXT->useEventLog()) {
       TRI_LogWindowsEventlog(function, file, line, message);
     }
 

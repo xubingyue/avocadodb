@@ -7,7 +7,7 @@ File Systems
 (LINUX)
 
 We recommend **not** to use BTRFS on linux, it's known to not work
-well in conjunction with ArangoDB.  We experienced that arangodb
+well in conjunction with AvocadoDB.  We experienced that avocadodb
 facing latency issues on accessing its database files on BTRFS
 partitions.  In conjunction with BTRFS and AUFS we also saw data loss
 on restart.
@@ -18,14 +18,14 @@ Virtual Memory Page Sizes
 
 (LINUX)
 
-By default, ArangoDB uses Jemalloc as the memory allocator. Jemalloc does a good
+By default, AvocadoDB uses Jemalloc as the memory allocator. Jemalloc does a good
 job of reducing virtual memory fragmentation, especially for long-running
 processes. Unfortunately, some OS configurations can interfere with Jemalloc's
 ability to function properly. Specifically, Linux's "transparent hugepages",
 Windows' "large pages" and other similar features sometimes prevent Jemalloc
 from returning unused memory to the operating system and result in unnecessarily
 high memory use. Therefore, we recommend disabling these features when using
-Jemalloc with ArangoDB. Please consult your operating system's documentation for
+Jemalloc with AvocadoDB. Please consult your operating system's documentation for
 how to do this.
 
 Execute
@@ -33,16 +33,16 @@ Execute
     sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/enabled"
     sudo bash -c "echo madvise >/sys/kernel/mm/transparent_hugepage/defrag"
 
-before executing `arangod`.
+before executing `avocadod`.
 
 Swap Space
 ----------
 
 (LINUX)
 
-It is recommended to assign swap space for a server that is running arangod.
+It is recommended to assign swap space for a server that is running avocadod.
 Configuring swap space can prevent the operating system's OOM killer from
-killing ArangoDB too eagerly on Linux.
+killing AvocadoDB too eagerly on Linux.
 
 ### Over-Commit Memory
 
@@ -50,7 +50,7 @@ Execute
 
     sudo bash -c "echo 0 >/proc/sys/vm/overcommit_memory"
 
-before executing `arangod`.
+before executing `avocadod`.
 
 From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt):
 
@@ -69,7 +69,7 @@ Execute
 
     sudo bash -c "echo 0 >/proc/sys/vm/zone_reclaim_mode"
 
-before executing `arangod`.
+before executing `avocadod`.
 
 From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt):
 
@@ -82,10 +82,10 @@ This is value ORed together of
 NUMA
 ----
 
-Multi-processor systems often have non-uniform Access Memory (NUMA). ArangoDB
+Multi-processor systems often have non-uniform Access Memory (NUMA). AvocadoDB
 should be started with interleave on such system. This can be achieved using
 
-    numactl --interleave=all arangod ...
+    numactl --interleave=all avocadod ...
 
 Environment Variables
 ---------------------
@@ -100,12 +100,12 @@ Execute
     export GLIBCXX_FORCE_NEW=1
 
 
-before starting `arangod`.
+before starting `avocadod`.
 
 32bit
 -----
 
-While it is possible to compile ArangoDB on 32bit system, this is not a
+While it is possible to compile AvocadoDB on 32bit system, this is not a
 recommended environment. 64bit systems can address a significantly bigger
 memory region.
 

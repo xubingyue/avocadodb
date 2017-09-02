@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, Backbone, window, $, frontendConfig */
+/* global avocadoHelper, Backbone, window, $, frontendConfig */
 
 (function () {
   'use strict';
@@ -18,11 +18,11 @@
 
     render: function () {
       this.breadcrumb();
-      window.arangoHelper.buildCollectionSubNav(this.collectionName, 'Info');
+      window.avocadoHelper.buildCollectionSubNav(this.collectionName, 'Info');
 
       this.renderInfoView();
       // check permissions and adjust views
-      arangoHelper.checkCollectionPermissions(this.collectionName, this.changeViewToReadOnly);
+      avocadoHelper.checkCollectionPermissions(this.collectionName, this.changeViewToReadOnly);
     },
 
     changeViewToReadOnly: function () {
@@ -41,7 +41,7 @@
       }
       var callbackRev = function (error, revision, figures) {
         if (error) {
-          arangoHelper.arangoError('Figures', 'Could not get revision.');
+          avocadoHelper.avocadoError('Figures', 'Could not get revision.');
         } else {
           var buttons = [];
           // analyse figures in cluster
@@ -77,7 +77,7 @@
 
       var callback = function (error, data) {
         if (error) {
-          arangoHelper.arangoError('Figures', 'Could not get figures.');
+          avocadoHelper.avocadoError('Figures', 'Could not get figures.');
         } else {
           var figures = data;
           this.model.getRevision(callbackRev, figures);

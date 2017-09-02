@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global frontendConfig, arangoHelper, Backbone, templateEngine, $, window */
+/* global frontendConfig, avocadoHelper, Backbone, templateEngine, $, window */
 (function () {
   'use strict';
 
@@ -26,7 +26,7 @@
     template: templateEngine.createTemplate('userBarView.ejs'),
 
     navigateBySelect: function () {
-      var navigateTo = $('#arangoCollectionSelect').find('option:selected').val();
+      var navigateTo = $('#avocadoCollectionSelect').find('option:selected').val();
       window.App.navigate(navigateTo, {trigger: true});
     },
 
@@ -64,7 +64,7 @@
 
       var callback = function (error, username) {
         if (error) {
-          arangoHelper.arangoErro('User', 'Could not fetch user.');
+          avocadoHelper.avocadoErro('User', 'Could not fetch user.');
         } else {
           var img = null;
           var name = null;
@@ -120,7 +120,7 @@
     userLogout: function () {
       var userCallback = function (error) {
         if (error) {
-          arangoHelper.arangoError('User', 'Logout error');
+          avocadoHelper.avocadoError('User', 'Logout error');
         } else {
           this.userCollection.logout();
         }

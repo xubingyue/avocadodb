@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -26,11 +26,11 @@
 
 #include "Basics/Common.h"
   
-#define TRI_TRACKED_CREATE_FILE(a, b, c) arangodb::OpenFilesTracker::instance()->create((a), (b), (c))
-#define TRI_TRACKED_OPEN_FILE(a, b) arangodb::OpenFilesTracker::instance()->open((a), (b))
-#define TRI_TRACKED_CLOSE_FILE arangodb::OpenFilesTracker::instance()->close
+#define TRI_TRACKED_CREATE_FILE(a, b, c) avocadodb::OpenFilesTracker::instance()->create((a), (b), (c))
+#define TRI_TRACKED_OPEN_FILE(a, b) avocadodb::OpenFilesTracker::instance()->open((a), (b))
+#define TRI_TRACKED_CLOSE_FILE avocadodb::OpenFilesTracker::instance()->close
 
-namespace arangodb {
+namespace avocadodb {
 
 class OpenFilesTracker {
  public:

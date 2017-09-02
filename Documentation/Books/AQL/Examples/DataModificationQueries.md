@@ -4,7 +4,7 @@ Data-modification queries
 The following operations can be used to modify data of multiple documents
 with one query. This is superior to fetching and updating the documents individually
 with multiple queries. However, if only a single document needs to be modified,
-ArangoDB's specialized data-modification operations for single documents
+AvocadoDB's specialized data-modification operations for single documents
 might execute faster.
 
 Updating documents

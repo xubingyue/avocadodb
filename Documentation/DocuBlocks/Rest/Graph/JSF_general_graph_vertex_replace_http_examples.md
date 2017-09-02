@@ -50,7 +50,7 @@ Returned if if-match header is given, but the documents revision is different.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{HttpGharialReplaceVertex}
-  var examples = require("@arangodb/graph-examples/example-graph.js");
+  var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   examples.loadGraph("social");
   body = {

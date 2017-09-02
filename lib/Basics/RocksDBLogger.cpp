@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@
 #include "Basics/StringRef.h"
 #include "Logger/Logger.h"
 
-using namespace arangodb;
+using namespace avocadodb;
 
 RocksDBLogger::RocksDBLogger(rocksdb::InfoLogLevel level) : rocksdb::Logger(level), _enabled(true) {}
 RocksDBLogger::~RocksDBLogger() {}
@@ -67,17 +67,17 @@ void RocksDBLogger::Logv(const rocksdb::InfoLogLevel logLevel, char const* forma
 
   switch (logLevel) {
     case rocksdb::InfoLogLevel::DEBUG_LEVEL:
-      LOG_TOPIC(DEBUG, arangodb::Logger::ROCKSDB) << StringRef(buffer, l);
+      LOG_TOPIC(DEBUG, avocadodb::Logger::ROCKSDB) << StringRef(buffer, l);
       break;
     case rocksdb::InfoLogLevel::INFO_LEVEL:
-      LOG_TOPIC(INFO, arangodb::Logger::ROCKSDB) << StringRef(buffer, l);
+      LOG_TOPIC(INFO, avocadodb::Logger::ROCKSDB) << StringRef(buffer, l);
       break;
     case rocksdb::InfoLogLevel::WARN_LEVEL:
-      LOG_TOPIC(WARN, arangodb::Logger::ROCKSDB) << StringRef(buffer, l);
+      LOG_TOPIC(WARN, avocadodb::Logger::ROCKSDB) << StringRef(buffer, l);
       break;
     case rocksdb::InfoLogLevel::ERROR_LEVEL:
     case rocksdb::InfoLogLevel::FATAL_LEVEL:
-      LOG_TOPIC(ERR, arangodb::Logger::ROCKSDB) << StringRef(buffer, l);
+      LOG_TOPIC(ERR, avocadodb::Logger::ROCKSDB) << StringRef(buffer, l);
       break;
     default: { 
       // ignore other levels 

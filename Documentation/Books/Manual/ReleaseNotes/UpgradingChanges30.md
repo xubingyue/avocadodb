@@ -1,16 +1,16 @@
-Incompatible changes in ArangoDB 3.0
+Incompatible changes in AvocadoDB 3.0
 ====================================
 
 It is recommended to check the following list of incompatible changes **before**
-upgrading to ArangoDB 3.0, and adjust any client programs if necessary.
+upgrading to AvocadoDB 3.0, and adjust any client programs if necessary.
 
 Build system
 ------------
 
-Building ArangoDB 3.0 from source now requires CMake.
+Building AvocadoDB 3.0 from source now requires CMake.
 
 The pre-3.0 build system used a configure-based approach. The steps to build
-ArangoDB 2.8 from source code were:
+AvocadoDB 2.8 from source code were:
 
 ```
 make setup
@@ -18,7 +18,7 @@ make setup
 make
 ```
 
-These steps will not work anymore, as ArangoDB 3.0 does not come with a
+These steps will not work anymore, as AvocadoDB 3.0 does not come with a
 configure script.
 
 To build 3.0 on Linux, create a separate build directory first:
@@ -40,34 +40,34 @@ dependencies. If everything works well the actual build can be started with
 (cd build && make)
 ```
 
-The binaries for the ArangoDB server and all client tools will then be created
-inside the `build` directory. To start ArangoDB locally from the `build` directory,
+The binaries for the AvocadoDB server and all client tools will then be created
+inside the `build` directory. To start AvocadoDB locally from the `build` directory,
 use
 
 ```
-build/bin/arangod <options>
+build/bin/avocadod <options>
 ```
 
 Datafiles and datafile names
 ----------------------------
 
-ArangoDB 3.0 uses a new VelocyPack-based format for storing data in WAL logfiles
+AvocadoDB 3.0 uses a new VelocyPack-based format for storing data in WAL logfiles
 and collection datafiles. The file format is not compatible with the files used
-in prior versions of ArangoDB. That means datafiles written by ArangoDB 3.0 cannot be
+in prior versions of AvocadoDB. That means datafiles written by AvocadoDB 3.0 cannot be
 used in earlier versions and vice versa.
 
 The pattern for collection directory names was changed in 3.0 to include a random 
 id component at the end. The new pattern is `collection-<id>-<random>`, where `<id>` 
-is the collection id and `<random>` is a random number. Previous versions of ArangoDB 
+is the collection id and `<random>` is a random number. Previous versions of AvocadoDB 
 used a pattern `collection-<id>` without the random number.
 
 User Management
 ---------------
 
-Unlike ArangoDB 2.x, ArangoDB 3.0 users are now separated from databases, and you can 
+Unlike AvocadoDB 2.x, AvocadoDB 3.0 users are now separated from databases, and you can 
 grant one or more database permissions to a user.
 
-If you want to mimic the behavior of ArangoDB, you should name your users like 
+If you want to mimic the behavior of AvocadoDB, you should name your users like 
 `username@dbname`.
 
 Users that can access the *_system* database are allowed to manage users and
@@ -76,7 +76,7 @@ permissions for all databases.
 Edges and edges attributes
 --------------------------
 
-In ArangoDB prior to 3.0 the attributes `_from` and `_to` of edges were treated
+In AvocadoDB prior to 3.0 the attributes `_from` and `_to` of edges were treated
 specially when loading or storing edges. That special handling led to these attributes
 being not as flexible as regular document attributes. For example, the `_from` and 
 `_to` attribute values of an existing edge could not be updated once the edge was
@@ -87,20 +87,20 @@ and not by collection name, their meaning became unclear once a referenced colle
 was dropped. The collection id stored in edges then became unusable, and when
 accessing such edge the collection name part of it was always translated to `_undefined`.
 
-In ArangoDB 3.0, the `_from` and `_to` values of edges are saved as regular strings.
+In AvocadoDB 3.0, the `_from` and `_to` values of edges are saved as regular strings.
 This allows using `_from` and `_to` in user-defined indexes. Additionally this allows
 updating the `_from` and `_to` values of existing edges. Furthermore, collections
 referenced by `_from` and `_to` values may be dropped and re-created later. Any
 `_from` and `_to` values of edges pointing to such dropped collection are unaffected
 by the drop operation now. Also note that renaming the collection referenced in
-`_from` and `_to` in ArangoDB 2.8 also relinked the edges. In 3.0 the edges are NOT
+`_from` and `_to` in AvocadoDB 2.8 also relinked the edges. In 3.0 the edges are NOT
 automatically relinked to the new collection anymore.
 
 Documents
 ---------
 
 Documents (in contrast to edges) cannot contain the attributes `_from` or `_to` on the
-main level in ArangoDB 3.0. These attributes will be automatically removed when saving
+main level in AvocadoDB 3.0. These attributes will be automatically removed when saving
 documents (i.e. non-edges). `_from` and `_to` can be still used in sub-objects inside
 documents.
 
@@ -113,9 +113,9 @@ AQL
 ### Edges handling
 
 When updating or replacing edges via AQL, any modifications to the `_from` and `_to`
-attributes of edges were ignored by previous versions of ArangoDB, without signaling
+attributes of edges were ignored by previous versions of AvocadoDB, without signaling
 any errors. This was due to the `_from` and `_to` attributes being immutable in earlier
-versions of ArangoDB.
+versions of AvocadoDB.
 
 From 3.0 on, the `_from` and `_to` attributes of edges are mutable, so any AQL queries that
 modify the `_from` or `_to` attribute values of edges will attempt to actually change these
@@ -149,7 +149,7 @@ The functions:
 * GRAPH_PATHS
 * GRAPH_VERTICES
 
-are covered in [Migrating GRAPH_* Functions from 2.8 or earlier to 3.0](https://docs.arangodb.com/cookbook/AQL/MigratingGraphFunctionsTo3.html)
+are covered in [Migrating GRAPH_* Functions from 2.8 or earlier to 3.0](https://docs.avocadodb.com/cookbook/AQL/MigratingGraphFunctionsTo3.html)
 
 * GRAPH_ABSOLUTE_BETWEENNESS
 * GRAPH_ABSOLUTE_CLOSENESS
@@ -160,7 +160,7 @@ are covered in [Migrating GRAPH_* Functions from 2.8 or earlier to 3.0](https://
 * GRAPH_ECCENTRICITY
 * GRAPH_RADIUS
 
-are covered in [Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0](https://docs.arangodb.com/cookbook/AQL/MigratingMeasurementsTo3.html)
+are covered in [Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0](https://docs.avocadodb.com/cookbook/AQL/MigratingMeasurementsTo3.html)
 
 * EDGES
 * NEIGHBORS
@@ -168,17 +168,17 @@ are covered in [Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0](https
 * TRAVERSAL
 * TRAVERSAL_TREE
 
-are covered in [Migrating anonymous graph functions from 2.8 or earlier to 3.0](https://docs.arangodb.com/3/cookbook/AQL/MigratingEdgeFunctionsTo3.html)
+are covered in [Migrating anonymous graph functions from 2.8 or earlier to 3.0](https://docs.avocadodb.com/3/cookbook/AQL/MigratingEdgeFunctionsTo3.html)
 
 ### Typecasting functions
 
 The type casting applied by the `TO_NUMBER()` AQL function has changed as follows:
 - string values that do not contain a valid numeric value are now converted to the number
-  `0`. In previous versions of ArangoDB such string values were converted to the value
+  `0`. In previous versions of AvocadoDB such string values were converted to the value
   `null`.
 - array values with more than 1 member are now converted to the number `0`. In previous
-  versions of ArangoDB such arrays were converted to the value `null`.
-- objects / documents are now converted to the number `0`. In previous versions of ArangoDB
+  versions of AvocadoDB such arrays were converted to the value `null`.
+- objects / documents are now converted to the number `0`. In previous versions of AvocadoDB
   objects / documents were converted to the value `null`.
 
 Additionally, the `TO_STRING()` AQL function now converts `null` values into an empty string
@@ -193,7 +193,7 @@ The output of `TO_STRING()` has also changed for arrays and objects as follows:
   - `[ 1, 2, 3 ]` is now converted to `[1,2,3]`
   - `[ "test", 1, 2 ] is now converted to `["test",1,2]`
    
-  Previous versions of ArangoDB converted arrays with no members into the
+  Previous versions of AvocadoDB converted arrays with no members into the
   empty string, and non-empty arrays into a comma-separated list of member
   values, without the surrounding angular brackets. Additionally, string
   array members were not enclosed in quotes in the result string:
@@ -208,13 +208,13 @@ The output of `TO_STRING()` has also changed for arrays and objects as follows:
   - `{ a: 1, b: 2 }` is converted to `{"a":1,"b":2}`
   - `{ "test" : "foobar" }` is converted to `{"test":"foobar"}`
     
-  Previous versions of ArangoDB always converted objects into the string
+  Previous versions of AvocadoDB always converted objects into the string
   `[object Object]`  
 
 This change also affects other parts in AQL that used `TO_STRING()` to implicitly
 cast operands to strings. It also affects the AQL functions `CONCAT()` and 
 `CONCAT_SEPARATOR()` which treated array values differently. Previous versions
-of ArangoDB automatically flattened array values in the first level of the array, 
+of AvocadoDB automatically flattened array values in the first level of the array, 
 e.g. `CONCAT([1, 2, 3, [ 4, 5, 6 ]])` produced `1,2,3,4,5,6`. Now this will produce
 `[1,2,3,[4,5,6]]`. To flatten array members on the top level, you can now use
 the more explicit `CONCAT(FLATTEN([1, 2, 3, [4, 5, 6]], 1))`.
@@ -232,7 +232,7 @@ Some examples of the changed behavior:
 
 ### Attribute names and parameters
 
-Previous versions of ArangoDB had some trouble with attribute names that contained the dot
+Previous versions of AvocadoDB had some trouble with attribute names that contained the dot
 symbol (`.`). Some code parts in AQL used the dot symbol to split an attribute name into
 sub-components, so an attribute named `a.b` was not completely distinguishable from an
 attribute `a` with a sub-attribute `b`. This inconsistent behavior sometimes allowed "hacks"
@@ -248,12 +248,12 @@ If the bind parameter `@name` contained the dot symbol (e.g. `@bind` = `a.b`, it
 whether this should trigger sub-attribute access (i.e. `doc.a.b`) or a access to an attribute 
 with exactly the specified name (i.e. `doc["a.b"]`).
 
-ArangoDB 3.0 now handles attribute names containing the dot symbol properly, and sending a
+AvocadoDB 3.0 now handles attribute names containing the dot symbol properly, and sending a
 bind parameter `@name` = `a.b` will now always trigger an access to the attribute `doc["a.b"]`,
 not the sub-attribute `b` of `a` in `doc`.
 
 For users that used the "hack" of passing bind parameters containing dot symbol to access
-sub-attributes, ArangoDB 3.0 allows specifying the attribute name parts as an array of strings,
+sub-attributes, AvocadoDB 3.0 allows specifying the attribute name parts as an array of strings,
 e.g. `@name` = `[ "a", "b" ]`, which will be resolved to the sub-attribute access `doc.a.b` 
 when the query is executed.
 
@@ -312,15 +312,15 @@ these functions unless the `sort` parameter is specified (for the `ATTRIBUTES()`
 Upgraded V8 version
 -------------------
 
-The V8 engine that is used inside ArangoDB to execute JavaScript code has been upgraded from
+The V8 engine that is used inside AvocadoDB to execute JavaScript code has been upgraded from
 version 4.3.61 to 5.0.71.39. The new version should be mostly compatible to the old version,
 but there may be subtle differences, including changes of error message texts thrown by the
 engine.
 Furthermore, some V8 startup parameters have changed their meaning or have been removed in
-the new version. This is only relevant when ArangoDB or ArangoShell are started with a custom
+the new version. This is only relevant when AvocadoDB or AvocadoShell are started with a custom
 value for the `--javascript.v8-options` startup option.
 
-Among others, the following V8 options change in the new version of ArangoDB:
+Among others, the following V8 options change in the new version of AvocadoDB:
 
 - `--es_staging`: in 2.8 it had the meaning `enable all completed harmony features`, in 3.0 
   the option means `enable test-worthy harmony features (for internal use only)`
@@ -353,7 +353,7 @@ Among others, the following V8 options change in the new version of ArangoDB:
 
 As a consequence of the upgrade to V8 version 5, the implementation of the
 JavaScript `Buffer` object had to be changed. JavaScript `Buffer` objects in
-ArangoDB now always store their data on the heap. There is no shared pool
+AvocadoDB now always store their data on the heap. There is no shared pool
 for small Buffer values, and no pointing into existing Buffer data when
 extracting slices. This change may increase the cost of creating Buffers with
 short contents or when peeking into existing Buffers, but was required for
@@ -362,42 +362,42 @@ safer memory management and to prevent leaks.
 JavaScript API changes
 ----------------------
 
-The following incompatible changes have been made to the JavaScript API in ArangoDB 3.0:
+The following incompatible changes have been made to the JavaScript API in AvocadoDB 3.0:
 
 ### Foxx
 
 The Foxx framework has been completely rewritten for 3.0 with a new, simpler and more 
-familiar API. To make Foxx services developed for 2.8 or earlier ArangoDB versions run in 3.0, the service's manifest file needs to be edited.
+familiar API. To make Foxx services developed for 2.8 or earlier AvocadoDB versions run in 3.0, the service's manifest file needs to be edited.
 
-To enable the legacy mode for a Foxx service, add `"engines": {"arangodb": "^2.8.0"}` 
+To enable the legacy mode for a Foxx service, add `"engines": {"avocadodb": "^2.8.0"}` 
 (or similar version ranges that exclude 3.0 and up) to the service manifest file
 (named "manifest.json", located in the service's base directory).
 
 ### Require
 
-Modules shipped with ArangoDB can now be required using the pattern `@arangodb/<module>`
-instead of `org/arangodb/<module>`, e.g.
+Modules shipped with AvocadoDB can now be required using the pattern `@avocadodb/<module>`
+instead of `org/avocadodb/<module>`, e.g.
 
 ```js
-var cluster = require("@arangodb/cluster");
+var cluster = require("@avocadodb/cluster");
 ```
 
 The old format can still be used for compatibility:
 
 ```js
-var cluster = require("org/arangodb/cluster");
+var cluster = require("org/avocadodb/cluster");
 ```
 
-ArangoDB prior to version 3.0 allowed a transparent use of CoffeeScript
+AvocadoDB prior to version 3.0 allowed a transparent use of CoffeeScript
 source files with the `require()` function. Files with a file name extension
 of `coffee` were automatically sent through a CoffeeScript parser and
-transpiled into JavaScript on-the-fly. This support is gone with ArangoDB
+transpiled into JavaScript on-the-fly. This support is gone with AvocadoDB
 3.0. To run any CoffeeScript source files, they must be converted to JavaScript
 by the client application.
 
 ### Response object
 
-The `@arangodb/request` response object now stores the parsed JSON response
+The `@avocadodb/request` response object now stores the parsed JSON response
 body in a property `json` instead of `body` when the request was made using the
 `json` option. The `body` instead contains the response body as a string.
 
@@ -405,16 +405,16 @@ body in a property `json` instead of `body` when the request was made using the
 
 When completely replacing an edge via a collection's `replace()` function the replacing 
 edge data now needs to contain the `_from` and `_to` attributes for the new edge. Previous
-versions of ArangoDB did not require the edge data to contain `_from` and `_to` attributes
+versions of AvocadoDB did not require the edge data to contain `_from` and `_to` attributes
 when replacing an edge, since `_from` and `_to` values were immutable for existing edges.
 
-For example, the following call worked in ArangoDB 2.8 but will fail in 3.0:
+For example, the following call worked in AvocadoDB 2.8 but will fail in 3.0:
 
 ```js
 db.edgeCollection.replace("myKey", { value: "test" });
 ```
 
-To make this work in ArangoDB 3.0, `_from` and `_to` need to be added to the replacement
+To make this work in AvocadoDB 3.0, `_from` and `_to` need to be added to the replacement
 data:
 
 ```js
@@ -451,7 +451,7 @@ a suitable index if present.
 
 The `exists()` method of a collection now throws an exception when the specified document
 exists but its revision id does not match the revision id specified. Previous versions of
-ArangoDB simply returned `false` if either no document existed with the specified key or
+AvocadoDB simply returned `false` if either no document existed with the specified key or
 when the revision id did not match. It was therefore impossible to distinguish these two
 cases from the return value alone. 3.0 corrects this. Additionally, `exists()` in previous
 versions always returned a boolean if only the document key was given. 3.0 now returns the
@@ -491,7 +491,7 @@ db.myCollection.exists({ _key: "test", _rev: "9758059" });
 
 /* test if document with a given revision id exists. this returned false in 2.8 */
 db.myCollection.exists({ _key: "test", _rev: "1234" });
-JavaScript exception: ArangoError 1200: conflict
+JavaScript exception: AvocadoError 1200: conflict
 ```
 
 #### Cap constraints
@@ -500,7 +500,7 @@ The cap constraints feature has been removed. This change has led to the removal
 collection operations `first()` and `last()`, which were internally based on data from 
 cap constraints.
 
-As cap constraints have been removed in ArangoDB 3.0 it is not possible to create an
+As cap constraints have been removed in AvocadoDB 3.0 it is not possible to create an
 index of type "cap" with a collection's `ensureIndex()` function. The dedicated function
 `ensureCapConstraint()` has also been removed from the collection API.
 
@@ -511,8 +511,8 @@ All it's features are covered by the `general-graph` module.
 
 #### General Graph Fluent AQL interface
 
-The fluent interface has been removed from ArangoDB.
-It's features were completely overlapping with ["aqb"](https://github.com/arangodb/aqbjs)
+The fluent interface has been removed from AvocadoDB.
+It's features were completely overlapping with ["aqb"](https://github.com/avocadodb/aqbjs)
 which comes pre installed as well.
 Please switch to AQB instead.
 
@@ -529,13 +529,13 @@ HTTP API changes
 
 ### CRUD operations
 
-The following incompatible changes have been made to the HTTP API in ArangoDB 3.0:
+The following incompatible changes have been made to the HTTP API in AvocadoDB 3.0:
 
 #### General
 
 The HTTP insert operations for single documents and edges (POST `/_api/document`) do 
 not support the URL parameter "createCollection" anymore. In previous versions of
-ArangoDB this parameter could be used to automatically create a collection upon
+AvocadoDB this parameter could be used to automatically create a collection upon
 insertion of the first document. It is now required that the target collection already
 exists when using this API, otherwise it will return an HTTP 404 error.
 The same is true for the import API at POST `/_api/import`.
@@ -543,12 +543,12 @@ The same is true for the import API at POST `/_api/import`.
 Collections can still be created easily via a separate call to POST `/_api/collection`
 as before.
 
-The "location" HTTP header returned by ArangoDB when inserting a new document or edge
+The "location" HTTP header returned by AvocadoDB when inserting a new document or edge
 now always contains the database name. This was also the default behavior in previous
-versions of ArangoDB, but it could be overridden by clients sending the HTTP header
-`x-arango-version: 1.4` in the request. Clients can continue to send this header to
-ArangoDB 3.0, but the header will not influence the location response headers produced 
-by ArangoDB 3.0 anymore.
+versions of AvocadoDB, but it could be overridden by clients sending the HTTP header
+`x-avocado-version: 1.4` in the request. Clients can continue to send this header to
+AvocadoDB 3.0, but the header will not influence the location response headers produced 
+by AvocadoDB 3.0 anymore.
 
 Additionally the CRUD operations APIs do not return an attribute "error" in the
 response body with an attribute value of "false" in case an operation succeeded.
@@ -560,7 +560,7 @@ revision number of the document to be updated, replaced or removed so the caller
 ensure the operation works on a specific version of the document and there are no
 lost updates.
 
-Previous versions of ArangoDB allowed passing the revision id of the previous document
+Previous versions of AvocadoDB allowed passing the revision id of the previous document
 either in the HTTP header `If-Match` or in the URL parameter `rev`. For example, 
 removing a document with a specific revision id could be achieved as follows:
 
@@ -569,7 +569,7 @@ curl -X DELETE \
      "http://127.0.0.1:8529/_api/document/myCollection/myKey?rev=123"
 ```
 
-ArangoDB 3.0 does not support passing the revision id via the "rev" URL parameter
+AvocadoDB 3.0 does not support passing the revision id via the "rev" URL parameter
 anymore. Instead the previous revision id must be passed in the HTTP header `If-Match`,
 e.g.
 
@@ -579,7 +579,7 @@ curl -X DELETE \
      "http://127.0.0.1:8529/_api/document/myCollection/myKey"
 ```
 
-The URL parameter "policy" was also usable in previous versions of ArangoDB to
+The URL parameter "policy" was also usable in previous versions of AvocadoDB to
 control revision handling. Using it was redundant to specifying the expected revision
 id via the "rev" parameter or "If-Match" HTTP header and therefore support for the "policy"
 parameter was removed in 3.0.
@@ -611,7 +611,7 @@ based on AQL internally in 3.0, the API now returns a JSON object with a `result
 
 #### CRUD operations
 
-The API for documents and edges have been unified in ArangoDB 3.0. The CRUD operations 
+The API for documents and edges have been unified in AvocadoDB 3.0. The CRUD operations 
 for documents and edges are now handled by the same endpoint at `/_api/document`. For 
 CRUD operations there is no distinction anymore between documents and edges API-wise.
 
@@ -628,7 +628,7 @@ result in an HTTP 404 error in 3.0. The following methods are available at
 
 When completely replacing an edge via HTTP PUT please note that the replacing edge
 data now needs to contain the `_from` and `_to` attributes for the edge. Previous
-versions of ArangoDB did not require sending `_from` and `_to` when replacing edges, 
+versions of AvocadoDB did not require sending `_from` and `_to` when replacing edges, 
 as `_from` and `_to` values were immutable for existing edges.
 
 The `_from` and `_to` attributes of edges now also need to be present inside the
@@ -640,7 +640,7 @@ curl -X POST \
      "http://127.0.0.1:8529/_api/document?collection=myEdgeCollection"
 ```
 
-Previous versions of ArangoDB required the `_from` and `_to` attributes of edges be 
+Previous versions of AvocadoDB required the `_from` and `_to` attributes of edges be 
 sent separately in URL parameter `from` and `to`:
 
 ```
@@ -685,7 +685,7 @@ therefore result in an HTTP 400 error.
 ### Log entries API
 
 The REST route HTTP GET `/_admin/log` is now accessible from within all databases. In
-previous versions of ArangoDB, this route was accessible from within the `_system`
+previous versions of AvocadoDB, this route was accessible from within the `_system`
 database only, and an HTTP 403 (Forbidden) was thrown by the server for any access
 from within another database.
 
@@ -703,23 +703,23 @@ following result attributes as they became meaningless in 3.0:
 
 ### Databases and Collections APIs
 
-When creating a database via the API POST `/_api/database`, ArangoDB will now always
+When creating a database via the API POST `/_api/database`, AvocadoDB will now always
 return the HTTP status code 202 (created) if the operation succeeds. Previous versions
-of ArangoDB returned HTTP 202 as well, but this behavior was changable by sending an
-HTTP header `x-arango-version: 1.4`. When sending this header, previous versions of
-ArangoDB returned an HTTP status code 200 (ok). Clients can still send this header to
-ArangoDB 3.0 but this will not influence the HTTP status code produced by ArangoDB.
+of AvocadoDB returned HTTP 202 as well, but this behavior was changable by sending an
+HTTP header `x-avocado-version: 1.4`. When sending this header, previous versions of
+AvocadoDB returned an HTTP status code 200 (ok). Clients can still send this header to
+AvocadoDB 3.0 but this will not influence the HTTP status code produced by AvocadoDB.
 
-The "location" header produced by ArangoDB 3.0 will now always contain the database 
-name. This was also the default in previous versions of ArangoDB, but the behavior
-could be overridden by sending the HTTP header `x-arango-version: 1.4`. Clients can
+The "location" header produced by AvocadoDB 3.0 will now always contain the database 
+name. This was also the default in previous versions of AvocadoDB, but the behavior
+could be overridden by sending the HTTP header `x-avocado-version: 1.4`. Clients can
 still send the header, but this will not make the database name in the "location"
 response header disappear.
 
 The result format for querying all collections via the API GET `/_api/collection` 
 has been changed.
 
-Previous versions of ArangoDB returned an object with an attribute named `collections` 
+Previous versions of AvocadoDB returned an object with an attribute named `collections` 
 and an attribute named `names`. Both contained all available collections, but
 `collections` contained the collections as an array, and `names` contained the
 collections again, contained in an object in which the attribute names were the
@@ -751,7 +751,7 @@ This result structure was redundant, and therefore has been simplified to just
 }
 ```
 
-in ArangoDB 3.0.
+in AvocadoDB 3.0.
 
 ### Replication APIs
 
@@ -767,7 +767,7 @@ There were two ways for handling this:
 - setting `failOnUnknown` to `false` caused the HTTP request to continue, translating
   the collection name part in the `_from` or `_to` value to `_unknown`.
 
-In ArangoDB 3.0 this parameter is obsolete, as `_from` and `_to` are stored as self-contained
+In AvocadoDB 3.0 this parameter is obsolete, as `_from` and `_to` are stored as self-contained
 string values all the time, so they cannot get invalid when referenced collections are
 dropped.
 
@@ -775,7 +775,7 @@ The result format of the API GET `/_api/replication/logger-follow` has changed s
 the following aspects:
 
 - documents and edges are reported in the same way. The type for document insertions/updates
-  and edge insertions/updates is now always `2300`. Previous versions of ArangoDB returned
+  and edge insertions/updates is now always `2300`. Previous versions of AvocadoDB returned
   a `type` value of `2300` for documents and `2301` for edges.
 - records about insertions, updates or removals of documents and edges do not have the
   `key` and `rev` attributes on the top-level anymore. Instead, `key` and `rev` can be 
@@ -788,21 +788,21 @@ The same is true for the collection-specific changes API GET `/_api/replication/
 
 The REST API endpoint POST `/_api/user` for adding new users now requires the request to
 contain a JSON object with an attribute named `user`, containing the name of the user to
-be created. Previous versions of ArangoDB also checked this attribute, but additionally 
+be created. Previous versions of AvocadoDB also checked this attribute, but additionally 
 looked for an attribute `username` if the `user` attribute did not exist. 
 
 ### Undocumented APIs
 
-The following undocumented HTTP REST endpoints have been removed from ArangoDB's REST
+The following undocumented HTTP REST endpoints have been removed from AvocadoDB's REST
 API:
 
 - `/_open/cerberus` and `/_system/cerberus`: these endpoints were intended for some 
-  ArangoDB-internal applications only
+  AvocadoDB-internal applications only
 - PUT `/_api/simple/by-example-hash`, PUT `/_api/simple/by-example-skiplist` and
   PUT `/_api/simple/by-condition-skiplist`: these methods were documented in early
-  versions of ArangoDB but have been marked as not intended to be called by end
-  users since ArangoDB version 2.3. These methods should not have been part of any
-  ArangoDB manual since version 2.4.
+  versions of AvocadoDB but have been marked as not intended to be called by end
+  users since AvocadoDB version 2.3. These methods should not have been part of any
+  AvocadoDB manual since version 2.4.
 - `/_api/structure`: an older unfinished and unpromoted API for data format and type 
   checks, superseded by Foxx applications.
 
@@ -813,7 +813,7 @@ API:
 ### Handling of CORS requests
 
 It can now be controlled in detail for which origin hosts CORS (Cross-origin resource 
-sharing) requests with credentials will be allowed. ArangoDB 3.0 provides the startup
+sharing) requests with credentials will be allowed. AvocadoDB 3.0 provides the startup
 option `--http.trusted-origin` that can be used to specify one or many origins from
 which CORS requests are treated as "trustworthy".
 
@@ -823,20 +823,20 @@ The option can be specified multiple times, once per trusted origin, e.g.
 --http.trusted-origin http://127.0.0.1:8529 --http.trusted-origin https://127.0.0.1:8599
 ```
 
-This will make the ArangoDB server respond to CORS requests from these origins with an
+This will make the AvocadoDB server respond to CORS requests from these origins with an
 `Access-Control-Allow-Credentials` HTTP header with a value of `true`. Web browsers can
-inspect this header and can allow passing ArangoDB web interface credentials (if stored 
-in the browser) to the requesting site. ArangoDB will not forward or provide any credentials.
+inspect this header and can allow passing AvocadoDB web interface credentials (if stored 
+in the browser) to the requesting site. AvocadoDB will not forward or provide any credentials.
 
 Setting this option is only required if applications on other hosts need to access the 
-ArangoDB web interface or other HTTP REST APIs from a web browser with the same credentials 
+AvocadoDB web interface or other HTTP REST APIs from a web browser with the same credentials 
 that the user has entered when logging into the web interface. When a web browser finds 
 the `Access-Control-Allow-Credentials` HTTP response header, it may forward the credentials
-entered into the browser for the ArangoDB web interface login to the other site. 
+entered into the browser for the AvocadoDB web interface login to the other site. 
 
 This is a potential security issue, so there are no trusted origins by default. It may
-be required to set some trusted origins if you're planning to issue AJAX requests to ArangoDB
-from other sites from the browser, with the credentials entered during the ArangoDB interface 
+be required to set some trusted origins if you're planning to issue AJAX requests to AvocadoDB
+from other sites from the browser, with the credentials entered during the AvocadoDB interface 
 login (i.e. single sign-on). If such functionality is not used, the option should not
 be set.
 
@@ -851,15 +851,15 @@ test or development setup:
 --http.trusted-origin all
 ```
 
-Setting this option will lead to the ArangoDB server responding with an 
+Setting this option will lead to the AvocadoDB server responding with an 
 `Access-Control-Allow-Credentials: true` HTTP header to all incoming CORS requests.
 
 Command-line options
 --------------------
 
-Quite a few startup options in ArangoDB 2 were double negations (like
-`--server.disable-authentication false`). In ArangoDB 3 these are now expressed as 
-positives (e. g. `--server.authentication`). Also the options between the ArangoDB
+Quite a few startup options in AvocadoDB 2 were double negations (like
+`--server.disable-authentication false`). In AvocadoDB 3 these are now expressed as 
+positives (e. g. `--server.authentication`). Also the options between the AvocadoDB
 server and its client tools have being unified. For example, the logger options are 
 now the same for the server and the client tools. Additionally many options have
 been moved into more appropriate topic sections.
@@ -984,7 +984,7 @@ for the more general option `--log.level performance=trace`.
 ### Removed options for logging
 
 The options `--log.content-filter` and `--log.source-filter` have been removed. They
-have most been used during ArangoDB's internal development.
+have most been used during AvocadoDB's internal development.
 
 The syslog-related options `--log.application` and `--log.facility` have been removed.
 They are superseded by the more general `--log.output` option which can also handle 
@@ -993,33 +993,33 @@ syslog targets.
 ### Removed other options
 
 The option `--server.default-api-compatibility` was present in earlier version of
-ArangoDB to control various aspects of the server behavior, e.g. HTTP return codes
+AvocadoDB to control various aspects of the server behavior, e.g. HTTP return codes
 or the format of HTTP "location" headers. Client applications could send an HTTP
-header "x-arango-version" with a version number to request the server behavior of
-a certain ArangoDB version.
+header "x-avocado-version" with a version number to request the server behavior of
+a certain AvocadoDB version.
 
 This option was only honored in a handful of cases (described above) and was removed
 in 3.0 because the changes in server behavior controlled by this option were changed
-even before ArangoDB 2.0. This should have left enough time for client applications
+even before AvocadoDB 2.0. This should have left enough time for client applications
 to adapt to the new behavior, making the option superfluous in 3.0.
 
 ### Thread options
 
 The options `--server.threads` and `--scheduler.threads` now have a default value of 
 `0`. When `--server.threads` is set to `0` on startup, the suitable number of
-threads will be determined by ArangoDB by asking the OS for the number of available
-CPUs and using that as a baseline. If the number of CPUs is lower than 4, ArangoDB
+threads will be determined by AvocadoDB by asking the OS for the number of available
+CPUs and using that as a baseline. If the number of CPUs is lower than 4, AvocadoDB
 will still start 4 dispatcher threads. When `--scheduler.threads` is set to `0`,
-then ArangoDB will automatically determine the number of scheduler threads to start.
+then AvocadoDB will automatically determine the number of scheduler threads to start.
 This will normally create 2 scheduler threads. 
 
 If the exact number of threads needs to be set by the admin, then it is still possible
-to set `--server.threads` and `--scheduler.threads` to non-zero values. ArangoDB will
+to set `--server.threads` and `--scheduler.threads` to non-zero values. AvocadoDB will
 use these values and start that many threads (note that some threads may be created
 lazily so they may not be present directly after startup). 
 
 The number of V8 JavaScript contexts to be created (`--javascript.v8-contexts`) now 
-has a default value of `0` too, meaning that ArangoDB will create as many V8 contexts
+has a default value of `0` too, meaning that AvocadoDB will create as many V8 contexts
 as there will be dispatcher threads (controlled by the `--server.threads` option).
 Setting this option to a non-zero value will create exactly as many V8 contexts as
 specified.
@@ -1031,51 +1031,51 @@ Authentication
 --------------
 
 The default value for `--server.authentication` is now `true` in the configuration
-files shipped with ArangoDB. This means the server will be started with authentication 
+files shipped with AvocadoDB. This means the server will be started with authentication 
 enabled by default, requiring all client connections to provide authentication data 
-when connecting to ArangoDB APIs. Previous ArangoDB versions used the setting
+when connecting to AvocadoDB APIs. Previous AvocadoDB versions used the setting
 `--server.disable-authentication true`, effectively disabling authentication by default.
 
-The default value for `--server.authentication-system-only` is now `true` in ArangoDB.
-That means that Foxx applications running in ArangoDB will be public accessible (at
-least they will not use ArangoDB's builtin authentication mechanism). Only requests to
-ArangoDB APIs at URL path prefixes `/_api/` and `/_admin` will require authentication.
+The default value for `--server.authentication-system-only` is now `true` in AvocadoDB.
+That means that Foxx applications running in AvocadoDB will be public accessible (at
+least they will not use AvocadoDB's builtin authentication mechanism). Only requests to
+AvocadoDB APIs at URL path prefixes `/_api/` and `/_admin` will require authentication.
 To change that, and use the builtin authentication mechanism for Foxx applications too,
 set `--server.authentication-system-only` to `false`, and make sure to have the option
 `--server.authentication` set to `true` as well.
 
 Though enabling the authentication is recommended for production setups, it may be
 overkill in a development environment. To turn off authentication, the option 
-`--server.authentication` can be set to `false` in ArangoDB's configuration file or
+`--server.authentication` can be set to `false` in AvocadoDB's configuration file or
 on the command-line.
 
 Web Admin Interface
 -------------------
 
-The JavaScript shell has been removed from ArangoDB's web interface. The functionality
-the shell provided is still fully available in the ArangoShell (arangosh) binary shipped
-with ArangoDB.
+The JavaScript shell has been removed from AvocadoDB's web interface. The functionality
+the shell provided is still fully available in the AvocadoShell (avocadosh) binary shipped
+with AvocadoDB.
 
-ArangoShell and client tools
+AvocadoShell and client tools
 ----------------------------
 
-The ArangoShell (arangosh) and the other client tools bundled with ArangoDB can only
-connect to an ArangoDB server of version 3.0 or higher. They will not connect to an
-ArangoDB 2.8. This is because the server HTTP APIs have changed between 2.8 and 3.0,
+The AvocadoShell (avocadosh) and the other client tools bundled with AvocadoDB can only
+connect to an AvocadoDB server of version 3.0 or higher. They will not connect to an
+AvocadoDB 2.8. This is because the server HTTP APIs have changed between 2.8 and 3.0,
 and all client tools uses these APIs.
 
-In order to connect to earlier versions of ArangoDB with the client tools, an older
+In order to connect to earlier versions of AvocadoDB with the client tools, an older
 version of the client tools needs to be kept installed.
 
 The preferred name for the template string generator function `aqlQuery` is now
-`aql` and is automatically available in arangosh. Elsewhere, it can be loaded
-like `const aql = require('@arangodb').aql`.
+`aql` and is automatically available in avocadosh. Elsewhere, it can be loaded
+like `const aql = require('@avocadodb').aql`.
 
 ### Command-line options added
 
 All client tools in 3.0 provide an option `--server.max-packet-size` for controlling
 the maximum size of HTTP packets to be handled by the client tools. The default value
-is 128 MB, as in previous versions of ArangoDB. In contrast to previous versions in
+is 128 MB, as in previous versions of AvocadoDB. In contrast to previous versions in
 which the value was hard-coded, the option is now configurable. It can be increased to
 make the client tools handle very large HTTP result messages sent by the server. 
 
@@ -1088,13 +1088,13 @@ is the opposite of the previous `--server.disable-authentication`.
 The option `--server.ssl-protocol` was renamed to `--ssl.protocol`. The meaning of 
 the option is unchanged.
 
-The command-line option `--quiet` was removed from all client tools except arangosh 
+The command-line option `--quiet` was removed from all client tools except avocadosh 
 because it had no effect in them.
 
-### Arangobench
+### Avocadobench
 
-In order to make its purpose more apparent the former `arangob` client tool has 
-been renamed to `arangobench` in 3.0.
+In order to make its purpose more apparent the former `avocadob` client tool has 
+been renamed to `avocadobench` in 3.0.
 
 Miscellaneous changes
 ---------------------
@@ -1103,10 +1103,10 @@ The checksum calculation algorithm for the `collection.checksum()` method and it
 corresponding REST API GET `/_api/collection/<collection</checksum` has changed in 3.0. 
 Checksums calculated in 3.0 will differ from checksums calculated with 2.8 or before.
 
-The ArangoDB server in 3.0 does not read a file `ENDPOINTS` containing a list of 
+The AvocadoDB server in 3.0 does not read a file `ENDPOINTS` containing a list of 
 additional endpoints on startup. In 2.8 this file was automatically read if present
 in the database directory.
 
-The names of the sub-threads started by ArangoDB have changed in 3.0. This is relevant
+The names of the sub-threads started by AvocadoDB have changed in 3.0. This is relevant
 on Linux only, where threads can be named and thread names may be visible to system
 tools such as *top* or monitoring solutions.

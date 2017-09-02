@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2010-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2010-2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -22,17 +22,17 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Simran Brucherseifer
-/// @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
 var internal = require("internal");
 var errors = internal.errors;
-var db = require("@arangodb").db;
-var helper = require("@arangodb/aql-helper");
+var db = require("@avocadodb").db;
+var helper = require("@avocadodb/aql-helper");
 var assertQueryError = helper.assertQueryError;
 var assertQueryWarningAndNull = helper.assertQueryWarningAndNull;
 
@@ -51,7 +51,7 @@ function distanceSuite () {
 
     testDistance1 : function () {
         var co1 = { lat: 52.5163, lon: 13.3777, _key: "BrandenburgGate" };
-        var co2 = { lat: 50.9322, lon: 6.94, _key: "ArangoHQ" };
+        var co2 = { lat: 50.9322, lon: 6.94, _key: "AvocadoHQ" };
         var query = "DISTANCE(" + co1.lat + "," + co1.lon + "," + co2.lat + "," + co2.lon + ")";
         var expected    = [ 476918.8968838096  ]; // Vincenty's formula: 477.47 km
         var expected_js = [ 476918.89688380965 ]; // Vincenty's formula: 477.47 km

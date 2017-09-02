@@ -2,7 +2,7 @@ Collection Methods
 ==================
 
 ### All
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 `collection.all()`
@@ -48,7 +48,7 @@ Use *limit* to restrict the documents:
 
 
 ### Query by example
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 `collection.byExample(example)`
@@ -143,7 +143,7 @@ Use *next* to loop over all documents:
     @endDocuBlock 004_collectionByExampleNext
 
 ### First Example
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 
 `collection.firstExample(example)`
@@ -175,7 +175,7 @@ As alternative you can supply an array of paths and values.
 
 
 ### Range
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 `collection.range(attribute, left, right)`
@@ -190,8 +190,8 @@ operator.
 An attribute name of the form *a.b* is interpreted as attribute path,
 not as attribute.
 
-Note: the *range* simple query function is **deprecated** as of ArangoDB 2.6.
-The function may be removed in future versions of ArangoDB. The preferred
+Note: the *range* simple query function is **deprecated** as of AvocadoDB 2.6.
+The function may be removed in future versions of AvocadoDB. The preferred
 way for retrieving documents from a collection within a specific range
 is to use an AQL query as follows:
 
@@ -220,7 +220,7 @@ Use *toArray* to get all documents at once:
 
 
 ### Closed range
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 `collection.closedRange(attribute, left, right)`
@@ -235,8 +235,8 @@ operator.
 An attribute name of the form *a.b* is interpreted as attribute path,
 not as attribute.
 
-Note: the *closedRange* simple query function is **deprecated** as of ArangoDB 2.6.
-The function may be removed in future versions of ArangoDB. The preferred
+Note: the *closedRange* simple query function is **deprecated** as of AvocadoDB 2.6.
+The function may be removed in future versions of AvocadoDB. The preferred
 way for retrieving documents from a collection within a specific range
 is to use an AQL query as follows:
 
@@ -265,7 +265,7 @@ Use *toArray* to get all documents at once:
 
 
 ### Any
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 
 `collection.any()`
@@ -277,7 +277,7 @@ Returns a random document from the collection or *null* if none exists.
 
 
 ### Count
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `collection.count()`
@@ -299,7 +299,7 @@ Returns the number of living documents in the collection.
 
 
 ### toArray
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 
 `collection.toArray()`
@@ -311,7 +311,7 @@ of the documents in your collecion.
 
 
 ### Document
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `collection.document(object)`
@@ -326,12 +326,12 @@ An error is thrown if *_rev* is specified but the document found has a
 different revision already. An error is also thrown if no document exists
 with the given *_id* or *_key* value.
 
-Please note that if the method is executed on the arangod server (e.g. from
+Please note that if the method is executed on the avocadod server (e.g. from
 inside a Foxx application), an immutable document object will be returned
 for performance reasons. It is not possible to change attributes of this
 immutable object. To update or patch the returned document, it needs to be
 cloned/copied into a regular JavaScript object first. This is not necessary
-if the *document* method is called from out of arangosh or from any other
+if the *document* method is called from out of avocadosh or from any other
 client.
 
 `collection.document(document-handle)`
@@ -426,7 +426,7 @@ An error is raised if the handle is invalid:
 
 
 ### Exists
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 checks whether a document exists
@@ -477,7 +477,7 @@ difference between a revision mismatch and a non-existing document.
 
 
 ### Lookup By Keys
-<!-- arangod/V8Server/v8-query.cpp-->
+<!-- avocadod/V8Server/v8-query.cpp-->
 
 
 `collection.documents(keys)`
@@ -509,7 +509,7 @@ This method is deprecated in favour of the array variant of *document*.
 
 
 ### Insert
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `collection.insert(data)`
@@ -546,7 +546,7 @@ used to specify the following options:
   - *returnNew*: If this flag is set to *true*, the complete new document
     is returned in the output under the attribute *new*.
 
-Note: since ArangoDB 2.2, *insert* is an alias for *save*.
+Note: since AvocadoDB 2.2, *insert* is an alias for *save*.
 
 `collection.insert(array)`
 
@@ -589,7 +589,7 @@ multiple documents with one call.
 
 
 ### Replace
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `collection.replace(selector, data)`
@@ -694,7 +694,7 @@ can now replace multiple documents with one call.
 
 
 ### Update
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 `collection.update(selector, data)`
 
@@ -851,7 +851,7 @@ can now update multiple documents with one call.
 
 
 ### Remove
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 `collection.remove(selector)`
 
@@ -955,7 +955,7 @@ can now remove multiple documents with one call.
 
 
 ### Remove By Keys
-<!-- arangod/V8Server/v8-query.cpp-->
+<!-- avocadod/V8Server/v8-query.cpp-->
 
 
 `collection.removeByKeys(keys)`
@@ -992,7 +992,7 @@ This method is deprecated in favour of the array variant of *remove*.
 
 
 ### Remove By Example
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 `collection.removeByExample(example)`
@@ -1034,7 +1034,7 @@ removed.
 
 
 ### Replace By Example
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 `collection.replaceByExample(example, newValue)`
@@ -1079,7 +1079,7 @@ replaced.
 
 
 ### Update By Example
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
+<!-- js/common/modules/@avocadodb/avocado-collection-common.js-->
 
 
 `collection.updateByExample(example, newValue)`
@@ -1152,7 +1152,7 @@ Returns the type of a collection. Possible values are:
 - 3: edge collection
 
 
-### Get the Version of ArangoDB
+### Get the Version of AvocadoDB
 
 `db._version()`
 
@@ -1165,7 +1165,7 @@ database.
 
     @startDocuBlockInline dbVersion
     @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
-      require("@arangodb").db._version();
+      require("@avocadodb").db._version();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock dbVersion
 

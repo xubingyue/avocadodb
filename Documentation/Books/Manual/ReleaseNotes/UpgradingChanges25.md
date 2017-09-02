@@ -1,8 +1,8 @@
-Incompatible changes in ArangoDB 2.5
+Incompatible changes in AvocadoDB 2.5
 ====================================
 
 It is recommended to check the following list of incompatible changes **before** 
-upgrading to ArangoDB 2.5, and adjust any client programs if necessary.
+upgrading to AvocadoDB 2.5, and adjust any client programs if necessary.
 
 
 Changed behavior
@@ -10,17 +10,17 @@ Changed behavior
 
 ### V8
 
-The V8 version shipped with ArangoDB was upgraded from 3.29.59 to 3.31.74.1.
+The V8 version shipped with AvocadoDB was upgraded from 3.29.59 to 3.31.74.1.
 This leads to additional ECMAScript 6 (ES6 or "harmony") features being enabled by 
-default in ArangoDB's scripting environment.
+default in AvocadoDB's scripting environment.
 
 Apart from that, a change in the interpretation of command-line options by V8 may
-affect users. ArangoDB passes the value of the command-line option `--javascript.v8-options`
-to V8 and leaves interpretation of the contents to V8. For example, the ArangoDB option
+affect users. AvocadoDB passes the value of the command-line option `--javascript.v8-options`
+to V8 and leaves interpretation of the contents to V8. For example, the AvocadoDB option
 `--javascript.v8-options="--harmony"` could be used to tell V8 to enable its harmony 
 features.
 
-In ArangoDB 2.4, the following harmony options were made available by V8:
+In AvocadoDB 2.4, the following harmony options were made available by V8:
 
 * --harmony_scoping (enable harmony block scoping)
 * --harmony_modules (enable harmony modules (implies block scoping))
@@ -36,7 +36,7 @@ In ArangoDB 2.4, the following harmony options were made available by V8:
 
 There was the option `--harmony`, which turned on almost all harmony features.
 
-In ArangoDB 2.5, V8 provides the following harmony-related options:
+In AvocadoDB 2.5, V8 provides the following harmony-related options:
   
 * --harmony (enable all completed harmony features)
 * --harmony_shipping (enable all shipped harmony features)
@@ -71,7 +71,7 @@ Hash indexes and skiplist indexes can now be created in a sparse variant.
 When not explicitly set, the `sparse` attribute defaults to `false` for new indexes.
   
 This causes a change in behavior when creating a unique hash index without specifying the 
-sparse flag. The unique hash index will be created in a non-sparse variant in ArangoDB 2.5. 
+sparse flag. The unique hash index will be created in a non-sparse variant in AvocadoDB 2.5. 
 
 In 2.4 and before, unique hash indexes were implicitly sparse, always excluding `null` values 
 from the index. There was no option to control this behavior, and sparsity was neither supported 
@@ -128,7 +128,7 @@ latter option is only read and used during the upgrade to 2.5 and does not have 
 
 ### Foxx install process
 
-Installing Foxx apps has been a two step process: import them into ArangoDB and mount them at a
+Installing Foxx apps has been a two step process: import them into AvocadoDB and mount them at a
 specific mountpoint. These operations have been joined together. You can install an app at one
 mountpoint, that's it. No fetch, mount, unmount, purge cycle anymore. The commands have been 
 simplified to just:
@@ -154,6 +154,6 @@ superfluous.
 * Foxx: `requestContext.bodyParam(paramName, description, Model)`: Please use `requestContext.bodyParam(paramName, options)` instead.
 * Foxx: `requestContext.queryParam({type: string})`: Please use `requestContext.queryParam({type: joi})` instead.
 * Foxx: `requestContext.pathParam({type: string})`: Please use `requestContext.pathParam({type: joi})` instead.
-* Graph: The modules `org/arangodb/graph` and `org/arangodb/graph-blueprint`: Please use module `org/arangodb/general-graph` instead. NOTE: This does not mean we do not support blueprints any more. General graph covers everything the graph--blueprint did, plus many more features.
-* General-Graph: In the module `org/arangodb/general-graph` the functions `_undirectedRelation` and `_directedRelation` are no longer available. Both functions have been unified to `_relation`.
+* Graph: The modules `org/avocadodb/graph` and `org/avocadodb/graph-blueprint`: Please use module `org/avocadodb/general-graph` instead. NOTE: This does not mean we do not support blueprints any more. General graph covers everything the graph--blueprint did, plus many more features.
+* General-Graph: In the module `org/avocadodb/general-graph` the functions `_undirectedRelation` and `_directedRelation` are no longer available. Both functions have been unified to `_relation`.
 

@@ -16,7 +16,7 @@
 }
 
 #queryManagementContent,
-#arangoQueryManagementTable {
+#avocadoQueryManagementTable {
   .table-cell1 {
     word-break: break-all;
   }
@@ -108,7 +108,7 @@
     width: 70%;
   }
 
-  #arangoMyQueriesTable {
+  #avocadoMyQueriesTable {
     tbody {
       tr {
         cursor: copy;
@@ -335,7 +335,7 @@
   margin-top: 0;
   width: 100%;
 
-  .arangoToolbar {
+  .avocadoToolbar {
     .fa {
       &.fa-star,
       &.fa-star-o {
@@ -360,7 +360,7 @@
     max-width: 100%;
     overflow-x: scroll;
 
-    .arango-table {
+    .avocado-table {
       border-left: 1px solid $c-content-border;
       border-right: 1px solid $c-content-border;
     }
@@ -434,7 +434,7 @@
   border: 1px solid $c-content-border;
   padding-top: 0;
 
-  .arango-table {
+  .avocado-table {
     border: 0;
 
     tr {

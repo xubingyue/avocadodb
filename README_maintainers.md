@@ -1,13 +1,13 @@
 
-ArangoDB Maintainers manual
+AvocadoDB Maintainers manual
 ===========================
 
-This file contains documentation about the build process, documentation generation means, unittests - put short - if you want to hack parts of arangod this could be interesting for you.
+This file contains documentation about the build process, documentation generation means, unittests - put short - if you want to hack parts of avocadod this could be interesting for you.
 
 CMake
 =====
 
-Essentially, you can compile ArangoDB from source by issueing the
+Essentially, you can compile AvocadoDB from source by issueing the
 following commands from a clone of the source repository:
 
     mkdir build
@@ -17,9 +17,9 @@ following commands from a clone of the source repository:
     cd ..
 
 After that, the binaries will reside in `build/bin`. To quickly start
-up your compiled ArangoDB, simply do
+up your compiled AvocadoDB, simply do
 
-    build/bin/arangod -c etc/relative/arangod.conf data
+    build/bin/avocadod -c etc/relative/avocadod.conf data
 
 This will use a configuration file that is included in the source
 repository.
@@ -44,7 +44,7 @@ V8 Special flags:
     -DENABLE_GDB_JIT_INTERFACE
 
 (enable (broken) GDB intergation of JIT)
-At runtime arangod needs to be started with these options:
+At runtime avocadod needs to be started with these options:
 
     --javascript.v8-options="--gdbjit_dump"
     --javascript.v8-options="--gdbjit_full"
@@ -55,7 +55,7 @@ If the compile goes wrong for no particular reason, appending 'verbose=' adds mo
 
 Temporary files and temp directories
 ------------------------------------
-Depending on the native way ArangoDB tries to locate the temporary directory.
+Depending on the native way AvocadoDB tries to locate the temporary directory.
 
 * Linux/Mac: the environment variable `TMPDIR` is evaluated.
 * Windows: the [W32 API function GetTempPath()](https://msdn.microsoft.com/en-us/library/windows/desktop/aa364992%28v=vs.85%29.aspx) is called
@@ -63,14 +63,14 @@ Depending on the native way ArangoDB tries to locate the temporary directory.
 
 Runtime
 -------
- * start arangod with `--console` to get a debug console
+ * start avocadod with `--console` to get a debug console
  * Cheapen startup for valgrind: `--server.rest-server false --javascript.gc-frequency 1000000 --javascript.gc-interval 65536 --scheduler.threads=1 --javascript.v8-contexts=1`
  * to have backtraces output set this on the prompt: `ENABLE_NATIVE_BACKTRACES(true)`
 
 Startup
 -------
-We now have a startup rc file: `~/.arangod.rc`. It's evaled as javascript.
-A sample version to help working with the arangod rescue console may look like that:
+We now have a startup rc file: `~/.avocadod.rc`. It's evaled as javascript.
+A sample version to help working with the avocadod rescue console may look like that:
 
     ENABLE_NATIVE_BACKTRACES(true);
     internal = require("internal");
@@ -115,11 +115,11 @@ Use jslint standalone for your js file
 If you want to search errors in your js file, jslint is very handy - like a compiler is for C/C++.
 You can invoke it like this:
 
-    bin/arangosh --jslint js/client/modules/@arangodb/testing.js
+    bin/avocadosh --jslint js/client/modules/@avocadodb/testing.js
 
 _____________________________________________________________________________________________________
 
-ArangoDB Unittesting Framework
+AvocadoDB Unittesting Framework
 ==============================
 Dependencies
 ------------
@@ -146,7 +146,7 @@ These tests will only run if no cluster is used. (option 'cluster' needs to be f
 
 -timecritical
 -------------
-These tests are critical to execution time - and thus may fail if arangod is to slow. This may happen i.e. if you run the tests in valgrind, so you want to avoid them since they will fail anyways. To skip them, set the option *skipTimeCritical* to *true*.
+These tests are critical to execution time - and thus may fail if avocadod is to slow. This may happen i.e. if you run the tests in valgrind, so you want to avoid them since they will fail anyways. To skip them, set the option *skipTimeCritical* to *true*.
 
 -disabled
 ---------
@@ -171,9 +171,9 @@ There are several major places where unittests live:
  - *UnitTests/HttpInterface*        - rspec tests
  - tests/*                          - catch unittests
  - *js/server/tests*                - runneable on the server
- - *js/common/tests*                - runneable on the server & via arangosh
+ - *js/common/tests*                - runneable on the server & via avocadosh
  - *js/common/test-data*
- - *js/client/tests*                - runneable via arangosh
+ - *js/client/tests*                - runneable via avocadosh
  - *js/apps/system/aardvark/test*
 
 
@@ -190,20 +190,20 @@ debugging rspec with gdb
     - or -
     server> ARANGO_SERVER="127.0.0.1:6666" rspec -IUnitTests/HttpInterface --format d --color UnitTests/HttpInterface/api-import-spec.rb
 
-    client> gdb --args ./build/bin/arangod --server.endpoint http+tcp://127.0.0.1:6666 --server.authentication false --log.level communication=trace ../arangodb-data-test-mmfiles
+    client> gdb --args ./build/bin/avocadod --server.endpoint http+tcp://127.0.0.1:6666 --server.authentication false --log.level communication=trace ../avocadodb-data-test-mmfiles
 
 debugging a storage engine
 
-    host> rm -fr ../arangodb-data-rocksdb/; gdb --args ./build/bin/arangod --console --server.storage-engine rocksdb --foxx.queues false --server.statistics false --server.endpoint http+tcp://0.0.0.0:7777 ../arangodb-data-rocksdb
+    host> rm -fr ../avocadodb-data-rocksdb/; gdb --args ./build/bin/avocadod --console --server.storage-engine rocksdb --foxx.queues false --server.statistics false --server.endpoint http+tcp://0.0.0.0:7777 ../avocadodb-data-rocksdb
     (gdb) catch throw
     (gdb) r
-    arangod> require("jsunity").runTest("js/client/tests/shell/shell-client.js");
+    avocadod> require("jsunity").runTest("js/client/tests/shell/shell-client.js");
 
 
 
 HttpInterface - RSpec Client Tests
 ----------------------------------
-These tests work on the plain RESTfull interface of arangodb, and thus also test invalid HTTP-requests and so forth, plus check error handling in the server.
+These tests work on the plain RESTfull interface of avocadodb, and thus also test invalid HTTP-requests and so forth, plus check error handling in the server.
 
 Running jsUnity tests
 ---------------------
@@ -225,7 +225,7 @@ return jsunity.done();
 Then you can run the test suite using *jsunity.runTest*
 
 ```
-arangosh> require("jsunity").runTest("test.js");
+avocadosh> require("jsunity").runTest("test.js");
 2012-01-28T19:10:23Z [10671] INFO Running aqlTestSuite
 2012-01-28T19:10:23Z [10671] INFO 1 test found
 2012-01-28T19:10:23Z [10671] INFO [PASSED] testSizeOfTestCollection
@@ -234,16 +234,16 @@ arangosh> require("jsunity").runTest("test.js");
 2012-01-28T19:10:23Z [10671] INFO 1 millisecond elapsed
 ```
 
-jsUnity on arangod
+jsUnity on avocadod
 ------------------
-you can engage single tests when running arangod with console like this:
+you can engage single tests when running avocadod with console like this:
 
     require("jsunity").runTest("js/server/tests/aql-queries-simple.js");
 
 
-jsUnity via arangosh
+jsUnity via avocadosh
 --------------------
-arangosh is similar, however, you can only run tests which are intended to be ran via arangosh:
+avocadosh is similar, however, you can only run tests which are intended to be ran via avocadosh:
 
     require("jsunity").runTest("js/client/tests/shell/shell-client.js");
 
@@ -295,7 +295,7 @@ syntax --option value --sub:option value. Using Valgrind could look like this:
       --valgrindargs:log-file /tmp/valgrindlog.%p
 
  - we specify the test to execute
- - we specify some arangod arguments via --extraArgs which increase the server performance
+ - we specify some avocadod arguments via --extraArgs which increase the server performance
  - we specify to run using valgrind (this is supported by all facilities)
  - we specify some valgrind commandline arguments
 
@@ -305,7 +305,7 @@ Testing a single test with the framework directly on a server:
 
     scripts/unittest single_server --test js/server/tests/aql/aql-escaping.js
 
-Testing a single test with the framework via arangosh:
+Testing a single test with the framework via avocadosh:
 
     scripts/unittest single_client --test js/server/tests/aql/aql-escaping.js
 
@@ -314,7 +314,7 @@ Testing a single rspec test:
     scripts/unittest http_server --test api-users-spec.rb
 
 **scripts/unittest** is mostly only a wrapper; The backend functionality lives in:
-**js/client/modules/@arangodb/testing.js**
+**js/client/modules/@avocadodb/testing.js**
 
 Running foxx tests with a fake foxx Repo
 ----------------------------------------
@@ -324,21 +324,21 @@ and DOS'ed github, we can fake it like this:
     export FOXX_BASE_URL="http://germany/fakegit/"
     ./scripts/unittest single_server --test 'js/server/tests/shell/shell-foxx-manager-spec.js'
 
-arangod Emergency console
+avocadod Emergency console
 -------------------------
 
     require("jsunity").runTest("js/server/tests/aql/aql-escaping.js");
 
-arangosh client
+avocadosh client
 ---------------
 
     require("jsunity").runTest("js/server/tests/aql/aql-escaping.js");
 
 
-arangod commandline arguments
+avocadod commandline arguments
 -----------------------------
 
-    bin/arangod /tmp/dataUT --javascript.unit-tests="js/server/tests/aql/aql-escaping.js" --no-server
+    bin/avocadod /tmp/dataUT --javascript.unit-tests="js/server/tests/aql/aql-escaping.js" --no-server
 
     js/common/modules/loadtestrunner.js
 
@@ -383,10 +383,10 @@ Analyzing Coredumps on Linux
 ============================
 We offer debug packages containing the debug symbols for your binaries. Please install them if you didn't compile yourselves.
 
-Given you saw in the log of the arangod with the PID `25216` that it died, you should then find 
+Given you saw in the log of the avocadod with the PID `25216` that it died, you should then find 
 `/var/tmp/core-V8 WorkerThread-25216-1490887259` with this information. We may now start GDB and inspect whats going on:
 
-    gdb /usr/sbin/arangod /var/tmp/*25216*
+    gdb /usr/sbin/avocadod /var/tmp/*25216*
 
 These commands give usefull information about the incident:
 
@@ -403,49 +403,49 @@ Coredump generation
 -------------------
 Coredumps can be created using the task manager; switch it to detail view, the context menu offers to *create dump file*; the generated file ends in a directory that explorer hides from you - AppData - you have to type that in the location bar.
 This however only for running processes which is not as useful as having dumps of crashing processes. While its a common feature to turn on coredumps with the system facilities on \*nix systems, its not as easy in windows.
-You need an external program [from the Sysinternals package: ProcDump](https://technet.microsoft.com/en-us/sysinternals/dd996900.aspx). First look up the PID of arangod, you can finde it in the brackets in the arangodb logfile. Then invoke *procdump* like this:
+You need an external program [from the Sysinternals package: ProcDump](https://technet.microsoft.com/en-us/sysinternals/dd996900.aspx). First look up the PID of avocadod, you can finde it in the brackets in the avocadodb logfile. Then invoke *procdump* like this:
 
-    procdump -accepteula -e -ma < PID of arangod >
+    procdump -accepteula -e -ma < PID of avocadod >
 
-It will keep on running and monitor arangod until eventually a crash happens. You will then get a core dump if an incident occurs or *Dump count not reached.* if nothing happened, *Dump count reached.* if a dump was written - the filename will be printed above.
+It will keep on running and monitor avocadod until eventually a crash happens. You will then get a core dump if an incident occurs or *Dump count not reached.* if nothing happened, *Dump count reached.* if a dump was written - the filename will be printed above.
 
 Debugging symbols
 -----------------
 Releases are supported by a public symbol server so you will be able to debug cores.
 Releases starting with **2.5.6, 2.6.3** onwards are supported; Note that you should run the latest version of a release series before reporting bugs.
 Either [WinDbg](http://go.microsoft.com/fwlink/p/?linkid=84137) or Visual studio support setting the symbol path
-via the environment variable or in the menu. Given we want to store the symbols on *e:\symbol_cach* we add the arangodb symbolserver like this:
+via the environment variable or in the menu. Given we want to store the symbols on *e:\symbol_cach* we add the avocadodb symbolserver like this:
 
-    set _NT_SYMBOL_PATH=cache*e:\symbol_cache\cache;srv*e:\symbol_cache\arango*https://www.arangodb.com/repositories/symsrv/;SRV*e:\symbol_cache\ms*http://msdl.microsoft.com/download/symbols
+    set _NT_SYMBOL_PATH=cache*e:\symbol_cache\cache;srv*e:\symbol_cache\avocado*https://www.avocadodb.com/repositories/symsrv/;SRV*e:\symbol_cache\ms*http://msdl.microsoft.com/download/symbols
 
 You then will be able to see stack traces in the debugger.
 
 You may also try to download the symbols manually using: 
 
-    symchk.exe arangod.exe /s SRV*e:/symbol_cache/cache*https://www.arangodb.com/repositories/symsrv/
+    symchk.exe avocadod.exe /s SRV*e:/symbol_cache/cache*https://www.avocadodb.com/repositories/symsrv/
 
 
-The symbolserver over at https://www.arangodb.com/repositories/symsrv/ is browseable; thus you can easily download the files you need by hand. It contains of a list of directories corosponding to the components of arangodb:
+The symbolserver over at https://www.avocadodb.com/repositories/symsrv/ is browseable; thus you can easily download the files you need by hand. It contains of a list of directories corosponding to the components of avocadodb:
 
-  - arango - the basic arangodb library needed by all components
-  - arango_v8 - the basic V8 wrappers needed by all components
-  - arangod - the server process 
+  - avocado - the basic avocadodb library needed by all components
+  - avocado_v8 - the basic V8 wrappers needed by all components
+  - avocadod - the server process 
   - the client utilities:
-    - arangob
-    - arangobench
-    - arangoexport
-    - arangoimp
-    - arangorestore
-    - arangosh
-    - arangovpack
+    - avocadob
+    - avocadobench
+    - avocadoexport
+    - avocadoimp
+    - avocadorestore
+    - avocadosh
+    - avocadovpack
 
-In these directories you will find subdirectories with the hash corosponding to the id of the binaries. Their date should corrospond to the release date of their respective arango release. 
+In these directories you will find subdirectories with the hash corosponding to the id of the binaries. Their date should corrospond to the release date of their respective avocado release. 
 
-This means i.e. for ArangoDB 3.1.11: 
+This means i.e. for AvocadoDB 3.1.11: 
 
- https://www.arangodb.com/repositories/symsrv/arangod.pdb/A8B899D2EDFC40E994C30C32FCE5FB346/arangod.pd_
+ https://www.avocadodb.com/repositories/symsrv/avocadod.pdb/A8B899D2EDFC40E994C30C32FCE5FB346/avocadod.pd_
 
-This file is a microsoft cabinet file, which is a little bit compressed. You can dismantle it so the windows explorer offers you its proper handler by renaming it to .cab; click on the now named `arangod.cab`, copy the contained arangod.pdb into your symbol path.
+This file is a microsoft cabinet file, which is a little bit compressed. You can dismantle it so the windows explorer offers you its proper handler by renaming it to .cab; click on the now named `avocadod.cab`, copy the contained avocadod.pdb into your symbol path.
 
 
 Coredump analysis
@@ -470,13 +470,13 @@ Documentation
 =============
 Using Docker container
 ----------------------
-We provide the docker container `arangodb/documentation-builder` which brings all neccessary dependencies to build the documentation.
+We provide the docker container `avocadodb/documentation-builder` which brings all neccessary dependencies to build the documentation.
 
 You can automagically build it using
 
     ./scripts/generateDocumentation.sh
 
-which will start the docker container, compile ArangoDB, generate fresh example snippets, generate swagger, and all gitbook
+which will start the docker container, compile AvocadoDB, generate fresh example snippets, generate swagger, and all gitbook
 produced output files.
 
 You can also use `proselint` inside of that container to let it proof read your english ;-)
@@ -519,7 +519,7 @@ Generate users documentation
 If you've edited examples, see below how to regenerate them with `./utils/generateExamples.sh`.
 If you've edited REST (AKA HTTP) documentation, first invoke `./utils/generateSwagger.sh`.
 Run `cd Documentation/Books && ./build.sh` to generate it.
-The documentation will be generated in subfolders in `arangodb/Documentation/Books/books` -
+The documentation will be generated in subfolders in `avocadodb/Documentation/Books/books` -
 use your favorite browser to read it.
 
 You may encounter permission problems with gitbook and its npm invocations.
@@ -534,7 +534,7 @@ used, and no dead references are there. (see building examples in that case belo
 
 If the markdown files aren't converted to html, or `index.html` shows a single
 chapter only (content of `README.md`), make sure
-[Cygwin create native symlinks](https://docs.arangodb.com/cookbook/CompilingUnderWindows.html)
+[Cygwin create native symlinks](https://docs.avocadodb.com/cookbook/CompilingUnderWindows.html)
 It does not, if `SUMMARY.md` in `Books/ppbooks/` looks like this:
 
     !<symlink>ÿþf o o
@@ -555,13 +555,13 @@ To only regereneate one file (faster) you may specify a filter:
 Using Gitbook
 =============
 
-The `arangodb/Documentation/Books/build.sh` script generates a website
+The `avocadodb/Documentation/Books/build.sh` script generates a website
 version of the manual.
 
-If you want to generate all media ala PDF, ePUB, run `arangodb/Documentation/books/build.sh  build-dist-books` (takes some time to complete).
+If you want to generate all media ala PDF, ePUB, run `avocadodb/Documentation/books/build.sh  build-dist-books` (takes some time to complete).
 
 If you want to generate only one of them, run below 
-build commands in `arangodb/Documentation/Books/books/[Manual|HTTP|AQL]/`. Calibre's
+build commands in `avocadodb/Documentation/Books/books/[Manual|HTTP|AQL]/`. Calibre's
 `ebook-convert` will be used for the conversion.
 
 Generate a PDF:
@@ -585,7 +585,7 @@ generate
  - `./utils/generateExamples.sh --onlyThisOne 'MOD.*'` will only produce the examples matching that regex; Note that
    examples with enumerations in their name may base on others in their series - so you should generate the whole group.
  - running `onlyThisOne` in conjunction with a pre-started server cuts down the execution time even more.
-   In addition to the `--onlyThisOne ...` specify i.e. `--server.endpoint tcp://127.0.0.1:8529` to utilize your already running arangod.
+   In addition to the `--onlyThisOne ...` specify i.e. `--server.endpoint tcp://127.0.0.1:8529` to utilize your already running avocadod.
    Please note that examples may collide with existing collections like 'test' - you need to make sure your server is clean enough.
  - you can use generateExamples like that:
     `./utils/generateExamples.sh \
@@ -621,7 +621,7 @@ Read / use the documentation
  - `file:///Documentation/Books/books/Manual/index.html` contains the generated manual
  - JS-Console - Tools/API - Interactive swagger documentation which you can play with.
 
-arangod Example tool
+avocadod Example tool
 ====================
 `./utils/generateExamples.sh` picks examples from the code documentation, executes them, and creates a transcript including their results.
 
@@ -632,8 +632,8 @@ Here is how its details work:
   - the example is named by the string provided in brackets after the above key
   - the output is written to `Documentation/Examples/<name>.generated`
   - examples end with *@END_EXAMPLE_[OUTPUT|RUN]*
-  - all code in between is executed as javascript in the **arangosh** while talking to a valid **arangod**.
-  You may inspect the generated js code in `/tmp/arangosh.examples.js`
+  - all code in between is executed as javascript in the **avocadosh** while talking to a valid **avocadod**.
+  You may inspect the generated js code in `/tmp/avocadosh.examples.js`
 
 OUTPUT and RUN specifics
 ---------------------------
@@ -642,12 +642,12 @@ Building will fail if resources aren't cleaned.
 However, if you intend a set of OUTPUT and RUN to demonstrate interactively and share generated *ids*, you have to use an alphabetical
 sortable naming scheme so they're executed in sequence. Using `<modulename>_<sequencenumber>[a|b|c|d]_thisDoesThat` seems to be a good scheme.
 
-  - OUTPUT is intended to create samples that the users can cut'n'paste into their arangosh. Its used for javascript api documentation.
+  - OUTPUT is intended to create samples that the users can cut'n'paste into their avocadosh. Its used for javascript api documentation.
     * wrapped lines:
       Lines starting with a pipe (`/// |`) are joined together with the next following line.
       You have to use this if you want to execute loops, functions or commands which shouldn't be torn apart by the framework.
     * Lines starting with *var*:
-      The command behaves similar to the arangosh: the server reply won't be printed.
+      The command behaves similar to the avocadosh: the server reply won't be printed.
       However, the variable will be in the scope of the other lines - else it won't.
     * Lines starting with a Tilde (`/// ~`):
       These lines can be used for setup/teardown purposes. They are completely invisible in the generated example transcript.
@@ -784,7 +784,7 @@ up in the GNU debugger in separate windows (using `xterm`s). In that
 case one has to hit ENTER in the original terminal where the script runs
 to continue, once all processes have been start up in the debugger.
 
-ArangoDB on Mesos
+AvocadoDB on Mesos
 =================
 
 This will spawn a **temporary** local mesos cluster.
@@ -809,23 +809,23 @@ mkdir /tmp/mesos-cluster
 ./start-cluster.sh /tmp/mesos-cluster/ --num-slaves=5 --rm --name mesos-cluster
 ```
 
-Then save the following configuration to a local file and name it `arangodb3.json`:
+Then save the following configuration to a local file and name it `avocadodb3.json`:
 
 ```
 {
-  "id": "arangodb",
+  "id": "avocadodb",
   "cpus": 0.25,
   "mem": 256.0,
   "ports": [0, 0, 0],
   "instances": 1,
   "args": [
     "framework",
-    "--framework_name=arangodb",
+    "--framework_name=avocadodb",
     "--master=zk://172.17.0.2:2181/mesos",
-    "--zk=zk://172.17.0.2:2181/arangodb",
+    "--zk=zk://172.17.0.2:2181/avocadodb",
     "--user=",
     "--principal=pri",
-    "--role=arangodb",
+    "--role=avocadodb",
     "--mode=cluster",
     "--async_replication=false",
     "--minimal_resources_agent=mem(*):512;cpus(*):0.25;disk(*):512",
@@ -836,16 +836,16 @@ Then save the following configuration to a local file and name it `arangodb3.jso
     "--nr_dbservers=2",
     "--nr_coordinators=2",
     "--failover_timeout=86400",
-    "--arangodb_privileged_image=false",
-    "--arangodb_force_pull_image=true",
-    "--arangodb_image=arangodb/arangodb-mesos:3.0",
+    "--avocadodb_privileged_image=false",
+    "--avocadodb_force_pull_image=true",
+    "--avocadodb_image=avocadodb/avocadodb-mesos:3.0",
     "--secondaries_with_dbservers=false",
     "--coordinators_with_dbservers=false"
   ],
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "arangodb/arangodb-mesos-framework:3.0",
+      "image": "avocadodb/avocadodb-mesos-framework:3.0",
       "network": "HOST"
     }
   },
@@ -869,7 +869,7 @@ Adjust the lines `--master` and `--zk` to match the IP of your mesos-cluster:
 MESOS_IP=`docker inspect mesos-cluster | \
   jq '.[0].NetworkSettings.Networks.bridge.IPAddress' | \
   sed 's;";;g'`
-sed -i -e "s;172.17.0.2;${MESOS_IP};g" arangodb3.json
+sed -i -e "s;172.17.0.2;${MESOS_IP};g" avocadodb3.json
 ```
 
 And deploy the modified file to your local mesos cluster:
@@ -879,16 +879,16 @@ MESOS_IP=`docker inspect mesos-cluster | \
   jq '.[0].NetworkSettings.Networks.bridge.IPAddress' | \
   sed 's;";;g'`
 curl -X POST ${MESOS_IP}:8080/v2/apps \
-      -d @arangodb3.json \
+      -d @avocadodb3.json \
       -H "Content-Type: application/json" | \
   jq .
 ```
 
 Point your webbrowser to the IP of your `echo "http://${MESOS_IP}:8080"`.
 
-Wait until arangodb is healthy.
+Wait until avocadodb is healthy.
 
-Then click on `arangodb`.
+Then click on `avocadodb`.
 
 On the following screen click on the first port next to the IP Address of your cluster.
 
@@ -897,11 +897,11 @@ Deploying a locally changed version
 
 Create local docker images using the following repositories:
 
- - https://github.com/arangodb/arangodb-docker
- - https://github.com/arangodb/arangodb-mesos-docker
- - https://github.com/arangodb/arangodb-mesos-framework
+ - https://github.com/avocadodb/avocadodb-docker
+ - https://github.com/avocadodb/avocadodb-mesos-docker
+ - https://github.com/avocadodb/avocadodb-mesos-framework
 
-Then adjust the docker images in the config (`arangodb3.json`) and redeploy it using the curl command above.
+Then adjust the docker images in the config (`avocadodb3.json`) and redeploy it using the curl command above.
 
 --------------------------------------------------------------------------------
 Front-End (WebUI)
@@ -921,16 +921,16 @@ On Mac OS you also have to install grunt-cli:
 
 Then you can choose between three choices:
 
-1. Build all arangodb related files:
+1. Build all avocadodb related files:
 
   * `grunt`
 
-2. Build all arangodb related files, including libraries. This should always
-be used when we offer a new major release of arangodb.
+2. Build all avocadodb related files, including libraries. This should always
+be used when we offer a new major release of avocadodb.
 
   * `grunt deploy`
 
-3. Live build arangodb related files, when a file has been changed. This task
+3. Live build avocadodb related files, when a file has been changed. This task
 does not include the minifying process.
 
   * `grunt watch`
@@ -953,7 +953,7 @@ file is updated correctly.
 
 The `global-style` option prevents newer versions of npm from unrolling nested
 dependencies inside the `node_modules` folder. Omitting this option results in
-exposing *all* dependencies of *all* modules to ArangoDB users.
+exposing *all* dependencies of *all* modules to AvocadoDB users.
 
 Finally add the module's licensing information to `LICENSES-OTHER-COMPONENTS.md`.
 

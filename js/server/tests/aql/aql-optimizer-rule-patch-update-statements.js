@@ -29,8 +29,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
-var db = require("@arangodb").db;
+var helper = require("@avocadodb/aql-helper");
+var db = require("@avocadodb").db;
 var removeAlwaysOnClusterRules = helper.removeAlwaysOnClusterRules;
 var removeClusterNodes = helper.removeClusterNodes;
 

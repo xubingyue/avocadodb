@@ -28,7 +28,7 @@ The *state* attribute contains the current state of the replication logger. It
 contains the following sub-attributes:
 
 - *running*: whether or not the replication logger is currently active. Note:
-  since ArangoDB 2.2, the value will always be *true*
+  since AvocadoDB 2.2, the value will always be *true*
 
 - *lastLogTick*: the value of the last tick the replication logger has written
 
@@ -58,13 +58,13 @@ server, the following additional steps need to be carried out:
 
   The call to */logger-follow* should use a *from* parameter with the value of the
   *lastLogTick* as reported by */inventory*. The call to */logger-follow* will return the
-  *x-arango-replication-lastincluded* which will contain the last tick value included
+  *x-avocado-replication-lastincluded* which will contain the last tick value included
   in the response.
 
 - the client can then continuously call */logger-follow* to incrementally fetch new
   replication events that occurred after the last transfer.
 
-  Calls should use a *from* parameter with the value of the *x-arango-replication-lastincluded*
+  Calls should use a *from* parameter with the value of the *x-avocado-replication-lastincluded*
   header of the previous response. If there are no more replication events, the
   response will be empty and clients can go to sleep for a while and try again
   later.

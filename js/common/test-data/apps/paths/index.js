@@ -1,5 +1,5 @@
 'use strict';
-const createRouter = require('@arangodb/foxx/router');
+const createRouter = require('@avocadodb/foxx/router');
 const router = createRouter();
 module.context.use(router);
 

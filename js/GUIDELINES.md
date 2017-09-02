@@ -22,7 +22,7 @@ any JavaScript module.
 Bootstrapping
 =============
 
-When booting the arangod or arangosh process defines some global variables in
+When booting the avocadod or avocadosh process defines some global variables in
 C++. These variables are named all in uppercase and are defined in the global
 namespace.
 
@@ -51,32 +51,32 @@ module "name", than there exists a companion module "name-common" which contains
 these parts.
 
 For large prototypes with a lot of methods, there exist separate files. I. e.
-`ArangoCollection` is defined in `@arangodb/arango-collection.js`.
+`AvocadoCollection` is defined in `@avocadodb/avocado-collection.js`.
 
 Module "internal"
 -----------------
 
 The module "internal" should not be used except during bootstrapping. All
-required prototypes and variables are copied into the module "@arangodb",
+required prototypes and variables are copied into the module "@avocadodb",
 which can be used everywhere.
 
-Module "@arangodb"
+Module "@avocadodb"
 ---------------------
 
-The module "@arangodb" exports the following prototypes
+The module "@avocadodb" exports the following prototypes
 
-- ArangoCollection
-- ArangoConnection (client-only)
-- ArangoDatabase
-- ArangoError
-- ArangoQueryCursor (client-only)
-- ArangoStatement
+- AvocadoCollection
+- AvocadoConnection (client-only)
+- AvocadoDatabase
+- AvocadoError
+- AvocadoQueryCursor (client-only)
+- AvocadoStatement
 - ShapedJson (server-only)
 
 It exports the global variables
 
 - db
-- arango (client-only)
+- avocado (client-only)
 
 It exports the following functions
 

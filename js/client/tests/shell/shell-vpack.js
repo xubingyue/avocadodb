@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false */
-/*global arango, Buffer, VPACK_TO_V8, V8_TO_VPACK */
+/*global avocado, Buffer, VPACK_TO_V8, V8_TO_VPACK */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test request module
@@ -32,7 +32,7 @@
 
 var jsunity = require('jsunity');
 var expect = require('chai').expect;
-var request = require('@arangodb/request');
+var request = require('@avocadodb/request');
 var url = require('url');
 var querystring = require('querystring');
 var qs = require('qs');
@@ -40,11 +40,11 @@ var qs = require('qs');
 var buildUrl = function (append, base) {
   base = base === false ? '' : '/_admin/echo';
   append = append || '';
-  return arango.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + base + append;
+  return avocado.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + base + append;
 };
 
 var buildUrlBroken = function (append) {
-  return arango.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + '/_not-there' + append;
+  return avocado.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + '/_not-there' + append;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ function versionJsonJson() {
   expect(obj).to.have.property('version');
   expect(obj).to.have.property('license');
 
-  expect(obj.server).to.be.equal('arango');
+  expect(obj.server).to.be.equal('avocado');
   expect(obj.version).to.match(/[0-9]+\.[0-9]+\.([0-9]+|(milestone|alpha|beta|devel|rc)[0-9]*)/);
   
   expect(obj.license).to.match(/enterprise|community/g);
@@ -108,7 +108,7 @@ function versionVpackJson() {
   expect(obj).to.have.property('version');
   expect(obj).to.have.property('license');
 
-  expect(obj.server).to.be.equal('arango');
+  expect(obj.server).to.be.equal('avocado');
   expect(obj.version).to.match(/[0-9]+\.[0-9]+\.([0-9]+|(milestone|alpha|beta|devel|rc)[0-9]*)/);
   expect(obj.license).to.match(/enterprise|community/g);
 };
@@ -133,7 +133,7 @@ function versionJsonVpack () {
   expect(obj).to.have.property('version');
   expect(obj).to.have.property('license');
 
-  expect(obj.server).to.be.equal('arango');
+  expect(obj.server).to.be.equal('avocado');
   expect(obj.version).to.match(/[0-9]+\.[0-9]+\.([0-9]+|(milestone|alpha|beta|devel|rc)[0-9]*)/);
   expect(obj.license).to.match(/enterprise|community/g);
 };
@@ -158,7 +158,7 @@ function versionVpackVpack () {
   expect(obj).to.have.property('version');
   expect(obj).to.have.property('license');
 
-  expect(obj.server).to.be.equal('arango');
+  expect(obj.server).to.be.equal('avocado');
   expect(obj.version).to.match(/[0-9]+\.[0-9]+\.([0-9]+|(milestone|alpha|beta|devel|rc)[0-9]*)/);
   expect(obj.license).to.match(/enterprise|community/g);
 };
@@ -172,7 +172,7 @@ function echoVpackVpack () {
     'accept'      : 'application/x-velocypack'
   };
 
-  var obj = { "server" : "arango" , "version" : "3.0.devel" };
+  var obj = { "server" : "avocado" , "version" : "3.0.devel" };
   var body = V8_TO_VPACK(obj);
   var res = request.post(buildUrl(path),{ headers : headers, body : body, timeout: 300});
 

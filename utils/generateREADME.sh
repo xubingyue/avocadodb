@@ -5,7 +5,7 @@ IN=${1:-README.md}
 OUT=${2:-README}
 
 fgrep -v "[Build Status]" $IN \
-  | fgrep -v "ArangoDB-Logo" \
+  | fgrep -v "AvocadoDB-Logo" \
   | fgrep -v "[Build Status]" \
   | markdown \
   | html2text -style compact -nobs \

@@ -28,7 +28,7 @@ if(SNAPCRAFT_FOUND)
   )
 
   file(
-    COPY        "${SNAPCRAFT_TEMPLATE_DIR}/arangodb.png"
+    COPY        "${SNAPCRAFT_TEMPLATE_DIR}/avocadodb.png"
     DESTINATION "${SNAPCRAFT_SOURCE_DIR}/"
     )
   

@@ -60,7 +60,7 @@
       spyOn(window, '$').andReturn(jquerDummy);
       spyOn(window.App, 'navigate');
       view.navigateBySelect();
-      expect(window.$).toHaveBeenCalledWith('#arangoCollectionSelect');
+      expect(window.$).toHaveBeenCalledWith('#avocadoCollectionSelect');
       expect(jquerDummy.find).toHaveBeenCalledWith('option:selected');
       expect(jquerDummy.val).toHaveBeenCalled();
       expect(window.App.navigate).toHaveBeenCalledWith('bla', {trigger: true});
@@ -201,7 +201,7 @@
       expect(collectionDummy.whoAmI).toHaveBeenCalled();
       expect(collectionDummy.findWhere).toHaveBeenCalledWith({user: 'userName'});
       expect(view.template.render).toHaveBeenCalledWith({
-        img: 'img/arangodb_logo_small.png',
+        img: 'img/avocadodb_logo_small.png',
         name: '',
         username: 'userName',
         active: true

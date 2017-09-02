@@ -29,11 +29,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var ERRORS = arangodb.errors;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var ERRORS = avocadodb.errors;
+var db = avocadodb.db;
 
-var users = require("@arangodb/users");
+var users = require("@avocadodb/users");
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite
@@ -56,7 +56,7 @@ function UsersSuite () {
     }
 
     [
-      "hackers@arangodb.com",
+      "hackers@avocadodb.com",
       "this+is+also+a+username",
       "this-is-also-a-username",
       "this.is.also.a.username"
@@ -172,13 +172,13 @@ function UsersSuite () {
 
     testSaveWithSomePatterns : function () {
       var usernames = [
-        "hackers@arangodb.com",
+        "hackers@avocadodb.com",
         "this+is+also+a+username",
         "this-is-also-a-username",
         "this.is.also.a.username"
       ];
 
-      var passwd = "arangodb-loves-you";
+      var passwd = "avocadodb-loves-you";
 
       usernames.forEach(function(username) {
         users.save(username, passwd);

@@ -229,7 +229,7 @@ using wildcard matching.
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
   character). Literal *%* and *:* must be escaped with two backslashes (four
-  in arangosh).
+  in avocadosh).
   *search* cannot be a variable or a document attribute. The actual value must
   be present at query parse time already.
 - **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
@@ -352,7 +352,7 @@ Note that the characters `.`, `*`, `?`, `[`, `]`, `(`, `)`, `{`, `}`, `^`,
 and `$` have a special meaning in regular expressions and may need to be 
 escaped using a backslash, which requires escaping itself (`\\`). A literal
 backslash needs to be escaped using another escaped backslash, i.e. `\\\\`.
-In arangosh, the amount of backslashes needs to be doubled.
+In avocadosh, the amount of backslashes needs to be doubled.
 
 Characters and sequences may optionally be repeated using the following
 quantifiers:

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global window, Backbone, $, arangoHelper */
+/* global window, Backbone, $, avocadoHelper */
 (function () {
   'use strict';
   window.FoxxCollection = Backbone.Collection.extend({
@@ -10,7 +10,7 @@
       desc: false
     },
 
-    url: arangoHelper.databaseUrl('/_admin/aardvark/foxxes'),
+    url: avocadoHelper.databaseUrl('/_admin/aardvark/foxxes'),
 
     comparator: function (item, item2) {
       var a, b;
@@ -31,7 +31,7 @@
     // Install Foxx from github repo
     // info is expected to contain: "url" and "version"
     installFromGithub: function (info, mount, callback, isLegacy, flag) {
-      var url = arangoHelper.databaseUrl('/_admin/aardvark/foxxes/git?mount=' + encodeURIComponent(mount));
+      var url = avocadoHelper.databaseUrl('/_admin/aardvark/foxxes/git?mount=' + encodeURIComponent(mount));
       if (isLegacy) {
         url += '&legacy=true';
       }
@@ -58,10 +58,10 @@
       });
     },
 
-    // Install Foxx from arango store
+    // Install Foxx from avocado store
     // info is expected to contain: "name" and "version"
     installFromStore: function (info, mount, callback, flag) {
-      var url = arangoHelper.databaseUrl('/_admin/aardvark/foxxes/store?mount=' + encodeURIComponent(mount));
+      var url = avocadoHelper.databaseUrl('/_admin/aardvark/foxxes/store?mount=' + encodeURIComponent(mount));
       if (flag !== undefined) {
         if (flag) {
           url += '&replace=true';
@@ -86,7 +86,7 @@
     },
 
     installFromZip: function (fileName, mount, callback, isLegacy, flag) {
-      var url = arangoHelper.databaseUrl('/_admin/aardvark/foxxes/zip?mount=' + encodeURIComponent(mount));
+      var url = avocadoHelper.databaseUrl('/_admin/aardvark/foxxes/zip?mount=' + encodeURIComponent(mount));
       if (isLegacy) {
         url += '&legacy=true';
       }
@@ -114,7 +114,7 @@
     },
 
     generate: function (info, mount, callback, flag) {
-      var url = arangoHelper.databaseUrl('/_admin/aardvark/foxxes/generate?mount=' + encodeURIComponent(mount));
+      var url = avocadoHelper.databaseUrl('/_admin/aardvark/foxxes/generate?mount=' + encodeURIComponent(mount));
       if (flag !== undefined) {
         if (flag) {
           url += '&replace=true';

@@ -1,7 +1,7 @@
 // This is a generic CSV exporter for collections.
 //
-// Usage: Run with arangosh like this:
-//   arangosh --javascript.execute <CollName> [ <Field1> <Field2> ... ]
+// Usage: Run with avocadosh like this:
+//   avocadosh --javascript.execute <CollName> [ <Field1> <Field2> ... ]
 //
 // This will take all documents in the collection with name <CollName>
 // and export a CSV file with a row for each document. Fields are

@@ -2,13 +2,13 @@
 
 require 'rspec'
 require 'json'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
 PREFIX = "api-general-graph"
 URLPREFIX = "/_api/gharial"
 
 
-describe ArangoDB do
+describe AvocadoDB do
 
   [true, false].each do |sync|
 
@@ -17,13 +17,13 @@ describe ArangoDB do
       def drop_graph (waitForSync, graph_name)
         cmd = URLPREFIX + "/" + graph_name
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.delete(cmd)
+        doc = AvocadoDB.delete(cmd)
         return doc
       end
 
       def get_graph (graph_name)
         cmd = URLPREFIX + "/" + graph_name
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         return doc
       end
 
@@ -31,7 +31,7 @@ describe ArangoDB do
         cmd = URLPREFIX
         cmd = cmd + "?waitForSync=#{waitForSync}"
         body = JSON.dump({:name => name, :edgeDefinitions => edge_definitions})
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         return doc
       end
 
@@ -39,7 +39,7 @@ describe ArangoDB do
         cmd = URLPREFIX
         cmd = cmd + "?waitForSync=#{waitForSync}"
         body = JSON.dump({:name => name, :edgeDefinitions => edge_definitions, :orphanCollections => orphans})
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         return doc
       end
 
@@ -64,34 +64,34 @@ describe ArangoDB do
 
       def list_edge_collections (graph_name)
         cmd = edge_endpoint(graph_name)
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         return doc
       end
 
       def additional_edge_definition (waitForSync, graph_name, edge_definitions)
         cmd = edge_endpoint(graph_name)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.post(cmd, :body => JSON.dump(edge_definitions))
+        doc = AvocadoDB.post(cmd, :body => JSON.dump(edge_definitions))
         return doc
       end
 
       def change_edge_definition (waitForSync, graph_name, definition_name, edge_definitions)
         cmd = edge_endpoint(graph_name, definition_name)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.put(cmd, :body => JSON.dump(edge_definitions))
+        doc = AvocadoDB.put(cmd, :body => JSON.dump(edge_definitions))
         return doc
       end
 
       def delete_edge_definition (waitForSync, graph_name, definition_name)
         cmd = edge_endpoint(graph_name, definition_name)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.delete(cmd)
+        doc = AvocadoDB.delete(cmd)
         return doc
       end
 
       def list_vertex_collections (graph_name)
         cmd = vertex_endpoint(graph_name)
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         return doc
       end
 
@@ -99,27 +99,27 @@ describe ArangoDB do
         cmd = vertex_endpoint(graph_name)
         cmd = cmd + "?waitForSync=#{waitForSync}"
         body = { :collection => collection_name }
-        doc = ArangoDB.post(cmd, :body => JSON.dump(body))
+        doc = AvocadoDB.post(cmd, :body => JSON.dump(body))
         return doc
       end
 
       def delete_vertex_collection (waitForSync, graph_name, collection_name)
         cmd = vertex_endpoint(graph_name, collection_name)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.delete(cmd)
+        doc = AvocadoDB.delete(cmd)
         return doc
       end
 
       def create_vertex (waitForSync, graph_name, collection, body)
         cmd = vertex_endpoint(graph_name, collection)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.post(cmd, :body => JSON.dump(body))
+        doc = AvocadoDB.post(cmd, :body => JSON.dump(body))
         return doc
       end
 
       def get_vertex (graph_name, collection, key)
         cmd = vertex_endpoint(graph_name, collection, key)
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         return doc
       end
 
@@ -129,21 +129,21 @@ describe ArangoDB do
         if keepNull != '' then
           cmd = cmd + "&keepNull=#{keepNull}"
         end
-        doc = ArangoDB.patch(cmd, :body => JSON.dump(body))
+        doc = AvocadoDB.patch(cmd, :body => JSON.dump(body))
         return doc
       end
 
       def replace_vertex (waitForSync, graph_name, collection, key, body)
         cmd = vertex_endpoint(graph_name, collection, key)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.put(cmd, :body => JSON.dump(body))
+        doc = AvocadoDB.put(cmd, :body => JSON.dump(body))
         return doc
       end
 
       def delete_vertex (waitForSync, graph_name, collection, key)
         cmd = vertex_endpoint(graph_name, collection, key)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.delete(cmd)
+        doc = AvocadoDB.delete(cmd)
         return doc
       end
 
@@ -153,13 +153,13 @@ describe ArangoDB do
         cmd = cmd + "?waitForSync=#{waitForSync}"
         body["_from"] = from
         body["_to"] = to
-        doc = ArangoDB.post(cmd, :body => JSON.dump(body))
+        doc = AvocadoDB.post(cmd, :body => JSON.dump(body))
         return doc
       end
 
       def get_edge (graph_name, collection, key)
         cmd = edge_endpoint(graph_name, collection, key)
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         return doc
       end
 
@@ -169,21 +169,21 @@ describe ArangoDB do
         if keepNull != '' then
           cmd = cmd + "&keepNull=#{keepNull}"
         end
-        doc = ArangoDB.patch(cmd, :body => JSON.dump(body))
+        doc = AvocadoDB.patch(cmd, :body => JSON.dump(body))
         return doc
       end
 
       def replace_edge (waitForSync, graph_name, collection, key, body)
         cmd = edge_endpoint(graph_name, collection, key)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.put(cmd, :body => JSON.dump(body))
+        doc = AvocadoDB.put(cmd, :body => JSON.dump(body))
         return doc
       end
 
       def delete_edge (waitForSync, graph_name, collection, key)
         cmd = edge_endpoint(graph_name, collection, key)
         cmd = cmd + "?waitForSync=#{waitForSync}"
-        doc = ArangoDB.delete(cmd)
+        doc = AvocadoDB.delete(cmd)
         return doc
       end
 

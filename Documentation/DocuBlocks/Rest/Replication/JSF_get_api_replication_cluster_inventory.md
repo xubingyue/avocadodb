@@ -17,7 +17,7 @@ Each collection containscontains exactly two keys "parameters" and
 "indexes". This
 information comes from Plan/Collections/{DB-Name}/* in the agency,
 just that the *indexes* attribute there is relocated to adjust it to
-the data format of arangodump.
+the data format of avocadodump.
 
 @RESTRETURNCODES
 

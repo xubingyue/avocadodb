@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false, maxlen:4000, unused:false */
-/*global arango */
+/*global avocado */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief setup collections for dump/reload tests
@@ -30,7 +30,7 @@
 
 (function () {
   'use strict';
-  var db = require("@arangodb").db;
+  var db = require("@avocadodb").db;
   var i, c;
 
   try {
@@ -41,7 +41,7 @@
   db._createDatabase("UnitTestsDumpSrc");
 
   // create user in _system database
-  var users = require("@arangodb/users");
+  var users = require("@avocadodb/users");
   users.save("foobaruser", "foobarpasswd", true);
   users.grantDatabase("foobaruser", "_system");
   users.grantCollection("foobaruser", "_system", "*");
@@ -49,9 +49,9 @@
   users.grantCollection("foobaruser", "UnitTestsDumpSrc", "*");
   db._useDatabase("UnitTestsDumpSrc");
 
-  var endpoint = arango.getEndpoint();
+  var endpoint = avocado.getEndpoint();
 
-  arango.reconnect(endpoint, "UnitTestsDumpSrc", "foobaruser", "foobarpasswd");
+  avocado.reconnect(endpoint, "UnitTestsDumpSrc", "foobaruser", "foobarpasswd");
 
 
   // this remains empty

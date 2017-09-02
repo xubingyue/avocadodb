@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/index"
   prefix = "api-index"
 
@@ -19,18 +19,18 @@ describe ArangoDB do
     context "creating geo indexes:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns either 201 for new or 200 for old indexes" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"a\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-geo", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-geo", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -45,7 +45,7 @@ describe ArangoDB do
         doc.parsed_response['sparse'].should eq(true)
         doc.parsed_response['ignoreNull'].should eq(true)
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-geo", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-geo", cmd, :body => body)
         
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -64,7 +64,7 @@ describe ArangoDB do
       it "creating geo index with location" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-geo-location", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-geo-location", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -83,7 +83,7 @@ describe ArangoDB do
       it "creating geo index with location and geo-json = true" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"c\" ], \"geoJson\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-geo-location-geo-json", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-geo-location-geo-json", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -102,7 +102,7 @@ describe ArangoDB do
       it "creating geo index with location and geo-json = false" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"d\" ], \"geoJson\" : false }"
-        doc = ArangoDB.log_post("#{prefix}-create-geo-location-no-geo-json", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-geo-location-no-geo-json", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -121,7 +121,7 @@ describe ArangoDB do
       it "creating geo index with latitude and longitude" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"e\", \"f\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-geo-latitude-longitude", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-geo-latitude-longitude", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -139,7 +139,7 @@ describe ArangoDB do
       it "creating geo index with constraint" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"c\" ], \"geoJson\" : true, \"constraint\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-geo-location-geo-json-constraint", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-geo-location-geo-json-constraint", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -158,7 +158,7 @@ describe ArangoDB do
       it "creating geo index with constraint" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"c\", \"d\" ], \"geoJson\" : false, \"unique\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-geo-location-constraint", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-geo-location-constraint", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -181,18 +181,18 @@ describe ArangoDB do
     context "geo indexes after unload/load:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
     end
 
       it "survives unload" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"geo\", \"fields\" : [ \"a\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -203,21 +203,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

@@ -79,7 +79,7 @@ a request context. Otherwise, the return value of this function will be *null*.
 
 `DOCUMENT(collection, id) → doc`
 
-Return the document which is uniquely identified by its *id*. ArangoDB will
+Return the document which is uniquely identified by its *id*. AvocadoDB will
 try to find the document using the *_id* value of the document in the specified
 collection. 
 
@@ -160,7 +160,7 @@ be created if the objects have exactly the same attribute names and values
 is not important for hashing.
 
 The hash value returned by this function is a number. The hash algorithm is not
-guaranteed to remain the same in future versions of ArangoDB. The hash values
+guaranteed to remain the same in future versions of AvocadoDB. The hash values
 should therefore be used only for temporary calculations, e.g. to compare if two
 documents are the same, or for grouping values in queries.
 
@@ -209,7 +209,7 @@ CALL( "SUBSTRING", "this is a test", 0, 4 )
 Internal functions
 ------------------
 
-The following functions are used during development of ArangoDB as a database
+The following functions are used during development of AvocadoDB as a database
 system, primarily for unit testing. They are not intended to be used by end
 users, especially not in production environments.
 

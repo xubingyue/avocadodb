@@ -1,6 +1,6 @@
 'use strict';
 const joi = require('joi');
-const configTypes = require('@arangodb/foxx/manifest').configTypes;
+const configTypes = require('@avocadodb/foxx/manifest').configTypes;
 
 exports.mount = joi.string().regex(/(?:\/[-_0-9a-z]+)+/i).required();
 

@@ -247,7 +247,7 @@ Function AddToPath
   StrLen $2 $1
   IntCmp $2 0 CheckPathLength_ShowPathWarning CheckPathLength_Done CheckPathLength_Done
     CheckPathLength_ShowPathWarning:
-    Messagebox MB_OK|MB_ICONEXCLAMATION "Warning! Your PATH environment is already to long; the installer unable to add ArangoDB to it."
+    Messagebox MB_OK|MB_ICONEXCLAMATION "Warning! Your PATH environment is already to long; the installer unable to add AvocadoDB to it."
     Goto AddToPath_done
   CheckPathLength_Done:
   Push "$1;"
@@ -638,14 +638,14 @@ Section "-Core installation"
 
   ;Create shortcuts
   CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
-  CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Arango Shell.lnk"  "$INSTDIR\${BIN_DIR}\arangosh.exe"  '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMAXIMIZED
+  CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Avocado Shell.lnk"  "$INSTDIR\${BIN_DIR}\avocadosh.exe"  '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMAXIMIZED
   CreateShortCut  "$SMPROGRAMS\$STARTMENU_FOLDER\Uninstall.lnk"     "$INSTDIR\Uninstall.exe"
 
   ;Read a value from an InstallOptions INI file
 
   StrCmp "0" "$INSTALL_DESKTOP" noDesktopIcon
-  CreateShortCut  "$DESKTOP\Arango Shell.lnk"  "$INSTDIR\${BIN_DIR}\arangosh.exe"  '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMAXIMIZED
-  CreateShortCut  "$DESKTOP\Arango Management Interface.lnk"  "http://127.0.0.1:8529"  '' '$INSTDIR\resources\arangodb.ico' '0' SW_SHOWMAXIMIZED
+  CreateShortCut  "$DESKTOP\Avocado Shell.lnk"  "$INSTDIR\${BIN_DIR}\avocadosh.exe"  '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMAXIMIZED
+  CreateShortCut  "$DESKTOP\Avocado Management Interface.lnk"  "http://127.0.0.1:8529"  '' '$INSTDIR\resources\avocadodb.ico' '0' SW_SHOWMAXIMIZED
   noDesktopIcon:
 
   ; Write special uninstall registry entries
@@ -704,14 +704,14 @@ displayAgain:
 FunctionEnd
 ;------------------------
 ; Create
-Function ArangoPreInstallationOptionsPage
-  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "NSIS.ArangoDB.ini"
+Function AvocadoPreInstallationOptionsPage
+  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "NSIS.AvocadoDB.ini"
 FunctionEnd
 
 
 ;--------------------------------
 Function default_installation_directory
-; Read variables which defines if arango should be installed as Service
+; Read variables which defines if avocado should be installed as Service
 
   !insertmacro MUI_INSTALLOPTIONS_READ $R2 "NSIS.InstallOptions.ini" "Field 2" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $R3 "NSIS.InstallOptions.ini" "Field 3" "State"
@@ -762,7 +762,7 @@ Function check_installation_directory
    StrCmp $1 "0" handle_error
    return
    handle_error:
-     MessageBox MB_YESNO "you aren't allowed to install arango in $INSTDIR do you want try once more?" IDNO no
+     MessageBox MB_YESNO "you aren't allowed to install avocado in $INSTDIR do you want try once more?" IDNO no
        Abort
      no: Quit
 FunctionEnd
@@ -788,7 +788,7 @@ Function insert_registration_keys
    Return
 
  there_are_erros: ;nothing
-MessageBox MB_OK "There was an error during adding the installation keys to the registry$\nArango will work fine but there may be trouble during the deinstallation$\nplease contact @CPACK_NSIS_CONTACT@"
+MessageBox MB_OK "There was an error during adding the installation keys to the registry$\nAvocado will work fine but there may be trouble during the deinstallation$\nplease contact @CPACK_NSIS_CONTACT@"
 
 FunctionEnd
 
@@ -821,8 +821,8 @@ Function un.onInit
 ;  done:
 
 ; determine admin versus local install
-; arango may be installed on diferent places
-; determine if the arango was installed for a local user
+; avocado may be installed on diferent places
+; determine if the avocado was installed for a local user
 
   Pop $0
 ; temporary variable used as flag for decide the change to administration rights
@@ -897,8 +897,8 @@ Section "Uninstall"
   ;MessageBox MB_OK "Install to desktop: $INSTALL_DESKTOP "
 
   StrCmp "0" "$INSTALL_DESKTOP" noDesktopIconRemove
-  Delete  "$DESKTOP\Arango Shell.lnk"
-  Delete  "$DESKTOP\Arango Management Interface.lnk"
+  Delete  "$DESKTOP\Avocado Shell.lnk"
+  Delete  "$DESKTOP\Avocado Management Interface.lnk"
   noDesktopIconRemove:
 
 
@@ -938,8 +938,8 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\$MUI_TEMP\Uninstall.lnk"
   ; Note, short cuts are created in $SMPROGRAMS\$STARTMENU_FOLDER but
   ; they are deleted from '$SMPROGRAMS\$MUI_TEMP'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Server.lnk'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Shell.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Server.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Shell.lnk'
 
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
@@ -960,8 +960,8 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\$MUI_TEMP\Uninstall.lnk"
   ; Note, short cuts are created in $SMPROGRAMS\$STARTMENU_FOLDER but
   ; they are deleted from '$SMPROGRAMS\$MUI_TEMP'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Server.lnk'
-  Delete  '$SMPROGRAMS\$MUI_TEMP\Arango Shell.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Server.lnk'
+  Delete  '$SMPROGRAMS\$MUI_TEMP\Avocado Shell.lnk'
 
   ;Delete empty start menu parent diretories
   StrCpy $MUI_TEMP "$SMPROGRAMS\$MUI_TEMP"
@@ -977,7 +977,7 @@ Section "Uninstall"
   secondStartMenuDeleteLoopDone:
 
   DeleteRegKey /ifempty SHCTX "Software\@CPACK_PACKAGE_VENDOR@\@CPACK_PACKAGE_INSTALL_REGISTRY_KEY@"
-  ; Delete flag which controls if arango is started as service or no
+  ; Delete flag which controls if avocado is started as service or no
   DeleteRegKey HKCU "Software\@CPACK_NSIS_PACKAGE_NAME@"
   DeleteRegKey HKLM "${TRI_UNINSTALL_REG_PATH}"
 

@@ -1,7 +1,7 @@
 JWT Session Storage
 ===================
 
-`const jwtStorage = require('@arangodb/foxx/sessions/storages/jwt');`
+`const jwtStorage = require('@avocadodb/foxx/sessions/storages/jwt');`
 
 The JWT session storage converts sessions to and from [JSON Web Tokens](https://jwt.io/).
 

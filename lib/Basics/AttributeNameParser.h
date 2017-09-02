@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@
 #include "Common.h"
 #include <iosfwd>
 
-namespace arangodb {
+namespace avocadodb {
 
 class StringRef;
 
@@ -43,7 +43,7 @@ struct AttributeName {
   std::string name;
   bool shouldExpand;
   
-  explicit AttributeName(arangodb::StringRef const& name);
+  explicit AttributeName(avocadodb::StringRef const& name);
 
   AttributeName(std::string const& name, bool expand)
       : name(name), shouldExpand(expand) {}
@@ -51,7 +51,7 @@ struct AttributeName {
   AttributeName(std::string&& name, bool expand)
       : name(std::move(name)), shouldExpand(expand) {}
 
-  AttributeName(arangodb::StringRef const& name, bool expand);
+  AttributeName(avocadodb::StringRef const& name, bool expand);
 
   AttributeName(AttributeName const& other)
       : name(other.name), shouldExpand(other.shouldExpand) {}
@@ -91,7 +91,7 @@ struct AttributeName {
 /// @brief Parse an input string into attribute names and expansion flags
 ////////////////////////////////////////////////////////////////////////////////
 
-void TRI_ParseAttributeString(arangodb::StringRef const& input,
+void TRI_ParseAttributeString(avocadodb::StringRef const& input,
                               std::vector<AttributeName>& result,
                               bool allowExpansion);
 
@@ -129,8 +129,8 @@ bool TRI_AttributeNamesHaveExpansion(std::vector<AttributeName> const& input);
 }
 }
 
-std::ostream& operator<<(std::ostream&, arangodb::basics::AttributeName const&);
+std::ostream& operator<<(std::ostream&, avocadodb::basics::AttributeName const&);
 std::ostream& operator<<(std::ostream&,
-                         std::vector<arangodb::basics::AttributeName> const&);
+                         std::vector<avocadodb::basics::AttributeName> const&);
 
 #endif

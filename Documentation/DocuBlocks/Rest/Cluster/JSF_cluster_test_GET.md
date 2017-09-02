@@ -55,9 +55,9 @@ latter case a body of type application/json indicating the timeout
 is returned.
 
 @RESTRETURNCODE{403}
-is returned if ArangoDB is not running in cluster mode.
+is returned if AvocadoDB is not running in cluster mode.
 
 @RESTRETURNCODE{404}
-is returned if ArangoDB was not compiled for cluster operation.
+is returned if AvocadoDB was not compiled for cluster operation.
 @endDocuBlock
 

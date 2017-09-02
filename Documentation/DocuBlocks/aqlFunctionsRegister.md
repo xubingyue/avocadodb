@@ -29,7 +29,7 @@ when it detects syntactially invalid function code.
 @EXAMPLES
 
 ```js
-  require("@arangodb/aql/functions").register("myfunctions::temperature::celsiustofahrenheit",
+  require("@avocadodb/aql/functions").register("myfunctions::temperature::celsiustofahrenheit",
   function (celsius) {
     return celsius * 1.8 + 32;
   });

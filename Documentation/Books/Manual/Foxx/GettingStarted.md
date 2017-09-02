@@ -8,12 +8,12 @@ First we need to create a manifest. Create a new file called `manifest.json` and
 ```json
 {
   "engines": {
-    "arangodb": "^3.0.0"
+    "avocadodb": "^3.0.0"
   }
 }
 ```
 
-This just tells ArangoDB the service is compatible with versions 3.0.0 and later (all the way up to but not including 4.0.0), allowing older versions of ArangoDB to understand that this service likely won't work for them and newer versions what behavior to emulate should they still support it.
+This just tells AvocadoDB the service is compatible with versions 3.0.0 and later (all the way up to but not including 4.0.0), allowing older versions of AvocadoDB to understand that this service likely won't work for them and newer versions what behavior to emulate should they still support it.
 
 The little hat to the left of the version number is not a typo, it's called a "caret" and indicates the version range. Foxx uses semantic versioning (also called "semver") for most of its version handling. You can find out more about how semver works at the [official semver website](http://semver.org).
 
@@ -22,7 +22,7 @@ Next we'll need to specify an entry point to our service. This is the JavaScript
 ```json
 {
   "engines": {
-    "arangodb": "^3.0.0"
+    "avocadodb": "^3.0.0"
   },
   "main": "index.js"
 }
@@ -32,15 +32,15 @@ That's all we need in our manifest for now, so let's next create the `index.js` 
 
 ```js
 'use strict';
-const createRouter = require('@arangodb/foxx/router');
+const createRouter = require('@avocadodb/foxx/router');
 const router = createRouter();
 
 module.context.use(router);
 ```
 
-The first line causes our file to be interpreted using [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). All examples in the ArangoDB documentation assume strict mode, so you might want to familiarize yourself with it if you haven't encountered it before.
+The first line causes our file to be interpreted using [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode). All examples in the AvocadoDB documentation assume strict mode, so you might want to familiarize yourself with it if you haven't encountered it before.
 
-The second line imports the `@arangodb/foxx/router` module which provides a function for creating new Foxx routers. We're using this function to create a new `router` object which we'll be using for our service.
+The second line imports the `@avocadodb/foxx/router` module which provides a function for creating new Foxx routers. We're using this function to create a new `router` object which we'll be using for our service.
 
 The `module.context` is the so-called Foxx context or service context. This variable is available in all files that are part of your Foxx service and provides access to Foxx APIs specific to the current service, like the `use` method, which tells Foxx to mount the `router` in this service (and to expose its routes to HTTP).
 
@@ -111,7 +111,7 @@ router.get('/hello/:name', function (req, res) {
 .description('Prints a personalized greeting.');
 ```
 
-The first line imports the [`joi` module from npm](https://www.npmjs.com/package/joi) which comes bundled with ArangoDB. Joi is a validation library that is used throughout Foxx to define schemas and parameter types.
+The first line imports the [`joi` module from npm](https://www.npmjs.com/package/joi) which comes bundled with AvocadoDB. Joi is a validation library that is used throughout Foxx to define schemas and parameter types.
 
 **Note**: You can bundle your own modules from npm by installing them in your service folder and making sure the `node_modules` folder is included in your zip archive. For more information see the section on [module dependencies in the chapter on dependencies](Dependencies.md#module-dependencies).
 
@@ -165,7 +165,7 @@ First create a new folder called "scripts" in the service folder, which will be 
 ```js
 // continued
 'use strict';
-const db = require('@arangodb').db;
+const db = require('@avocadodb').db;
 const collectionName = 'myFoxxCollection';
 
 if (!db._collection(collectionName)) {
@@ -173,7 +173,7 @@ if (!db._collection(collectionName)) {
 }
 ```
 
-The script uses the [`db` object](../Appendix/References/DBObject.md) from the `@arangodb` module, which lets us interact with the database the Foxx service was installed in and the collections inside that database. Because the script may be executed multiple times (i.e. whenever we update the service or when the server is restarted) we need to make sure we don't accidentally try to create the same collection twice (which would result in an exception); we do that by first checking whether it already exists before creating it.
+The script uses the [`db` object](../Appendix/References/DBObject.md) from the `@avocadodb` module, which lets us interact with the database the Foxx service was installed in and the collections inside that database. Because the script may be executed multiple times (i.e. whenever we update the service or when the server is restarted) we need to make sure we don't accidentally try to create the same collection twice (which would result in an exception); we do that by first checking whether it already exists before creating it.
 
 The `_collection` method looks up a collection by name and returns `null` if no collection with that name was found. The `_createDocumentCollection` method creates a new document collection by name (`_createEdgeCollection` also exists and works analogously for edge collections).
 
@@ -184,7 +184,7 @@ Next we need to tell our service about the script by adding it to the manifest f
 ```json
 {
   "engines": {
-    "arangodb": "^3.0.0"
+    "avocadodb": "^3.0.0"
   },
   "main": "index.js",
   "scripts": {
@@ -206,8 +206,8 @@ Let's expand our service by adding a few more routes to our `index.js`:
 
 ```js
 // continued
-const db = require('@arangodb').db;
-const errors = require('@arangodb').errors;
+const db = require('@avocadodb').db;
+const errors = require('@avocadodb').errors;
 const foxxColl = db._collection('myFoxxCollection');
 const DOC_NOT_FOUND = errors.ERROR_ARANGO_DOCUMENT_NOT_FOUND.code;
 
@@ -226,7 +226,7 @@ router.get('/entries/:key', function (req, res) {
     const data = foxxColl.document(req.pathParams.key);
     res.send(data)
   } catch (e) {
-    if (!e.isArangoError || e.errorNum !== DOC_NOT_FOUND) {
+    if (!e.isAvocadoError || e.errorNum !== DOC_NOT_FOUND) {
       throw e;
     }
     res.throw(404, 'The entry does not exist', e);
@@ -240,11 +240,11 @@ router.get('/entries/:key', function (req, res) {
 
 We're using the `save` and `document` methods of the collection object to store and retrieve documents in the collection we created in our setup script. Because we don't care what the documents look like we allow any attributes on the request body and just accept an object.
 
-Because the key will be automatically generated by ArangoDB when one wasn't specified in the request body, we're using `Object.assign` to apply the attributes of the metadata object returned by the `save` method to the document before returning it from our first route.
+Because the key will be automatically generated by AvocadoDB when one wasn't specified in the request body, we're using `Object.assign` to apply the attributes of the metadata object returned by the `save` method to the document before returning it from our first route.
 
-The `document` method returns a document in a collection by its `_key` or `_id`. However when no matching document exists it throws an `ArangoError` exception. Because we want to provide a more descriptive error message than ArangoDB does out of the box, we need to handle that error explicitly.
+The `document` method returns a document in a collection by its `_key` or `_id`. However when no matching document exists it throws an `AvocadoError` exception. Because we want to provide a more descriptive error message than AvocadoDB does out of the box, we need to handle that error explicitly.
 
-All `ArangoError` exceptions have a truthy attribute `isArangoError` that helps you recognizing these errors without having to worry about `instanceof` checks. They also provide an `errorNum` and an `errorMessage`. If you want to check for specific errors you can just import the `errors` object from the `@arangodb` module instead of having to memorize numeric error codes.
+All `AvocadoError` exceptions have a truthy attribute `isAvocadoError` that helps you recognizing these errors without having to worry about `instanceof` checks. They also provide an `errorNum` and an `errorMessage`. If you want to check for specific errors you can just import the `errors` object from the `@avocadodb` module instead of having to memorize numeric error codes.
 
 Instead of defining our own response logic for the error case we just use `res.throw`, which makes the response object throw an exception Foxx can recognize and convert to the appropriate server response. We also pass along the exception itself so Foxx can provide more diagnostic information when we want it to.
 
@@ -290,7 +290,7 @@ The naïve approach would be to use the `toArray()` method to convert the entire
 
 ```js
 // continued
-const aql = require('@arangodb').aql;
+const aql = require('@avocadodb').aql;
 
 router.get('/entries', function (req, res) {
   const keys = db._query(aql`
@@ -310,7 +310,7 @@ Here we're using two new things:
 
 The `_query` method executes an AQL query in the active database.
 
-The `aql` template string handler allows us to write multi-line AQL queries and also handles query parameters and collection names. Instead of hardcoding the name of the collection we want to use in the query we can simply reference the `foxxColl` variable we defined earlier -- it recognizes the value as an ArangoDB collection object and knows we are specifying a collection rather than a regular value even though AQL distinguishes between the two.
+The `aql` template string handler allows us to write multi-line AQL queries and also handles query parameters and collection names. Instead of hardcoding the name of the collection we want to use in the query we can simply reference the `foxxColl` variable we defined earlier -- it recognizes the value as an AvocadoDB collection object and knows we are specifying a collection rather than a regular value even though AQL distinguishes between the two.
 
 **Note**: If you aren't used to JavaScript template strings and template string handlers just think of `aql` as a function that receives the multiline string split at every `${}` expression as well as an array of the values of those expressions -- that's actually all there is to it.
 
@@ -326,7 +326,7 @@ const keys = db._query(
 Next steps
 ----------
 
-You now know how to create a Foxx service from scratch, how to handle user input and how to access the database from within your Foxx service to store, retrieve and query data you store inside ArangoDB. This should allow you to build meaningful APIs for your own applications but there are many more things you can do with Foxx:
+You now know how to create a Foxx service from scratch, how to handle user input and how to access the database from within your Foxx service to store, retrieve and query data you store inside AvocadoDB. This should allow you to build meaningful APIs for your own applications but there are many more things you can do with Foxx:
 
 * Need to go faster? Turn on [development mode](AtAGlance.md) and hack on your code right on the server.
 

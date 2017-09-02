@@ -132,7 +132,7 @@ above.
 After the server is started, the cache mode can be changed at runtime as follows:
 
 ```
-require("@arangodb/aql/cache").properties({ mode: "on" }); 
+require("@avocadodb/aql/cache").properties({ mode: "on" }); 
 ```
 
 The maximum number of cached results in the cache for each database can be configured
@@ -143,7 +143,7 @@ each database's query cache and thus restrict the cache's memory consumption.
 The value can also be adjusted at runtime as follows:
 
 ```
-require("@arangodb/aql/cache").properties({ maxResults: 200 }); 
+require("@avocadodb/aql/cache").properties({ maxResults: 200 }); 
 ```
 
 

@@ -7,9 +7,9 @@ if [ "x$@" == "x" ] ; then
     `find ./js/client/bootstrap -name "*.js"` \
     `find ./js/server/bootstrap -name "*.js"` \
     \
-    `find ./js/common/modules/@arangodb -name "*.js"` \
-    `find ./js/client/modules/@arangodb -name "*.js"` \
-    `find ./js/server/modules/@arangodb -name "*.js"` \
+    `find ./js/common/modules/@avocadodb -name "*.js"` \
+    `find ./js/client/modules/@avocadodb -name "*.js"` \
+    `find ./js/server/modules/@avocadodb -name "*.js"` \
     `find ./js/server/tests -name "*.js" | grep -v "ranges-combined"` \
     `find ./js/common/tests -name "*.js"` \
     `find ./js/client/tests -name "*.js"` \
@@ -21,7 +21,7 @@ if [ "x$@" == "x" ] ; then
     `find ./js/apps/system/_admin/aardvark/APP/frontend/js/views -name "*.js"` \
     `find ./js/apps/system/_admin/aardvark/APP/frontend/js/collections -name "*.js"` \
     `find ./js/apps/system/_admin/aardvark/APP/frontend/js/routers -name "*.js"` \
-    `find ./js/apps/system/_admin/aardvark/APP/frontend/js/arango -name "*.js"` \
+    `find ./js/apps/system/_admin/aardvark/APP/frontend/js/avocado -name "*.js"` \
     `find ./js/apps/system/_admin/aardvark/APP/test/specs -name "*.js"` \
     `find ./js/apps/system/_admin/aardvark/APP/test/clusterSpecs -name "*.js"` \
     \
@@ -50,12 +50,12 @@ for file in ${JAVASCRIPT_JSLINT}; do
 done
 
 if [ -z "${ARANGOSH}" ];  then
-  if [ -x build/bin/arangosh ];  then
-    ARANGOSH=build/bin/arangosh
-  elif [ -x bin/arangosh ];  then
-    ARANGOSH=bin/arangosh
+  if [ -x build/bin/avocadosh ];  then
+    ARANGOSH=build/bin/avocadosh
+  elif [ -x bin/avocadosh ];  then
+    ARANGOSH=bin/avocadosh
   else
-    echo "$0: cannot locate arangosh"
+    echo "$0: cannot locate avocadosh"
   fi
 fi
 

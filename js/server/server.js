@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // / Copyright 2011-2014 triAGENS GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
@@ -22,10 +22,10 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Dr. Frank Celler
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2011-2014, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
@@ -43,7 +43,7 @@
 
   // statistics can be turned off
   if (internal.enableStatistics && internal.threadNumber === 0) {
-    require('@arangodb/statistics').startup();
+    require('@avocadodb/statistics').startup();
   }
 
   // check if --server.rest-server is disabled
@@ -64,19 +64,19 @@
 
   // This script is also used by agents. Coords use a different script.
   // Make sure we only run these commands in single-server mode.
-  if (internal.threadNumber === 0 && global.ArangoServerState.role() === 'SINGLE') {
+  if (internal.threadNumber === 0 && global.AvocadoServerState.role() === 'SINGLE') {
     if (restServer) {
       // startup the foxx manager once
-      require('@arangodb/foxx/manager')._startup();
+      require('@avocadodb/foxx/manager')._startup();
     }
 
     // start the queue manager once
-    require('@arangodb/foxx/queues/manager').run();
+    require('@avocadodb/foxx/queues/manager').run();
   }
 
   // check available versions
   if (internal.threadNumber === 0 && internal.quiet !== true) {
-    require('@arangodb').checkAvailableVersions();
+    require('@avocadodb').checkAvailableVersions();
   }
 
   return true;

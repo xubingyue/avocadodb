@@ -2,8 +2,8 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.6. ArangoDB 2.6 also contains several bugfixes that are not listed
-here. For a list of bugfixes, please consult the [CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG).
+AvocadoDB 2.6. AvocadoDB 2.6 also contains several bugfixes that are not listed
+here. For a list of bugfixes, please consult the [CHANGELOG](https://github.com/avocadodb/avocadodb/blob/devel/CHANGELOG).
 
 APIs added
 ----------
@@ -16,7 +16,7 @@ The following commands have been added for `collection` objects:
 * collection.removeByKeys(keys)
 
 These commands can be used to perform multi-document lookup and removal operations efficiently
-from the ArangoShell. The argument to these operations is an array of document keys.
+from the AvocadoShell. The argument to these operations is an array of document keys.
 
 These commands can also be used via the HTTP REST API. Their endpoints are:
 
@@ -25,7 +25,7 @@ These commands can also be used via the HTTP REST API. Their endpoints are:
 
 ### Collection export HTTP REST API
 
-ArangoDB now provides a dedicated collection export API, which can take snapshots of entire
+AvocadoDB now provides a dedicated collection export API, which can take snapshots of entire
 collections more efficiently than the general-purpose cursor API. The export API is useful
 to transfer the contents of an entire collection to a client application. It provides optional
 filtering on specific attributes.
@@ -68,7 +68,7 @@ http://jsteemann.github.io/blog/2015/05/04/return-value-optimization-for-aql/
 
 ### Speed up AQL queries containing big `IN` lists for index lookups
 
-`IN` lists used for index lookups had performance issues in previous versions of ArangoDB.
+`IN` lists used for index lookups had performance issues in previous versions of AvocadoDB.
 These issues have been addressed in 2.6 so using bigger `IN` lists for filtering is much
 faster.
 
@@ -109,7 +109,7 @@ http://jsteemann.github.io/blog/2015/04/22/collecting-with-a-hash-table/
 
 ### Simplified return value syntax for data-modification AQL queries
 
-ArangoDB 2.4 since version allows to return results from data-modification AQL queries. The
+AvocadoDB 2.4 since version allows to return results from data-modification AQL queries. The
 syntax for this was quite limited and verbose:
 
 ```
@@ -183,7 +183,7 @@ easier.
 Web Admin Interface
 -------------------
 
-ArangoDB's built-in web interface now uses sessions. Session information is stored in cookies, so clients 
+AvocadoDB's built-in web interface now uses sessions. Session information is stored in cookies, so clients 
 using the web interface must accept cookies in order to use it.
 
 The new startup option `--server.session-timeout` can be used for adjusting the session lifetime.
@@ -201,18 +201,18 @@ Foxx improvements
 Foxx app manifests can now define configuration options, as well as dependencies on other Foxx apps.
 
 An introduction to Foxx configurations can be found in the blog:
-https://www.arangodb.com/2015/05/reusable-foxx-apps-with-configurations/
+https://www.avocadodb.com/2015/05/reusable-foxx-apps-with-configurations/
 
 And the blog post on Foxx dependencies can be found here:
-https://www.arangodb.com/2015/05/foxx-dependencies-for-more-composable-foxx-apps/
+https://www.avocadodb.com/2015/05/foxx-dependencies-for-more-composable-foxx-apps/
 
 ### Mocha Tests
 
 You can now write tests for your Foxx apps using the Mocha testing framework:
-https://www.arangodb.com/2015/04/testing-foxx-mocha/
+https://www.avocadodb.com/2015/04/testing-foxx-mocha/
 
 A recipe for writing tests for your Foxx apps can be found in the cookbook:
-https://docs.arangodb.com/2.8/cookbook/FoxxTesting.html
+https://docs.avocadodb.com/2.8/cookbook/FoxxTesting.html
 
 ### API Documentation
 
@@ -220,7 +220,7 @@ The API documentation has been updated to Swagger 2. You can now also mount API
 documentation in your own Foxx apps.
 
 Also see the blog post introducing this feature:
-https://www.arangodb.com/2015/05/document-your-foxx-apps-with-swagger-2/
+https://www.avocadodb.com/2015/05/document-your-foxx-apps-with-swagger-2/
 
 ### Custom Scripts and Foxx Queue
 
@@ -237,30 +237,30 @@ Client tools
 ------------
 
 The default configuration value for the option `--server.request-timeout` was increased from 
-300 to 1200 seconds for all client tools (arangosh, arangoimp, arangodump, arangorestore).
+300 to 1200 seconds for all client tools (avocadosh, avocadoimp, avocadodump, avocadorestore).
 
 The default configuration value for the option `--server.connect-timeout` was increased from 
-3 to 5 seconds for client tools (arangosh, arangoimp, arangodump, arangorestore).
+3 to 5 seconds for client tools (avocadosh, avocadoimp, avocadodump, avocadorestore).
 
-### Arangorestore
+### Avocadorestore
 
-The option `--create-database` was added for arangorestore. 
+The option `--create-database` was added for avocadorestore. 
 
 Setting this option to `true` will now create the target database if it does not exist. When creating
-the target database, the username and passwords passed to arangorestore will be used to create an 
+the target database, the username and passwords passed to avocadorestore will be used to create an 
 initial user for the new database.
 
 The default value for this option is `false`.
 
-### Arangoimp
+### Avocadoimp
 
-Arangoimp can now optionally update or replace existing documents, provided the import data contains 
+Avocadoimp can now optionally update or replace existing documents, provided the import data contains 
 documents with `_key` attributes.
 
 Previously, the import could be used for inserting new documents only, and re-inserting a document with 
 an existing key would have failed with a *unique key constraint violated* error.
   
-The behavior of arangoimp (insert, update, replace on duplicate key) can now be controlled with the 
+The behavior of avocadoimp (insert, update, replace on duplicate key) can now be controlled with the 
 option `--on-duplicate`. The option can have one of the following values:
   
 * `error`: when a unique key constraint error occurs, do not import or update the document but
@@ -283,13 +283,13 @@ option `--on-duplicate`. The option can have one of the following values:
 
 The default value is `error`.
 
-A few examples for using arangoimp with the `--on-duplicate` option can be found here:
-http://jsteemann.github.io/blog/2015/04/14/updating-documents-with-arangoimp/
+A few examples for using avocadoimp with the `--on-duplicate` option can be found here:
+http://jsteemann.github.io/blog/2015/04/14/updating-documents-with-avocadoimp/
 
 Miscellaneous changes
 ---------------------
 
-* Some Linux-based ArangoDB packages are now using tcmalloc for memory allocator.
+* Some Linux-based AvocadoDB packages are now using tcmalloc for memory allocator.
 
 * Upgraded ICU library to version 54. This increases performance in many places.
 
@@ -308,7 +308,7 @@ Miscellaneous changes
 
 * Fulltext index can now index text values contained in direct sub-objects of the indexed attribute.
 
-  Previous versions of ArangoDB only indexed the attribute value if it was a string. Sub-attributes
+  Previous versions of AvocadoDB only indexed the attribute value if it was a string. Sub-attributes
   of the index attribute were ignored when fulltext indexing.
 
   Now, if the index attribute value is an object, the object's values will each be included in the
@@ -322,7 +322,7 @@ Miscellaneous changes
       c.ensureFulltextIndex("translations");
       c.insert({ translations: { en: "fox", de: "Fuchs", fr: "renard", ru: "лиса" } });
       c.insert({ translations: "Fox is the English translation of the German word Fuchs" });
-      c.insert({ translations: [ "ArangoDB", "document", "database", "Foxx" ] });
+      c.insert({ translations: [ "AvocadoDB", "document", "database", "Foxx" ] });
 
       c.fulltext("translations", "лиса").toArray();       // returns only first document
       c.fulltext("translations", "Fox").toArray();        // returns first and second documents

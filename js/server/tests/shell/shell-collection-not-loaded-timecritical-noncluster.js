@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2010-2012 triagens GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,17 +19,17 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
+var avocadodb = require("@avocadodb");
 var internal = require("internal");
 
-var db = arangodb.db;
-var ArangoCollection = require("@arangodb/arango-collection").ArangoCollection;
+var db = avocadodb.db;
+var AvocadoCollection = require("@avocadodb/avocado-collection").AvocadoCollection;
 
 function ThrowCollectionNotLoadedSuite() {
   'use strict';
@@ -61,13 +61,13 @@ function ThrowCollectionNotLoadedSuite() {
       c.unload();
       c = null;
       internal.wal.flush(true, true);
-      while (db._collection(cn).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(cn).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(cn).unload();
         internal.wait(0.5);
       }
 
       db._collection(cn).load();
-      assertEqual(ArangoCollection.STATUS_LOADED, db._collection(cn).status());
+      assertEqual(AvocadoCollection.STATUS_LOADED, db._collection(cn).status());
     },
 
     // test regular loading of collection, but with flag turned on
@@ -82,19 +82,19 @@ function ThrowCollectionNotLoadedSuite() {
       c.unload();
       c = null;
       internal.wal.flush(true, true);
-      while (db._collection(cn).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(cn).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(cn).unload();
         internal.wait(0.5);
       }
 
       db._collection(cn).load();
-      assertEqual(ArangoCollection.STATUS_LOADED, db._collection(cn).status());
+      assertEqual(AvocadoCollection.STATUS_LOADED, db._collection(cn).status());
     },
 
     // test parallel loading of collection
     testLoadParallel: function() {
       internal.throwOnCollectionNotLoaded(false);
-      var tasks = require("@arangodb/tasks");
+      var tasks = require("@avocadodb/tasks");
       var c = db._create(cn);
 
       for (var i = 0; i < 10000; ++i) {
@@ -111,7 +111,7 @@ function ThrowCollectionNotLoadedSuite() {
       c = null;
       internal.wal.flush(true, true);
 
-      while (db._collection(cn).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(cn).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(cn).unload();
         internal.wait(0.5);
       }
@@ -173,7 +173,7 @@ function ThrowCollectionNotLoadedSuite() {
     // test parallel loading of collection, with flag
     testLoadParallelWithFlag: function() {
       internal.throwOnCollectionNotLoaded(true);
-      var tasks = require("@arangodb/tasks");
+      var tasks = require("@avocadodb/tasks");
       var c = db._create(cn);
 
       for (var i = 0; i < 10000; ++i) {
@@ -190,7 +190,7 @@ function ThrowCollectionNotLoadedSuite() {
       c = null;
       internal.wal.flush(true, true);
 
-      while (db._collection(cn).status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection(cn).status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection(cn).unload();
         internal.wait(0.5);
       }

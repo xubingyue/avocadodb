@@ -5,7 +5,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright by ArangoDB GmbH - All rights reserved.
+/// Copyright by AvocadoDB GmbH - All rights reserved.
 ///
 /// The Programs (which include both the software and documentation)
 /// contain proprietary information of triAGENS GmbH; they are
@@ -32,7 +32,7 @@
 /// Copyright holder is triAGENS GmbH, Cologne, Germany
 ///
 /// @author Simon Grätzer
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Basics/Common.h"
@@ -41,7 +41,7 @@
 
 #include "Pregel/TypedBuffer.h"
 
-using namespace arangodb::pregel;
+using namespace avocadodb::pregel;
 
 /***************************************/
 TEST_CASE("tst_pregel1", "[pregel][mmap]") {

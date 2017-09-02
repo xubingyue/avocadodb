@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -22,16 +22,16 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Alan Plum
-// / @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const FoxxRepository = require('@arangodb/foxx/legacy/repository').Repository;
-const FoxxModel = require('@arangodb/foxx/legacy/model').Model;
+const FoxxRepository = require('@avocadodb/foxx/legacy/repository').Repository;
+const FoxxModel = require('@avocadodb/foxx/legacy/model').Model;
 
 describe('Repository Events', function () {
   let collection, Model;

@@ -28,10 +28,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var internal = require("internal");
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 var errors = internal.errors;
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 var assertQueryError = helper.assertQueryError;
 

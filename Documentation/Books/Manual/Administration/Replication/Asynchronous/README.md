@@ -7,8 +7,8 @@ Transactions are honored in replication, i.e. transactional write operations wil
 become visible on slaves atomically.
 
 As all write operations will be logged to a master database's write-ahead log, the 
-replication in ArangoDB currently cannot be used for write-scaling. The main purposes 
-of the replication in current ArangoDB are to provide read-scalability and "hot backups" 
+replication in AvocadoDB currently cannot be used for write-scaling. The main purposes 
+of the replication in current AvocadoDB are to provide read-scalability and "hot backups" 
 of specific databases.
 
 It is possible to connect multiple slave databases to the same master database. Slave

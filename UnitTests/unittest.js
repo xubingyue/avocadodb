@@ -5,7 +5,7 @@
 const yaml = require("js-yaml");
 const _ = require("lodash");
 
-const UnitTest = require("@arangodb/testing");
+const UnitTest = require("@avocadodb/testing");
 
 const internalMembers = UnitTest.internalMembers;
 const fs = require("fs");

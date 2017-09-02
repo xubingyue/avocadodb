@@ -1,23 +1,23 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
 
   context "dealing with the wal API:" do
     
     before do
       # store old config
       cmd = "/_admin/wal/properties"
-      doc = ArangoDB.get(cmd)
+      doc = AvocadoDB.get(cmd)
       @props = doc.parsed_response
     end
     
     after do
       # restore old config
       cmd = "/_admin/wal/properties"
-      doc = ArangoDB.put(cmd, :body => JSON.dump(@props))
+      doc = AvocadoDB.put(cmd, :body => JSON.dump(@props))
     end
     
 
@@ -27,7 +27,7 @@ describe ArangoDB do
 
     it "retrieves the WAL properties" do
       cmd = "/_admin/wal/properties"
-      doc = ArangoDB.log_get("wal-properties", cmd)
+      doc = AvocadoDB.log_get("wal-properties", cmd)
 
       doc.code.should eq(200)
       doc.parsed_response.should have_key("allowOversizeEntries")
@@ -55,7 +55,7 @@ describe ArangoDB do
         "throttleWhenPending" => 1024 * 1024
       }
 
-      doc = ArangoDB.log_put("wal-properties", cmd, :body => JSON.dump(properties))
+      doc = AvocadoDB.log_put("wal-properties", cmd, :body => JSON.dump(properties))
 
       doc.code.should eq(200)
       doc.parsed_response.should have_key("allowOversizeEntries")

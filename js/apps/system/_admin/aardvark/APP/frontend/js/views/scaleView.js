@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, Backbone, templateEngine, $, window */
+/* global avocadoHelper, Backbone, templateEngine, $, window */
 (function () {
   'use strict';
 
@@ -25,14 +25,14 @@
 
       $.ajax({
         type: 'PUT',
-        url: arangoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function () {
           self.updateTable(data);
         },
         error: function () {
-          arangoHelper.arangoError('Scale', 'Could not set coordinator size.');
+          avocadoHelper.avocadoError('Scale', 'Could not set coordinator size.');
         }
       });
     },
@@ -45,14 +45,14 @@
 
       $.ajax({
         type: 'PUT',
-        url: arangoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: function () {
           self.updateTable(data);
         },
         error: function () {
-          arangoHelper.arangoError('Scale', 'Could not set coordinator size.');
+          avocadoHelper.avocadoError('Scale', 'Could not set coordinator size.');
         }
       });
     },
@@ -136,7 +136,7 @@
         callback();
       }
 
-      window.arangoHelper.buildNodesSubNav('scale');
+      window.avocadoHelper.buildNodesSubNav('scale');
     },
 
     continueRender: function (rerender) {
@@ -157,7 +157,7 @@
       $.ajax({
         type: 'GET',
         cache: false,
-        url: arangoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/numberOfServers'),
         contentType: 'application/json',
         processData: false,
         success: function (data) {

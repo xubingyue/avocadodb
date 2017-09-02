@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* jshint unused: false */
 /* global describe, beforeEach, afterEach, it, spyOn, expect, jQuery, _, jqconsole, $*/
-/* global arangoHelper*/
+/* global avocadoHelper*/
 
 (function () {
   'use strict';

@@ -6,8 +6,8 @@ if (CMAKE_DEBUG_FILENAMES_SHA_SUM)
 else()
   set(CPACK_DEBUG_DIRECTORY_PATTERN "/usr/lib*/debug/*")
 endif()
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Installation/rpm/arangodb.spec.in" "${CMAKE_CURRENT_BINARY_DIR}/arangodb.spec" @ONLY IMMEDIATE)
-set(CPACK_RPM_USER_BINARY_SPECFILE "${CMAKE_CURRENT_BINARY_DIR}/arangodb.spec")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Installation/rpm/avocadodb.spec.in" "${CMAKE_CURRENT_BINARY_DIR}/avocadodb.spec" @ONLY IMMEDIATE)
+set(CPACK_RPM_USER_BINARY_SPECFILE "${CMAKE_CURRENT_BINARY_DIR}/avocadodb.spec")
 
 
 ################################################################################
@@ -16,15 +16,15 @@ set(CPACK_RPM_USER_BINARY_SPECFILE "${CMAKE_CURRENT_BINARY_DIR}/arangodb.spec")
 
 # deploy the Init script:
 if (RPM_DISTRO STREQUAL "SUSE13")
-  set(RPM_INIT_SCRIPT "${PROJECT_SOURCE_DIR}/Installation/rpm/rc.arangod.OpenSuSE_13")
+  set(RPM_INIT_SCRIPT "${PROJECT_SOURCE_DIR}/Installation/rpm/rc.avocadod.OpenSuSE_13")
 elseif (RPM_DISTRO STREQUAL "SUSE")
-  set(RPM_INIT_SCRIPT "${PROJECT_SOURCE_DIR}/Installation/rpm/rc.arangod.OpenSuSE")
+  set(RPM_INIT_SCRIPT "${PROJECT_SOURCE_DIR}/Installation/rpm/rc.avocadod.OpenSuSE")
 else () # fall back to centos:
-  set(RPM_INIT_SCRIPT "${PROJECT_SOURCE_DIR}/Installation/rpm/rc.arangod.Centos")
+  set(RPM_INIT_SCRIPT "${PROJECT_SOURCE_DIR}/Installation/rpm/rc.avocadod.Centos")
 endif()
 
 set(RPM_INIT_SCRIPT_TARGET "${CMAKE_INSTALL_FULL_SYSCONFDIR}/init.d")
-set(RPM_INIT_SCRIPT_TARGET_NAME arangodb3)
+set(RPM_INIT_SCRIPT_TARGET_NAME avocadodb3)
 set(CPACK_COMPONENTS_GROUPING IGNORE)
 
 install(
@@ -38,7 +38,7 @@ install(
 if (NOT SYSTEMD_FOUND)
   # deploy the logrotate config:
   install(
-    FILES ${PROJECT_BINARY_DIR}/arangod.sysv
+    FILES ${PROJECT_BINARY_DIR}/avocadod.sysv
     PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
     DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/logrotate.d
     RENAME ${SERVICE_NAME})
@@ -56,8 +56,8 @@ set(CPACK_TEMPORARY_DIRECTORY         "${PROJECT_BINARY_DIR}/_CPack_Packages/${C
 set(CPACK_TEMPORARY_PACKAGE_FILE_NAME "${CPACK_TEMPORARY_DIRECTORY}/${CPACK_PACKAGE_FILE_NAME}.rpm")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_X ${PROJECT_BINARY_DIR}/bin)
-include(arangosh/dbg.cmake)
-include(arangod/dbg.cmake)
+include(avocadosh/dbg.cmake)
+include(avocadod/dbg.cmake)
 
 add_custom_target(package-arongodb-server
   COMMAND ${CMAKE_COMMAND} .

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global _, Backbone, frontendConfig, document, templateEngine, $, arangoHelper, window */
+/* global _, Backbone, frontendConfig, document, templateEngine, $, avocadoHelper, window */
 
 (function () {
   'use strict';
@@ -144,7 +144,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/cluster/health'),
+          url: avocadoHelper.databaseUrl('/_admin/cluster/health'),
           contentType: 'application/json',
           processData: false,
           async: true,
@@ -165,7 +165,7 @@
     },
 
     showShortcutModal: function () {
-      window.arangoHelper.hotkeysFunctions.showHotkeysModal();
+      window.avocadoHelper.hotkeysFunctions.showHotkeysModal();
     },
 
     getVersion: function () {
@@ -175,7 +175,7 @@
       $.ajax({
         type: 'GET',
         cache: false,
-        url: arangoHelper.databaseUrl('/_api/version'),
+        url: avocadoHelper.databaseUrl('/_api/version'),
         contentType: 'application/json',
         processData: false,
         async: true,
@@ -205,7 +205,7 @@
             self.isOffline = true;
             self.isOfflineCounter++;
             if (self.isOfflineCounter >= 1) {
-              // arangoHelper.arangoError("Server", "Server is offline")
+              // avocadoHelper.avocadoError("Server", "Server is offline")
               self.showServerStatus(false);
             }
           }
@@ -216,7 +216,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_api/database/current'),
+          url: avocadoHelper.databaseUrl('/_api/database/current'),
           contentType: 'application/json',
           processData: false,
           async: true,

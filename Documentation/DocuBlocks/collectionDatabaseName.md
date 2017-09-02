@@ -23,8 +23,8 @@ Get a collection by name:
 Get a collection by id:
 
 ```
-arangosh> db._collection(123456);
-[ArangoCollection 123456, "demo" (type document, status loaded)]
+avocadosh> db._collection(123456);
+[AvocadoCollection 123456, "demo" (type document, status loaded)]
 ```
 
 Unknown collection:

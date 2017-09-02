@@ -30,7 +30,7 @@
 'use strict';
 
 {
-  const db = require("@arangodb").db;
+  const db = require("@avocadodb").db;
 
   try {
     db._dropDatabase("UnitTestsExport");

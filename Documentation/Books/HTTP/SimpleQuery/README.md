@@ -3,7 +3,7 @@ HTTP Interface for Simple Queries
 
 ### Simple Queries
 
-This is an introduction to ArangoDB's HTTP interface for simple queries.
+This is an introduction to AvocadoDB's HTTP interface for simple queries.
 
 Simple queries can be used if the query condition is straight forward simple,
 i.e., a document reference, all documents, a query-by-example, or a simple geo
@@ -36,13 +36,13 @@ dispose the server-side cursor afterwards.
 <!-- js/actions/api-simple.js -->
 @startDocuBlock JSA_put_api_simple_first_example
 
-<!-- arangod/RestHandler/RestSimpleHandler.cpp -->
+<!-- avocadod/RestHandler/RestSimpleHandler.cpp -->
 @startDocuBlock RestLookupByKeys
 
 <!-- js/actions/api-simple.js -->
 @startDocuBlock JSA_put_api_simple_any
 
-<!-- arangod/RestHandler/RestSimpleHandler.cpp -->
+<!-- avocadod/RestHandler/RestSimpleHandler.cpp -->
 @startDocuBlock RestRemoveByKeys
 
 <!-- js/actions/api-simple.js -->

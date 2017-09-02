@@ -30,10 +30,10 @@
 
 var jsunity = require("jsunity");
 
-var arangodb = require("@arangodb");
+var avocadodb = require("@avocadodb");
 var internal = require("internal");
-var db = arangodb.db;
-var tasks = require("@arangodb/tasks");
+var db = avocadodb.db;
+var tasks = require("@avocadodb/tasks");
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite

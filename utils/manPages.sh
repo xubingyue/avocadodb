@@ -8,7 +8,7 @@ section=`echo $IN | sed -e 's:.*\([0-9]\):\1:'`
 command=`echo $IN | sed -e 's:.*/\([^\.]*\).[0-9]:\1:'`
 
 (
-  echo '<COMMAND> <SECTION> "<VERSION>" "ArangoDB" "ArangoDB"'
+  echo '<COMMAND> <SECTION> "<VERSION>" "AvocadoDB" "AvocadoDB"'
   cat $IN
 ) | sed \
   -f `dirname $0`/../Documentation/Scripts/man.sed \

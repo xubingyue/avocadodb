@@ -29,7 +29,7 @@
 
 function main (args) {
   'use strict';
-  var Graph = require('@arangodb/graph').Graph,
+  var Graph = require('@avocadodb/graph').Graph,
     graph_name = 'UnitTestsCollectionGraph',
     vertex = 'UnitTestsCollectionVertex',
     edge = 'UnitTestsCollectionEdge',

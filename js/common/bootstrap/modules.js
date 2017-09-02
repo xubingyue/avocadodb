@@ -8,7 +8,7 @@
   // //////////////////////////////////////////////////////////////////////////////
   // / DISCLAIMER
   // /
-  // / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+  // / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
   // /
   // / Licensed under the Apache License, Version 2.0 (the "License")
   // / you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
   // / Copyright holder is triAGENS GmbH, Cologne, Germany
   // /
   // / @author Alan Plum
-  // / @author Copyright 2015-2016, ArangoDB GmbH, Cologne, Germany
+  // / @author Copyright 2015-2016, AvocadoDB GmbH, Cologne, Germany
   // /
   // / Based on Node.js 4.1.0 /lib/module.js:
   // /
@@ -61,8 +61,8 @@
   delete global.SCAFFOLDING_MODULES;
   delete global.DEFINE_MODULE;
   const LOADING = [];
-  const $_MODULE_ROOT = Symbol.for('@arangodb/module.root');
-  const $_MODULE_CONTEXT = Symbol.for('@arangodb/module.context');
+  const $_MODULE_ROOT = Symbol.for('@avocadodb/module.root');
+  const $_MODULE_CONTEXT = Symbol.for('@avocadodb/module.context');
 
   const GLOBAL_PATHS = [];
   const ROOT_PATH = fs.normalize(fs.makeAbsolute(internal.startupPath));
@@ -418,7 +418,7 @@
   //    Then have it load  the file contents before returning its exports
   //    object.
   Module._load = function (request, parent, isMain) {
-    request = request.replace(/^org\/arangodb/, '@arangodb');
+    request = request.replace(/^org\/avocadodb/, '@avocadodb');
     request = (parent && parent.require.aliases.get(request)) || request;
 
     var filename = request;
@@ -428,7 +428,7 @@
     if (match) {
       dbModule = Module._resolveDbModule(match[3]);
       if (!dbModule) {
-        throw new internal.ArangoError({
+        throw new internal.AvocadoError({
           errorNum: internal.errors.ERROR_MODULE_NOT_FOUND.code,
           errorMessage: internal.errors.ERROR_MODULE_NOT_FOUND.message
             + '\nFile: ' + request
@@ -517,7 +517,7 @@
     // look up the filename first, since that's the cache key.
     var filename = Module._findPath(request, paths);
     if (!filename) {
-      throw new internal.ArangoError({
+      throw new internal.AvocadoError({
         errorNum: internal.errors.ERROR_MODULE_NOT_FOUND.code,
         errorMessage: internal.errors.ERROR_MODULE_NOT_FOUND.message
           + '\nFile: ' + request
@@ -553,7 +553,7 @@
           msg += `\nColumn: ${e.columnNumber}`;
         }
         throw Object.assign(
-          new internal.ArangoError({
+          new internal.AvocadoError({
             errorNum: internal.errors.ERROR_MODULE_FAILURE.code,
             errorMessage: msg
           }),

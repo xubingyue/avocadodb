@@ -21,7 +21,7 @@ about the optimizer's view of the query.
 
 ### Inspecting plans using the explain helper
 
-The `explain` method of `ArangoStatement` as shown in the next chapters creates very verbose output.
+The `explain` method of `AvocadoStatement` as shown in the next chapters creates very verbose output.
 You can work on the output programmatically, or use this handsome tool that we created
 to generate a more human readable representation.
 
@@ -34,7 +34,7 @@ You may use it like this: (we disable syntax highlighting here)
     db._create("test");
     for (i = 0; i < 100; ++i) { db.test.save({ value: i }); }
     db.test.ensureIndex({ type: "skiplist", fields: [ "value" ] });
-    var explain = require("@arangodb/aql/explainer").explain;
+    var explain = require("@avocadodb/aql/explainer").explain;
     explain("FOR i IN test FILTER i.value > 97 SORT i.value RETURN i.value", {colors:false});
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock AQLEXP_01_axplainer
@@ -43,7 +43,7 @@ You may use it like this: (we disable syntax highlighting here)
 ### Execution plans in detail
 
 Let's have a look at the raw json output of the same execution plan
-using the `explain` method of `ArangoStatement`:
+using the `explain` method of `AvocadoStatement`:
 
     @startDocuBlockInline AQLEXP_01_explainCreate
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_01_explainCreate}
@@ -70,7 +70,7 @@ the *execution plan*. The output is still very verbose, so here's a shorted form
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock AQLEXP_02_explainOverview
 
-*Note that the list of nodes might slightly change in future versions of ArangoDB if
+*Note that the list of nodes might slightly change in future versions of AvocadoDB if
 new execution node types get added or the optimizer create somewhat more
 optimized plans).*
 
@@ -368,7 +368,7 @@ For queries in the cluster, the following nodes may appear in execution plans:
   into a combined stream of results.
 * *DistributeNode*: used on a coordinator to fan-out data to one or multiple shards,
   taking into account a collection's shard key.
-* *RemoteNode*: a *RemoteNode* will perform communication with another ArangoDB
+* *RemoteNode*: a *RemoteNode* will perform communication with another AvocadoDB
   instances in the cluster. For example, the cluster coordinator will need to
   communicate with other servers to fetch the actual data from the shards. It
   will do so via *RemoteNode*s. The data servers themselves might again pull

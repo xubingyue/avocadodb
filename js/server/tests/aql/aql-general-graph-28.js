@@ -29,9 +29,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
-var graph = require("@arangodb/general-graph");
-var helper = require("@arangodb/aql-helper");
+var db = require("@avocadodb").db;
+var graph = require("@avocadodb/general-graph");
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 var getRawQueryResults = helper.getRawQueryResults;
 
@@ -50,9 +50,9 @@ function ahuacatlQueryGeneralEdgesTestSuite() {
   var e2 = "UnitTestsAhuacatlEdge2";
   var or = "UnitTestsAhuacatlOrphan";
 
-  var AQL_VERTICES = "FOR e IN arangodb::GRAPH_VERTICES(@name, @example, @options) SORT e RETURN e";
-  var AQL_EDGES = "FOR e IN arangodb::GRAPH_EDGES(@name, @example, @options) SORT e.what RETURN e.what";
-  var AQL_NEIGHBORS = "FOR e IN arangoDB::GRAPH_NEIGHBORS(@name, @example, @options) SORT e RETURN e";
+  var AQL_VERTICES = "FOR e IN avocadodb::GRAPH_VERTICES(@name, @example, @options) SORT e RETURN e";
+  var AQL_EDGES = "FOR e IN avocadodb::GRAPH_EDGES(@name, @example, @options) SORT e.what RETURN e.what";
+  var AQL_NEIGHBORS = "FOR e IN avocadoDB::GRAPH_NEIGHBORS(@name, @example, @options) SORT e RETURN e";
 
   var startExample = [{hugo : true}, {heinz : 1}];
   var vertexExample = {_key: "v1"};
@@ -791,7 +791,7 @@ function ahuacatlQueryGeneralCommonTestSuite() {
     ////////////////////////////////////////////////////////////////////////////////
 
     testCommonNeighbors: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_NEIGHBORS('bla3', 'UnitTestsAhuacatlVertex1/v3' , 'UnitTestsAhuacatlVertex2/v6',  {direction : 'any'}) SORT e.left  RETURN e");
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_NEIGHBORS('bla3', 'UnitTestsAhuacatlVertex1/v3' , 'UnitTestsAhuacatlVertex2/v6',  {direction : 'any'}) SORT e.left  RETURN e");
       assertEqual(actual.length, 1);
       assertEqual(actual[0].left, vertexIds.v3);
       assertEqual(actual[0].right, vertexIds.v6);
@@ -807,7 +807,7 @@ function ahuacatlQueryGeneralCommonTestSuite() {
     ////////////////////////////////////////////////////////////////////////////////
 
     testCommonNeighborsIn: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_NEIGHBORS('bla3', {} , {},  {direction : 'inbound'}, {direction : 'inbound'}) SORT e.left, e.right RETURN e");
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_NEIGHBORS('bla3', {} , {},  {direction : 'inbound'}, {direction : 'inbound'}) SORT e.left, e.right RETURN e");
       assertEqual(actual.length, 8, "We expect one entry for each pair of vertices having at least one common neighbor");
 
       assertEqual(actual[0].left, vertexIds.v3);
@@ -862,7 +862,7 @@ function ahuacatlQueryGeneralCommonTestSuite() {
     ////////////////////////////////////////////////////////////////////////////////
 
     testCommonNeighborsOut: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_NEIGHBORS('bla3', { hugo : true } , {heinz : 1}, " +
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_NEIGHBORS('bla3', { hugo : true } , {heinz : 1}, " +
         " {direction : 'outbound', minDepth : 1, maxDepth : 3}, {direction : 'outbound', minDepth : 1, maxDepth : 3}) SORT e.left, e.right RETURN e");
 
       assertEqual(actual.length, 4, "Expect one result for each pair of vertices sharing neighbors");
@@ -904,14 +904,14 @@ function ahuacatlQueryGeneralCommonTestSuite() {
     ////////////////////////////////////////////////////////////////////////////////
 
     testCommonNeighborsMixedOptionsDistinctFilters: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_NEIGHBORS('bla3', {} , {},  " +
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_NEIGHBORS('bla3', {} , {},  " +
         "{direction : 'outbound', vertexCollectionRestriction : 'UnitTestsAhuacatlVertex1'}, " +
         "{direction : 'inbound', minDepth : 1, maxDepth : 2, vertexCollectionRestriction : 'UnitTestsAhuacatlVertex2'}) SORT e.left, e.right RETURN e");
       assertEqual(actual.length, 0, "Expect one result for each pair of vertices sharing neighbors");
     },
 
     testCommonNeighborsMixedOptionsFilterBasedOnOneCollectionOnly: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_NEIGHBORS('bla3', {} , {},  " +
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_NEIGHBORS('bla3', {} , {},  " +
         "{direction : 'outbound', vertexCollectionRestriction : 'UnitTestsAhuacatlVertex2'}, " +
         "{direction : 'inbound', minDepth : 1, maxDepth : 2, vertexCollectionRestriction : 'UnitTestsAhuacatlVertex2'}) SORT e.left, e.right RETURN e");
 
@@ -948,7 +948,7 @@ function ahuacatlQueryGeneralCommonTestSuite() {
     ////////////////////////////////////////////////////////////////////////////////
 
     testCommonProperties: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_PROPERTIES('bla3', { } , {},  {}) SORT  ATTRIBUTES(e)[0] RETURN e");
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_PROPERTIES('bla3', { } , {},  {}) SORT  ATTRIBUTES(e)[0] RETURN e");
       assertEqual(actual[0]["UnitTestsAhuacatlVertex1/v1"].length, 1);
       assertEqual(actual[1]["UnitTestsAhuacatlVertex1/v2"].length, 1);
       assertEqual(actual[2]["UnitTestsAhuacatlVertex1/v3"].length, 1);
@@ -964,14 +964,14 @@ function ahuacatlQueryGeneralCommonTestSuite() {
     },
 
     testCommonPropertiesWithFilters: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_PROPERTIES('bla3', {ageing : true} , {harald : 'meier'},  {}) SORT  ATTRIBUTES(e)[0]  RETURN e");
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_PROPERTIES('bla3', {ageing : true} , {harald : 'meier'},  {}) SORT  ATTRIBUTES(e)[0]  RETURN e");
       assertEqual(actual[0]["UnitTestsAhuacatlVertex2/v5"].length, 1);
       assertEqual(actual[1]["UnitTestsAhuacatlVertex2/v6"].length, 3);
 
     },
 
     testCommonPropertiesWithFiltersAndIgnoringKeyHarald: function () {
-      var actual = getQueryResults("FOR e IN arangodb::GRAPH_COMMON_PROPERTIES('bla3', {} , {},  {ignoreProperties : 'harald'}) SORT  ATTRIBUTES(e)[0]  RETURN e");
+      var actual = getQueryResults("FOR e IN avocadodb::GRAPH_COMMON_PROPERTIES('bla3', {} , {},  {ignoreProperties : 'harald'}) SORT  ATTRIBUTES(e)[0]  RETURN e");
 
       assertEqual(actual[0]["UnitTestsAhuacatlVertex1/v1"].length, 1);
       assertEqual(actual[1]["UnitTestsAhuacatlVertex1/v2"].length, 1);
@@ -1074,7 +1074,7 @@ function ahuacatlQueryGeneralPathsTestSuite() {
       var actual;
 
       actual = getQueryResults(
-        "FOR e IN arangodb::GRAPH_PATHS('bla3') "
+        "FOR e IN avocadodb::GRAPH_PATHS('bla3') "
         + "LET length = LENGTH(e.edges) "
         + "SORT e.source._key, e.destination._key, length "
         + "RETURN {src: e.source._key, dest: e.destination._key, edges: e.edges, length: length}"
@@ -1168,7 +1168,7 @@ function ahuacatlQueryGeneralPathsTestSuite() {
     testPathsWithDirectionAnyAndMaxLength1: function () {
       var actual, result = {}, i = 0, ed;
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_PATHS('bla3', {direction :'any', minLength :  1 , maxLength:  1}) SORT e.source._key,e.destination._key RETURN [e.source._key,e.destination._key,e.edges]");
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_PATHS('bla3', {direction :'any', minLength :  1 , maxLength:  1}) SORT e.source._key,e.destination._key RETURN [e.source._key,e.destination._key,e.edges]");
       actual.forEach(function (p) {
         i++;
         ed = "";
@@ -1197,7 +1197,7 @@ function ahuacatlQueryGeneralPathsTestSuite() {
     testInBoundPaths: function () {
       var actual, result = {}, i = 0, ed;
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_PATHS('bla3',  {direction : 'inbound', minLength : 1}) SORT e.source._key,e.destination._key,LENGTH(e.edges) RETURN [e.source._key,e.destination._key,e.edges]");
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_PATHS('bla3',  {direction : 'inbound', minLength : 1}) SORT e.source._key,e.destination._key,LENGTH(e.edges) RETURN [e.source._key,e.destination._key,e.edges]");
 
       actual.forEach(function (p) {
         i++;
@@ -1311,7 +1311,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       var actual;
 
       // Caesar -> Berta -> Gerda -> Dieter -> Emil
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
         " 'UnitTests_Frankfurter/Emil', {direction : 'outbound', algorithm : 'Floyd-Warshall'}) " +
         " RETURN e");
       assertEqual(actual.length, 1, "Exactly one element is returned");
@@ -1324,7 +1324,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       ], "The correct shortest path is using these vertices");
       assertEqual(path.distance, 4, "The distance is 1 per edge");
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
         "{}, {direction : 'inbound', algorithm : 'Floyd-Warshall'}) SORT e.vertices[0], e.vertices[LENGTH(e.vertices) - 1] " +
         "RETURN {vertices: e.vertices, distance: e.distance}");
       assertEqual(actual.length, 17, "For each pair that has a shortest path one entry is required");
@@ -1397,7 +1397,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
         distance: 2
       });
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
         "{}, {direction : 'inbound', algorithm : 'dijkstra'}) SORT e.vertices[0], e.vertices[LENGTH(e.vertices) - 1] " +
         "RETURN {vertices: e.vertices, distance: e.distance}");
       assertEqual(actual.length, 17, "For each pair that has a shortest path one entry is required");
@@ -1470,7 +1470,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
         distance: 2
       });
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
         "{_id: 'UnitTests_Berliner/Berta'}, {direction : 'inbound', algorithm : 'dijkstra'}) SORT e.vertices[0], e.vertices[LENGTH(e.vertices) - 1] " +
         "RETURN {vertices: e.vertices, distance: e.distance}");
       assertEqual(actual.length, 5, "For each pair that has a shortest path one entry is required");
@@ -1495,15 +1495,15 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
         distance: 1
       });
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
         " 'UnitTests_Berliner/Anton', {direction : 'outbound',  weight: 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'}) RETURN e.vertices");
       assertEqual(actual[0].length, 3);
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
         " 'UnitTests_Berliner/Anton', {direction : 'outbound', algorithm : 'Floyd-Warshall'}) RETURN e.vertices");
       assertEqual(actual[0].length, 2);
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_DISTANCE_TO('werKenntWen', 'UnitTests_Hamburger/Caesar',  'UnitTests_Frankfurter/Emil', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_DISTANCE_TO('werKenntWen', 'UnitTests_Hamburger/Caesar',  'UnitTests_Frankfurter/Emil', " +
         "{direction : 'outbound', weight: 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'}) " +
         "RETURN e");
       assertEqual(actual,
@@ -1520,7 +1520,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
     testGRAPH_SHORTEST_PATH_WITH_DIJKSTRA: function () {
       var actual;
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
         " 'UnitTests_Frankfurter/Emil', {direction : 'outbound', algorithm : 'dijkstra'}) RETURN e");
 
       assertEqual(actual.length, 1, "Exactly one element is returned");
@@ -1533,12 +1533,12 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       ], "The correct shortest path is using these vertices");
       assertEqual(path.distance, 4, "The distance is 1 per edge");
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Hamburger/Caesar', " +
         "'UnitTests_Berliner/Anton', {direction : 'outbound', algorithm : 'dijkstra'}) " +
         "RETURN e.vertices");
       assertEqual(actual[0].length, 2);
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_DISTANCE_TO('werKenntWen', 'UnitTests_Hamburger/Caesar',  'UnitTests_Frankfurter/Emil', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_DISTANCE_TO('werKenntWen', 'UnitTests_Hamburger/Caesar',  'UnitTests_Frankfurter/Emil', " +
         "{direction : 'outbound', weight: 'entfernung', defaultWeight : 80, algorithm : 'dijkstra'}) RETURN e");
       assertEqual(actual,
         [
@@ -1554,7 +1554,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
     testGRAPH_SHORTEST_PATH_with_stopAtFirstMatch: function () {
       var actual;
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Frankfurter/Fritz', " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', 'UnitTests_Frankfurter/Fritz', " +
         " {gender: 'female'}, {direction : 'inbound', stopAtFirstMatch: true}) RETURN e");
 
       // Find only one match, ignore the second one.
@@ -1570,7 +1570,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
     testGRAPH_CLOSENESS: function () {
       var actual;
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen')");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen')");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.69).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.92).toFixed(2));
@@ -1580,7 +1580,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       assertEqual(actual[0]["UnitTests_Frankfurter/Fritz"].toFixed(2), (0.55).toFixed(2));
       assertEqual(actual[0]["UnitTests_Leipziger/Gerda"].toFixed(2), (1).toFixed(2));
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.89).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.89).toFixed(2));
@@ -1591,7 +1591,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       assertEqual(actual[0]["UnitTests_Leipziger/Gerda"].toFixed(2), (1).toFixed(2));
 
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen', {gender: 'male'}, {weight : 'entfernung', defaultWeight : 80})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen', {gender: 'male'}, {weight : 'entfernung', defaultWeight : 80})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(1), 1890.9);
       assertEqual(actual[0]["UnitTests_Frankfurter/Emil"].toFixed(1), 2670.4);
       assertEqual(actual[0]["UnitTests_Frankfurter/Fritz"].toFixed(1), 2671.4);
@@ -1602,7 +1602,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_OUTBOUND: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.0909).toFixed(2));
@@ -1615,7 +1615,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_OUTBOUND_WEIGHT: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'outbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'outbound', algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(6), (0.00012192).toFixed(6));
       assertEqual(actual[0]["UnitTests_Hamburger/Caesar"].toFixed(6), (0.00006367).toFixed(6));
@@ -1627,7 +1627,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_INBOUND: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.5).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (1).toFixed(2));
       assertEqual(actual[0]["UnitTests_Hamburger/Caesar"].toFixed(2), (0).toFixed(2));
@@ -1639,7 +1639,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_INBOUND_WEIGHT: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'inbound', algorithm : 'Floyd-Warshall'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(4), (0.999200).toFixed(4));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(4), (1).toFixed(4));
@@ -1653,7 +1653,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_ECCENTRICITY: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(1), (0.6).toFixed(1));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.75).toFixed(2));
@@ -1666,7 +1666,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_ECCENTRICITY_inbound: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (1).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (1).toFixed(2));
       assertEqual(actual[0]["UnitTests_Hamburger/Caesar"], 0);
@@ -1678,14 +1678,14 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_ECCENTRICITY_inbound_example: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen', {gender : 'female'}, {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen', {gender : 'female'}, {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
       assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
       assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 2);
     },
 
     testGRAPH_ECCENTRICITY_weight: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.78).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.78).toFixed(2));
       assertEqual(actual[0]["UnitTests_Hamburger/Caesar"].toFixed(2), (0.54).toFixed(2));
@@ -1699,7 +1699,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
     testGRAPH_BETWEENNESS: function () {
       var actual;
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"], 16);
       assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 10);
@@ -1709,7 +1709,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 18);
 
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), 0.89);
@@ -1720,7 +1720,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 1);
 
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"], 4);
       assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 4);
@@ -1729,7 +1729,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
       assertEqual(actual[0]["UnitTests_Hamburger/Dieter"], 6);
       assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 6);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), 0.67);
       assertEqual(actual[0]["UnitTests_Frankfurter/Emil"].toFixed(2), 0.67);
@@ -1740,7 +1740,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
 
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_BETWEENNESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_BETWEENNESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
       assertEqual(actual[0]["UnitTests_Frankfurter/Emil"].toFixed(2), 0.56);
@@ -1755,49 +1755,49 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_DIAMETER_AND_RADIUS: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0], 3);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0].toFixed(1), 450.1);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0], 5);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0].toFixed(1), 830.3);
 
 
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0], 1);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0].toFixed(1), 250.1);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0], 5);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0].toFixed(1), 830.3);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0], 1);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {direction : 'outbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {direction : 'outbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0].toFixed(1), 0.2);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0], 5);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {direction : 'outbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {direction : 'outbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
       assertEqual(actual[0].toFixed(1), 830.3);
     },
 
     testGRAPH_SHORTEST_PATHWithExamples: function () {
       var actual;
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
         "{direction : 'any', algorithm : 'Floyd-Warshall'}) SORT e.vertices[0], e.vertices[LENGTH(e.vertices) - 1] " +
         "RETURN e");
       assertEqual(actual.length, 4, "All connected pairs should have one entry.");
@@ -1824,7 +1824,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_DISTANCE_TO_WithExamples: function () {
       var actual;
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_DISTANCE_TO('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_DISTANCE_TO('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
         "{direction : 'any'}) SORT e.startVertex, e.vertex._id SORT e.startVertex, e.vertex RETURN [e.startVertex, e.vertex, e.distance]");
       assertEqual(actual, [
         [
@@ -1853,7 +1853,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_WITH_DIJKSTRA: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.69).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.92).toFixed(2));
@@ -1866,7 +1866,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_WITH_DIJKSTRA_WEIGHT: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.89).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.89).toFixed(2));
@@ -1880,7 +1880,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_OUTBOUND_WITH_DIJKSTRA: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', direction : 'outbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', direction : 'outbound'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.0909).toFixed(2));
@@ -1893,7 +1893,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_OUTBOUND_WITH_DIJKSTRA_WEIGHT: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80, direction : 'outbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80, direction : 'outbound'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"], 0);
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(6), (0.00012192).toFixed(6));
@@ -1907,7 +1907,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_INBOUND_WITH_DIJKSTRA: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', direction : 'inbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', direction : 'inbound'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.5).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (1).toFixed(2));
@@ -1920,7 +1920,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_CLOSENESS_INBOUND_WITH_DIJKSTRA_WEIGHT: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80, direction : 'inbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80, direction : 'inbound'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(4), (0.999200).toFixed(4));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(4), (1).toFixed(4));
@@ -1935,7 +1935,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_ECCENTRICITY_WITH_DIJKSTRA: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'dijkstra'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'dijkstra'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(1), (0.6).toFixed(1));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.75).toFixed(2));
@@ -1949,7 +1949,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_ECCENTRICITY_WITH_DIJKSTRA_inbound: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'dijkstra', direction : 'inbound'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'dijkstra', direction : 'inbound'})");
 
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (1).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (1).toFixed(2));
@@ -1962,7 +1962,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_ECCENTRICITY_WITH_DIJKSTRA_weight: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
       
       assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (0.78).toFixed(2));
       assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (0.78).toFixed(2));
@@ -1975,23 +1975,23 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_DIAMETER_AND_RADIUS_WITH_DIJKSTRA: function () {
       var actual;
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'dijkstra'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'dijkstra'})");
       assertEqual(actual[0], 3);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
       assertEqual(actual[0].toFixed(1), 450.1);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'dijkstra'})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'dijkstra'})");
       assertEqual(actual[0], 5);
 
-      actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
+      actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'dijkstra', weight : 'entfernung', defaultWeight : 80})");
       assertEqual(actual[0].toFixed(1), 830.3);
     },
 
     testGRAPH_SHORTEST_PATHWithExamples_WITH_DIJKSTRA: function () {
       var actual;
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
         "{direction : 'any', algorithm : 'dijkstra'}) SORT e.vertices[0], e.vertices[LENGTH(e.vertices) - 1] " +
         "RETURN e");
       assertEqual(actual.length, 4, "All connected pairs should have one entry.");
@@ -2018,7 +2018,7 @@ function ahuacatlQueryGeneralTraversalTestSuite() {
 
     testGRAPH_DISTANCE_TO_WithExamples_WITH_DIJKSTRA: function () {
       var actual;
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_DISTANCE_TO('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_DISTANCE_TO('werKenntWen', {gender : 'female'},  {gender : 'male', age : 30}, " +
         "{direction : 'any'}) SORT e.startVertex, e.vertex SORT e.startVertex, e.vertex RETURN [e.startVertex, e.vertex, e.distance]");
       assertEqual(actual, [
         [
@@ -2141,7 +2141,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
 
     testGRAPH_SHORTEST_PATH: function () {
       var actual;
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
         "{}, {direction : 'inbound', algorithm : 'Floyd-Warshall'}) SORT e.vertices[0], e.vertices[LENGTH(e.vertices) - 1] " +
         "RETURN {vertices: e.vertices, distance: e.distance}");
       assertEqual(actual.length, 12, "Expect one entry for every connected pair.");
@@ -2197,7 +2197,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
         distance: 1
       });
 
-      actual = getQueryResults("FOR e IN arangodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
+      actual = getQueryResults("FOR e IN avocadodb::GRAPH_SHORTEST_PATH('werKenntWen', {}, " +
         "{}, {direction : 'inbound', algorithm : 'dijkstra'}) SORT e.vertices[0], e.vertices[LENGTH(e.vertices) - 1] " +
         "RETURN {vertices: e.vertices, distance: e.distance}");
       assertEqual(actual.length, 12, "Expect one entry for every connected pair.");
@@ -2257,7 +2257,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
   testGRAPH_CLOSENESS: function () {
 
     var actual;
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen', {}, {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen', {}, {algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 4);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 4);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2267,7 +2267,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
 
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 1);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
@@ -2277,7 +2277,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Hamburger/Dieter"], 0);
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
 
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 1);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
@@ -2290,7 +2290,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
 
   testGRAPH_CLOSENESS_OUTBOUND: function () {
     var actual;
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen',{}, {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen',{}, {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 4);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 4);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2299,7 +2299,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Hamburger/Dieter"], 0);
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'outbound', algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'outbound', algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(6), (0.67741935).toFixed(6));
     assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(6), (0.913043478).toFixed(6));
     assertEqual(actual[0]["UnitTests_Hamburger/Caesar"].toFixed(6), (1).toFixed(6));
@@ -2311,7 +2311,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
 
   testGRAPH_CLOSENESS_INBOUND: function () {
     var actual;
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen', {}, {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_CLOSENESS('werKenntWen', {}, {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
 
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 6);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 4);
@@ -2321,7 +2321,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Hamburger/Dieter"], 0);
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_CLOSENESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, direction : 'inbound', algorithm : 'Floyd-Warshall'})");
 
     assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(4), (0.9166666).toFixed(4));
     assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(4), (1).toFixed(4));
@@ -2336,7 +2336,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
   testGRAPH_ECCENTRICITY: function () {
     var actual;
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen',{}, {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen',{}, {algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 2);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 2);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2345,7 +2345,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Hamburger/Dieter"], 0);
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen',{}, {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen',{}, {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 9);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 12);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2355,7 +2355,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 1);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
     assertEqual(actual[0]["UnitTests_Hamburger/Caesar"], 1);
@@ -2365,17 +2365,17 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (2/3).toFixed(2));
     assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (1).toFixed(2));
     assertEqual(actual[0]["UnitTests_Hamburger/Caesar"].toFixed(2), (1).toFixed(2));
     assertEqual(actual[0]["UnitTests_Frankfurter/Fritz"].toFixed(2), (2/3).toFixed(2));
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen', {gender : 'female'}, {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_ECCENTRICITY('werKenntWen', {gender : 'female'}, {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 2);
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ECCENTRICITY('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ECCENTRICITY('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"].toFixed(2), (1).toFixed(2));
     assertEqual(actual[0]["UnitTests_Berliner/Berta"].toFixed(2), (9 / 12).toFixed(2));
     assertEqual(actual[0]["UnitTests_Hamburger/Caesar"].toFixed(2), (9 / 11).toFixed(2));
@@ -2386,7 +2386,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
   testGRAPH_BETWEENNESS: function () {
     var actual;
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 1);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2395,7 +2395,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Hamburger/Dieter"], 0);
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 1);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2405,7 +2405,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {algorithm : 'Floyd-Warshall', direction : 'inbound'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 2);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 3.5);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2416,7 +2416,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
 
 
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_ABSOLUTE_BETWEENNESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 2);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 2);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"],0 );
@@ -2425,7 +2425,7 @@ function ahuacatlQueryGeneralCyclesSuite() {
     assertEqual(actual[0]["UnitTests_Hamburger/Dieter"], 0);
     assertEqual(actual[0]["UnitTests_Leipziger/Gerda"], 0);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_BETWEENNESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_BETWEENNESS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0]["UnitTests_Berliner/Anton"], 1);
     assertEqual(actual[0]["UnitTests_Berliner/Berta"], 1);
     assertEqual(actual[0]["UnitTests_Frankfurter/Emil"], 0);
@@ -2440,33 +2440,33 @@ function ahuacatlQueryGeneralCyclesSuite() {
 
   testGRAPH_DIAMETER_AND_RADIUS: function () {
     var actual;
-    actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 2);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 9);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 2);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 12);
 
 
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 2);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 13);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 3);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_DIAMETER('werKenntWen', {direction : 'inbound', weight : 'entfernung', defaultWeight : 80, algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 16);
 
-    actual = getQueryResults("RETURN arangodb::GRAPH_RADIUS('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
+    actual = getQueryResults("RETURN avocadodb::GRAPH_RADIUS('werKenntWen', {direction : 'outbound', algorithm : 'Floyd-Warshall'})");
     assertEqual(actual[0], 2);
 
   }
@@ -2488,7 +2488,7 @@ function ahuacatlQueryMultiCollectionMadnessTestSuite() {
   var c2;
   var t2;
  
-  var AQL_NEIGHBORS = "FOR e IN arangodb::GRAPH_NEIGHBORS(@name, @example, @options) SORT e._id RETURN e";
+  var AQL_NEIGHBORS = "FOR e IN avocadodb::GRAPH_NEIGHBORS(@name, @example, @options) SORT e._id RETURN e";
 
   return {
 

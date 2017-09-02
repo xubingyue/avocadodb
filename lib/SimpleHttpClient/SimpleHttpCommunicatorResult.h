@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
-/// @author Andreas Streichardt <andreas@arangodb.com>
+/// @author Andreas Streichardt <andreas@avocadodb.com>
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef ARANGODB_SIMPLE_HTTP_CLIENT_SIMPLE_HTTP_COMMUNICATOR_RESULT_H
@@ -25,7 +25,7 @@
 
 #include "SimpleHttpClient/SimpleHttpResult.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace httpclient {
 
 class SimpleHttpCommunicatorResult: public SimpleHttpResult {
@@ -45,7 +45,7 @@ class SimpleHttpCommunicatorResult: public SimpleHttpResult {
     virtual std::string getHttpReturnMessage() const override { return GeneralResponse::responseString(_response->responseCode()); }
     virtual bool hasContentLength() const override { return true; }
     virtual size_t getContentLength() const override { return _response->body().length(); }
-    arangodb::basics::StringBuffer& getBody() override { return _response->body(); }
+    avocadodb::basics::StringBuffer& getBody() override { return _response->body(); }
     std::shared_ptr<VPackBuilder> getBodyVelocyPack(VPackOptions const& options) const override {
       return VPackParser::fromJson(_response->body().c_str(), _response->body().length(), &options);
     }

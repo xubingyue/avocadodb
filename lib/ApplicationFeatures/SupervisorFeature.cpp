@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,16 +23,16 @@
 #include "SupervisorFeature.h"
 
 #include "ApplicationFeatures/DaemonFeature.h"
-#include "Basics/ArangoGlobalContext.h"
+#include "Basics/AvocadoGlobalContext.h"
 #include "Logger/Logger.h"
 #include "Logger/LoggerFeature.h"
 #include "ProgramOptions/ProgramOptions.h"
 #include "ProgramOptions/Section.h"
 
-using namespace arangodb;
-using namespace arangodb::application_features;
-using namespace arangodb::basics;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::application_features;
+using namespace avocadodb::basics;
+using namespace avocadodb::options;
 
 namespace {
 static bool DONE = false;
@@ -141,7 +141,7 @@ void SupervisorFeature::validateOptions(
       // revalidate options
       daemon->validateOptions(options);
     } catch (...) {
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "daemon mode not available, cannot start supervisor";
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "daemon mode not available, cannot start supervisor";
       FATAL_ERROR_EXIT();
     }
   }
@@ -160,7 +160,7 @@ void SupervisorFeature::daemonize() {
   int result = EXIT_SUCCESS;
 
   // will be reseted in SchedulerFeature
-  ArangoGlobalContext::CONTEXT->unmaskStandardSignals();
+  AvocadoGlobalContext::CONTEXT->unmaskStandardSignals();
 
   LoggerFeature* logger = nullptr;
       
@@ -201,7 +201,7 @@ void SupervisorFeature::daemonize() {
 
       LOG_TOPIC(INFO, Logger::STARTUP) << "supervisor has forked a child process with pid " << _clientPid;
 
-      TRI_SetProcessTitle("arangodb [supervisor]");
+      TRI_SetProcessTitle("avocadodb [supervisor]");
 
       LOG_TOPIC(DEBUG, Logger::STARTUP) << "supervisor mode: within parent";
 
@@ -320,7 +320,7 @@ void SupervisorFeature::daemonize() {
       Logger::shutdown();
 
       LOG_TOPIC(DEBUG, Logger::STARTUP) << "supervisor mode: within child";
-      TRI_SetProcessTitle("arangodb [server]");
+      TRI_SetProcessTitle("avocadodb [server]");
 
 #ifdef TRI_HAVE_PRCTL
       // force child to stop if supervisor dies

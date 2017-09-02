@@ -43,7 +43,7 @@ is returned if an error occurred while assembling the response.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationApplierStart}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
     re.applier.shutdown();
     re.applier.properties({
       endpoint: "tcp://127.0.0.1:8529",

@@ -1,7 +1,7 @@
 Example Setup
 =============
 
-Setting up a working master-slave replication requires two ArangoDB instances:
+Setting up a working master-slave replication requires two AvocadoDB instances:
 * **master**: this is the instance that all data-modification operations should be directed to
 * **slave**: on this instance, we'll start a replication applier, and this will fetch data from the 
   master database's write-ahead log and apply its operations locally
@@ -22,7 +22,7 @@ To make the replication copy the initial data from the **master** to the **slave
 continuous replication on the **slave**, there is an all-in-one command:
 
 ```js
-require("@arangodb/replication").setupReplication(configuration);
+require("@avocadodb/replication").setupReplication(configuration);
 ```
 
 The following example demonstrates how to use the command for setting up replication
@@ -31,7 +31,7 @@ for the *_system* database. Note that it should be run on the **slave** and not 
 
 ```js
 db._useDatabase("_system");
-require("@arangodb/replication").setupReplication({
+require("@avocadodb/replication").setupReplication({
   endpoint: "tcp://master.domain.org:8529",
   username: "myuser",
   password: "mypasswd",
@@ -65,7 +65,7 @@ The following commands stop a running applier in the slave's *_system* database:
 
 ```js
 db._useDatabase("_system");
-require("@arangodb/replication").applier.stop();
+require("@avocadodb/replication").applier.stop();
 ```
 
 The *stop* operation will terminate any replication activity in the _system database on the slave.
@@ -77,7 +77,7 @@ commands on the **slave**:
 
 ```js
 db._useDatabase("_system");
-require("@arangodb/replication").sync({
+require("@avocadodb/replication").sync({
   endpoint: "tcp://master.domain.org:8529",
   username: "myuser",
   password: "mypasswd",
@@ -104,22 +104,22 @@ assume we got the following last log tick:
 }
 ```
 
-Initial synchronization from the ArangoShell
+Initial synchronization from the AvocadoShell
 --------------------------------------------
 
 The initial synchronization via the *sync* command may take a long time to complete. The shell
 will block until the slave has completed the initial synchronization or until an error occurs.
-By default, the *sync* command in the ArangoShell will poll the slave for a status update every
+By default, the *sync* command in the AvocadoShell will poll the slave for a status update every
 10 seconds.
 
 Optionally the *sync* command can be made non-blocking by setting its *async* option to true.
 In this case, the *sync command* will return instantly with an id string, and the initial 
 synchronization will run detached on the master. To fetch the current status of the *sync* 
-progress from the ArangoShell, the *getSyncResult* function can be used as follows:
+progress from the AvocadoShell, the *getSyncResult* function can be used as follows:
 
 ```js
 db._useDatabase("_system");
-var replication = require("@arangodb/replication");
+var replication = require("@avocadodb/replication");
 
 /* run command in async mode */
 var id = replication.sync({
@@ -152,7 +152,7 @@ Here's the command to configure the replication applier with several options, in
 
 ```js
 db._useDatabase("_system");
-require("@arangodb/replication").applier.properties({
+require("@avocadodb/replication").applier.properties({
   endpoint: "tcp://master.domain.org:8529",
   username: "myuser",
   password: "mypasswd",
@@ -206,7 +206,7 @@ before:
 
 ```js
 db._useDatabase("_system");
-require("@arangodb/replication").applier.start("40694126");
+require("@avocadodb/replication").applier.start("40694126");
 ```
 
 This will replicate all operations happening in the master's system database and apply them
@@ -217,7 +217,7 @@ applier by executing the *state* command on the slave server:
 
 ```js
     db._useDatabase("_system");
-    require("@arangodb/replication").applier.state();
+    require("@avocadodb/replication").applier.state();
 ```
 
 Please note that stopping the replication applier on the slave using the *stop* command 

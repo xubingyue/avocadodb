@@ -1,4 +1,4 @@
 
 
-The wrapped ArangoDB collection object.
+The wrapped AvocadoDB collection object.
 

@@ -166,7 +166,7 @@ let args = {
 };
 
 
-var db = require("@arangodb").db;
+var db = require("@avocadodb").db;
 
 function stressTestSuite() {
   return {

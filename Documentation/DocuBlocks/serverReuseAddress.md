@@ -13,6 +13,6 @@ activated by default.
 Please note however that under some operating systems this can be
 a security risk because it might be possible for another process
 to bind to the same address and port, possibly hijacking network
-traffic. Under Windows, ArangoDB additionally sets the flag
+traffic. Under Windows, AvocadoDB additionally sets the flag
 SO_EXCLUSIVEADDRUSE as a measure to alleviate this problem.
 

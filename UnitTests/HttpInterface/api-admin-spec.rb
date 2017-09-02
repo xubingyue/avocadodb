@@ -1,16 +1,16 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
 
   context "dealing with the admin interface:" do
 
     before do
       # load the most current routing information
       cmd = "/_admin/routing/reload"
-      ArangoDB.get(cmd)
+      AvocadoDB.get(cmd)
     end
 
 ################################################################################
@@ -24,26 +24,26 @@ describe ArangoDB do
 
       after do
         if @id != nil 
-          ArangoDB.delete("/_api/document/" + @id)
+          AvocadoDB.delete("/_api/document/" + @id)
         end 
       end
       
       it "checks a simple routing" do
         cmd = "/_api/document?collection=_routing"
         body = "{ \"url\" : { \"match\" : \"\/hello\/world\" }, \"content\" : { \"contentType\" : \"text\/html\", \"body\": \"moo!\" } }"
-        doc = ArangoDB.log_post("api-routing-simple", cmd, :body => body)
+        doc = AvocadoDB.log_post("api-routing-simple", cmd, :body => body)
 
         doc.code.should eq(202)
         @id = doc.parsed_response['_id']
 
         cmd = "/_admin/routing/reload"
-        doc = ArangoDB.log_get("api-routing-simple", cmd)
+        doc = AvocadoDB.log_get("api-routing-simple", cmd)
      
         # we need this because reloading the routing is asynchronous 
         sleep(3)
              
         cmd = "/hello/world"
-        doc = ArangoDB.log_get("api-routing-simple", cmd, :format => :plain)
+        doc = AvocadoDB.log_get("api-routing-simple", cmd, :format => :plain)
 
         # check response code
         doc.code.should eq(200)
@@ -63,7 +63,7 @@ describe ArangoDB do
 
       it "using GET" do
         cmd = "/_admin/echo"
-        doc = ArangoDB.log_get("#{prefix}-echo", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-echo", cmd)
 
         doc.code.should eq(200)
         doc.parsed_response['url'].should eq("/_admin/echo")
@@ -74,7 +74,7 @@ describe ArangoDB do
       
       it "using GET, with query parameter" do
         cmd = "/_admin/echo?a=1"
-        doc = ArangoDB.log_get("#{prefix}-echo", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-echo", cmd)
 
         doc.code.should eq(200)
         doc.parsed_response['url'].should eq("/_admin/echo?a=1")
@@ -86,7 +86,7 @@ describe ArangoDB do
       it "using POST, with query parameters" do
         cmd = "/_admin/echo?a=1&b=2&foo[]=bar&foo[]=baz"
         body = "{\"foo\": \"bar\", \"baz\": { \"bump\": true, \"moo\": [ ] } }"
-        doc = ArangoDB.log_post("#{prefix}-echo", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-echo", cmd, :body => body)
 
         doc.code.should eq(200)
         doc.parsed_response['url'].should eq("/_admin/echo?a=1&b=2&foo[]=bar&foo[]=baz")
@@ -100,7 +100,7 @@ describe ArangoDB do
         cmd = "/_admin/echo?"
         body = "{ }"
         headers = { "X-Foo" => "Bar", "x-meow" => "mOO" }
-        doc = ArangoDB.log_put("#{prefix}-echo", cmd, :body => body, :headers => headers)
+        doc = AvocadoDB.log_put("#{prefix}-echo", cmd, :body => body, :headers => headers)
 
         doc.code.should eq(200)
         doc.parsed_response['url'].should eq("/_admin/echo?")
@@ -121,7 +121,7 @@ describe ArangoDB do
       it "checks whether the admin interface is available at /_admin/aardvark/index.html" do
         cmd = "/_admin/aardvark/index.html"
         begin 
-          ArangoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
+          AvocadoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
         rescue HTTParty::RedirectionTooDeep => e
           # check response code
           e.response.code.should eq("302")
@@ -131,7 +131,7 @@ describe ArangoDB do
       it "checks whether the admin interface is available at /" do
         cmd = "/"
         begin
-          ArangoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
+          AvocadoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
         rescue HTTParty::RedirectionTooDeep => e
           # check response code
           e.response.code.should eq("301")
@@ -142,7 +142,7 @@ describe ArangoDB do
       it "checks whether the admin interface is available at /_admin/html" do
         cmd = "/_admin/html"
         begin
-          ArangoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
+          AvocadoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
         rescue HTTParty::RedirectionTooDeep => e
           # check response code
           e.response.code.should eq("301")
@@ -153,7 +153,7 @@ describe ArangoDB do
       it "checks whether the admin interface is available at /_admin/html/" do
         cmd = "/_admin/html/"
         begin
-          ArangoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
+          AvocadoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
         rescue HTTParty::RedirectionTooDeep => e
           # check response code
           e.response.code.should eq("301")
@@ -164,7 +164,7 @@ describe ArangoDB do
       it "checks whether the admin interface is available at /_admin/aardvark/" do
         cmd = "/_admin/aardvark/"
         begin
-          ArangoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
+          AvocadoDB.log_get("admin-interface-get", cmd, :format => :plain, :no_follow => true)
         rescue HTTParty::RedirectionTooDeep => e
           # check response code
           e.response.code.should eq("307")

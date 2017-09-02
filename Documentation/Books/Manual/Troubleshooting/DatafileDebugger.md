@@ -14,7 +14,7 @@ hardware fault occurred.
 If a journal or datafile is corrupt, shut down the database server and start
 the program
 
-    unix> arango-dfdb
+    unix> avocado-dfdb
 
 in order to check the consistency of the datafiles and journals. This brings up
 
@@ -42,7 +42,7 @@ one or all of the collections, a consistency check will be performed.
     Checking collection #1: _users
 
     Database
-      path: /usr/local/var/lib/arangodb
+      path: /usr/local/var/lib/avocadodb
 
     Collection
       name: _users
@@ -54,7 +54,7 @@ one or all of the collections, a consistency check will be performed.
       # of datafiles: 0
 
     Datafile
-      path: /usr/local/var/lib/arangodb/collection-82343/journal-1065383.db
+      path: /usr/local/var/lib/avocadodb/collection-82343/journal-1065383.db
       type: journal
       current size: 33554432
       maximal size: 33554432
@@ -66,7 +66,7 @@ If there is a problem with one of the datafiles, then the database debugger will
 and prompt for whether to attempt to fix it.
 
     WARNING: The journal was not closed properly, the last entries are corrupted.
-             This might happen ArangoDB was killed and the last entries were not
+             This might happen AvocadoDB was killed and the last entries were not
              fully written to disk.
 
     Wipe the last entries (Y/N)?
@@ -74,6 +74,6 @@ and prompt for whether to attempt to fix it.
 If you answer **Y**, the corrupted entry will be removed.
 
 If you see a corruption in a datafile (and not a journal), then something is
-terribly wrong. These files are immutable and never changed by ArangoDB. A
+terribly wrong. These files are immutable and never changed by AvocadoDB. A
 corruption in such file is an indication of a hard-disk failure.
 

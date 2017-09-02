@@ -1,0 +1,10 @@
+/var/log/avocadodb3/avocadod.log {
+     rotate 12
+     weekly
+     compress
+     delaycompress
+     create 640  avocadodb adm
+     postrotate
+     systemctl -q is-active @SERVICE_NAME@ && systemctl kill --signal=SIGHUP avocadoddb3
+     endscript
+     }

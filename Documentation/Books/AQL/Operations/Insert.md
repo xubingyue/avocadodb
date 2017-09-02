@@ -21,7 +21,7 @@ INSERT document IN collection options
 
 *collection* must contain the name of the collection into which the documents should
 be inserted. *document* is the document to be inserted, and it may or may not contain
-a *_key* attribute. If no *_key* attribute is provided, ArangoDB will auto-generate
+a *_key* attribute. If no *_key* attribute is provided, AvocadoDB will auto-generate
 a value for *_key* value. Inserting a document will also auto-generate a document
 revision number for the document.
 

@@ -18,15 +18,15 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var ERRORS = arangodb.errors;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var ERRORS = avocadodb.errors;
+var db = avocadodb.db;
 var internal = require("internal");
 var wait = internal.wait;
 

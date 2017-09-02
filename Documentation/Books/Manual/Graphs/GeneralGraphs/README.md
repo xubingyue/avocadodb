@@ -12,7 +12,7 @@ There is no need to include the referenced collections within the query, this mo
 
     @startDocuBlockInline generalGraphCreateGraphHowTo1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo1}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       var graph = graph_module._create("myGraph");
       graph;
     ~ graph_module._drop("myGraph", true);
@@ -23,7 +23,7 @@ There is no need to include the referenced collections within the query, this mo
 
     @startDocuBlockInline generalGraphCreateGraphHowTo2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo2}
-    ~ var graph_module = require("@arangodb/general-graph");
+    ~ var graph_module = require("@avocadodb/general-graph");
     ~ var graph = graph_module._create("myGraph");
       graph._addVertexCollection("shop");
       graph._addVertexCollection("customer");
@@ -37,7 +37,7 @@ There is no need to include the referenced collections within the query, this mo
 
     @startDocuBlockInline generalGraphCreateGraphHowTo3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo3}
-    ~ var graph_module = require("@arangodb/general-graph");
+    ~ var graph_module = require("@avocadodb/general-graph");
     ~ var graph = graph_module._create("myGraph");
     ~ graph._addVertexCollection("pet");
       var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);

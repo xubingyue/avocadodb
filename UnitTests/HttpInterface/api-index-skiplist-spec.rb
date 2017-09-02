@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   prefix = "api-index-skiplist"
 
 ################################################################################
@@ -14,32 +14,32 @@ describe ArangoDB do
     context "dealing with unique constraints violation:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
       
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
       
       it "does not create the index in case of violation" do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # create another document
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # try to create the index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-fail", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-fail", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -51,20 +51,20 @@ describe ArangoDB do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : null, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # create another document
         body = "{ \"a\" : null, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # try to create the index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-fail", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-fail", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -76,20 +76,20 @@ describe ArangoDB do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # create another document
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # try to create the index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-fail", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-fail", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -101,20 +101,20 @@ describe ArangoDB do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : null, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # create another document
         body = "{ \"a\" : null, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
         # try to create the index
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-fail", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-fail", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.parsed_response['error'].should eq(false)
@@ -130,18 +130,18 @@ describe ArangoDB do
     context "dealing with unique constraints:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
       
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
       
       it "rolls back in case of violation" do
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create1", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create1", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.parsed_response['type'].should eq("skiplist")
@@ -150,7 +150,7 @@ describe ArangoDB do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
@@ -162,7 +162,7 @@ describe ArangoDB do
 
         # check it
         cmd2 = "/_api/document/#{id1}"
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -172,12 +172,12 @@ describe ArangoDB do
 
         # create a unique constraint violation
         body = "{ \"a\" : 1, \"b\" : 2 }"
-        doc = ArangoDB.log_post("#{prefix}-create3", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create3", cmd1, :body => body)
 
         doc.code.should eq(409)
 
         # check it again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -187,12 +187,12 @@ describe ArangoDB do
 
         # third try (make sure the rollback has not destroyed anything)
         body = "{ \"a\" : 1, \"b\" : 3 }"
-        doc = ArangoDB.log_post("#{prefix}-create4", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create4", cmd1, :body => body)
 
         doc.code.should eq(409)
 
         # check it again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -202,25 +202,25 @@ describe ArangoDB do
 
         # unload collection
         cmd3 = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.log_put("#{prefix}", cmd3)
+        doc = AvocadoDB.log_put("#{prefix}", cmd3)
         doc.code.should eq(200)
         
         # flush wal
-        doc = ArangoDB.put("/_admin/wal/flush");
+        doc = AvocadoDB.put("/_admin/wal/flush");
         doc.code.should eq(200)
 
         cmd3 = "/_api/collection/#{@cn}"
-        doc = ArangoDB.log_get("#{prefix}", cmd3)
+        doc = AvocadoDB.log_get("#{prefix}", cmd3)
         doc.code.should eq(200)
           
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd3)
+          doc = AvocadoDB.get(cmd3)
           doc.code.should eq(200)
           sleep 1
         end
 
         # check it again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -232,7 +232,7 @@ describe ArangoDB do
       it "rolls back in case of violation, sparse index" do
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create1", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create1", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.parsed_response['type'].should eq("skiplist")
@@ -241,7 +241,7 @@ describe ArangoDB do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-create2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
@@ -253,7 +253,7 @@ describe ArangoDB do
 
         # check it
         cmd2 = "/_api/document/#{id1}"
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -263,12 +263,12 @@ describe ArangoDB do
 
         # create a unique constraint violation
         body = "{ \"a\" : 1, \"b\" : 2 }"
-        doc = ArangoDB.log_post("#{prefix}-create3", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create3", cmd1, :body => body)
 
         doc.code.should eq(409)
 
         # check it again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -278,12 +278,12 @@ describe ArangoDB do
 
         # third try (make sure the rollback has not destroyed anything)
         body = "{ \"a\" : 1, \"b\" : 3 }"
-        doc = ArangoDB.log_post("#{prefix}-create4", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create4", cmd1, :body => body)
 
         doc.code.should eq(409)
 
         # check it again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -293,25 +293,25 @@ describe ArangoDB do
 
         # unload collection
         cmd3 = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.log_put("#{prefix}", cmd3)
+        doc = AvocadoDB.log_put("#{prefix}", cmd3)
         doc.code.should eq(200)
         
         # flush wal
-        doc = ArangoDB.put("/_admin/wal/flush");
+        doc = AvocadoDB.put("/_admin/wal/flush");
         doc.code.should eq(200)
 
         cmd3 = "/_api/collection/#{@cn}"
-        doc = ArangoDB.log_get("#{prefix}", cmd3)
+        doc = AvocadoDB.log_get("#{prefix}", cmd3)
         doc.code.should eq(200)
           
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd3)
+          doc = AvocadoDB.get(cmd3)
           doc.code.should eq(200)
           sleep 1
         end
 
         # check it again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -330,18 +330,18 @@ describe ArangoDB do
     context "dealing with unique constraints:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
       
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
       
       it "rolls back in case of violation" do
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-update1", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-update1", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.parsed_response['type'].should eq("skiplist")
@@ -350,7 +350,7 @@ describe ArangoDB do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-update2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-update2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
@@ -362,7 +362,7 @@ describe ArangoDB do
 
         # check it
         cmd2 = "/_api/document/#{id1}"
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -372,7 +372,7 @@ describe ArangoDB do
 
         # create a second document
         body = "{ \"a\" : 2, \"b\" : 2 }"
-        doc = ArangoDB.log_post("#{prefix}-update3", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-update3", cmd1, :body => body)
 
         doc.code.should eq(201)
 
@@ -384,12 +384,12 @@ describe ArangoDB do
 
         # create a unique constraint violation during update
         body = "{ \"a\" : 2, \"b\" : 3 }"
-        doc = ArangoDB.log_put("#{prefix}", cmd2, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}", cmd2, :body => body)
 
         doc.code.should eq(409)
 
         # check first document again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -402,7 +402,7 @@ describe ArangoDB do
 
         # check second document again
         cmd3 = "/_api/document/#{id2}"
-        doc = ArangoDB.log_get("#{prefix}", cmd3)
+        doc = AvocadoDB.log_get("#{prefix}", cmd3)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(2)
@@ -412,12 +412,12 @@ describe ArangoDB do
 
         # third try (make sure the rollback has not destroyed anything)
         body = "{ \"a\" : 2, \"b\" : 4 }"
-        doc = ArangoDB.log_put("#{prefix}", cmd2, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}", cmd2, :body => body)
 
         doc.code.should eq(409)
 
         # check the first document again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -428,25 +428,25 @@ describe ArangoDB do
 
         # unload collection
         cmd4 = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.log_put("#{prefix}", cmd4)
+        doc = AvocadoDB.log_put("#{prefix}", cmd4)
         doc.code.should eq(200)
         
         # flush wal
-        doc = ArangoDB.put("/_admin/wal/flush");
+        doc = AvocadoDB.put("/_admin/wal/flush");
         doc.code.should eq(200)
 
         cmd4 = "/_api/collection/#{@cn}"
-        doc = ArangoDB.log_get("#{prefix}", cmd4)
+        doc = AvocadoDB.log_get("#{prefix}", cmd4)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd4)
+          doc = AvocadoDB.get(cmd4)
           doc.code.should eq(200)
           sleep 1
         end
 
         # check the first document again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -459,7 +459,7 @@ describe ArangoDB do
       it "rolls back in case of violation, sparse index" do
         cmd = "/_api/index?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-update1", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-update1", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.parsed_response['type'].should eq("skiplist")
@@ -468,7 +468,7 @@ describe ArangoDB do
         # create a document
         cmd1 = "/_api/document?collection=#{@cn}"
         body = "{ \"a\" : 1, \"b\" : 1 }"
-        doc = ArangoDB.log_post("#{prefix}-update2", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-update2", cmd1, :body => body)
 
         doc.code.should eq(201)
 
@@ -480,7 +480,7 @@ describe ArangoDB do
 
         # check it
         cmd2 = "/_api/document/#{id1}"
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -490,7 +490,7 @@ describe ArangoDB do
 
         # create a second document
         body = "{ \"a\" : 2, \"b\" : 2 }"
-        doc = ArangoDB.log_post("#{prefix}-update3", cmd1, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-update3", cmd1, :body => body)
 
         doc.code.should eq(201)
 
@@ -502,12 +502,12 @@ describe ArangoDB do
 
         # create a unique constraint violation during update
         body = "{ \"a\" : 2, \"b\" : 3 }"
-        doc = ArangoDB.log_put("#{prefix}", cmd2, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}", cmd2, :body => body)
 
         doc.code.should eq(409)
 
         # check first document again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -520,7 +520,7 @@ describe ArangoDB do
 
         # check second document again
         cmd3 = "/_api/document/#{id2}"
-        doc = ArangoDB.log_get("#{prefix}", cmd3)
+        doc = AvocadoDB.log_get("#{prefix}", cmd3)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(2)
@@ -530,12 +530,12 @@ describe ArangoDB do
 
         # third try (make sure the rollback has not destroyed anything)
         body = "{ \"a\" : 2, \"b\" : 4 }"
-        doc = ArangoDB.log_put("#{prefix}", cmd2, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}", cmd2, :body => body)
 
         doc.code.should eq(409)
 
         # check the first document again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)
@@ -546,25 +546,25 @@ describe ArangoDB do
 
         # unload collection
         cmd4 = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.log_put("#{prefix}", cmd4)
+        doc = AvocadoDB.log_put("#{prefix}", cmd4)
         doc.code.should eq(200)
         
         # flush wal
-        doc = ArangoDB.put("/_admin/wal/flush");
+        doc = AvocadoDB.put("/_admin/wal/flush");
         doc.code.should eq(200)
 
         cmd4 = "/_api/collection/#{@cn}"
-        doc = ArangoDB.log_get("#{prefix}", cmd4)
+        doc = AvocadoDB.log_get("#{prefix}", cmd4)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd4)
+          doc = AvocadoDB.get(cmd4)
           doc.code.should eq(200)
           sleep 1
         end
 
         # check the first document again
-        doc = ArangoDB.log_get("#{prefix}", cmd2)
+        doc = AvocadoDB.log_get("#{prefix}", cmd2)
 
         doc.code.should eq(200)
         doc.parsed_response['a'].should eq(1)

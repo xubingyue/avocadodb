@@ -1,17 +1,17 @@
 Sharding
 ========
 
-ArangoDB is organizing its collection data in shards. Sharding
-allows to use multiple machines to run a cluster of ArangoDB
+AvocadoDB is organizing its collection data in shards. Sharding
+allows to use multiple machines to run a cluster of AvocadoDB
 instances that together constitute a single database. This enables
-you to store much more data, since ArangoDB distributes the data 
+you to store much more data, since AvocadoDB distributes the data 
 automatically to the different servers. In many situations one can 
 also reap a benefit in data throughput, again because the load can
 be distributed to multiple machines.
 
 Shards are configured per collection so multiple shards of data form
 the collection as a whole. To determine in which shard the data is to
-be stored ArangoDB performs a hash across the values. By default this
+be stored AvocadoDB performs a hash across the values. By default this
 hash is being created from _key.
 
 To configure the number of shards:

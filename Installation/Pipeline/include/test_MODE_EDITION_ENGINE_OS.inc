@@ -57,8 +57,8 @@ if [ "$mode" == singleserver ]; then
     echo "$type
     scripts/unittest boost                     --skipCache false                                                                      2>&1
     scripts/unittest agency                                       --minPort `expr $PORT01 +   0` --maxPort `expr $PORT01 +   9` $OPTS 2>&1
-    scripts/unittest arangobench                                  --minPort `expr $PORT01 +  10` --maxPort `expr $PORT01 +  19` $OPTS 2>&1
-    scripts/unittest arangosh                  --skipShebang true --minPort `expr $PORT01 +  20` --maxPort `expr $PORT01 +  29` $OPTS 2>&1
+    scripts/unittest avocadobench                                  --minPort `expr $PORT01 +  10` --maxPort `expr $PORT01 +  19` $OPTS 2>&1
+    scripts/unittest avocadosh                  --skipShebang true --minPort `expr $PORT01 +  20` --maxPort `expr $PORT01 +  29` $OPTS 2>&1
     scripts/unittest authentication                               --minPort `expr $PORT01 +  30` --maxPort `expr $PORT01 +  39` $OPTS 2>&1
     scripts/unittest authentication_parameters                    --minPort `expr $PORT01 +  40` --maxPort `expr $PORT01 +  49` $OPTS 2>&1
     scripts/unittest cluster_sync                                 --minPort `expr $PORT01 +  50` --maxPort `expr $PORT01 +  59` $OPTS 2>&1
@@ -94,8 +94,8 @@ elif [ "$mode" == cluster ]; then
     fi
 
     echo "$type
-    scripts/unittest arangobench                                  --minPort `expr $PORT01 +   0` --maxPort `expr $PORT01 +  39` $OPTS 2>&1
-    scripts/unittest arangosh                  --skipShebang true --minPort `expr $PORT01 +  40` --maxPort `expr $PORT01 +  79` $OPTS 2>&1
+    scripts/unittest avocadobench                                  --minPort `expr $PORT01 +   0` --maxPort `expr $PORT01 +  39` $OPTS 2>&1
+    scripts/unittest avocadosh                  --skipShebang true --minPort `expr $PORT01 +  40` --maxPort `expr $PORT01 +  79` $OPTS 2>&1
     scripts/unittest authentication                               --minPort `expr $PORT01 +  80` --maxPort `expr $PORT01 + 119` $OPTS 2>&1
     scripts/unittest authentication_parameters                    --minPort `expr $PORT01 + 120` --maxPort `expr $PORT01 + 159` $OPTS 2>&1
     scripts/unittest config                                       --minPort `expr $PORT01 + 160` --maxPort `expr $PORT01 + 199` $OPTS 2>&1

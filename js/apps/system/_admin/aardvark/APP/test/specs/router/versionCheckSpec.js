@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global describe, beforeEach, arangoHelper, afterEach, it, spyOn, expect*/
+/* global describe, beforeEach, avocadoHelper, afterEach, it, spyOn, expect*/
 /* global $, jasmine, _, window, document*/
 
 (function () {
@@ -54,7 +54,7 @@
           async: true,
           crossDomain: true,
           dataType: 'jsonp',
-          url: 'https://www.arangodb.com/repositories/versions.php' +
+          url: 'https://www.avocadodb.com/repositories/versions.php' +
             '?jsonp=parseVersions&version=' + encodeURIComponent(current)
         });
         $.ajax.reset();
@@ -116,7 +116,7 @@
             spyOn(window.modalView, 'hide');
             $('#modalButton2').click();
             expect(window.open).toHaveBeenCalledWith(
-              'https://www.arangodb.com/download',
+              'https://www.avocadodb.com/download',
               '_blank'
             );
             expect(window.modalView.hide).toHaveBeenCalled();

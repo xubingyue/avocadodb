@@ -193,7 +193,7 @@
       var testMount = '/this/is/a/test/mount';
       spyOn(window, 'open');
       var dbName = 'foxx';
-      spyOn(window.arango, 'getDatabaseName').andReturn(dbName);
+      spyOn(window.avocado, 'getDatabaseName').andReturn(dbName);
       var myFoxx = new window.Foxx({
         mount: testMount
       });

@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   prefix = "rest-key"
 
   context "testing keys:" do
@@ -14,17 +14,17 @@ describe ArangoDB do
 
     before do
       @cn = "UnitTestsKey"
-      @cid = ArangoDB.create_collection(@cn, true)
+      @cid = AvocadoDB.create_collection(@cn, true)
     end
 
     after do
-      ArangoDB.drop_collection(@cn)
+      AvocadoDB.drop_collection(@cn)
     end
       
     it "returns an error if _key is null" do
       cmd = "/_api/document?collection=#{@cn}"
       body = "{ \"_key\" : null }"
-      doc = ArangoDB.log_post("#{prefix}-null", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-null", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.parsed_response['error'].should eq(true)
@@ -36,7 +36,7 @@ describe ArangoDB do
     it "returns an error if _key is a bool" do
       cmd = "/_api/document?collection=#{@cn}"
       body = "{ \"_key\" : true }"
-      doc = ArangoDB.log_post("#{prefix}-bool", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-bool", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.parsed_response['error'].should eq(true)
@@ -48,7 +48,7 @@ describe ArangoDB do
     it "returns an error if _key is a number" do
       cmd = "/_api/document?collection=#{@cn}"
       body = "{ \"_key\" : 12 }"
-      doc = ArangoDB.log_post("#{prefix}-number", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-number", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.parsed_response['error'].should eq(true)
@@ -60,7 +60,7 @@ describe ArangoDB do
     it "returns an error if _key is a number" do
       cmd = "/_api/document?collection=#{@cn}"
       body = "{ \"_key\" : 12.554 }"
-      doc = ArangoDB.log_post("#{prefix}-number", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-number", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.parsed_response['error'].should eq(true)
@@ -72,7 +72,7 @@ describe ArangoDB do
     it "returns an error if _key is a list" do
       cmd = "/_api/document?collection=#{@cn}"
       body = "{ \"_key\" : [ ] }"
-      doc = ArangoDB.log_post("#{prefix}-list", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-list", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.parsed_response['error'].should eq(true)
@@ -84,7 +84,7 @@ describe ArangoDB do
     it "returns an error if _key is an object" do
       cmd = "/_api/document?collection=#{@cn}"
       body = "{ \"_key\" : { } }"
-      doc = ArangoDB.log_post("#{prefix}-object", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-object", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.parsed_response['error'].should eq(true)
@@ -96,7 +96,7 @@ describe ArangoDB do
     it "returns an error if _key is empty string" do
       cmd = "/_api/document?collection=#{@cn}"
       body = "{ \"_key\" : \"\" }"
-      doc = ArangoDB.log_post("#{prefix}-empty-string", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-empty-string", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.parsed_response['error'].should eq(true)
@@ -136,7 +136,7 @@ describe ArangoDB do
   
       keys.each do|key|
         body = "{ \"_key\" : \"#{key}\" }"
-        doc = ArangoDB.log_post("#{prefix}-invalid", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-invalid", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -233,7 +233,7 @@ describe ArangoDB do
   
       keys.each do|key|
         body = "{ \"_key\" : \"#{key}\" }"
-        doc = ArangoDB.log_post("#{prefix}-valid", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-valid", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.parsed_response['_key'].should eq(key)
@@ -260,14 +260,14 @@ describe ArangoDB do
       keys.each do|key|
         body = "{ \"_key\" : \"#{key}\" }"
         # insert initially
-        doc = ArangoDB.log_post("#{prefix}-valid", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-valid", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.parsed_response['_key'].should eq(key)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
        
         # insert again. this will fail! 
-        doc = ArangoDB.log_post("#{prefix}-valid", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-valid", cmd, :body => body)
 
         doc.code.should eq(409)
         doc.parsed_response['error'].should eq(true)

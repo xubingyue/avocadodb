@@ -6,7 +6,7 @@
 @RESTDESCRIPTION
 Puts the service at the given mount path into production mode.
 
-When running ArangoDB in a cluster with multiple coordinators this will
+When running AvocadoDB in a cluster with multiple coordinators this will
 replace the service on all other coordinators with the version on this
 coordinator.
 

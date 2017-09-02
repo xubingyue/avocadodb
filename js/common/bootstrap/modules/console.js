@@ -61,7 +61,7 @@ global.DEFINE_MODULE('console', (function () {
   var log;
 
   if (global.SYS_LOG) {
-    // this will work when we are in arangod but not in the browser / web interface
+    // this will work when we are in avocadod but not in the browser / web interface
     log = global.SYS_LOG;
     delete global.SYS_LOG;
   } else {
@@ -448,8 +448,8 @@ global.DEFINE_MODULE('console', (function () {
     while (err) {
       if (!msg && err === e) {
         if (err.hasOwnProperty('errorNum')) {
-          let stacktrace = err.stack.replace(/^ArangoError/, '');
-          logStrings.push('ArangoError ' + err.errorNum + stacktrace);
+          let stacktrace = err.stack.replace(/^AvocadoError/, '');
+          logStrings.push('AvocadoError ' + err.errorNum + stacktrace);
         } else {
           logStrings.push(err.stack);
         }

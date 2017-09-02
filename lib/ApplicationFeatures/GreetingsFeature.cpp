@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@
 #include "Logger/Logger.h"
 #include "Rest/Version.h"
 
-using namespace arangodb;
+using namespace avocadodb;
 
 GreetingsFeature::GreetingsFeature(
     application_features::ApplicationServer* server)
@@ -35,9 +35,9 @@ GreetingsFeature::GreetingsFeature(
 }
 
 void GreetingsFeature::prepare() {
-  LOG_TOPIC(INFO, arangodb::Logger::FIXME) << "" << rest::Version::getVerboseVersionString();
+  LOG_TOPIC(INFO, avocadodb::Logger::FIXME) << "" << rest::Version::getVerboseVersionString();
 }
 
 void GreetingsFeature::unprepare() {
-  LOG_TOPIC(INFO, arangodb::Logger::FIXME) << "ArangoDB has been shut down";
+  LOG_TOPIC(INFO, avocadodb::Logger::FIXME) << "AvocadoDB has been shut down";
 }

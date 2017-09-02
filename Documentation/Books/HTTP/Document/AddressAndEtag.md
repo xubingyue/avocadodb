@@ -3,7 +3,7 @@ Basics and Terminology
 
 ### Documents, Keys, Handles and Revisions
 
-Documents in ArangoDB are JSON objects. These objects can be nested (to
+Documents in AvocadoDB are JSON objects. These objects can be nested (to
 any depth) and may contain lists. Each document has a unique 
 [primary key](../../Manual/Appendix/Glossary.html#document-key) which 
 identifies it within its collection. Furthermore, each document is 
@@ -43,7 +43,7 @@ as a string in `_id`, the
 [document revision](../../Manual/Appendix/Glossary.html#document-revision) in
 `_rev`. The value of the `_key` attribute can be specified by the user when
 creating a document. `_id` and `_key` values are immutable once the document
-has been created. The `_rev` value is maintained by ArangoDB automatically.
+has been created. The `_rev` value is maintained by AvocadoDB automatically.
 
 
 ### Document Handle
@@ -58,10 +58,10 @@ is a string and consists of the collection's name and the document key
 A document key uniquely identifies a document in the collection it is
 stored in. It can and should be used by clients when specific documents
 are queried. The document key is stored in the `_key` attribute of
-each document. The key values are automatically indexed by ArangoDB in
+each document. The key values are automatically indexed by AvocadoDB in
 a collection's primary index. Thus looking up a document by its
 key is a fast operation. The _key value of a document is
-immutable once the document has been created. By default, ArangoDB will
+immutable once the document has been created. By default, AvocadoDB will
 auto-generate a document key if no _key attribute is specified, and use
 the user-specified _key otherwise.
 
@@ -75,7 +75,7 @@ values.
 
 ### Document Revision
 
-As ArangoDB supports MVCC (Multiple Version Concurrency Control),
+As AvocadoDB supports MVCC (Multiple Version Concurrency Control),
 documents can exist in more than one
 revision. The document revision is the MVCC token used to specify 
 a particular revision of a document (identified by its `_id`). 
@@ -86,12 +86,12 @@ conditionally query, update, replace or delete documents in the database. In
 order to find a particular revision of a document, you need the document
 handle or key, and the document revision.
 
-ArangoDB uses 64bit unsigned integer values to maintain
+AvocadoDB uses 64bit unsigned integer values to maintain
 document revisions internally. When returning document revisions to
-clients, ArangoDB will put them into a string to ensure the revision
+clients, AvocadoDB will put them into a string to ensure the revision
 is not clipped by clients that do not support big integers. Clients
-should treat the revision returned by ArangoDB as an opaque string
-when they store or use it locally. This will allow ArangoDB to change
+should treat the revision returned by AvocadoDB as an opaque string
+when they store or use it locally. This will allow AvocadoDB to change
 the format of revisions later if this should be required. Clients can
 use revisions to perform simple equality/non-equality comparisons
 (e.g. to check whether a document has changed or not), but they should
@@ -102,7 +102,7 @@ might work for some cases.
 
 ### Document Etag
 
-ArangoDB tries to adhere to the existing HTTP standard as far as
+AvocadoDB tries to adhere to the existing HTTP standard as far as
 possible. To this end, results of single document queries have the HTTP
 header `ETag` set to the document revision enclosed in double quotes.
 
@@ -116,7 +116,7 @@ The revision of a document can be checking using the HTTP method *HEAD*.
 
 ### Multiple Documents in a single Request
 
-Beginning with ArangoDB 3.0 the basic document API has been extended
+Beginning with AvocadoDB 3.0 the basic document API has been extended
 to handle not only single documents but multiple documents in a single
 request. This is crucial for performance, in particular in the cluster
 situation, in which a single request can involve multiple network hops

@@ -10,7 +10,7 @@ batch parts.
 
 @RESTDESCRIPTION
 Executes a batch request. A batch request can contain any number of
-other requests that can be sent to ArangoDB in isolation. The benefit of
+other requests that can be sent to AvocadoDB in isolation. The benefit of
 using batch requests is that batching requests requires less client/server
 roundtrips than when sending isolated requests.
 
@@ -24,13 +24,13 @@ envelope and the individual batch part actions. Batch part actions
 are "regular" HTTP requests, including full header and an optional body.
 Multiple batch parts are separated by a boundary identifier. The
 boundary identifier is declared in the batch envelope. The MIME content-type
-for each individual batch part must be `application/x-arango-batchpart`.
+for each individual batch part must be `application/x-avocado-batchpart`.
 
 Please note that when constructing the individual batch parts, you must
 use CRLF (`\r\n`) as the line terminator as in regular HTTP messages.
 
 The response sent by the server will be an `HTTP 200` response, with an
-optional error summary header `x-arango-errors`. This header contains the
+optional error summary header `x-avocado-errors`. This header contains the
 number of batch part operations that failed with an HTTP error code of at
 least 400. This header is only present in the response if the number of
 errors is greater than zero.
@@ -80,24 +80,24 @@ The boundary (`SomeBoundaryValue`) is passed to the server in the HTTP
 
 @EXAMPLE_ARANGOSH_RUN{RestBatchMultipartHeader}
     var parts = [
-      "Content-Type: application/x-arango-batchpart\r\n" +
+      "Content-Type: application/x-avocado-batchpart\r\n" +
       "Content-Id: myId1\r\n\r\n" + 
       "GET /_api/version HTTP/1.1\r\n",
 
-      "Content-Type: application/x-arango-batchpart\r\n" + 
+      "Content-Type: application/x-avocado-batchpart\r\n" + 
       "Content-Id: myId2\r\n\r\n" + 
       "DELETE /_api/collection/products HTTP/1.1\r\n",
 
-      "Content-Type: application/x-arango-batchpart\r\n" + 
+      "Content-Type: application/x-avocado-batchpart\r\n" + 
       "Content-Id: someId\r\n\r\n" + 
       "POST /_api/collection/products HTTP/1.1\r\n\r\n" + 
       "{\"name\": \"products\" }\r\n",
 
-      "Content-Type: application/x-arango-batchpart\r\n" + 
+      "Content-Type: application/x-avocado-batchpart\r\n" + 
       "Content-Id: nextId\r\n\r\n" + 
       "GET /_api/collection/products/figures HTTP/1.1\r\n",
 
-      "Content-Type: application/x-arango-batchpart\r\n" + 
+      "Content-Type: application/x-avocado-batchpart\r\n" + 
       "Content-Id: otherId\r\n\r\n" + 
       "DELETE /_api/collection/products HTTP/1.1\r\n"
     ];
@@ -120,9 +120,9 @@ in this case try to find the boundary at the beginning of the request body).
 
 @EXAMPLE_ARANGOSH_RUN{RestBatchImplicitBoundary}
     var parts = [
-      "Content-Type: application/x-arango-batchpart\r\n\r\n" + 
+      "Content-Type: application/x-avocado-batchpart\r\n\r\n" + 
          "DELETE /_api/collection/notexisting1 HTTP/1.1\r\n",
-      "Content-Type: application/x-arango-batchpart\r\n\r\n" + 
+      "Content-Type: application/x-avocado-batchpart\r\n\r\n" + 
          "DELETE _api/collection/notexisting2 HTTP/1.1\r\n"
     ];
     var boundary = "SomeBoundaryValue";
@@ -133,7 +133,7 @@ in this case try to find the boundary at the beginning of the request body).
     var response = logCurlRequestRaw('POST', '/_api/batch', body);
 
     assert(response.code === 200);
-    assert(response.headers['x-arango-errors'] == 2);
+    assert(response.headers['x-avocado-errors'] == 2);
 
     logRawResponse(response);
 @END_EXAMPLE_ARANGOSH_RUN

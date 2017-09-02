@@ -9,12 +9,12 @@ char const* ARGV0 = "";
 int main( int argc, char* argv[] )
 {
   ARGV0 = argv[0];
-  arangodb::RandomGenerator::initialize(arangodb::RandomGenerator::RandomType::MERSENNE);
+  avocadodb::RandomGenerator::initialize(avocadodb::RandomGenerator::RandomType::MERSENNE);
   // global setup...
-  arangodb::Logger::initialize(false);
-  arangodb::LogAppender::addTtyAppender();
+  avocadodb::Logger::initialize(false);
+  avocadodb::LogAppender::addTtyAppender();
   int result = Catch::Session().run( argc, argv );
-  arangodb::Logger::shutdown();
+  avocadodb::Logger::shutdown();
   // global clean-up...
 
   return ( result < 0xff ? result : 0xff );

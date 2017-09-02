@@ -7,12 +7,12 @@ Instead of a function the `use` method can also accept an object with a `registe
 
 **Examples**
 
-Restrict access to ArangoDB-authenticated users:
+Restrict access to AvocadoDB-authenticated users:
 
 ```js
 module.context.use(function (req, res, next) {
-  if (!req.arangoUser) {
-    res.throw(401, 'Not authenticated with ArangoDB');
+  if (!req.avocadoUser) {
+    res.throw(401, 'Not authenticated with AvocadoDB');
   }
   next();
 });
@@ -23,7 +23,7 @@ Any truthy argument passed to the `next` function will be thrown as an error:
 ```js
 module.context.use(function (req, res, next) {
   let err = null;
-  if (!req.arangoUser) {
+  if (!req.avocadoUser) {
     err = new Error('This should never happen');
   }
   next(err); // throws if the error was set

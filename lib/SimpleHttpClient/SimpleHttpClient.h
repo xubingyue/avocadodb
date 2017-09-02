@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2017 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Achim Brandt
@@ -32,7 +32,7 @@
 #include "Logger/Logger.h"
 #include "Rest/HttpRequest.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace httpclient {
 
 class SimpleHttpResult;
@@ -59,10 +59,10 @@ struct SimpleHttpClientParams {
   void setKeepAlive(bool value) { _keepAlive = value; }
 
   //////////////////////////////////////////////////////////////////////////////
-  /// @brief expose ArangoDB via user-agent?
+  /// @brief expose AvocadoDB via user-agent?
   //////////////////////////////////////////////////////////////////////////////
 
-  void setExposeArangoDB(bool value) { _exposeArangoDB = value; }
+  void setExposeAvocadoDB(bool value) { _exposeAvocadoDB = value; }
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief advertise support for deflate?
@@ -101,7 +101,7 @@ struct SimpleHttpClientParams {
                            std::string const& username,
                            std::string const& password) {
     std::string value =
-        arangodb::basics::StringUtils::encodeBase64(username + ":" + password);
+        avocadodb::basics::StringUtils::encodeBase64(username + ":" + password);
 
     _pathToBasicAuth.push_back(std::make_pair(prefix, value));
   }
@@ -132,7 +132,7 @@ struct SimpleHttpClientParams {
 
   bool _keepAlive = true;
 
-  bool _exposeArangoDB = true;
+  bool _exposeAvocadoDB = true;
 
   bool _supportDeflate = true;
 
@@ -288,7 +288,7 @@ class SimpleHttpClient {
     _errorMessage = message;
 
     if (_params._warn || forceWarn) {
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "" << _errorMessage;
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "" << _errorMessage;
     }
   }
 
@@ -445,13 +445,13 @@ class SimpleHttpClient {
   /// @brief write buffer
   //////////////////////////////////////////////////////////////////////////////
 
-  arangodb::basics::StringBuffer _writeBuffer;
+  avocadodb::basics::StringBuffer _writeBuffer;
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief read buffer
   //////////////////////////////////////////////////////////////////////////////
 
-  arangodb::basics::StringBuffer _readBuffer;
+  avocadodb::basics::StringBuffer _readBuffer;
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief read buffer offset

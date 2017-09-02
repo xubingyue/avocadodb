@@ -4,7 +4,7 @@ Architecture
 AppendOnly/MVCC
 ---------------
 
-Instead of overwriting existing documents, ArangoDB will create a new version of 
+Instead of overwriting existing documents, AvocadoDB will create a new version of 
 modified documents. This is even the case when a document gets deleted. The
 two benefits are:
 

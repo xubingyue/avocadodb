@@ -29,9 +29,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var ArangoError = require("@arangodb").ArangoError;
-var ERRORS = arangodb.errors;
+var avocadodb = require("@avocadodb");
+var AvocadoError = require("@avocadodb").AvocadoError;
+var ERRORS = avocadodb.errors;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ var ERRORS = arangodb.errors;
 function ErrorsSuite () {
   'use strict';
   var throwError = function (code, message) {
-    var err = new ArangoError();
+    var err = new AvocadoError();
     err.errorNum = code; 
     err.errorMessage = message;
     throw err;
@@ -65,7 +65,7 @@ function ErrorsSuite () {
         throw "foo";
       }
       catch (err) {
-        assertFalse(err instanceof ArangoError);
+        assertFalse(err instanceof AvocadoError);
         assertEqual("string", typeof err);
         assertEqual("foo", err);
         testthrow = true;  
@@ -83,7 +83,7 @@ function ErrorsSuite () {
         throw new TypeError("invalid type!");
       }
       catch (err) {
-        assertFalse(err instanceof ArangoError);
+        assertFalse(err instanceof AvocadoError);
         assertEqual("invalid type!", err.message);
         testthrow = true;  
       }
@@ -94,7 +94,7 @@ function ErrorsSuite () {
 /// @brief test struct
 ////////////////////////////////////////////////////////////////////////////////
 
-    testArangoErrorStruct : function () {
+    testAvocadoErrorStruct : function () {
       try {
         throwError(1, "the foxx");
         fail();
@@ -112,7 +112,7 @@ function ErrorsSuite () {
         assertEqual("the foxx", err.errorMessage);
         assertTrue(err.error);
 
-        assertTrue(err instanceof ArangoError);
+        assertTrue(err instanceof AvocadoError);
       }
     },
 
@@ -120,7 +120,7 @@ function ErrorsSuite () {
 /// @brief test a custom code
 ////////////////////////////////////////////////////////////////////////////////
 
-    testArangoErrorCustom : function () {
+    testAvocadoErrorCustom : function () {
       try {
         throwError(12345, "myerrormessage");
         fail();
@@ -135,7 +135,7 @@ function ErrorsSuite () {
 /// @brief test a custom message
 ////////////////////////////////////////////////////////////////////////////////
 
-    testArangoErrorMessage : function () {
+    testAvocadoErrorMessage : function () {
       try {
         throwError(ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.code, ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID.message);
         fail();
@@ -150,7 +150,7 @@ function ErrorsSuite () {
 /// @brief test to string
 ////////////////////////////////////////////////////////////////////////////////
 
-    testArangoToString1 : function () {
+    testAvocadoToString1 : function () {
       var e = ERRORS.ERROR_ARANGO_DOCUMENT_TYPE_INVALID;
       
       try {
@@ -158,7 +158,7 @@ function ErrorsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual("ArangoError " + e.code + ": " + e.message, err.toString());
+        assertEqual("AvocadoError " + e.code + ": " + e.message, err.toString());
       }
     },
 
@@ -166,7 +166,7 @@ function ErrorsSuite () {
 /// @brief test to string
 ////////////////////////////////////////////////////////////////////////////////
 
-    testArangoToString2 : function () {
+    testAvocadoToString2 : function () {
       var e = ERRORS.ERROR_ARANGO_DOCUMENT_NOT_FOUND;
       
       try {
@@ -174,7 +174,7 @@ function ErrorsSuite () {
         fail();
       }
       catch (err) {
-        assertEqual("ArangoError " + e.code + ": " + e.message + ": did not find document", err.toString());
+        assertEqual("AvocadoError " + e.code + ": " + e.message + ": did not find document", err.toString());
       }
     }
 

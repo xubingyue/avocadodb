@@ -167,7 +167,7 @@ The starting vertex will always be Alice.
 Follow only outbound edges
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalOutbound}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -186,7 +186,7 @@ Follow only outbound edges
 Follow only inbound edges
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalInbound}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -204,7 +204,7 @@ Follow only inbound edges
 Follow any direction of edges
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalAny}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -228,7 +228,7 @@ Follow any direction of edges
 Excluding *Charlie* and *Bob*
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalFilterExclude}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -254,7 +254,7 @@ Excluding *Charlie* and *Bob*
 Do not follow edges from *Bob*
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalFilterPrune}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -278,7 +278,7 @@ Do not follow edges from *Bob*
 Visit only nodes in a depth of at least 2
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalMinDepth}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -297,7 +297,7 @@ Visit only nodes in a depth of at least 2
 Visit only nodes in a depth of at most 1
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalMaxDepth}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -316,7 +316,7 @@ Visit only nodes in a depth of at most 1
 Using a visitor function to return vertex ids only
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalVisitorFunc}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -335,7 +335,7 @@ Using a visitor function to return vertex ids only
 Count all visited nodes and return a list of nodes only
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalVisitorCountAndList}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -355,7 +355,7 @@ Count all visited nodes and return a list of nodes only
 Expand only inbound edges of *Alice* and outbound edges of *Eve*
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalVisitorExpander}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -392,7 +392,7 @@ Expand only inbound edges of *Alice* and outbound edges of *Eve*
 Follow the *depthfirst* strategy
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalDepthFirst}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -413,7 +413,7 @@ Follow the *depthfirst* strategy
 Using *postorder* ordering
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalPostorder}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -434,7 +434,7 @@ Using *postorder* ordering
 Using *backward* item-ordering:
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalBackwardItemOrder}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -456,7 +456,7 @@ Edges should only be included once globally,
 but nodes are included every time they are visited
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalEdgeUniqueness}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var url = "/_api/traversal";
@@ -487,7 +487,7 @@ With the directed edges:
 
 
 @EXAMPLE_ARANGOSH_RUN{RestTraversalMaxIterations}
-    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var examples = require("@avocadodb/graph-examples/example-graph.js");
     var g = examples.loadGraph("knows_graph");
     var a = g.persons.document("alice")._id;
     var b = g.persons.document("bob")._id;

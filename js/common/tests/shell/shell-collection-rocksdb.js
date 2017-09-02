@@ -30,12 +30,12 @@
 
 var jsunity = require("jsunity");
 
-var arangodb = require("@arangodb");
+var avocadodb = require("@avocadodb");
 var internal = require("internal");
 
-var ArangoCollection = arangodb.ArangoCollection;
-var db = arangodb.db;
-var ERRORS = arangodb.errors;
+var AvocadoCollection = avocadodb.AvocadoCollection;
+var db = avocadodb.db;
+var ERRORS = avocadodb.errors;
 
 // copied from lib/Basics/HybridLogicalClock.cpp
 var decodeTable = [
@@ -348,7 +348,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var c2 = db._collection(c1._id);
@@ -374,7 +374,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var c2 = db[cn];
@@ -400,7 +400,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var l = db._collections();
@@ -423,7 +423,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var p = c1.properties();
@@ -446,7 +446,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_EDGE, c1.type());
+      assertEqual(AvocadoCollection.TYPE_EDGE, c1.type());
       assertTypeOf("number", c1.type());
 
       var p = c1.properties();
@@ -469,7 +469,7 @@ function CollectionSuite () {
       c1 = null;
 
       var c2 = db[cn];
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c2.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c2.type());
 
       db._drop(cn);
     },
@@ -487,7 +487,7 @@ function CollectionSuite () {
       c1 = null;
 
       var c2 = db[cn];
-      assertEqual(ArangoCollection.TYPE_EDGE, c2.type());
+      assertEqual(AvocadoCollection.TYPE_EDGE, c2.type());
 
       db._drop(cn);
     },
@@ -505,7 +505,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var p = c1.properties();
@@ -528,7 +528,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var p = c1.properties();
@@ -567,7 +567,7 @@ function CollectionSuite () {
 
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       db._drop(cn);
     },
 
@@ -583,7 +583,7 @@ function CollectionSuite () {
 
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
-      assertEqual(ArangoCollection.TYPE_EDGE, c1.type());
+      assertEqual(AvocadoCollection.TYPE_EDGE, c1.type());
       db._drop(cn);
     },
 
@@ -600,7 +600,7 @@ function CollectionSuite () {
 
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       db._drop(cn);
     },
 
@@ -617,13 +617,13 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       c1.drop();
 
-      assertEqual(ArangoCollection.STATUS_DELETED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_DELETED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
 
       var c2 = db._collection(cn);
 
@@ -645,13 +645,13 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       c1.drop();
 
-      assertEqual(ArangoCollection.STATUS_DELETED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_DELETED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
 
       var c2 = db._collection(cn);
 
@@ -674,13 +674,13 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       c1.drop();
 
-      assertEqual(ArangoCollection.STATUS_DELETED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_DELETED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
 
       var c2 = db._collection(cn);
 
@@ -700,13 +700,13 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       c1.truncate();
 
-      assertEqual(ArangoCollection.STATUS_LOADED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_LOADED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertEqual(0, c1.count());
 
       db._drop(cn);
@@ -727,13 +727,13 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       c1.truncate();
 
-      assertEqual(ArangoCollection.STATUS_LOADED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_LOADED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertEqual(0, c1.count());
 
       db._drop(cn);
@@ -755,13 +755,13 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       c1.truncate();
 
-      assertEqual(ArangoCollection.STATUS_LOADED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_LOADED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertEqual(0, c1.count());
 
       db._drop(cn);
@@ -926,10 +926,10 @@ function CollectionDbSuite () {
           assertTypeOf("number", c.type());
 
           if (c.name() === cn1) {
-            assertEqual(ArangoCollection.TYPE_DOCUMENT, c.type());
+            assertEqual(AvocadoCollection.TYPE_DOCUMENT, c.type());
           }
           else if (c.name() === cn2) {
-            assertEqual(ArangoCollection.TYPE_EDGE, c.type());
+            assertEqual(AvocadoCollection.TYPE_EDGE, c.type());
           }
         }
       }
@@ -950,13 +950,13 @@ function CollectionDbSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       db._drop(cn);
 
-      assertEqual(ArangoCollection.STATUS_DELETED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_DELETED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
 
       var c2 = db._collection(cn);
 
@@ -978,13 +978,13 @@ function CollectionDbSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       db._drop(cn);
 
-      assertEqual(ArangoCollection.STATUS_DELETED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_DELETED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
 
       var c2 = db._collection(cn);
 
@@ -1007,13 +1007,13 @@ function CollectionDbSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       db._drop(cn);
 
-      assertEqual(ArangoCollection.STATUS_DELETED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_DELETED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
 
       var c2 = db._collection(cn);
 
@@ -1033,13 +1033,13 @@ function CollectionDbSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       db._truncate(cn);
 
-      assertEqual(ArangoCollection.STATUS_LOADED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_LOADED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertEqual(0, c1.count());
 
       db._drop(cn);
@@ -1060,13 +1060,13 @@ function CollectionDbSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       db._truncate(cn);
 
-      assertEqual(ArangoCollection.STATUS_LOADED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_LOADED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertEqual(0, c1.count());
 
       db._drop(cn);
@@ -1088,13 +1088,13 @@ function CollectionDbSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       db._truncate(cn);
 
-      assertEqual(ArangoCollection.STATUS_LOADED, c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.STATUS_LOADED, c1.status());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertEqual(0, c1.count());
 
       db._drop(cn);

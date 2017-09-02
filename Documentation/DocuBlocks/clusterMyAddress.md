@@ -12,7 +12,7 @@ must have the following pattern:
 
 If no *endpoint* is specified, the server will look up its internal
 endpoint address in the agency. If no endpoint can be found in the agency
-for the server's id, ArangoDB will refuse to start.
+for the server's id, AvocadoDB will refuse to start.
 
 @EXAMPLES
 

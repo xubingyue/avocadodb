@@ -31,8 +31,8 @@
 
 var jsunity = require("jsunity");
 
-var db = require("@arangodb").db;
-var SimpleQueryArray = require("@arangodb/simple-query").SimpleQueryArray;
+var db = require("@avocadodb").db;
+var SimpleQueryArray = require("@avocadodb/simple-query").SimpleQueryArray;
 
 
 ////////////////////////////////////////////////////////////////////////////////

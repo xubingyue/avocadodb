@@ -2,7 +2,7 @@
 
 require 'rspec'
 require 'socket'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
 def read_socket (socket) 
   response = ""
@@ -40,7 +40,7 @@ def await_response (n)
   response
 end
 
-describe ArangoDB, :ssl => true do
+describe AvocadoDB, :ssl => true do
 
   context "dealing with HTTP pipelining:" do
       
@@ -120,12 +120,12 @@ describe ArangoDB, :ssl => true do
       before do
         @cn = "UnitTestsCollection"
 
-        ArangoDB.drop_collection(@cn)
-        ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "checks post requests" do

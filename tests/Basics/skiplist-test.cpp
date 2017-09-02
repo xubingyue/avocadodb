@@ -41,7 +41,7 @@ using namespace std;
 
 static int CmpElmElm (void*, void const* left,
                       void const* right,
-                      arangodb::MMFilesSkiplistCmpType cmptype) {
+                      avocadodb::MMFilesSkiplistCmpType cmptype) {
   auto l = *(static_cast<int const*>(left));
   auto r = *(static_cast<int const*>(right));
 
@@ -73,7 +73,7 @@ struct CSkiplistSetup {
   CSkiplistSetup () {
     if (!Initialized) {
       Initialized = true;
-      arangodb::RandomGenerator::initialize(arangodb::RandomGenerator::RandomType::MERSENNE);
+      avocadodb::RandomGenerator::initialize(avocadodb::RandomGenerator::RandomType::MERSENNE);
     }
 
   }
@@ -94,7 +94,7 @@ TEST_CASE("CSkiplistTest", "[cskiplist]") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_unique_forward") {
-  arangodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
+  avocadodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
   
   // check start node
   CHECK((void*) 0 == skiplist.startNode()->nextNode());
@@ -125,7 +125,7 @@ SECTION("tst_unique_forward") {
   // check end node
   CHECK((void*) 0 == skiplist.endNode());
 
-  arangodb::MMFilesSkiplistNode<void, void>* current;
+  avocadodb::MMFilesSkiplistNode<void, void>* current;
 
   // do a forward iteration
   current = skiplist.startNode()->nextNode();
@@ -174,7 +174,7 @@ SECTION("tst_unique_forward") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_unique_reverse") {
-  arangodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
+  avocadodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
   
   // check start node
   CHECK((void*) 0 == skiplist.startNode()->nextNode());
@@ -205,7 +205,7 @@ SECTION("tst_unique_reverse") {
   // check end node
   CHECK((void*) 0 == skiplist.endNode());
 
-  arangodb::MMFilesSkiplistNode<void, void>* current;
+  avocadodb::MMFilesSkiplistNode<void, void>* current;
 
   // do a forward iteration
   current = skiplist.startNode()->nextNode();
@@ -254,7 +254,7 @@ SECTION("tst_unique_reverse") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_unique_lookup") {
-  arangodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
+  avocadodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
   
   std::vector<int*> values; 
   for (int i = 0; i < 100; ++i) {
@@ -297,7 +297,7 @@ SECTION("tst_unique_lookup") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_unique_remove") {
-  arangodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
+  avocadodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
   
   std::vector<int*> values; 
   for (int i = 0; i < 100; ++i) {
@@ -402,7 +402,7 @@ SECTION("tst_unique_remove") {
 ////////////////////////////////////////////////////////////////////////////////
 
 SECTION("tst_unique_remove_all") {
-  arangodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
+  avocadodb::MMFilesSkiplist<void, void> skiplist(CmpElmElm, CmpKeyElm, FreeElm, true, false);
   
   std::vector<int*> values; 
   for (int i = 0; i < 100; ++i) {

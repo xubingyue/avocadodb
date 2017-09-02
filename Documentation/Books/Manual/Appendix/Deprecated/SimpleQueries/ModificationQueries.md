@@ -5,7 +5,7 @@ Modification Queries
 It is recommended to use AQL instead, see [**Data Modification Queries**](../../../../AQL/DataQueries.html#data-modification-queries).
 {% endhint %}
 
-ArangoDB also allows removing, replacing, and updating documents based 
+AvocadoDB also allows removing, replacing, and updating documents based 
 on an example document. Every document in the collection will be 
 compared against the specified example document and be deleted/replaced/
 updated if all attributes match.

@@ -21,8 +21,8 @@ ctrl.destroySession('/logout', function (req, res) {
 New:
 
 ```js
-const sessionMiddleware = require('@arangodb/foxx/sessions');
-const cookieTransport = require('@arangodb/foxx/sessions/transports/cookie');
+const sessionMiddleware = require('@avocadodb/foxx/sessions');
+const cookieTransport = require('@avocadodb/foxx/sessions/transports/cookie');
 router.use(sessionMiddleware({
   storage: module.context.collection('sessions'),
   transport: cookieTransport('keyboardcat')

@@ -38,7 +38,7 @@ function ModelSpec () {
 
   return {
     setUp: function () {
-      FoxxModel = require('@arangodb/foxx/legacy/model').Model;
+      FoxxModel = require('@avocadodb/foxx/legacy/model').Model;
     },
 
     testWithInitialData: function () {
@@ -139,9 +139,9 @@ function ModelSpec () {
 
       instance = new Model({ anInteger: 1 });
       assertEqual(_.keys(instance.attributes).length, 1);
-      instance.set("_key", "arango");
+      instance.set("_key", "avocado");
       assertEqual(_.keys(instance.attributes).length, 2);
-      assertEqual(instance.get("_key"), "arango");
+      assertEqual(instance.get("_key"), "avocado");
       assertEqual(_.keys(instance.errors).length, 0);
       assertTrue(instance.isValid);
     },
@@ -313,11 +313,11 @@ function ModelDBSpec () {
   "use strict";
   var FoxxModel, instance, cn;
   var internal = require("internal");
-  var db = require("@arangodb").db;
+  var db = require("@avocadodb").db;
 
   return {
     setUp: function () {
-      FoxxModel = require('@arangodb/foxx/legacy/model').Model;
+      FoxxModel = require('@avocadodb/foxx/legacy/model').Model;
 
       cn = "UnitTestsFoxxModel";
       db._drop(cn);
@@ -422,8 +422,8 @@ function ModelAnnotationSpec () {
 
   return {
     setUp: function () {
-      FoxxModel = require('@arangodb/foxx/legacy/model').Model;
-      toJSONSchema = require('@arangodb/foxx/legacy/schema').toJSONSchema;
+      FoxxModel = require('@avocadodb/foxx/legacy/model').Model;
+      toJSONSchema = require('@avocadodb/foxx/legacy/schema').toJSONSchema;
     },
 
     testGetEmptyJSONSchema: function () {

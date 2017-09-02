@@ -11,7 +11,7 @@ the logger server to connect to (e.g. "tcp://192.168.173.13:8529"). The endpoint
 the name of the database on the endpoint. If not specified, defaults to the current local database name.
 
 @RESTBODYPARAM{username,string,optional,string}
-an optional ArangoDB username to use when connecting to the endpoint.
+an optional AvocadoDB username to use when connecting to the endpoint.
 
 @RESTBODYPARAM{password,string,required,string}
 the password to use when connecting to the endpoint.
@@ -150,7 +150,7 @@ is returned if an error occurred while assembling the response.
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{RestReplicationApplierSetConfig}
-    var re = require("@arangodb/replication");
+    var re = require("@avocadodb/replication");
     re.applier.shutdown();
 
     var url = "/_api/replication/applier-config";

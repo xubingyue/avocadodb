@@ -3,7 +3,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2015 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2015 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 /// @author Jan Steemann
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <chrono>
@@ -29,22 +29,22 @@
 #include "velocypack/velocypack-common.h"
 #include "velocypack/Exception.h"
 
-using namespace arangodb::velocypack;
+using namespace avocadodb::velocypack;
 
 static bool AssemblerFunctionsDisabled = false;
 
 // disable hand-coded SSE4_2 functions for JSON parsing
 // this must be called before the JSON parser is used 
-void arangodb::velocypack::disableAssemblerFunctions() {
+void avocadodb::velocypack::disableAssemblerFunctions() {
   AssemblerFunctionsDisabled = true;
 }
 
-bool arangodb::velocypack::assemblerFunctionsEnabled() { return !AssemblerFunctionsDisabled; }
-bool arangodb::velocypack::assemblerFunctionsDisabled() { return AssemblerFunctionsDisabled; }
+bool avocadodb::velocypack::assemblerFunctionsEnabled() { return !AssemblerFunctionsDisabled; }
+bool avocadodb::velocypack::assemblerFunctionsDisabled() { return AssemblerFunctionsDisabled; }
 
 #ifndef VELOCYPACK_64BIT
 // check if the length is beyond the size of a SIZE_MAX on this platform
-std::size_t arangodb::velocypack::checkOverflow(ValueLength length) {
+std::size_t avocadodb::velocypack::checkOverflow(ValueLength length) {
   if (length > static_cast<ValueLength>(SIZE_MAX)) {
     throw Exception(Exception::NumberOutOfRange);
   }
@@ -57,10 +57,10 @@ static_assert(sizeof(std::size_t) == sizeof(uint64_t),
               "unexpected size_t size");
 #endif
 
-int64_t arangodb::velocypack::currentUTCDateValue() {
+int64_t avocadodb::velocypack::currentUTCDateValue() {
   return static_cast<int64_t>(
       std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 }
 
-static_assert(sizeof(arangodb::velocypack::ValueLength) >= sizeof(SIZE_MAX),
+static_assert(sizeof(avocadodb::velocypack::ValueLength) >= sizeof(SIZE_MAX),
               "invalid value for SIZE_MAX");

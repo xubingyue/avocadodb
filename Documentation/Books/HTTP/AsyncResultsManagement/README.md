@@ -2,15 +2,15 @@ HTTP Interface for Async Results Management
 ===========================================
 ### Request Execution
 
-ArangoDB provides various methods of executing client requests. Clients can choose the appropriate method on a per-request level based on their throughput, control flow, and durability requirements.
+AvocadoDB provides various methods of executing client requests. Clients can choose the appropriate method on a per-request level based on their throughput, control flow, and durability requirements.
 
 #### Blocking execution
 
-ArangoDB is a multi-threaded server, allowing the processing of multiple client 
+AvocadoDB is a multi-threaded server, allowing the processing of multiple client 
 requests at the same time. Communication handling and the actual work can be performed
 by multiple worker threads in parallel.
 
-Though multiple clients can connect and send their requests in parallel to ArangoDB,
+Though multiple clients can connect and send their requests in parallel to AvocadoDB,
 clients may need to wait for their requests to be processed.
 
 By default, the server will fully process an incoming request and then return the
@@ -27,9 +27,9 @@ and [HttpJobPutCancel](#managing-async-results-via-http) for details.
 
 #### Fire and Forget
 
-To mitigate client blocking issues, ArangoDB since version 1.4. offers a generic mechanism 
-for non-blocking requests: if clients add the HTTP header *x-arango-async: true* to their
-requests, ArangoDB will put the request into an in-memory task queue and return an HTTP 202
+To mitigate client blocking issues, AvocadoDB since version 1.4. offers a generic mechanism 
+for non-blocking requests: if clients add the HTTP header *x-avocado-async: true* to their
+requests, AvocadoDB will put the request into an in-memory task queue and return an HTTP 202
 (accepted) response to the client instantly. The server will execute the tasks from
 the queue asynchronously, decoupling the client requests and the actual work.
 
@@ -59,27 +59,27 @@ and [HttpJobPutCancel](#managing-async-results-via-http) below.
 
 #### Async Execution and later Result Retrieval
 
-By adding the HTTP header *x-arango-async: store* to a request, clients can instruct
-the ArangoDB server to execute the operation asynchronously as [above](#fire-and-forget),
+By adding the HTTP header *x-avocado-async: store* to a request, clients can instruct
+the AvocadoDB server to execute the operation asynchronously as [above](#fire-and-forget),
 but also store the operation result in memory for a later retrieval. The
-server will return a job id in the HTTP response header *x-arango-async-id*. The client
+server will return a job id in the HTTP response header *x-avocado-async-id*. The client
 can use this id in conjunction with the HTTP API at */_api/job*, which is described in
 detail in this manual.
 
-Clients can ask the ArangoDB server via the async jobs API which results are
+Clients can ask the AvocadoDB server via the async jobs API which results are
 ready for retrieval, and which are not. Clients can also use the async jobs API to
 retrieve the original results of an already executed async job by passing it the
 originally returned job id. The server will then return the job result as if the job was 
 executed normally. Furthermore, clients can cancel running async jobs by
 their job id, see [HttpJobPutCancel](#managing-async-results-via-http).
 
-ArangoDB will keep all results of jobs initiated with the *x-arango-async: store* 
+AvocadoDB will keep all results of jobs initiated with the *x-avocado-async: store* 
 header. Results are removed from the server only if a client explicitly asks the
 server for a specific result.
 
 The async jobs API also provides methods for garbage collection that clients can
 use to get rid of "old" not fetched results. Clients should call this method periodically
-because ArangoDB does not artificially limit the number of not-yet-fetched results.
+because AvocadoDB does not artificially limit the number of not-yet-fetched results.
 
 It is thus a client responsibility to store only as many results as needed and to fetch 
 available results as soon as possible, or at least to clean up not fetched results

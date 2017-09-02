@@ -41,7 +41,7 @@ endif ()
 #endif ()
 #
 #message(STATUS "WITH_SNAPPY ${WITH_SNAPPY}")
-#message(STATUS "ArangoDB (3rdParty/rocksdb/CMakeLists.txt) Snappy path: ${SNAPPY_INCLUDE_DIR}")
+#message(STATUS "AvocadoDB (3rdParty/rocksdb/CMakeLists.txt) Snappy path: ${SNAPPY_INCLUDE_DIR}")
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/${ARANGO_ROCKSDB_VERSION})
 
 # result

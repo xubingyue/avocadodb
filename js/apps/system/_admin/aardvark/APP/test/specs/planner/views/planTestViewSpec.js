@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* global describe, beforeEach, afterEach, it, spyOn, expect*/
 /* global runs, waitsFor, jasmine*/
-/* global $, arangoCollectionModel*/
+/* global $, avocadoCollectionModel*/
 (function () {
   'use strict';
 

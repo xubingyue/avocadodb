@@ -1,10 +1,10 @@
 !include "LogicLib.nsh"
-!define TRI_SVC_NAME 'ArangoDB'
+!define TRI_SVC_NAME 'AvocadoDB'
 
 ;--------------------------------
 
 Function WaitForServiceUp
-  DetailPrint "starting ArangoDB Service..."
+  DetailPrint "starting AvocadoDB Service..."
   Push 0
   Pop $R0
   try_again:
@@ -24,7 +24,7 @@ Function WaitForServiceUp
       IfSilent 0 openStartPopup
       Quit
      openStartPopup:
-      MessageBox MB_OK "Waited 40 seconds for ArangoDB to come up; Please look at the Windows Eventlog for eventual errors!"
+      MessageBox MB_OK "Waited 40 seconds for AvocadoDB to come up; Please look at the Windows Eventlog for eventual errors!"
       Return
     ${EndIf}
     IntOp $R0 $R0 + 1
@@ -34,7 +34,7 @@ FunctionEnd
 ;--------------------------------
 !macro WaitForServiceDown un
 Function ${un}WaitForServiceDown
-  DetailPrint "stopping ArangoDB Service..."
+  DetailPrint "stopping AvocadoDB Service..."
   Push 0
   Pop $R0
   try_again:
@@ -54,7 +54,7 @@ Function ${un}WaitForServiceDown
       IfSilent 0 openStopPopup
       Quit
      openStopPopup:
-      MessageBox MB_OK "Waited 40 seconds for the ArangoDB Service to shutdown; you may need to remove files by hand"
+      MessageBox MB_OK "Waited 40 seconds for the AvocadoDB Service to shutdown; you may need to remove files by hand"
       Return
     ${EndIf}
     IntOp $R0 $R0 + 1

@@ -3,8 +3,8 @@
 require('chai').config.truncateThreshold = 0;
 const joi = require('joi');
 const expect = require('chai').expect;
-const Service = require('@arangodb/foxx/service');
-const createRouter = require('@arangodb/foxx/router');
+const Service = require('@avocadodb/foxx/service');
+const createRouter = require('@avocadodb/foxx/router');
 
 describe('Foxx Swagger', function () {
   let service;
@@ -274,7 +274,7 @@ function createService () {
     description: 'Dummy app for Foxx.',
     main: '$dummy$',
     engines: {
-      arangodb: '^3.0.0'
+      avocadodb: '^3.0.0'
     }
   });
 }

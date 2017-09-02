@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Achim Brandt
@@ -36,9 +36,9 @@
 #include <velocypack/Builder.h>
 #include <velocypack/velocypack-aliases.h>
 
-using namespace arangodb;
-using namespace arangodb::application_features;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::application_features;
+using namespace avocadodb::basics;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief local thread number
@@ -194,7 +194,7 @@ Thread::~Thread() {
   state = _state.load();
 
   if (state != ThreadState::DETACHED && state != ThreadState::CREATED) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "thread '" << _name << "' is not detached but " << stringify(state)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "thread '" << _name << "' is not detached but " << stringify(state)
                << ". shutting down hard";
     FATAL_ERROR_ABORT();
   }
@@ -264,7 +264,7 @@ void Thread::shutdown() {
   }
 
   if (_state.load() != ThreadState::STOPPED) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "cannot shutdown thread, giving up";
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "cannot shutdown thread, giving up";
     FATAL_ERROR_ABORT();
   }
 }
@@ -286,7 +286,7 @@ bool Thread::isStopping() const {
 
 bool Thread::start(ConditionVariable* finishedCondition) {
   if (!isSystem() && !ApplicationServer::isPrepared()) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "trying to start a thread '" << _name
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "trying to start a thread '" << _name
                << "' before prepare has finished, current state: "
                << (ApplicationServer::server == nullptr
                        ? -1

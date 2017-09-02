@@ -73,7 +73,7 @@ struct Event {
       if (strcmp(q, "cs:") == 0) {
         return;
       }
-      if (name.compare(0, 14, "probe_arangod:") == 0) {
+      if (name.compare(0, 14, "probe_avocadod:") == 0) {
         name = name.substr(14);
       }
       auto l = name.size();

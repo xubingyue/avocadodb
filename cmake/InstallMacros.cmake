@@ -44,7 +44,7 @@ macro (install_config name)
   endif ()
 
   configure_file(
-    "${PROJECT_SOURCE_DIR}/etc/arangodb3/${name}.conf.in"
+    "${PROJECT_SOURCE_DIR}/etc/avocadodb3/${name}.conf.in"
     "${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_SYSCONFDIR_ARANGO}/${name}.conf"
     NEWLINE_STYLE ${CRLFSTYLE}
     @ONLY)

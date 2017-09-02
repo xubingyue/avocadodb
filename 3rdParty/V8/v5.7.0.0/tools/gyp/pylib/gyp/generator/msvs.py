@@ -2055,7 +2055,7 @@ def GenerateOutput(target_list, target_dicts, data, params):
     sln_projects += gyp.common.DeepDependencyTargets(target_dicts, sln_projects)
     # Create folder hierarchy.
     root_entries = _GatherSolutionFolders(
-      # ArangoDB V8 build script expects flat solution
+      # AvocadoDB V8 build script expects flat solution
       # sln_projects, project_objects, flat=msvs_version.FlatSolution())
       sln_projects, project_objects, flat=True)
     # Create solution.

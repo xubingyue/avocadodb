@@ -141,7 +141,7 @@ leave other attributes untouched. Internal attributes (such as *_id*, *_key*, *_
 *_from* and *_to*) cannot be updated and are ignored when specified in *document*.
 Updating a document will modify the document's revision number with a server-generated value.
 
-When updating an attribute with a null value, ArangoDB will not remove the attribute 
+When updating an attribute with a null value, AvocadoDB will not remove the attribute 
 from the document but store a null value for it. To get rid of attributes in an update
 operation, set them to null and provide the *keepNull* option:
 

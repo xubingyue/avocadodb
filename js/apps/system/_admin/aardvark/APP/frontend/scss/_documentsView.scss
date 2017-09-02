@@ -39,14 +39,14 @@
     padding-top: 5px;
   }
 
-  .icon_arangodb_locked {
-    color: $c-arangodb-locked;
+  .icon_avocadodb_locked {
+    color: $c-avocadodb-locked;
     cursor: default;
     font-size: 20px;
     margin-left: 10px;
   }
 
-  .icon_arangodb_roundminus {
+  .icon_avocadodb_roundminus {
     @extend %clickable;
     @extend %icon-negative;
     font-size: 20px;
@@ -74,7 +74,7 @@
 
 .contentIn {
 
-  .arangoicon {
+  .avocadoicon {
     font-size: 25px;
     position: relative;
     top: -3px !important;
@@ -101,7 +101,7 @@
       margin-right: 7px;
     }
 
-    .arangoicon {
+    .avocadoicon {
       float: right;
       margin-right: -12px;
       margin-top: 5px;

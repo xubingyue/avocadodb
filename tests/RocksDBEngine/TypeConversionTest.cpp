@@ -21,7 +21,7 @@
 /// Copyright holder is triAGENS GmbH, Cologne, Germany
 ///
 /// @author Jan Christoph Uhde
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -31,13 +31,13 @@
 #include <vector>
 #include <limits>
 
-using namespace arangodb;
+using namespace avocadodb;
 
 // -----------------------------------------------------------------------------
 // --SECTION--                                                        test suite
 // -----------------------------------------------------------------------------
 
-using namespace arangodb::rocksutils;
+using namespace avocadodb::rocksutils;
 // @brief setup
 
 void doFromToTest(double num){

@@ -25,7 +25,7 @@ FOR u IN users
 The bind parameter values need to be passed along with the query when it is
 executed, but not as part of the query text itself. In the web interface,
 there is a pane next to the query editor where the bind parameters can be
-entered. When using `db._query()` (in arangosh for instance), then an
+entered. When using `db._query()` (in avocadosh for instance), then an
 object of key-value pairs can be passed for the parameters. Such an object
 can also be passed to the HTTP API endpoint `_api/cursor`, as attribute
 value for the key *bindVars*:
@@ -118,5 +118,5 @@ Keywords can't be replaced by bind-values; i.e. `FOR`, `FILTER`, `IN`, `INBOUND`
 Specific information about parameters binding can also be found in:
 
 - [AQL with Web Interface](../Invocation/WithWebInterface.md)
-- [AQL with Arangosh](../Invocation/WithArangosh.md)
+- [AQL with Avocadosh](../Invocation/WithAvocadosh.md)
 - [HTTP Interface for AQL Queries](../../HTTP/AqlQueryCursor/index.html)

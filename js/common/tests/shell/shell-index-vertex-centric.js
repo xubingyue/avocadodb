@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2010-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2010-2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
-/// @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 const jsunity = require("jsunity");
 const internal = require("internal");
 const errors = internal.errors;
 const cn = "UnitTestEdgeCollection";
-const testHelper = require("@arangodb/test-helper").Helper;
-const arangodb = require('@arangodb');
+const testHelper = require("@avocadodb/test-helper").Helper;
+const avocadodb = require('@avocadodb');
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite: index creation
@@ -237,7 +237,7 @@ function vertexCentricIndexSuite() {
         let idx = collection.ensureVertexCentricIndex("label", {direction: "any"});
         fail();
       } catch (e) {
-        assertEqual(arangodb.errors.ERROR_BAD_PARAMETER.code, e.errorNum);
+        assertEqual(avocadodb.errors.ERROR_BAD_PARAMETER.code, e.errorNum);
       }
       // Nothing happend
       let after = collection.getIndexes();
@@ -250,7 +250,7 @@ function vertexCentricIndexSuite() {
         let idx = collection.ensureVertexCentricIndex("label", {direction: "outbound", type: "circus"});
         fail();
       } catch (e) {
-        assertEqual(arangodb.errors.ERROR_BAD_PARAMETER.code, e.errorNum);
+        assertEqual(avocadodb.errors.ERROR_BAD_PARAMETER.code, e.errorNum);
       }
       // Nothing happend
       let after = collection.getIndexes();
@@ -263,7 +263,7 @@ function vertexCentricIndexSuite() {
         let idx = collection.ensureVertexCentricIndex({direction: "outbound"});
         fail();
       } catch (e) {
-        assertEqual(arangodb.errors.ERROR_BAD_PARAMETER.code, e.errorNum);
+        assertEqual(avocadodb.errors.ERROR_BAD_PARAMETER.code, e.errorNum);
       }
       // Nothing happend
       let after = collection.getIndexes();

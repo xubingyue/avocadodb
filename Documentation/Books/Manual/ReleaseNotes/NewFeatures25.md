@@ -2,8 +2,8 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.5. ArangoDB 2.5 also contains several bugfixes that are not listed
-here. For a list of bugfixes, please consult the [CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG).
+AvocadoDB 2.5. AvocadoDB 2.5 also contains several bugfixes that are not listed
+here. For a list of bugfixes, please consult the [CHANGELOG](https://github.com/avocadodb/avocadodb/blob/devel/CHANGELOG).
 
 
 V8 version upgrade
@@ -11,11 +11,11 @@ V8 version upgrade
 
 The built-in version of V8 has been upgraded from 3.29.54 to 3.31.74.1.
 This allows activating additional ES6 (also dubbed *Harmony* or *ES.next*) features 
-in ArangoDB, both in the ArangoShell and the ArangoDB server. They can be
+in AvocadoDB, both in the AvocadoShell and the AvocadoDB server. They can be
 used for scripting and in server-side actions such as Foxx routes, traversals
 etc.
 
-The following additional ES6 features become available in ArangoDB 2.5 by default:
+The following additional ES6 features become available in AvocadoDB 2.5 by default:
 
 * iterators and generators
 * template strings
@@ -271,7 +271,7 @@ latter option is only read and used during the upgrade to 2.5 and does not have 
 
 ### Foxx install process
 
-Installing Foxx apps has been a two step process: import them into ArangoDB and mount them at a
+Installing Foxx apps has been a two step process: import them into AvocadoDB and mount them at a
 specific mountpoint. These operations have been joined together. You can install an app at one
 mountpoint, that's it. No fetch, mount, unmount, purge cycle anymore. The commands have been 
 simplified to just:
@@ -305,6 +305,6 @@ the familiar Console API in their global scope, which can be used to log diagnos
 messages to the database. This console also allows to read the error output of one specific foxx.
 
 ### Foxx requests
-We added `org/arangodb/request` module, which provides a simple API for making HTTP requests
+We added `org/avocadodb/request` module, which provides a simple API for making HTTP requests
 to external services. This is enables Foxx to be directly part of a micro service architecture.
 

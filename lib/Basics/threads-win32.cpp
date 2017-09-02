@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ bool TRI_StartThread(TRI_thread_t* thread, TRI_tid_t* threadId,
   try {
     d.reset(new thread_data_t(starter, data, name));
   } catch (...) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "could not start thread: out of memory";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "could not start thread: out of memory";
     return false;
   }
 
@@ -90,7 +90,7 @@ bool TRI_StartThread(TRI_thread_t* thread, TRI_tid_t* threadId,
                          threadId);      // returns the thread identifier
 
   if (*thread == 0) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "could not start thread: " << strerror(errno) << " ";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "could not start thread: " << strerror(errno) << " ";
     return false;
   }
 
@@ -106,7 +106,7 @@ int TRI_JoinThread(TRI_thread_t* thread) {
 
   switch (result) {
     case WAIT_ABANDONED: {
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "threads-win32.c:TRI_JoinThread:could not join thread --> WAIT_ABANDONED"; FATAL_ERROR_EXIT();
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "threads-win32.c:TRI_JoinThread:could not join thread --> WAIT_ABANDONED"; FATAL_ERROR_EXIT();
     }
 
     case WAIT_OBJECT_0: {
@@ -115,12 +115,12 @@ int TRI_JoinThread(TRI_thread_t* thread) {
     }
 
     case WAIT_TIMEOUT: {
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "threads-win32.c:TRI_JoinThread:could not joint thread --> WAIT_TIMEOUT"; FATAL_ERROR_EXIT();
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "threads-win32.c:TRI_JoinThread:could not joint thread --> WAIT_TIMEOUT"; FATAL_ERROR_EXIT();
     }
 
     case WAIT_FAILED: {
       result = GetLastError();
-      LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "threads-win32.c:TRI_JoinThread:could not join thread --> WAIT_FAILED - reason -->" << result; FATAL_ERROR_EXIT();
+      LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "threads-win32.c:TRI_JoinThread:could not join thread --> WAIT_FAILED - reason -->" << result; FATAL_ERROR_EXIT();
     }
   }
 

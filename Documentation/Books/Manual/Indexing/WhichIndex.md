@@ -1,19 +1,19 @@
 Which Index to use when
 -----------------------
 
-ArangoDB automatically indexes the `_key` attribute in each collection. There
+AvocadoDB automatically indexes the `_key` attribute in each collection. There
 is no need to index this attribute separately. Please note that a document's
 `_id` attribute is derived from the `_key` attribute, and is thus implicitly
 indexed, too.
 
-ArangoDB will also automatically create an index on `_from` and `_to` in any
+AvocadoDB will also automatically create an index on `_from` and `_to` in any
 edge collection, meaning incoming and outgoing connections can be determined
 efficiently.
 
 ### Index types
 
 Users can define additional indexes on one or multiple document attributes.
-Several different index types are provided by ArangoDB. These indexes have
+Several different index types are provided by AvocadoDB. These indexes have
 different usage scenarios:
 
 - hash index: provides quick access to individual documents if (and only if)
@@ -60,7 +60,7 @@ different usage scenarios:
   do not need to be rebuilt in-memory so they don't influence the loading time of
   collections as other in-memory indexes do.
 
-- geo index: the geo index provided by ArangoDB allows searching for documents
+- geo index: the geo index provided by AvocadoDB allows searching for documents
   within a radius around a two-dimensional earth coordinate (point), or to
   find documents with are closest to a point. Document coordinates can either 
   be specified in two different document attributes or in a single attribute, e.g.

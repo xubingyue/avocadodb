@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2017 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Daniel H. Larkin
 /// @author Jan Steemann
@@ -29,15 +29,15 @@
 #include <rocksdb/convenience.h>
 #include <velocypack/Iterator.h>
 
-namespace arangodb {
+namespace avocadodb {
 namespace rocksutils {
 
 static bool hasObjectIds(VPackSlice const& inputSlice) {
   bool rv = false;
   if (inputSlice.isObject()) {
     for (auto const& objectPair :
-         arangodb::velocypack::ObjectIterator(inputSlice)) {
-      if (arangodb::StringRef(objectPair.key) == "objectId") {
+         avocadodb::velocypack::ObjectIterator(inputSlice)) {
+      if (avocadodb::StringRef(objectPair.key) == "objectId") {
         return true;
       }
       rv = hasObjectIds(objectPair.value);
@@ -46,7 +46,7 @@ static bool hasObjectIds(VPackSlice const& inputSlice) {
       }
     }
   } else if (inputSlice.isArray()) {
-    for (auto const& slice : arangodb::velocypack::ArrayIterator(inputSlice)) {
+    for (auto const& slice : avocadodb::velocypack::ArrayIterator(inputSlice)) {
       if (rv) {
         return rv;
       }
@@ -60,8 +60,8 @@ static VPackBuilder& stripObjectIdsImpl(VPackBuilder& builder, VPackSlice const&
   if (inputSlice.isObject()) {
     builder.openObject();
     for (auto const& objectPair :
-         arangodb::velocypack::ObjectIterator(inputSlice)) {
-      if (arangodb::StringRef(objectPair.key) == "objectId") {
+         avocadodb::velocypack::ObjectIterator(inputSlice)) {
+      if (avocadodb::StringRef(objectPair.key) == "objectId") {
         continue;
       }
       builder.add(objectPair.key);
@@ -70,7 +70,7 @@ static VPackBuilder& stripObjectIdsImpl(VPackBuilder& builder, VPackSlice const&
     builder.close();
   } else if (inputSlice.isArray()) {
     builder.openArray();
-    for (auto const& slice : arangodb::velocypack::ArrayIterator(inputSlice)) {
+    for (auto const& slice : avocadodb::velocypack::ArrayIterator(inputSlice)) {
       stripObjectIdsImpl(builder, slice);
     }
     builder.close();
@@ -80,7 +80,7 @@ static VPackBuilder& stripObjectIdsImpl(VPackBuilder& builder, VPackSlice const&
   return builder;
 }
 
-arangodb::Result convertStatus(rocksdb::Status const& status, StatusHint hint) {
+avocadodb::Result convertStatus(rocksdb::Status const& status, StatusHint hint) {
   switch (status.code()) {
     case rocksdb::Status::Code::kOk:
       return {TRI_ERROR_NO_ERROR};

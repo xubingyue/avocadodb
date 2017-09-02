@@ -2,7 +2,7 @@ Dashboard
 =========
 
 The *Dashboard* tab provides statistics which are polled regularly from the
-ArangoDB server.
+AvocadoDB server.
 
 ![Nodes](images/dashboardView.png)
 

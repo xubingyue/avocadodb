@@ -3,7 +3,7 @@
 // //////////////////////////////////////////////////////////////////////////////
 // / DISCLAIMER
 // /
-// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Alan Plum
 // //////////////////////////////////////////////////////////////////////////////
@@ -28,9 +28,9 @@ const fs = require('fs');
 const joinPath = require('path').join;
 const inflect = require('i')();
 const assert = require('assert');
-const arangodb = require('@arangodb');
-const ArangoError = arangodb.ArangoError;
-const errors = arangodb.errors;
+const avocadodb = require('@avocadodb');
+const AvocadoError = avocadodb.AvocadoError;
+const errors = avocadodb.errors;
 
 const template = (filename) => _.template(
   fs.readFileSync(joinPath(
@@ -78,7 +78,7 @@ exports.generate = function (opts) {
     invalidOptions.push('edgeCollections has to be an array.');
   }
   if (invalidOptions.length > 0) {
-    throw new ArangoError({
+    throw new AvocadoError({
       errorNum: errors.ERROR_INVALID_FOXX_OPTIONS.code,
       errorMessage: dd`
         ${errors.ERROR_INVALID_FOXX_OPTIONS.message}
@@ -105,7 +105,7 @@ exports.generate = function (opts) {
     version: '0.0.0',
     description: opts.description,
     engines: {
-      arangodb: '^3.0.0'
+      avocadodb: '^3.0.0'
     },
     author: opts.author,
     license: opts.license,

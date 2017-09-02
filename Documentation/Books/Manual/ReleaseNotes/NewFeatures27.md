@@ -2,9 +2,9 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.7. ArangoDB 2.7 also contains several bugfixes that are not listed
+AvocadoDB 2.7. AvocadoDB 2.7 also contains several bugfixes that are not listed
 here. For a list of bugfixes, please consult the
-[CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG).
+[CHANGELOG](https://github.com/avocadodb/avocadodb/blob/devel/CHANGELOG).
 
 Performance improvements
 ------------------------
@@ -12,7 +12,7 @@ Performance improvements
 ### Index buckets
 
 The primary indexes and hash indexes of collections can now be split into multiple
-index buckets. This option was available for edge indexes only in ArangoDB 2.6.
+index buckets. This option was available for edge indexes only in AvocadoDB 2.6.
 
 A bucket can be considered a container for a specific range of index values. For
 primary, hash and edge indexes, determining the responsible bucket for an index
@@ -33,7 +33,7 @@ independent, using multiple buckets provides the following benefits:
   and rehashing the entire index. 
 
 When creating new collections, the default number of index buckets is `8` since
-ArangoDB 2.7. In previous versions, the default value was `1`. The number of
+AvocadoDB 2.7. In previous versions, the default value was `1`. The number of
 buckets can also be adjusted for existing collections so they can benefit from
 the optimizations. The number of index buckets can be set for a collection at
 any time by using a collection's `properties` function:
@@ -48,14 +48,14 @@ Please note that for building the index data for multiple buckets in parallel
 it is required that a collection contains a significant amount of documents because
 for a low number of documents the overhead of parallelization will outweigh its
 benefits. The current threshold value is 256k documents, but this value may change
-in future versions of ArangoDB. Additionally, the configuration option 
+in future versions of AvocadoDB. Additionally, the configuration option 
 `--database.index-threads` will determine how many parallel threads may be used
 for building the index data.
 
 
 ### Faster update and remove operations in non-unique hash indexes
 
-The unique hash indexes in ArangoDB provided an amortized O(1) lookup, insert, update 
+The unique hash indexes in AvocadoDB provided an amortized O(1) lookup, insert, update 
 and remove performance. Non-unique hash indexes provided amortized O(1) insert
 performance, but had worse performance for update and remove operations for
 non-unique values. For documents with the same index value, they maintained a 
@@ -66,7 +66,7 @@ the worst case (with n being the number of documents with the same index value).
 Overall, this made update and remove operations in non-unique hash indexes
 slow if the index contained many duplicate values.
 
-This has been changed in ArangoDB 2.7 so that non-unique hash indexes now also
+This has been changed in AvocadoDB 2.7 so that non-unique hash indexes now also
 provide update and remove operations with an amortized complexity of O(1), even
 if there are many duplicates.
 
@@ -80,23 +80,23 @@ resizing times.
 
 ### Throughput enhancements
 
-The ArangoDB-internal implementations for dispatching requests, keeping statistics
+The AvocadoDB-internal implementations for dispatching requests, keeping statistics
 and assigning V8 contexts to threads have been improved in order to use less
 locks. These changes allow higher concurrency and throughput in these components,
 which can also make the server handle more requests in a given period of time.
 
 What gains can be expected depends on which operations are executed, but there
 are real-world cases in which [throughput increased by between 25 % and 70 % when
-compared to 2.6](https://www.arangodb.com/2015/08/throughput-enhancements/). 
+compared to 2.6](https://www.avocadodb.com/2015/08/throughput-enhancements/). 
 
 
 ### Madvise hints
 
-The Linux variant for ArangoDB provides the OS with madvise hints about index
+The Linux variant for AvocadoDB provides the OS with madvise hints about index
 memory and datafile memory. These hints can speed up things when memory is tight, 
 in particular at collection load time but also for random accesses later. There
 is no formal guarantee that the OS actually uses the madvise hints provided by 
-ArangoDB, but actual measurements have shown improvements for loading bigger
+AvocadoDB, but actual measurements have shown improvements for loading bigger
 collections.
 
 
@@ -105,7 +105,7 @@ AQL improvements
 
 ### Additional date functions
 
-ArangoDB 2.7 provides several extra AQL functions for date and time 
+AvocadoDB 2.7 provides several extra AQL functions for date and time 
 calculation and manipulation. These functions were contributed 
 by GitHub users @CoDEmanX and @friday. A big thanks for their work! 
 
@@ -325,11 +325,11 @@ result:
 Assembling query strings in JavaScript has been error-prone when using simple 
 string concatenation, especially because plain JavaScript strings do not have
 multiline-support, and because of potential parameter injection issues. While 
-multiline query strings can be assembled with ES6 template strings since ArangoDB 2.5, 
-and query bind parameters are there since ArangoDB 1.0 to prevent parameter
+multiline query strings can be assembled with ES6 template strings since AvocadoDB 2.5, 
+and query bind parameters are there since AvocadoDB 1.0 to prevent parameter
 injection, there was no JavaScript-y solution to combine these.
 
-ArangoDB 2.7 now provides an ES6 template string generator function that can
+AvocadoDB 2.7 now provides an ES6 template string generator function that can
 be used to easily and safely assemble AQL queries from JavaScript. JavaScript
 variables and expressions can be used easily using regular ES6 template string 
 substitutions:
@@ -440,7 +440,7 @@ The web interface now has a new design.
 
 The "Applications" tab in the web interfaces has been renamed to "Services".
 
-The ArangoDB API documentation has been moved from the "Tools" menu to the "Links" menu. 
+The AvocadoDB API documentation has been moved from the "Tools" menu to the "Links" menu. 
 The new documentation is based on Swagger 2.0 and opens in a separate web page.
 
 
@@ -450,12 +450,12 @@ Foxx improvements
 ### ES2015 Classes
 
 All Foxx constructors have been replaced with ES2015 classes and can be extended using the class syntax. 
-The `extend` method is still supported at the moment but will become deprecated in ArangoDB 2.8 and removed in ArangoDB 2.9.
+The `extend` method is still supported at the moment but will become deprecated in AvocadoDB 2.8 and removed in AvocadoDB 2.9.
 
 **Before:**
 
 ```js
-var Foxx = require('org/arangodb/foxx');
+var Foxx = require('org/avocadodb/foxx');
 var MyModel = Foxx.Model.extend({
   // ...
   schema: {/* ... */}
@@ -465,7 +465,7 @@ var MyModel = Foxx.Model.extend({
 **After:**
 
 ```js
-var Foxx = require('org/arangodb/foxx');
+var Foxx = require('org/avocadodb/foxx');
 class MyModel extends Foxx.Model {
   // ...
 }
@@ -478,7 +478,7 @@ It is now possible to specify configuration options with the type `password`. Th
 
 ### Dependencies
 
-The syntax for specifying dependencies in manifests has been extended to allow specifying optional dependencies. Unmet optional dependencies will not prevent an app from being mounted. The traditional shorthand syntax for specifying non-optional dependencies will still be supported in the upcoming versions of ArangoDB.
+The syntax for specifying dependencies in manifests has been extended to allow specifying optional dependencies. Unmet optional dependencies will not prevent an app from being mounted. The traditional shorthand syntax for specifying non-optional dependencies will still be supported in the upcoming versions of AvocadoDB.
 
 **Before:**
 
@@ -535,19 +535,19 @@ state of these transactions.
 Client tools
 ------------
 
-The filenames in dumps created by arangodump now contain not only the name of the 
+The filenames in dumps created by avocadodump now contain not only the name of the 
 dumped collection, but also an additional 32-digit hash value. This is done to 
 prevent overwriting dump files in case-insensitive file systems when there exist 
 multiple collections with the same name (but with different cases). 
   
 For example, if a database had two collections *test* and *Test*, previous
-versions of arangodump created the following files: 
+versions of avocadodump created the following files: 
   
 * `test.structure.json` and `test.data.json` for collection *test*
 * `Test.structure.json` and `Test.data.json` for collection *Test*
 
 This did not work in case-insensitive filesystems, because the files for the
-second collection would have overwritten the files of the first. arangodump in 
+second collection would have overwritten the files of the first. avocadodump in 
 2.7 will create the unique files in this case, by appending the 32-digit hash
 value to the collection name in all case. These filenames will be unambiguous 
 even in case-insensitive filesystems.
@@ -556,50 +556,50 @@ even in case-insensitive filesystems.
 Miscellaneous changes
 ---------------------
 
-### Better control-C support in arangosh
+### Better control-C support in avocadosh
 
-When CTRL-C is pressed in arangosh, it will now abort the locally running command
+When CTRL-C is pressed in avocadosh, it will now abort the locally running command
 (if any). If no command was running, pressing CTRL-C will print a `^C` first. 
-Pressing CTRL-C again will then quit arangosh.
+Pressing CTRL-C again will then quit avocadosh.
 
 CTRL-C can also be used to reset the current prompt while entering complex nested
 objects which span multiple input lines.
   
-CTRL-C support has been added to the ArangoShell versions built with Readline-support 
-(Linux and MacOS only). The Windows version of ArangoDB uses a different library for 
+CTRL-C support has been added to the AvocadoShell versions built with Readline-support 
+(Linux and MacOS only). The Windows version of AvocadoDB uses a different library for 
 handling input, and support for CTRL-C has not been added there yet. 
 
 
 ### Start / stop
 
-Linux startup scripts and systemd configuration for arangod now try to adjust the 
+Linux startup scripts and systemd configuration for avocadod now try to adjust the 
 NOFILE (number of open files) limits for the process. The limit value is set to 
-131072 (128k) when ArangoDB is started via start/stop commands.
+131072 (128k) when AvocadoDB is started via start/stop commands.
 
-This will prevent arangod running out of available file descriptors in case of
+This will prevent avocadod running out of available file descriptors in case of
 many parallel HTTP connections or large collections with many datafiles.
 
-Additionally, when ArangoDB is started/stopped manually via the start/stop commands, 
+Additionally, when AvocadoDB is started/stopped manually via the start/stop commands, 
 the main process will wait for up to 10 seconds after it forks the supervisor
-and arangod child processes. If the startup fails within that period, the
+and avocadod child processes. If the startup fails within that period, the
 start/stop script will fail with a non-zero exit code, allowing any invoking 
 scripts to handle this error. Previous versions always returned an exit code of
-0, even when arangod couldn't be started.
+0, even when avocadod couldn't be started.
 
-If the startup of the supervisor or arangod is still ongoing after 10 seconds, 
+If the startup of the supervisor or avocadod is still ongoing after 10 seconds, 
 the main program will still return with exit code 0 in order to not block any
 scripts. The limit of 10 seconds is arbitrary because the time required for an 
-arangod startup is not known in advance.
+avocadod startup is not known in advance.
 
 
 ### Non-sparse logfiles
 
-WAL logfiles and datafiles created by arangod are now non-sparse. This prevents 
+WAL logfiles and datafiles created by avocadod are now non-sparse. This prevents 
 SIGBUS signals being raised when a memory-mapped region backed by a sparse datafile 
 was accessed and the memory region was not actually backed by disk, for example
 because the disk ran out of space.
 
-arangod now always fully allocates the disk space required for a logfile or datafile
+avocadod now always fully allocates the disk space required for a logfile or datafile
 when it creates one, so the memory region can always be backed by disk, and memory
 can be accessed without SIGBUS being raised.
 

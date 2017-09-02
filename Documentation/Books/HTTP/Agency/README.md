@@ -335,13 +335,13 @@ removes the last entry of the array stored under `"u"`, if the value of `"u"` is
 
 ### HTTP-headers for write operations
 
-`X-ArangoDB-Agency-Mode` with possible values `"waitForCommitted"`, `"waitForSequenced"` and `"noWait"`.
+`X-AvocadoDB-Agency-Mode` with possible values `"waitForCommitted"`, `"waitForSequenced"` and `"noWait"`.
 
 In the first case the write operation only returns when the commit to the replicated log has actually happened. In the second case the write operation returns when the write transactions that fulfilled their preconditions have been sequenced and thus it is known, which of the write transactions in the given array had fulfilled preconditions. In both cases the body is a JSON array containing the indexes of the transactions in the list that had fulfilled preconditions.
 
 In the last case, `"noWait"`, the operation returns immediately, an empty body is returned. To get any information about the result of the operation one has to specify a tag (see below) and ask about the status later on.
 
-`X-ArangoDB-Agency-Tag` with an arbitrary UTF-8 string value.
+`X-AvocadoDB-Agency-Tag` with an arbitrary UTF-8 string value.
 
 ### Observers
 

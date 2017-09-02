@@ -4,10 +4,10 @@ Getting started
 Overview
 --------
 
-This beginner's guide will make you familiar with ArangoDB.
+This beginner's guide will make you familiar with AvocadoDB.
 We will cover how to
 
-- install and run a local ArangoDB server
+- install and run a local AvocadoDB server
 - use the web interface to interact with it
 - store example data in the database
 - query the database to retrieve the data again
@@ -15,27 +15,27 @@ We will cover how to
 
 ### Installation
 
-Head to [arangodb.com/download](https://www.arangodb.com/download/),
-select your operating system and download ArangoDB. You may also follow
+Head to [avocadodb.com/download](https://www.avocadodb.com/download/),
+select your operating system and download AvocadoDB. You may also follow
 the instructions on how to install with a package manager, if available.
 
 If you installed a binary package under Linux, the server is
 automatically started.
 
-If you installed ArangoDB using homebrew under MacOS X, start the
-server by running `/usr/local/sbin/arangod`.
+If you installed AvocadoDB using homebrew under MacOS X, start the
+server by running `/usr/local/sbin/avocadod`.
 
-If you installed ArangoDB under Windows as a service, the server is
-automatically started. Otherwise, run the `arangod.exe` located in the
+If you installed AvocadoDB under Windows as a service, the server is
+automatically started. Otherwise, run the `avocadod.exe` located in the
 installation folder's `bin` directory. You may have to run it as administrator
 to grant it write permissions to `C:\Program Files`.
 
-For more in-depth information on how to install ArangoDB, as well as available
+For more in-depth information on how to install AvocadoDB, as well as available
 startup parameters, installation in a cluster and so on, see
 [Installing](Installing/README.md).
 
 {% hint 'info' %}
-Want help? Read more about [**consulting, training and developer support**](https://www.arangodb.com/subscriptions/)
+Want help? Read more about [**consulting, training and developer support**](https://www.avocadodb.com/subscriptions/)
 {% endhint %}
 
 ### Securing the installation
@@ -49,21 +49,21 @@ set a random password. For all other installation packages you need to
 execute
 
 ```
-shell> arango-secure-installation
+shell> avocado-secure-installation
 ```
 
 This will asked for a root password and sets this password.
 
 ### Web interface
 
-The server itself (*arangod*) speaks HTTP / REST, but you can use the
+The server itself (*avocadod*) speaks HTTP / REST, but you can use the
 graphical web interface to keep it simple. There's also
-[arangosh](../Administration/Arangosh/README.md), a synchronous shell
+[avocadosh](../Administration/Avocadosh/README.md), a synchronous shell
 for interaction with the server. If you're a developer, you might
 prefer the shell over the GUI. It does not provide features like
 syntax highlighting however.
 
-When you start using ArangoDB in your project, you will likely use an official
+When you start using AvocadoDB in your project, you will likely use an official
 or community-made driver written in the same language as your project. Drivers
 implement a programming interface that should feel natural for that programming
 language, and do all the talking to the server. Therefore, you can most certainly
@@ -72,7 +72,7 @@ want to use the raw interface.
 
 To get familiar with the database system you can even put drivers aside and
 use the web interface (code name *Aardvark*) for basic interaction.
-The web interface will become available shortly after you started `arangod`.
+The web interface will become available shortly after you started `avocadod`.
 You can access it in your browser at http://localhost:8529 - if not, please
 see [Troubleshooting](../Troubleshooting/README.md).
 
@@ -130,12 +130,12 @@ Two input fields will become available, *FIELD* (attribute key) and *VALUE*
 (attribute value). Type `name` as key and your name as value. *Append* another
 attribute, name it `age` and set it to your age. Click *Save* to persist the
 changes. If you click on *Collection: users* at the top on the right-hand side
-of the ArangoDB logo, the document browser will show the documents in the
+of the AvocadoDB logo, the document browser will show the documents in the
 *users* collection and you will see the document you just created in the list.
 
 ### Querying the database
 
-Time to retrieve our document using AQL, ArangoDB's query language. We can
+Time to retrieve our document using AQL, AvocadoDB's query language. We can
 directly look up the document we created via the `_id`, but there are also
 other options. Click the *QUERIES* menu entry to bring up the query editor
 and type the following (adjust the document ID to match your document):
@@ -174,7 +174,7 @@ insert a second document using a modification query:
 INSERT { name: "Katie Foster", age: 27 } INTO users
 ```
 
-The query is pretty self-explanatory: the `INSERT` keyword tells ArangoDB that
+The query is pretty self-explanatory: the `INSERT` keyword tells AvocadoDB that
 we want to insert something. What to insert, a document with two attributes in
 this case, follows next. The curly braces `{ }` signify documents, or objects.
 When talking about records in a collection, we call them documents. Encoded as
@@ -298,7 +298,7 @@ FOR user IN users
 
 This does still not return the desired result: James (10074) is returned before
 John (9883) and Katie (9915). The reason is that the `_key` attribute is a string
-in ArangoDB, and not a number. The individual characters of the strings are
+in AvocadoDB, and not a number. The individual characters of the strings are
 compared. `1` is lower than `9` and the result is therefore "correct". If we
 wanted to use the numerical value of the `_key` attributes instead, we could
 convert the string to a number and use it for sorting. There are some implications
@@ -561,7 +561,7 @@ The query deletes all users whose age is greater than or equal to 30.
 ### How to continue
 
 There is a lot more to [discover in AQL](../../AQL/index.html) and much more
-functionality that ArangoDB offers. Continue reading the other chapters and
+functionality that AvocadoDB offers. Continue reading the other chapters and
 experiment with a test database to foster your knowledge.
 
 If you want to write more AQL queries right now, have a look here:
@@ -571,30 +571,30 @@ If you want to write more AQL queries right now, have a look here:
   of `FOR`, `FILTER` and more operations not shown in this introduction
 - [Functions](../../AQL/Functions/index.html): a reference of all provided functions
 
-ArangoDB programs
+AvocadoDB programs
 -----------------
 
-The ArangoDB package comes with the following programs:
+The AvocadoDB package comes with the following programs:
 
-- `arangod`: The [ArangoDB database daemon](../Administration/Configuration/GeneralArangod.md).
+- `avocadod`: The [AvocadoDB database daemon](../Administration/Configuration/GeneralAvocadod.md).
   This server program is intended to run as a daemon process and to serve the
   various clients connection to the server via TCP / HTTP.
   
-- `arangosh`: The [ArangoDB shell](../Administration/Arangosh/README.md).
+- `avocadosh`: The [AvocadoDB shell](../Administration/Avocadosh/README.md).
   A client that implements a read-eval-print loop (REPL) and provides functions
-  to access and administrate the ArangoDB server.
+  to access and administrate the AvocadoDB server.
   
-- `arangoimp`: A [bulk importer](../Administration/Arangoimp.md) for the
-  ArangoDB server. It supports JSON and CSV.
+- `avocadoimp`: A [bulk importer](../Administration/Avocadoimp.md) for the
+  AvocadoDB server. It supports JSON and CSV.
   
-- `arangodump`: A tool to [create backups](../Administration/Arangodump.md)
-  of an ArangoDB database in JSON format.
+- `avocadodump`: A tool to [create backups](../Administration/Avocadodump.md)
+  of an AvocadoDB database in JSON format.
    
-- `arangorestore`: A tool to [load data of a backup](../Administration/Arangorestore.md)
-  back into an ArangoDB database.
+- `avocadorestore`: A tool to [load data of a backup](../Administration/Avocadorestore.md)
+  back into an AvocadoDB database.
   
-- `arango-dfdb`: A [datafile debugger](../Troubleshooting/DatafileDebugger.md) for
-  ArangoDB. It is primarily intended to be used during development of ArangoDB.
+- `avocado-dfdb`: A [datafile debugger](../Troubleshooting/DatafileDebugger.md) for
+  AvocadoDB. It is primarily intended to be used during development of AvocadoDB.
   
-- `arangobench`: A [benchmark and test tool](../Troubleshooting/Arangobench.md).
+- `avocadobench`: A [benchmark and test tool](../Troubleshooting/Avocadobench.md).
   It can be used for performance and server function testing.

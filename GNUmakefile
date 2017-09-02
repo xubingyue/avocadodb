@@ -9,7 +9,7 @@ SRC=$(shell pwd |sed "s;.*/;;")
 .PHONY: warning waning-mac help
 
 warning:
-	@echo "ArangoDB has switched to CMAKE. In order to compile, use:"
+	@echo "AvocadoDB has switched to CMAKE. In order to compile, use:"
 	@echo ""
 	@echo "  mkdir -p build"
 	@echo "  cd build"
@@ -37,7 +37,7 @@ help:
 	@echo "  -DCMAKE_C_COMPILER=/usr/local/bin/gcc-5"
 	@echo "    sets the C compiler"
 	@echo ""
-	@echo "ArangoDB supports:"
+	@echo "AvocadoDB supports:"
 	@echo ""
 	@echo "  -DUSE_BACKTRACE=off"
 	@echo "    if ON, enables backtraces in fatal errors"
@@ -86,7 +86,7 @@ help:
 
 .PHONY: pack-dmg pack-dmg-cmake
 
-DMG_NAME := ArangoDB-CLI.app
+DMG_NAME := AvocadoDB-CLI.app
 
 pack-dmg:
 	rm -rf Build && mkdir Build
@@ -97,7 +97,7 @@ pack-dmg-cmake:
 		-D "USE_OPTIMIZE_FOR_ARCHITECTURE=Off" \
 		-D "CMAKE_BUILD_TYPE=RelWithDebInfo" \
 		-D "CMAKE_OSX_DEPLOYMENT_TARGET=10.10" \
-		-D "CMAKE_INSTALL_PREFIX=/opt/arangodb" \
+		-D "CMAKE_INSTALL_PREFIX=/opt/avocadodb" \
 		-D "OPENSSL_ROOT_DIR=`brew --prefix`/opt/openssl" \
 		..
 
@@ -105,7 +105,7 @@ pack-dmg-cmake:
 
 	cd Build && cpack \
 		-G Bundle \
-		-D "CPACK_INSTALL_PREFIX=${DMG_NAME}/Contents/MacOS/opt/arangodb"
+		-D "CPACK_INSTALL_PREFIX=${DMG_NAME}/Contents/MacOS/opt/avocadodb"
 
 ################################################################################
 ### @brief MacOSXcode
@@ -124,7 +124,7 @@ pack-macosxcode-cmake:
 		-D "USE_OPTIMIZE_FOR_ARCHITECTURE=Off" \
 		-D "CMAKE_BUILD_TYPE=RelWithDebInfo" \
 		-D "CMAKE_OSX_DEPLOYMENT_TARGET=10.10" \
-		-D "CMAKE_INSTALL_PREFIX=/opt/arangodb" \
+		-D "CMAKE_INSTALL_PREFIX=/opt/avocadodb" \
 		-D "OPENSSL_ROOT_DIR=`brew --prefix`/opt/openssl" \
 		-G Xcode \
 		$(MOREOPTS) \
@@ -210,7 +210,7 @@ pack-deb-cmake:
 
 .PHONY: pack-win32 pack-winXX winXX-cmake win64-relative win64-relative-debug
 
-pack-win32: 
+pack-win32:
 	$(MAKE) pack-winXX BITS=32 TARGET="Visual Studio 14" MOREOPTS='-D "V8_TARGET_ARCHS=Release"'
 
 pack-win64:
@@ -220,14 +220,14 @@ pack-win32-relative:
 	$(MAKE) pack-winXX BITS=32 TARGET="Visual Studio 14" MOREOPTS='-D "USE_MAINTAINER_MODE=ON" -D "USE_BACKTRACE=ON" -D "V8_TARGET_ARCHS=Debug"'
 
 pack-win64-relative:
-	$(MAKE) pack-winXX BITS=64 TARGET="Visual Studio 14 Win64" MOREOPTS='-D "USE_MAINTAINER_MODE=ON" -D "USE_BACKTRACE=ON" -D "V8_TARGET_ARCHS=Debug"' 
+	$(MAKE) pack-winXX BITS=64 TARGET="Visual Studio 14 Win64" MOREOPTS='-D "USE_MAINTAINER_MODE=ON" -D "USE_BACKTRACE=ON" -D "V8_TARGET_ARCHS=Debug"'
 
 win64-relative:
 	$(MAKE) winXX-cmake BITS=64 TARGET="Visual Studio 14 Win64" MOREOPTS='-D "V8_TARGET_ARCHS=Debug"'
 	$(MAKE) winXX-build BITS=64 BUILD_TARGET=RelWithDebInfo
 
 win64-relative-debug:
-	$(MAKE) winXX-cmake BITS=64 TARGET="Visual Studio 14 Win64" MOREOPTS=' -D "USE_MAINTAINER_MODE=ON" -D "USE_BACKTRACE=ON" -D "V8_TARGET_ARCHS=Debug"' 
+	$(MAKE) winXX-cmake BITS=64 TARGET="Visual Studio 14 Win64" MOREOPTS=' -D "USE_MAINTAINER_MODE=ON" -D "USE_BACKTRACE=ON" -D "V8_TARGET_ARCHS=Debug"'
 	$(MAKE) winXX-build BITS=64 BUILD_TARGET=Debug
 
 pack-winXX:
@@ -254,7 +254,7 @@ winXX-cmake:
 		../$(SRC)/
 
 winXX-build:
-	cp Installation/Windows/Icons/arangodb.ico ../b
+	cp Installation/Windows/Icons/avocadodb.ico ../b
 	cd ../b && cmake --build . --config $(BUILD_TARGET)
 
 packXX:

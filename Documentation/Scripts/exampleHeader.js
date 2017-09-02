@@ -4,7 +4,7 @@
 /*exported
  time,
  fs,
- ArangoshOutput,
+ AvocadoshOutput,
  testFunc,
  countErrors,
  rc,
@@ -25,12 +25,12 @@
 */
 
 var internal = require('internal');
-var print = require('@arangodb').print;
-var errors = require("@arangodb").errors;
+var print = require('@avocadodb').print;
+var errors = require("@avocadodb").errors;
 var time = require("internal").time;
 var fs = require('fs');
 var hashes = '################################################################################';
-var ArangoshOutput = {};
+var AvocadoshOutput = {};
 var allErrors = '';
 var output = '';
 var XXX = '';
@@ -148,11 +148,11 @@ var createErrorMessage = function(err, line, testName, sourceFN, sourceLine, lin
 var runTestLine = function(line, testName, sourceFN, sourceLine, lineCount, showCmd, expectError, isLoop, fakeVar) {
   XXX = undefined;
   if (showCmd) {
-    print("arangosh> " + (fakeVar?"var ":"") + line.replace(/\n/g, '\n........> '));
+    print("avocadosh> " + (fakeVar?"var ":"") + line.replace(/\n/g, '\n........> '));
   }
   if ((expectError !== undefined) && !errors.hasOwnProperty(expectError)) {
     createErrorMessage(new Error(), line, testName, sourceFN, sourceLine, lineCount,
-                       " unknown Arangoerror " + expectError);
+                       " unknown Avocadoerror " + expectError);
     return;
   }
   try {

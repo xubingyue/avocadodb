@@ -23,7 +23,7 @@ Additionally, *object* can have the following optional attributes:
   is forced to be synchronous.
 - *lockTimeout*: a numeric value that can be used to set a timeout for
   waiting on collection locks. If not specified, a default value will be
-  used. Setting *lockTimeout* to *0* will make ArangoDB not time
+  used. Setting *lockTimeout* to *0* will make AvocadoDB not time
   out waiting for a lock.
 - *params*: optional arguments passed to the function specified in
   *action*.

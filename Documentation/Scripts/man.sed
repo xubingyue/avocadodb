@@ -7,7 +7,7 @@ s/^  //
 /EXAMPLES/s/^\(.*\)$/\.SH \1/
 /FILES/s/^\(.*\)$/\.SH \1/
 /AUTHOR/s/^\(.*\)$/\.SH AUTHOR\
-Copyright ArangoDB GmbH, Cologne, Germany\
+Copyright AvocadoDB GmbH, Cologne, Germany\
 /
 /SEE ALSO/s/^\(.*\)$/\.SH \1/
 s/\<OPTION\>/\.IP/g

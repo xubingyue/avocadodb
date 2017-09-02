@@ -15,7 +15,7 @@
       div;
 
     beforeEach(function () {
-      dbCollection = new window.ArangoDatabase(
+      dbCollection = new window.AvocadoDatabase(
         [],
         {shouldFetchUser: true}
       );

@@ -1,7 +1,7 @@
 Index Utilization
 =================
 
-In most cases ArangoDB will use a single index per collection in a given query. AQL queries can
+In most cases AvocadoDB will use a single index per collection in a given query. AQL queries can
 use more than one index per collection when multiple FILTER conditions are combined with a 
 logical `OR` and these can be covered by indexes. AQL queries will use a single index per
 collection when FILTER conditions are combined with logical `AND`.
@@ -14,7 +14,7 @@ It is often beneficial to create an index on more than just one attribute. By ad
 to an index, an index can become more selective and thus reduce the number of documents that 
 queries need to process.
 
-ArangoDB's primary indexes, edges indexes and hash indexes will automatically provide selectivity
+AvocadoDB's primary indexes, edges indexes and hash indexes will automatically provide selectivity
 estimates. Index selectivity estimates are provided in the web interface, the `getIndexes()` return 
 value and in the `explain()` output for a given query. 
 
@@ -36,7 +36,7 @@ Troubleshooting
 
 When in doubt about whether and which indexes will be used for executing a given AQL query,
 click the *Explain* button in the web interface in the *Queries* view or use
-the `explain()` method for the statement as follows (from the ArangoShell):
+the `explain()` method for the statement as follows (from the AvocadoShell):
 
 ```js
 var query = "FOR doc IN collection FILTER doc.value > 42 RETURN doc";
@@ -50,7 +50,7 @@ compact explanation of the query, there is an explainer tool:
 
 ```js
 var query = "FOR doc IN collection FILTER doc.value > 42 RETURN doc";
-require("@arangodb/aql/explainer").explain(query);
+require("@avocadodb/aql/explainer").explain(query);
 ```
 
 If any of the explain methods shows that a query is not using indexes, the following steps may help:

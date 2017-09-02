@@ -24,12 +24,12 @@
         fakeKey = 'fakeKey',
         view,
         internal = require('internal');
-      spyOn(internal.arango, 'databasePrefix').andReturn(fakeURL);
+      spyOn(internal.avocado, 'databasePrefix').andReturn(fakeURL);
       spyOn(window, 'SwaggerUi');
       view = new window.AppDocumentationView({
         key: fakeKey
       });
-      expect(internal.arango.databasePrefix).toHaveBeenCalledWith(
+      expect(internal.avocado.databasePrefix).toHaveBeenCalledWith(
         '/_admin/aardvark/docu/' + fakeKey
       );
       expect(window.SwaggerUi).toHaveBeenCalledWith({

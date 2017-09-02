@@ -30,7 +30,7 @@ This function is the entry point for the management and will return the correct 
 
     @startDocuBlockInline generalGraphEdgeDefinitionsSimple
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsSimple}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       directed_relation = graph_module._relation("lives_in", "user", "city");
       undirected_relation = graph_module._relation("knows", "user", "user");
       edgedefinitions = graph_module._edgeDefinitions(directed_relation, undirected_relation);
@@ -61,7 +61,7 @@ this function can be used to add more definitions to the initial list.
 
     @startDocuBlockInline generalGraphEdgeDefinitionsExtend
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsExtend}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       directed_relation = graph_module._relation("lives_in", "user", "city");
       undirected_relation = graph_module._relation("knows", "user", "user");
       edgedefinitions = graph_module._edgeDefinitions(directed_relation);
@@ -99,14 +99,14 @@ to any collection in *toVertexCollections*.
 
     @startDocuBlockInline generalGraphRelationDefinitionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSave}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       graph_module._relation("has_bought", ["Customer", "Company"], ["Groceries", "Electronics"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSave
 
     @startDocuBlockInline generalGraphRelationDefinitionSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSingle}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       graph_module._relation("has_bought", "Customer", "Product");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSingle
@@ -145,7 +145,7 @@ Create an empty graph, edge definitions can be added at runtime:
 
     @startDocuBlockInline generalGraphCreateGraphNoData
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphNoData}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       graph = graph_module._create("myGraph");
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -157,7 +157,7 @@ Create a graph using an edge collection `edges` and a single vertex collection `
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphSingle}
     ~ db._drop("edges");
     ~ db._drop("vertices");
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       var edgeDefinitions = [ { collection: "edges", "from": [ "vertices" ], "to" : [ "vertices" ] } ];
       graph = graph_module._create("myGraph", edgeDefinitions);
     ~ graph_module._drop("myGraph", true);
@@ -168,7 +168,7 @@ Create a graph with edge definitions and orphan collections:
 
     @startDocuBlockInline generalGraphCreateGraph2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraph2}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
     | graph = graph_module._create("myGraph",
       [graph_module._relation("myRelation", ["male", "female"], ["male", "female"])], ["sessions"]);
     ~ graph_module._drop("myGraph", true);
@@ -185,7 +185,7 @@ Example Call:
 
     @startDocuBlockInline general_graph_create_graph_example1
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph_create_graph_example1}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       var edgeDefinitions = graph_module._edgeDefinitions();
       graph_module._extendEdgeDefinitions(edgeDefinitions, graph_module._relation("friend_of", "Customer", "Customer"));
     | graph_module._extendEdgeDefinitions(
@@ -210,7 +210,7 @@ alternative call:
 
     @startDocuBlockInline general_graph_create_graph_example2
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph_create_graph_example2}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
     |  var edgeDefinitions = graph_module._edgeDefinitions(
     |  graph_module._relation("friend_of", ["Customer"], ["Customer"]), graph_module._relation(
        "has_bought", ["Customer", "Company"], ["Groceries", "Electronics"]));
@@ -243,7 +243,7 @@ Lists all graph names stored in this database.
 
     @startDocuBlockInline generalGraphList
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphList}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       graph_module._list();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphList
@@ -272,9 +272,9 @@ Get a graph:
 
     @startDocuBlockInline generalGraphLoadGraph
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphLoadGraph}
-    ~ var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~ var examples = require("@avocadodb/graph-examples/example-graph.js");
     ~ var g1 = examples.loadGraph("social");
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       graph = graph_module._graph("social");
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -306,9 +306,9 @@ Drop a graph and keep collections:
 
     @startDocuBlockInline generalGraphDropGraphKeep
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphKeep}
-    ~ var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~ var examples = require("@avocadodb/graph-examples/example-graph.js");
     ~ var g1 = examples.loadGraph("social");
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       graph_module._drop("social");
       db._collection("female");
       db._collection("male");
@@ -322,9 +322,9 @@ Drop a graph and keep collections:
 
     @startDocuBlockInline generalGraphDropGraphDropCollections
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphDropCollections}
-    ~ var examples = require("@arangodb/graph-examples/example-graph.js");
+    ~ var examples = require("@avocadodb/graph-examples/example-graph.js");
     ~ var g1 = examples.loadGraph("social");
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
       graph_module._drop("social", true);
       db._collection("female");
       db._collection("male");
@@ -364,7 +364,7 @@ graph with different *from* and/or *to* collections an error is thrown.
 
     @startDocuBlockInline general_graph__extendEdgeDefinitions
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__extendEdgeDefinitions}
-      var graph_module = require("@arangodb/general-graph")
+      var graph_module = require("@avocadodb/general-graph")
     ~ if (graph_module._exists("myGraph")){var blub = graph_module._drop("myGraph", true);}
       var ed1 = graph_module._relation("myEC1", ["myVC1"], ["myVC2"]);
       var ed2 = graph_module._relation("myEC2", ["myVC1"], ["myVC3"]);
@@ -403,7 +403,7 @@ definition will be modified, too.
 
     @startDocuBlockInline general_graph__editEdgeDefinition
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__editEdgeDefinition}
-      var graph_module = require("@arangodb/general-graph")
+      var graph_module = require("@avocadodb/general-graph")
     ~ if (graph_module._exists("myGraph")){var blub = graph_module._drop("myGraph", true);}
       var original = graph_module._relation("myEC1", ["myVC1"], ["myVC2"]);
       var modified = graph_module._relation("myEC1", ["myVC2"], ["myVC3"]);
@@ -440,7 +440,7 @@ Remove an edge definition but keep the edge collection:
 
     @startDocuBlockInline general_graph__deleteEdgeDefinitionNoDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionNoDrop}
-      var graph_module = require("@arangodb/general-graph")
+      var graph_module = require("@avocadodb/general-graph")
     ~ if (graph_module._exists("myGraph")){var blub = graph_module._drop("myGraph", true);}
       var ed1 = graph_module._relation("myEC1", ["myVC1"], ["myVC2"]);
       var ed2 = graph_module._relation("myEC2", ["myVC1"], ["myVC3"]);
@@ -456,7 +456,7 @@ Remove an edge definition and drop the edge collection:
 
     @startDocuBlockInline general_graph__deleteEdgeDefinitionWithDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionWithDrop}
-      var graph_module = require("@arangodb/general-graph")
+      var graph_module = require("@avocadodb/general-graph")
     ~ if (graph_module._exists("myGraph")){var blub = graph_module._drop("myGraph", true);}
       var ed1 = graph_module._relation("myEC1", ["myVC1"], ["myVC2"]);
       var ed2 = graph_module._relation("myEC2", ["myVC1"], ["myVC3"]);
@@ -500,7 +500,7 @@ definition of the graph, an error will be thrown.
 
     @startDocuBlockInline general_graph__addVertexCollection
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__addVertexCollection}
-      var graph_module = require("@arangodb/general-graph");
+      var graph_module = require("@avocadodb/general-graph");
     ~ if (graph_module._exists("myGraph")){var blub = graph_module._drop("myGraph", true);}
       var ed1 = graph_module._relation("myEC1", ["myVC1"], ["myVC2"]);
       var graph = graph_module._create("myGraph", [ed1]);
@@ -528,7 +528,7 @@ Returns all vertex collections of the graph that are not used in any edge defini
 
     @startDocuBlockInline general_graph__orphanCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__orphanCollections}
-      var graph_module = require("@arangodb/general-graph")
+      var graph_module = require("@avocadodb/general-graph")
     ~ if (graph_module._exists("myGraph")){var blub = graph_module._drop("myGraph", true);}
       var ed1 = graph_module._relation("myEC1", ["myVC1"], ["myVC2"]);
       var graph = graph_module._create("myGraph", [ed1]);
@@ -564,7 +564,7 @@ Optionally the collection can be deleted, if it is not used in any other graph.
 
     @startDocuBlockInline general_graph__removeVertexCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__removeVertexCollections}
-      var graph_module = require("@arangodb/general-graph")
+      var graph_module = require("@avocadodb/general-graph")
     ~ if (graph_module._exists("myGraph")){var blub = graph_module._drop("myGraph", true);}
       var ed1 = graph_module._relation("myEC1", ["myVC1"], ["myVC2"]);
       var graph = graph_module._create("myGraph", [ed1]);
@@ -603,7 +603,7 @@ Create a new vertex in vertexCollectionName
 
     @startDocuBlockInline generalGraphVertexCollectionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionSave}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.male.save({name: "Floyd", _key: "floyd"});
     ~ examples.dropGraph("social");
@@ -633,7 +633,7 @@ Replaces the data of a vertex in collection vertexCollectionName
 
     @startDocuBlockInline generalGraphVertexCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionReplace}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.male.save({neym: "Jon", _key: "john"});
       graph.male.replace("male/john", {name: "John"});
@@ -663,7 +663,7 @@ Updates the data of a vertex in collection vertexCollectionName
 
     @startDocuBlockInline generalGraphVertexCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionUpdate}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.female.save({name: "Lynda", _key: "linda"});
       graph.female.update("female/linda", {name: "Linda", _key: "linda"});
@@ -696,7 +696,7 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
 
     @startDocuBlockInline generalGraphVertexCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionRemove}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.male.save({name: "Kermit", _key: "kermit"});
       db._exists("male/kermit")
@@ -733,7 +733,7 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
 
     @startDocuBlockInline generalGraphEdgeCollectionSave1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave1}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.relation.save("male/bob", "female/alice", {type: "married", _key: "bobAndAlice"});
     ~ examples.dropGraph("social");
@@ -745,7 +745,7 @@ the edge will not be stored.
 
     @startDocuBlockInline generalGraphEdgeCollectionSave2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave2}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       | graph.relation.save(
       |  "relation/aliceAndBob",
@@ -777,7 +777,7 @@ Replaces the data of an edge in collection edgeCollectionName. Note that `_from`
 
     @startDocuBlockInline generalGraphEdgeCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionReplace}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.relation.save("female/alice", "female/diana", {typo: "nose", _key: "aliceAndDiana"});
       graph.relation.replace("relation/aliceAndDiana", {type: "knows", _from: "female/alice", _to: "female/diana"});
@@ -808,7 +808,7 @@ Updates the data of an edge in collection edgeCollectionName
 
     @startDocuBlockInline generalGraphEdgeCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionUpdate}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.relation.save("female/alice", "female/diana", {type: "knows", _key: "aliceAndDiana"});
       graph.relation.update("relation/aliceAndDiana", {type: "quarreled", _key: "aliceAndDiana"});
@@ -840,7 +840,7 @@ If this edge is used as a vertex by another edge, the other edge will be removed
 
     @startDocuBlockInline generalGraphEdgeCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionRemove}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
       graph.relation.save("female/alice", "female/diana", {_key: "aliceAndDiana"});
       db._exists("relation/aliceAndDiana")
@@ -885,7 +885,7 @@ A route planner example, all connecting edges between capitals.
 
     @startDocuBlockInline generalGraphModuleConnectingEdges1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleConnectingEdges1}
-      var examples = require("@arangodb/graph-examples/example-graph.js");
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("routeplanner");
       graph._getConnectingEdges({isCapital : true}, {isCapital : true});
     ~ examples.dropGraph("routeplanner");

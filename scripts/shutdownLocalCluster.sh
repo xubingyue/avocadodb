@@ -34,7 +34,7 @@ if [ -z "$JWT_SECRET" ];then
   AUTHORIZATION_HEADER=""
 else
   AUTHENTICATION="--server.jwt-secret $JWT_SECRET"
-  AUTHORIZATION_HEADER="Authorization: bearer $(jwtgen -a HS256 -s $JWT_SECRET -c 'iss=arangodb' -c 'server_id=setup')"
+  AUTHORIZATION_HEADER="Authorization: bearer $(jwtgen -a HS256 -s $JWT_SECRET -c 'iss=avocadodb' -c 'server_id=setup')"
 fi
 
 echo $JWT_SECRET

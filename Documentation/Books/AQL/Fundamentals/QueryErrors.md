@@ -2,7 +2,7 @@ Errors
 ======
 
 Issuing an invalid query to the server will result in a parse error if the query
-is syntactically invalid. ArangoDB will detect such errors during query
+is syntactically invalid. AvocadoDB will detect such errors during query
 inspection and abort further processing. Instead, the error number and an error
 message are returned so that the errors can be fixed.
 
@@ -27,6 +27,6 @@ examples that will cause run-time errors are:
   includes unary (logical not/negation), binary (logical and, logical or), and
   the ternary operators
 
-Please refer to the [Arango Errors](../../Manual/Appendix/ErrorCodes.html) page
+Please refer to the [Avocado Errors](../../Manual/Appendix/ErrorCodes.html) page
 for a list of error codes and meanings.
 

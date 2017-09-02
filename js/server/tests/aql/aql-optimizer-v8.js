@@ -29,8 +29,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var db = require("@arangodb").db;
-var aqlfunctions = require("@arangodb/aql/functions");
+var db = require("@avocadodb").db;
+var aqlfunctions = require("@avocadodb/aql/functions");
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite

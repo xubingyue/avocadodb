@@ -30,8 +30,8 @@
 
 var jsunity = require("jsunity");
 var internal = require("internal");
-var arangodb = require("@arangodb");
-var ERRORS = arangodb.errors;
+var avocadodb = require("@avocadodb");
+var ERRORS = avocadodb.errors;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite: database methods
@@ -308,7 +308,7 @@ function DatabaseSuite () {
 
       assertTrue(internal.db._createDatabase("UnitTestsDatabase0", { }, users));
 
-      var userManager = require("@arangodb/users");
+      var userManager = require("@avocadodb/users");
       var user = userManager.document("admin");
 
       assertEqual("admin", user.user);
@@ -342,7 +342,7 @@ function DatabaseSuite () {
       ];
       assertTrue(internal.db._createDatabase("UnitTestsDatabase0", { }, users));
 
-      var userManager = require("@arangodb/users");
+      var userManager = require("@avocadodb/users");
       var user = userManager.document("admin");
       assertEqual("admin", user.user);
       assertTrue(user.active);

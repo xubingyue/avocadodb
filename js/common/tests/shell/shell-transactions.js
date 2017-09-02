@@ -29,17 +29,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
+var avocadodb = require("@avocadodb");
 var internal = require("internal");
-var ERRORS = arangodb.errors;
+var ERRORS = avocadodb.errors;
 var cluster;
-var isOnServer = (typeof ArangoClusterComm === "object");
+var isOnServer = (typeof AvocadoClusterComm === "object");
 if (isOnServer) {
-  cluster = require("@arangodb/cluster");
+  cluster = require("@avocadodb/cluster");
 } else {
   cluster = {};
 }
-var db = arangodb.db;
+var db = avocadodb.db;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite

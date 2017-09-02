@@ -15,7 +15,7 @@ unsupported.
 The minimum length of words that are indexed can be specified via the
 *minLength* parameter. Words shorter than minLength characters will 
 not be indexed. *minLength* has a default value of 2, but this value might
-be changed in future versions of ArangoDB. It is thus recommended to explicitly
+be changed in future versions of AvocadoDB. It is thus recommended to explicitly
 specify this value.
 
 In case that the index was successfully created, an object with the index

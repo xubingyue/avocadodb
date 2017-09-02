@@ -30,7 +30,7 @@
 
 var internal = require("internal");
 var jsunity = require("jsunity");
-var ArangoError = require("@arangodb").ArangoError; 
+var AvocadoError = require("@avocadodb").AvocadoError; 
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite
@@ -59,7 +59,7 @@ function importTestSuite () {
 
   function executeQuery (query) {
     var statement = internal.db._createStatement({"query": query});
-    if (statement instanceof ArangoError) {
+    if (statement instanceof AvocadoError) {
       return statement;
     }
 

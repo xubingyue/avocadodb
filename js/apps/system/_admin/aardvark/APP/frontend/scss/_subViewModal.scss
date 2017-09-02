@@ -51,7 +51,7 @@
     max-height: none;
     padding: 0;
 
-    .arango-table,
+    .avocado-table,
     table {
       tr {
         height: 40px;
@@ -67,7 +67,7 @@
       color: $c-white;
     }
 
-    .icon_arangodb_info {
+    .icon_avocadodb_info {
       margin-left: 10px;
       right: inherit;
     }
@@ -100,7 +100,7 @@
     table-layout: fixed;
     width: 100%;
 
-    .icon_arangodb_info {
+    .icon_avocadodb_info {
       position: relative;
       text-align: center;
     }

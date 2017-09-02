@@ -53,7 +53,7 @@ JS_DEBUG = False
 OutputDir = "/tmp/"
 
 ################################################################################
-### @brief arangosh output
+### @brief avocadosh output
 ###
 ### A list of commands that are executed in order to produce the output. The
 ### commands and there output is logged.
@@ -68,25 +68,25 @@ RunTests = {}
 filterTestList = []
 
 ################################################################################
-### @brief arangosh expect
+### @brief avocadosh expect
 ###
 ### A list of commands that are here to validate the result.
 ################################################################################
 
-ArangoshExpect = {}
+AvocadoshExpect = {}
 
 ################################################################################
-### @brief arangosh run
+### @brief avocadosh run
 ###
-### starting Line Numbers of ArangoshRun
+### starting Line Numbers of AvocadoshRun
 ################################################################################
-ArangoshRunLineNo = {}
+AvocadoshRunLineNo = {}
 
 ################################################################################
-### @brief arangosh output files
+### @brief avocadosh output files
 ################################################################################
 
-ArangoshFiles = {}
+AvocadoshFiles = {}
 
 ################################################################################
 ### @brief map the source files for error messages
@@ -95,10 +95,10 @@ ArangoshFiles = {}
 MapSourceFiles = {}
 
 ################################################################################
-### @brief global setup for arangosh
+### @brief global setup for avocadosh
 ################################################################################
 
-ArangoshSetup = ""
+AvocadoshSetup = ""
 
 ################################################################################
 ### @brief filter to only output this one:
@@ -128,10 +128,10 @@ escapeBS = re.compile("\\\\")
 doubleBS = "\\\\\\\\"
 
 ################################################################################
-### @brief generate arangosh example headers with functions etc. needed later
+### @brief generate avocadosh example headers with functions etc. needed later
 ################################################################################
 
-def generateArangoshHeader():
+def generateAvocadoshHeader():
     headerF = open("./Documentation/Scripts/exampleHeader.js", "r")
     print headerF.read()
     headerF.close()
@@ -153,7 +153,7 @@ def matchStartLine(line, filename):
         strip = m.group(1)
         name = m.group(2)
 
-        if name in ArangoshFiles:
+        if name in AvocadoshFiles:
             print >> sys.stderr, "%s\nduplicate test name '%s' in file %s!\n%s\n" % ('#' * 80, name, filename, '#' * 80)
             sys.exit(1)
 
@@ -170,7 +170,7 @@ def matchStartLine(line, filename):
         strip = m.group(1)
         name = m.group(2)
         
-        if name in ArangoshFiles:
+        if name in AvocadoshFiles:
             print >> sys.stderr, "%s\nduplicate test name '%s' in file %s!\n%s\n" % ('#' * 80, name, filename, '#' * 80)
             sys.exit(1)
 
@@ -179,7 +179,7 @@ def matchStartLine(line, filename):
             filterTestList.append(name)
             return("", STATE_BEGIN);
 
-        ArangoshFiles[name] = True
+        AvocadoshFiles[name] = True
         return (name, STATE_ARANGOSH_RUN)
 
     # Not found, remain in STATE_BEGIN
@@ -291,18 +291,18 @@ def analyzeFile(f, filename):
 
 def generateSetupFunction():
     print
-    print "(function () {\n%s}());" % ArangoshSetup
+    print "(function () {\n%s}());" % AvocadoshSetup
     print
 
 ################################################################################
-### @brief generate arangosh example
+### @brief generate avocadosh example
 ################################################################################
 
 loopDetectRE = re.compile(r'^[ \n]*(while|if|var|throw|for) ')
 expectErrorRE = re.compile(r'.*// *xpError\((.*)\).*')
 #expectErrorRE = re.compile(r'.*//\s*xpError\(([^)]*)\)/')
 
-def generateArangoshOutput(testName):
+def generateAvocadoshOutput(testName):
     value = RunTests[testName]
     #print value
     #print value[TESTLINES][0][2]
@@ -371,10 +371,10 @@ def generateArangoshOutput(testName):
 '''
 
 ################################################################################
-### @brief generate arangosh run
+### @brief generate avocadosh run
 ################################################################################
 
-def generateArangoshRun(testName):
+def generateAvocadoshRun(testName):
 
     if JS_DEBUG:
         print "internal.output('%s\\n');" % ('=' * 80)
@@ -387,7 +387,7 @@ def generateArangoshRun(testName):
 %s
 /// %s
 (function() {
-  var ArangoshRun = {};
+  var AvocadoshRun = {};
   internal.startPrettyPrint(true);
   internal.stopColorPrint(true);
   var testName = '%s';
@@ -409,8 +409,8 @@ def generateArangoshRun(testName):
         escapeBS.sub(doubleBS, MapSourceFiles[testName]),
         value[STRING].lstrip().rstrip())
 
-    if testName in ArangoshExpect:
-        print "  rc = runTestFuncCatch(testFunc, testName, errors.%s);" % (ArangoshExpect[key])
+    if testName in AvocadoshExpect:
+        print "  rc = runTestFuncCatch(testFunc, testName, errors.%s);" % (AvocadoshExpect[key])
     else:
         print "  rc = runTestFunc(testFunc, testName, sourceFile);"
 
@@ -426,10 +426,10 @@ def generateArangoshRun(testName):
 '''
 
 ################################################################################
-### @brief generate arangosh run
+### @brief generate avocadosh run
 ################################################################################
 
-def generateArangoshShutdown():
+def generateAvocadoshShutdown():
     print '''
 if (allErrors.length > 0) {
     print(allErrors);
@@ -442,7 +442,7 @@ if (allErrors.length > 0) {
 ################################################################################
 
 def loopDirectories():
-    global ArangoshSetup, OutputDir, FilterForTestcase
+    global AvocadoshSetup, OutputDir, FilterForTestcase
 
     argv = sys.argv
     argv.pop(0)
@@ -450,7 +450,7 @@ def loopDirectories():
     fstate = OPTION_NORMAL
     
     for filename in argv:
-        if filename == "--arangoshSetup":
+        if filename == "--avocadoshSetup":
             fstate = OPTION_ARANGOSH_SETUP
             continue
 
@@ -486,7 +486,7 @@ def loopDirectories():
     
             for line in f:
                 line = line.rstrip('\n')
-                ArangoshSetup += line + "\n"
+                AvocadoshSetup += line + "\n"
     
             f.close()
 
@@ -515,9 +515,9 @@ def generateTestCases():
     testNames.sort()
     for thisTest in testNames:
         if RunTests[thisTest][TYPE] == STATE_ARANGOSH_OUTPUT:
-            generateArangoshOutput(thisTest)
+            generateAvocadoshOutput(thisTest)
         elif RunTests[thisTest][TYPE] == STATE_ARANGOSH_RUN:
-            generateArangoshRun(thisTest)
+            generateAvocadoshRun(thisTest)
 
 ################################################################################
 ### @brief main
@@ -526,8 +526,8 @@ def generateTestCases():
 loopDirectories()
 print >> sys.stderr, "filtering test %d cases" %(len(filterTestList))
 
-generateArangoshHeader()
+generateAvocadoshHeader()
 generateSetupFunction()
 generateTestCases()
 
-generateArangoshShutdown()
+generateAvocadoshShutdown()

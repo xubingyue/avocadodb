@@ -17,7 +17,7 @@ const testPort = internal.testPort;
 const yaml = require("js-yaml");
 
 const documentationSourceDirs = [
-  fs.join(fs.makeAbsolute(''), "Documentation/Scripts/setup-arangosh.js"),
+  fs.join(fs.makeAbsolute(''), "Documentation/Scripts/setup-avocadosh.js"),
   fs.join(fs.makeAbsolute(''), "Documentation/DocuBlocks"),
   fs.join(fs.makeAbsolute(''), "Documentation/Books/Manual"),
   fs.join(fs.makeAbsolute(''), "Documentation/Books/AQL"),
@@ -28,29 +28,29 @@ const theScript = 'utils/generateExamples.py';
 
 const scriptArguments = {
   'outputDir': fs.join(fs.makeAbsolute(''), "Documentation/Examples"),
-  'outputFile': fs.join(fs.makeAbsolute(''), "arangosh.examples.js")
+  'outputFile': fs.join(fs.makeAbsolute(''), "avocadosh.examples.js")
 };
 
 let ARANGOD;
 let ARANGOSH;
 
-function locateArangod() {
-  ARANGOD = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/arangod");
+function locateAvocadod() {
+  ARANGOD = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/avocadod");
   if(!fs.isFile(ARANGOD) && !fs.isFile(ARANGOD + ".exe")) {
-    ARANGOD = fs.join(fs.join(fs.makeAbsolute('')), "bin/arangod");
+    ARANGOD = fs.join(fs.join(fs.makeAbsolute('')), "bin/avocadod");
   }
   if(!fs.isFile(ARANGOD) && !fs.isFile(ARANGOD + ".exe")) {
-    throw "Cannot find Aarangod to execute tests against";
+    throw "Cannot find Aavocadod to execute tests against";
   }
 }
 
-function locateArangosh() {
-  ARANGOSH = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/arangosh");
+function locateAvocadosh() {
+  ARANGOSH = fs.join(fs.join(fs.makeAbsolute('')), "build/bin/avocadosh");
   if(!fs.isFile(ARANGOSH) && !fs.isFile(ARANGOSH + ".exe")) {
-    ARANGOSH = fs.join(fs.join(fs.makeAbsolute('')), "bin/arangosh");
+    ARANGOSH = fs.join(fs.join(fs.makeAbsolute('')), "bin/avocadosh");
   }
   if(!fs.isFile(ARANGOSH) && !fs.isFile(ARANGOSH + ".exe")) {
-    throw "Cannot find arangosh to run tests with";
+    throw "Cannot find avocadosh to run tests with";
   }
 }
 
@@ -120,7 +120,7 @@ function main(argv) {
   }
 
   let args = [theScript].concat(internal.toArgv(scriptArguments));
-  args = args.concat(['--arangoshSetup']);
+  args = args.concat(['--avocadoshSetup']);
   args = args.concat(documentationSourceDirs);
 
   let res = executeExternalAndWait(thePython, args);
@@ -156,7 +156,7 @@ function main(argv) {
     print("================================================================================");
     print(ARANGOD);
     print(toArgv(serverArgs));
-    locateArangod();
+    locateAvocadod();
     instanceInfo.pid = executeExternal(ARANGOD, toArgv(serverArgs)).pid;
 
     // Wait until the server is up:
@@ -184,18 +184,18 @@ function main(argv) {
     }
   }
 
-  let arangoshArgs = {
-    'configuration': fs.join(fs.makeAbsolute(''), 'etc', 'relative', 'arangosh.conf'),
+  let avocadoshArgs = {
+    'configuration': fs.join(fs.makeAbsolute(''), 'etc', 'relative', 'avocadosh.conf'),
     'server.password': "",
     'server.endpoint': serverEndpoint,
     'javascript.execute': scriptArguments.outputFile
   };
 
-  locateArangosh();
+  locateAvocadosh();
   print("--------------------------------------------------------------------------------");
   print(ARANGOSH);
-  print(internal.toArgv(arangoshArgs));
-  res = executeExternalAndWait(ARANGOSH, internal.toArgv(arangoshArgs));
+  print(internal.toArgv(avocadoshArgs));
+  res = executeExternalAndWait(ARANGOSH, internal.toArgv(avocadoshArgs));
 
   if (startServer) {
     if (typeof(instanceInfo.exitStatus) === 'undefined') {

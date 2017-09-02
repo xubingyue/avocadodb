@@ -30,7 +30,7 @@
 
 var jsunity = require("jsunity");
 var internal = require("internal");
-var testHelper = require("@arangodb/test-helper").Helper;
+var testHelper = require("@avocadodb/test-helper").Helper;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite: volatile collections

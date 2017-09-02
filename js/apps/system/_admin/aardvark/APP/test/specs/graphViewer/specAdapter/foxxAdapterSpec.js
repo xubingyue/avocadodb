@@ -525,7 +525,7 @@
                 res = false
                 $.ajax({
                   type: "GET",
-                  url: arangodb + "/_api/document/" + id,
+                  url: avocadodb + "/_api/document/" + id,
                   contentType: "application/json",
                   processData: false,
                   async: false,
@@ -550,7 +550,7 @@
                 res = false
                 $.ajax({
                   type: "GET",
-                  url: arangodb + "/_api/document/" + id,
+                  url: avocadodb + "/_api/document/" + id,
                   contentType: "application/json",
                   processData: false,
                   async: false,
@@ -572,7 +572,7 @@
                 res = false
                 $.ajax({
                   type: "GET",
-                  url: arangodb + "/_api/document/" + id,
+                  url: avocadodb + "/_api/document/" + id,
                   contentType: "application/json",
                   processData: false,
                   async: false,

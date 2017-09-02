@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/view"
   prefix = "api-view"
 
@@ -19,7 +19,7 @@ describe ArangoDB do
 
         it "creating a view without body" do
           cmd = api
-          doc = ArangoDB.log_post("#{prefix}-create-missing-body", cmd)
+          doc = AvocadoDB.log_post("#{prefix}-create-missing-body", cmd)
 
           doc.code.should eq(400)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -34,7 +34,7 @@ describe ArangoDB do
                  { "type": "logger",
                    "properties": {} }
                  JSON
-          doc = ArangoDB.log_post("#{prefix}-create-missing-name", cmd, :body => body)
+          doc = AvocadoDB.log_post("#{prefix}-create-missing-name", cmd, :body => body)
 
           doc.code.should eq(400)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -49,7 +49,7 @@ describe ArangoDB do
                  { "name": "abc",
                    "properties": {} }
                  JSON
-          doc = ArangoDB.log_post("#{prefix}-create-missing-type", cmd, :body => body)
+          doc = AvocadoDB.log_post("#{prefix}-create-missing-type", cmd, :body => body)
 
           doc.code.should eq(400)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -65,7 +65,7 @@ describe ArangoDB do
                    "type": "foobar",
                    "properties": {} }
                  JSON
-          doc = ArangoDB.log_post("#{prefix}-create-invalid-type", cmd, :body => body)
+          doc = AvocadoDB.log_post("#{prefix}-create-invalid-type", cmd, :body => body)
 
           doc.code.should eq(400)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -80,7 +80,7 @@ describe ArangoDB do
                  { "name": "test",
                    "type": "logger" }
                  JSON
-          doc = ArangoDB.log_post("#{prefix}-create-without properties", cmd, :body => body)
+          doc = AvocadoDB.log_post("#{prefix}-create-without properties", cmd, :body => body)
 
           doc.code.should eq(400)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -96,7 +96,7 @@ describe ArangoDB do
                    "type": "logger",
                    "properties": {} }
                  JSON
-          doc1 = ArangoDB.log_post("#{prefix}-create-duplicate", cmd1, :body => body1)
+          doc1 = AvocadoDB.log_post("#{prefix}-create-duplicate", cmd1, :body => body1)
 
           doc1.code.should eq(201)
           doc1.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -109,7 +109,7 @@ describe ArangoDB do
                    "type": "logger",
                    "properties": {} }
                  JSON
-          doc2 = ArangoDB.log_post("#{prefix}-create-duplicate", cmd1, :body => body2)
+          doc2 = AvocadoDB.log_post("#{prefix}-create-duplicate", cmd1, :body => body2)
 
           doc2.code.should eq(409)
           doc2.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -118,7 +118,7 @@ describe ArangoDB do
           doc2.parsed_response['errorNum'].should eq(1207)
 
           cmd3 = api + '/dup'
-          doc3 = ArangoDB.log_delete("#{prefix}-create-duplicate", cmd3)
+          doc3 = AvocadoDB.log_delete("#{prefix}-create-duplicate", cmd3)
 
           doc3.code.should eq(204)
           doc3.headers['content-type'].should eq("text/plain; charset=utf-8")
@@ -130,7 +130,7 @@ describe ArangoDB do
 
         it "deleting a non-existent view" do
           cmd = api + "/foobar"
-          doc = ArangoDB.log_delete("#{prefix}-delete-non-existent", cmd)
+          doc = AvocadoDB.log_delete("#{prefix}-delete-non-existent", cmd)
 
           doc.code.should eq(404)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -145,7 +145,7 @@ describe ArangoDB do
 
         it "getting a non-existent view" do
           cmd = api + "/foobar"
-          doc = ArangoDB.log_get("#{prefix}-get-non-existent", cmd)
+          doc = AvocadoDB.log_get("#{prefix}-get-non-existent", cmd)
 
           doc.code.should eq(404)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -156,7 +156,7 @@ describe ArangoDB do
 
         it "getting properties of a non-existent view" do
           cmd = api + "/foobar/properties"
-          doc = ArangoDB.log_get("#{prefix}-get-non-existent-properties", cmd)
+          doc = AvocadoDB.log_get("#{prefix}-get-non-existent-properties", cmd)
 
           doc.code.should eq(404)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -174,7 +174,7 @@ describe ArangoDB do
           body = <<-JSON
                  { "level": "DEBUG" }
                  JSON
-          doc = ArangoDB.log_put("#{prefix}-modify-direct", cmd, :body => body)
+          doc = AvocadoDB.log_put("#{prefix}-modify-direct", cmd, :body => body)
 
           doc.code.should eq(400)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -188,7 +188,7 @@ describe ArangoDB do
           body = <<-JSON
                  { "level": "DEBUG" }
                  JSON
-          doc = ArangoDB.log_put("#{prefix}-modify-non-existent", cmd, :body => body)
+          doc = AvocadoDB.log_put("#{prefix}-modify-non-existent", cmd, :body => body)
 
           doc.code.should eq(404)
           doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -204,7 +204,7 @@ describe ArangoDB do
                     "type": "logger",
                     "properties": {} }
                   JSON
-          doc1 = ArangoDB.log_post("#{prefix}-modify-unacceptable", cmd1, :body => body1)
+          doc1 = AvocadoDB.log_post("#{prefix}-modify-unacceptable", cmd1, :body => body1)
 
           doc1.code.should eq(201)
           doc1.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -215,7 +215,7 @@ describe ArangoDB do
           body2 = <<-JSON
                  { "bogus": "junk" }
                  JSON
-          doc2 = ArangoDB.log_put("#{prefix}-modify-unacceptable", cmd2, :body => body2)
+          doc2 = AvocadoDB.log_put("#{prefix}-modify-unacceptable", cmd2, :body => body2)
 
           doc2.code.should eq(400)
           doc2.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -224,7 +224,7 @@ describe ArangoDB do
           doc2.parsed_response['errorNum'].should eq(10)
 
           cmd3 = api + '/lemon'
-          doc3 = ArangoDB.log_delete("#{prefix}-modify-unacceptable", cmd3)
+          doc3 = AvocadoDB.log_delete("#{prefix}-modify-unacceptable", cmd3)
 
           doc3.code.should eq(204)
           doc3.headers['content-type'].should eq("text/plain; charset=utf-8")
@@ -242,7 +242,7 @@ describe ArangoDB do
                  "type": "logger",
                  "properties": {} }
                JSON
-        doc = ArangoDB.log_post("#{prefix}-create-a-view", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-a-view", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -252,13 +252,13 @@ describe ArangoDB do
 
       it "dropping a view" do
         cmd1 = api + "/abc"
-        doc1 = ArangoDB.log_delete("#{prefix}-drop-a-view", cmd1)
+        doc1 = AvocadoDB.log_delete("#{prefix}-drop-a-view", cmd1)
 
         doc1.code.should eq(204)
         doc1.headers['content-type'].should eq("text/plain; charset=utf-8")
 
         cmd2 = api + "/abc"
-        doc2 = ArangoDB.log_get("#{prefix}-drop-a-view", cmd2)
+        doc2 = AvocadoDB.log_get("#{prefix}-drop-a-view", cmd2)
 
         doc2.code.should eq(404)
         doc2.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -270,7 +270,7 @@ describe ArangoDB do
     context "retrieval:" do
       it "empty list" do
         cmd = api
-        doc = ArangoDB.log_get("#{prefix}-empty-list", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-empty-list", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -285,7 +285,7 @@ describe ArangoDB do
                  "properties": {
                    "level": "DEBUG" } }
                JSON
-        doc1 = ArangoDB.log_post("#{prefix}-short-list", cmd1, :body => body1)
+        doc1 = AvocadoDB.log_post("#{prefix}-short-list", cmd1, :body => body1)
         doc1.code.should eq(201)
         doc1.headers['content-type'].should eq("application/json; charset=utf-8")
         doc1.parsed_response['name'].should eq("abc")
@@ -298,14 +298,14 @@ describe ArangoDB do
                  "properties": {
                    "level": "WARN" } }
                JSON
-        doc2 = ArangoDB.log_post("#{prefix}-short-list", cmd2, :body => body2)
+        doc2 = AvocadoDB.log_post("#{prefix}-short-list", cmd2, :body => body2)
         doc2.code.should eq(201)
         doc2.headers['content-type'].should eq("application/json; charset=utf-8")
         doc2.parsed_response['name'].should eq("def")
         doc2.parsed_response['type'].should eq("logger")
 
         cmd3 = api
-        doc3 = ArangoDB.log_get("#{prefix}-short-list", cmd3)
+        doc3 = AvocadoDB.log_get("#{prefix}-short-list", cmd3)
         doc3.code.should eq(200)
         doc3.headers['content-type'].should eq("application/json; charset=utf-8")
         doc3.parsed_response.length.should eq(2)
@@ -317,27 +317,27 @@ describe ArangoDB do
 
       it "individual views" do
         cmd1 = api + '/abc'
-        doc1 = ArangoDB.log_get("#{prefix}-individual-views", cmd1)
+        doc1 = AvocadoDB.log_get("#{prefix}-individual-views", cmd1)
         doc1.code.should eq(200)
         doc1.headers['content-type'].should eq("application/json; charset=utf-8")
         doc1.parsed_response['name'].should eq("abc")
         doc1.parsed_response['type'].should eq("logger")
 
         cmd2 = api + '/abc/properties'
-        doc2 = ArangoDB.log_get("#{prefix}-individual-views", cmd2)
+        doc2 = AvocadoDB.log_get("#{prefix}-individual-views", cmd2)
         doc2.code.should eq(200)
         doc2.headers['content-type'].should eq("application/json; charset=utf-8")
         doc2.parsed_response['level'].should eq("DEBUG")
 
         cmd3 = api + '/def'
-        doc3 = ArangoDB.log_get("#{prefix}-individual-views", cmd3)
+        doc3 = AvocadoDB.log_get("#{prefix}-individual-views", cmd3)
         doc3.code.should eq(200)
         doc3.headers['content-type'].should eq("application/json; charset=utf-8")
         doc3.parsed_response['name'].should eq("def")
         doc3.parsed_response['type'].should eq("logger")
 
         cmd4 = api + '/def/properties'
-        doc4 = ArangoDB.log_get("#{prefix}-individual-views", cmd4)
+        doc4 = AvocadoDB.log_get("#{prefix}-individual-views", cmd4)
         doc4.code.should eq(200)
         doc4.headers['content-type'].should eq("application/json; charset=utf-8")
         doc4.parsed_response['level'].should eq("WARN")
@@ -352,13 +352,13 @@ describe ArangoDB do
         body1 = <<-JSON
                 { "level": "TRACE" }
                 JSON
-        doc1 = ArangoDB.log_put("#{prefix}-change-properties", cmd1, :body => body1)
+        doc1 = AvocadoDB.log_put("#{prefix}-change-properties", cmd1, :body => body1)
         doc1.code.should eq(200)
         doc1.headers['content-type'].should eq("application/json; charset=utf-8")
         doc1.parsed_response['level'].should eq("TRACE")
 
         cmd2 = api + '/abc/properties'
-        doc2 = ArangoDB.log_get("#{prefix}-change-properties", cmd2)
+        doc2 = AvocadoDB.log_get("#{prefix}-change-properties", cmd2)
         doc2.code.should eq(200)
         doc2.headers['content-type'].should eq("application/json; charset=utf-8")
         doc2.parsed_response['level'].should eq("TRACE")
@@ -370,14 +370,14 @@ describe ArangoDB do
                 { "level": "DEBUG",
                   "extra": "foobar" }
                 JSON
-        doc1 = ArangoDB.log_put("#{prefix}-ignore-extra-properties", cmd1, :body => body1)
+        doc1 = AvocadoDB.log_put("#{prefix}-ignore-extra-properties", cmd1, :body => body1)
         doc1.code.should eq(200)
         doc1.headers['content-type'].should eq("application/json; charset=utf-8")
         doc1.parsed_response['level'].should eq("DEBUG")
         doc1.parsed_response['extra'].should eq(nil)
 
         cmd2 = api + '/abc/properties'
-        doc2 = ArangoDB.log_get("#{prefix}-ignore-extra-properties", cmd2)
+        doc2 = AvocadoDB.log_get("#{prefix}-ignore-extra-properties", cmd2)
         doc2.code.should eq(200)
         doc2.headers['content-type'].should eq("application/json; charset=utf-8")
         doc2.parsed_response['level'].should eq("DEBUG")
@@ -389,13 +389,13 @@ describe ArangoDB do
         body1 = <<-JSON
                 { "level": "TRACE" }
                 JSON
-        doc1 = ArangoDB.log_patch("#{prefix}-accept-patch", cmd1, :body => body1)
+        doc1 = AvocadoDB.log_patch("#{prefix}-accept-patch", cmd1, :body => body1)
         doc1.code.should eq(200)
         doc1.headers['content-type'].should eq("application/json; charset=utf-8")
         doc1.parsed_response['level'].should eq("TRACE")
 
         cmd2 = api + '/abc/properties'
-        doc2 = ArangoDB.log_get("#{prefix}-accept-patch", cmd2)
+        doc2 = AvocadoDB.log_get("#{prefix}-accept-patch", cmd2)
         doc2.code.should eq(200)
         doc2.headers['content-type'].should eq("application/json; charset=utf-8")
         doc2.parsed_response['level'].should eq("TRACE")

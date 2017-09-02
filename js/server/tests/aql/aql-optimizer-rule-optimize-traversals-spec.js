@@ -31,9 +31,9 @@
 //
 const expect = require('chai').expect;
 
-const helper = require('@arangodb/aql-helper');
+const helper = require('@avocadodb/aql-helper');
 const isEqual = helper.isEqual;
-const graphModule = require('@arangodb/general-graph');
+const graphModule = require('@avocadodb/general-graph');
 const graphName = 'myUnittestGraph';
 const db = require('internal').db;
 let graph;

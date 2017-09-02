@@ -29,10 +29,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var testHelper = require("@arangodb/test-helper").Helper;
-var ArangoCollection = require("@arangodb/arango-collection").ArangoCollection;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var testHelper = require("@avocadodb/test-helper").Helper;
+var AvocadoCollection = require("@avocadodb/avocado-collection").AvocadoCollection;
+var db = avocadodb.db;
 var internal = require("internal");
 
 
@@ -334,7 +334,7 @@ function walSuite () {
       require("internal").wal.flush(true, true);
       db._collection("UnitTestsExample").unload();
       
-      while (db._collection("UnitTestsExample").status() !== ArangoCollection.STATUS_UNLOADED) {
+      while (db._collection("UnitTestsExample").status() !== AvocadoCollection.STATUS_UNLOADED) {
         db._collection("UnitTestsExample").unload();
         internal.wait(1, false);
       }

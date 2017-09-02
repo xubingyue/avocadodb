@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   if (!gitbook.state.root) return;
   var bookVersion = gitbook.state.root.match(/\/(\d\.\d(\.\d)?|devel)\//);
-  var switcher = document.getElementsByClassName("arangodb-version-switcher")[0];
+  var switcher = document.getElementsByClassName("avocadodb-version-switcher")[0];
   if (bookVersion) {
     switcher.value = bookVersion[1];
   } else {
@@ -18,18 +18,18 @@ $(document).ready(function() {
 function appendHeader() {
 
   var div = document.createElement('div');
-  div.innerHTML = '<div class="arangodb-header">\n' +
-    '  <div class="arangodb-logo">\n' +
-    '    <a href="https://arangodb.com/">\n' +
-    '      <img src="https://docs.arangodb.com/assets/arangodb_logo_2016.png">\n' +
+  div.innerHTML = '<div class="avocadodb-header">\n' +
+    '  <div class="avocadodb-logo">\n' +
+    '    <a href="https://avocadodb.com/">\n' +
+    '      <img src="https://docs.avocadodb.com/assets/avocadodb_logo_2016.png">\n' +
     '    </a>\n' +
     '  </div>\n' +
-    '  <div class="arangodb-logo-small">\n' +
-    '    <a href="https://arangodb.com/">\n' +
-    '      <img src="https://docs.arangodb.com/assets/arangodb_logo_small_2016.png">\n' +
+    '  <div class="avocadodb-logo-small">\n' +
+    '    <a href="https://avocadodb.com/">\n' +
+    '      <img src="https://docs.avocadodb.com/assets/avocadodb_logo_small_2016.png">\n' +
     '    </a>\n' +
     '  </div>\n' +
-    '  <select class="arangodb-version-switcher">\n' +
+    '  <select class="avocadodb-version-switcher">\n' +
     '    <option value="devel">devel</option>\n' +
     '    <option value="3.2">v3.2</option>\n' +
     '    <option value="3.1">v3.1</option>\n' +
@@ -39,7 +39,7 @@ function appendHeader() {
     '  <div class="google-search">\n' +
     '    <gcse:searchbox-only></gcse:searchbox-only>\n' +
     '  </div>\n' +
-    '  <ul class="arangodb-navmenu">\n' +
+    '  <ul class="avocadodb-navmenu">\n' +
     '    <li>\n' +
     '      <a href="#" data-book="Manual">Manual</a>\n' +
     '    </li>\n' +
@@ -53,27 +53,27 @@ function appendHeader() {
     '      <a href="#" data-book="cookbook">Cookbook</a>\n' +
     '    </li>\n' +
     '    <li class="downloadIcon" title="Download">\n' +
-    '      <a href="https://www.arangodb.com/download-arangodb-docs" target="_blank">\n' +
+    '      <a href="https://www.avocadodb.com/download-avocadodb-docs" target="_blank">\n' +
     '        <i class="fa fa-download"></i>\n' +
     '      </a>\n' +
     '    </li>\n' +
     '    <li class="socialIcons" title="GitHub">\n' +
-    '      <a href="https://github.com/ArangoDB/ArangoDB/issues" target="_blank">\n' +
+    '      <a href="https://github.com/AvocadoDB/AvocadoDB/issues" target="_blank">\n' +
     '        <i class="fa fa-github"></i>\n' +
     '      </a>\n' +
     '    </li>\n' +
     '    <li class="socialIcons" title="StackOverflow">\n' +
-    '      <a href="http://stackoverflow.com/questions/tagged/arangodb" target="_blank">\n' +
+    '      <a href="http://stackoverflow.com/questions/tagged/avocadodb" target="_blank">\n' +
     '        <i class="fa fa-stack-overflow"></i>\n' +
     '      </a>\n' +
     '    </li>\n' +
     '    <li class="socialIcons socialIcons-googlegroups" title="Google Groups">\n' +
-    '      <a href="https://groups.google.com/forum/#!forum/arangodb" target="_blank">\n' +
-    '        <img alt="Google Groups" src="https://docs.arangodb.com/assets/googlegroupsIcon.png" />\n' +
+    '      <a href="https://groups.google.com/forum/#!forum/avocadodb" target="_blank">\n' +
+    '        <img alt="Google Groups" src="https://docs.avocadodb.com/assets/googlegroupsIcon.png" />\n' +
     '      </a>\n' +
     '    </li>\n' +
     '    <li class="socialIcons" title="Slack">\n' +
-    '      <a href="https://slack.arangodb.com" target="_blank">\n' +
+    '      <a href="https://slack.avocadodb.com" target="_blank">\n' +
     '        <i class="fa fa-slack"></i>\n' +
     '      </a>\n' +
     '    </li>\n' +
@@ -86,7 +86,7 @@ function appendHeader() {
 
 
   function rerenderNavbar() {
-    $('.arangodb-header').remove();
+    $('.avocadodb-header').remove();
     appendHeader();
   };
 
@@ -104,7 +104,7 @@ function appendHeader() {
   };
   addGoogleSrc();
 
-  $(".arangodb-navmenu a:lt(4)").on("click", function(e) {
+  $(".avocadodb-navmenu a:lt(4)").on("click", function(e) {
     e.preventDefault();
     var urlSplit = gitbook.state.root.split("/");
     urlSplit.pop(); // ""
@@ -114,14 +114,14 @@ function appendHeader() {
 
   // set again using jQuery to accommodate non-standard browsers (*cough* IE *cough*)
   var bookVersion = gitbook.state.root.match(/\/(\d\.\d(\.\d)?|devel)\//);
-  var switcher = $(".arangodb-version-switcher");
+  var switcher = $(".avocadodb-version-switcher");
   if (bookVersion) {
     switcher.val(bookVersion[1]);
   } else {
     switcher.hide();
   }
   
-  $(".arangodb-version-switcher").on("change", function(e) {
+  $(".avocadodb-version-switcher").on("change", function(e) {
     var urlSplit = gitbook.state.root.split("/");
     urlSplit.pop(); // ""
     var currentBook = urlSplit.pop(); // e.g. "Manual"

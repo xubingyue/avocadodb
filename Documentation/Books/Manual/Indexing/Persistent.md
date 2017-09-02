@@ -5,7 +5,7 @@ Persistent indexes
 Introduction to Persistent Indexes
 ----------------------------------
 
-This is an introduction to ArangoDB's persistent indexes.
+This is an introduction to AvocadoDB's persistent indexes.
 
 It is possible to define a persistent index on one or more attributes (or paths)
 of documents. The index is then used in queries to locate documents within a given range. 
@@ -74,7 +74,7 @@ details, including the index-identifier, is returned.
 
 
 
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 
 ensures that a non-unique persistent index exists
@@ -161,7 +161,7 @@ Persistent Indexes and Server Language
 --------------------------------------
 
 The order of index entries in persistent indexes adheres to the configured
-[server language](../Administration/Configuration/GeneralArangod.md#default-language).
+[server language](../Administration/Configuration/GeneralAvocadod.md#default-language).
 If, however, the server is restarted with a different language setting as when
 the persistent index was created, not all documents may be returned anymore and
 the sort order of those which are returned can be wrong (whenever the persistent

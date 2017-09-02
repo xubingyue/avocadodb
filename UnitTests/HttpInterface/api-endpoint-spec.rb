@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/endpoint"
   prefix = "api-endpoint"
 
@@ -17,10 +17,10 @@ describe ArangoDB do
       name = "UnitTestsDatabase"
 
       before do
-        ArangoDB.delete("/_api/database/#{name}")
+        AvocadoDB.delete("/_api/database/#{name}")
 
         body = "{\"name\" : \"#{name}\" }"
-        doc = ArangoDB.log_post("#{prefix}-create", "/_api/database", :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create", "/_api/database", :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -30,11 +30,11 @@ describe ArangoDB do
       end
 
       after do
-        ArangoDB.delete("/_api/database/#{name}")
+        AvocadoDB.delete("/_api/database/#{name}")
       end
 
       it "use non-system database" do
-        doc = ArangoDB.log_get("#{prefix}-get-non-system", "/_db/#{name}#{api}")
+        doc = AvocadoDB.log_get("#{prefix}-get-non-system", "/_db/#{name}#{api}")
 
         doc.code.should eq(403)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -44,7 +44,7 @@ describe ArangoDB do
       end
 
       it "use non-existent database" do
-        doc = ArangoDB.log_get("#{prefix}-get-non-existent", "/_db/foobar#{api}")
+        doc = AvocadoDB.log_get("#{prefix}-get-non-existent", "/_db/foobar#{api}")
 
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -61,7 +61,7 @@ describe ArangoDB do
 
     context "retrieving endpoints:" do
       it "retrieves endpoints" do
-        doc = ArangoDB.log_get("#{prefix}-get-endpoints", api)
+        doc = AvocadoDB.log_get("#{prefix}-get-endpoints", api)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

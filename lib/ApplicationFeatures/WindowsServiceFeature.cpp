@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -31,17 +31,17 @@
 #include "ProgramOptions/ProgramOptions.h"
 #include "ProgramOptions/Section.h"
 
-using namespace arangodb;
-using namespace arangodb::application_features;
-using namespace arangodb::basics;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::application_features;
+using namespace avocadodb::basics;
+using namespace avocadodb::options;
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief ArangoDB server
+/// @brief AvocadoDB server
 ////////////////////////////////////////////////////////////////////////////////
 
-WindowsServiceFeature * ArangoInstance = nullptr;
+WindowsServiceFeature * AvocadoInstance = nullptr;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief running flag
@@ -53,13 +53,13 @@ static bool IsRunning = false;
 /// @brief Windows service name
 ////////////////////////////////////////////////////////////////////////////////
 
-static std::string ServiceName = "ArangoDB";
+static std::string ServiceName = "AvocadoDB";
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Windows service name for the user.
 ////////////////////////////////////////////////////////////////////////////////
 
-static std::string FriendlyServiceName = "ArangoDB - the native multi-model NoSQL database";
+static std::string FriendlyServiceName = "AvocadoDB - the native multi-model NoSQL database";
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief service status handler
@@ -68,13 +68,13 @@ static std::string FriendlyServiceName = "ArangoDB - the native multi-model NoSQ
 SERVICE_STATUS_HANDLE ServiceStatus;
 
 void reportServiceAborted(void) {
-  if (ArangoInstance != nullptr && ArangoInstance->_server != nullptr) {
-    ArangoInstance->_server->beginShutdown();
+  if (AvocadoInstance != nullptr && AvocadoInstance->_server != nullptr) {
+    AvocadoInstance->_server->beginShutdown();
   }
 }
 
 // So we have a valid minidump area during startup:
-void  WindowsServiceFeature::StartArangoService (bool WaitForRunning) {
+void  WindowsServiceFeature::StartAvocadoService (bool WaitForRunning) {
   TRI_ERRORBUF;
   SERVICE_STATUS_PROCESS ssp;
   DWORD bytesNeeded;
@@ -87,20 +87,20 @@ void  WindowsServiceFeature::StartArangoService (bool WaitForRunning) {
     exit(EXIT_FAILURE);
   }
   // Get a handle to the service.
-  auto arangoService = OpenService(schSCManager,
+  auto avocadoService = OpenService(schSCManager,
                                    ServiceName.c_str(),
                                    SERVICE_START |
                                    SERVICE_QUERY_STATUS |
                                    SERVICE_ENUMERATE_DEPENDENTS);
 
-  if (arangoService == nullptr) {
+  if (avocadoService == nullptr) {
     TRI_SYSTEM_ERROR();
     std::cerr << "INFO: OpenService failed with " << windowsErrorBuf << std::endl;
     exit(EXIT_FAILURE);
   }
 
   // Make sure the service is not already started.
-  if ( !QueryServiceStatusEx(arangoService,
+  if ( !QueryServiceStatusEx(avocadoService,
                              SC_STATUS_PROCESS_INFO,
                              (LPBYTE)&ssp,
                              sizeof(SERVICE_STATUS_PROCESS),
@@ -116,10 +116,10 @@ void  WindowsServiceFeature::StartArangoService (bool WaitForRunning) {
     exit(EXIT_SUCCESS);
   }
 
-  if (! StartService(arangoService, 0, nullptr) ) {
+  if (! StartService(avocadoService, 0, nullptr) ) {
     TRI_SYSTEM_ERROR();
     std::cout << "StartService failed " << windowsErrorBuf << std::endl;
-    CloseServiceHandle(arangoService);
+    CloseServiceHandle(avocadoService);
     CloseServiceHandle(schSCManager);
     exit(EXIT_FAILURE);
   }
@@ -133,7 +133,7 @@ void  WindowsServiceFeature::StartArangoService (bool WaitForRunning) {
 
     // Check the status again.
 
-    if (! QueryServiceStatusEx(arangoService,
+    if (! QueryServiceStatusEx(avocadoService,
                                SC_STATUS_PROCESS_INFO, // info level
                                (LPBYTE) &ssp,             // address of structure
                                sizeof(SERVICE_STATUS_PROCESS), // size of structure
@@ -143,7 +143,7 @@ void  WindowsServiceFeature::StartArangoService (bool WaitForRunning) {
       break;
     }
   }
-  CloseServiceHandle(arangoService);
+  CloseServiceHandle(avocadoService);
   CloseServiceHandle(schSCManager);
   exit(EXIT_SUCCESS);
 }
@@ -152,7 +152,7 @@ void  WindowsServiceFeature::StartArangoService (bool WaitForRunning) {
 /// @brief Stop the service and optionaly wait till its all dead
 ////////////////////////////////////////////////////////////////////////////////
 
-void WindowsServiceFeature::StopArangoService (bool WaitForShutdown) {
+void WindowsServiceFeature::StopAvocadoService (bool WaitForShutdown) {
   TRI_ERRORBUF;
 
   SERVICE_STATUS_PROCESS ssp;
@@ -167,13 +167,13 @@ void WindowsServiceFeature::StopArangoService (bool WaitForShutdown) {
   }
 
   // Get a handle to the service.
-  auto arangoService = OpenService(schSCManager,
+  auto avocadoService = OpenService(schSCManager,
                                    ServiceName.c_str(),
                                    SERVICE_STOP |
                                    SERVICE_QUERY_STATUS |
                                    SERVICE_ENUMERATE_DEPENDENTS);
 
-  if (arangoService == nullptr) {
+  if (avocadoService == nullptr) {
     TRI_SYSTEM_ERROR();
     std::cerr << "INFO: OpenService failed with " << windowsErrorBuf << std::endl;
     CloseServiceHandle(schSCManager);
@@ -181,7 +181,7 @@ void WindowsServiceFeature::StopArangoService (bool WaitForShutdown) {
   }
 
   // Make sure the service is not already stopped.
-  if ( !QueryServiceStatusEx(arangoService,
+  if ( !QueryServiceStatusEx(avocadoService,
                              SC_STATUS_PROCESS_INFO,
                              (LPBYTE)&ssp,
                              sizeof(SERVICE_STATUS_PROCESS),
@@ -198,12 +198,12 @@ void WindowsServiceFeature::StopArangoService (bool WaitForShutdown) {
   }
 
   // Send a stop code to the service.
-  if (! ControlService(arangoService,
+  if (! ControlService(avocadoService,
                        SERVICE_CONTROL_STOP,
                        (LPSERVICE_STATUS) &ssp ) ) {
     TRI_SYSTEM_ERROR();
     std::cerr << "ControlService failed with " << windowsErrorBuf << std::endl;
-    CloseServiceHandle(arangoService);
+    CloseServiceHandle(avocadoService);
     CloseServiceHandle(schSCManager);
     exit(EXIT_FAILURE);
   }
@@ -212,26 +212,26 @@ void WindowsServiceFeature::StopArangoService (bool WaitForShutdown) {
     // we sleep 1 second before we re-check the status.
     Sleep(1000);
 
-    if (!QueryServiceStatusEx(arangoService,
+    if (!QueryServiceStatusEx(avocadoService,
                               SC_STATUS_PROCESS_INFO,
                               (LPBYTE) &ssp,
                               sizeof(SERVICE_STATUS_PROCESS),
                               &bytesNeeded ) ) {
       TRI_SYSTEM_ERROR();
       printf("QueryServiceStatusEx failed (%s)\n", windowsErrorBuf);
-      CloseServiceHandle(arangoService);
+      CloseServiceHandle(avocadoService);
       CloseServiceHandle(schSCManager);
       exit(EXIT_FAILURE);
     }
   }
 
-  CloseServiceHandle(arangoService);
+  CloseServiceHandle(avocadoService);
   CloseServiceHandle(schSCManager);
   exit(EXIT_SUCCESS);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief installs arangod as service with command-line
+/// @brief installs avocadod as service with command-line
 ////////////////////////////////////////////////////////////////////////////////
 
 void WindowsServiceFeature::installService() {
@@ -395,8 +395,8 @@ void SetServiceStatus(DWORD dwCurrentState, DWORD dwWin32ExitCode,
     ss.dwControlsAccepted = 0;
     SetServiceStatus(ServiceStatus, &ss);
 
-    if (ArangoInstance != nullptr && ArangoInstance->_server != nullptr) {
-      ArangoInstance->_server->beginShutdown();
+    if (AvocadoInstance != nullptr && AvocadoInstance->_server != nullptr) {
+      AvocadoInstance->_server->beginShutdown();
     }
 
     ss.dwCurrentState = SERVICE_STOPPED;
@@ -405,7 +405,7 @@ void SetServiceStatus(DWORD dwCurrentState, DWORD dwWin32ExitCode,
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// @brief wrap ArangoDB server so we can properly emmit a status once we're
+/// @brief wrap AvocadoDB server so we can properly emmit a status once we're
 ///        really up and running.
 //////////////////////////////////////////////////////////////////////////////
 void WindowsServiceFeature::startupProgress () {
@@ -413,7 +413,7 @@ void WindowsServiceFeature::startupProgress () {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// @brief wrap ArangoDB server so we can properly emmit a status once we're
+/// @brief wrap AvocadoDB server so we can properly emmit a status once we're
 ///        really up and running.
 //////////////////////////////////////////////////////////////////////////////
 void WindowsServiceFeature::startupFinished () {
@@ -422,7 +422,7 @@ void WindowsServiceFeature::startupFinished () {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// @brief wrap ArangoDB server so we can properly emmit a status on shutdown
+/// @brief wrap AvocadoDB server so we can properly emmit a status on shutdown
 ///        starting
 //////////////////////////////////////////////////////////////////////////////
 void WindowsServiceFeature::shutDownBegins () {
@@ -432,7 +432,7 @@ void WindowsServiceFeature::shutDownBegins () {
 
 
 //////////////////////////////////////////////////////////////////////////////
-/// @brief wrap ArangoDB server so we can properly emmit a status on shutdown
+/// @brief wrap AvocadoDB server so we can properly emmit a status on shutdown
 ///        starting
 //////////////////////////////////////////////////////////////////////////////
 void WindowsServiceFeature::shutDownComplete () {
@@ -441,7 +441,7 @@ void WindowsServiceFeature::shutDownComplete () {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// @brief wrap ArangoDB server so we can properly emmit a status on shutdown
+/// @brief wrap AvocadoDB server so we can properly emmit a status on shutdown
 ///        starting
 //////////////////////////////////////////////////////////////////////////////
 void WindowsServiceFeature::shutDownFailure () {
@@ -450,7 +450,7 @@ void WindowsServiceFeature::shutDownFailure () {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// @brief wrap ArangoDB server so we can properly emmit a status on shutdown
+/// @brief wrap AvocadoDB server so we can properly emmit a status on shutdown
 ///        starting
 //////////////////////////////////////////////////////////////////////////////
 void WindowsServiceFeature::abortFailure () {
@@ -483,8 +483,8 @@ void WINAPI ServiceCtrl(DWORD dwCtrlCode) {
       dwCtrlCode == SERVICE_CONTROL_SHUTDOWN) {
     SetServiceStatus(SERVICE_STOP_PENDING, NO_ERROR, 0, 0, 0);
 
-    if (ArangoInstance != nullptr && ArangoInstance->_server != nullptr) {
-      ArangoInstance->_server->beginShutdown();
+    if (AvocadoInstance != nullptr && AvocadoInstance->_server != nullptr) {
+      AvocadoInstance->_server->beginShutdown();
 
       while (IsRunning) {
         Sleep(100);
@@ -502,7 +502,7 @@ WindowsServiceFeature::WindowsServiceFeature(application_features::ApplicationSe
   setOptional(true);
   requiresElevatedPrivileges(true);
   startsAfter("Version");
-  ArangoInstance = this;
+  AvocadoInstance = this;
 
   if (!TRI_InitWindowsEventLog()) {
     std::cout << "failed to open windows event log!" << std::endl;
@@ -550,9 +550,9 @@ void WindowsServiceFeature::collectOptions(std::shared_ptr<ProgramOptions> optio
 }
 
 void WindowsServiceFeature::abortService() {
-  if (ArangoInstance != nullptr) {
-    ArangoInstance->_server = nullptr;
-    ArangoInstance->abortFailure();
+  if (AvocadoInstance != nullptr) {
+    AvocadoInstance->_server = nullptr;
+    AvocadoInstance->abortFailure();
   }
   exit(EXIT_FAILURE);
 }
@@ -612,20 +612,20 @@ void WindowsServiceFeature::validateOptions(std::shared_ptr<ProgramOptions> opti
   }
   
   else if (_startService) {
-      StartArangoService(true);
+      StartAvocadoService(true);
       exit(EXIT_SUCCESS);
   }
   else if (_startWaitService) {
-      StartArangoService(true);
+      StartAvocadoService(true);
       exit(EXIT_SUCCESS);
   }
   
   else if (_stopService) {
-      StopArangoService(false);
+      StopAvocadoService(false);
       exit(EXIT_SUCCESS);
   }
   else if (_stopWaitService) {
-      StopArangoService(true);
+      StopAvocadoService(true);
       exit(EXIT_SUCCESS);
   }
 }

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global frontendConfig, _, Backbone, templateEngine, window, setTimeout, clearTimeout, arangoHelper, Joi, $ */
+/* global frontendConfig, _, Backbone, templateEngine, window, setTimeout, clearTimeout, avocadoHelper, Joi, $ */
 
 (function () {
   'use strict';
@@ -76,14 +76,14 @@
                 $('#collection_' + model.get('name') + ' .corneredBadge').addClass('loaded');
               }
               if (model.get('status') === 'unloaded') {
-                $('#collection_' + model.get('name') + ' .icon_arangodb_info').addClass('disabled');
+                $('#collection_' + model.get('name') + ' .icon_avocadodb_info').addClass('disabled');
               }
             }
           });
         }
       }.bind(this);
 
-      window.arangoHelper.syncAndReturnUninishedAardvarkJobs('index', callback);
+      window.avocadoHelper.syncAndReturnUninishedAardvarkJobs('index', callback);
     },
 
     initialize: function () {
@@ -113,9 +113,9 @@
 
       var searchOptions = this.collection.searchOptions;
 
-      this.collection.getFiltered(searchOptions).forEach(function (arangoCollection) {
+      this.collection.getFiltered(searchOptions).forEach(function (avocadoCollection) {
         $('#collectionsThumbnailsIn', this.el).append(new window.CollectionListItemView({
-          model: arangoCollection,
+          model: avocadoCollection,
           collectionsView: this
         }).render().el);
       }, this);
@@ -129,7 +129,7 @@
       }
 
       var length;
-      arangoHelper.setCheckboxStatus('#collectionsDropdown');
+      avocadoHelper.setCheckboxStatus('#collectionsDropdown');
 
       try {
         length = searchOptions.searchPhrase.length;
@@ -138,8 +138,8 @@
       $('#searchInput').focus();
       $('#searchInput')[0].setSelectionRange(length, length);
 
-      arangoHelper.fixTooltips('.icon_arangodb, .arangoicon', 'left');
-      arangoHelper.checkDatabasePermissions(this.setReadOnly.bind(this));
+      avocadoHelper.fixTooltips('.icon_avocadodb, .avocadoicon', 'left');
+      avocadoHelper.checkDatabasePermissions(this.setReadOnly.bind(this));
 
       return this;
     },
@@ -326,7 +326,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_api/engine'),
+          url: avocadoHelper.databaseUrl('/_api/engine'),
           contentType: 'application/json',
           processData: false,
           success: function (data) {
@@ -334,7 +334,7 @@
             self.createNewCollectionModal(data);
           },
           error: function () {
-            arangoHelper.arangoError('Engine', 'Could not fetch ArangoDB Engine details.');
+            avocadoHelper.avocadoError('Engine', 'Could not fetch AvocadoDB Engine details.');
           }
         });
       }
@@ -344,7 +344,7 @@
       var self = this;
       var callbackCoord = function (error, isCoordinator) {
         if (error) {
-          arangoHelper.arangoError('DB', 'Could not check coordinator state');
+          avocadoHelper.avocadoError('DB', 'Could not check coordinator state');
         } else {
           var collName = $('#new-collection-name').val();
           var collSize = $('#new-collection-size').val();
@@ -369,7 +369,7 @@
             }
             shards = parseInt(shards, 10);
             if (shards < 1) {
-              arangoHelper.arangoError(
+              avocadoHelper.avocadoError(
                 'Number of shards has to be an integer value greater or equal 1'
               );
               return 0;
@@ -380,7 +380,7 @@
             }
           }
           if (collName.substr(0, 1) === '_') {
-            arangoHelper.arangoError('No "_" allowed as first character!');
+            avocadoHelper.avocadoError('No "_" allowed as first character!');
             return 0;
           }
           var isSystem = false;
@@ -389,12 +389,12 @@
             try {
               collSize = JSON.parse(collSize) * 1024 * 1024;
             } catch (e) {
-              arangoHelper.arangoError('Please enter a valid number');
+              avocadoHelper.avocadoError('Please enter a valid number');
               return 0;
             }
           }
           if (collName === '') {
-            arangoHelper.arangoError('No collection name entered!');
+            avocadoHelper.avocadoError('No collection name entered!');
             return 0;
           }
           // no new system collections via webinterface
@@ -403,7 +403,7 @@
             if (error) {
               try {
                 data = JSON.parse(data.responseText);
-                arangoHelper.arangoError('Error', data.errorMessage);
+                avocadoHelper.avocadoError('Error', data.errorMessage);
               } catch (ignore) {}
             } else {
               this.updateCollectionsView();
@@ -434,7 +434,7 @@
       var self = this;
       var callbackCoord2 = function (error, isCoordinator) {
         if (error) {
-          arangoHelper.arangoError('DB', 'Could not check coordinator state');
+          avocadoHelper.avocadoError('DB', 'Could not check coordinator state');
         } else {
           var buttons = [];
           var tableContent = [];

@@ -19,7 +19,7 @@ Every service comes with a `manifest.json` file providing metadata. The followin
   This would have the same effect as creating the following route in JavaScript:
 
   ```js
-  const createRouter = require('@arangodb/foxx/router');
+  const createRouter = require('@avocadodb/foxx/router');
   const indexRouter = createRouter();
   indexRouter.all('/', function (req, res) {
     res.redirect('index.html');
@@ -35,15 +35,15 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 
 * **engines**: `Object` (optional)
 
-  An object indicating the [semantic version ranges](http://semver.org) of ArangoDB (or compatible environments) the service will be compatible with, e.g.:
+  An object indicating the [semantic version ranges](http://semver.org) of AvocadoDB (or compatible environments) the service will be compatible with, e.g.:
 
   ```json
   "engines": {
-    "arangodb": "^3.0.0"
+    "avocadodb": "^3.0.0"
   }
   ```
 
-  This should correctly indicate the minimum version of ArangoDB the service has been tested against. Foxx maintains a strict semantic versioning policy as of ArangoDB 3.0.0 so it is generally safe to use semver ranges (e.g. `^3.0.0` to match any version greater or equal to `3.0.0` and below `4.0.0`) for maximum compatibility.
+  This should correctly indicate the minimum version of AvocadoDB the service has been tested against. Foxx maintains a strict semantic versioning policy as of AvocadoDB 3.0.0 so it is generally safe to use semver ranges (e.g. `^3.0.0` to match any version greater or equal to `3.0.0` and below `4.0.0`) for maximum compatibility.
 
 * **files**: `Object` (optional)
 
@@ -123,16 +123,16 @@ Additionally manifests can provide the following metadata:
   "description": "An example service with a relatively full-featured manifest.",
   "thumbnail": "foxx-icon.png",
   "keywords": ["demo", "service"],
-  "author": "ArangoDB GmbH",
+  "author": "AvocadoDB GmbH",
   "contributors": [
-    "Alan Plum <alan@arangodb.example>"
+    "Alan Plum <alan@avocadodb.example>"
   ],
 
   "lib": "dist",
   "main": "entry.js",
   "defaultDocument": "welcome.html",
   "engines": {
-    "arangodb": "^3.0.0"
+    "avocadodb": "^3.0.0"
   },
 
   "files": {

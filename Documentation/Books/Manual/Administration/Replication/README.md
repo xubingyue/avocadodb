@@ -2,10 +2,10 @@ Introduction to Replication
 ===========================
 
 Replication allows you to *replicate* data onto another machine. It
-forms the base of all disaster recovery and failover features ArangoDB
+forms the base of all disaster recovery and failover features AvocadoDB
 offers. 
 
-ArangoDB offers asynchronous and synchronous replication which both
+AvocadoDB offers asynchronous and synchronous replication which both
 have their pros and cons. Both modes may and should be combined in a
 real world scenario and be applied in the usecase where they excel
 most. 
@@ -44,7 +44,7 @@ Satellite collections are an enterprise only feature.
 
 ### Asynchronous replication
 
-In ArangoDB any write operation will be logged to the write-ahead
+In AvocadoDB any write operation will be logged to the write-ahead
 log. When using Asynchronous replication slaves will connect to a
 master and apply all the events from the log in the same order
 locally. After that, they will have the same state of data as the

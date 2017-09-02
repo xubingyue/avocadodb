@@ -2,7 +2,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var FoxxManager = require('org/arangodb/foxx/manager');
+var FoxxManager = require('org/avocadodb/foxx/manager');
 var fs = require('fs');
 var internal = require('internal');
 var basePath = fs.makeAbsolute(fs.join(internal.startupPath, 'common', 'test-data', 'apps'));

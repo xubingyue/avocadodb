@@ -4,7 +4,7 @@ Command-Line Options for Logging
 Log levels and topics
 ---------------------
 
-ArangoDB's log output is grouped into topics. `--log.level` can be specified
+AvocadoDB's log output is grouped into topics. `--log.level` can be specified
 multiple times at startup, for as many topics as needed. The log verbosity and
 output files can be adjusted per log topic. For example
 
@@ -37,7 +37,7 @@ The available log levels are:
 
 Note that levels `debug` and `trace` will be very verbose.
 
-Some relevant log topics available in ArangoDB 3 are:
+Some relevant log topics available in AvocadoDB 3 are:
 
 - `agency`: information about the agency
 - `collector`: information about the WAL collector's state

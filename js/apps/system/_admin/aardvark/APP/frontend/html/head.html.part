@@ -1,8 +1,8 @@
 <head>
-    <!-- ArangoDB web interface -->
+    <!-- AvocadoDB web interface -->
     <meta charset="utf-8">
-    <title>ArangoDB Web Interface</title>
-    <meta name="description" content="ArangoDB Admin Web Interface">
+    <title>AvocadoDB Web Interface</title>
+    <meta name="description" content="AvocadoDB Admin Web Interface">
     <meta name="author" content="Heiko Kernbach, Michael Hackstein">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">

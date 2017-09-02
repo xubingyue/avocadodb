@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Frank Celler
 /// @author Achim Brandt
@@ -37,18 +37,18 @@
 
 /// @brief construct locker with file and line information
 #define READ_LOCKER(obj, lock) \
-  arangodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, arangodb::basics::LockerType::BLOCKING, true, __FILE__, __LINE__)
+  avocadodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, avocadodb::basics::LockerType::BLOCKING, true, __FILE__, __LINE__)
 
 #define READ_LOCKER_EVENTUAL(obj, lock, t) \
-  arangodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, arangodb::basics::LockerType::EVENTUAL, true, __FILE__, __LINE__)
+  avocadodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, avocadodb::basics::LockerType::EVENTUAL, true, __FILE__, __LINE__)
 
 #define TRY_READ_LOCKER(obj, lock) \
-  arangodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, arangodb::basics::LockerType::TRY, true, __FILE__, __LINE__)
+  avocadodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, avocadodb::basics::LockerType::TRY, true, __FILE__, __LINE__)
 
 #define CONDITIONAL_READ_LOCKER(obj, lock, condition) \
-  arangodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, arangodb::basics::LockerType::BLOCKING, (condition), __FILE__, __LINE__)
+  avocadodb::basics::ReadLocker<typename std::decay<decltype (lock)>::type> obj(&lock, avocadodb::basics::LockerType::BLOCKING, (condition), __FILE__, __LINE__)
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 
 /// @brief read locker
@@ -101,7 +101,7 @@ class ReadLocker {
 
 #ifdef TRI_SHOW_LOCK_TIME
     if (_time > TRI_SHOW_LOCK_THRESHOLD) {
-      LOG_TOPIC(INFO, arangodb::Logger::PERFORMANCE) << "ReadLocker " << _file << ":" << _line << " took " << _time << " s";
+      LOG_TOPIC(INFO, avocadodb::Logger::PERFORMANCE) << "ReadLocker " << _file << ":" << _line << " took " << _time << " s";
     }
 #endif
   }

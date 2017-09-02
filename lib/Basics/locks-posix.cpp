@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,9 +45,9 @@ void TRI_LockMutex(TRI_mutex_t* mutex) {
 
   if (rc != 0) {
     if (rc == EDEADLK) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "mutex deadlock detected";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "mutex deadlock detected";
     }
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not lock the TRI_mutex: " << strerror(rc);
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not lock the TRI_mutex: " << strerror(rc);
     FATAL_ERROR_ABORT();
   }
 }
@@ -57,7 +57,7 @@ void TRI_UnlockMutex(TRI_mutex_t* mutex) {
   int rc = pthread_mutex_unlock(mutex);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not release the mutex: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not release the mutex: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -89,7 +89,7 @@ again:
     // concurrent read locks ("resource temporarily unavailable").
     // in this case we'll wait in a busy loop until we can acquire the lock
     if (!complained) {
-      LOG_TOPIC(WARN, arangodb::Logger::FIXME) << "too many read-locks on read-write lock";
+      LOG_TOPIC(WARN, avocadodb::Logger::FIXME) << "too many read-locks on read-write lock";
       complained = true;
     }
     usleep(BUSY_LOCK_DELAY);
@@ -107,10 +107,10 @@ again:
   }
 
   if (rc == EDEADLK) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "rw-lock deadlock detected";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "rw-lock deadlock detected";
   }
 
-  LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not read-lock the read-write lock: " << strerror(rc); 
+  LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not read-lock the read-write lock: " << strerror(rc); 
   FATAL_ERROR_ABORT();
 }
 
@@ -127,7 +127,7 @@ void TRI_ReadUnlockReadWriteLock(TRI_read_write_lock_t* lock) {
   int rc = pthread_rwlock_unlock(lock);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not read-unlock the read-write lock: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not read-unlock the read-write lock: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -145,9 +145,9 @@ void TRI_WriteLockReadWriteLock(TRI_read_write_lock_t* lock) {
 
   if (rc != 0) {
     if (rc == EDEADLK) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "rw-lock deadlock detected";
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "rw-lock deadlock detected";
     }
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not write-lock the read-write lock: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not write-lock the read-write lock: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -157,7 +157,7 @@ void TRI_WriteUnlockReadWriteLock(TRI_read_write_lock_t* lock) {
   int rc = pthread_rwlock_unlock(lock);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not write-unlock the read-write lock: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not write-unlock the read-write lock: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -181,7 +181,7 @@ void TRI_SignalCondition(TRI_condition_t* cond) {
   int rc = pthread_cond_signal(&cond->_cond);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not signal the condition: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not signal the condition: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -193,7 +193,7 @@ void TRI_BroadcastCondition(TRI_condition_t* cond) {
   int rc = pthread_cond_broadcast(&cond->_cond);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not broadcast the condition: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not broadcast the condition: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -205,7 +205,7 @@ void TRI_WaitCondition(TRI_condition_t* cond) {
   int rc = pthread_cond_wait(&cond->_cond, &cond->_mutex);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not wait for the condition: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not wait for the condition: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -219,7 +219,7 @@ bool TRI_TimedWaitCondition(TRI_condition_t* cond, uint64_t delay) {
   uint64_t x, y;
 
   if (gettimeofday(&tp, nullptr) != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not get time of day"; 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not get time of day"; 
     FATAL_ERROR_ABORT();
   }
 
@@ -238,7 +238,7 @@ bool TRI_TimedWaitCondition(TRI_condition_t* cond, uint64_t delay) {
       return false;
     }
 
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not wait for the condition: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not wait for the condition: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 
@@ -250,7 +250,7 @@ void TRI_LockCondition(TRI_condition_t* cond) {
   int rc = pthread_mutex_lock(&cond->_mutex);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not lock the condition: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not lock the condition: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }
@@ -260,7 +260,7 @@ void TRI_UnlockCondition(TRI_condition_t* cond) {
   int rc = pthread_mutex_unlock(&cond->_mutex);
 
   if (rc != 0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "could not unlock the condition: " << strerror(rc); 
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "could not unlock the condition: " << strerror(rc); 
     FATAL_ERROR_ABORT();
   }
 }

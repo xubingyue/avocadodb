@@ -34,13 +34,13 @@ Querying the status of a done job:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_getStatusById_01}
   var url = "/_api/version";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
 
   assert(response.code === 202);
   logRawResponse(response);
 
-  var queryId = response.headers['x-arango-async-id'];
+  var queryId = response.headers['x-avocado-async-id'];
   url = '/_api/job/' + queryId
   var response = logCurlRequest('PUT', url, "");
   assert(response.code === 200);
@@ -52,13 +52,13 @@ Querying the status of a pending job:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_getStatusById_02}
   var url = "/_admin/sleep?duration=30";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('GET', url, "", headers);
 
   assert(response.code === 202);
   logRawResponse(response);
 
-  var queryId = response.headers['x-arango-async-id'];
+  var queryId = response.headers['x-avocado-async-id'];
   url = '/_api/job/' + queryId
   var response = logCurlRequest('GET', url);
   assert(response.code === 204);

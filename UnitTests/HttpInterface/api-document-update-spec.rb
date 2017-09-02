@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   prefix = "rest-update-document"
 
   context "update a document:" do
@@ -15,17 +15,17 @@ describe ArangoDB do
     context "error handling:" do
       before do
         @cn = "UnitTestsCollectionBasics"
-        @cid = ArangoDB.create_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns an error if document handle is missing" do
         cmd = "/_api/document"
         body = "{}"
-        doc = ArangoDB.log_put("#{prefix}-missing-handle", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-missing-handle", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -33,13 +33,13 @@ describe ArangoDB do
         doc.parsed_response['code'].should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "returns an error if document handle is corrupted" do
         cmd = "/_api/document/123456"
         body = "{}"
-        doc = ArangoDB.log_put("#{prefix}-bad-handle", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-bad-handle", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -47,13 +47,13 @@ describe ArangoDB do
         doc.parsed_response['code'].should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "returns an error if document handle is corrupted with empty cid" do
         cmd = "/_api/document//123456"
         body = "{}"
-        doc = ArangoDB.log_put("#{prefix}-bad-handle2", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-bad-handle2", cmd, :body => body)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -61,13 +61,13 @@ describe ArangoDB do
         doc.parsed_response['code'].should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "returns an error if collection identifier is unknown" do
         cmd = "/_api/document/123456/234567"
         body = "{}"
-        doc = ArangoDB.log_put("#{prefix}-unknown-cid", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-unknown-cid", cmd, :body => body)
 
         doc.code.should eq(404)
         doc.parsed_response['error'].should eq(true)
@@ -75,13 +75,13 @@ describe ArangoDB do
         doc.parsed_response['code'].should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "returns an error if document handle is unknown" do
         cmd = "/_api/document/#{@cid}/234567"
         body = "{}"
-        doc = ArangoDB.log_put("#{prefix}-unknown-handle", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-unknown-handle", cmd, :body => body)
 
         doc.code.should eq(404)
         doc.parsed_response['error'].should eq(true)
@@ -89,13 +89,13 @@ describe ArangoDB do
         doc.parsed_response['code'].should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "returns an error if the policy parameter is bad" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -108,15 +108,15 @@ describe ArangoDB do
         # update document, different revision
         cmd = "/_api/document/#{did}?policy=last-write"
         hdr = { "if-match" => "\"388576#{rev}\"" }
-        doc = ArangoDB.log_put("#{prefix}-policy-bad", cmd, :headers => hdr)
+        doc = AvocadoDB.log_put("#{prefix}-policy-bad", cmd, :headers => hdr)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
 
-        ArangoDB.delete(location)
+        AvocadoDB.delete(location)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
     end
 
@@ -127,17 +127,17 @@ describe ArangoDB do
     context "updating document:" do
       before do
         @cn = "UnitTestsCollectionBasics"
-        @cid = ArangoDB.create_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "create a document and update it" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -150,7 +150,7 @@ describe ArangoDB do
         # update document
         cmd = "/_api/document/#{did}"
         body = "{ \"World\" : \"Hallo\" }"
-        doc = ArangoDB.log_put("#{prefix}", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -163,15 +163,15 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should_not eq(rev)
 
-        ArangoDB.delete(location)
+        AvocadoDB.delete(location)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "create a document and update it, using if-match" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -185,7 +185,7 @@ describe ArangoDB do
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "\"658993\"" }
         body = "{ \"World\" : \"Hallo\" }"
-        doc = ArangoDB.log_put("#{prefix}-if-match-other", cmd, :headers => hdr, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-if-match-other", cmd, :headers => hdr, :body => body)
 
         doc.code.should eq(412)
         doc.parsed_response['error'].should eq(true)
@@ -203,7 +203,7 @@ describe ArangoDB do
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "\"#{rev}\"" }
         body = "{ \"World\" : \"Hallo\" }"
-        doc = ArangoDB.log_put("#{prefix}-if-match", cmd, :headers => hdr, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-if-match", cmd, :headers => hdr, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -218,7 +218,7 @@ describe ArangoDB do
 
         cmd = "/_api/collection/#{@cid}/properties"
         body = "{ \"waitForSync\" : false }"
-        doc = ArangoDB.put(cmd, :body => body)
+        doc = AvocadoDB.put(cmd, :body => body)
 
         # wait for dbservers to pick up the change
         sleep 2
@@ -227,7 +227,7 @@ describe ArangoDB do
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "\"#{rev2}\"" }
         body = "{ \"World\" : \"Hallo2\" }"
-        doc3 = ArangoDB.log_put("#{prefix}-if-match", cmd, :headers => hdr, :body => body)
+        doc3 = AvocadoDB.log_put("#{prefix}-if-match", cmd, :headers => hdr, :body => body)
 
         doc3.code.should eq(202)
         doc3.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -237,21 +237,21 @@ describe ArangoDB do
         cmd = "/_api/document/#{did}?waitForSync=true"
         hdr = { "if-match" => "\"#{rev3}\"" }
         body = "{ \"World\" : \"Hallo3\" }"
-        doc4 = ArangoDB.log_put("#{prefix}-if-match", cmd, :headers => hdr, :body => body)
+        doc4 = AvocadoDB.log_put("#{prefix}-if-match", cmd, :headers => hdr, :body => body)
 
         doc4.code.should eq(201)
         doc4.headers['content-type'].should eq("application/json; charset=utf-8")
         rev4 = doc4.parsed_response['_rev']
 
-        ArangoDB.delete(location)
+        AvocadoDB.delete(location)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "create a document and update it, using an invalid revision" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -264,7 +264,7 @@ describe ArangoDB do
         # update document, invalid revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "\"*abcd\"" }
-        doc = ArangoDB.log_put("#{prefix}-rev-invalid", cmd, :headers => hdr, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-rev-invalid", cmd, :headers => hdr, :body => body)
 
         doc.code.should eq(412)
         doc.parsed_response['error'].should eq(true)
@@ -274,7 +274,7 @@ describe ArangoDB do
         # update document, invalid revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "'*abcd'" }
-        doc = ArangoDB.log_put("#{prefix}-rev-invalid", cmd, :headers => hdr, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-rev-invalid", cmd, :headers => hdr, :body => body)
 
         doc.code.should eq(412)
         doc.parsed_response['error'].should eq(true)
@@ -284,7 +284,7 @@ describe ArangoDB do
         # update document, correct revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "'#{rev}'" }
-        doc = ArangoDB.log_put("#{prefix}-rev-invalid", cmd, :headers => hdr, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-rev-invalid", cmd, :headers => hdr, :body => body)
 
         doc.code.should eq(201)
       end
@@ -292,7 +292,7 @@ describe ArangoDB do
       it "create a document and update it, waitForSync URL param=false" do
         cmd = "/_api/document?collection=#{@cid}&waitForSync=false"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -305,7 +305,7 @@ describe ArangoDB do
         # update document
         cmd = "/_api/document/#{did}"
         body = "{ \"World\" : \"Hallo\" }"
-        doc = ArangoDB.log_put("#{prefix}-sync-false", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-sync-false", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -318,15 +318,15 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should_not eq(rev)
 
-        ArangoDB.delete(location)
+        AvocadoDB.delete(location)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
       
       it "create a document and update it, waitForSync URL param=true" do
         cmd = "/_api/document?collection=#{@cid}&waitForSync=true"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -339,7 +339,7 @@ describe ArangoDB do
         # update document
         cmd = "/_api/document/#{did}"
         body = "{ \"World\" : \"Hallo\" }"
-        doc = ArangoDB.log_put("#{prefix}-sync-true", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-sync-true", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -352,15 +352,15 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should_not eq(rev)
 
-        ArangoDB.delete(location)
+        AvocadoDB.delete(location)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "update a document, using patch" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -373,7 +373,7 @@ describe ArangoDB do
         # update document
         cmd = "/_api/document/#{did}"
         body = "{ \"fox\" : \"Foxy\" }"
-        doc = ArangoDB.log_patch("#{prefix}-patch", cmd, :body => body)
+        doc = AvocadoDB.log_patch("#{prefix}-patch", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -386,9 +386,9 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should_not eq(rev)
 
-        ArangoDB.size_collection(@cid).should eq(1)
+        AvocadoDB.size_collection(@cid).should eq(1)
 
-        doc = ArangoDB.get("/_api/document/#{did}")
+        doc = AvocadoDB.get("/_api/document/#{did}")
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -399,7 +399,7 @@ describe ArangoDB do
       it "update a document, using patch, keepNull = true" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -412,7 +412,7 @@ describe ArangoDB do
         # update document
         cmd = "/_api/document/#{did}?keepNull=true"
         body = "{ \"fox\" : \"Foxy\", \"Hallo\" : null }"
-        doc = ArangoDB.log_patch("#{prefix}-patch", cmd, :body => body)
+        doc = AvocadoDB.log_patch("#{prefix}-patch", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -425,9 +425,9 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should_not eq(rev)
 
-        ArangoDB.size_collection(@cid).should eq(1)
+        AvocadoDB.size_collection(@cid).should eq(1)
 
-        doc = ArangoDB.get("/_api/document/#{did}")
+        doc = AvocadoDB.get("/_api/document/#{did}")
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -438,7 +438,7 @@ describe ArangoDB do
       it "update a document, using patch, keepNull = false" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -451,7 +451,7 @@ describe ArangoDB do
         # update document
         cmd = "/_api/document/#{did}?keepNull=false"
         body = "{ \"fox\" : \"Foxy\", \"Hallo\" : null }"
-        doc = ArangoDB.log_patch("#{prefix}-patch", cmd, :body => body)
+        doc = AvocadoDB.log_patch("#{prefix}-patch", cmd, :body => body)
 
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -464,9 +464,9 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should_not eq(rev)
 
-        ArangoDB.size_collection(@cid).should eq(1)
+        AvocadoDB.size_collection(@cid).should eq(1)
 
-        doc = ArangoDB.get("/_api/document/#{did}")
+        doc = AvocadoDB.get("/_api/document/#{did}")
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

@@ -1,12 +1,12 @@
 # Storage Engines
 
-At the very bottom of the ArangoDB database lies the storage
+At the very bottom of the AvocadoDB database lies the storage
 engine. The storage engine is responsible for persisting the documents
 on disk, holding copies in memory, providing indexes and caches to
 speed up queries.
 
-Up to version 3.1 ArangoDB only supported memory mapped files (MMFILES)
-as sole storage engine. Beginning with 3.2 ArangoDB has support for
+Up to version 3.1 AvocadoDB only supported memory mapped files (MMFILES)
+as sole storage engine. Beginning with 3.2 AvocadoDB has support for
 pluggable storage engines. The second supported engine is RocksDB from
 Facebook.
 
@@ -71,7 +71,7 @@ reside on different storage media. The smaller ones on fast SSD, the larger ones
 on bigger spinning disks.
 
 RocksDB itself provides a lot of different knobs to fine tune the storage
-engine according to your use-case. ArangoDB supports the most common ones
+engine according to your use-case. AvocadoDB supports the most common ones
 using the options below.
 
 Performance reports for the storage engine can be found here:
@@ -79,9 +79,9 @@ Performance reports for the storage engine can be found here:
 - https://github.com/facebook/rocksdb/wiki/performance-benchmarks
 - https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide
 
-### ArangoDB options
+### AvocadoDB options
 
-ArangoDB has a cache for the persistent indexes in RocksDB. The total size 
+AvocadoDB has a cache for the persistent indexes in RocksDB. The total size 
 of this cache is controlled by the option
 
     --cache.size
@@ -91,10 +91,10 @@ this cache is controlled by the option
 
     --rocksdb.block-cache-size
 
-ArangoDB distributes the available memory equally between the two
+AvocadoDB distributes the available memory equally between the two
 caches by default.
 
-ArangoDB chooses a size for the various levels in RocksDB that is
+AvocadoDB chooses a size for the various levels in RocksDB that is
 suitable for general purpose applications.
 
 RocksDB log strutured data levels have increasing size
@@ -138,10 +138,10 @@ RocksDB imposes a limit on the transaction size. It is optimized to
 handle small transactions very efficiently, but is effectively limiting 
 the total size of transactions.
 
-ArangoDB currently uses RocksDB's transactions to implement the ArangoDB 
-transaction handling. Therefore the same restrictions apply for ArangoDB
+AvocadoDB currently uses RocksDB's transactions to implement the AvocadoDB 
+transaction handling. Therefore the same restrictions apply for AvocadoDB
 transactions when using the RocksDB engine.
 
 We will improve this by introducing distributed transactions in a future
-version of ArangoDB. This will allow handling large transactions as a 
+version of AvocadoDB. This will allow handling large transactions as a 
 series of small RocksDB transactions and hence removing the size restriction.

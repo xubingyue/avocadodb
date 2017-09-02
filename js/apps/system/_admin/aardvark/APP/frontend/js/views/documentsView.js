@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, _, $, window, arangoHelper, templateEngine, Joi, btoa */
+/* global avocadoHelper, _, $, window, avocadoHelper, templateEngine, Joi, btoa */
 /* global numeral */
 
 (function () {
@@ -72,7 +72,7 @@
 
       var callback = function (error, type) {
         if (error) {
-          arangoHelper.arangoError('Error', 'Could not get collection properties.');
+          avocadoHelper.avocadoError('Error', 'Could not get collection properties.');
         } else {
           this.type = type;
           this.collection.getDocuments(this.getDocsCallback.bind(this));
@@ -80,7 +80,7 @@
         }
       }.bind(this);
 
-      arangoHelper.collectionApiType(colid, null, callback);
+      avocadoHelper.collectionApiType(colid, null, callback);
     },
 
     getDocsCallback: function (error) {
@@ -90,13 +90,13 @@
 
       if (error) {
         window.progressView.hide();
-        arangoHelper.arangoError('Document error', 'Could not fetch requested documents.');
+        avocadoHelper.avocadoError('Document error', 'Could not fetch requested documents.');
       } else if (!error || error !== undefined) {
         window.progressView.hide();
         this.drawTable();
         this.renderPaginationElements();
         // check permissions and adjust views
-        arangoHelper.checkCollectionPermissions(this.collection.collectionID, this.changeViewToReadOnly);
+        avocadoHelper.checkCollectionPermissions(this.collection.collectionID, this.changeViewToReadOnly);
       }
     },
 
@@ -179,7 +179,7 @@
     resetView: function () {
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('Document', 'Could not fetch documents count');
+          avocadoHelper.avocadoError('Document', 'Could not fetch documents count');
         }
       };
 
@@ -211,16 +211,16 @@
 
       if (query !== '' || query !== undefined || query !== null) {
         var url = 'query/result/download/' + btoa(JSON.stringify(query));
-        arangoHelper.download(url);
+        avocadoHelper.download(url);
       } else {
-        arangoHelper.arangoError('Document error', 'could not download documents');
+        avocadoHelper.avocadoError('Document error', 'could not download documents');
       }
     },
 
     startUpload: function () {
       var callback = function (error, msg) {
         if (error) {
-          arangoHelper.arangoError('Upload', msg);
+          avocadoHelper.avocadoError('Upload', msg);
         } else {
           this.hideImportModal();
           this.resetView();
@@ -515,7 +515,7 @@
 
         var callback = function (error, type) {
           if (error) {
-            arangoHelper.arangoError('Error', 'Could not fetch collection type');
+            avocadoHelper.avocadoError('Error', 'Could not fetch collection type');
           } else {
             if (type === 'edge') {
               tableContent.push(
@@ -609,7 +609,7 @@
             }
           }
         }.bind(this);
-        arangoHelper.collectionApiType(collid, true, callback);
+        avocadoHelper.collectionApiType(collid, true, callback);
       }
     },
 
@@ -622,7 +622,7 @@
 
       var callback = function (error, data, msg) {
         if (error) {
-          arangoHelper.arangoError('Error', msg.errorMessage);
+          avocadoHelper.avocadoError('Error', msg.errorMessage);
         } else {
           window.modalView.hide();
           data = data._id.split('/');
@@ -651,7 +651,7 @@
 
       var callback = function (error, data, msg) {
         if (error) {
-          arangoHelper.arangoError('Error', msg.errorMessage);
+          avocadoHelper.avocadoError('Error', msg.errorMessage);
         } else {
           window.modalView.hide();
           data = data.split('/');
@@ -776,7 +776,7 @@
           var callback = function (error) {
             if (error) {
               deleted.push(false);
-              arangoHelper.arangoError('Document error', 'Could not delete document.');
+              avocadoHelper.avocadoError('Document error', 'Could not delete document.');
             } else {
               deleted.push(true);
               self.collection.setTotalMinusOne();
@@ -790,7 +790,7 @@
           var callback2 = function (error) {
             if (error) {
               deleted.push(false);
-              arangoHelper.arangoError('Edge error', 'Could not delete edge');
+              avocadoHelper.avocadoError('Edge error', 'Could not delete edge');
             } else {
               self.collection.setTotalMinusOne();
               deleted.push(true);
@@ -837,7 +837,7 @@
       if (this.type === 'document') {
         var callback = function (error) {
           if (error) {
-            arangoHelper.arangoError('Error', 'Could not delete document');
+            avocadoHelper.avocadoError('Error', 'Could not delete document');
           } else {
             this.collection.setTotalMinusOne();
             this.collection.getDocuments(this.getDocsCallback.bind(this));
@@ -849,7 +849,7 @@
       } else if (this.type === 'edge') {
         var callback2 = function (error) {
           if (error) {
-            arangoHelper.arangoError('Edge error', 'Could not delete edge');
+            avocadoHelper.avocadoError('Edge error', 'Could not delete edge');
           } else {
             this.collection.setTotalMinusOne();
             this.collection.getDocuments(this.getDocsCallback.bind(this));
@@ -914,7 +914,7 @@
     drawTable: function () {
       this.tableView.setElement($('#docPureTable')).render();
       // we added some icons, so we need to fix their tooltips
-      arangoHelper.fixTooltips('.icon_arangodb, .arangoicon', 'top');
+      avocadoHelper.fixTooltips('.icon_avocadodb, .avocadoicon', 'top');
 
       $('.prettify').snippet('javascript', {
         style: 'nedit',
@@ -974,7 +974,7 @@
 
       this.uploadSetup();
 
-      arangoHelper.fixTooltips(['.icon_arangodb', '.arangoicon', 'top', '[data-toggle=tooltip]', '.upload-info']);
+      avocadoHelper.fixTooltips(['.icon_avocadodb', '.avocadoicon', 'top', '[data-toggle=tooltip]', '.upload-info']);
       this.renderPaginationElements();
       this.selectActivePagesize();
       this.markFilterToggle();
@@ -1041,7 +1041,7 @@
         $('#subNavigationBar .breadcrumb').html(
           'Collection: ' + this.collectionName
         );
-        window.arangoHelper.buildCollectionSubNav(this.collectionName, 'Content');
+        window.avocadoHelper.buildCollectionSubNav(this.collectionName, 'Content');
       } else {
         window.setTimeout(function () {
           self.breadcrumb();

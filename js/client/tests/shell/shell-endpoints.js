@@ -29,11 +29,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var arango = arangodb.arango;
-var db = arangodb.db;
-var ERRORS = arangodb.errors;
-var originalEndpoint = arango.getEndpoint().replace(/localhost/, '127.0.0.1');
+var avocadodb = require("@avocadodb");
+var avocado = avocadodb.avocado;
+var db = avocadodb.db;
+var ERRORS = avocadodb.errors;
+var originalEndpoint = avocado.getEndpoint().replace(/localhost/, '127.0.0.1');
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ function EndpointsSuite () {
       catch (err) {
       }
 
-      arango.reconnect(originalEndpoint, "_system", "root", "");
+      avocado.reconnect(originalEndpoint, "_system", "root", "");
     },
 
 ////////////////////////////////////////////////////////////////////////////////

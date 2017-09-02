@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false, sub: true */
-/*global fail, assertEqual, assertTrue, assertFalse, assertNotEqual, arango */
+/*global fail, assertEqual, assertTrue, assertFalse, assertNotEqual, avocado */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test download function
@@ -30,7 +30,7 @@
 
 var jsunity = require("jsunity");
 var internal = require("internal");
-var arangodb = require("@arangodb");
+var avocadodb = require("@avocadodb");
 var fs = require("fs");
 
 
@@ -44,11 +44,11 @@ function DownloadSuite () {
   var tempName;
 
   var buildUrl = function (append) {
-    return arango.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + "/_admin/echo" + append;
+    return avocado.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + "/_admin/echo" + append;
   };
   
   var buildUrlBroken = function (append) {
-    return arango.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + "/_not-there" + append;
+    return avocado.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + "/_not-there" + append;
   };
 
   return {
@@ -348,7 +348,7 @@ function DownloadSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.ERROR_BAD_PARAMETER, err.errorNum);
+        assertEqual(avocadodb.ERROR_BAD_PARAMETER, err.errorNum);
       }
     },
 
@@ -362,7 +362,7 @@ function DownloadSuite () {
         fail();
       }
       catch (err) {
-        assertEqual(arangodb.ERROR_BAD_PARAMETER, err.errorNum);
+        assertEqual(avocadodb.ERROR_BAD_PARAMETER, err.errorNum);
       }
     }
 

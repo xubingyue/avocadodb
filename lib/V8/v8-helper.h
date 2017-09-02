@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2017 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@
 #include <v8.h>
 #include "v8-globals.h"
 #include "V8/v8-conv.h"
-namespace arangodb {
+namespace avocadodb {
 
 inline std::string stringify(v8::Isolate* isolate, v8::Handle<v8::Value> value) {
   // function converts js object to string using JSON.stringify
@@ -87,12 +87,12 @@ inline bool isContextCanceled(v8::Isolate* isolate){
   return v8g->_canceled;
 }
 
-inline std::tuple<bool,bool,Result> extractArangoError(v8::Isolate* isolate, v8::TryCatch& tryCatch){
-  // function tries to receive arango error form tryCatch Object
+inline std::tuple<bool,bool,Result> extractAvocadoError(v8::Isolate* isolate, v8::TryCatch& tryCatch){
+  // function tries to receive avocado error form tryCatch Object
   // return tuple:
 	//   bool - can continue
   //   bool - could convert
-  //   result - extracted arango error
+  //   result - extracted avocado error
   std::tuple<bool,bool,Result> rv = {};
 
   std::get<0>(rv) = true;

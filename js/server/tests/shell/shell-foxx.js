@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2014 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Lucas Dohmen
-/// @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 /// @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 // Stubbing and Mocking
@@ -35,7 +35,7 @@ var stub,
   FunctionStub,
   mockConstructor,
   joi = require("joi"),
-  transformRoute = require("@arangodb/foxx/legacy/routing").__test_transformControllerToRoute,
+  transformRoute = require("@avocadodb/foxx/legacy/routing").__test_transformControllerToRoute,
   _ = require("lodash");
 
 // Sorry for Yak Shaving. But I can't take it anymore.
@@ -118,7 +118,7 @@ mockConstructor = function () {
 
 
 var jsunity = require("jsunity"),
-  FoxxController = require("@arangodb/foxx/legacy").Controller,
+  FoxxController = require("@avocadodb/foxx/legacy").Controller,
   fakeContext,
   fakeContextWithRootElement;
 
@@ -526,7 +526,7 @@ function DocumentationAndConstraintsSpec () {
       app = new FoxxController(fakeContext);
       routes = app.routingInfo.routes;
       models = app.models;
-      Model = require('@arangodb/foxx/legacy').Model;
+      Model = require('@avocadodb/foxx/legacy').Model;
     },
 
     testDefinePathParam: function () {

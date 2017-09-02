@@ -7,7 +7,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014-2015 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014-2015 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -21,18 +21,18 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Dr. Frank Celler
-// / @author Copyright 2014-2015, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014-2015, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2012-2014, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 var internal = require('internal');
 var console = require('console');
 
-var actions = require('@arangodb/actions');
-var arangodb = require('@arangodb');
+var actions = require('@avocadodb/actions');
+var avocadodb = require('@avocadodb');
 
 // var queue = Foxx.queues.create("internal-demo-queue")
 
@@ -146,7 +146,7 @@ actions.defineHttp({
           {
             group: 'system',
             name: 'Process Statistics',
-            description: 'Statistics about the ArangoDB process'
+            description: 'Statistics about the AvocadoDB process'
           },
 
           {
@@ -164,7 +164,7 @@ actions.defineHttp({
           {
             group: 'server',
             name: 'Server Statistics',
-            description: 'Statistics about the ArangoDB server'
+            description: 'Statistics about the AvocadoDB server'
           }
 
         ],
@@ -199,7 +199,7 @@ actions.defineHttp({
             group: 'system',
             identifier: 'numberOfThreads',
             name: 'Number of Threads',
-            description: 'Number of threads in the arangod process.',
+            description: 'Number of threads in the avocadod process.',
             type: 'current',
             units: 'number'
           },
@@ -231,7 +231,7 @@ actions.defineHttp({
             identifier: 'virtualSize',
             name: 'Virtual Memory Size',
             description: 'On Windows, this figure contains the total amount of memory that the ' +
-              'memory manager has committed for the arangod process. On other ' +
+              'memory manager has committed for the avocadod process. On other ' +
               'systems, this figure contains The size of the virtual memory the ' +
               'process is using.',
             type: 'current',
@@ -473,7 +473,7 @@ actions.defineHttp({
     var tests = body.tests;
     if (!Array.isArray(tests)) {
       actions.resultError(req, res,
-        actions.HTTP_BAD, arangodb.ERROR_HTTP_BAD_PARAMETER,
+        actions.HTTP_BAD, avocadodb.ERROR_HTTP_BAD_PARAMETER,
         "expected attribute 'tests' is missing");
       return;
     }

@@ -1,6 +1,6 @@
 /* jshint unused: false */
 /* global window, $, Backbone, document, d3 */
-/* global $, arangoHelper, btoa, _, frontendConfig */
+/* global $, avocadoHelper, btoa, _, frontendConfig */
 
 (function () {
   'use strict';
@@ -197,7 +197,7 @@
 
       var self = this;
 
-      this.userCollection = new window.ArangoUsers();
+      this.userCollection = new window.AvocadoUsers();
 
       this.initOnce = function () {
         this.initOnce = function () {};
@@ -222,23 +222,23 @@
           this.initFinished = true;
         }
 
-        this.arangoDatabase = new window.ArangoDatabase();
+        this.avocadoDatabase = new window.AvocadoDatabase();
         this.currentDB = new window.CurrentDatabase();
 
-        this.arangoCollectionsStore = new window.ArangoCollections();
-        this.arangoDocumentStore = new window.ArangoDocument();
+        this.avocadoCollectionsStore = new window.AvocadoCollections();
+        this.avocadoDocumentStore = new window.AvocadoDocument();
 
         // Cluster
         this.coordinatorCollection = new window.ClusterCoordinators();
 
-        arangoHelper.setDocumentStore(this.arangoDocumentStore);
+        avocadoHelper.setDocumentStore(this.avocadoDocumentStore);
 
-        this.arangoCollectionsStore.fetch({
+        this.avocadoCollectionsStore.fetch({
           cache: false
         });
 
         window.spotlightView = new window.SpotlightView({
-          collection: this.arangoCollectionsStore
+          collection: this.avocadoCollectionsStore
         });
 
         this.footerView = new window.FooterView({
@@ -250,7 +250,7 @@
           cache: false,
           success: function () {
             self.naviView = new window.NavigationView({
-              database: self.arangoDatabase,
+              database: self.avocadoDatabase,
               currentDB: self.currentDB,
               notificationCollection: self.notificationList,
               userCollection: self.userCollection,
@@ -260,7 +260,7 @@
           }
         });
 
-        this.queryCollection = new window.ArangoQueries();
+        this.queryCollection = new window.AvocadoQueries();
 
         this.footerView.render();
 
@@ -270,12 +270,12 @@
         this.userConfig.fetch();
 
         this.documentsView = new window.DocumentsView({
-          collection: new window.ArangoDocuments(),
-          documentStore: this.arangoDocumentStore,
-          collectionsStore: this.arangoCollectionsStore
+          collection: new window.AvocadoDocuments(),
+          documentStore: this.avocadoDocumentStore,
+          collectionsStore: this.avocadoCollectionsStore
         });
 
-        arangoHelper.initSigma();
+        avocadoHelper.initSigma();
       }.bind(this);
 
       $(window).resize(function () {
@@ -494,7 +494,7 @@
         return;
       }
       if (!this.loggerView) {
-        var co = new window.ArangoLogs(
+        var co = new window.AvocadoLogs(
           {upto: true, loglevel: 4}
         );
         this.loggerView = new window.LoggerView({
@@ -562,9 +562,9 @@
         this.collectionsView.remove();
       }
       this.collectionsView = new window.CollectionsView({
-        collection: this.arangoCollectionsStore
+        collection: this.avocadoCollectionsStore
       });
-      this.arangoCollectionsStore.fetch({
+      this.avocadoCollectionsStore.fetch({
         cache: false,
         success: function () {
           self.collectionsView.render();
@@ -580,12 +580,12 @@
         this.waitForInit(this.cIndices.bind(this), colname);
         return;
       }
-      this.arangoCollectionsStore.fetch({
+      this.avocadoCollectionsStore.fetch({
         cache: false,
         success: function () {
           self.indicesView = new window.IndicesView({
             collectionName: colname,
-            collection: self.arangoCollectionsStore.findWhere({
+            collection: self.avocadoCollectionsStore.findWhere({
               name: colname
             })
           });
@@ -602,12 +602,12 @@
         this.waitForInit(this.cSettings.bind(this), colname);
         return;
       }
-      this.arangoCollectionsStore.fetch({
+      this.avocadoCollectionsStore.fetch({
         cache: false,
         success: function () {
           self.settingsView = new window.SettingsView({
             collectionName: colname,
-            collection: self.arangoCollectionsStore.findWhere({
+            collection: self.avocadoCollectionsStore.findWhere({
               name: colname
             })
           });
@@ -624,12 +624,12 @@
         this.waitForInit(this.cInfo.bind(this), colname);
         return;
       }
-      this.arangoCollectionsStore.fetch({
+      this.avocadoCollectionsStore.fetch({
         cache: false,
         success: function () {
           self.infoView = new window.InfoView({
             collectionName: colname,
-            collection: self.arangoCollectionsStore.findWhere({
+            collection: self.avocadoCollectionsStore.findWhere({
               name: colname
             })
           });
@@ -649,9 +649,9 @@
       }
       if (!this.documentsView) {
         this.documentsView = new window.DocumentsView({
-          collection: new window.ArangoDocuments(),
-          documentStore: this.arangoDocumentStore,
-          collectionsStore: this.arangoCollectionsStore
+          collection: new window.AvocadoDocuments(),
+          documentStore: this.avocadoDocumentStore,
+          collectionsStore: this.avocadoCollectionsStore
         });
       }
       this.documentsView.setCollectionId(colid, pageid);
@@ -673,7 +673,7 @@
         this.documentView.remove();
       }
       this.documentView = new window.DocumentView({
-        collection: this.arangoDocumentStore
+        collection: this.avocadoDocumentStore
       });
       this.documentView.colid = colid;
       this.documentView.defaultMode = mode;
@@ -696,7 +696,7 @@
         }
       }.bind(this);
 
-      arangoHelper.collectionApiType(colid, null, callback);
+      avocadoHelper.collectionApiType(colid, null, callback);
     },
 
     query: function (initialized) {
@@ -732,7 +732,7 @@
 
       this.graphViewer = new window.GraphViewer({
         name: name,
-        documentStore: this.arangoDocumentStore,
+        documentStore: this.avocadoDocumentStore,
         collection: new window.GraphCollection(),
         userConfig: this.userConfig
       });
@@ -821,7 +821,7 @@
 
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('DB', 'Could not get list of allowed databases');
+          avocadoHelper.avocadoError('DB', 'Could not get list of allowed databases');
           this.navigate('#', {trigger: true});
           $('#databaseNavi').css('display', 'none');
           $('#databaseNaviSelect').css('display', 'none');
@@ -832,13 +832,13 @@
           }
           this.databaseView = new window.DatabaseView({
             users: this.userCollection,
-            collection: this.arangoDatabase
+            collection: this.avocadoDatabase
           });
           this.databaseView.render();
         }
       }.bind(this);
 
-      arangoHelper.databaseAllowed(callback);
+      avocadoHelper.databaseAllowed(callback);
     },
 
     dashboard: function (initialized) {
@@ -851,7 +851,7 @@
       if (this.dashboardView === undefined) {
         this.dashboardView = new window.DashboardView({
           dygraphConfig: window.dygraphConfig,
-          database: this.arangoDatabase
+          database: this.avocadoDatabase
         });
       }
       this.dashboardView.render();
@@ -870,7 +870,7 @@
         new window.GraphManagementView(
           {
             collection: new window.GraphCollection(),
-            collectionCollection: this.arangoCollectionsStore
+            collectionCollection: this.avocadoCollectionsStore
           }
       );
       this.graphManagementView.render();
@@ -887,7 +887,7 @@
           new window.GraphManagementView(
             {
               collection: new window.GraphCollection(),
-              collectionCollection: this.arangoCollectionsStore
+              collectionCollection: this.avocadoCollectionsStore
             }
         );
         this.graphManagementView.render(name, true);
@@ -952,7 +952,7 @@
 
         this.userPermissionView = new window.UserPermissionView({
           collection: this.userCollection,
-          databases: this.arangoDatabase,
+          databases: this.avocadoDatabase,
           username: name
         });
 

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -317,7 +317,7 @@ int TRI_ZipFile(char const* filename, char const* dir,
     if (*dir == '\0') {
       fullfile = files[i];
     } else {
-      fullfile = arangodb::basics::FileUtils::buildFilename(dir, files[i]);
+      fullfile = avocadodb::basics::FileUtils::buildFilename(dir, files[i]);
     }
 
     zip_fileinfo zi;

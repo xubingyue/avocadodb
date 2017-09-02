@@ -7,7 +7,7 @@ Old:
 
 ```js
 'use strict';
-const Foxx = require('org/arangodb/foxx');
+const Foxx = require('org/avocadodb/foxx');
 const query = Foxx.createQuery({
     query: 'FOR u IN _users SORT u.user ASC RETURN u[@propName]',
     params: ['propName'],
@@ -27,8 +27,8 @@ New:
 
 ```js
 'use strict';
-const db = require('@arangodb').db;
-const aql = require('@arangodb').aql;
+const db = require('@avocadodb').db;
+const aql = require('@avocadodb').aql;
 
 function query(propName, uppercase) {
   const results = db._query(aql`

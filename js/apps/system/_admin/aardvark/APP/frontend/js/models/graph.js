@@ -1,11 +1,11 @@
-/* global window, Backbone, $, arangoHelper */
+/* global window, Backbone, $, avocadoHelper */
 (function () {
   'use strict';
 
   window.Graph = Backbone.Model.extend({
     idAttribute: '_key',
 
-    urlRoot: arangoHelper.databaseUrl('/_api/gharial'),
+    urlRoot: avocadoHelper.databaseUrl('/_api/gharial'),
 
     isNew: function () {
       return !this.get('_id');
@@ -23,7 +23,7 @@
           url: this.urlRoot + '/' + this.get('_key') + '/edge',
           data: JSON.stringify(edgeDefinition),
           error: function (err) {
-            arangoHelper.arangoError(err.responseJSON.errorMessage);
+            avocadoHelper.avocadoError(err.responseJSON.errorMessage);
           }
         }
       );
@@ -36,7 +36,7 @@
           type: 'DELETE',
           url: this.urlRoot + '/' + this.get('_key') + '/edge/' + edgeCollection,
           error: function (err) {
-            arangoHelper.arangoError(err.responseJSON.errorMessage);
+            avocadoHelper.avocadoError(err.responseJSON.errorMessage);
           }
         }
       );
@@ -50,7 +50,7 @@
           url: this.urlRoot + '/' + this.get('_key') + '/edge/' + edgeDefinition.collection,
           data: JSON.stringify(edgeDefinition),
           error: function (err) {
-            arangoHelper.arangoError(err.responseJSON.errorMessage);
+            avocadoHelper.avocadoError(err.responseJSON.errorMessage);
           }
         }
       );
@@ -64,7 +64,7 @@
           url: this.urlRoot + '/' + this.get('_key') + '/vertex',
           data: JSON.stringify({collection: vertexCollectionName}),
           error: function (err) {
-            arangoHelper.arangoError(err.responseJSON.errorMessage);
+            avocadoHelper.avocadoError(err.responseJSON.errorMessage);
           }
         }
       );
@@ -77,7 +77,7 @@
           type: 'DELETE',
           url: this.urlRoot + '/' + this.get('_key') + '/vertex/' + vertexCollectionName,
           error: function (err) {
-            arangoHelper.arangoError(err.responseJSON.errorMessage);
+            avocadoHelper.avocadoError(err.responseJSON.errorMessage);
           }
         }
       );

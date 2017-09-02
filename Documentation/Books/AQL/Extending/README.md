@@ -20,7 +20,7 @@ Technical Details
 
 **UDFs have some implications you should be aware of. Otherwise they can
 introduce serious effects on the performance of your queries and the resource
-usage in ArangoDB.**
+usage in AvocadoDB.**
 
 Since the optimizer doesn't know anything about the nature of your function,
 **the optimizer can't use indices for UDFs**. So you should never lean on a UDF
@@ -41,10 +41,10 @@ of these resources, your query may abort with a
 [**cluster backend unavailable**](../../Manual/Appendix/ErrorCodes.html) error.
 
 To overcome these mentioned limitations, you may want to
-[increase the number of available V8 contexts](../../Manual/Administration/Configuration/GeneralArangod.html#v8-contexts)
+[increase the number of available V8 contexts](../../Manual/Administration/Configuration/GeneralAvocadod.html#v8-contexts)
 (at the expense of increased memory usage),
 and
-[the number of available server threads](../../Manual/Administration/Configuration/GeneralArangod.html#server-threads).
+[the number of available server threads](../../Manual/Administration/Configuration/GeneralAvocadod.html#server-threads).
 
 ### Deployment Details
 
@@ -60,6 +60,6 @@ Once it is in the `_aqlfunctions` collection, it is available on all
 coordinators without additional effort.
 
 Keep in mind that system collections are excluded from dumps created with
-[arangodump](../../Manual/Administration/Arangodump.html) by default.
+[avocadodump](../../Manual/Administration/Avocadodump.html) by default.
 To include AQL UDF in a dump, the dump needs to be started with
 the option *--include-system-collections true*.

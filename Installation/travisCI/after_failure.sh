@@ -8,7 +8,7 @@ COREFILE=$(find . -maxdepth 1 -name "core*" | head -n 1)
 
 if [[ -f "$COREFILE" ]]; then 
   echo "$0: found a core file"
-  gdb -c "$COREFILE" bin/arangod -ex "thread apply all bt" -ex "set pagination 0" -batch; 
+  gdb -c "$COREFILE" bin/avocadod -ex "thread apply all bt" -ex "set pagination 0" -batch; 
 fi
 
 echo "$0: done"

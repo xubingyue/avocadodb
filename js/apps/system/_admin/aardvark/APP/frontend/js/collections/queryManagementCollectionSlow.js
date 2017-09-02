@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global window, Backbone, arangoHelper, frontendConfig, $ */
+/* global window, Backbone, avocadoHelper, frontendConfig, $ */
 (function () {
   'use strict';
   window.QueryManagementSlow = Backbone.Collection.extend({
@@ -10,7 +10,7 @@
       var url = frontendConfig.basePath + '/_api/query/slow';
 
       if (window.frontendConfig.db !== '_system') {
-        url = arangoHelper.databaseUrl('/_api/query/slow');
+        url = avocadoHelper.databaseUrl('/_api/query/slow');
       }
 
       return url;
@@ -20,7 +20,7 @@
       var url = frontendConfig.basePath + '/_api/query/slow';
 
       if (window.frontendConfig.db !== '_system') {
-        url = arangoHelper.databaseUrl('/_api/query/slow');
+        url = avocadoHelper.databaseUrl('/_api/query/slow');
       }
 
       $.ajax({

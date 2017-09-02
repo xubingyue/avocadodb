@@ -2,7 +2,7 @@ Database Methods
 ================
 
 ### Document
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `db._document(object)`
@@ -15,12 +15,12 @@ An error is thrown if *_rev* is specified but the document found has a
 different revision already. An error is also thrown if no document exists
 with the given *_id*.
 
-Please note that if the method is executed on the arangod server (e.g. from
+Please note that if the method is executed on the avocadod server (e.g. from
 inside a Foxx application), an immutable document object will be returned
 for performance reasons. It is not possible to change attributes of this
 immutable object. To update or patch the returned document, it needs to be
 cloned/copied into a regular JavaScript object first. This is not necessary
-if the *_document* method is called from out of arangosh or from any other
+if the *_document* method is called from out of avocadosh or from any other
 client.
 
 `db._document(document-handle)`
@@ -46,7 +46,7 @@ Returns the document:
 
 
 ### Exists
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `db._exists(object)`
@@ -79,7 +79,7 @@ difference between a revision mismatch and a non-existing document.
 
 
 ### Replace
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `db._replace(selector, data)`
@@ -154,7 +154,7 @@ The options *silent*, *returnNew* and *returnOld* are new.
 
 
 ### Update
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 `db._update(selector, data)`
 
@@ -239,7 +239,7 @@ The options *silent*, *returnNew* and *returnOld* are new.
 
 
 ### Remove
-<!-- arangod/V8Server/v8-vocbase.cpp -->
+<!-- avocadod/V8Server/v8-vocbase.cpp -->
 
 
 `db._remove(selector)`

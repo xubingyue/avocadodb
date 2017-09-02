@@ -30,7 +30,7 @@
 // TODO add some test which don't use number values!
 
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -43,7 +43,7 @@ Returned if no graph with this name could be found.
 You can remove vertex collections that are not used in any edge collection:
 
 @EXAMPLE_ARANGOSH_RUN{HttpGharialRemoveVertexCollection}
-  var examples = require("@arangodb/graph-examples/example-graph.js");
+  var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   var g = examples.loadGraph("social");
   g._addVertexCollection("otherVertices");
@@ -60,7 +60,7 @@ You can remove vertex collections that are not used in any edge collection:
 You cannot remove vertex collections that are used in edge collections:
 
 @EXAMPLE_ARANGOSH_RUN{HttpGharialRemoveVertexCollectionFailed}
-  var examples = require("@arangodb/graph-examples/example-graph.js");
+  var examples = require("@avocadodb/graph-examples/example-graph.js");
 ~ examples.dropGraph("social");
   var g = examples.loadGraph("social");
   var url = "/_api/gharial/social/vertex/male";

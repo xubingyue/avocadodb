@@ -12,7 +12,7 @@ db._executeTransaction({
     write: ["test", "log"]
   },
   action: function () {
-    const db = require("@arangodb").db;
+    const db = require("@avocadodb").db;
     db.users.toArray().forEach(function(doc) {
       db.log.insert({ value: "removed user: " + doc.name });
       db.test.remove(doc._key);
@@ -93,7 +93,7 @@ db._executeTransaction({
     read: "users"
   },
   action: function () {
-    const db = require("@arangodb").db;
+    const db = require("@avocadodb").db;
     /* Execute an AQL query that traverses a graph starting at a "users" vertex.
        It is yet unknown into which other collections the query might traverse */
     db._createStatement({ 
@@ -122,7 +122,7 @@ db._executeTransaction({
   action: function () {
     /* The below query will now fail because the collection "connections" has not
        been specified in the list of collections used by the transaction */
-    const db = require("@arangodb").db;
+    const db = require("@avocadodb").db;
     db._createStatement({ 
       query: `FOR v IN ANY "users/1234" connections RETURN v`
     }).execute().toArray().forEach(function (d) {
@@ -177,7 +177,7 @@ db._executeTransaction({
     write: "c1"
   },
   action: function () {
-    const db = require("@arangodb").db;
+    const db = require("@avocadodb").db;
 
     /* write into c1 (announced) */
     db.c1.insert({ foo: "bar" });
@@ -199,7 +199,7 @@ db._executeTransaction({
     write: "c2"
   },
   action: function () {
-    var db = require("@arangodb").db;
+    var db = require("@avocadodb").db;
 
     /* write into c2 (announced) */
     db.c2.insert({ bar: "baz" });
@@ -221,7 +221,7 @@ collection `c1`, which is prevented by transaction T1.
 
 In case of such deadlock, there would be no progress for any of the involved 
 transactions, and none of the involved transactions could ever complete. This is
-completely undesirable, so the automatic deadlock detection mechanism in ArangoDB
+completely undesirable, so the automatic deadlock detection mechanism in AvocadoDB
 will automatically abort one of the transactions involved in such deadlock. Aborting
 means that all changes done by the transaction will be rolled back and error 29 
 (`deadlock detected`) will be thrown. 

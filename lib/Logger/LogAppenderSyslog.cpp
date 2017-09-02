@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2013 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,14 +16,14 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Logger/LogAppenderSyslog.h"
 
-using namespace arangodb;
+using namespace avocadodb;
 
 #ifdef ARANGODB_ENABLE_SYSLOG
 
@@ -40,7 +40,7 @@ using namespace arangodb;
 #include "Basics/MutexLocker.h"
 #include "Basics/StringUtils.h"
 
-using namespace arangodb::basics;
+using namespace avocadodb::basics;
 
 bool LogAppenderSyslog::_opened(false);
 
@@ -56,7 +56,7 @@ LogAppenderSyslog::LogAppenderSyslog(std::string const& facility,
                                      std::string const& filter)
     : LogAppender(filter) {
   // no logging
-  std::string sysname = name.empty() ? "[arangod]" : name;
+  std::string sysname = name.empty() ? "[avocadod]" : name;
 
   // find facility
   int value = LOG_LOCAL0;

@@ -3,7 +3,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2015 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2015 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 /// @author Jan Steemann
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef VELOCYPACK_SLICE_H
@@ -62,7 +62,7 @@ uint64_t fasthash64(void const*, size_t, uint64_t);
 #define VELOCYPACK_HASH(mem, size, seed) fasthash64(mem, size, seed)
 #endif
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 
 class SliceScope;
@@ -889,7 +889,7 @@ class Slice {
     }
 
     return (memcmp(start(), other.start(),
-                  arangodb::velocypack::checkOverflow(size)) == 0);
+                  avocadodb::velocypack::checkOverflow(size)) == 0);
   }
   
   bool operator==(Slice const& other) const { return equals(other); }
@@ -988,14 +988,14 @@ class SliceScope {
   std::vector<uint8_t*> _allocations;
 };
 
-}  // namespace arangodb::velocypack
-}  // namespace arangodb
+}  // namespace avocadodb::velocypack
+}  // namespace avocadodb
 
 namespace std {
 // implementation of std::hash for a Slice object
 template <>
-struct hash<arangodb::velocypack::Slice> {
-  size_t operator()(arangodb::velocypack::Slice const& slice) const {
+struct hash<avocadodb::velocypack::Slice> {
+  size_t operator()(avocadodb::velocypack::Slice const& slice) const {
 #ifdef VELOCYPACK_32BIT
     // size_t is only 32 bits wide here... so don't simply truncate the
     // 64 bit hash value but convert it into a 32 bit value using data
@@ -1010,8 +1010,8 @@ struct hash<arangodb::velocypack::Slice> {
 
 }
 
-std::ostream& operator<<(std::ostream&, arangodb::velocypack::Slice const*);
+std::ostream& operator<<(std::ostream&, avocadodb::velocypack::Slice const*);
 
-std::ostream& operator<<(std::ostream&, arangodb::velocypack::Slice const&);
+std::ostream& operator<<(std::ostream&, avocadodb::velocypack::Slice const&);
 
 #endif

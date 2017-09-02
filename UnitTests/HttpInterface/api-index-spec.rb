@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/index"
   prefix = "api-index"
 
@@ -19,17 +19,17 @@ describe ArangoDB do
     context "error handling:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns an error if collection identifier is unknown" do
         cmd = api + "/123456/123456"
-        doc = ArangoDB.log_get("#{prefix}-bad-collection-identifier", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-bad-collection-identifier", cmd)
 
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -40,7 +40,7 @@ describe ArangoDB do
 
       it "returns an error if index identifier is unknown" do
         cmd = api + "/#{@cn}/123456"
-        doc = ArangoDB.log_get("#{prefix}-bad-index-identifier", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-bad-index-identifier", cmd)
 
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -57,18 +57,18 @@ describe ArangoDB do
     context "creating unique constraints:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns either 201 for new or 200 for old indexes" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-unique-constraint", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-unique-constraint", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -83,7 +83,7 @@ describe ArangoDB do
         
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-unique-constraint", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-unique-constraint", cmd, :body => body)
   
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -101,7 +101,7 @@ describe ArangoDB do
       it "returns either 201 for new or 200 for old indexes, sparse indexes" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-unique-constraint", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-unique-constraint", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -116,7 +116,7 @@ describe ArangoDB do
         
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-unique-constraint", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-unique-constraint", cmd, :body => body)
   
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -139,18 +139,18 @@ describe ArangoDB do
     context "unique constraints after unload/load:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "survives unload" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -161,21 +161,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -192,7 +192,7 @@ describe ArangoDB do
       it "survives unload, sparse index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -203,21 +203,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -239,18 +239,18 @@ describe ArangoDB do
     context "creating hash indexes:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns either 201 for new or 200 for old indexes" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-hash-index", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-hash-index", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -265,7 +265,7 @@ describe ArangoDB do
 
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-hash-index", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-hash-index", cmd, :body => body)
   
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -283,7 +283,7 @@ describe ArangoDB do
       it "returns either 201 for new or 200 for old indexes, sparse index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-hash-index", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-hash-index", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -298,7 +298,7 @@ describe ArangoDB do
 
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-hash-index", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-hash-index", cmd, :body => body)
   
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -316,7 +316,7 @@ describe ArangoDB do
       it "returns either 201 for new or 200 for old indexes, mixed sparsity" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-hash-index", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-hash-index", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -332,7 +332,7 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         body = "{ \"type\" : \"hash\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-old-hash-index", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-hash-index", cmd, :body => body)
   
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -355,18 +355,18 @@ describe ArangoDB do
     context "hash indexes after unload/load:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "survives unload" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -377,21 +377,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -408,7 +408,7 @@ describe ArangoDB do
       it "survives unload, sparse index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"hash\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -419,21 +419,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -455,18 +455,18 @@ describe ArangoDB do
     context "creating skiplists:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns either 201 for new or 200 for old indexes" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-skiplist", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -481,7 +481,7 @@ describe ArangoDB do
 
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-skiplist", cmd, :body => body)
         
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -499,7 +499,7 @@ describe ArangoDB do
       it "returns either 201 for new or 200 for old indexes, sparse index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-skiplist", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -514,7 +514,7 @@ describe ArangoDB do
 
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-skiplist", cmd, :body => body)
         
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -532,7 +532,7 @@ describe ArangoDB do
       it "returns either 201 for new or 200 for old indexes, mixed sparsity" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-skiplist", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -548,7 +548,7 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         body = "{ \"type\" : \"skiplist\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-old-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-skiplist", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -571,18 +571,18 @@ describe ArangoDB do
     context "skiplists after unload/load:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "survives unload" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -593,21 +593,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -624,7 +624,7 @@ describe ArangoDB do
       it "survives unload, sparse index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -635,21 +635,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -671,18 +671,18 @@ describe ArangoDB do
     context "creating unique skiplists:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns either 201 for new or 200 for old indexes" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-unique-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-unique-skiplist", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -697,7 +697,7 @@ describe ArangoDB do
 
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-unique-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-unique-skiplist", cmd, :body => body)
         
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -715,7 +715,7 @@ describe ArangoDB do
       it "returns either 201 for new or 200 for old indexes, sparse index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.log_post("#{prefix}-create-new-unique-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-new-unique-skiplist", cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -730,7 +730,7 @@ describe ArangoDB do
 
         iid = doc.parsed_response['id']
 
-        doc = ArangoDB.log_post("#{prefix}-create-old-unique-skiplist", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-create-old-unique-skiplist", cmd, :body => body)
         
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -753,18 +753,18 @@ describe ArangoDB do
     context "unique skiplists after unload/load:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "survives unload" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -775,21 +775,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -806,7 +806,7 @@ describe ArangoDB do
       it "survives unload, sparse index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ], \"sparse\" : true }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -817,21 +817,21 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = "/_api/collection/#{@cn}/unload"
-        doc = ArangoDB.put(cmd)
+        doc = AvocadoDB.put(cmd)
 
         doc.code.should eq(200)
 
         cmd = "/_api/collection/#{@cn}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
         doc.code.should eq(200)
 
         while doc.parsed_response['status'] != 2
-          doc = ArangoDB.get(cmd)
+          doc = AvocadoDB.get(cmd)
           doc.code.should eq(200)
         end
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -853,17 +853,17 @@ describe ArangoDB do
     context "reading all indexes:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns all index for a collection identifier" do
         cmd = api + "?collection=#{@cn}"
-        doc = ArangoDB.log_get("#{prefix}-all-indexes", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-all-indexes", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -881,7 +881,7 @@ describe ArangoDB do
 
       it "returns all index for a collection name" do
         cmd = api + "?collection=#{@cn}"
-        doc = ArangoDB.log_get("#{prefix}-all-indexes-name", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-all-indexes-name", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -905,17 +905,17 @@ describe ArangoDB do
     context "reading an index:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns primary index for a collection identifier" do
         cmd = api + "/#{@cn}/0"
-        doc = ArangoDB.log_get("#{prefix}-primary-index", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-primary-index", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -927,7 +927,7 @@ describe ArangoDB do
 
       it "returns primary index for a collection name" do
         cmd = api + "/#{@cn}/0"
-        doc = ArangoDB.log_get("#{prefix}-primary-index-name", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-primary-index-name", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -945,18 +945,18 @@ describe ArangoDB do
     context "deleting an index:" do
       before do
         @cn = "UnitTestsCollectionIndexes"
-        ArangoDB.drop_collection(@cn)
-        @cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "deleting an index" do
         cmd = api + "?collection=#{@cn}"
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
         
         doc.code.should eq(201)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -972,7 +972,7 @@ describe ArangoDB do
         iid = doc.parsed_response['id']
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.log_delete("#{prefix}-delete-unique-skiplist", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-delete-unique-skiplist", cmd)
         
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -982,7 +982,7 @@ describe ArangoDB do
         doc.parsed_response['id'].should eq(iid)
 
         cmd = api + "/#{iid}"
-        doc = ArangoDB.get(cmd)
+        doc = AvocadoDB.get(cmd)
 
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

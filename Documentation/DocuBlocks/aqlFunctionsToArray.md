@@ -16,18 +16,18 @@ by specifying a group prefix:
 To list all available user functions:
 
 ```js
-  require("@arangodb/aql/functions").toArray();
+  require("@avocadodb/aql/functions").toArray();
 ```
 
 To list all available user functions in the *myfunctions* namespace:
 
 ```js
-  require("@arangodb/aql/functions").toArray("myfunctions");
+  require("@avocadodb/aql/functions").toArray("myfunctions");
 ```
 
 To list all available user functions in the *myfunctions::temperature* namespace:
 
 ```js
-  require("@arangodb/aql/functions").toArray("myfunctions::temperature");
+  require("@avocadodb/aql/functions").toArray("myfunctions::temperature");
 ```
 

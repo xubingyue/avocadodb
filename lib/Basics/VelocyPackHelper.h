@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@
 #include <velocypack/Slice.h>
 #include <velocypack/velocypack-aliases.h>
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 struct AttributeExcludeHandler;
 class AttributeTranslator;
@@ -43,12 +43,12 @@ class AttributeTranslator;
 namespace basics {
 
 struct VPackHashedSlice {
-  arangodb::velocypack::Slice slice;
+  avocadodb::velocypack::Slice slice;
   uint64_t hash;
 
   constexpr VPackHashedSlice() noexcept : slice(), hash(0) {}
-  VPackHashedSlice(arangodb::velocypack::Slice slice, uint64_t hash) noexcept : slice(slice), hash(hash) {}
-  explicit VPackHashedSlice(arangodb::velocypack::Slice slice) : slice(slice), hash(slice.hash()) {}
+  VPackHashedSlice(avocadodb::velocypack::Slice slice, uint64_t hash) noexcept : slice(slice), hash(hash) {}
+  explicit VPackHashedSlice(avocadodb::velocypack::Slice slice) : slice(slice), hash(slice.hash()) {}
   
   VPackHashedSlice(VPackHashedSlice const& other) noexcept : slice(other.slice), hash(other.hash) {}
   VPackHashedSlice(VPackHashedSlice&& other) noexcept : slice(other.slice), hash(other.hash) {}
@@ -71,19 +71,19 @@ class VelocyPackHelper {
   static void initialize();
   static void disableAssemblerFunctions();
 
-  static arangodb::velocypack::AttributeExcludeHandler* getExcludeHandler();
-  static arangodb::velocypack::AttributeTranslator* getTranslator();
+  static avocadodb::velocypack::AttributeExcludeHandler* getExcludeHandler();
+  static avocadodb::velocypack::AttributeTranslator* getTranslator();
 
   struct VPackHash {
-    size_t operator()(arangodb::velocypack::Slice const&) const;
+    size_t operator()(avocadodb::velocypack::Slice const&) const;
   };
 
   struct VPackStringHash {
-    size_t operator()(arangodb::velocypack::Slice const&) const noexcept;
+    size_t operator()(avocadodb::velocypack::Slice const&) const noexcept;
   };
   
   struct VPackKeyHash {
-    size_t operator()(arangodb::velocypack::Slice const&) const;
+    size_t operator()(avocadodb::velocypack::Slice const&) const;
   };
   
   struct VPackHashedStringHash {
@@ -96,26 +96,26 @@ class VelocyPackHelper {
 
   struct VPackEqual {
    private:
-    arangodb::velocypack::Options const* _options;
+    avocadodb::velocypack::Options const* _options;
 
    public:
     VPackEqual() : _options(nullptr) {}
-    explicit VPackEqual(arangodb::velocypack::Options const* opts)
+    explicit VPackEqual(avocadodb::velocypack::Options const* opts)
         : _options(opts) {}
 
-    bool operator()(arangodb::velocypack::Slice const&,
-                    arangodb::velocypack::Slice const&) const;
+    bool operator()(avocadodb::velocypack::Slice const&,
+                    avocadodb::velocypack::Slice const&) const;
   };
 
   struct VPackStringEqual {
-    bool operator()(arangodb::velocypack::Slice const&,
-                    arangodb::velocypack::Slice const&) const noexcept;
+    bool operator()(avocadodb::velocypack::Slice const&,
+                    avocadodb::velocypack::Slice const&) const noexcept;
   };
   
   /// @brief Comparator that only takes _id/_key into account.
   struct VPackIdEqual {
-    bool operator()(arangodb::velocypack::Slice const&,
-                    arangodb::velocypack::Slice const&) const;
+    bool operator()(avocadodb::velocypack::Slice const&,
+                    avocadodb::velocypack::Slice const&) const;
   };
   
   struct VPackHashedStringEqual {
@@ -129,55 +129,55 @@ class VelocyPackHelper {
 
   template <bool useUtf8>
   struct VPackLess {
-    VPackLess(arangodb::velocypack::Options const* options =
-                  &arangodb::velocypack::Options::Defaults,
-              arangodb::velocypack::Slice const* lhsBase = nullptr,
-              arangodb::velocypack::Slice const* rhsBase = nullptr)
+    VPackLess(avocadodb::velocypack::Options const* options =
+                  &avocadodb::velocypack::Options::Defaults,
+              avocadodb::velocypack::Slice const* lhsBase = nullptr,
+              avocadodb::velocypack::Slice const* rhsBase = nullptr)
         : options(options), lhsBase(lhsBase), rhsBase(rhsBase) {}
 
-    inline bool operator()(arangodb::velocypack::Slice const& lhs,
-                           arangodb::velocypack::Slice const& rhs) const {
+    inline bool operator()(avocadodb::velocypack::Slice const& lhs,
+                           avocadodb::velocypack::Slice const& rhs) const {
       return VelocyPackHelper::compare(lhs, rhs, useUtf8, options, lhsBase,
                                        rhsBase) < 0;
     }
 
-    arangodb::velocypack::Options const* options;
-    arangodb::velocypack::Slice const* lhsBase;
-    arangodb::velocypack::Slice const* rhsBase;
+    avocadodb::velocypack::Options const* options;
+    avocadodb::velocypack::Slice const* lhsBase;
+    avocadodb::velocypack::Slice const* rhsBase;
   };
 
   template <bool useUtf8>
   struct VPackGreater {
-    VPackGreater(arangodb::velocypack::Options const* options =
-                     &arangodb::velocypack::Options::Defaults,
-                 arangodb::velocypack::Slice const* lhsBase = nullptr,
-                 arangodb::velocypack::Slice const* rhsBase = nullptr)
+    VPackGreater(avocadodb::velocypack::Options const* options =
+                     &avocadodb::velocypack::Options::Defaults,
+                 avocadodb::velocypack::Slice const* lhsBase = nullptr,
+                 avocadodb::velocypack::Slice const* rhsBase = nullptr)
         : options(options), lhsBase(lhsBase), rhsBase(rhsBase) {}
 
-    inline bool operator()(arangodb::velocypack::Slice const& lhs,
-                           arangodb::velocypack::Slice const& rhs) const {
+    inline bool operator()(avocadodb::velocypack::Slice const& lhs,
+                           avocadodb::velocypack::Slice const& rhs) const {
       return VelocyPackHelper::compare(lhs, rhs, useUtf8, options, lhsBase,
                                        rhsBase) > 0;
     }
 
-    arangodb::velocypack::Options const* options;
-    arangodb::velocypack::Slice const* lhsBase;
-    arangodb::velocypack::Slice const* rhsBase;
+    avocadodb::velocypack::Options const* options;
+    avocadodb::velocypack::Slice const* lhsBase;
+    avocadodb::velocypack::Slice const* rhsBase;
   };
 
   template <bool useUtf8>
   struct VPackSorted {
-    VPackSorted(bool reverse, arangodb::velocypack::Options const* options =
-                                  &arangodb::velocypack::Options::Defaults,
-                arangodb::velocypack::Slice const* lhsBase = nullptr,
-                arangodb::velocypack::Slice const* rhsBase = nullptr)
+    VPackSorted(bool reverse, avocadodb::velocypack::Options const* options =
+                                  &avocadodb::velocypack::Options::Defaults,
+                avocadodb::velocypack::Slice const* lhsBase = nullptr,
+                avocadodb::velocypack::Slice const* rhsBase = nullptr)
         : _reverse(reverse),
           options(options),
           lhsBase(lhsBase),
           rhsBase(rhsBase) {}
 
-    inline bool operator()(arangodb::velocypack::Slice const& lhs,
-                           arangodb::velocypack::Slice const& rhs) const {
+    inline bool operator()(avocadodb::velocypack::Slice const& lhs,
+                           avocadodb::velocypack::Slice const& rhs) const {
       if (_reverse) {
         return VelocyPackHelper::compare(lhs, rhs, useUtf8, options, lhsBase,
                                          rhsBase) > 0;
@@ -187,9 +187,9 @@ class VelocyPackHelper {
     }
 
     bool _reverse;
-    arangodb::velocypack::Options const* options;
-    arangodb::velocypack::Slice const* lhsBase;
-    arangodb::velocypack::Slice const* rhsBase;
+    avocadodb::velocypack::Options const* options;
+    avocadodb::velocypack::Slice const* lhsBase;
+    avocadodb::velocypack::Slice const* rhsBase;
   };
 
   struct AttributeSorterUTF8 {
@@ -357,9 +357,9 @@ class VelocyPackHelper {
   /// @brief compares two VelocyPack number values
   //////////////////////////////////////////////////////////////////////////////
 
-  static int compareNumberValues(arangodb::velocypack::ValueType,
-                                 arangodb::velocypack::Slice lhs,
-                                 arangodb::velocypack::Slice rhs);
+  static int compareNumberValues(avocadodb::velocypack::ValueType,
+                                 avocadodb::velocypack::Slice lhs,
+                                 avocadodb::velocypack::Slice rhs);
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief compares two VelocyPack string values
@@ -373,19 +373,19 @@ class VelocyPackHelper {
   /// @brief Compares two VelocyPack slices
   //////////////////////////////////////////////////////////////////////////////
 
-  static int compare(arangodb::velocypack::Slice lhs,
-                     arangodb::velocypack::Slice rhs, bool useUTF8,
-                     arangodb::velocypack::Options const* options =
-                         &arangodb::velocypack::Options::Defaults,
-                     arangodb::velocypack::Slice const* lhsBase = nullptr,
-                     arangodb::velocypack::Slice const* rhsBase = nullptr);
+  static int compare(avocadodb::velocypack::Slice lhs,
+                     avocadodb::velocypack::Slice rhs, bool useUTF8,
+                     avocadodb::velocypack::Options const* options =
+                         &avocadodb::velocypack::Options::Defaults,
+                     avocadodb::velocypack::Slice const* lhsBase = nullptr,
+                     avocadodb::velocypack::Slice const* rhsBase = nullptr);
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief Merges two VelocyPack Slices
   //////////////////////////////////////////////////////////////////////////////
 
-  static arangodb::velocypack::Builder merge(arangodb::velocypack::Slice const&,
-                                             arangodb::velocypack::Slice const&,
+  static avocadodb::velocypack::Builder merge(avocadodb::velocypack::Slice const&,
+                                             avocadodb::velocypack::Slice const&,
                                              bool, bool);
 
   //////////////////////////////////////////////////////////////////////////////
@@ -401,36 +401,36 @@ class VelocyPackHelper {
   static uint64_t hashByAttributes(VPackSlice, std::vector<std::string> const&,
                                    bool, int&, std::string const& key = "");
 
-  static constexpr arangodb::velocypack::Slice NullValue() {
-    return arangodb::velocypack::Slice::nullSlice();
+  static constexpr avocadodb::velocypack::Slice NullValue() {
+    return avocadodb::velocypack::Slice::nullSlice();
   }
 
-  static constexpr arangodb::velocypack::Slice TrueValue() {
-    return arangodb::velocypack::Slice::trueSlice();
+  static constexpr avocadodb::velocypack::Slice TrueValue() {
+    return avocadodb::velocypack::Slice::trueSlice();
   }
 
-  static constexpr arangodb::velocypack::Slice FalseValue() {
-    return arangodb::velocypack::Slice::falseSlice();
+  static constexpr avocadodb::velocypack::Slice FalseValue() {
+    return avocadodb::velocypack::Slice::falseSlice();
   }
 
-  static constexpr arangodb::velocypack::Slice BooleanValue(bool value) {
-    return value ? arangodb::velocypack::Slice::trueSlice() : arangodb::velocypack::Slice::falseSlice();
+  static constexpr avocadodb::velocypack::Slice BooleanValue(bool value) {
+    return value ? avocadodb::velocypack::Slice::trueSlice() : avocadodb::velocypack::Slice::falseSlice();
   }
 
-  static constexpr arangodb::velocypack::Slice ZeroValue() {
-    return arangodb::velocypack::Slice::zeroSlice();
+  static constexpr avocadodb::velocypack::Slice ZeroValue() {
+    return avocadodb::velocypack::Slice::zeroSlice();
   }
 
-  static constexpr arangodb::velocypack::Slice EmptyArrayValue() {
-    return arangodb::velocypack::Slice::emptyArraySlice();
+  static constexpr avocadodb::velocypack::Slice EmptyArrayValue() {
+    return avocadodb::velocypack::Slice::emptyArraySlice();
   }
 
-  static constexpr arangodb::velocypack::Slice EmptyObjectValue() {
-    return arangodb::velocypack::Slice::emptyObjectSlice();
+  static constexpr avocadodb::velocypack::Slice EmptyObjectValue() {
+    return avocadodb::velocypack::Slice::emptyObjectSlice();
   }
   
-  static constexpr arangodb::velocypack::Slice EmptyString() {
-    return arangodb::velocypack::Slice("\x40");
+  static constexpr avocadodb::velocypack::Slice EmptyString() {
+    return avocadodb::velocypack::Slice("\x40");
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -438,20 +438,20 @@ class VelocyPackHelper {
   ///        Are used in Array Indexes to distinguish NULL and not existent.
   //////////////////////////////////////////////////////////////////////////////
 
-  static constexpr arangodb::velocypack::Slice IllegalValue() {
-    return arangodb::velocypack::Slice::illegalSlice();
+  static constexpr avocadodb::velocypack::Slice IllegalValue() {
+    return avocadodb::velocypack::Slice::illegalSlice();
   }
   
-  static bool hasNonClientTypes(arangodb::velocypack::Slice, bool checkExternals, bool checkCustom);
+  static bool hasNonClientTypes(avocadodb::velocypack::Slice, bool checkExternals, bool checkCustom);
 
-  static void sanitizeNonClientTypes(arangodb::velocypack::Slice input,
-                                     arangodb::velocypack::Slice base,
-                                     arangodb::velocypack::Builder& output,
-                                     arangodb::velocypack::Options const*,
+  static void sanitizeNonClientTypes(avocadodb::velocypack::Slice input,
+                                     avocadodb::velocypack::Slice base,
+                                     avocadodb::velocypack::Builder& output,
+                                     avocadodb::velocypack::Options const*,
                                      bool sanitizeExternals, bool sanitizeCustom);
 
   static VPackBuffer<uint8_t> sanitizeNonClientTypesChecked(
-      arangodb::velocypack::Slice,
+      avocadodb::velocypack::Slice,
       VPackOptions const* options = &VPackOptions::Options::Defaults,
       bool sanitizeExternals = true,
       bool sanitizeCustom = true);
@@ -478,16 +478,16 @@ class VelocyPackHelper {
 
 namespace std {
 template <>
-struct hash<arangodb::basics::VPackHashedSlice> {
-  inline size_t operator()(arangodb::basics::VPackHashedSlice const& slice) const noexcept {
+struct hash<avocadodb::basics::VPackHashedSlice> {
+  inline size_t operator()(avocadodb::basics::VPackHashedSlice const& slice) const noexcept {
     return slice.hash;
   }
 };
 
 template <>
-struct equal_to<arangodb::basics::VPackHashedSlice> {
-  bool operator()(arangodb::basics::VPackHashedSlice const& lhs,
-                  arangodb::basics::VPackHashedSlice const& rhs) const {
+struct equal_to<avocadodb::basics::VPackHashedSlice> {
+  bool operator()(avocadodb::basics::VPackHashedSlice const& lhs,
+                  avocadodb::basics::VPackHashedSlice const& rhs) const {
     return lhs.slice.equals(rhs.slice);
   }
 };
@@ -499,7 +499,7 @@ struct equal_to<arangodb::basics::VPackHashedSlice> {
 /// @brief Simple and limited logging of VelocyPack slices
 //////////////////////////////////////////////////////////////////////////////
 
-arangodb::LoggerStream& operator<<(arangodb::LoggerStream&,
-                                   arangodb::velocypack::Slice const&);
+avocadodb::LoggerStream& operator<<(avocadodb::LoggerStream&,
+                                   avocadodb::velocypack::Slice const&);
 
 #endif

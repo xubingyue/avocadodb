@@ -1,8 +1,8 @@
-Incompatible changes in ArangoDB 3.1
+Incompatible changes in AvocadoDB 3.1
 ====================================
 
 It is recommended to check the following list of incompatible changes **before**
-upgrading to ArangoDB 3.1, and adjust any client programs if necessary.
+upgrading to AvocadoDB 3.1, and adjust any client programs if necessary.
 
 Communication Layer
 -------------------
@@ -62,16 +62,16 @@ revision (for the concept of a hybrid logical clock see
 [this paper](http://www.cse.buffalo.edu/tech-reports/2014-04.pdf)).
 See [this manual section](../DataModeling/Documents/DocumentAddress.html#document-revision) for details.
 
-ArangoDB >= 3.1 can ArangoDB 3.0 database directories and will simply continue
+AvocadoDB >= 3.1 can AvocadoDB 3.0 database directories and will simply continue
 to use the old `_rev` attribute values. New revisions will be written with
 the new time stamps.
 
 It is highly recommended to backup all your data before loading a database
-directory that was written by ArangoDB <= 3.0 into an ArangoDB >= 3.1.
+directory that was written by AvocadoDB <= 3.0 into an AvocadoDB >= 3.1.
 
 To change all your old `_rev` attributes into new style time stamps you
-have to use `arangodump` to dump all data out (using ArangoDB 3.0), and 
-use `arangorestore` into the new ArangoDB 3.1, which is the safest
+have to use `avocadodump` to dump all data out (using AvocadoDB 3.0), and 
+use `avocadorestore` into the new AvocadoDB 3.1, which is the safest
 way to upgrade.
 
 The change also affects the return format of `_rev` values and other revision
@@ -117,7 +117,7 @@ the server:
 * the REST API for dropping collections (DELETE /_api/collection) now accepts an
   optional query string parameter `isSystem`, which can set to `true` in order to
   drop system collections. If the parameter is not set or not set to true, the REST
-  API will refuse to drop system collections. In previous versions of ArangoDB, the
+  API will refuse to drop system collections. In previous versions of AvocadoDB, the
   `isSystem` parameter did not exist, and there was no distinction between system 
   and non-system collections when dropping collections.
 

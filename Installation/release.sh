@@ -198,17 +198,17 @@ if [ "$LINT" == "1" ]; then
     ./utils/jslint.sh
 fi
 
-# we utilize https://developer.github.com/v3/repos/ to get the newest release of the arangodb starter:
-curl -s https://api.github.com/repos/arangodb-helper/arangodb/releases | \
+# we utilize https://developer.github.com/v3/repos/ to get the newest release of the avocadodb starter:
+curl -s https://api.github.com/repos/avocadodb-helper/avocadodb/releases | \
                          grep tag_name | \
                          head -n 1 | \
                          ${SED} -e "s;.*: ;;" -e 's;";;g' -e 's;,;;' > STARTER_REV
 
 git add -f \
     README \
-    arangod/Aql/tokens.cpp \
-    arangod/Aql/grammar.cpp \
-    arangod/Aql/grammar.h \
+    avocadod/Aql/tokens.cpp \
+    avocadod/Aql/grammar.cpp \
+    avocadod/Aql/grammar.h \
     lib/V8/v8-json.cpp \
     lib/Basics/voc-errors.h \
     lib/Basics/voc-errors.cpp \

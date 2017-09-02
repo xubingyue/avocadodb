@@ -20,7 +20,7 @@ query is executed using its *execute* method. If no *batchSize* value
 is specified, the server will pick a reasonable default value.
 
 ### Has Next
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 checks if the cursor is exhausted
@@ -50,7 +50,7 @@ documents. In this case the next document can be accessed using the
 
 
 ### Next
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 returns the next result document
@@ -81,7 +81,7 @@ exhausted cursor, then *undefined* is returned.
 
 
 ### Set Batch size
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 sets the batch size for any following requests
@@ -92,7 +92,7 @@ are at most transferred from the server to the client in one chunk.
 
 
 ### Get Batch size
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 returns the batch size
@@ -103,7 +103,7 @@ server will determine a sensible batch size for any following requests.
 
 
 ### Execute Query
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 executes a query
@@ -147,7 +147,7 @@ result:
 
 
 ### Dispose
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 disposes the result
@@ -159,7 +159,7 @@ After calling *dispose* you can no longer access the cursor.
 
 
 ### Count
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 counts the number of documents

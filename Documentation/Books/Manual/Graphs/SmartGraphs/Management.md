@@ -50,26 +50,26 @@ All newly created collections will immediately be dropped again in the failed ca
 Create an empty graph, edge definitions can be added at runtime:
 
 
-    arangosh> var graph_module = require("@arangodb/smart-graph");
-    arangosh> var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+    avocadosh> var graph_module = require("@avocadodb/smart-graph");
+    avocadosh> var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
     [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ ] ]
 
 
 Create a graph using an edge collection `edges` and a single vertex collection `vertices` 
 
 
-    arangosh> var graph_module = require("@arangodb/smart-graph");
-    arangosh> var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
-    arangosh> var graph = graph_module._create("myGraph", edgeDefinitions, [], {smartGraphAttribute: "region", numberOfShards: 9});
+    avocadosh> var graph_module = require("@avocadodb/smart-graph");
+    avocadosh> var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
+    avocadosh> var graph = graph_module._create("myGraph", edgeDefinitions, [], {smartGraphAttribute: "region", numberOfShards: 9});
     [ SmartGraph myGraph EdgeDefinitions: [ "edges: [vertices] -> [vertices]" ] VertexCollections: [ ] ]
 
 
 Create a graph with edge definitions and orphan collections:
 
 
-    arangosh> var graph_module = require("@arangodb/smart-graph");
-    arangosh> var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
-    arangosh> var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {smartGraphAttribute: "region", numberOfShards: 9});
+    avocadosh> var graph_module = require("@avocadodb/smart-graph");
+    avocadosh> var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
+    avocadosh> var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {smartGraphAttribute: "region", numberOfShards: 9});
     [ Graph myGraph EdgeDefinitions: [ 
       "myRelation: [female, male] -> [female, male]" 
     ] VertexCollections: [ 
@@ -117,25 +117,25 @@ You have to drop the complete graph.
 If you just want to get rid of the data `truncate` it.
 
 
-      arangosh> var graph_module = require("@arangodb/smart-graph")
-      arangosh> var relation = graph_module._relation("edges", "vertices", "vertices");
-      arangosh> var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-      arangosh> graph._orphanCollections();
+      avocadosh> var graph_module = require("@avocadodb/smart-graph")
+      avocadosh> var relation = graph_module._relation("edges", "vertices", "vertices");
+      avocadosh> var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+      avocadosh> graph._orphanCollections();
       [
         "other"
       ]
-      arangosh> graph._deleteEdgeDefinition("edges");
-      arangosh> graph._orphanCollections();
+      avocadosh> graph._deleteEdgeDefinition("edges");
+      avocadosh> graph._orphanCollections();
       [
         "vertices",
         "other"
       ]
-      arangosh> graph._removeVertexCollection("other");
-      arangosh> graph._orphanCollections();
+      avocadosh> graph._removeVertexCollection("other");
+      avocadosh> graph._orphanCollections();
       [
         "vertices"
       ]
-      arangosh> graph._removeVertexCollection("vertices");
-      ArangoError 4002: cannot drop this smart collection
+      avocadosh> graph._removeVertexCollection("vertices");
+      AvocadoError 4002: cannot drop this smart collection
 
 

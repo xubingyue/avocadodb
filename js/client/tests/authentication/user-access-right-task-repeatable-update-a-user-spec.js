@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2017 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License");
 // / you may not use this file except in compliance with the License.
@@ -22,24 +22,24 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
 // / @author Mark Vollmary
-// / @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
 const expect = require('chai').expect;
-const tasks = require('@arangodb/tasks');
-const pu = require('@arangodb/process-utils');
-const users = require('@arangodb/users');
+const tasks = require('@avocadodb/tasks');
+const pu = require('@avocadodb/process-utils');
+const users = require('@avocadodb/users');
 const internal = require('internal');
 const download = internal.download;
 const keySpaceId = 'task_update_user_keyspace';
 const taskId = "task_update_user_periodic";
-const arango = internal.arango;
+const avocado = internal.avocado;
 const db = internal.db;
 const taskPeriod = 0.3;
 
@@ -73,13 +73,13 @@ const executeJS = (code) => {
   httpOptions.method = 'POST';
   httpOptions.timeout = 1800;
   httpOptions.returnBodyOnError = true;
-  return download(arango.getEndpoint().replace('tcp', 'http') + '/_admin/execute?returnAsJSON=true',
+  return download(avocado.getEndpoint().replace('tcp', 'http') + '/_admin/execute?returnAsJSON=true',
     code,
     httpOptions);
 };
 
 const switchUser = (user) => {
-  arango.reconnect(arango.getEndpoint(), '_system', user, '');
+  avocado.reconnect(avocado.getEndpoint(), '_system', user, '');
 };
 
 const waitForTaskStart = () => {

@@ -9,9 +9,9 @@ PORTTRAP="./Installation/Pipeline/port.sh --clean $PORT01 ;"
 if [ "$edition" == enterprise -a "$os" == linux ]; then
   docker rm -f ldap-$PORTLDAP || echo
   mkdir -p ldap
-  docker pull arangodb/openldap-test-container:jessie
+  docker pull avocadodb/openldap-test-container:jessie
   docker stop ldap-$PORTLDAP
-  docker run -d -e LDAP_CERT_CN=127.0.0.1 -p $PORTLDAP:389 -v $(pwd)/ldap:/cert --name ldap-$PORTLDAP arangodb/openldap-test-container:jessie
+  docker run -d -e LDAP_CERT_CN=127.0.0.1 -p $PORTLDAP:389 -v $(pwd)/ldap:/cert --name ldap-$PORTLDAP avocadodb/openldap-test-container:jessie
 
   LDAPTRAP="docker stop ldap-$PORTLDAP ;"
 fi

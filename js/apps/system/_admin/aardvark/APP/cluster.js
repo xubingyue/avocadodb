@@ -4,7 +4,7 @@
 /// DISCLAIMER
 ///
 /// Copyright 2010-2013 triAGENS GmbH, Cologne, Germany
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -18,15 +18,15 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
 /// @author Alan Plum
 ////////////////////////////////////////////////////////////////////////////////
 
 const internal = require('internal');
-const cluster = require('@arangodb/cluster');
-const createRouter = require('@arangodb/foxx/router');
+const cluster = require('@avocadodb/cluster');
+const createRouter = require('@avocadodb/foxx/router');
 
 const router = createRouter();
 module.exports = router;
@@ -34,7 +34,7 @@ module.exports = router;
 
 router.use((req, res, next) => {
   if (internal.authenticationEnabled()) {
-    if (!req.arangoUser) {
+    if (!req.avocadoUser) {
       res.throw('unauthorized');
     }
   }
@@ -51,11 +51,11 @@ router.get('/amICoordinator', function(req, res) {
 
 if (cluster.isCluster()) {
   router.get('/DBServers', function(req, res) {
-    const list = global.ArangoClusterInfo.getDBServers();
+    const list = global.AvocadoClusterInfo.getDBServers();
     res.json(list.map(n => { 
       var r = { "id": n.serverId, "name": n.serverName, "role": "primary" };
       r.status = "ok";
-      const endpoint = global.ArangoClusterInfo.getServerEndpoint(r.id);
+      const endpoint = global.AvocadoClusterInfo.getServerEndpoint(r.id);
       const proto = endpoint.substr(0, 6);
       if (proto === "tcp://") {
         r.protocol = "http";
@@ -73,11 +73,11 @@ if (cluster.isCluster()) {
     .description('Get a list of all running and expected DBServers within the cluster');
   
   router.get('/Coordinators', function(req, res) {
-    const list = global.ArangoClusterInfo.getCoordinators();
+    const list = global.AvocadoClusterInfo.getCoordinators();
     res.json(list.map(n => { 
       var r = { "id": n, "role": "coordinator" };
       r.status = "ok";
-      const endpoint = global.ArangoClusterInfo.getServerEndpoint(n);
+      const endpoint = global.AvocadoClusterInfo.getServerEndpoint(n);
       const proto = endpoint.substr(0, 6);
       if (proto === "tcp://") {
         r.protocol = "http";

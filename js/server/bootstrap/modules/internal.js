@@ -43,32 +43,32 @@
   delete global.db;
 
   // //////////////////////////////////////////////////////////////////////////////
-  // / @brief ArangoCollection
+  // / @brief AvocadoCollection
   // //////////////////////////////////////////////////////////////////////////////
 
-  exports.ArangoCollection = global.ArangoCollection;
-  delete global.ArangoCollection;
+  exports.AvocadoCollection = global.AvocadoCollection;
+  delete global.AvocadoCollection;
   
   // //////////////////////////////////////////////////////////////////////////////
-  // / @brief ArangoView
+  // / @brief AvocadoView
   // //////////////////////////////////////////////////////////////////////////////
 
-  exports.ArangoView = global.ArangoView;
-  delete global.ArangoView;
+  exports.AvocadoView = global.AvocadoView;
+  delete global.AvocadoView;
 
   // //////////////////////////////////////////////////////////////////////////////
-  // / @brief ArangoUsers
+  // / @brief AvocadoUsers
   // //////////////////////////////////////////////////////////////////////////////
 
-  exports.ArangoUsers = global.ArangoUsers;
-  delete global.ArangoUsers;
+  exports.AvocadoUsers = global.AvocadoUsers;
+  delete global.AvocadoUsers;
 
   // //////////////////////////////////////////////////////////////////////////////
-  // / @brief ArangoDatabase
+  // / @brief AvocadoDatabase
   // //////////////////////////////////////////////////////////////////////////////
 
-  exports.ArangoDatabase = global.ArangoDatabase;
-  delete global.ArangoDatabase;
+  exports.AvocadoDatabase = global.AvocadoDatabase;
+  delete global.AvocadoDatabase;
 
   // //////////////////////////////////////////////////////////////////////////////
   // / @brief ShapedJson stub object - only here for compatibility with 2.8
@@ -103,7 +103,7 @@
   // //////////////////////////////////////////////////////////////////////////////
 
   exports.reloadRouting = function () {
-    require('@arangodb/actions').reloadRouting();
+    require('@avocadodb/actions').reloadRouting();
   };
 
   // //////////////////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@
   // //////////////////////////////////////////////////////////////////////////////
 
   exports.resetEngine = function () {
-    require('@arangodb/actions').reloadRouting();
+    require('@avocadodb/actions').reloadRouting();
   };
 
   // //////////////////////////////////////////////////////////////////////////////
@@ -223,12 +223,12 @@
   if (global.SYS_EXECUTE_GLOBAL_CONTEXT_FUNCTION) {
     exports.reloadAqlFunctions = function () {
       exports.executeGlobalContextFunction('reloadAql');
-      require('@arangodb/aql').reload();
+      require('@avocadodb/aql').reload();
     };
     delete global.SYS_EXECUTE_GLOBAL_CONTEXT_FUNCTION;
   }else {
     exports.reloadAqlFunctions = function () {
-      require('@arangodb/aql').reload();
+      require('@avocadodb/aql').reload();
     };
   }
 
@@ -335,7 +335,7 @@
   // //////////////////////////////////////////////////////////////////////////////
 
   if (global.SYS_RAW_REQUEST_BODY) {
-    const $_RAW_BODY_BUFFER = Symbol.for('@arangodb/request.rawBodyBuffer');
+    const $_RAW_BODY_BUFFER = Symbol.for('@avocadodb/request.rawBodyBuffer');
     const getRawBodyBuffer = global.SYS_RAW_REQUEST_BODY;
     exports.rawRequestBody = function (req) {
       return req[$_RAW_BODY_BUFFER] || getRawBodyBuffer(req);

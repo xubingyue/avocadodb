@@ -3,7 +3,7 @@
 @brief maximum number of historic logfiles
 `--wal.historic-logfiles`
 
-The maximum number of historic logfiles that ArangoDB will keep after they
+The maximum number of historic logfiles that AvocadoDB will keep after they
 have been garbage-collected. If no replication is used, there is no need
 to keep historic logfiles except for having a local changelog.
 

@@ -30,11 +30,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var ERRORS = arangodb.errors;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var ERRORS = avocadodb.errors;
+var db = avocadodb.db;
 
-var aqlfunctions = require("@arangodb/aql/functions");
+var aqlfunctions = require("@avocadodb/aql/functions");
 
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,23 +1,23 @@
 {
   "name": "gharial",
-  "description": "ArangoDB Graph Module",
-  "author": "ArangoDB GmbH",
+  "description": "AvocadoDB Graph Module",
+  "author": "AvocadoDB GmbH",
   "version": "3.0.0",
   "license": "Apache-2.0",
 
   "engines": {
-    "arangodb": "^3.0.0-0 || ^3.0.0"
+    "avocadodb": "^3.0.0-0 || ^3.0.0"
   },
 
   "repository": {
     "type": "git",
-    "url": "https://github.com/arangodb/arangodb.git"
+    "url": "https://github.com/avocadodb/avocadodb.git"
   },
 
   "contributors": [
     {
       "name": "Michael Hackstein",
-      "email": "m.hackstein@arangodb.com"
+      "email": "m.hackstein@avocadodb.com"
     }
   ],
 

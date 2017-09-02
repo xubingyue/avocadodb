@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -26,8 +26,8 @@
 #include "Basics/StringUtils.h"
 #include "Logger/Logger.h"
 
-using namespace arangodb::application_features;
-using namespace arangodb::options;
+using namespace avocadodb::application_features;
+using namespace avocadodb::options;
 
 ApplicationFeature::ApplicationFeature(ApplicationServer* server,
                                        std::string const& name)
@@ -123,7 +123,7 @@ void ApplicationFeature::determineAncestors() {
             path.emplace_back(ancestor);
             THROW_ARANGO_EXCEPTION_MESSAGE(
               TRI_ERROR_INTERNAL,
-              "dependencies for feature '" + _name + "' are cyclic: " + arangodb::basics::StringUtils::join(path, " <= "));
+              "dependencies for feature '" + _name + "' are cyclic: " + avocadodb::basics::StringUtils::join(path, " <= "));
           }
           build(ancestor);
         }

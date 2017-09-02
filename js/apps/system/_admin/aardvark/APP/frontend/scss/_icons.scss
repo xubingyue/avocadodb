@@ -21,17 +21,17 @@
   @extend %clickable;
 }
 
-.icon_arangodb_info {
+.icon_avocadodb_info {
   color: $c-icon-with-opacity;
   font-size: 23px;
 }
 
-.arangoicon {
+.avocadoicon {
   @extend %clickable;
 }
 
-li a [class^="icon_arangodb"],
-li a [class*=" icon_arangodb"] {
+li a [class^="icon_avocadodb"],
+li a [class*=" icon_avocadodb"] {
   font-size: 18px;
   position: absolute;
   right: 4px;

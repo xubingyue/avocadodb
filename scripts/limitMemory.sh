@@ -9,7 +9,7 @@ echo "usage: $0 <ram in mb> <swap in mb> command"
 # get args
 ram="$1"
 swap="$2"
-group=arango_mem
+group=avocado_mem
 shift 2
 
 # do not continue if anything goes wrong
@@ -29,5 +29,5 @@ if [[ -e $fpath ]]; then
 fi
 
 #execute
-sudo cgexec -g memory:arango_mem su -l -p -c "$@" $USER
+sudo cgexec -g memory:avocado_mem su -l -p -c "$@" $USER
 

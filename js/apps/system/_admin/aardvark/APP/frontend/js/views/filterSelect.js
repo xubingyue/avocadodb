@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, templateEngine, window, arangoHelper, $, _ */
+/* global Backbone, templateEngine, window, avocadoHelper, $, _ */
 (function () {
   'use strict';
 
@@ -97,7 +97,7 @@
 
       _.each(self.options, function (option) {
         if (!option.color) {
-          option.color = arangoHelper.alphabetColors[option.name.charAt(0).toLowerCase()];
+          option.color = avocadoHelper.alphabetColors[option.name.charAt(0).toLowerCase()];
         }
       });
 

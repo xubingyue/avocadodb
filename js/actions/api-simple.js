@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -22,15 +22,15 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Achim Brandt
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var actions = require('@arangodb/actions');
-var db = require('@arangodb').db;
+var actions = require('@avocadodb/actions');
+var db = require('@avocadodb').db;
 var ERRORS = require('internal').errors;
 
 var API = '_api/simple/';
@@ -44,7 +44,7 @@ var checkShards = function (req, collection) {
     throw 'unexpected collection value';
   }
 
-  var cluster = require('@arangodb/cluster');
+  var cluster = require('@avocadodb/cluster');
   if (!cluster.isCoordinator()) {
     // no cluster
     return true;

@@ -1,8 +1,8 @@
 Graphs
 ======
 
-The *Graphs* tab provides a viewer facility for graph data stored in ArangoDB.
-It allows browsing ArangoDB graphs stored in the *_graphs* system collection or
+The *Graphs* tab provides a viewer facility for graph data stored in AvocadoDB.
+It allows browsing AvocadoDB graphs stored in the *_graphs* system collection or
 a graph consisting of an arbitrary vertex and [edge collection](../../Appendix/Glossary.md#edge-collection).
 
 ![manage graphs](images/graphsView.png)

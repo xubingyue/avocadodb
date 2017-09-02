@@ -1,6 +1,6 @@
 /* jshint strict: false, unused: false */
 /* global AQL_EXECUTE, SYS_CLUSTER_TEST
-  ArangoServerState, ArangoClusterComm, ArangoClusterInfo, ArangoAgency */
+  AvocadoServerState, AvocadoClusterComm, AvocadoClusterInfo, AvocadoAgency */
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief cluster actions
@@ -9,7 +9,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -23,16 +23,16 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Max Neunhoeffer
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // / @author Copyright 2013-2014, triAGENS GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-var actions = require('@arangodb/actions');
-var cluster = require('@arangodb/cluster');
+var actions = require('@avocadodb/actions');
+var cluster = require('@avocadodb/cluster');
 //var internal = require('internal');
 var _ = require('lodash');
 
@@ -69,7 +69,7 @@ actions.defineHttp({
 
   callback: function (req, res) {
     if (req.requestType !== actions.POST ||
-      !require('@arangodb/cluster').isCoordinator()) {
+      !require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only DELETE requests are allowed and only to coordinators');
       return;
@@ -87,7 +87,7 @@ actions.defineHttp({
       return;
     }
 
-    let agency = ArangoAgency.get('', false, true).arango;
+    let agency = AvocadoAgency.get('', false, true).avocado;
     
     let node = agency.Supervision.Health[serverId];
     if (node === undefined) {
@@ -103,7 +103,7 @@ actions.defineHttp({
     }
 
     let preconditions = {};
-    preconditions['/arango/Supervision/Health/' + serverId + '/Status'] = {'old': 'FAILED'};
+    preconditions['/avocado/Supervision/Health/' + serverId + '/Status'] = {'old': 'FAILED'};
     // need to make sure it is not responsible for anything
     if (node.Role === 'DBServer') {
       let used = [];
@@ -130,14 +130,14 @@ actions.defineHttp({
     }
 
     let operations = {};
-    operations['/arango/Coordinators/' + serverId] = {'op': 'delete'};
-    operations['/arango/DBServers/' + serverId] = {'op': 'delete'};
-    operations['/arango/Current/ServersRegistered/' + serverId] = {'op': 'delete'};
-    operations['/arango/Supervision/Health/' + serverId] = {'op': 'delete'};
-    operations['/arango/MapUniqueToShortID/' + serverId] = {'op': 'delete'};
+    operations['/avocado/Coordinators/' + serverId] = {'op': 'delete'};
+    operations['/avocado/DBServers/' + serverId] = {'op': 'delete'};
+    operations['/avocado/Current/ServersRegistered/' + serverId] = {'op': 'delete'};
+    operations['/avocado/Supervision/Health/' + serverId] = {'op': 'delete'};
+    operations['/avocado/MapUniqueToShortID/' + serverId] = {'op': 'delete'};
 
     try {
-      global.ArangoAgency.write([[operations, preconditions]]);
+      global.AvocadoAgency.write([[operations, preconditions]]);
     } catch (e) {
       if (e.code === 412) {
         actions.resultError(req, res, actions.HTTP_PRECONDITION_FAILED,
@@ -270,9 +270,9 @@ actions.defineHttp({
     }
 
     var options = { timeout: 10 };
-    var op = ArangoClusterComm.asyncRequest('GET', 'server:' + serverId, '_system',
+    var op = AvocadoClusterComm.asyncRequest('GET', 'server:' + serverId, '_system',
       '/_api/version', '', {}, options);
-    var r = ArangoClusterComm.wait(op);
+    var r = AvocadoClusterComm.wait(op);
     res.contentType = 'application/json; charset=utf-8';
     if (r.status === 'RECEIVED') {
       res.responseCode = actions.HTTP_OK;
@@ -324,9 +324,9 @@ actions.defineHttp({
     }
 
     var options = { timeout: 10 };
-    var op = ArangoClusterComm.asyncRequest('GET', 'server:' + serverId, '_system',
+    var op = AvocadoClusterComm.asyncRequest('GET', 'server:' + serverId, '_system',
       '/_admin/statistics', '', {}, options);
-    var r = ArangoClusterComm.wait(op);
+    var r = AvocadoClusterComm.wait(op);
     res.contentType = 'application/json; charset=utf-8';
     if (r.status === 'RECEIVED') {
       res.responseCode = actions.HTTP_OK;
@@ -378,9 +378,9 @@ actions.defineHttp({
     }
 
     var options = { timeout: 10 };
-    var op = ArangoClusterComm.asyncRequest('GET', 'server:' + serverId, '_system',
+    var op = AvocadoClusterComm.asyncRequest('GET', 'server:' + serverId, '_system',
       '/_api/engine', '', {}, options);
-    var r = ArangoClusterComm.wait(op);
+    var r = AvocadoClusterComm.wait(op);
     res.contentType = 'application/json; charset=utf-8';
     if (r.status === 'RECEIVED') {
       res.responseCode = actions.HTTP_OK;
@@ -416,7 +416,7 @@ actions.defineHttp({
         'only GET requests are allowed');
       return;
     }
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only allowed on coordinator');
       return;
@@ -428,9 +428,9 @@ actions.defineHttp({
     }
     var DBserver = req.parameters.DBserver;
     var options = { timeout: 10 };
-    var op = ArangoClusterComm.asyncRequest('GET', 'server:' + DBserver, '_system',
+    var op = AvocadoClusterComm.asyncRequest('GET', 'server:' + DBserver, '_system',
       '/_admin/statistics', '', {}, options);
-    var r = ArangoClusterComm.wait(op);
+    var r = AvocadoClusterComm.wait(op);
     res.contentType = 'application/json; charset=utf-8';
     if (r.status === 'RECEIVED') {
       res.responseCode = actions.HTTP_OK;
@@ -463,7 +463,7 @@ actions.defineHttp({
 
   callback: function (req, res) {
     if (req.requestType !== actions.GET ||
-      !require('@arangodb/cluster').isCoordinator()) {
+      !require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only GET requests are allowed and only to coordinators');
       return;
@@ -479,18 +479,18 @@ actions.defineHttp({
 
     var clusterId;
     try {
-      clusterId = ArangoAgency.get('Cluster', false, true).arango.Cluster;
+      clusterId = AvocadoAgency.get('Cluster', false, true).avocado.Cluster;
     } catch (e1) {
       actions.resultError(req, res, actions.HTTP_NOT_FOUND, 0,
         'Failed to retrieve clusterId node from agency!');
       return;
     }
 
-    let agency = ArangoAgency.agency();
+    let agency = AvocadoAgency.agency();
 
     var Health;
     try {
-      Health = ArangoAgency.get('Supervision/Health', false, true).arango.Supervision.Health;
+      Health = AvocadoAgency.get('Supervision/Health', false, true).avocado.Supervision.Health;
     } catch (e1) {
       actions.resultError(req, res, actions.HTTP_NOT_FOUND, 0,
         'Failed to retrieve supervision node from agency!');
@@ -599,9 +599,9 @@ actions.defineHttp({
     } else {
       // query a remote statistics collection
       var options = { timeout: 10 };
-      var op = ArangoClusterComm.asyncRequest('POST', 'server:' + DBserver, '_system',
+      var op = AvocadoClusterComm.asyncRequest('POST', 'server:' + DBserver, '_system',
         '/_api/cursor', JSON.stringify({query: myQueryVal, bindVars: bind}), {}, options);
-      var r = ArangoClusterComm.wait(op);
+      var r = AvocadoClusterComm.wait(op);
       res.contentType = 'application/json; charset=utf-8';
       if (r.status === 'RECEIVED') {
         res.responseCode = actions.HTTP_OK;
@@ -668,7 +668,7 @@ actions.defineHttp({
 
   callback: function (req, res) {
     if (req.requestType !== actions.GET ||
-      !require('@arangodb/cluster').isCoordinator()) {
+      !require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only GET requests are allowed and only to coordinators');
       return;
@@ -680,8 +680,8 @@ actions.defineHttp({
     }
     var primary = req.parameters.primary;
 
-    var agency = ArangoAgency.get('Plan/DBServers/' + primary);
-    let secondary = fetchKey(agency, 'arango', 'Plan', 'DBServers', primary);
+    var agency = AvocadoAgency.get('Plan/DBServers/' + primary);
+    let secondary = fetchKey(agency, 'avocado', 'Plan', 'DBServers', primary);
     if (secondary === undefined) {
       actions.resultError(req, res, actions.HTTP_NOT_FOUND, 0,
         'Primary with the given ID is not configured in Agency.');
@@ -748,7 +748,7 @@ actions.defineHttp({
   callback: function (req, res) {
 
     if (req.requestType !== actions.PUT ||
-      !require('@arangodb/cluster').isCoordinator()) {
+      !require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only PUT requests are allowed and only to coordinators');
       return;
@@ -768,8 +768,8 @@ actions.defineHttp({
         '"newSecondary" are given in body and are strings');
       return;
     }
-    let dbservers = ArangoAgency.get('Plan/DBServers/' + body.primary).arango.Plan.DBservers;
-    let sID = ArangoAgency.get('Target/MapUniqueToShortID').arango.Target.MapUniqueToShortID;
+    let dbservers = AvocadoAgency.get('Plan/DBServers/' + body.primary).avocado.Plan.DBservers;
+    let sID = AvocadoAgency.get('Target/MapUniqueToShortID').avocado.Target.MapUniqueToShortID;
 
     let id = body.primary;
     let nid = body.newSecondary;
@@ -799,23 +799,23 @@ actions.defineHttp({
     }
 
     let operations = {};
-    operations['/arango/Plan/DBServers/' + id] = nid;
-    operations['/arango/Plan/Version'] = {'op': 'increment'};
+    operations['/avocado/Plan/DBServers/' + id] = nid;
+    operations['/avocado/Plan/Version'] = {'op': 'increment'};
 
     let preconditions = {};
-    preconditions['/arango/Plan/DBServers/' + id] = {'old': body.oldSecondary};
+    preconditions['/avocado/Plan/DBServers/' + id] = {'old': body.oldSecondary};
 
     try {
       require('internal').print([[operations, preconditions]]);
-      global.ArangoAgency.write([[operations, preconditions]]);
+      global.AvocadoAgency.write([[operations, preconditions]]);
     } catch (e) {
       if (e.code === 412) {
-        let oldValue = ArangoAgency.get('Plan/DBServers/' + id);
+        let oldValue = AvocadoAgency.get('Plan/DBServers/' + id);
         actions.resultError(req, res, actions.HTTP_PRECONDITION_FAILED, 0,
           'Primary does not have the given oldSecondary as ' +
           'its secondary, current value: '
           + JSON.stringify(
-            fetchKey(oldValue, 'arango', 'Plan', 'DBServers', id)
+            fetchKey(oldValue, 'avocado', 'Plan', 'DBServers', id)
           ));
         return;
       }
@@ -825,8 +825,8 @@ actions.defineHttp({
 });
 
 function reducePlanServers(reducer, data) {
-  var databases = ArangoAgency.get('Plan/Collections');
-  databases = databases.arango.Plan.Collections;
+  var databases = AvocadoAgency.get('Plan/Collections');
+  databases = databases.avocado.Plan.Collections;
 
   return Object.keys(databases).reduce(function(data, databaseName) {
     var collections = databases[databaseName];
@@ -837,7 +837,7 @@ function reducePlanServers(reducer, data) {
       return Object.keys(collection.shards).reduce(function(data, shardKey) {
         var servers = collection.shards[shardKey];
 
-        let key = '/arango/Plan/Collections/' + databaseName + '/' + collectionKey + '/shards/' + shardKey;
+        let key = '/avocado/Plan/Collections/' + databaseName + '/' + collectionKey + '/shards/' + shardKey;
         return reducer(data, key, servers);
       }, data);
     }, data);
@@ -845,8 +845,8 @@ function reducePlanServers(reducer, data) {
 }
 
 function reduceCurrentServers(reducer, data) {
-  var databases = ArangoAgency.get('Current/Collections');
-  databases = databases.arango.Current.Collections;
+  var databases = AvocadoAgency.get('Current/Collections');
+  databases = databases.avocado.Current.Collections;
 
   return Object.keys(databases).reduce(function(data, databaseName) {
     var collections = databases[databaseName];
@@ -857,7 +857,7 @@ function reduceCurrentServers(reducer, data) {
       return Object.keys(collection).reduce(function(data, shardKey) {
         var servers = collection[shardKey].servers;
 
-        let key = '/arango/Current/Collections/' + databaseName + '/' + collectionKey + '/' + shardKey + '/servers';
+        let key = '/avocado/Current/Collections/' + databaseName + '/' + collectionKey + '/' + shardKey + '/servers';
         return reducer(data, key, servers);
       }, data);
     }, data);
@@ -944,7 +944,7 @@ actions.defineHttp({
 
   callback: function (req, res) {
     if (req.requestType !== actions.PUT ||
-      !require('@arangodb/cluster').isCoordinator()) {
+      !require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only PUT requests are allowed and only to coordinators');
       return;
@@ -964,22 +964,22 @@ actions.defineHttp({
     }
 
     let operations = {};
-    operations['/arango/Plan/DBServers/' + body.secondary] = body.primary;
-    operations['/arango/Plan/DBServers/' + body.primary] = {'op': 'delete'};
-    operations['/arango/Plan/Version'] = {'op': 'increment'};
+    operations['/avocado/Plan/DBServers/' + body.secondary] = body.primary;
+    operations['/avocado/Plan/DBServers/' + body.primary] = {'op': 'delete'};
+    operations['/avocado/Plan/Version'] = {'op': 'increment'};
 
     let preconditions = {};
-    preconditions['/arango/Plan/DBServers/' + body.primary] = {'old': body.secondary};
+    preconditions['/avocado/Plan/DBServers/' + body.primary] = {'old': body.secondary};
 
     let shardChanges = changeAllShardReponsibilities(body.primary, body.secondary);
     operations = Object.assign(operations, shardChanges.operations);
     preconditions = Object.assign(preconditions, shardChanges.preconditions);
     
     try {
-      global.ArangoAgency.write([[operations, preconditions]]);
+      global.AvocadoAgency.write([[operations, preconditions]]);
     } catch (e) {
       if (e.code === 412) {
-        let oldValue = ArangoAgency.get('Plan/DBServers/' + body.primary);
+        let oldValue = AvocadoAgency.get('Plan/DBServers/' + body.primary);
         actions.resultError(req, res, actions.HTTP_PRECONDITION_FAILED, 0,
           'Could not change primary to secondary.');
         return;
@@ -1058,7 +1058,7 @@ actions.defineHttp({
   prefix: false,
 
   callback: function (req, res) {
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only coordinators can serve this request');
       return;
@@ -1076,12 +1076,12 @@ actions.defineHttp({
       var nrDBServers;
       var cleanedServers;
       try {
-        nrCoordinators = ArangoAgency.get('Target/NumberOfCoordinators');
-        nrCoordinators = nrCoordinators.arango.Target.NumberOfCoordinators;
-        nrDBServers = ArangoAgency.get('Target/NumberOfDBServers');
-        nrDBServers = nrDBServers.arango.Target.NumberOfDBServers;
-        cleanedServers = ArangoAgency.get('Target/CleanedServers');
-        cleanedServers = cleanedServers.arango.Target.CleanedServers;
+        nrCoordinators = AvocadoAgency.get('Target/NumberOfCoordinators');
+        nrCoordinators = nrCoordinators.avocado.Target.NumberOfCoordinators;
+        nrDBServers = AvocadoAgency.get('Target/NumberOfDBServers');
+        nrDBServers = nrDBServers.avocado.Target.NumberOfDBServers;
+        cleanedServers = AvocadoAgency.get('Target/CleanedServers');
+        cleanedServers = cleanedServers.avocado.Target.CleanedServers;
       } catch (e1) {
         actions.resultError(req, res, actions.HTTP_SERVICE_UNAVAILABLE,
           'Cannot read from agency.');
@@ -1106,7 +1106,7 @@ actions.defineHttp({
         if (body.hasOwnProperty('numberOfCoordinators') &&
           (typeof body.numberOfCoordinators === 'number' ||
           body.numberOfCoordinators === null)) {
-          ArangoAgency.set('Target/NumberOfCoordinators',
+          AvocadoAgency.set('Target/NumberOfCoordinators',
             body.numberOfCoordinators);
         }
       } catch (e1) {
@@ -1116,7 +1116,7 @@ actions.defineHttp({
         if (body.hasOwnProperty('numberOfDBServers') &&
           (typeof body.numberOfDBServers === 'number' ||
           body.numberOfDBServers === null)) {
-          ArangoAgency.set('Target/NumberOfDBServers',
+          AvocadoAgency.set('Target/NumberOfDBServers',
             body.numberOfDBServers);
         }
       } catch (e2) {
@@ -1126,7 +1126,7 @@ actions.defineHttp({
         if (body.hasOwnProperty('cleanedServers') &&
           typeof body.cleanedServers === 'object' &&
           Array.isArray(body.cleanedServers)) {
-          ArangoAgency.set('Target/CleanedServers',
+          AvocadoAgency.set('Target/CleanedServers',
             body.cleanedServers);
         }
       } catch (e3) {
@@ -1175,7 +1175,7 @@ actions.defineHttp({
   prefix: false,
 
   callback: function (req, res) {
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only coordinators can serve this request');
       return;
@@ -1201,7 +1201,7 @@ actions.defineHttp({
 
     // First translate the server name from short name to long name:
     var server = body.server;
-    var servers = global.ArangoClusterInfo.getDBServers();
+    var servers = global.AvocadoClusterInfo.getDBServers();
     for (let i = 0; i < servers.length; i++) {
       if (servers[i].serverId !== server) {
         if (servers[i].serverName === server) {
@@ -1214,13 +1214,13 @@ actions.defineHttp({
     var ok = true;
     var id;
     try {
-      id = ArangoClusterInfo.uniqid();
+      id = AvocadoClusterInfo.uniqid();
       var todo = { 'type': 'cleanOutServer',
         'server': server,
         'jobId': id,
         'timeCreated': (new Date()).toISOString(),
-      'creator': ArangoServerState.id() };
-      ArangoAgency.set('Target/ToDo/' + id, todo);
+      'creator': AvocadoServerState.id() };
+      AvocadoAgency.set('Target/ToDo/' + id, todo);
     } catch (e1) {
       ok = false;
     }
@@ -1272,7 +1272,7 @@ actions.defineHttp({
   prefix: false,
 
   callback: function (req, res) {
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only coordinators can serve this request');
       return;
@@ -1305,7 +1305,7 @@ actions.defineHttp({
     }
     body.shards=[body.shard];
     body.collections=[body.collection];
-    var r = require('@arangodb/cluster').moveShard(body);
+    var r = require('@avocadodb/cluster').moveShard(body);
     if (r.error) {
       actions.resultError(req, res, actions.HTTP_SERVICE_UNAVAILABLE, r);
       return;
@@ -1349,7 +1349,7 @@ actions.defineHttp({
   prefix: false,
 
   callback: function (req, res) {
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only coordinators can serve this request');
       return;
@@ -1360,7 +1360,7 @@ actions.defineHttp({
       return;
     }
 
-    var result = require('@arangodb/cluster').shardDistribution();
+    var result = require('@avocadodb/cluster').shardDistribution();
     var dbsToCheck = []; var diff;
 
     var getDifference = function (a, b) {
@@ -1402,7 +1402,7 @@ actions.defineHttp({
       // get counts of leader and follower shard
       leaderOP = null;
       try {
-        leaderOP = ArangoClusterComm.asyncRequest('GET', 'server:' + shard.leader, '_system',
+        leaderOP = AvocadoClusterComm.asyncRequest('GET', 'server:' + shard.leader, '_system',
         '/_api/collection/' + shard.shard + '/count', '', {}, options);
       } catch (e) {
       }
@@ -1411,7 +1411,7 @@ actions.defineHttp({
       // introduce last minute log spam before the release (this was not logging either before restructuring it)
       let followerOps = shard.toCheck.map(follower => {
         try {
-        return ArangoClusterComm.asyncRequest('GET', 'server:' + follower, '_system', '/_api/collection/' + shard.shard + '/count', '', {}, options);
+        return AvocadoClusterComm.asyncRequest('GET', 'server:' + follower, '_system', '/_api/collection/' + shard.shard + '/count', '', {}, options);
         } catch (e) {
           return null;
         }
@@ -1425,7 +1425,7 @@ actions.defineHttp({
 
         let followerCount = 0;
         try {
-          followerR = ArangoClusterComm.wait(followerOp);
+          followerR = AvocadoClusterComm.wait(followerOp);
           if (followerR.status !== 'BACKEND_UNAVAILABLE') {
             try {
               followerBody = JSON.parse(followerR.body);
@@ -1444,7 +1444,7 @@ actions.defineHttp({
 
       let leaderCount = null;
       if (leaderOP) {
-        leaderR = ArangoClusterComm.wait(leaderOP);
+        leaderR = AvocadoClusterComm.wait(leaderOP);
         try {
           leaderBody = JSON.parse(leaderR.body);
           leaderCount = leaderBody.count;
@@ -1497,7 +1497,7 @@ actions.defineHttp({
   prefix: false,
 
   callback: function (req, res) {
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only coordinators can serve this request');
       return;
@@ -1518,7 +1518,7 @@ actions.defineHttp({
         'body must be an object.');
       return;
     }
-    var ok = require('@arangodb/cluster').rebalanceShards();
+    var ok = require('@avocadodb/cluster').rebalanceShards();
     if (!ok) {
       actions.resultError(req, res, actions.HTTP_SERVICE_UNAVAILABLE,
         'Cannot write to agency.');
@@ -1556,7 +1556,7 @@ actions.defineHttp({
   prefix: false,
 
   callback: function (req, res) {
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only coordinators can serve this request');
       return;
@@ -1567,7 +1567,7 @@ actions.defineHttp({
       return;
     }
 
-    var result = require('@arangodb/cluster').supervisionState();
+    var result = require('@avocadodb/cluster').supervisionState();
     if (result.error) {
       actions.resultError(req, res, actions.HTTP_BAD, result);
       return;
@@ -1602,7 +1602,7 @@ actions.defineHttp({
   prefix: false,
 
   callback: function (req, res) {
-    if (!require('@arangodb/cluster').isCoordinator()) {
+    if (!require('@avocadodb/cluster').isCoordinator()) {
       actions.resultError(req, res, actions.HTTP_FORBIDDEN, 0,
         'only coordinators can serve this request');
       return;
@@ -1613,7 +1613,7 @@ actions.defineHttp({
       return;
     }
 
-    var result = require('@arangodb/cluster').endpoints();
+    var result = require('@avocadodb/cluster').endpoints();
     if (result.error) {
       actions.resultError(req, res, actions.HTTP_BAD, result);
       return;

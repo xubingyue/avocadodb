@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,9 +29,9 @@
 #include "ProgramOptions/Section.h"
 #include "Random/UniformCharacter.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::basics;
+using namespace avocadodb::options;
 
 SslServerFeature* SslServerFeature::SSL = nullptr;
 
@@ -94,11 +94,11 @@ void SslServerFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
 }
 
 void SslServerFeature::prepare() {
-  LOG_TOPIC(INFO, arangodb::Logger::SSL) << "using SSL options: "
+  LOG_TOPIC(INFO, avocadodb::Logger::SSL) << "using SSL options: "
                                          << stringifySslOptions(_sslOptions);
 
   if (!_cipherList.empty()) {
-    LOG_TOPIC(INFO, arangodb::Logger::SSL) << "using SSL cipher-list '"
+    LOG_TOPIC(INFO, avocadodb::Logger::SSL) << "using SSL cipher-list '"
                                            << _cipherList << "'";
   }
 
@@ -110,31 +110,31 @@ void SslServerFeature::prepare() {
 }
 
 void SslServerFeature::unprepare() {
-  LOG_TOPIC(TRACE, arangodb::Logger::SSL) << "unpreparing ssl: "
+  LOG_TOPIC(TRACE, avocadodb::Logger::SSL) << "unpreparing ssl: "
                                           << stringifySslOptions(_sslOptions);
 }
 
 void SslServerFeature::verifySslOptions() {
   // check keyfile
   if (_keyfile.empty()) {
-    LOG_TOPIC(FATAL, arangodb::Logger::SSL) << "no value specified for '--ssl.keyfile'";
+    LOG_TOPIC(FATAL, avocadodb::Logger::SSL) << "no value specified for '--ssl.keyfile'";
     FATAL_ERROR_EXIT();
   }
 
   // validate protocol
   if (_sslProtocol <= SSL_UNKNOWN || _sslProtocol >= SSL_LAST) {
-    LOG_TOPIC(FATAL, arangodb::Logger::SSL)
+    LOG_TOPIC(FATAL, avocadodb::Logger::SSL)
         << "invalid SSL protocol version specified. Please use a valid "
            "value for '--ssl.protocol'";
     FATAL_ERROR_EXIT();
   }
 
-  LOG_TOPIC(DEBUG, arangodb::Logger::SSL)
+  LOG_TOPIC(DEBUG, avocadodb::Logger::SSL)
       << "using SSL protocol version '"
       << protocolName(SslProtocol(_sslProtocol)) << "'";
 
   if (!FileUtils::exists(_keyfile)) {
-    LOG_TOPIC(FATAL, arangodb::Logger::SSL) << "unable to find SSL keyfile '"
+    LOG_TOPIC(FATAL, avocadodb::Logger::SSL) << "unable to find SSL keyfile '"
                                             << _keyfile << "'";
     FATAL_ERROR_EXIT();
   }
@@ -142,7 +142,7 @@ void SslServerFeature::verifySslOptions() {
   try {
     createSslContext();
   } catch (...) {
-    LOG_TOPIC(FATAL, arangodb::Logger::SSL) << "cannot create SSL context";
+    LOG_TOPIC(FATAL, avocadodb::Logger::SSL) << "cannot create SSL context";
     FATAL_ERROR_EXIT();
   }
 }
@@ -174,7 +174,7 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
                                                       : SSL_SESS_CACHE_OFF);
 
     if (_sessionCache) {
-      LOG_TOPIC(TRACE, arangodb::Logger::SSL) << "using SSL session caching";
+      LOG_TOPIC(TRACE, avocadodb::Logger::SSL) << "using SSL session caching";
     }
 
     // set options
@@ -182,7 +182,7 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
 
     if (!_cipherList.empty()) {
       if (SSL_CTX_set_cipher_list(nativeContext, _cipherList.c_str()) != 1) {
-        LOG_TOPIC(ERR, arangodb::Logger::SSL) << "cannot set SSL cipher list '"
+        LOG_TOPIC(ERR, avocadodb::Logger::SSL) << "cannot set SSL cipher list '"
                                               << _cipherList
                                               << "': " << lastSSLError();
         throw std::runtime_error("cannot create SSL context");
@@ -194,7 +194,7 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
       int sslEcdhNid = OBJ_sn2nid(_ecdhCurve.c_str());
 
       if (sslEcdhNid == 0) {
-        LOG_TOPIC(ERR, arangodb::Logger::SSL)
+        LOG_TOPIC(ERR, avocadodb::Logger::SSL)
             << "SSL error: " << lastSSLError()
             << " Unknown curve name: " << _ecdhCurve;
         throw std::runtime_error("cannot create SSL context");
@@ -203,7 +203,7 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
       // https://www.openssl.org/docs/manmaster/apps/ecparam.html
       EC_KEY* ecdhKey = EC_KEY_new_by_curve_name(sslEcdhNid);
       if (ecdhKey == nullptr) {
-        LOG_TOPIC(ERR, arangodb::Logger::SSL)
+        LOG_TOPIC(ERR, avocadodb::Logger::SSL)
             << "SSL error: " << lastSSLError()
             << ". unable to create curve by name: " << _ecdhCurve;
         throw std::runtime_error("cannot create SSL context");
@@ -211,7 +211,7 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
 
       if (SSL_CTX_set_tmp_ecdh(nativeContext, ecdhKey) != 1) {
         EC_KEY_free(ecdhKey);
-        LOG_TOPIC(ERR, arangodb::Logger::SSL)
+        LOG_TOPIC(ERR, avocadodb::Logger::SSL)
             << "cannot set ECDH option" << lastSSLError();
         throw std::runtime_error("cannot create SSL context");
       }
@@ -226,7 +226,7 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
         nativeContext, (unsigned char const*)_rctx.c_str(), (int)_rctx.size());
 
     if (res != 1) {
-      LOG_TOPIC(ERR, arangodb::Logger::SSL)
+      LOG_TOPIC(ERR, avocadodb::Logger::SSL)
           << "cannot set SSL session id context '" << _rctx
           << "': " << lastSSLError();
       throw std::runtime_error("cannot create SSL context");
@@ -234,13 +234,13 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
 
     // check CA
     if (!_cafile.empty()) {
-      LOG_TOPIC(TRACE, arangodb::Logger::SSL)
+      LOG_TOPIC(TRACE, avocadodb::Logger::SSL)
           << "trying to load CA certificates from '" << _cafile << "'";
 
       int res = SSL_CTX_load_verify_locations(nativeContext, _cafile.c_str(), 0);
 
       if (res == 0) {
-        LOG_TOPIC(ERR, arangodb::Logger::SSL)
+        LOG_TOPIC(ERR, avocadodb::Logger::SSL)
             << "cannot load CA certificates from '" << _cafile
             << "': " << lastSSLError();
         throw std::runtime_error("cannot create SSL context");
@@ -251,13 +251,13 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
       certNames = SSL_load_client_CA_file(_cafile.c_str());
 
       if (certNames == nullptr) {
-        LOG_TOPIC(ERR, arangodb::Logger::SSL)
+        LOG_TOPIC(ERR, avocadodb::Logger::SSL)
             << "cannot load CA certificates from '" << _cafile
             << "': " << lastSSLError();
         throw std::runtime_error("cannot create SSL context");
       }
 
-      if (Logger::logLevel() == arangodb::LogLevel::TRACE) {
+      if (Logger::logLevel() == avocadodb::LogLevel::TRACE) {
         for (int i = 0; i < sk_X509_NAME_num(certNames); ++i) {
           X509_NAME* cert = sk_X509_NAME_value(certNames, i);
 
@@ -272,7 +272,7 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
             char* r;
             long len = BIO_get_mem_data(bout._bio, &r);
 
-            LOG_TOPIC(TRACE, arangodb::Logger::SSL) << "name: "
+            LOG_TOPIC(TRACE, avocadodb::Logger::SSL) << "name: "
                                                     << std::string(r, len);
           }
         }
@@ -285,11 +285,11 @@ boost::asio::ssl::context SslServerFeature::createSslContext() const {
 
     return sslContext;
   } catch (std::exception const& ex) {
-    LOG_TOPIC(ERR, arangodb::Logger::SSL)
+    LOG_TOPIC(ERR, avocadodb::Logger::SSL)
         << "failed to create SSL context: " << ex.what();
     throw std::runtime_error("cannot create SSL context");
   } catch (...) {
-    LOG_TOPIC(ERR, arangodb::Logger::SSL)
+    LOG_TOPIC(ERR, avocadodb::Logger::SSL)
         << "failed to create SSL context, cannot create HTTPS server";
     throw std::runtime_error("cannot create SSL context");
   }

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, _, Backbone, window, templateEngine, $ */
+/* global avocadoHelper, _, Backbone, window, templateEngine, $ */
 
 (function () {
   'use strict';
@@ -79,7 +79,7 @@
         // caret animation
         $('.db-row .fa-caret-down').hide();
         $('.db-row .fa-caret-right').show();
-        arangoHelper.arangoNotification('Permissions', 'No collections in "' + db + '" available.');
+        avocadoHelper.avocadoNotification('Permissions', 'No collections in "' + db + '" available.');
       }
     },
 
@@ -164,7 +164,7 @@
       } else {
         $.ajax({
           type: 'PUT',
-          url: arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db) + '/' + encodeURIComponent(collection)),
+          url: avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db) + '/' + encodeURIComponent(collection)),
           contentType: 'application/json',
           data: JSON.stringify({
             grant: value
@@ -182,7 +182,7 @@
 
       $.ajax({
         type: 'DELETE',
-        url: arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db) + '/' + encodeURIComponent(collection)),
+        url: avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db) + '/' + encodeURIComponent(collection)),
         contentType: 'application/json'
       }).success(function (e) {
         self.styleDefaultRadios(null, true);
@@ -199,7 +199,7 @@
       } else {
         $.ajax({
           type: 'PUT',
-          url: arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db)),
+          url: avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db)),
           contentType: 'application/json',
           data: JSON.stringify({
             grant: value
@@ -217,7 +217,7 @@
 
       $.ajax({
         type: 'DELETE',
-        url: arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db)),
+        url: avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(user) + '/database/' + encodeURIComponent(db)),
         contentType: 'application/json'
       }).success(function (e) {
         self.styleDefaultRadios(null, true);
@@ -234,10 +234,10 @@
       });
       this.breadcrumb();
 
-      var url = arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(self.currentUser.get('user')) + '/database?full=true');
+      var url = avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(self.currentUser.get('user')) + '/database?full=true');
       /*
       if (frontendConfig.db === '_system') {
-        url = arangoHelper.databaseUrl('/_api/user/root/database');
+        url = avocadoHelper.databaseUrl('/_api/user/root/database');
       }
       */
 
@@ -251,7 +251,7 @@
           self.finishRender(data.result, open, error);
         },
         error: function (data) {
-          arangoHelper.arangoError('User', 'Could not fetch user permissions');
+          avocadoHelper.avocadoError('User', 'Could not fetch user permissions');
         }
       });
     },
@@ -265,12 +265,12 @@
         $('#' + open).click();
       }
       if (error && error.responseJSON && error.responseJSON.errorMessage) {
-        arangoHelper.arangoError('User', error.responseJSON.errorMessage);
+        avocadoHelper.avocadoError('User', error.responseJSON.errorMessage);
       }
       // style default radio boxes
       this.styleDefaultRadios(permissions);
       // tooltips
-      arangoHelper.createTooltips();
+      avocadoHelper.createTooltips();
       // check if current user is root
       this.checkRoot();
     },
@@ -311,7 +311,7 @@
       };
 
       if (refresh) {
-        var url = arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(self.currentUser.get('user')) + '/database?full=true');
+        var url = avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(self.currentUser.get('user')) + '/database?full=true');
         // FETCH COMPLETE DB LIST
         $.ajax({
           type: 'GET',
@@ -321,7 +321,7 @@
             someFunction(data.result);
           },
           error: function (data) {
-            arangoHelper.arangoError('User', 'Could not fetch user permissions');
+            avocadoHelper.avocadoError('User', 'Could not fetch user permissions');
           }
         });
       } else {
@@ -337,7 +337,7 @@
         $('#subNavigationBar .breadcrumb').html(
           'User: ' + this.currentUser.get('user')
         );
-        arangoHelper.buildUserSubNav(self.currentUser.get('user'), 'Permissions');
+        avocadoHelper.buildUserSubNav(self.currentUser.get('user'), 'Permissions');
       } else {
         window.setTimeout(function () {
           self.breadcrumb();

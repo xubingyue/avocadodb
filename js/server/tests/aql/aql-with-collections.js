@@ -30,8 +30,8 @@
 
 var jsunity = require("jsunity");
 var internal = require("internal");
-var db = require("org/arangodb").db;
-var helper = require("org/arangodb/aql-helper");
+var db = require("org/avocadodb").db;
+var helper = require("org/avocadodb/aql-helper");
 var assertQueryError = helper.assertQueryError;
 
 ////////////////////////////////////////////////////////////////////////////////

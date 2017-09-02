@@ -45,7 +45,7 @@
 #include "Basics/StringUtils.h"
 #include "MMFiles/mmfiles-geo-index.h"
 
-using namespace arangodb::basics;
+using namespace avocadodb::basics;
 
 // -----------------------------------------------------------------------------
 // --SECTION--                                                 private variables

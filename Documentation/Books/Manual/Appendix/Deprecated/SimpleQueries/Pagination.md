@@ -18,7 +18,7 @@ result pages with 10 result documents per page, you can use <i>skip(n *
 should be sorted, so that the pagination works in a predicable way.
 
 ### Limit
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 limit
@@ -52,7 +52,7 @@ unclear which documents will be included in the result set.
 
 
 ### Skip
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
+<!-- js/common/modules/@avocadodb/simple-query-common.js -->
 
 
 skip
@@ -64,8 +64,8 @@ number of documents are skipped before returning the query results.
 In general the input to *skip* should be sorted. Otherwise it will be
 unclear which documents will be included in the result set.
 
-Note: using negative *skip* values is **deprecated** as of ArangoDB 2.6 and 
-will not be supported in future versions of ArangoDB.
+Note: using negative *skip* values is **deprecated** as of AvocadoDB 2.6 and 
+will not be supported in future versions of AvocadoDB.
 
 
 **Examples**

@@ -142,18 +142,18 @@ describe('Graph Viewer', function () {
       );
     });
 
-    it('should be able to be setup with a arango adapter', function () {
-      var adapterConfig = {type: 'arango'},
+    it('should be able to be setup with a avocado adapter', function () {
+      var adapterConfig = {type: 'avocado'},
         gv,
         width = 20,
         height = 10;
-      spyOn(window, 'ArangoAdapter').andReturn({
+      spyOn(window, 'AvocadoAdapter').andReturn({
         setChildLimit: function () {
           return undefined;
         }
       });
       gv = new GraphViewer(svg, width, height, adapterConfig);
-      expect(window.ArangoAdapter).wasCalledWith(
+      expect(window.AvocadoAdapter).wasCalledWith(
         jasmine.any(Array),
         jasmine.any(Array),
         gv,

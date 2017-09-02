@@ -1,10 +1,10 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
-require 'arangomultipartbody.rb'
+require 'avocadodb.rb'
+require 'avocadomultipartbody.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   prefix = "api-batch"
 
   context "dealing with HTTP batch requests:" do
@@ -17,7 +17,7 @@ describe ArangoDB do
 
       it "checks whether GET is allowed on /_api/batch" do
         cmd = "/_api/batch"
-        doc = ArangoDB.log_get("#{prefix}-get", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-get", cmd)
 
         doc.code.should eq(405)
         doc.parsed_response['error'].should eq(true) 
@@ -26,7 +26,7 @@ describe ArangoDB do
     
       it "checks whether HEAD is allowed on /_api/batch" do
         cmd = "/_api/batch"
-        doc = ArangoDB.log_head("#{prefix}-get", cmd)
+        doc = AvocadoDB.log_head("#{prefix}-get", cmd)
 
         doc.code.should eq(405)
         doc.response.body.should be_nil
@@ -34,7 +34,7 @@ describe ArangoDB do
     
       it "checks whether DELETE is allowed on /_api/batch" do
         cmd = "/_api/batch"
-        doc = ArangoDB.log_delete("#{prefix}-delete", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-delete", cmd)
 
         doc.code.should eq(405)
         doc.parsed_response['error'].should eq(true) 
@@ -43,7 +43,7 @@ describe ArangoDB do
     
       it "checks whether PATCH is allowed on /_api/batch" do
         cmd = "/_api/batch"
-        doc = ArangoDB.log_patch("#{prefix}-patch", cmd)
+        doc = AvocadoDB.log_patch("#{prefix}-patch", cmd)
 
         doc.code.should eq(405)
         doc.parsed_response['error'].should eq(true) 
@@ -60,7 +60,7 @@ describe ArangoDB do
       it "checks missing content-type" do
         cmd = "/_api/batch"
 
-        doc = ArangoDB.log_post("#{prefix}-post-ct-none", cmd, :body => "xx" )
+        doc = AvocadoDB.log_post("#{prefix}-post-ct-none", cmd, :body => "xx" )
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -70,7 +70,7 @@ describe ArangoDB do
       it "checks invalid content-type (xxx)" do
         cmd = "/_api/batch"
 
-        doc = ArangoDB.log_post("#{prefix}-post-ct-wrong-1", cmd, :body => "xx", :headers => { "Content-Type" => "xxx/xxx" } )
+        doc = AvocadoDB.log_post("#{prefix}-post-ct-wrong-1", cmd, :body => "xx", :headers => { "Content-Type" => "xxx/xxx" } )
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -80,7 +80,7 @@ describe ArangoDB do
       it "checks invalid content-type (json)" do
         cmd = "/_api/batch"
 
-        doc = ArangoDB.log_post("#{prefix}-post-ct-wrong-2", cmd, :body => "xx", :headers => { "Content-Type" => "application/json" } )
+        doc = AvocadoDB.log_post("#{prefix}-post-ct-wrong-2", cmd, :body => "xx", :headers => { "Content-Type" => "application/json" } )
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -90,7 +90,7 @@ describe ArangoDB do
       it "checks valid content-type with missing boundary" do
         cmd = "/_api/batch"
 
-        doc = ArangoDB.log_post("#{prefix}-post-boundary-wrong-1", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data" } )
+        doc = AvocadoDB.log_post("#{prefix}-post-boundary-wrong-1", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data" } )
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -100,7 +100,7 @@ describe ArangoDB do
       it "checks valid content-type with unexpected boundary" do
         cmd = "/_api/batch"
 
-        doc = ArangoDB.log_post("#{prefix}-post-boundary-wrong-2", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data; peng" } )
+        doc = AvocadoDB.log_post("#{prefix}-post-boundary-wrong-2", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data; peng" } )
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -110,7 +110,7 @@ describe ArangoDB do
       it "checks valid content-type with broken boundary" do
         cmd = "/_api/batch"
 
-        doc = ArangoDB.log_post("#{prefix}-post-boundary-wrong-3", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data; boundary=" } )
+        doc = AvocadoDB.log_post("#{prefix}-post-boundary-wrong-3", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data; boundary=" } )
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -120,7 +120,7 @@ describe ArangoDB do
       it "checks valid content-type with too short boundary" do
         cmd = "/_api/batch"
 
-        doc = ArangoDB.log_post("#{prefix}-post-boundary-wrong-4", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data; boundary=a" } )
+        doc = AvocadoDB.log_post("#{prefix}-post-boundary-wrong-4", cmd, :body => "xx", :headers => { "Content-Type" => "multipart/form-data; boundary=a" } )
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -137,18 +137,18 @@ describe ArangoDB do
       
       it "checks a multipart message assembled manually, broken boundary" do
         cmd = "/_api/batch"
-        body = "--SomeBoundaryValue\r\nContent-Type: application/x-arango-batchpart\r\n\r\nGET /_api/version HTTP/1.1\r\n\r\n--NotExistingBoundaryValue--"
+        body = "--SomeBoundaryValue\r\nContent-Type: application/x-avocado-batchpart\r\n\r\nGET /_api/version HTTP/1.1\r\n\r\n--NotExistingBoundaryValue--"
         
-        doc = ArangoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
+        doc = AvocadoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
 
         doc.code.should eq(400)
       end
       
       it "checks a multipart message assembled manually, no boundary" do
         cmd = "/_api/batch"
-        body = "Content-Type: application/x-arango-batchpart\r\n\r\nGET /_api/version HTTP/1.1\r\n\r\n"
+        body = "Content-Type: application/x-avocado-batchpart\r\n\r\nGET /_api/version HTTP/1.1\r\n\r\n"
         
-        doc = ArangoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
+        doc = AvocadoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
 
         doc.code.should eq(400)
       end
@@ -156,30 +156,30 @@ describe ArangoDB do
 
       it "checks a multipart message assembled manually" do
         cmd = "/_api/batch"
-        body = "--SomeBoundaryValue\r\nContent-Type: application/x-arango-batchpart\r\n\r\nGET /_api/version HTTP/1.1\r\n\r\n--SomeBoundaryValue--"
+        body = "--SomeBoundaryValue\r\nContent-Type: application/x-avocado-batchpart\r\n\r\nGET /_api/version HTTP/1.1\r\n\r\n--SomeBoundaryValue--"
         
-        doc = ArangoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
+        doc = AvocadoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
 
         doc.code.should eq(200)
       end
       
       it "checks a multipart message assembled manually, with 404 URLs" do
         cmd = "/_api/batch"
-        body = "--SomeBoundaryValue\r\nContent-Type: application/x-arango-batchpart\r\n\r\nGET /_api/nonexisting1 HTTP/1.1\r\n\r\n--SomeBoundaryValue\r\nContent-Type: application/x-arango-batchpart\r\n\r\nGET /_api/nonexisting2 HTTP/1.1\r\n\r\n--SomeBoundaryValue--"
+        body = "--SomeBoundaryValue\r\nContent-Type: application/x-avocado-batchpart\r\n\r\nGET /_api/nonexisting1 HTTP/1.1\r\n\r\n--SomeBoundaryValue\r\nContent-Type: application/x-avocado-batchpart\r\n\r\nGET /_api/nonexisting2 HTTP/1.1\r\n\r\n--SomeBoundaryValue--"
         
-        doc = ArangoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
+        doc = AvocadoDB.log_post("#{prefix}-post-version-manual", cmd, :body => body, :format => :plain)
 
         doc.code.should eq(200)
-        doc.headers['x-arango-errors'].should eq("2")
+        doc.headers['x-avocado-errors'].should eq("2")
       end
 
       
       it "checks an empty operation multipart message" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
 
-        doc = ArangoDB.log_post("#{prefix}-post-version-empty", cmd, :body => multipart.to_s, :format => :json, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-version-empty", cmd, :body => multipart.to_s, :format => :json, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true) 
@@ -189,10 +189,10 @@ describe ArangoDB do
       it "checks a multipart message with a single operation" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
 
         multipart.addPart("GET", "/_api/version", { }, "")
-        doc = ArangoDB.log_post("#{prefix}-post-version-one", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-version-one", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 
@@ -206,13 +206,13 @@ describe ArangoDB do
       it "checks a multipart message with a multiple operations" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
 
         multipart.addPart("GET", "/_api/version", { }, "")
         multipart.addPart("GET", "/_api/version", { }, "")
         multipart.addPart("GET", "/_api/version", { }, "")
         multipart.addPart("GET", "/_api/version", { }, "")
-        doc = ArangoDB.log_post("#{prefix}-post-version-mult", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-version-mult", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 
@@ -226,12 +226,12 @@ describe ArangoDB do
       it "checks a multipart message with many operations" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
 
         (1..128).each do
           multipart.addPart("GET", "/_api/version", { }, "")
         end
-        doc = ArangoDB.log_post("#{prefix}-post-version-many", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-version-many", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 
@@ -245,12 +245,12 @@ describe ArangoDB do
       it "checks a multipart message inside a multipart message" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
-        inner = ArangoMultipartBody.new("innerBoundary")
+        multipart = AvocadoMultipartBody.new()
+        inner = AvocadoMultipartBody.new("innerBoundary")
         inner.addPart("GET", "/_api/version", { }, "")
 
         multipart.addPart("POST", "/_api/batch", { "Content-Type" => "multipart/form-data; boundary=innerBoundary"}, inner.to_s)
-        doc = ArangoDB.log_post("#{prefix}-post-version-nested", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-version-nested", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 
@@ -264,8 +264,8 @@ describe ArangoDB do
       it "checks a few multipart messages inside a multipart message" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
-        inner = ArangoMultipartBody.new("innerBoundary")
+        multipart = AvocadoMultipartBody.new()
+        inner = AvocadoMultipartBody.new("innerBoundary")
         inner.addPart("GET", "/_api/version", { }, "")
         inner.addPart("GET", "/_api/version", { }, "")
         inner.addPart("GET", "/_api/version", { }, "")
@@ -274,7 +274,7 @@ describe ArangoDB do
         inner.addPart("GET", "/_api/version", { }, "")
 
         multipart.addPart("POST", "/_api/batch", { "Content-Type" => "multipart/form-data; boundary=innerBoundary"}, inner.to_s)
-        doc = ArangoDB.log_post("#{prefix}-post-version-nested", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-version-nested", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 
@@ -295,27 +295,27 @@ describe ArangoDB do
 
       before do
         @cn = "UnitTestsBatch"
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
       
       it "checks batch document creation" do
         cmd = "/_api/batch"
 
         # create 10 documents
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
         multipart.addPart("POST", "/_api/collection", { }, "{\"name\":\"#{@cn}\"}")
         (1..10).each do
           multipart.addPart("POST", "/_api/document?collection=#{@cn}", { }, "{\"a\":1,\"b\":2}")
         end
 
-        doc = ArangoDB.log_post("#{prefix}-post-documents", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-documents", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
-        doc.headers['x-arango-errors'].should be_nil
+        doc.headers['x-avocado-errors'].should be_nil
 
         parts = multipart.getParts(multipart.getBoundary, doc.response.body)
 
@@ -331,7 +331,7 @@ describe ArangoDB do
         end
 
         # check number of documents in collection  
-        doc = ArangoDB.log_get("#{prefix}-get-collection-figures", "/_api/collection/#{@cn}/figures")
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-figures", "/_api/collection/#{@cn}/figures")
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -352,23 +352,23 @@ describe ArangoDB do
       before do
         @cn = "UnitTestsBatch"
         @cn2 = "UnitTestsBatch2"
-        ArangoDB.drop_collection(@cn)
-        ArangoDB.drop_collection(@cn2)
-        cid = ArangoDB.create_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn2)
+        cid = AvocadoDB.create_collection(@cn)
       end
       
       after do
         @cn = "UnitTestsBatch"
         @cn2 = "UnitTestsBatch2"
-        ArangoDB.drop_collection(@cn)
-        ArangoDB.drop_collection(@cn2)
+        AvocadoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn2)
       end
 
       it "checks batch document creation" do
         cmd = "/_api/batch"
 
         n = 10
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
         (1..n).each do |partNumber|
           if partNumber % 2 == 1
             # should succeed
@@ -379,10 +379,10 @@ describe ArangoDB do
           end
         end
 
-        doc = ArangoDB.log_post("#{prefix}-post-documents", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-documents", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
-        doc.headers['x-arango-errors'].should eq("5")
+        doc.headers['x-avocado-errors'].should eq("5")
 
         parts = multipart.getParts(multipart.getBoundary, doc.response.body)
 
@@ -399,7 +399,7 @@ describe ArangoDB do
         end
 
         # check number of documents in collection  
-        doc = ArangoDB.log_get("#{prefix}-get-collection-figures", "/_api/collection/#{@cn}/figures")
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-figures", "/_api/collection/#{@cn}/figures")
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -419,21 +419,21 @@ describe ArangoDB do
 
       before do
         @cn = "UnitTestsBatch"
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "checks batch document creation" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
         (1..10).each do
           multipart.addPart("POST", "/_api/document?collection=#{@cn}", { }, "{\"a\":1,\"b\":2}")
         end
 
-        doc = ArangoDB.log_post("#{prefix}-post-documents", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-documents", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
-        doc.headers['x-arango-errors'].should eq("10")
+        doc.headers['x-avocado-errors'].should eq("10")
 
         parts = multipart.getParts(multipart.getBoundary, doc.response.body)
 
@@ -442,7 +442,7 @@ describe ArangoDB do
         end
 
         # check number of documents in collection  
-        doc = ArangoDB.log_get("#{prefix}-get-collection-figures", "/_api/collection/#{@cn}/figures")
+        doc = AvocadoDB.log_get("#{prefix}-get-collection-figures", "/_api/collection/#{@cn}/figures")
 
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -462,12 +462,12 @@ describe ArangoDB do
       it "checks a multipart message with content-ids" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
         multipart.addPart("GET", "/_api/version", { }, "", "part1")
         multipart.addPart("GET", "/_api/version", { }, "", "part2")
         multipart.addPart("GET", "/_api/version", { }, "", "part3")
 
-        doc = ArangoDB.log_post("#{prefix}-post-content-id", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-content-id", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 
@@ -484,12 +484,12 @@ describe ArangoDB do
       it "checks a multipart message with identical content-ids" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
         multipart.addPart("GET", "/_api/version", { }, "", "part1")
         multipart.addPart("GET", "/_api/version", { }, "", "part1")
         multipart.addPart("GET", "/_api/version", { }, "", "part1")
 
-        doc = ArangoDB.log_post("#{prefix}-post-content-id", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-content-id", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 
@@ -504,12 +504,12 @@ describe ArangoDB do
       it "checks a multipart message with very different content-ids" do
         cmd = "/_api/batch"
 
-        multipart = ArangoMultipartBody.new()
+        multipart = AvocadoMultipartBody.new()
         multipart.addPart("GET", "/_api/version", { }, "", "    abcdef.gjhdjslrt.sjgfjss@024n5nhg.sdffns.gdfnkddgme-fghnsnfg")
         multipart.addPart("GET", "/_api/version", { }, "", "a")
         multipart.addPart("GET", "/_api/version", { }, "", "94325.566335.5555hd.3553-4354333333333333 ")
 
-        doc = ArangoDB.log_post("#{prefix}-post-content-id", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
+        doc = AvocadoDB.log_post("#{prefix}-post-content-id", cmd, :body => multipart.to_s, :format => :plain, :headers => { "Content-Type" => "multipart/form-data; boundary=" + multipart.getBoundary })
 
         doc.code.should eq(200)
 

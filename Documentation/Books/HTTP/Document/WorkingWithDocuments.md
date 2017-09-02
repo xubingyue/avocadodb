@@ -1,7 +1,7 @@
 Working with Documents using REST
 =================================
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_READ
 
 #### Changes in 3.0 from 2.8:
@@ -9,7 +9,7 @@ Working with Documents using REST
 The *rev* query parameter has been withdrawn. The same effect can be
 achieved with the *If-Match* HTTP header.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_READ_HEAD
 
 #### Changes in 3.0 from 2.8:
@@ -17,7 +17,7 @@ achieved with the *If-Match* HTTP header.
 The *rev* query parameter has been withdrawn. The same effect can be
 achieved with the *If-Match* HTTP header.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_READ_ALL
 
 #### Changes in 3.0 from 2.8:
@@ -26,7 +26,7 @@ The collection name should now be specified in the URL path. The old
 way with the URL path */_api/document* and the required query parameter
 *collection* still works.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_CREATE
 
 #### Changes in 3.0 from 2.8:
@@ -37,7 +37,7 @@ way with the URL path */_api/document* and the required query parameter
 with one operation is new and the query parameter *returnNew* has been added.
 
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_REPLACE
 
 #### Changes in 3.0 from 2.8:
@@ -61,14 +61,14 @@ The collection name should now be specified in the URL path. The old
 way with the URL path */_api/document* and the required query parameter
 *collection* still works.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_REPLACE_MULTI
 
 #### Changes in 3.0 from 2.8:
 
 The multi document version is new in 3.0.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_UPDATE
 
 #### Changes in 3.0 from 2.8:
@@ -92,14 +92,14 @@ The collection name should now be specified in the URL path. The old
 way with the URL path */_api/document* and the required query parameter
 *collection* still works.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_UPDATE_MULTI
 
 #### Changes in 3.0 from 2.8:
 
 The multi document version is new in 3.0.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_DELETE
 
 #### Changes in 3.0 from 2.8:
@@ -116,7 +116,7 @@ situations or drivers. Essentially, one has to replace usage of the
 combination of *If-Match* given and *policy=last* no longer works, but can
 easily be achieved by leaving out the *If-Match* header.
 
-<!-- arangod/RestHandler/RestDocumentHandler.cpp -->
+<!-- avocadod/RestHandler/RestDocumentHandler.cpp -->
 @startDocuBlock REST_DOCUMENT_DELETE_MULTI
 
 #### Changes in 3.0 from 2.8:

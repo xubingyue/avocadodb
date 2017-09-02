@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false */
-/*global arango, Buffer */
+/*global avocado, Buffer */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test request module
@@ -30,7 +30,7 @@
 
 var jsunity = require('jsunity');
 var expect = require('chai').expect;
-var request = require('@arangodb/request');
+var request = require('@avocadodb/request');
 var url = require('url');
 var querystring = require('querystring');
 var qs = require('qs');
@@ -45,11 +45,11 @@ function RequestSuite () {
   var buildUrl = function (append, base) {
     base = base === false ? '' : '/_admin/echo';
     append = append || '';
-    return arango.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + base + append;
+    return avocado.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + base + append;
   };
   
   var buildUrlBroken = function (append) {
-    return arango.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + '/_not-there' + append;
+    return avocado.getEndpoint().replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:') + '/_not-there' + append;
   };
 
   return {

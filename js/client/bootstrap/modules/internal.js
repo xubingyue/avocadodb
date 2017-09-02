@@ -37,12 +37,12 @@
   // / @brief hide global variables
   // //////////////////////////////////////////////////////////////////////////////
 
-  if (global.ArangoConnection) {
-    exports.ArangoConnection = global.ArangoConnection;
+  if (global.AvocadoConnection) {
+    exports.AvocadoConnection = global.AvocadoConnection;
   }
 
   if (global.SYS_ARANGO) {
-    exports.arango = global.SYS_ARANGO;
+    exports.avocado = global.SYS_ARANGO;
     delete global.SYS_ARANGO;
   }
 
@@ -52,10 +52,10 @@
 
   exports.wal = {
     flush: function (waitForSync, waitForCollector) {
-      if (exports.arango) {
+      if (exports.avocado) {
         var wfs = waitForSync ? 'true' : 'false';
         var wfc = waitForCollector ? 'true' : 'false';
-        exports.arango.PUT('/_admin/wal/flush?waitForSync=' + wfs + '&waitForCollector=' + wfc, '');
+        exports.avocado.PUT('/_admin/wal/flush?waitForSync=' + wfs + '&waitForCollector=' + wfc, '');
         return;
       }
 
@@ -63,20 +63,20 @@
     },
 
     properties: function (value) {
-      if (exports.arango) {
+      if (exports.avocado) {
         if (value !== undefined) {
-          return exports.arango.PUT('/_admin/wal/properties', JSON.stringify(value));
+          return exports.avocado.PUT('/_admin/wal/properties', JSON.stringify(value));
         }
 
-        return exports.arango.GET('/_admin/wal/properties', '');
+        return exports.avocado.GET('/_admin/wal/properties', '');
       }
 
       throw 'not connected';
     },
 
     transactions: function () {
-      if (exports.arango) {
-        return exports.arango.GET('/_admin/wal/transactions', '');
+      if (exports.avocado) {
+        return exports.avocado.GET('/_admin/wal/transactions', '');
       }
 
       throw 'not connected';
@@ -88,8 +88,8 @@
   // //////////////////////////////////////////////////////////////////////////////
 
   exports.reloadAqlFunctions = function () {
-    if (exports.arango) {
-      exports.arango.POST('/_admin/aql/reload', '');
+    if (exports.avocado) {
+      exports.avocado.POST('/_admin/aql/reload', '');
       return;
     }
 
@@ -101,8 +101,8 @@
   // //////////////////////////////////////////////////////////////////////////////
 
   exports.reloadRouting = function () {
-    if (exports.arango) {
-      exports.arango.POST('/_admin/routing/reload', '');
+    if (exports.avocado) {
+      exports.avocado.POST('/_admin/routing/reload', '');
       return;
     }
 
@@ -114,8 +114,8 @@
   // //////////////////////////////////////////////////////////////////////////////
 
   exports.routingCache = function () {
-    if (exports.arango) {
-      return exports.arango.GET('/_admin/routing/routes', '');
+    if (exports.avocado) {
+      return exports.avocado.GET('/_admin/routing/routes', '');
     }
 
     throw 'not connected';
@@ -126,8 +126,8 @@
   // //////////////////////////////////////////////////////////////////////////////
 
   exports.reloadAuth = function () {
-    if (exports.arango) {
-      exports.arango.POST('/_admin/auth/reload', '');
+    if (exports.avocado) {
+      exports.avocado.POST('/_admin/auth/reload', '');
       return;
     }
 
@@ -153,24 +153,24 @@
       curl = 'shell> curl ';
 
       if (method === 'POST') {
-        response = exports.arango.POST_RAW(url, body, headers);
+        response = exports.avocado.POST_RAW(url, body, headers);
         curl += '-X ' + method + ' ';
       } else if (method === 'PUT') {
-        response = exports.arango.PUT_RAW(url, body, headers);
+        response = exports.avocado.PUT_RAW(url, body, headers);
         curl += '-X ' + method + ' ';
       } else if (method === 'GET') {
-        response = exports.arango.GET_RAW(url, headers);
+        response = exports.avocado.GET_RAW(url, headers);
       } else if (method === 'DELETE') {
-        response = exports.arango.DELETE_RAW(url, headers);
+        response = exports.avocado.DELETE_RAW(url, headers);
         curl += '-X ' + method + ' ';
       } else if (method === 'PATCH') {
-        response = exports.arango.PATCH_RAW(url, body, headers);
+        response = exports.avocado.PATCH_RAW(url, body, headers);
         curl += '-X ' + method + ' ';
       } else if (method === 'HEAD') {
-        response = exports.arango.HEAD_RAW(url, headers);
+        response = exports.avocado.HEAD_RAW(url, headers);
         curl += '-X ' + method + ' ';
       } else if (method === 'OPTION') {
-        response = exports.arango.OPTION_RAW(url, body, headers);
+        response = exports.avocado.OPTION_RAW(url, body, headers);
         curl += '-X ' + method + ' ';
       }
       if (headers !== undefined && headers !== '') {

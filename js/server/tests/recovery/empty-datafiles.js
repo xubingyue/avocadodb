@@ -1,7 +1,7 @@
 /* jshint globalstrict:false, strict:false, unused : false */
 /* global assertEqual, assertTrue */
 
-var db = require('@arangodb').db;
+var db = require('@avocadodb').db;
 var internal = require('internal');
 var jsunity = require('jsunity');
 var fs = require('fs');

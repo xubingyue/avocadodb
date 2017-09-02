@@ -6,9 +6,9 @@ considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
-- **Simple Queries**: Ideomatic interface in arangosh to perform trivial queries.
+- **Simple Queries**: Ideomatic interface in avocadosh to perform trivial queries.
   They are superseded by [AQL queries](../../../AQL/index.html), which can also
-  be run in arangosh. AQL is a language on its own and way more powerful than
+  be run in avocadosh. AQL is a language on its own and way more powerful than
   *Simple Queries* could ever be. In fact, the (still supported) *Simple Queries*
   are translated internally to AQL, then the AQL query is optimized and run
   against the database in recent versions, because of better performance and

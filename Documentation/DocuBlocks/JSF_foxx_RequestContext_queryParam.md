@@ -10,7 +10,7 @@ name `id` on it and constrain the format of this parameter by giving it a *joi* 
 Using this function will at first allow you to access this parameter in your
 route handler using `req.params(id)`, will reject any request having a paramter
 that does not match the *joi* definition and creates a documentation for this
-parameter in ArangoDBs WebInterface.
+parameter in AvocadoDBs WebInterface.
 
 For more information on *joi* see [the official Joi documentation](https://github.com/spumko/joi).
 

@@ -36,19 +36,19 @@ res.headers['X-Test'] = 'someValue'; // set header X-Test to "someValue"
 ```
 
 This will set the additional HTTP header *X-Test* to value *someValue*.  Other
-headers can be set as well. Note that ArangoDB might change the case of the
+headers can be set as well. Note that AvocadoDB might change the case of the
 header names to lower case when assembling the overall response that is sent to
 the caller.
 
 It is not necessary to explicitly set a *Content-Length* header for the response
-as ArangoDB will calculate the content length automatically and add this header
-itself. ArangoDB might also add a *Connection* header itself to handle HTTP
+as AvocadoDB will calculate the content length automatically and add this header
+itself. AvocadoDB might also add a *Connection* header itself to handle HTTP
 keep-alive.
 
-ArangoDB also supports automatic transformation of the body data to another
+AvocadoDB also supports automatic transformation of the body data to another
 format. Currently, the only supported transformations are base64-encoding and
 base64-decoding. Using the transformations, an action can create a base64
-encoded body and still let ArangoDB send the non-encoded version, for example:
+encoded body and still let AvocadoDB send the non-encoded version, for example:
 
 ```js
 res.body = 'VGhpcyBpcyBhIHRlc3Q=';
@@ -56,9 +56,9 @@ res.transformations = res.transformations || [ ]; // initialize
 res.transformations.push('base64decode'); // will base64 decode the response body
 ```
 
-When ArangoDB processes the response, it will base64-decode what's in *res.body*
+When AvocadoDB processes the response, it will base64-decode what's in *res.body*
 and set the HTTP header *Content-Encoding: binary*. The opposite can be achieved
-with the *base64encode* transformation: ArangoDB will then automatically
+with the *base64encode* transformation: AvocadoDB will then automatically
 base64-encode the body and set a *Content-Encoding: base64* HTTP header.
 
 Writing dynamic action handlers
@@ -151,7 +151,7 @@ Use the following for a permanent redirect:
     | db._routing.save({
     |  url: "/redirectMe",
     |  action: {
-    |    do: "@arangodb/actions/redirectRequest",
+    |    do: "@avocadodb/actions/redirectRequest",
     |    options: {
     |      permanently: true,
     |      destination: "/somewhere.else/"
@@ -261,7 +261,7 @@ will define the URL */test/url1*, */test/url2*, and */test/url3*:
 
 ### Writing Middleware
 
-Assume, you want to log every request in your namespace to the console. *(if ArangoDB is running
+Assume, you want to log every request in your namespace to the console. *(if AvocadoDB is running
 as a daemon, this will end up in the logfile)*. In this case you can easily define an
 action for the URL */subdirectory*. This action simply logs
 the requests, calls the next in line, and logs the response:
@@ -282,7 +282,7 @@ the requests, calls the next in line, and logs the response:
     @endDocuBlock MOD_08a_routingCreateOwnConsoleLog
 
 This function will now be available as *db://OwnMiddlewareTest/logRequest*. You need to
-tell ArangoDB that it is should use a prefix match and that the shortest match
+tell AvocadoDB that it is should use a prefix match and that the shortest match
 should win in this case:
 
     @startDocuBlockInline MOD_08b_routingCreateRouteToOwnConsoleLog
@@ -318,19 +318,19 @@ Now we add some other simple routings to test all this:
     |db._routing.save({
     |    url: "/subdirectory/ourtest/1",
     |    action: {
-    |      do: "@arangodb/actions/echoRequest"
+    |      do: "@avocadodb/actions/echoRequest"
     |    }
     });
     |db._routing.save({
     |    url: "/subdirectory/ourtest/2",
     |    action: {
-    |      do: "@arangodb/actions/echoRequest"
+    |      do: "@avocadodb/actions/echoRequest"
     |    }
     });
     |db._routing.save({
     |    url: "/subdirectory/ourtest/3",
     |    action: {
-    |      do: "@arangodb/actions/echoRequest"
+    |      do: "@avocadodb/actions/echoRequest"
     |    }
     });
     require("internal").reloadRouting()
@@ -366,10 +366,10 @@ Application Deployment
 ----------------------
 
 Using single routes or [bundles](#routing-bundles) can be
-become a bit messy in large applications. Kaerus has written a [deployment tool](https://github.com/kaerus/arangodep) in node.js.
+become a bit messy in large applications. Kaerus has written a [deployment tool](https://github.com/kaerus/avocadodep) in node.js.
 
 Note that there is also [Foxx](../../../Foxx/README.md) for building applications
-with ArangoDB.
+with AvocadoDB.
 
 Common Pitfalls when using Actions
 ----------------------------------
@@ -381,7 +381,7 @@ when calling the modified actions URL, you might have been hit by some
 caching issues.
 
 After any modification to the routing or actions, it is thus recommended to
-make the changes "live" by calling the following functions from within arangosh:
+make the changes "live" by calling the following functions from within avocadosh:
 
     @startDocuBlockInline MOD_09_routingReload
     @EXAMPLE_ARANGOSH_RUN{MOD_09_routingReload}
@@ -406,7 +406,7 @@ This might be troublesome if you use JavaScript's *===* operator when checking
 request parameter values.
 
 The same problem occurs with incoming HTTP headers. When sending the following
-header from a client to ArangoDB
+header from a client to AvocadoDB
 
     X-My-Value: 5
 
@@ -441,7 +441,7 @@ whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
     |      methods: [ "get", "post", "put" ]
     |    },
     |    action: {
-    |      do: "@arangodb/actions/echoRequest"
+    |      do: "@avocadodb/actions/echoRequest"
     |    }
     });
     require("internal").reloadRouting()

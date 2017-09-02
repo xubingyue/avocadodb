@@ -1,5 +1,5 @@
 /*jshint strict: false */
-/*global ArangoServerState*/
+/*global AvocadoServerState*/
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief static information required for the cluster interface
@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014-2015 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014-2015 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -22,18 +22,18 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael hackstein
-// / @author Copyright 2014-2015, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014-2015, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 var internal = require('internal');
 var db = internal.db;
-var cluster = require('@arangodb/cluster');
-var actions = require('@arangodb/actions');
-var STATISTICS_INTERVAL = require('@arangodb/statistics').STATISTICS_INTERVAL;
-var STATISTICS_HISTORY_INTERVAL = require('@arangodb/statistics').STATISTICS_HISTORY_INTERVAL;
+var cluster = require('@avocadodb/cluster');
+var actions = require('@avocadodb/actions');
+var STATISTICS_INTERVAL = require('@avocadodb/statistics').STATISTICS_INTERVAL;
+var STATISTICS_HISTORY_INTERVAL = require('@avocadodb/statistics').STATISTICS_HISTORY_INTERVAL;
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief percentChange
@@ -420,7 +420,7 @@ actions.defineHttp({
 
     if (dbServer === undefined) {
       if (cluster.isCluster()) {
-        clusterId = ArangoServerState.id();
+        clusterId = AvocadoServerState.id();
       }
     }else {
       clusterId = dbServer;
@@ -456,7 +456,7 @@ actions.defineHttp({
 
     if (dbServer === undefined) {
       if (cluster.isCluster()) {
-        clusterId = ArangoServerState.id();
+        clusterId = AvocadoServerState.id();
       }
     }else {
       clusterId = dbServer;

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Martin Schoenert
@@ -44,7 +44,7 @@
 #include "Logger/Logger.h"
 #include "Random/RandomGenerator.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ template <class Key, class Element>
 class AssocUnique {
  private:
   typedef void UserData;
-  typedef arangodb::basics::BucketPosition BucketPosition;
+  typedef avocadodb::basics::BucketPosition BucketPosition;
 
  public:
   typedef std::function<uint64_t(UserData*, Key const*)> HashKeyFuncType;
@@ -69,7 +69,7 @@ class AssocUnique {
 
   typedef std::function<bool(Element&)> CallbackElementFuncType;
 
-  typedef arangodb::basics::IndexBucket<Element, uint64_t, SIZE_MAX> Bucket;
+  typedef avocadodb::basics::IndexBucket<Element, uint64_t, SIZE_MAX> Bucket;
 
  private:
   std::vector<Bucket> _buckets;
@@ -553,7 +553,7 @@ class AssocUnique {
   void batchInsert(std::function<void*()> const& contextCreator,
                    std::function<void(void*)> const& contextDestroyer,
                    std::shared_ptr<std::vector<Element> const> data,
-                   std::shared_ptr<arangodb::basics::LocalTaskQueue> queue) {
+                   std::shared_ptr<avocadodb::basics::LocalTaskQueue> queue) {
     TRI_ASSERT(queue != nullptr);
     if (data->empty()) {
       // nothing to do
@@ -576,8 +576,8 @@ class AssocUnique {
 
     // allocate working space and coordination tools for tasks
 
-    std::shared_ptr<std::vector<arangodb::Mutex>> bucketMapLocker;
-    bucketMapLocker.reset(new std::vector<arangodb::Mutex>(_buckets.size()));
+    std::shared_ptr<std::vector<avocadodb::Mutex>> bucketMapLocker;
+    bucketMapLocker.reset(new std::vector<avocadodb::Mutex>(_buckets.size()));
 
     std::shared_ptr<std::vector<std::atomic<size_t>>> bucketFlags;
     bucketFlags.reset(new std::vector<std::atomic<size_t>>(_buckets.size()));
@@ -944,7 +944,7 @@ class AssocUnique {
       while (true) {
         step = RandomGenerator::interval(UINT32_MAX) % total;
         if (step > 10 &&
-            arangodb::basics::binaryGcd<uint64_t>(total, step) == 1) {
+            avocadodb::basics::binaryGcd<uint64_t>(total, step) == 1) {
           uint64_t initialPositionNr = 0;
           while (initialPositionNr == 0) {
             initialPositionNr = RandomGenerator::interval(UINT32_MAX) % total;
@@ -969,6 +969,6 @@ class AssocUnique {
   }
 };
 }  // namespace basics
-}  // namespace arangodb
+}  // namespace avocadodb
 
 #endif

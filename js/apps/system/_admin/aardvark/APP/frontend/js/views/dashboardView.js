@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global Backbone, $, window, arangoHelper, moment, nv, d3, prettyBytes */
+/* global Backbone, $, window, avocadoHelper, moment, nv, d3, prettyBytes */
 /* global document, console, frontendConfig, Dygraph, _,templateEngine */
 
 (function () {
@@ -567,7 +567,7 @@
       var self = this;
 
       $.ajax(
-        arangoHelper.databaseUrl('/_api/replication/applier-state'),
+        avocadoHelper.databaseUrl('/_api/replication/applier-state'),
         {async: true}
       ).done(
         function (d) {
@@ -653,7 +653,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/clusterNodeVersion?ServerID=' + this.serverInfo.target),
+          url: avocadoHelper.databaseUrl('/_admin/clusterNodeVersion?ServerID=' + this.serverInfo.target),
           contentType: 'application/json',
           processData: false,
           success: function (data) {
@@ -670,7 +670,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/clusterNodeEngine?ServerID=' + this.serverInfo.target),
+          url: avocadoHelper.databaseUrl('/_admin/clusterNodeEngine?ServerID=' + this.serverInfo.target),
           contentType: 'application/json',
           processData: false,
           success: function (data) {
@@ -685,7 +685,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/clusterNodeStats?ServerID=' + this.serverInfo.target),
+          url: avocadoHelper.databaseUrl('/_admin/clusterNodeStats?ServerID=' + this.serverInfo.target),
           contentType: 'application/json',
           processData: false,
           success: function (data) {
@@ -706,7 +706,7 @@
         $.ajax({
           type: 'GET',
           cache: false,
-          url: arangoHelper.databaseUrl('/_admin/statistics'),
+          url: avocadoHelper.databaseUrl('/_admin/statistics'),
           contentType: 'application/json',
           processData: false,
           success: function (data) {
@@ -717,14 +717,14 @@
           }
         });
       }
-      arangoHelper.createTooltips();
+      avocadoHelper.createTooltips();
     },
 
     getStatistics: function (callback, modalView) {
       var self = this;
       self.checkState();
 
-      var url = arangoHelper.databaseUrl('/_admin/aardvark/statistics/short', '_system');
+      var url = avocadoHelper.databaseUrl('/_admin/aardvark/statistics/short', '_system');
       var urlParams = '?start=';
 
       if (self.nextStart) {
@@ -777,7 +777,7 @@
       var urlParams = '?filter=' + this.dygraphConfig.mapStatToFigure[figure].join();
 
       if (self.server !== '-local-') {
-        url = self.server.endpoint + arangoHelper.databaseUrl('/_admin/aardvark/statistics/cluster');
+        url = self.server.endpoint + avocadoHelper.databaseUrl('/_admin/aardvark/statistics/cluster');
         urlParams += '&type=long&DBserver=' + self.server.target;
 
         if (!self.history.hasOwnProperty(self.server)) {

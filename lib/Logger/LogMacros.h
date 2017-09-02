@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2013 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ///
@@ -63,48 +63,48 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #define LOG_TOPIC(a, b)                                               \
-  !arangodb::Logger::isEnabled((arangodb::LogLevel::a), (b))          \
+  !avocadodb::Logger::isEnabled((avocadodb::LogLevel::a), (b))          \
       ? (void)0                                                       \
-      : arangodb::LogVoidify() & (arangodb::LoggerStream()            \
-                                  << (arangodb::LogLevel::a) << (b)   \
-                                  << arangodb::Logger::LINE(__LINE__) \
-                                  << arangodb::Logger::FILE(__FILE__) \
-                                  << arangodb::Logger::FUNCTION(__FUNCTION__))
+      : avocadodb::LogVoidify() & (avocadodb::LoggerStream()            \
+                                  << (avocadodb::LogLevel::a) << (b)   \
+                                  << avocadodb::Logger::LINE(__LINE__) \
+                                  << avocadodb::Logger::FILE(__FILE__) \
+                                  << avocadodb::Logger::FUNCTION(__FUNCTION__))
 
 #define LOG_TOPIC_RAW(a, b)                                           \
-  !arangodb::Logger::isEnabled((a), (b))                              \
+  !avocadodb::Logger::isEnabled((a), (b))                              \
       ? (void)0                                                       \
-      : arangodb::LogVoidify() & (arangodb::LoggerStream()            \
+      : avocadodb::LogVoidify() & (avocadodb::LoggerStream()            \
                                   << (a) << (b)                       \
-                                  << arangodb::Logger::LINE(__LINE__) \
-                                  << arangodb::Logger::FILE(__FILE__) \
-                                  << arangodb::Logger::FUNCTION(__FUNCTION__))
+                                  << avocadodb::Logger::LINE(__LINE__) \
+                                  << avocadodb::Logger::FILE(__FILE__) \
+                                  << avocadodb::Logger::FUNCTION(__FUNCTION__))
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief logs a message given that a condition is true
 ////////////////////////////////////////////////////////////////////////////////
 
 #define LOG_IF(a, cond)                                               \
-  !(arangodb::Logger::isEnabled((arangodb::LogLevel::a)) && (cond))   \
+  !(avocadodb::Logger::isEnabled((avocadodb::LogLevel::a)) && (cond))   \
       ? (void)0                                                       \
-      : arangodb::LogVoidify() & (arangodb::LoggerStream()            \
-                                  << (arangodb::LogLevel::a)          \
-                                  << arangodb::Logger::LINE(__LINE__) \
-                                  << arangodb::Logger::FILE(__FILE__) \
-                                  << arangodb::Logger::FUNCTION(__FUNCTION__))
+      : avocadodb::LogVoidify() & (avocadodb::LoggerStream()            \
+                                  << (avocadodb::LogLevel::a)          \
+                                  << avocadodb::Logger::LINE(__LINE__) \
+                                  << avocadodb::Logger::FILE(__FILE__) \
+                                  << avocadodb::Logger::FUNCTION(__FUNCTION__))
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief logs a message for a topic given that a condition is true
 ////////////////////////////////////////////////////////////////////////////////
 
 #define LOG_TOPIC_IF(a, b, cond)                                         \
-  !(arangodb::Logger::isEnabled((arangodb::LogLevel::a), (b)) && (cond)) \
+  !(avocadodb::Logger::isEnabled((avocadodb::LogLevel::a), (b)) && (cond)) \
       ? (void)0                                                          \
-      : arangodb::LogVoidify() & (arangodb::LoggerStream()               \
-                                  << (arangodb::LogLevel::a) << (b)      \
-                                  << arangodb::Logger::LINE(__LINE__)    \
-                                  << arangodb::Logger::FILE(__FILE__)    \
-                                  << arangodb::Logger::FUNCTION(__FUNCTION__))
+      : avocadodb::LogVoidify() & (avocadodb::LoggerStream()               \
+                                  << (avocadodb::LogLevel::a) << (b)      \
+                                  << avocadodb::Logger::LINE(__LINE__)    \
+                                  << avocadodb::Logger::FILE(__FILE__)    \
+                                  << avocadodb::Logger::FUNCTION(__FUNCTION__))
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief logs a message every N.the time
@@ -121,14 +121,14 @@
   ++LOG_OCCURRENCES;                                                  \
   if (++LOG_OCCURRENCES_MOD_N > n) LOG_OCCURRENCES_MOD_N -= n;        \
   if (LOG_OCCURRENCES_MOD_N == 1)                                     \
-  !(arangodb::Logger::isEnabled((arangodb::LogLevel::a)) &&           \
+  !(avocadodb::Logger::isEnabled((avocadodb::LogLevel::a)) &&           \
     (LOG_OCCURRENCES_MOD_N == 1))                                     \
       ? (void)0                                                       \
-      : arangodb::LogVoidify() & (arangodb::LoggerStream()            \
-                                  << (arangodb::LogLevel::a)          \
-                                  << arangodb::Logger::LINE(__LINE__) \
-                                  << arangodb::Logger::FILE(__FILE__) \
-                                  << arangodb::Logger::FUNCTION(__FUNCTION__))
+      : avocadodb::LogVoidify() & (avocadodb::LoggerStream()            \
+                                  << (avocadodb::LogLevel::a)          \
+                                  << avocadodb::Logger::LINE(__LINE__) \
+                                  << avocadodb::Logger::FILE(__FILE__) \
+                                  << avocadodb::Logger::FUNCTION(__FUNCTION__))
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief logs a message for a topic every N.the time
@@ -139,20 +139,20 @@
   ++LOG_OCCURRENCES;                                                  \
   if (++LOG_OCCURRENCES_MOD_N > n) LOG_OCCURRENCES_MOD_N -= n;        \
   if (LOG_OCCURRENCES_MOD_N == 1)                                     \
-  !(arangodb::Logger::isEnabled((arangodb::LogLevel::a), (b)) &&      \
+  !(avocadodb::Logger::isEnabled((avocadodb::LogLevel::a), (b)) &&      \
     (LOG_OCCURRENCES_MOD_N == 1))                                     \
       ? (void)0                                                       \
-      : arangodb::LogVoidify() & (arangodb::LoggerStream()            \
-                                  << (arangodb::LogLevel::a) << (b)   \
-                                  << arangodb::Logger::LINE(__LINE__) \
-                                  << arangodb::Logger::FILE(__FILE__) \
-                                  << arangodb::Logger::FUNCTION(__FUNCTION__))
+      : avocadodb::LogVoidify() & (avocadodb::LoggerStream()            \
+                                  << (avocadodb::LogLevel::a) << (b)   \
+                                  << avocadodb::Logger::LINE(__LINE__) \
+                                  << avocadodb::Logger::FILE(__FILE__) \
+                                  << avocadodb::Logger::FUNCTION(__FUNCTION__))
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief helper class for macros
 ////////////////////////////////////////////////////////////////////////////////
 
-namespace arangodb {
+namespace avocadodb {
 class LoggerStream;
 
 class LogVoidify {

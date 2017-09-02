@@ -256,5 +256,5 @@ You can use the explain helper to revalidate your query actually uses them.
 
 If you work with joins on edge collections you would typically aggregate over
 the internal fields *_id*, *_from* and *_to* (where *_id* equals *userId*,
-*_from* *friendOf* and *_to* would be *thisUser* in our examples). ArangoDB
+*_from* *friendOf* and *_to* would be *thisUser* in our examples). AvocadoDB
 implicitly creates indices on them.

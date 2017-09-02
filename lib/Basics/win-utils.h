@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Oreste Costa-Panaia
 ////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@ void TRI_SetWindowsServiceAbortFunction(TRI_serviceAbort_t);
 /// @brief logs a message to the windows event log.
 /// we rather are keen on logging something at all then on being able to work
 /// with fancy dynamic buffers; thus we work with a static buffer.
-/// the arango internal logging will handle that usually.
+/// the avocado internal logging will handle that usually.
 ////////////////////////////////////////////////////////////////////////////////
 
 void TRI_LogWindowsEventlog(char const* func, char const* file, int line,

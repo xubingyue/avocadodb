@@ -5,7 +5,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Daniel H. Larkin
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef UNITTESTS_CACHE_MOCK_SCHEDULER_H
@@ -36,7 +36,7 @@
 #include <thread>
 #include <vector>
 
-namespace arangodb {
+namespace avocadodb {
 namespace cache {
 
 class MockScheduler {
@@ -52,6 +52,6 @@ class MockScheduler {
 };
 
 };  // end namespace cache
-};  // end namespace arangodb
+};  // end namespace avocadodb
 
 #endif

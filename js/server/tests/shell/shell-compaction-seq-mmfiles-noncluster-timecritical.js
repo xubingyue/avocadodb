@@ -30,7 +30,7 @@
 
 var jsunity = require("jsunity");
 var internal = require("internal");
-var db = require("org/arangodb").db;
+var db = require("org/avocadodb").db;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief test suite: collection

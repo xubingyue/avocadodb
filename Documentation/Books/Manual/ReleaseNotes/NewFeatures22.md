@@ -2,7 +2,7 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.2.  ArangoDB 2.2 also contains several bugfixes that are not listed
+AvocadoDB 2.2.  AvocadoDB 2.2 also contains several bugfixes that are not listed
 here.
 
 AQL improvements
@@ -11,7 +11,7 @@ AQL improvements
 ### Data modification AQL queries
 
 Up to including version 2.1, AQL supported data retrieval operations only.
-Starting with ArangoDB version 2.2, AQL also supports the following 
+Starting with AvocadoDB version 2.2, AQL also supports the following 
 data modification operations:
 
 - INSERT: insert new documents into a collection
@@ -72,24 +72,24 @@ being executable:
 Write-ahead log
 ---------------
 
-All write operations in an ArangoDB server will now be automatically logged
+All write operations in an AvocadoDB server will now be automatically logged
 in the server's write-ahead log. The write-ahead log is a set of append-only 
 logfiles, and it is used in case of a crash recovery and for replication.
 
 Data from the write-ahead log will eventually be moved into the journals or
 datafiles of collections, allowing the server to remove older write-ahead logfiles. 
 
-Cross-collection transactions in ArangoDB should benefit considerably by this
+Cross-collection transactions in AvocadoDB should benefit considerably by this
 change, as less writes than in previous versions are required to ensure the data 
 of multiple collections are atomically and durably committed. All data-modifying 
 operations inside transactions (insert, update, remove) will write their 
 operations into the write-ahead log directly now. In previous versions, such 
 operations were buffered until the commit or rollback occurred. Transactions with
 multiple operations should therefore require less physical memory than in previous 
-versions of ArangoDB.
+versions of AvocadoDB.
   
 The data in the write-ahead log can also be used in the replication context. In
-previous versions of ArangoDB, replicating from a master required turning on a
+previous versions of AvocadoDB, replicating from a master required turning on a
 special replication logger on the master. The replication logger caused an extra
 write operation into the *_replication* system collection for each actual write
 operation. This extra write is now superfluous. Instead, slaves can read directly
@@ -101,7 +101,7 @@ For the configuration of the write-ahead log, please refer to [Write-ahead log o
 
 The introduction of the write-ahead log also removes the need to configure and
 start the replication logger on a master. Though the replication logger object
-is still available in ArangoDB 2.2 to ensure API compatibility, starting, stopping,
+is still available in AvocadoDB 2.2 to ensure API compatibility, starting, stopping,
 or configuring it will have no effect.
 
 
@@ -110,7 +110,7 @@ Performance improvements
 
 * Removed sorting of attribute names when in collection shaper
 
-  In previous versions of ArangoDB, adding a document with previously not-used
+  In previous versions of AvocadoDB, adding a document with previously not-used
   attribute names caused a full sort of all attribute names used in the 
   collection. The sorting was done to ensure fast comparisons of attribute
   names in some rare edge cases, but it considerably slowed down inserts into
@@ -127,7 +127,7 @@ Performance improvements
   was refilled with new documents. Now, index memory of primary indexes and hash 
   indexes is reclaimed instantly when the last document in a collection is removed.
 
-* Prevent buffering of long print results in arangosh's and arangod's print
+* Prevent buffering of long print results in avocadosh's and avocadod's print
   command
 
   This change will emit buffered intermediate print results and discard the
@@ -172,10 +172,10 @@ Miscellaneous improvements
       db.test.remove("foo", { overwrite: true, waitForSync: true })
       db.test.save({ bar: "baz" }, { waitForSync: true })
 
-* Added `--overwrite` option to arangoimp
+* Added `--overwrite` option to avocadoimp
 
   This allows removing all documents in a collection before importing into it
-  using arangoimp.
+  using avocadoimp.
 
 * Honor startup option `--server.disable-statistics` when deciding whether or not
   to start periodic statistics collection jobs
@@ -207,10 +207,10 @@ Miscellaneous improvements
 Removed features
 ----------------
 
-### MRuby integration for arangod
+### MRuby integration for avocadod
 
-ArangoDB had an experimental MRuby integration in some of the publish builds.
-This wasn't continuously developed, and so it has been removed in ArangoDB 2.2.
+AvocadoDB had an experimental MRuby integration in some of the publish builds.
+This wasn't continuously developed, and so it has been removed in AvocadoDB 2.2.
 
 This change has led to the following startup options being superfluous:
 
@@ -219,16 +219,16 @@ This change has led to the following startup options being superfluous:
 - `--ruby.modules-path`
 - `--ruby.startup-directory`
 
-Specifying these startup options will do nothing in ArangoDB 2.2, so using these 
+Specifying these startup options will do nothing in AvocadoDB 2.2, so using these 
 options should be avoided from now on as they might be removed in a future version
-of ArangoDB.
+of AvocadoDB.
 
 ### Removed startup options
 
-The following startup options have been removed in ArangoDB 2.2. Specifying them
+The following startup options have been removed in AvocadoDB 2.2. Specifying them
 in the server's configuration file will not produce an error to make migration
 easier. Still, usage of these options should be avoided as they will not have any
-effect and might fully be removed in a future version of ArangoDB:
+effect and might fully be removed in a future version of AvocadoDB:
 
 - `--database.remove-on-drop`
 - `--database.force-sync-properties`
@@ -243,17 +243,17 @@ effect and might fully be removed in a future version of ArangoDB:
 
 Multi Collection Graphs
 -----------------------
-ArangoDB is a multi model database with native graph support.
+AvocadoDB is a multi model database with native graph support.
 In version 2.2 the features for graphs have been improved by integration of a new graph module.
 All graphs created with the old module are automatically migrated into the new module but can still be used by the old module.
 
 ### New graph module
-Up to including version 2.1, ArangoDB offered a module for graphs and graph operations.
+Up to including version 2.1, AvocadoDB offered a module for graphs and graph operations.
 This module allowed you to use exactly one edge collection together with one vertex collection in a graph.
-With ArangoDB version 2.2 this graph module is deprecated and a new graph module is offered.
+With AvocadoDB version 2.2 this graph module is deprecated and a new graph module is offered.
 This new module allows to combine an arbitrary number of vertex collections and edge collections in the same graph.
 For each edge collection a list of collections containing source vertices and a list of collections containing target vertices can be defined.
-If an edge is stored ArangoDB checks if this edge is valid in this collection.
+If an edge is stored AvocadoDB checks if this edge is valid in this collection.
 Furthermore if a vertex is removed from one of the collections all connected edges will be removed as well, giving the guarantee of no loose ends in the graphs.
 The layout of the graph can be modified at runtime by adding or removing collections and changing the definitions for edge collections.
 All operations on the graph level are transactional by default.

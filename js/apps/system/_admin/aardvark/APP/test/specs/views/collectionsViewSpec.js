@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* global describe, beforeEach, afterEach, it, spyOn, expect*/
 /* global runs, waitsFor, jasmine, waits*/
-/* global $, console, arangoHelper */
+/* global $, console, avocadoHelper */
 (function () {
   'use strict';
   describe('Collections View', function () {
@@ -19,21 +19,21 @@
       div = document.createElement('div');
       div.id = 'content';
       document.body.appendChild(div);
-      edgeCol = new window.arangoCollectionModel({
+      edgeCol = new window.avocadoCollectionModel({
         id: 'e',
         type: 'edge',
         isSystem: false,
         name: 'e',
         status: 'loaded'
       });
-      docCol = new window.arangoCollectionModel({
+      docCol = new window.avocadoCollectionModel({
         id: 'd',
         type: 'document',
         isSystem: false,
         name: 'd',
         status: 'loaded'
       });
-      sysCol = new window.arangoCollectionModel({
+      sysCol = new window.avocadoCollectionModel({
         id: 's',
         type: 'document',
         isSystem: true,
@@ -45,7 +45,7 @@
       spyOn($, 'ajax').andCallFake(function (url) {
         return {done: function () {}};
       });
-      myStore = new window.arangoCollections(cols);
+      myStore = new window.avocadoCollections(cols);
       spyOn(window, 'isCoordinator').andReturn(isCoordinator);
       myView = new window.CollectionsView({
         collection: myStore
@@ -402,7 +402,7 @@
                     return {el: 1}
                 }
             })
-            spyOn(arangoHelper, "fixTooltips").andReturn()
+            spyOn(avocadoHelper, "fixTooltips").andReturn()
             spyOn(window, "$").andReturn(a)
             spyOn(a, "removeClass")
 

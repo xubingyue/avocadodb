@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@
 
 #include <iosfwd>
 
-namespace arangodb {
+namespace avocadodb {
 
 /// @brief a struct describing a C character array
 /// not responsible for memory management!
@@ -48,8 +48,8 @@ class StringRef {
   explicit StringRef(char const* data) : _data(data), _length(strlen(data)) {}
   
   /// @brief create a StringRef from a VPack slice (must be of type String)
-  explicit StringRef(arangodb::velocypack::Slice const& slice) : StringRef() {
-    arangodb::velocypack::ValueLength l;
+  explicit StringRef(avocadodb::velocypack::Slice const& slice) : StringRef() {
+    avocadodb::velocypack::ValueLength l;
     _data = slice.getString(l);
     _length = l;
   }
@@ -83,8 +83,8 @@ class StringRef {
   }
   
   /// @brief create a StringRef from a VPack slice of type String
-  StringRef& operator=(arangodb::velocypack::Slice const& slice) {
-    arangodb::velocypack::ValueLength l;
+  StringRef& operator=(avocadodb::velocypack::Slice const& slice) {
+    avocadodb::velocypack::ValueLength l;
     _data = slice.getString(l);
     _length = l;
     return *this;
@@ -176,54 +176,54 @@ class StringRef {
 
 }
 
-std::ostream& operator<<(std::ostream&, arangodb::StringRef const&);
+std::ostream& operator<<(std::ostream&, avocadodb::StringRef const&);
 
-inline bool operator==(arangodb::StringRef const& lhs, arangodb::StringRef const& rhs) {
+inline bool operator==(avocadodb::StringRef const& lhs, avocadodb::StringRef const& rhs) {
   return (lhs.size() == rhs.size() && memcmp(lhs.data(), rhs.data(), lhs.size()) == 0);
 }
 
-inline bool operator!=(arangodb::StringRef const& lhs, arangodb::StringRef const& rhs) {
+inline bool operator!=(avocadodb::StringRef const& lhs, avocadodb::StringRef const& rhs) {
   return !(lhs == rhs);
 }
 
-inline bool operator==(arangodb::StringRef const& lhs, std::string const& rhs) {
+inline bool operator==(avocadodb::StringRef const& lhs, std::string const& rhs) {
   return (lhs.size() == rhs.size() && memcmp(lhs.data(), rhs.c_str(), lhs.size()) == 0);
 }
 
-inline bool operator!=(arangodb::StringRef const& lhs, std::string const& rhs) {
+inline bool operator!=(avocadodb::StringRef const& lhs, std::string const& rhs) {
   return !(lhs == rhs);
 }
 
-inline bool operator==(arangodb::StringRef const& lhs, char const* rhs) {
+inline bool operator==(avocadodb::StringRef const& lhs, char const* rhs) {
   size_t const len = strlen(rhs);
   return (lhs.size() == len && memcmp(lhs.data(), rhs, lhs.size()) == 0);
 }
 
-inline bool operator!=(arangodb::StringRef const& lhs, char const* rhs) {
+inline bool operator!=(avocadodb::StringRef const& lhs, char const* rhs) {
   return !(lhs == rhs);
 }
 
-inline bool operator<(arangodb::StringRef const& lhs, arangodb::StringRef const& rhs) {
+inline bool operator<(avocadodb::StringRef const& lhs, avocadodb::StringRef const& rhs) {
   return (lhs.compare(rhs) < 0);
 }
 
-inline bool operator>(arangodb::StringRef const& lhs, arangodb::StringRef const& rhs) {
+inline bool operator>(avocadodb::StringRef const& lhs, avocadodb::StringRef const& rhs) {
   return (lhs.compare(rhs) > 0);
 }
 
 namespace std {
 
 template <>
-struct hash<arangodb::StringRef> {
-  size_t operator()(arangodb::StringRef const& value) const noexcept {
+struct hash<avocadodb::StringRef> {
+  size_t operator()(avocadodb::StringRef const& value) const noexcept {
     return XXH64(value.data(), value.size(), 0xdeadbeef); 
   }
 };
 
 template <>
-struct equal_to<arangodb::StringRef> {
-  bool operator()(arangodb::StringRef const& lhs,
-                  arangodb::StringRef const& rhs) const noexcept {
+struct equal_to<avocadodb::StringRef> {
+  bool operator()(avocadodb::StringRef const& lhs,
+                  avocadodb::StringRef const& rhs) const noexcept {
     return (lhs.size() == rhs.size() &&
             (memcmp(lhs.data(), rhs.data(), lhs.size()) == 0));
   }

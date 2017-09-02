@@ -1,7 +1,7 @@
 Crypto Module
 =============
 
-`const crypto = require('@arangodb/crypto')`
+`const crypto = require('@avocadodb/crypto')`
 
 The crypto module provides implementations of various hashing algorithms as well as cryptography related functions.
 

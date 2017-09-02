@@ -30,8 +30,8 @@ Example input data for this case:
 
 This format does not require each document to be on a separate line, and any
 whitespace in the JSON data is allowed. It can be used to import a
-JSON-formatted result array (e.g. from arangosh) back into ArangoDB.  Using this
-format requires ArangoDB to parse the complete array and keep it in memory for
+JSON-formatted result array (e.g. from avocadosh) back into AvocadoDB.  Using this
+format requires AvocadoDB to parse the complete array and keep it in memory for
 the duration of the import. This might be more resource-intensive than the
 line-wise processing.
 
@@ -48,7 +48,7 @@ curl --data-binary @- -X POST --dump - "http://localhost:8529/_api/import?type=d
 { "type" : "bird", "name" : "robin" }
 
 HTTP/1.1 201 Created
-Server: ArangoDB
+Server: AvocadoDB
 Connection: Keep-Alive
 Content-type: application/json; charset=utf-8
 

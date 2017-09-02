@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2010-2012 triagens GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,14 +26,14 @@
 /// Copyright holder is triAGENS GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 /// @author Copyright 2012, triAGENS GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 let jsunity = require("jsunity");
-let arangodb = require("@arangodb");
-let ERRORS = arangodb.errors;
-let db = arangodb.db;
+let avocadodb = require("@avocadodb");
+let ERRORS = avocadodb.errors;
+let db = avocadodb.db;
 let internal = require("internal");
 let fs = require("fs");
 let path = require("path");
@@ -60,7 +60,7 @@ function CollectionBinaryDocumentSuite () {
     },
 
     testBinaryDocument : function () {
-      const filename1 = path.resolve('js/apps/system/_admin/aardvark/APP/frontend/img/arangodb_logo_letter.png'.split('/').join(path.sep));
+      const filename1 = path.resolve('js/apps/system/_admin/aardvark/APP/frontend/img/avocadodb_logo_letter.png'.split('/').join(path.sep));
       const content = fs.readFileSync(filename1);
 
       const d1 = collection._binaryInsert({_key: "test", meta: "hallo"}, filename1);

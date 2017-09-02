@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/document"
   prefix = "attributes"
 
@@ -12,12 +12,12 @@ describe ArangoDB do
     before do
       @cn = "UnitTestsCollectionAttributes"
 
-      ArangoDB.drop_collection(@cn)
-      @cid = ArangoDB.create_collection(@cn)
+      AvocadoDB.drop_collection(@cn)
+      @cid = AvocadoDB.create_collection(@cn)
     end
 
     after do
-      ArangoDB.drop_collection(@cn)
+      AvocadoDB.drop_collection(@cn)
     end
 
 ################################################################################
@@ -27,14 +27,14 @@ describe ArangoDB do
     it "creates a document with an empty attribute name" do
       cmd = api + "?collection=" + @cn
       body = "{ \"\" : \"a\", \"foo\" : \"b\" }"
-      doc = ArangoDB.log_post("#{prefix}-create-empty-name", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-create-empty-name", cmd, :body => body)
 
       doc.code.should eq(201)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
       id = doc.parsed_response['_id']
 
       cmd = api + "/" + id
-      doc = ArangoDB.log_get("#{prefix}-create-empty-name", cmd)
+      doc = AvocadoDB.log_get("#{prefix}-create-empty-name", cmd)
 
       doc.parsed_response.should have_key('')
       doc.parsed_response.should have_key('foo')
@@ -47,13 +47,13 @@ describe ArangoDB do
     it "queries a document with an empty attribute name" do
       cmd = api + "?collection=" + @cn
       body = "{ \"\" : \"a\", \"foo\" : \"b\" }"
-      doc = ArangoDB.log_post("#{prefix}-query-empty-name", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-query-empty-name", cmd, :body => body)
 
       doc.code.should eq(201)
 
       cmd = "/_api/simple/all"
       body = "{ \"collection\" : \"" + @cn + "\" }"
-      doc = ArangoDB.log_put("#{prefix}-query-empty-name", cmd, :body => body)
+      doc = AvocadoDB.log_put("#{prefix}-query-empty-name", cmd, :body => body)
 
       documents = doc.parsed_response['result']
 
@@ -69,7 +69,7 @@ describe ArangoDB do
     it "creates a document with reserved attribute names" do
       cmd = api + "?collection=" + @cn
       body = "{ \"_rev\" : \"99\", \"foo\" : \"002\", \"_id\" : \"meow\", \"_from\" : \"a\", \"_to\" : \"b\", \"_test\" : \"c\", \"meow\" : \"d\" }"
-      doc = ArangoDB.log_post("#{prefix}-create-reserved-names", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-create-reserved-names", cmd, :body => body)
 
       doc.code.should eq(201)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -77,7 +77,7 @@ describe ArangoDB do
       id = doc.parsed_response['_id']
 
       cmd = api + "/" + id
-      doc = ArangoDB.log_get("#{prefix}-create-reserved-names", cmd)
+      doc = AvocadoDB.log_get("#{prefix}-create-reserved-names", cmd)
 
       doc.parsed_response['_id'].should eq(id)
       doc.parsed_response['_rev'].should_not eq('99')
@@ -97,14 +97,14 @@ describe ArangoDB do
     it "creates a document with nested attribute names" do
       cmd = api + "?collection=" + @cn
       body = "{ \"a\" : \"1\", \"b\" : { \"b\" : \"2\" , \"a\" : \"3\", \"\": \"4\", \"_key\": \"moetoer\", \"_from\": \"5\", \"_lol\" : false, \"c\" : 6 } }"
-      doc = ArangoDB.log_post("#{prefix}-create-duplicate-names", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-create-duplicate-names", cmd, :body => body)
 
       doc.code.should eq(201)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
       id = doc.parsed_response['_id']
 
       cmd = api + "/" + id
-      doc = ArangoDB.log_get("#{prefix}-create-empty-name", cmd)
+      doc = AvocadoDB.log_get("#{prefix}-create-empty-name", cmd)
       
       doc.parsed_response.should have_key('a')
       doc.parsed_response['a'].should eq('1')
@@ -127,7 +127,7 @@ describe ArangoDB do
     it "creates a document with duplicate attribute names" do
       cmd = api + "?collection=" + @cn
       body = "{ \"a\" : \"1\", \"b\" : \"2\", \"a\" : \"3\" }"
-      doc = ArangoDB.log_post("#{prefix}-create-duplicate-names", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-create-duplicate-names", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -144,7 +144,7 @@ describe ArangoDB do
     it "creates a document with nested duplicate attribute names" do
       cmd = api + "?collection=" + @cn
       body = "{ \"a\" : \"1\", \"b\" : { \"b\" : \"2\" , \"c\" : \"3\", \"b\": \"4\" } }"
-      doc = ArangoDB.log_post("#{prefix}-create-duplicate-names-nested", cmd, :body => body)
+      doc = AvocadoDB.log_post("#{prefix}-create-duplicate-names-nested", cmd, :body => body)
 
       doc.code.should eq(400)
       doc.headers['content-type'].should eq("application/json; charset=utf-8")

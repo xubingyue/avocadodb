@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,14 +32,14 @@
 
 #include <iostream>
 
-using namespace arangodb::application_features;
-using namespace arangodb::basics;
-using namespace arangodb::options;
+using namespace avocadodb::application_features;
+using namespace avocadodb::basics;
+using namespace avocadodb::options;
 
 namespace {
 // fail and abort with the specified message
 static void failCallback(std::string const& message) {
-  LOG_TOPIC(FATAL, arangodb::Logger::FIXME) << "error. cannot proceed. reason: " << message;
+  LOG_TOPIC(FATAL, avocadodb::Logger::FIXME) << "error. cannot proceed. reason: " << message;
   FATAL_ERROR_EXIT();
 }
 }
@@ -53,7 +53,7 @@ ApplicationServer::ApplicationServer(std::shared_ptr<ProgramOptions> options,
   fail = failCallback;
   
   if (ApplicationServer::server != nullptr) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "ApplicationServer initialized twice";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "ApplicationServer initialized twice";
   }
 
   ApplicationServer::server = this;

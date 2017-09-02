@@ -1,9 +1,9 @@
 Windows
 =======
 
-The default installation directory is *C:\Program Files\ArangoDB-3.x.x*. During the
+The default installation directory is *C:\Program Files\AvocadoDB-3.x.x*. During the
 installation process you may change this. In the following description we will assume
-that ArangoDB has been installed in the location *&lt;ROOTDIR&gt;*.
+that AvocadoDB has been installed in the location *&lt;ROOTDIR&gt;*.
 
 You have to be careful when choosing an installation directory. You need either
 write permission to this directory or you need to modify the configuration file
@@ -11,13 +11,13 @@ for the server process. In the latter case the database directory and the Foxx
 directory have to be writable by the user.
 
 ## Single- and Multiuser Installation
-There are two main modes for the installer of ArangoDB.
+There are two main modes for the installer of AvocadoDB.
 The installer lets you select:
 
 - multi user installation (default; admin privileges required)
-  Will install ArangoDB as service.
+  Will install AvocadoDB as service.
 - single user installation
-  Allow to install Arangodb as normal user.
+  Allow to install Avocadodb as normal user.
   Requires manual starting of the database server.
 
 ## CheckBoxes
@@ -40,14 +40,14 @@ the default paths for the installation in subsequent steps.
 The default installation paths are:
 
 Multi User Default:
-- Installation: *C:\Program Files\ArangoDB-3.x.x*
-- DataBase:     *C:\ProgramData\ArangoDB*
-- Foxx Service: *C:\ProgramData\ArangoDB-apps*
+- Installation: *C:\Program Files\AvocadoDB-3.x.x*
+- DataBase:     *C:\ProgramData\AvocadoDB*
+- Foxx Service: *C:\ProgramData\AvocadoDB-apps*
 
 Single User Default:
-- Installation: *C:\Users\\\<your user\>\AppData\Local\ArangoDB-3.x.x*
-- DataBase:     *C:\Users\\\<your user\>\AppData\Local\ArangoDB*
-- Foxx Service: *C:\Users\\\<your user\>\AppData\Local\ArangoDB-apps*
+- Installation: *C:\Users\\\<your user\>\AppData\Local\AvocadoDB-3.x.x*
+- DataBase:     *C:\Users\\\<your user\>\AppData\Local\AvocadoDB*
+- Foxx Service: *C:\Users\\\<your user\>\AppData\Local\AvocadoDB-apps*
 
 We are not using the roaming part of the user's profile, because doing so
 avoids the data being synced to the windows domain controller.
@@ -70,36 +70,36 @@ installation) or user's path (single user installation).
 Select if you want the installer to create Desktop Icons that let you:
 
 - access the web inteface
-- start the commandline client (arangosh)
+- start the commandline client (avocadosh)
 - start the database server (single user installation only)
 
 ## Upgrading from Previous Version
-If you are upgrading ArangoDB from an earlier version you need to copy your old
+If you are upgrading AvocadoDB from an earlier version you need to copy your old
 database directory [to the new default paths](#custom-install-paths). Upgrading
 will keep your old data, password and choice of storage engine as it is.
 Switching to the RocksDB storage engine requires a
-[export](../../Administration/Arangoexport.md) and
-[reimport](../../Administration/Arangoimp.md) of your data.
+[export](../../Administration/Avocadoexport.md) and
+[reimport](../../Administration/Avocadoimp.md) of your data.
 
 Starting
 --------
 
-If you installed ArangoDB for multiple users (as a service) it is automatically
+If you installed AvocadoDB for multiple users (as a service) it is automatically
 started. Otherwise you need to use the link that was created on you Desktop if
 you chose to let the installer create desktop icons or
 
-the executable *arangod.exe* located in
-*&lt;ROOTDIR&gt;\bin*. This will use the configuration file *arangod.conf*
-located in *&lt;ROOTDIR&gt;\etc\arangodb*, which you can adjust to your needs
-and use the data directory *&lt;ROOTDIR&gt;\var\lib\arangodb*. This is the place
+the executable *avocadod.exe* located in
+*&lt;ROOTDIR&gt;\bin*. This will use the configuration file *avocadod.conf*
+located in *&lt;ROOTDIR&gt;\etc\avocadodb*, which you can adjust to your needs
+and use the data directory *&lt;ROOTDIR&gt;\var\lib\avocadodb*. This is the place
 where all your data (databases and collections) will be stored by default.
 
-Please check the output of the *arangod.exe* executable before going on. If the
-server started successfully, you should see a line `ArangoDB is ready for
+Please check the output of the *avocadod.exe* executable before going on. If the
+server started successfully, you should see a line `AvocadoDB is ready for
 business. Have fun!` at the end of its output.
 
 We now wish to check that the installation is working correctly and to do this
-we will be using the administration web interface. Execute *arangod.exe* if you
+we will be using the administration web interface. Execute *avocadod.exe* if you
 have not already done so, then open up your web browser and point it to the
 page: 
 
@@ -115,44 +115,44 @@ containing the configuration files.
 Using the Client
 ----------------
 
-To connect to an already running ArangoDB server instance, there is a shell
-*arangosh.exe* located in *&lt;ROOTDIR&gt;\bin*. This starts a shell which can be
+To connect to an already running AvocadoDB server instance, there is a shell
+*avocadosh.exe* located in *&lt;ROOTDIR&gt;\bin*. This starts a shell which can be
 used – amongst other things – to administer and query a local or remote
-ArangoDB server.
+AvocadoDB server.
 
-Note that *arangosh.exe* does NOT start a separate server, it only starts the
+Note that *avocadosh.exe* does NOT start a separate server, it only starts the
 shell.  To use it you must have a server running somewhere, e.g. by using
-the *arangod.exe* executable.
+the *avocadod.exe* executable.
 
-*arangosh.exe* uses configuration from the file *arangosh.conf* located in
-*&lt;ROOTDIR&gt;\etc\arangodb\*. Please adjust this to your needs if you want to
+*avocadosh.exe* uses configuration from the file *avocadosh.conf* located in
+*&lt;ROOTDIR&gt;\etc\avocadodb\*. Please adjust this to your needs if you want to
 use different connection settings etc.
 
 Uninstalling
 ------------
 
-To uninstall the Arango server application you can use the windows control panel
+To uninstall the Avocado server application you can use the windows control panel
 (as you would normally uninstall an application). Note however, that any data
-files created by the Arango server will remain as well as the *&lt;ROOTDIR&gt;*
+files created by the Avocado server will remain as well as the *&lt;ROOTDIR&gt;*
 directory.  To complete the uninstallation process, remove the data files and
 the *&lt;ROOTDIR&gt;* directory manually.
 
 Limitations for Cygwin
 ----------------------
 
-Please note some important limitations when running ArangoDB under Cygwin:
-Starting ArangoDB can be started from out of a Cygwin terminal, but pressing
+Please note some important limitations when running AvocadoDB under Cygwin:
+Starting AvocadoDB can be started from out of a Cygwin terminal, but pressing
 *CTRL-C* will forcefully kill the server process without giving it a chance to
 handle the kill signal. In this case, a regular server shutdown is not possible,
 which may leave a file *LOCK* around in the server's data directory.  This file
-needs to be removed manually to make ArangoDB start again.  Additionally, as
-ArangoDB does not have a chance to handle the kill signal, the server cannot
+needs to be removed manually to make AvocadoDB start again.  Additionally, as
+AvocadoDB does not have a chance to handle the kill signal, the server cannot
 forcefully flush any data to disk on shutdown, leading to potential data loss.
-When starting ArangoDB from a Cygwin terminal it might also happen that no
-errors are printed in the terminal output.  Starting ArangoDB from an MS-DOS
+When starting AvocadoDB from a Cygwin terminal it might also happen that no
+errors are printed in the terminal output.  Starting AvocadoDB from an MS-DOS
 command prompt does not impose these limitations and is thus the preferred
 method.
 
-Please note that ArangoDB uses UTF-8 as its internal encoding and that the
+Please note that AvocadoDB uses UTF-8 as its internal encoding and that the
 system console must support a UTF-8 codepage (65001) and font. It may be
 necessary to manually switch the console font to a font that supports UTF-8.

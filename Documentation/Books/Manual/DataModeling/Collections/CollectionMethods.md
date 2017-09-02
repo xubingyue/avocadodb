@@ -2,7 +2,7 @@ Collection Methods
 ==================
 
 ### Drop
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 
 
 drops a collection
@@ -41,7 +41,7 @@ first.
 
 
 ### Truncate
-<!-- js/server/modules/@arangodb/arango-collection.js-->
+<!-- js/server/modules/@avocadodb/avocado-collection.js-->
 
 
 truncates a collection
@@ -70,11 +70,11 @@ Truncates a collection:
 
 
 ### Properties
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 @startDocuBlock collectionProperties
 
 ### Figures
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 
 
 returns the figures of a collection
@@ -107,10 +107,10 @@ memory.
   (in bytes).
 * *shapefiles.count*: The number of shape files. This value is
   deprecated and kept for compatibility reasons only. The value will always
-  be 0 since ArangoDB 2.0 and higher.
+  be 0 since AvocadoDB 2.0 and higher.
 * *shapefiles.fileSize*: The total filesize of the shape files. This
   value is deprecated and kept for compatibility reasons only. The value will
-  always be 0 in ArangoDB 2.0 and higher.
+  always be 0 in AvocadoDB 2.0 and higher.
 * *shapes.count*: The total number of shapes used in the collection.
   This includes shapes that are not in use anymore. Shapes that are contained
   in the write-ahead log only are not reported in this figure.
@@ -181,7 +181,7 @@ used as a lower bound approximation of the disk usage.
 
 
 ### Load
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 
 
 loads a collection
@@ -206,7 +206,7 @@ Loads a collection into memory.
 
 
 ### Revision
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 
 
 returns the revision id of a collection
@@ -235,13 +235,13 @@ The *path* operation returns a string with the physical storage path for
 the collection data.
 
 **Note**: this method will return nothing meaningful in a cluster. In a 
-single-server ArangoDB, this method will only return meaningful data for the 
+single-server AvocadoDB, this method will only return meaningful data for the 
 MMFiles engine.
 
 
 
 ### Checksum
-<!-- arangod/V8Server/v8-query.cpp -->
+<!-- avocadod/V8Server/v8-query.cpp -->
 
 
 calculates a checksum for the data in a collection
@@ -257,14 +257,14 @@ If the optional argument *withData* is set to *true*, then all user-defined
 document attributes are also checksummed. Including the document data in
 checksumming will make the calculation slower, but is more accurate.
 
-The checksum calculation algorithm changed in ArangoDB 3.0, so checksums from
+The checksum calculation algorithm changed in AvocadoDB 3.0, so checksums from
 3.0 and earlier versions for the same data will differ.
 
 **Note**: this method is not available in a cluster.
 
 
 ### Unload
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 
 
 unloads a collection
@@ -290,7 +290,7 @@ until all query have finished.
 
 
 ### Rename
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 
 
 renames a collection
@@ -324,7 +324,7 @@ database.
 
 
 ### Rotate
-<!-- arangod/V8Server/v8-collection.cpp -->
+<!-- avocadod/V8Server/v8-collection.cpp -->
 
 
 rotates the current journal of a collection

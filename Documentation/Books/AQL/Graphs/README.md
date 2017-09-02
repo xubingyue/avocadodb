@@ -1,12 +1,12 @@
 Graphs in AQL
 =============
 
-There are multiple ways to work with [graphs in ArangoDB](../../Manual/Graphs/index.html),
+There are multiple ways to work with [graphs in AvocadoDB](../../Manual/Graphs/index.html),
 as well as different ways to query your graphs using AQL.
 
 The two options in managing graphs are to either use
 
-- named graphs where ArangoDB manages the collections involved in one graph, or
+- named graphs where AvocadoDB manages the collections involved in one graph, or
 - graph functions on a combination of document and edge collections.
 
 Named graphs can be defined through the [graph-module](../../Manual/Graphs/GeneralGraphs/index.html)
@@ -29,6 +29,6 @@ These types of queries are only useful if you use edge collections and/or graphs
 your data model.
 
 {% hint 'info' %}
-New to graphs? [**Take our free graph course for freshers**](https://www.arangodb.com/arangodb-graph-course/)
+New to graphs? [**Take our free graph course for freshers**](https://www.avocadodb.com/avocadodb-graph-course/)
 and get from zero knowledge to advanced query techniques.
 {% endhint %}

@@ -2,9 +2,9 @@
 
 require 'rspec'
 require 'json'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/replication"
   prefix = "api-replication"
 
@@ -19,7 +19,7 @@ describe ArangoDB do
       it "fetches the server id" do
         # fetch id
         cmd = api + "/server-id"
-        doc = ArangoDB.log_get("#{prefix}-server-id", cmd)
+        doc = AvocadoDB.log_get("#{prefix}-server-id", cmd)
 
         doc.code.should eq(200)
         doc.parsed_response['serverId'].should match(/^\d+$/)
@@ -34,13 +34,13 @@ describe ArangoDB do
     context "dealing with the applier" do
 
       before do
-        ArangoDB.put(api + "/applier-stop", :body => "")
-        ArangoDB.delete(api + "/applier-state", :body => "")
+        AvocadoDB.put(api + "/applier-stop", :body => "")
+        AvocadoDB.delete(api + "/applier-state", :body => "")
       end
 
       after do
-        ArangoDB.put(api + "/applier-stop", :body => "")
-        ArangoDB.delete(api + "/applier-state", :body => "")
+        AvocadoDB.put(api + "/applier-stop", :body => "")
+        AvocadoDB.delete(api + "/applier-state", :body => "")
       end
 
 ################################################################################
@@ -49,7 +49,7 @@ describe ArangoDB do
 
       it "starts the applier" do
         cmd = api + "/applier-start"
-        doc = ArangoDB.log_put("#{prefix}-applier-start", cmd, :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-applier-start", cmd, :body => "")
         doc.code.should eq(400) # because configuration is invalid
       end
 
@@ -59,7 +59,7 @@ describe ArangoDB do
 
       it "stops the applier" do
         cmd = api + "/applier-stop"
-        doc = ArangoDB.log_put("#{prefix}-applier-start", cmd, :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-applier-start", cmd, :body => "")
         doc.code.should eq(200)
       end
 
@@ -69,7 +69,7 @@ describe ArangoDB do
 
       it "fetches the applier config" do
         cmd = api + "/applier-config"
-        doc = ArangoDB.log_get("#{prefix}-applier-config", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-applier-config", cmd, :body => "")
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -99,7 +99,7 @@ describe ArangoDB do
       it "sets and re-fetches the applier config" do
         cmd = api + "/applier-config"
         body = '{ "endpoint" : "tcp://127.0.0.1:9999", "database" : "foo", "ignoreErrors" : 5, "requestTimeout" : 32.2, "connectTimeout" : 51.1, "maxConnectRetries" : 12345, "chunkSize" : 143423232, "autoStart" : true, "adaptivePolling" : false, "autoResync" : true, "includeSystem" : true, "requireFromPresent" : true, "verbose" : true, "connectionRetryWaitTime" : 22.12, "initialSyncMaxWaitTime" : 12.21, "idleMinWaitTime" : 1.4, "idleMaxWaitTime" : 7.3 }'
-        doc = ArangoDB.log_put("#{prefix}-applier-config", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-applier-config", cmd, :body => body)
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -123,7 +123,7 @@ describe ArangoDB do
         all["idleMaxWaitTime"].should eq(7.3)
         
         # refetch same data
-        doc = ArangoDB.log_get("#{prefix}-applier-config", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-applier-config", cmd, :body => "")
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -148,7 +148,7 @@ describe ArangoDB do
         
 
         body = '{ "endpoint" : "ssl://127.0.0.1:12345", "database" : "bar", "ignoreErrors" : 2, "requestTimeout" : 12.5, "connectTimeout" : 26.3, "maxConnectRetries" : 12, "chunkSize" : 1234567, "autoStart" : false, "adaptivePolling" : true, "autoResync" : false, "includeSystem" : false, "requireFromPresent" : false, "verbose" : false, "connectionRetryWaitTime" : 2.5, "initialSyncMaxWaitTime" : 4.3, "idleMinWaitTime" : 0.22, "idleMaxWaitTime" : 3.5 }'
-        doc = ArangoDB.log_put("#{prefix}-applier-config", cmd, :body => body)
+        doc = AvocadoDB.log_put("#{prefix}-applier-config", cmd, :body => body)
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -172,7 +172,7 @@ describe ArangoDB do
         all["idleMaxWaitTime"].should eq(3.5)
 
         # refetch same data
-        doc = ArangoDB.log_get("#{prefix}-applier-config", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-applier-config", cmd, :body => "")
         
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -203,7 +203,7 @@ describe ArangoDB do
       it "checks the state" do
         # fetch state
         cmd = api + "/applier-state"
-        doc = ArangoDB.log_get("#{prefix}-applier-state", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-applier-state", cmd, :body => "")
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -249,7 +249,7 @@ describe ArangoDB do
       it "checks the state" do
         # fetch state
         cmd = api + "/logger-state"
-        doc = ArangoDB.log_get("#{prefix}-logger-state", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-logger-state", cmd, :body => "")
 
         doc.code.should eq(200)
 
@@ -275,7 +275,7 @@ describe ArangoDB do
       it "fetches the first available tick" do
         # fetch state
         cmd = api + "/logger-first-tick"
-        doc = ArangoDB.log_get("#{prefix}-logger-first-tick", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-logger-first-tick", cmd, :body => "")
 
         doc.code.should eq(200)
 
@@ -292,7 +292,7 @@ describe ArangoDB do
       it "fetches the available tick ranges" do
         # fetch state
         cmd = api + "/logger-tick-ranges"
-        doc = ArangoDB.log_get("#{prefix}-logger-tick-ranges", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-logger-tick-ranges", cmd, :body => "")
 
         doc.code.should eq(200)
 
@@ -316,13 +316,13 @@ describe ArangoDB do
       it "fetches the empty follow log" do
         while 1
           cmd = api + "/logger-state"
-          doc = ArangoDB.log_get("#{prefix}-follow-empty", cmd, :body => "")
+          doc = AvocadoDB.log_get("#{prefix}-follow-empty", cmd, :body => "")
           doc.code.should eq(200)
           doc.parsed_response["state"]["running"].should eq(true)
           fromTick = doc.parsed_response["state"]["lastLogTick"]
 
           cmd = api + "/logger-follow?from=" + fromTick
-          doc = ArangoDB.log_get("#{prefix}-follow-empty", cmd, :body => "", :format => :plain)
+          doc = AvocadoDB.log_get("#{prefix}-follow-empty", cmd, :body => "", :format => :plain)
 
           if doc.code != 204
             # someone else did something else
@@ -332,10 +332,10 @@ describe ArangoDB do
           else
             doc.code.should eq(204)
 
-            doc.headers["x-arango-replication-checkmore"].should eq("false")
-            doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-            doc.headers["x-arango-replication-lastincluded"].should eq("0")
-            doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+            doc.headers["x-avocado-replication-checkmore"].should eq("false")
+            doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+            doc.headers["x-avocado-replication-lastincluded"].should eq("0")
+            doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
          
             body = doc.response.body
             body.should eq(nil)
@@ -345,27 +345,27 @@ describe ArangoDB do
       end
       
       it "fetches a create collection action from the follow log" do
-        ArangoDB.drop_collection("UnitTestsReplication")
+        AvocadoDB.drop_collection("UnitTestsReplication")
         
         sleep 5
 
         cmd = api + "/logger-state"
-        doc = ArangoDB.log_get("#{prefix}-follow-create-collection", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-follow-create-collection", cmd, :body => "")
         doc.code.should eq(200)
         doc.parsed_response["state"]["running"].should eq(true)
         fromTick = doc.parsed_response["state"]["lastLogTick"]
 
-        cid = ArangoDB.create_collection("UnitTestsReplication")
+        cid = AvocadoDB.create_collection("UnitTestsReplication")
 
         sleep 5
 
         cmd = api + "/logger-follow?from=" + fromTick
-        doc = ArangoDB.log_get("#{prefix}-follow-create-collection", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-follow-create-collection", cmd, :body => "", :format => :plain)
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
          
         body = doc.response.body
         
@@ -409,45 +409,45 @@ describe ArangoDB do
       end
 
       it "fetches some collection operations from the follow log" do
-        ArangoDB.drop_collection("UnitTestsReplication")
+        AvocadoDB.drop_collection("UnitTestsReplication")
         
         sleep 5
 
         cmd = api + "/logger-state"
-        doc = ArangoDB.log_get("#{prefix}-follow-collection", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-follow-collection", cmd, :body => "")
         doc.code.should eq(200)
         doc.parsed_response["state"]["running"].should eq(true)
         fromTick = doc.parsed_response["state"]["lastLogTick"]
 
         # create collection 
-        cid = ArangoDB.create_collection("UnitTestsReplication")
+        cid = AvocadoDB.create_collection("UnitTestsReplication")
 
         # create document 
         cmd = "/_api/document?collection=UnitTestsReplication"
         body = "{ \"_key\" : \"test\", \"test\" : false }"
-        doc = ArangoDB.log_post("#{prefix}-follow-collection", cmd, :body => body) 
+        doc = AvocadoDB.log_post("#{prefix}-follow-collection", cmd, :body => body) 
         doc.code.should eq(201)
         rev = doc.parsed_response["_rev"]
         
         # delete document 
         cmd = "/_api/document/UnitTestsReplication/test"
-        doc = ArangoDB.log_delete("#{prefix}-follow-collection", cmd) 
+        doc = AvocadoDB.log_delete("#{prefix}-follow-collection", cmd) 
         doc.code.should eq(200)
 
         # drop collection
         cmd = "/_api/collection/UnitTestsReplication"
-        doc = ArangoDB.log_delete("#{prefix}-follow-collection", cmd) 
+        doc = AvocadoDB.log_delete("#{prefix}-follow-collection", cmd) 
         doc.code.should eq(200)
         
         sleep 5
 
         cmd = api + "/logger-follow?from=" + fromTick
-        doc = ArangoDB.log_get("#{prefix}-follow-create-collection", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-follow-create-collection", cmd, :body => "", :format => :plain)
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
         
         
         body = doc.response.body
@@ -549,14 +549,14 @@ describe ArangoDB do
     context "dealing with the initial dump" do
 
       before do
-        ArangoDB.drop_collection("UnitTestsReplication")
-        ArangoDB.drop_collection("UnitTestsReplication2")
+        AvocadoDB.drop_collection("UnitTestsReplication")
+        AvocadoDB.drop_collection("UnitTestsReplication2")
       end
 
       after do
-        ArangoDB.put(api + "/logger-stop", :body => "")
-        ArangoDB.drop_collection("UnitTestsReplication")
-        ArangoDB.drop_collection("UnitTestsReplication2")
+        AvocadoDB.put(api + "/logger-stop", :body => "")
+        AvocadoDB.drop_collection("UnitTestsReplication")
+        AvocadoDB.drop_collection("UnitTestsReplication2")
       end
 
 ################################################################################
@@ -565,7 +565,7 @@ describe ArangoDB do
 
       it "checks the initial inventory" do
         cmd = api + "/inventory?includeSystem=false"
-        doc = ArangoDB.log_get("#{prefix}-inventory", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-inventory", cmd, :body => "")
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -588,7 +588,7 @@ describe ArangoDB do
       
       it "checks the initial inventory for non-system collections" do
         cmd = api + "/inventory?includeSystem=false"
-        doc = ArangoDB.log_get("#{prefix}-inventory-system", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-inventory-system", cmd, :body => "")
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -603,7 +603,7 @@ describe ArangoDB do
       
       it "checks the initial inventory for system collections" do
         cmd = api + "/inventory?includeSystem=true"
-        doc = ArangoDB.log_get("#{prefix}-inventory-system", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-inventory-system", cmd, :body => "")
 
         doc.code.should eq(200)
         all = doc.parsed_response
@@ -622,11 +622,11 @@ describe ArangoDB do
       end
      
       it "checks the inventory after creating collections" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
-        cid2 = ArangoDB.create_collection("UnitTestsReplication2", true, 3)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
+        cid2 = AvocadoDB.create_collection("UnitTestsReplication2", true, 3)
        
         cmd = api + "/inventory?includeSystem=false"
-        doc = ArangoDB.log_get("#{prefix}-inventory-create", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-inventory-create", cmd, :body => "")
         doc.code.should eq(200)
         
         all = doc.parsed_response
@@ -691,32 +691,32 @@ describe ArangoDB do
       end
       
       it "checks the inventory with indexes" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
-        cid2 = ArangoDB.create_collection("UnitTestsReplication2", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
+        cid2 = AvocadoDB.create_collection("UnitTestsReplication2", false)
 
         body = "{ \"type\" : \"hash\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication", :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication", :body => body)
         doc.code.should eq(201)
         
         body = "{ \"type\" : \"skiplist\", \"unique\" : false, \"fields\" : [ \"c\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication", :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication", :body => body)
         doc.code.should eq(201)
         
         # create indexes for second collection
         body = "{ \"type\" : \"geo\", \"unique\" : false, \"fields\" : [ \"a\", \"b\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication2", :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication2", :body => body)
         doc.code.should eq(201)
         
         body = "{ \"type\" : \"skiplist\", \"unique\" : true, \"fields\" : [ \"d\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication2", :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication2", :body => body)
         doc.code.should eq(201)
         
         body = "{ \"type\" : \"fulltext\", \"minLength\" : 8, \"fields\" : [ \"ff\" ] }"
-        doc = ArangoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication2", :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-inventory2", "/_api/index?collection=UnitTestsReplication2", :body => body)
         doc.code.should eq(201)
         
         cmd = api + "/inventory"
-        doc = ArangoDB.log_get("#{prefix}-inventory2", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-inventory2", cmd, :body => "")
         doc.code.should eq(200)
         
         all = doc.parsed_response
@@ -818,40 +818,40 @@ describe ArangoDB do
 ################################################################################
 
       it "checks the dump for an empty collection" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         cmd = api + "/dump?collection=UnitTestsReplication"
-        doc = ArangoDB.log_get("#{prefix}-dump-empty", cmd, :body => "")
+        doc = AvocadoDB.log_get("#{prefix}-dump-empty", cmd, :body => "")
 
         doc.code.should eq(204)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("false")
-        doc.headers["x-arango-replication-lastincluded"].should eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("false")
+        doc.headers["x-avocado-replication-lastincluded"].should eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
         doc.response.body.should eq(nil)
       end
       
       it "checks the dump for a non-empty collection" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
         (0...100).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"test\" : " + i.to_s + " }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
           doc.code.should eq(202)
         }
 
         cmd = api + "/dump?collection=UnitTestsReplication"
-        doc = ArangoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
 
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("false")
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("false")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
 
         body = doc.response.body
         i = 0
@@ -876,26 +876,26 @@ describe ArangoDB do
       end
 
       it "checks the dump for a non-empty collection, small chunkSize" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
         (0...100).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"test\" : " + i.to_s + " }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
           doc.code.should eq(202)
         }
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         cmd = api + "/dump?collection=UnitTestsReplication&chunkSize=1024"
-        doc = ArangoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
 
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("true")
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("true")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
 
         body = doc.response.body
         i = 0
@@ -921,27 +921,27 @@ describe ArangoDB do
 
       
       it "checks the dump for an edge collection" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
-        cid2 = ArangoDB.create_collection("UnitTestsReplication2", false, 3)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
+        cid2 = AvocadoDB.create_collection("UnitTestsReplication2", false, 3)
 
         (0...100).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"_from\" : \"UnitTestsReplication/foo\", \"_to\" : \"UnitTestsReplication/bar\", \"test1\" : " + i.to_s + ", \"test2\" : false, \"test3\" : [ ], \"test4\" : { } }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication2", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication2", :body => body)
           doc.code.should eq(202)
         }
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         cmd = api + "/dump?collection=UnitTestsReplication2&chunkSize=65536"
-        doc = ArangoDB.log_get("#{prefix}-dump-edge", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-dump-edge", cmd, :body => "", :format => :plain)
 
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("false")
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("false")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
 
         body = doc.response.body
         i = 0
@@ -971,27 +971,27 @@ describe ArangoDB do
       end
       
       it "checks the dump for an edge collection, 2.8 compat mode" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
-        cid2 = ArangoDB.create_collection("UnitTestsReplication2", false, 3)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
+        cid2 = AvocadoDB.create_collection("UnitTestsReplication2", false, 3)
 
         (0...100).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"_from\" : \"UnitTestsReplication/foo\", \"_to\" : \"UnitTestsReplication/bar\", \"test1\" : " + i.to_s + ", \"test2\" : false, \"test3\" : [ ], \"test4\" : { } }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication2", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication2", :body => body)
           doc.code.should eq(202)
         }
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         cmd = api + "/dump?collection=UnitTestsReplication2&chunkSize=65536&compat28=true"
-        doc = ArangoDB.log_get("#{prefix}-dump-edge", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-dump-edge", cmd, :body => "", :format => :plain)
 
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("false")
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("false")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
 
         body = doc.response.body
         i = 0
@@ -1026,27 +1026,27 @@ describe ArangoDB do
       end
 
       it "checks the dump for an edge collection, small chunkSize" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
-        cid2 = ArangoDB.create_collection("UnitTestsReplication2", false, 3)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
+        cid2 = AvocadoDB.create_collection("UnitTestsReplication2", false, 3)
 
         (0...100).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"_from\" : \"UnitTestsReplication/foo\", \"_to\" : \"UnitTestsReplication/bar\", \"test1\" : " + i.to_s + ", \"test2\" : false, \"test3\" : [ ], \"test4\" : { } }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication2", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication2", :body => body)
           doc.code.should eq(202)
         }
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         cmd = api + "/dump?collection=UnitTestsReplication2&chunkSize=1024"
-        doc = ArangoDB.log_get("#{prefix}-dump-edge", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-dump-edge", cmd, :body => "", :format => :plain)
 
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("true")
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("true")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
 
         body = doc.response.body
         i = 0
@@ -1076,31 +1076,31 @@ describe ArangoDB do
       end
       
       it "checks the dump for a collection with deleted documents" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         (0...10).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"test\" : " + i.to_s + " }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
           doc.code.should eq(202)
           
-          doc = ArangoDB.delete("/_api/document/UnitTestsReplication/test" + i.to_s, :body => body)
+          doc = AvocadoDB.delete("/_api/document/UnitTestsReplication/test" + i.to_s, :body => body)
           doc.code.should eq(202)
         }
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         cmd = api + "/dump?collection=UnitTestsReplication"
-        doc = ArangoDB.log_get("#{prefix}-deleted", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-deleted", cmd, :body => "", :format => :plain)
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("false")
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("false")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
 
         body = doc.response.body
         i = 0
@@ -1124,30 +1124,30 @@ describe ArangoDB do
       end
       
       it "checks the dump for a truncated collection" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
         (0...10).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"test\" : " + i.to_s + " }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
           doc.code.should eq(202)
         }
 
         # truncate
         cmd = "/_api/collection/UnitTestsReplication/truncate"
-        doc = ArangoDB.log_put("#{prefix}-truncated", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_put("#{prefix}-truncated", cmd, :body => "", :format => :plain)
         doc.code.should eq(200)
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         cmd = api + "/dump?collection=UnitTestsReplication"
-        doc = ArangoDB.log_get("#{prefix}-truncated", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-truncated", cmd, :body => "", :format => :plain)
         doc.code.should eq(200)
 
-        doc.headers["x-arango-replication-checkmore"].should eq("false")
-        doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-        doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-        doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+        doc.headers["x-avocado-replication-checkmore"].should eq("false")
+        doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+        doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+        doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
 
         body = doc.response.body
         i = 0
@@ -1173,16 +1173,16 @@ describe ArangoDB do
       end
       
       it "checks the dump for a non-empty collection, 3.0 mode" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
         (0...100).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"test\" : " + i.to_s + " }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
           doc.code.should eq(202)
         }
 
         cmd = api + "/dump?collection=UnitTestsReplication&compat28=false"
-        doc = ArangoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
 
         doc.code.should eq(200)
 
@@ -1211,16 +1211,16 @@ describe ArangoDB do
       end
       
       it "checks the dump for a non-empty collection, 2.8 compat mode" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
         (0...100).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"test\" : " + i.to_s + " }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
           doc.code.should eq(202)
         }
 
         cmd = api + "/dump?collection=UnitTestsReplication&compat28=true"
-        doc = ArangoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
+        doc = AvocadoDB.log_get("#{prefix}-dump-non-empty", cmd, :body => "", :format => :plain)
 
         doc.code.should eq(200)
 
@@ -1252,36 +1252,36 @@ describe ArangoDB do
       end
       
       it "fetches incremental parts of a collection dump" do
-        cid = ArangoDB.create_collection("UnitTestsReplication", false)
+        cid = AvocadoDB.create_collection("UnitTestsReplication", false)
 
         (0...10).each{|i|
           body = "{ \"_key\" : \"test" + i.to_s + "\", \"test\" : " + i.to_s + " }"
-          doc = ArangoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
+          doc = AvocadoDB.post("/_api/document?collection=UnitTestsReplication", :body => body)
           doc.code.should eq(202)
         }
 
-        doc = ArangoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
+        doc = AvocadoDB.log_put("#{prefix}-deleted", "/_admin/wal/flush?waitForSync=true&waitForCollector=true", :body => "")
         doc.code.should eq(200)
 
         fromTick = "0"
 
         (0...10).each{|i|
           cmd = api + "/dump?collection=UnitTestsReplication&from=" + fromTick + "&chunkSize=1"
-          doc = ArangoDB.log_get("#{prefix}-incremental", cmd, :body => "", :format => :plain)
+          doc = AvocadoDB.log_get("#{prefix}-incremental", cmd, :body => "", :format => :plain)
           doc.code.should eq(200)
 
           if i == 9
-            doc.headers["x-arango-replication-checkmore"].should eq("false")
+            doc.headers["x-avocado-replication-checkmore"].should eq("false")
           else
-            doc.headers["x-arango-replication-checkmore"].should eq("true")
+            doc.headers["x-avocado-replication-checkmore"].should eq("true")
           end 
 
-          doc.headers["x-arango-replication-lastincluded"].should match(/^\d+$/)
-          doc.headers["x-arango-replication-lastincluded"].should_not eq("0")
-          doc.headers["x-arango-replication-lastincluded"].to_i.should >= fromTick.to_i
-          doc.headers["content-type"].should eq("application/x-arango-dump; charset=utf-8")
+          doc.headers["x-avocado-replication-lastincluded"].should match(/^\d+$/)
+          doc.headers["x-avocado-replication-lastincluded"].should_not eq("0")
+          doc.headers["x-avocado-replication-lastincluded"].to_i.should >= fromTick.to_i
+          doc.headers["content-type"].should eq("application/x-avocado-dump; charset=utf-8")
           
-          fromTick = doc.headers["x-arango-replication-lastincluded"]
+          fromTick = doc.headers["x-avocado-replication-lastincluded"]
 
           body = doc.response.body
           document = JSON.parse(body)

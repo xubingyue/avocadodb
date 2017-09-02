@@ -5,7 +5,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Daniel H. Larkin
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "TransactionalStore.h"
@@ -40,7 +40,7 @@
 
 #include <chrono>
 
-using namespace arangodb::cache;
+using namespace avocadodb::cache;
 
 std::atomic<uint32_t> TransactionalStore::_sequence(0);
 
@@ -64,7 +64,7 @@ void TransactionalStore::Document::clear() {
 
 bool TransactionalStore::Document::empty() const { return (key == 0); }
 
-TransactionalStore::Transaction::Transaction(arangodb::cache::Transaction* c,
+TransactionalStore::Transaction::Transaction(avocadodb::cache::Transaction* c,
                                              rocksdb::Transaction* r)
     : cache(c), rocks(r) {}
 

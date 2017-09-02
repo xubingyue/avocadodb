@@ -43,7 +43,7 @@ Fetching the list of done jobs:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_getByType_01}
   var url = "/_api/version";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
 
   assert(response.code === 202);
@@ -59,7 +59,7 @@ Fetching the list of pending jobs:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_getByType_02}
   var url = "/_api/version";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('PUT', url, "", headers);
 
   assert(response.code === 202);
@@ -76,13 +76,13 @@ Querying the status of a pending job:
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_getByType_03}
   var url = "/_admin/sleep?duration=30";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var response = logCurlRequest('GET', url, "", headers);
 
   assert(response.code === 202);
   logRawResponse(response);
 
-  var queryId = response.headers['x-arango-async-id'];
+  var queryId = response.headers['x-avocado-async-id'];
   url = '/_api/job/pending'
   var response = logCurlRequest('GET', url);
   assert(response.code === 200);

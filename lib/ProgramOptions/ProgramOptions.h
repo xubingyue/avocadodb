@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@
 
 #include <velocypack/Builder.h>
 
-namespace arangodb {
+namespace avocadodb {
 namespace options {
 
 // program options data structure
@@ -187,7 +187,7 @@ class ProgramOptions {
   void printSectionsHelp() const;
   
   // returns a VPack representation of the option values
-  arangodb::velocypack::Builder toVPack(bool onlyTouched,
+  avocadodb::velocypack::Builder toVPack(bool onlyTouched,
                        std::unordered_set<std::string> const& exclude) const;
 
   // translate a shorthand option

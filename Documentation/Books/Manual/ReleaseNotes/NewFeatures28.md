@@ -2,9 +2,9 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.8. ArangoDB 2.8 also contains several bugfixes that are not listed
+AvocadoDB 2.8. AvocadoDB 2.8 also contains several bugfixes that are not listed
 here. For a list of bugfixes, please consult the
-[CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG).
+[CHANGELOG](https://github.com/avocadodb/avocadodb/blob/devel/CHANGELOG).
 
 AQL improvements
 ----------------
@@ -75,20 +75,20 @@ When given the following document
 {
   "tags": [
     "AQL",
-    "ArangoDB",
+    "AvocadoDB",
     "Index"
   ]
 }
 ```
 
-this index will now contain the individual values `"AQL"`, `"ArangoDB"` and `"Index"`.
+this index will now contain the individual values `"AQL"`, `"AvocadoDB"` and `"Index"`.
 
-Now the index can be used for finding all documents having `"ArangoDB"` somewhere in 
+Now the index can be used for finding all documents having `"AvocadoDB"` somewhere in 
 their `tags` array using the following AQL query:
 
 ```
 FOR doc IN posts
-  FILTER "ArangoDB" IN doc.tags[*]
+  FILTER "AvocadoDB" IN doc.tags[*]
   RETURN doc
 ```
 
@@ -99,7 +99,7 @@ sense when the index attribute is an array of objects, e.g.
 db._drop("posts");
 db._create("posts");
 db.posts.ensureIndex({ type: "hash", fields: [ "tags[*].name" ] });
-db.posts.insert({ tags: [ { name: "AQL" }, { name: "ArangoDB" }, { name: "Index" } ] });
+db.posts.insert({ tags: [ { name: "AQL" }, { name: "AvocadoDB" }, { name: "Index" } ] });
 db.posts.insert({ tags: [ { name: "AQL" }, { name: "2.8" } ] });
 ```
 
@@ -190,13 +190,13 @@ The following AQL functions have been added in 2.8:
 
 ### Miscellaneous improvements
 
-* the ArangoShell now provides the convenience function `db._explain(query)` for retrieving 
+* the AvocadoShell now provides the convenience function `db._explain(query)` for retrieving 
   a human-readable explanation of AQL queries. This function is a shorthand for
-  `require("org/arangodb/aql/explainer").explain(query)`.
+  `require("org/avocadodb/aql/explainer").explain(query)`.
 
 * the AQL query optimizer now automatically converts `LENGTH(collection-name)` to an optimized 
   expression that returns the number of documents in a collection. Previous versions of 
-  ArangoDB returned a warning when using this expression and also enumerated all documents
+  AvocadoDB returned a warning when using this expression and also enumerated all documents
   in the collection, which was inefficient.
 
 * improved performance of skipping over many documents in an AQL query when no
@@ -217,7 +217,7 @@ The following AQL functions have been added in 2.8:
 Deadlock detection
 ------------------
 
-ArangoDB 2.8 now has an automatic deadlock detection for transactions.
+AvocadoDB 2.8 now has an automatic deadlock detection for transactions.
 
 A deadlock is a situation in which two or more concurrent operations (user transactions
 or AQL queries) try to access the same resources (collections, documents) and need to 
@@ -225,7 +225,7 @@ wait for the others to finish, but none of them can make any progress.
 
 In case of such a deadlock, there would be no progress for any of the involved
 transactions, and none of the involved transactions could ever complete. This is
-completely undesirable, so the new automatic deadlock detection mechanism in ArangoDB
+completely undesirable, so the new automatic deadlock detection mechanism in AvocadoDB
 will automatically kick in and abort one of the transactions involved in such a deadlock. 
 Aborting means that all changes done by the transaction will be rolled back and error 
 29 (`deadlock detected`) will be thrown.
@@ -240,7 +240,7 @@ Replication
 -----------
 
 The following improvements for replication have been made in 2.8 (note: most of them
-have been backported to ArangoDB 2.7 as well):
+have been backported to AvocadoDB 2.7 as well):
 
 * added `autoResync` configuration parameter for continuous replication.
 
@@ -266,7 +266,7 @@ have been backported to ArangoDB 2.7 as well):
   used as a constant time span in which the slave will not poll the master for
   further changes. The default values are 0.5 seconds for `idleMinWaitTime` and
   2.5 seconds for `idleMaxWaitTime`, which correspond to the hard-coded values
-  used in previous versions of ArangoDB.
+  used in previous versions of AvocadoDB.
 
 * added `initialSyncMaxWaitTime` configuration parameter for initial and continuous
   replication
@@ -286,13 +286,13 @@ have been backported to ArangoDB 2.7 as well):
   the regular replication status check APIs.
 
 * added `async` attribute for `sync` and `syncCollection` operations called from
-  the ArangoShell. Setthing this attribute to `true` will make the synchronization 
+  the AvocadoShell. Setthing this attribute to `true` will make the synchronization 
   job on the server go into the background, so that the shell does not block. The
   status of the started asynchronous synchronization job can be queried from the 
-  ArangoShell like this:
+  AvocadoShell like this:
 
       /* starts initial synchronization */
-      var replication = require("org/arangodb/replication");
+      var replication = require("org/avocadodb/replication");
       var id = replication.sync({
         endpoint: "tcp://master.domain.org:8529",
         username: "myuser",
@@ -345,7 +345,7 @@ Foxx improvements
 
 * the module resolution used by `require` now behaves more like in node.js
 
-* the `org/arangodb/request` module now returns response bodies for error responses
+* the `org/avocadodb/request` module now returns response bodies for error responses
   by default. The old behavior of not returning bodies for error responses can be
   re-enabled by explicitly setting the option `returnBodyOnError` to `false`
 
@@ -354,16 +354,16 @@ Miscellaneous changes
 ---------------------
 
 The startup option `--server.hide-product-header` can be used to make the server 
-not send the HTTP response header `"Server: ArangoDB"` in its HTTP responses. This
+not send the HTTP response header `"Server: AvocadoDB"` in its HTTP responses. This
 can be used to conceal the server make from HTTP clients.
 By default, the option is turned off so the header is still sent as usual.
 
-arangodump and arangorestore now have better error reporting. Additionally, arangodump 
+avocadodump and avocadorestore now have better error reporting. Additionally, avocadodump 
 will now fail by default when trying to dump edges that refer to already dropped 
 collections. This can be circumvented by specifying the option `--force true` when 
-invoking arangodump.
+invoking avocadodump.
 
-arangoimp now provides an option `--create-collection-type` to specify the type of 
+avocadoimp now provides an option `--create-collection-type` to specify the type of 
 the collection to be created when `--create-collection` is set to `true`. Previously
 `--create-collection` always created document collections and the creation of edge
 collections was not possible. 

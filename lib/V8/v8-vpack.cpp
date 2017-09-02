@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@
 #include "Basics/VelocyPackHelper.h"
 #include "V8/v8-utils.h"
 
-using VelocyPackHelper = arangodb::basics::VelocyPackHelper;
+using VelocyPackHelper = avocadodb::basics::VelocyPackHelper;
 
 /// @brief maximum object nesting depth
 static int const MaxLevels = 64;
@@ -43,7 +43,7 @@ static int const MaxLevels = 64;
 
 static inline v8::Handle<v8::Value> ObjectVPackString(v8::Isolate* isolate,
                                                       VPackSlice const& slice) {
-  arangodb::velocypack::ValueLength l;
+  avocadodb::velocypack::ValueLength l;
   char const* val = slice.getString(l);
   if (l == 0) {
     return v8::String::Empty(isolate);
@@ -70,7 +70,7 @@ static v8::Handle<v8::Value> ObjectVPackObject(v8::Isolate* isolate,
 
   VPackObjectIterator it(slice, true);
   while (it.valid()) {
-    arangodb::velocypack::ValueLength l;
+    avocadodb::velocypack::ValueLength l;
     VPackSlice k = it.key(false);
 
     if (k.isString()) {
@@ -121,7 +121,7 @@ static v8::Handle<v8::Value> ObjectVPackObject(v8::Isolate* isolate,
       }
     }
 
-    if (arangodb::V8PlatformFeature::isOutOfMemory(isolate)) {
+    if (avocadodb::V8PlatformFeature::isOutOfMemory(isolate)) {
       THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
 
@@ -156,7 +156,7 @@ static v8::Handle<v8::Value> ObjectVPackArray(v8::Isolate* isolate,
     if (!val.IsEmpty()) {
       object->Set(j++, val);
     }
-    if (arangodb::V8PlatformFeature::isOutOfMemory(isolate)) {
+    if (avocadodb::V8PlatformFeature::isOutOfMemory(isolate)) {
       THROW_ARANGO_EXCEPTION(TRI_ERROR_OUT_OF_MEMORY);
     }
     it.next();
@@ -266,7 +266,7 @@ struct BuilderContext {
 
 template <typename T, bool inObject>
 static inline void AddValue(BuilderContext& context,
-                            arangodb::StringRef const& attributeName,
+                            avocadodb::StringRef const& attributeName,
                             T const& value) {
   if (inObject) {
     context.builder.add(attributeName.begin(), attributeName.size(), value);
@@ -282,7 +282,7 @@ static inline void AddValue(BuilderContext& context,
 template <bool performAllChecks, bool inObject>
 static int V8ToVPack(BuilderContext& context,
                      v8::Handle<v8::Value> const parameter,
-                     arangodb::StringRef const& attributeName) {
+                     avocadodb::StringRef const& attributeName) {
   if (parameter->IsNull() || parameter->IsUndefined()) {
     AddValue<VPackValue, inObject>(context, attributeName,
                                    VPackValue(VPackValueType::Null));
@@ -346,7 +346,7 @@ static int V8ToVPack(BuilderContext& context,
       }
 
       int res = V8ToVPack<performAllChecks, false>(context, value,
-                                                   arangodb::StringRef());
+                                                   avocadodb::StringRef());
 
       --context.level;
 
@@ -451,7 +451,7 @@ static int V8ToVPack(BuilderContext& context,
       }
 
       int res = V8ToVPack<performAllChecks, true>(
-          context, value, arangodb::StringRef(*str, str.length()));
+          context, value, avocadodb::StringRef(*str, str.length()));
 
       --context.level;
 
@@ -480,7 +480,7 @@ int TRI_V8ToVPack(v8::Isolate* isolate, VPackBuilder& builder,
   TRI_GET_GLOBALS();
   TRI_GET_GLOBAL_STRING(ToJsonKey);
   context.toJsonKey = ToJsonKey;
-  return V8ToVPack<true, false>(context, value, arangodb::StringRef());
+  return V8ToVPack<true, false>(context, value, avocadodb::StringRef());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -490,9 +490,9 @@ int TRI_V8ToVPack(v8::Isolate* isolate, VPackBuilder& builder,
 ////////////////////////////////////////////////////////////////////////////////
 
 int TRI_V8ToVPackSimple(v8::Isolate* isolate,
-                        arangodb::velocypack::Builder& builder,
+                        avocadodb::velocypack::Builder& builder,
                         v8::Handle<v8::Value> const value) {
   // a HandleScope must have been created by the caller already
   BuilderContext context(isolate, builder, false);
-  return V8ToVPack<false, false>(context, value, arangodb::StringRef());
+  return V8ToVPack<false, false>(context, value, avocadodb::StringRef());
 }

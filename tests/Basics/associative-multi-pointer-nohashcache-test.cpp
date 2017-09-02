@@ -42,7 +42,7 @@ using namespace std;
 // -----------------------------------------------------------------------------
 
 #define INIT_MULTI \
-  arangodb::basics::AssocMulti<void, void*, uint32_t, false> a1( \
+  avocadodb::basics::AssocMulti<void, void*, uint32_t, false> a1( \
       HashKey, HashElement, IsEqualKeyElement, IsEqualElementElement, IsEqualElementElementByKey);
 
 #define DESTROY_MULTI ;

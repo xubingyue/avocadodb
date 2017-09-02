@@ -1,10 +1,10 @@
 Write-ahead log
 ===============
 The Write-ahead log is part of the MMFiles storage engine; This doesn't apply to your
-ArangoDB if you are running with the [RocksDB](../Administration/Configuration/RocksDB.md)
+AvocadoDB if you are running with the [RocksDB](../Administration/Configuration/RocksDB.md)
 storage engine.
 
-Starting with version 2.2 ArangoDB stores all data-modification operation in
+Starting with version 2.2 AvocadoDB stores all data-modification operation in
 its write-ahead log. The write-ahead log is sequence of append-only files containing
 all the write operations that were executed on the server.
 
@@ -16,9 +16,9 @@ By default, each write-ahead logfile is 32 MiB in size. This size is configurabl
 option *--wal.logfile-size*.
 
 When a write-ahead logfile is full, it is set to read-only, and following operations will
-be written into the next write-ahead logfile. By default, ArangoDB will reserve some
+be written into the next write-ahead logfile. By default, AvocadoDB will reserve some
 spare logfiles in the background so switching logfiles should be fast. How many reserve
-logfiles ArangoDB will try to keep available in the background can be controlled by the
+logfiles AvocadoDB will try to keep available in the background can be controlled by the
 configuration option *--wal.reserve-logfiles*.
 
 Data contained in full write-ahead files will eventually be transferred into the journals or

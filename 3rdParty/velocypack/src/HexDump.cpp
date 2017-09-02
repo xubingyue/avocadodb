@@ -3,7 +3,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2015 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2015 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 /// @author Jan Steemann
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <ostream>
@@ -29,7 +29,7 @@
 #include "velocypack/velocypack-common.h"
 #include "velocypack/HexDump.h"
 
-using namespace arangodb::velocypack;
+using namespace avocadodb::velocypack;
 
 std::string HexDump::toHex(uint8_t value) {
   std::string result("0x");
@@ -66,7 +66,7 @@ std::string HexDump::toString() const {
   return result;
 }
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 
 std::ostream& operator<<(std::ostream& stream, HexDump const& hexdump) {

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global window, Backbone, $, arangoHelper */
+/* global window, Backbone, $, avocadoHelper */
 (function () {
   'use strict';
 
@@ -12,12 +12,12 @@
     },
 
     // url: frontendConfig.basePath + "/_api/gharial",
-    url: arangoHelper.databaseUrl('/_api/gharial'),
+    url: avocadoHelper.databaseUrl('/_api/gharial'),
 
     dropAndDeleteGraph: function (name, callback) {
       $.ajax({
         type: 'DELETE',
-        url: arangoHelper.databaseUrl('/_api/gharial/') + encodeURIComponent(name) + '?dropCollections=true',
+        url: avocadoHelper.databaseUrl('/_api/gharial/') + encodeURIComponent(name) + '?dropCollections=true',
         contentType: 'application/json',
         processData: true,
         success: function () {
@@ -32,7 +32,7 @@
     createNode: function (gName, gCollection, data, callback) {
       $.ajax({
         type: 'POST',
-        url: arangoHelper.databaseUrl('/_api/gharial/') + encodeURIComponent(gName) + '/vertex/' + encodeURIComponent(gCollection),
+        url: avocadoHelper.databaseUrl('/_api/gharial/') + encodeURIComponent(gName) + '/vertex/' + encodeURIComponent(gCollection),
         contentType: 'application/json',
         data: JSON.stringify(data),
         processData: true,
@@ -49,7 +49,7 @@
       $.ajax({
         cache: false,
         type: 'POST',
-        url: arangoHelper.databaseUrl('/_api/gharial/') + encodeURIComponent(gName) + '/edge/' + encodeURIComponent(gCollection),
+        url: avocadoHelper.databaseUrl('/_api/gharial/') + encodeURIComponent(gName) + '/edge/' + encodeURIComponent(gCollection),
         data: JSON.stringify(data),
         contentType: 'application/json',
         processData: false,

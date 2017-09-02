@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-ARANGODB="/usr/sbin/arangod"
+ARANGODB="/usr/sbin/avocadod"
 
 # source debconf library
 . /usr/share/debconf/confmodule
@@ -9,17 +9,17 @@ set +x
 db_get @CPACK_PACKAGE_NAME@/storage_engine
 STORAGE_ENGINE=$RET
 export GLIBCXX_FORCE_NEW=1
-sed -i /etc/arangodb3/arangod.conf -e "s;storage-engine = auto;storage-engine = $STORAGE_ENGINE;"
+sed -i /etc/avocadodb3/avocadod.conf -e "s;storage-engine = auto;storage-engine = $STORAGE_ENGINE;"
 
 if [ "$1" = "configure" -a -z "$2" ]; then
     db_get @CPACK_PACKAGE_NAME@/password
     # Escape backslashes and quotes 
     if [ -n "$RET" ]; then
         ARANGODB_DEFAULT_ROOT_PASSWORD=`echo "$RET"|sed -e 's;\\\\;\\\\\\\\;g' -e 's;";\\\\";g'` \
-                                      /usr/sbin/arango-init-database \
+                                      /usr/sbin/avocado-init-database \
 	                              --server.rest-server false \
 				      --server.statistics false --foxx.queues false \
-                                      --uid arangodb --gid arangodb || true
+                                      --uid avocadodb --gid avocadodb || true
     fi
     db_set @CPACK_PACKAGE_NAME@/password_again ""
     db_set @CPACK_PACKAGE_NAME@/password ""
@@ -29,7 +29,7 @@ fi
 # check if we should upgrade the database directory
 
 UPGRADE=false
-$ARANGODB --uid arangodb --gid arangodb --server.rest-server false --log.foreground-tty false --database.check-version \
+$ARANGODB --uid avocadodb --gid avocadodb --server.rest-server false --log.foreground-tty false --database.check-version \
     || UPGRADE=true
 
 db_get @CPACK_PACKAGE_NAME@/upgrade
@@ -38,20 +38,20 @@ if [ "$RET" = "true" ];  then
         db_get @CPACK_PACKAGE_NAME@/backup
 
         if [ "$RET" = "true" ];  then
-            BACKUP="/var/lib/arangodb3-`date +%F-%H-%M-%S`"
-            cp -a /var/lib/arangodb3 $BACKUP
+            BACKUP="/var/lib/avocadodb3-`date +%F-%H-%M-%S`"
+            cp -a /var/lib/avocadodb3 $BACKUP
             echo "A backup of your database files has been stored in $BACKUP."
         fi
 
         echo "Upgrading database files."
-        $ARANGODB --uid arangodb --gid arangodb --server.rest-server false --log.level error --database.auto-upgrade true
+        $ARANGODB --uid avocadodb --gid avocadodb --server.rest-server false --log.level error --database.auto-upgrade true
     else
         echo "Database files are up-to-date."
     fi
 elif [ "$UPGRADE" = "true" ];  then
     echo "Warning: database files need upgrade, automatic upgrade is disable, please do it manually."
     echo "After you've prepared your system for upgrade run "
-    echo "  /etc/init.d/arangodb3 upgrade"
+    echo "  /etc/init.d/avocadodb3 upgrade"
     echo "  dpkg --pending --configure"
     echo "after the packaging system is in stable state again."
 else
@@ -81,9 +81,9 @@ if test "@CPACK_SYSTEMD_FOUND@" -eq 1 ; then
     # End automatically added section
 else
     # Automatically added by dh_installinit
-    if [ -x "/etc/init.d/arangodb3" ]; then
-	update-rc.d arangodb3 defaults >/dev/null
-	invoke-rc.d arangodb3 start || exit $?
+    if [ -x "/etc/init.d/avocadodb3" ]; then
+	update-rc.d avocadodb3 defaults >/dev/null
+	invoke-rc.d avocadodb3 start || exit $?
     fi
     # End automatically added section
 fi

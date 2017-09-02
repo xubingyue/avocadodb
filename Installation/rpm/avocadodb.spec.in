@@ -1,0 +1,337 @@
+#
+# spec file for package avocadodb
+#
+#
+# Copyright (c) 2014 info@avocadodb.org
+#
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
+
+# Please submit bugfixes or comments via http://bugs.opensuse.org/
+#
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                  global variables
+## -----------------------------------------------------------------------------
+%global with_systemd 0
+%if @IS_SYSTEMD_INSTALL@
+%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
+%global with_systemd 1
+%endif
+%endif
+
+%define _cfgdir %{_sysconfdir}/avocadodb3
+%define _databasedir %{_localstatedir}/lib/avocadodb3
+%define _appdir %{_localstatedir}/lib/avocadodb3-apps
+%define _logdir %{_localstatedir}/log/avocadodb3
+
+%if 0%{?suse_version} >= 1230
+%define _piddir /run/avocadodb
+%else
+%define _piddir %{_localstatedir}/run/avocadodb
+%endif
+
+%define _skipFdupes 0
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                      package data
+## -----------------------------------------------------------------------------
+
+Name:           @CPACK_PACKAGE_NAME@
+Version:        @CPACK_PACKAGE_VERSION@
+Release:        @ARANGODB_PACKAGE_REVISION@
+Summary:        The open-source, multi-model NoSQL database
+License:        Apache-2.0
+Group:          Productivity/Databases/Servers
+Conflicts:	avocadodb, @CPACKG_PACKAGE_CONFLICTS@, @CPACKG_PACKAGE_CONFLICTS@-client, @CPACK_PACKAGE_NAME@-client
+Url:            http://www.avocadodb.com
+Vendor:         @CPACK_PACKAGE_VENDOR@
+Prefix:         @CPACK_PACKAGING_INSTALL_PREFIX@
+BuildRoot:      @CMAKE_CURRENT_BINARY_DIR@/_CPack_Packages/Linux/RPM/@CPACK_PACKAGE_FILE_NAME@
+
+%if %{with_systemd}
+BuildRequires: systemd-units
+Requires: systemd-units
+Requires(post): systemd-units
+Requires(preun): systemd-units
+Requires(postun): systemd-units
+%endif
+
+%{?systemd_requires}
+
+%define debug_package %{nil}
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                build dependencies
+## -----------------------------------------------------------------------------
+
+%package client
+Summary:        AvocadoDB shell as stand-alone package
+Group:          Productivity/Databases/Servers
+Conflicts:	avocadodb, @CPACKG_PACKAGE_CONFLICTS@, @CPACKG_PACKAGE_CONFLICTS@-client, @CPACK_PACKAGE_NAME@
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                build dependencies
+## -----------------------------------------------------------------------------
+
+%package debuginfo
+Summary:        AvocadoDB debug symbols
+Group:          Productivity/Databases/Servers
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                       description
+## -----------------------------------------------------------------------------
+
+%description
+AvocadoDB is a durable, reliable, transactional multi-model database. Its key-features are: joins, transaction, and flexible data modelling.
+
+The AvocadoDB consists of a server, a separate shell, which allows you to administrate the server, and a set of client APIs for various languages.
+
+It is written in C/C++.
+
+
+%description client
+The AvocadoDB shell as stand-alone program. It also contains the utility programs: avocadobench (benchmark), avocadorestore & avocadodump (backup), avocadoimp (import).
+
+%description debuginfo
+Debug symbols for the avocadodb database
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                             build
+## -----------------------------------------------------------------------------
+# requires source:
+%prep
+#%setup -q -n avocadodb-%{version}
+#%setup -q -n avocadodb-%{version} -T -D -a 1
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                           install
+## -----------------------------------------------------------------------------
+
+mkdir -p %{buildroot}%{_databasedir}
+mkdir -p %{buildroot}%{_appdir}
+mkdir -p %{buildroot}%{_logdir}
+mkdir -p %{buildroot}%{_piddir}
+
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                             check
+## -----------------------------------------------------------------------------
+
+%check
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                             files
+## -----------------------------------------------------------------------------
+
+%files
+%defattr(-,root,root,0755)
+#@CPACK_PACKAGING_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/*
+#@CPACK_PACKAGING_INSTALL_PREFIX@/bin/*
+#%doc README
+#%doc README.md
+#%doc LICENSE
+#%doc LICENSES-OTHER-COMPONENTS.md
+/usr/share/doc/avocadodb3/LICENSE.txt
+/usr/share/doc/avocadodb3/LICENSES-OTHER-COMPONENTS.md
+/usr/share/doc/avocadodb3/README.md
+/usr/share/doc/avocadodb3/README.txt
+
+%attr(0755,avocadodb,avocadodb) %{_databasedir}
+%attr(0755,avocadodb,avocadodb) %{_appdir}
+%attr(0755,avocadodb,avocadodb) %{_logdir}
+
+%ghost %attr(0755,avocadodb,avocadodb) %{_piddir}
+
+%config(noreplace) %attr(-,avocadodb,avocadodb) %{_cfgdir}
+%{_bindir}/*
+%{_sbindir}/*
+%{_mandir}/*/*
+%{_datadir}/avocadodb3
+%{_sysconfdir}/init.d/avocadodb3
+
+%if @IS_SYSTEMD_INSTALL@
+@SYSTEMD_UNIT_DIR@/@CPACK_PACKAGE_NAME@.service
+%endif
+/etc/logrotate.d/@CPACK_PACKAGE_NAME@
+
+
+%files client
+%defattr(-,root,root,0755)
+#%doc README
+#%doc README.md
+#%doc LICENSE
+#%doc LICENSES-OTHER-COMPONENTS.md
+
+%config(noreplace) %attr(-,avocadodb,avocadodb) %{_cfgdir}/avocadosh.conf
+%config(noreplace) %attr(-,avocadodb,avocadodb) %{_cfgdir}/avocadoimp.conf
+%config(noreplace) %attr(-,avocadodb,avocadodb) %{_cfgdir}/avocadodump.conf
+%config(noreplace) %attr(-,avocadodb,avocadodb) %{_cfgdir}/avocadorestore.conf
+%config(noreplace) %attr(-,avocadodb,avocadodb) %{_cfgdir}/avocadobench.conf
+%config(noreplace) %attr(-,avocadodb,avocadodb) %{_cfgdir}/foxx-manager.conf
+%{_bindir}/avocadosh
+%{_bindir}/avocadoimp
+%{_bindir}/avocadodump
+%{_bindir}/avocadorestore
+%{_bindir}/avocadobench
+%{_bindir}/foxx-manager
+%{_mandir}/*/avocadosh*
+%{_mandir}/*/avocadorestore*
+%{_mandir}/*/avocadobench*
+%{_mandir}/*/avocadodump*
+%{_mandir}/*/avocadoimp*
+%{_datadir}/avocadodb3/js/common
+%{_datadir}/avocadodb3/js/client
+%{_datadir}/avocadodb3/js/node
+
+%files debuginfo
+@CPACK_DEBUG_DIRECTORY_PATTERN@
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                              post
+## -----------------------------------------------------------------------------
+
+%post
+%if 0%{?suse_version}
+
+%{fillup_and_insserv -f -y avocadodb3}
+%restart_on_update avocadodb3
+
+%if @IS_SYSTEMD_INSTALL@
+%if 0%{?systemd_post:1}
+%systemd_post @CPACK_PACKAGE_NAME@.service
+%else
+%service_add_post @CPACK_PACKAGE_NAME@.service
+if [ $1 = 1 ]; then
+    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+fi
+%endif
+
+%endif
+%endif
+%if 0%{?suse_version} < 1210
+chkconfig --level 2345 avocadodb3 on
+%endif
+
+echo "
+AvocadoDB 3 (https://www.avocadodb.com)
+  The multi-model NoSQL database: distributed free and open-source database
+  with a flexible data model for documents, graphs, and key-values. Build
+  high performance applications using a convenient SQL-like query language
+  or JavaScript extensions.
+
+First Steps with AvocadoDB:
+  https://www.avocadodb.com/quickstart
+
+Upgrading AvocadoDB:
+  https://docs.avocadodb.com/Installing/Upgrading.html
+
+Configuring the storage Engine:
+  https://docs.avocadodb.com/3.2/Manual/Administration/Configuration/GeneralAvocadod.html#storage-engine
+
+Upgrading AvocadoDB database files:
+  > /etc/init.d/avocadodb3 upgrade
+
+Configuration file:
+  /etc/avocadodb3/avocadod.conf
+
+Start AvocadoDB shell client:
+  > %{_bindir}/avocadosh
+"
+
+%if @IS_SYSTEMD_INSTALL@
+echo "Start AvocadoDB service:
+  > systemctl start avocadodb3.service
+
+Enable AvocadoDB service:
+  > systemctl enable avocadodb3.service
+"
+%else
+echo "Start AvocadoDB service:
+  > /etc/init.d/avocadodb3 start
+"
+%endif
+
+export ARANGODB_DEFAULT_ROOT_PASSWORD=`(uname -a ; cat /etc/hostname) | md5sum | awk '{print $1}'`
+
+echo "SECURITY HINT:"
+echo "run 'avocado-secure-installation' to set a root password"
+echo "the current password is $ARANGODB_DEFAULT_ROOT_PASSWORD"
+echo "(in case this a FRESH install, for UPGRADE the password"
+echo "will not be changed)"
+
+/usr/sbin/avocado-init-database --uid avocadodb --gid avocadodb --server.rest-server false --server.statistics false --foxx.queues false || true
+
+exit 0
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                            postun
+## -----------------------------------------------------------------------------
+
+%postun
+%if 0%{?suse_version}
+
+%restart_on_update avocadodb3
+%insserv_cleanup
+
+%if @IS_SYSTEMD_INSTALL@
+%service_del_postun avocadodb3.service
+%endif
+
+%else
+exit 0
+%endif
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                               pre
+## -----------------------------------------------------------------------------
+
+%pre
+# create avocadodb group only if it doesn't already exist
+if ! getent group avocadodb >/dev/null 2>&1; then
+        /usr/sbin/groupadd -r avocadodb
+fi
+
+# create avocadodb user only if it doesn't already exist
+if ! getent passwd avocadodb >/dev/null 2>&1; then
+        /usr/sbin/useradd -r -g avocadodb --home %{_localstatedir}/avocadodb avocadodb
+        /usr/sbin/usermod -c "Avocado Server" avocadodb
+fi
+
+%if 0%{?suse_version}
+%if @IS_SYSTEMD_INSTALL@
+%service_add_pre avocadodb3.service
+%endif
+%endif
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                             preun
+## -----------------------------------------------------------------------------
+
+%preun
+%if @IS_SYSTEMD_INSTALL@
+%stop_on_removal avocadodb3
+
+%if 0%{?suse_version}
+%service_del_preun avocadodb3.service
+%else
+%systemd_preun avocadodb3
+%endif
+
+%else
+%{_sysconfdir}/init.d/avocadodb stop > /dev/null 2>&1 || true
+chkconfig --del avocadodb3
+exit 0
+%endif
+
+## -----------------------------------------------------------------------------
+## --SECTION--                                                         changelog
+## -----------------------------------------------------------------------------
+
+%changelog

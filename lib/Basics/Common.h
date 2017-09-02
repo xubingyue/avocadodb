@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -215,8 +215,8 @@ typedef long suseconds_t;
 #define FATAL_ERROR_EXIT(...)                 \
   do {                                        \
     TRI_LogBacktrace();                       \
-    arangodb::Logger::flush();                \
-    arangodb::Logger::shutdown();             \
+    avocadodb::Logger::flush();                \
+    avocadodb::Logger::shutdown();             \
     TRI_EXIT_FUNCTION(EXIT_FAILURE, nullptr); \
     exit(EXIT_FAILURE);                       \
   } while (0)
@@ -226,8 +226,8 @@ typedef long suseconds_t;
 #define FATAL_ERROR_ABORT(...)                \
   do {                                        \
     TRI_LogBacktrace();                       \
-    arangodb::Logger::flush();                \
-    arangodb::Logger::shutdown();             \
+    avocadodb::Logger::flush();                \
+    avocadodb::Logger::shutdown();             \
     std::abort();                             \
   } while (0)
 

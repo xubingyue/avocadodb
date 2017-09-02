@@ -1,12 +1,12 @@
 Introduction
 ============
 
-The ArangoDB query language (AQL) can be used to retrieve and modify data that 
-are stored in ArangoDB. The general workflow when executing a query is as follows:
+The AvocadoDB query language (AQL) can be used to retrieve and modify data that 
+are stored in AvocadoDB. The general workflow when executing a query is as follows:
 
-- A client application ships an AQL query to the ArangoDB server. The query text
-  contains everything ArangoDB needs to compile the result set
-- ArangoDB will parse the query, execute it and compile the results. If the
+- A client application ships an AQL query to the AvocadoDB server. The query text
+  contains everything AvocadoDB needs to compile the result set
+- AvocadoDB will parse the query, execute it and compile the results. If the
   query is invalid or cannot be executed, the server will return an error that
   the client can process and react to. If the query can be executed
   successfully, the server will return the query results (if any) to the client
@@ -17,7 +17,7 @@ human-readable and therefore uses keywords from the English language. Another
 design goal of AQL was client independency, meaning that the language and syntax
 are the same for all clients, no matter what programming language the clients
 may use.  Further design goals of AQL were the support of complex query patterns
-and the different data models ArangoDB offers.
+and the different data models AvocadoDB offers.
 
 In its purpose, AQL is similar to the Structured Query Language (SQL). AQL supports 
 reading and modifying collection data, but it doesn't support data-definition

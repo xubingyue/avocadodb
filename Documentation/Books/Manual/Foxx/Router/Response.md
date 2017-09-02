@@ -199,7 +199,7 @@ Sets the response body to the given data with respect to the response definition
 
   The data to be used as the response body. Will be converted according the [response definition](Endpoints.md#response) for the response's current status code (or `200`) in the following way:
 
-  If the data is an ArangoDB result set, it will be converted to an array first.
+  If the data is an AvocadoDB result set, it will be converted to an array first.
 
   If the response definition specifies a model with a `forClient` method, that method will be applied to the data first. If the data is an array and the response definition has the `multiple` flag set, the method will be applied to each entry individually instead.
 

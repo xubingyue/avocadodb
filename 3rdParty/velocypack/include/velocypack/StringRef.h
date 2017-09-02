@@ -3,7 +3,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2015 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2015 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Max Neunhoeffer
 /// @author Jan Steemann
-/// @author Copyright 2015, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2015, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef VELOCYPACK_STRINGREF_H
@@ -33,7 +33,7 @@
 #include "velocypack/velocypack-common.h"
 #include "velocypack/Slice.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace velocypack {
 
 class StringRef {
@@ -48,9 +48,9 @@ class StringRef {
   explicit StringRef(char const* data) : StringRef(data, strlen(data)) {}
   
   /// @brief create a StringRef from a VPack slice (must be of type String)
-  explicit StringRef(arangodb::velocypack::Slice const& slice) : StringRef() {
+  explicit StringRef(avocadodb::velocypack::Slice const& slice) : StringRef() {
     VELOCYPACK_ASSERT(slice.isString());
-    arangodb::velocypack::ValueLength l;
+    avocadodb::velocypack::ValueLength l;
     _data = slice.getString(l);
     _length = l;
   }
@@ -84,8 +84,8 @@ class StringRef {
   }
   
   /// @brief create a StringRef from a VPack slice of type String
-  StringRef& operator=(arangodb::velocypack::Slice const& slice) {
-    arangodb::velocypack::ValueLength l;
+  StringRef& operator=(avocadodb::velocypack::Slice const& slice) {
+    avocadodb::velocypack::ValueLength l;
     _data = slice.getString(l);
     _length = l;
     return *this;
@@ -152,36 +152,36 @@ class StringRef {
 }
 
 /*
-inline bool operator==(arangodb::velocypack::StringRef const& lhs, arangodb::velocypack::StringRef const& rhs) {
+inline bool operator==(avocadodb::velocypack::StringRef const& lhs, avocadodb::velocypack::StringRef const& rhs) {
   return (lhs.size() == rhs.size() && memcmp(lhs.data(), rhs.data(), lhs.size()) == 0);
 }
 
-inline bool operator!=(arangodb::velocypack::StringRef const& lhs, arangodb::velocypack::StringRef const& rhs) {
+inline bool operator!=(avocadodb::velocypack::StringRef const& lhs, avocadodb::velocypack::StringRef const& rhs) {
   return !(lhs == rhs);
 }
 
-inline bool operator==(arangodb::velocypack::StringRef const& lhs, std::string const& rhs) {
+inline bool operator==(avocadodb::velocypack::StringRef const& lhs, std::string const& rhs) {
   return (lhs.size() == rhs.size() && memcmp(lhs.data(), rhs.c_str(), lhs.size()) == 0);
 }
 
-inline bool operator!=(arangodb::velocypack::StringRef const& lhs, std::string const& rhs) {
+inline bool operator!=(avocadodb::velocypack::StringRef const& lhs, std::string const& rhs) {
   return !(lhs == rhs);
 }
 
-inline bool operator==(arangodb::velocypack::StringRef const& lhs, char const* rhs) {
+inline bool operator==(avocadodb::velocypack::StringRef const& lhs, char const* rhs) {
   size_t const len = strlen(rhs);
   return (lhs.size() == len && memcmp(lhs.data(), rhs, lhs.size()) == 0);
 }
 
-inline bool operator!=(arangodb::velocypack::StringRef const& lhs, char const* rhs) {
+inline bool operator!=(avocadodb::velocypack::StringRef const& lhs, char const* rhs) {
   return !(lhs == rhs);
 }
 
-inline bool operator<(arangodb::StringRef const& lhs, arangodb::StringRef const& rhs) {
+inline bool operator<(avocadodb::StringRef const& lhs, avocadodb::StringRef const& rhs) {
   return (lhs.compare(rhs) < 0);
 }
 
-inline bool operator>(arangodb::StringRef const& lhs, arangodb::StringRef const& rhs) {
+inline bool operator>(avocadodb::StringRef const& lhs, avocadodb::StringRef const& rhs) {
   return (lhs.compare(rhs) > 0);
 }
 */
@@ -189,16 +189,16 @@ inline bool operator>(arangodb::StringRef const& lhs, arangodb::StringRef const&
 namespace std {
 
 template <>
-struct hash<arangodb::velocypack::StringRef> {
-  size_t operator()(arangodb::velocypack::StringRef const& value) const noexcept {
+struct hash<avocadodb::velocypack::StringRef> {
+  size_t operator()(avocadodb::velocypack::StringRef const& value) const noexcept {
     return VELOCYPACK_HASH(value.data(), value.size(), 0xdeadbeef); 
   }
 };
 
 template <>
-struct equal_to<arangodb::velocypack::StringRef> {
-  bool operator()(arangodb::velocypack::StringRef const& lhs,
-                  arangodb::velocypack::StringRef const& rhs) const noexcept {
+struct equal_to<avocadodb::velocypack::StringRef> {
+  bool operator()(avocadodb::velocypack::StringRef const& lhs,
+                  avocadodb::velocypack::StringRef const& rhs) const noexcept {
     return (lhs.size() == rhs.size() &&
             (memcmp(lhs.data(), rhs.data(), lhs.size()) == 0));
   }

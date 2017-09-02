@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,9 +38,9 @@
 
 #include <thread>
 
-using namespace arangodb;
-using namespace arangodb::application_features;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::application_features;
+using namespace avocadodb::options;
 
 namespace {
 rocksdb::TransactionDBOptions rocksDBTrxDefaults;
@@ -268,35 +268,35 @@ void RocksDBOptionFeature::collectOptions(
 void RocksDBOptionFeature::validateOptions(
     std::shared_ptr<ProgramOptions> options) {
   if (_writeBufferSize > 0 && _writeBufferSize < 1024 * 1024) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "invalid value for '--rocksdb.write-buffer-size'";
     FATAL_ERROR_EXIT();
   }
   if (_maxBytesForLevelMultiplier <= 0.0) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "invalid value for '--rocksdb.max-bytes-for-level-multiplier'";
     FATAL_ERROR_EXIT();
   }
   if (_numLevels < 1 || _numLevels > 20) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "invalid value for '--rocksdb.num-levels'";
     FATAL_ERROR_EXIT();
   }
 
   if (_maxBackgroundJobs != -1 &&
       (_maxBackgroundJobs < 1 || _maxBackgroundJobs > 128)) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "invalid value for '--rocksdb.max-background-jobs'";
     FATAL_ERROR_EXIT();
   }
   
   if (_numThreadsHigh > 64) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "invalid value for '--rocksdb.num-threads-priority-high'";
     FATAL_ERROR_EXIT();
   }
   if ( _numThreadsLow > 256) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "invalid value for '--rocksdb.num-threads-priority-low'";
     FATAL_ERROR_EXIT();
   }
@@ -304,7 +304,7 @@ void RocksDBOptionFeature::validateOptions(
     _maxSubcompactions = _numThreadsLow;
   }
   if (_blockCacheShardBits > 32) {
-    LOG_TOPIC(FATAL, arangodb::Logger::FIXME)
+    LOG_TOPIC(FATAL, avocadodb::Logger::FIXME)
         << "invalid value for '--rocksdb.block-cache-shard-bits'";
     FATAL_ERROR_EXIT();
   }

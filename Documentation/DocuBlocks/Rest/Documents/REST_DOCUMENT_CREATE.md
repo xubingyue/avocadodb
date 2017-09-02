@@ -15,7 +15,7 @@ A JSON representation of a single document or of an array of documents.
 
 @RESTQUERYPARAM{collection,string,optional}
 The name of the collection. This is only for backward compatibility.
-In ArangoDB versions < 3.0, the URL path was */_api/document* and
+In AvocadoDB versions < 3.0, the URL path was */_api/document* and
 this query parameter was required. This combination still works, but
 the recommended way is to specify the collection in the URL path.
 
@@ -105,7 +105,7 @@ same qualifiers in an indexed attribute conflicts with an already
 existing document and thus violates that unique constraint. The
 response body contains an error document in this case. In the array
 case only 201 or 202 is returned, but if an error occurred, the
-additional HTTP header *X-Arango-Error-Codes* is set, which
+additional HTTP header *X-Avocado-Error-Codes* is set, which
 contains a map of the error codes that occurred together with their
 multiplicities, as in: *1205:10,1210:17* which means that in 10
 cases the error 1205 "illegal document handle" and in 17 cases the

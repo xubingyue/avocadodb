@@ -1,5 +1,5 @@
 /* jshint strict: false */
-/* global Backbone, window, arangoHelper, $ */
+/* global Backbone, window, avocadoHelper, $ */
 window.UserConfig = Backbone.Model.extend({
   defaults: {
     graphs: '',
@@ -19,7 +19,7 @@ window.UserConfig = Backbone.Model.extend({
       this.username = 'root';
     }
 
-    return arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(this.username) + '/config');
+    return avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(this.username) + '/config');
   },
 
   setItem: function (keyName, keyValue, callback) {
@@ -29,7 +29,7 @@ window.UserConfig = Backbone.Model.extend({
     $.ajax({
       type: 'PUT',
       cache: false,
-      url: arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(this.username) + '/config/' + encodeURIComponent(keyName)),
+      url: avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(this.username) + '/config/' + encodeURIComponent(keyName)),
       contentType: 'application/json',
       processData: false,
       data: JSON.stringify({value: keyValue}),
@@ -42,7 +42,7 @@ window.UserConfig = Backbone.Model.extend({
         }
       },
       error: function () {
-        arangoHelper.arangoError('User configuration', 'Could not update user configuration for key: ' + keyName);
+        avocadoHelper.avocadoError('User configuration', 'Could not update user configuration for key: ' + keyName);
       }
     });
   },
@@ -53,7 +53,7 @@ window.UserConfig = Backbone.Model.extend({
     $.ajax({
       type: 'GET',
       cache: false,
-      url: arangoHelper.databaseUrl('/_api/user/' + encodeURIComponent(this.username) + '/config/' + encodeURIComponent(keyName)),
+      url: avocadoHelper.databaseUrl('/_api/user/' + encodeURIComponent(this.username) + '/config/' + encodeURIComponent(keyName)),
       contentType: 'application/json',
       processData: false,
       async: true,
@@ -61,7 +61,7 @@ window.UserConfig = Backbone.Model.extend({
         callback(keyValue);
       },
       error: function () {
-        arangoHelper.arangoError('User configuration', 'Could not fetch user configuration for key: ' + keyName);
+        avocadoHelper.avocadoError('User configuration', 'Could not fetch user configuration for key: ' + keyName);
       }
     });
   }

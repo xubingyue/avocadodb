@@ -26,7 +26,7 @@ Then create the setup script with the following content:
 
 ```js
 'use strict';
-const db = require('@arangodb').db;
+const db = require('@avocadodb').db;
 const sessions = module.context.collectionName('sessions');
 const users = module.context.collectionName('users');
 
@@ -53,9 +53,9 @@ The following main file demonstrates basic user management:
 ```js
 'use strict';
 const joi = require('joi');
-const createAuth = require('@arangodb/foxx/auth');
-const createRouter = require('@arangodb/foxx/router');
-const sessionsMiddleware = require('@arangodb/foxx/sessions');
+const createAuth = require('@avocadodb/foxx/auth');
+const createRouter = require('@avocadodb/foxx/router');
+const sessionsMiddleware = require('@avocadodb/foxx/sessions');
 
 const auth = createAuth();
 const router = createRouter();

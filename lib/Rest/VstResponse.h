@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Christoph Uhde
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@
 #include "Rest/GeneralResponse.h"
 #include "Rest/VstMessage.h"
 
-namespace arangodb {
+namespace avocadodb {
 class RestBatchHandler;
 
 namespace rest {
@@ -51,8 +51,8 @@ class VstResponse : public GeneralResponse {
   // required by base
   virtual uint64_t messageId() const override { return _messageId; }
   void reset(ResponseCode code) final;
-  virtual arangodb::Endpoint::TransportType transportType() override {
-    return arangodb::Endpoint::TransportType::VST;
+  virtual avocadodb::Endpoint::TransportType transportType() override {
+    return avocadodb::Endpoint::TransportType::VST;
   };
 
   VPackMessageNoOwnBuffer prepareForNetwork();

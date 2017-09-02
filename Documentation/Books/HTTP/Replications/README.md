@@ -3,7 +3,7 @@ HTTP Interface for Replication
 
 ### Replication
 
-This is an introduction to ArangoDB's HTTP replication interface.
+This is an introduction to AvocadoDB's HTTP replication interface.
 The replication architecture and components are described in more details in 
 [Replication](../../Manual/Administration/Replication/index.html).
 
@@ -16,7 +16,7 @@ The HTTP replication interface serves four main purposes:
   a slave
 
 Please note that all replication operations work on a per-database level. If an 
-ArangoDB server contains more than one database, the replication system must be
+AvocadoDB server contains more than one database, the replication system must be
 configured individually per database, and replicating the data of multiple
 databases will require multiple operations.
 

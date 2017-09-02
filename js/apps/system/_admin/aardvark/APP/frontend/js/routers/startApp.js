@@ -1,12 +1,12 @@
 /* jshint unused: false */
-/* global window, $, Backbone, document, arangoHelper */
+/* global window, $, Backbone, document, avocadoHelper */
 
 (function () {
   'use strict';
   // We have to start the app only in production mode, not in test mode
   if (!window.hasOwnProperty('TEST_BUILD')) {
     $(document).ajaxSend(function (event, jqxhr, settings) {
-      var currentJwt = window.arangoHelper.getCurrentJwt();
+      var currentJwt = window.avocadoHelper.getCurrentJwt();
       if (currentJwt) {
         jqxhr.setRequestHeader('Authorization', 'bearer ' + currentJwt);
       }
@@ -16,7 +16,7 @@
       error: function (x, status, error) {
         if (x.status === 401) {
           // session might be expired. check if jwt is still valid
-          arangoHelper.checkJwt();
+          avocadoHelper.checkJwt();
         }
       }
     });

@@ -4,7 +4,7 @@
     var revision    = content.revision;
 %>
 
-        <table id="collectionInfoTable" class="arango-table">
+        <table id="collectionInfoTable" class="avocado-table">
           <% if (figuresData.journalSize) { %>
             <tr id="collectionSizeBox">
               <th class="collectionInfoTh2">Journal size:</th>
@@ -15,7 +15,7 @@
               </th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips arangoicon icon_arangodb_info" title="The maximal size of a journal or datafile (in MB). Must be at least 1.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The maximal size of a journal or datafile (in MB). Must be at least 1.">
                   </span>
                 </div>
               </th>
@@ -30,7 +30,7 @@
             </th>
             <th class="tooltipInfoTh">
               <div>
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Synchronize to disk before returning from a create or update of a document.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Synchronize to disk before returning from a create or update of a document.">
                 </span>
               </div>
             </th>
@@ -151,7 +151,7 @@
               <p>The following information does not contain data stored in the write-ahead log. It can be inaccurate, until the write-ahead log has been completely flushed.</p>
             </div>
           <% } %>
-          <table class="figures1 arango-table">
+          <table class="figures1 avocado-table">
             <tr class="figuresHeader">
               <th>Type</th>
               <th>Count</th>
@@ -175,7 +175,7 @@
               </th>
               <th class="modal-text"> -</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number and size of all living documents.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number and size of all living documents.">
                 </span>
               </th>
             </tr>
@@ -205,7 +205,7 @@
 
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number and size of all dead documents.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number and size of all dead documents.">
                   </span>
               </div>
               </th>
@@ -216,7 +216,7 @@
         <% } %>
 
         <% if (figuresData.figures.datafiles && figuresData.figures.journals && figuresData.figures.compactors) { %>
-          <table class="figures2 arango-table">
+          <table class="figures2 avocado-table">
             <tr class="figuresHeader">
               <th>Type</th>
               <th>Count</th>
@@ -243,7 +243,7 @@
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips arangoicon icon_arangodb_info" data-toggle="tooltip" data-placement="left" title="Number and total size of active datafiles.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" data-toggle="tooltip" data-placement="left" title="Number and total size of active datafiles.">
                   </span>
                 </div>
               </th>
@@ -266,7 +266,7 @@
               </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Number and total size of journal files.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of journal files.">
                 </span>
               </th>
             </tr>
@@ -288,7 +288,7 @@
               </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Number and total size of compactor files."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of compactor files."></span>
               </th>
             </tr>
             <tr>
@@ -301,14 +301,14 @@
               </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Number and total memory usage of indexes."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total memory usage of indexes."></span>
               </th>
             </tr>
           </table>
         <% } %>
 
         <% if (figuresData.figures.documentReferences && figuresData.figures.uncollectedLogfileEntries) { %>
-          <table class="figures3 arango-table">
+          <table class="figures3 avocado-table">
             <tr class="figuresHeader">
               <th>Type</th>
               <th>Count</th>
@@ -322,7 +322,7 @@
               <th class="modal-text">&nbsp;</th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number of uncollected WAL entries">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number of uncollected WAL entries">
                 </span>
               </th>
             </tr>
@@ -332,7 +332,7 @@
               <th class="modal-text">&nbsp;</th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number of objects pointing to documents in collection datafiles">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number of objects pointing to documents in collection datafiles">
                 </span>
               </th>
             </tr>

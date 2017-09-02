@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Wilfried Goesgens
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@ void SetServiceStatus(DWORD dwCurrentState, DWORD dwWin32ExitCode,
 
 void WINAPI ServiceCtrl(DWORD dwCtrlCode);
 
-namespace arangodb {
+namespace avocadodb {
 class WindowsServiceFeature final : public application_features::ApplicationFeature {
  public:
   explicit WindowsServiceFeature(application_features::ApplicationServer* server);
@@ -42,8 +42,8 @@ class WindowsServiceFeature final : public application_features::ApplicationFeat
 
  private:
   void installService();
-  void StartArangoService (bool WaitForRunning);
-  void StopArangoService (bool WaitForShutdown);
+  void StartAvocadoService (bool WaitForRunning);
+  void StopAvocadoService (bool WaitForShutdown);
   void startupProgress ();
 
   void startupFinished ();

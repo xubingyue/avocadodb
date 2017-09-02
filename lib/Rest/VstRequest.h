@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Achim Brandt
@@ -36,7 +36,7 @@
 #include <velocypack/Slice.h>
 #include <velocypack/velocypack-aliases.h>
 
-namespace arangodb {
+namespace avocadodb {
 class RestBatchHandler;
 
 namespace rest {
@@ -65,14 +65,14 @@ class VstRequest final : public GeneralRequest {
 
  public:
   uint64_t messageId() const override { return _messageId; }
-  VPackSlice payload(arangodb::velocypack::Options const*) override;
+  VPackSlice payload(avocadodb::velocypack::Options const*) override;
 
   int64_t contentLength() const override {
     return _message.payload().byteSize();  // Fixme for MultiPayload message
   }
 
-  virtual arangodb::Endpoint::TransportType transportType() override {
-    return arangodb::Endpoint::TransportType::VST;
+  virtual avocadodb::Endpoint::TransportType transportType() override {
+    return avocadodb::Endpoint::TransportType::VST;
   };
 
   std::unordered_map<std::string, std::string> const& headers() const override;

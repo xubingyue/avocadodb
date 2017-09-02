@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, _, frontendConfig, slicePath, icon, Joi, wheelnav, document, sigma, Backbone, templateEngine, $, window */
+/* global avocadoHelper, _, frontendConfig, slicePath, icon, Joi, wheelnav, document, sigma, Backbone, templateEngine, $, window */
 (function () {
   'use strict';
 
@@ -141,7 +141,7 @@
 
       $.ajax({
         type: 'GET',
-        url: arangoHelper.databaseUrl('/_admin/aardvark/graph/' + encodeURIComponent(this.name)),
+        url: avocadoHelper.databaseUrl('/_admin/aardvark/graph/' + encodeURIComponent(this.name)),
         contentType: 'application/json',
         data: ajaxData,
         success: function (data) {
@@ -150,7 +150,7 @@
         },
         error: function (e) {
           console.log(e);
-          arangoHelper.arangoError('Graph', 'Could not load full graph.');
+          avocadoHelper.avocadoError('Graph', 'Could not load full graph.');
         }
       });
       window.modalView.hide();
@@ -566,7 +566,7 @@
 
     fetchGraph: function (toFocus) {
       var self = this;
-      // arangoHelper.buildGraphSubNav(self.name, 'Content');
+      // avocadoHelper.buildGraphSubNav(self.name, 'Content');
       $(this.el).append(
         '<div id="calculatingGraph" style="position: absolute; left: 25px; top: 130px;">' +
           '<i class="fa fa-circle-o-notch fa-spin" style="margin-right: 10px;"></i>' +
@@ -602,7 +602,7 @@
         self.fetchStarted = new Date();
         $.ajax({
           type: 'GET',
-          url: arangoHelper.databaseUrl('/_admin/aardvark/graph/' + encodeURIComponent(self.name)),
+          url: avocadoHelper.databaseUrl('/_admin/aardvark/graph/' + encodeURIComponent(self.name)),
           contentType: 'application/json',
           data: ajaxData,
           success: function (data) {
@@ -620,7 +620,7 @@
               self.fetchFinished = new Date();
               self.calcStart = self.fetchFinished;
               $('#calcText').html('Server response took ' + Math.abs(self.fetchFinished.getTime() - self.fetchStarted.getTime()) + ' ms. Initializing graph engine. Please wait ... ');
-              // arangoHelper.buildGraphSubNav(self.name, 'Content');
+              // avocadoHelper.buildGraphSubNav(self.name, 'Content');
               window.setTimeout(function () {
                 self.renderGraph(data, toFocus);
               }, 50);
@@ -647,7 +647,7 @@
                 message = e.responseJSON.errorMessage;
                 $('#calculatingGraph').html('Failed to fetch graph information: ' + e.responseJSON.errorMessage);
               }
-              arangoHelper.arangoError('Graph', message);
+              avocadoHelper.avocadoError('Graph', message);
             } catch (ignore) {}
           }
         });
@@ -762,7 +762,7 @@
       collectionId = documentKey.split('/')[0];
       documentId = documentKey.split('/')[1];
 
-      var url = arangoHelper.databaseUrl(
+      var url = avocadoHelper.databaseUrl(
         '/_api/gharial/' + encodeURIComponent(self.name) + '/vertex/' + encodeURIComponent(documentKey.split('/')[0]) + '/' + encodeURIComponent(documentKey.split('/')[1])
       );
 
@@ -777,7 +777,7 @@
             self.currentGraph.refresh();
           },
           error: function () {
-            arangoHelper.arangoError('Graph', 'Could not delete node.');
+            avocadoHelper.avocadoError('Graph', 'Could not delete node.');
           }
         });
       } else {
@@ -788,7 +788,7 @@
             // rerender graph
             self.currentGraph.refresh();
           } else {
-            arangoHelper.arangoError('Graph', 'Could not delete node.');
+            avocadoHelper.avocadoError('Graph', 'Could not delete node.');
           }
         };
 
@@ -817,7 +817,7 @@
       });
 
       if (nodeIds.length === 0) {
-        arangoHelper.arangoNotification('Graph', 'No nodes selected.');
+        avocadoHelper.avocadoNotification('Graph', 'No nodes selected.');
         return;
       }
 
@@ -887,7 +887,7 @@
 
       var callback = function (error, id, msg) {
         if (error) {
-          arangoHelper.arangoError('Could not create node', msg);
+          avocadoHelper.avocadoError('Could not create node', msg);
         } else {
           $('#emptyGraph').remove();
           self.currentGraph.graph.addNode({
@@ -956,7 +956,7 @@
           // rerender graph
           self.currentGraph.refresh();
         } else {
-          arangoHelper.arangoError('Graph', 'Could not delete edge.');
+          avocadoHelper.avocadoError('Graph', 'Could not delete edge.');
         }
       };
 
@@ -1034,7 +1034,7 @@
           tableContent
         );
       } else {
-        arangoHelper.arangoError('Graph', 'No valid vertex collections found.');
+        avocadoHelper.avocadoError('Graph', 'No valid vertex collections found.');
       }
     },
 
@@ -1073,7 +1073,7 @@
           }
           self.currentGraph.refresh();
         } else {
-          arangoHelper.arangoError('Could not create edge', msg);
+          avocadoHelper.avocadoError('Could not create edge', msg);
         }
 
         // then clear states
@@ -1153,7 +1153,7 @@
           tableContent
         );
       } else {
-        arangoHelper.arangoError('Graph', 'No valid edge definitions found.');
+        avocadoHelper.avocadoError('Graph', 'No valid edge definitions found.');
       }
     },
 
@@ -1563,14 +1563,14 @@
 
       $.ajax({
         type: 'GET',
-        url: arangoHelper.databaseUrl('/_admin/aardvark/graph/' + encodeURIComponent(this.name)),
+        url: avocadoHelper.databaseUrl('/_admin/aardvark/graph/' + encodeURIComponent(this.name)),
         contentType: 'application/json',
         data: ajaxData,
         success: function (data) {
           self.checkExpand(data, id);
         },
         error: function (e) {
-          arangoHelper.arangoError('Graph', 'Could not expand node: ' + id + '.');
+          avocadoHelper.avocadoError('Graph', 'Could not expand node: ' + id + '.');
         }
       });
 
@@ -1729,12 +1729,12 @@
     editNode: function (id) {
       var callback = function (a, b) {
       };
-      arangoHelper.openDocEditor(id, 'doc', callback);
+      avocadoHelper.openDocEditor(id, 'doc', callback);
     },
 
     editEdge: function (id) {
       var callback = function () {};
-      arangoHelper.openDocEditor(id, 'edge', callback);
+      avocadoHelper.openDocEditor(id, 'edge', callback);
     },
 
     reloadGraph: function () {
@@ -1833,8 +1833,8 @@
           if (!this.aqlMode) {
             $('#graph-container').append(
               '<div id="objectCount" style="' + style + ' animated fadeIn">' +
-                '<span style="margin-right: 10px" class="arangoState"><span id="nodesCount">' + graph.nodes.length + '</span> nodes</span>' +
-                '<span class="arangoState"><span id="edgesCount">' + graph.edges.length + '</span> edges</span>' +
+                '<span style="margin-right: 10px" class="avocadoState"><span id="nodesCount">' + graph.nodes.length + '</span> nodes</span>' +
+                '<span class="avocadoState"><span id="edgesCount">' + graph.edges.length + '</span> edges</span>' +
               '</div>'
             );
           }
@@ -2065,7 +2065,7 @@
             // validate edgeDefinitions
             var foundEdgeDefinitions = self.getEdgeDefinitionCollections(fromCollection, toCollection);
             if (foundEdgeDefinitions.length === 0) {
-              arangoHelper.arangoNotification('Graph', 'No valid edge definition found.');
+              avocadoHelper.avocadoNotification('Graph', 'No valid edge definition found.');
             } else {
               self.addEdgeModal(foundEdgeDefinitions, self.contextState._from, self.contextState._to);
               self.clearOldContextMenu(false);
@@ -2261,7 +2261,7 @@
         }
 
         if (graph.empty) {
-          arangoHelper.arangoNotification('Graph', 'Your graph is empty. Click inside the white window to create your first node.');
+          avocadoHelper.avocadoNotification('Graph', 'Your graph is empty. Click inside the white window to create your first node.');
         }
 
         window.setTimeout(function () {

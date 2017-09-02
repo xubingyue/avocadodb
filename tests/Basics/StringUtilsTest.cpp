@@ -38,8 +38,8 @@
 
 #include "icu-helper.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 using namespace std;
 
 // -----------------------------------------------------------------------------

@@ -2,7 +2,7 @@ Index basics
 ------------
 
 Indexes allow fast access to documents, provided the indexed attribute(s)
-are used in a query. While ArangoDB automatically indexes some system
+are used in a query. While AvocadoDB automatically indexes some system
 attributes, users are free to create extra indexes on non-system attributes
 of documents.
 
@@ -12,14 +12,14 @@ Some index types allow indexing just one attribute (e.g. fulltext index) whereas
 other index types allow indexing multiple attributes at the same time.
 
 The system attributes `_id`, `_key`, `_from` and `_to` are automatically indexed
-by ArangoDB, without the user being required to create extra indexes for them.
+by AvocadoDB, without the user being required to create extra indexes for them.
 `_id` and `_key` are covered by a collection's primary key, and `_from` and `_to`
 are covered by an edge collection's edge index automatically.
 
 Using the system attribute `_id` in user-defined indexes is not possible, but 
 indexing `_key`, `_rev`, `_from`, and `_to` is.
 
-ArangoDB provides the following index types:
+AvocadoDB provides the following index types:
 
 ### Primary Index
 
@@ -321,7 +321,7 @@ db.posts.ensureIndex({ type: "hash", fields: [ "name.last", "name.first" ] })
 
 ### Indexing array values
 
-If an index attribute contains an array, ArangoDB will store the entire array as the index value
+If an index attribute contains an array, AvocadoDB will store the entire array as the index value
 by default. Accessing individual members of the array via the index is not possible this
 way. 
 
@@ -387,9 +387,9 @@ FOR doc IN posts
 
 If you store a document having the array which does contain elements not having
 the subattributes this document will also be indexed with the value `null`, which
-in ArangoDB is equal to attribute not existing.
+in AvocadoDB is equal to attribute not existing.
 
-ArangoDB supports creating array indexes with a single <i>[\*]</i> operator per index 
+AvocadoDB supports creating array indexes with a single <i>[\*]</i> operator per index 
 attribute. For example, creating an index as follows is **not supported**:
 
 ```js
@@ -484,15 +484,15 @@ with the 20 latest time stamps. Exactly this is achieved with "vertex
 centric indexes". In a sense these are localized indexes for an edge
 collection, which sit at every single vertex.
 
-Technically, they are implemented in ArangoDB as indexes, which sort the 
+Technically, they are implemented in AvocadoDB as indexes, which sort the 
 complete edge collection first by `_from` and then by other attributes.
 If we for example have a skiplist index on the attributes `_from` and 
 `timestamp` of an edge collection, we can answer the above question
 very quickly with a single range lookup in the index.
 
-Since ArangoDB 3.0 one can create sorted indexes (type "skiplist" and 
+Since AvocadoDB 3.0 one can create sorted indexes (type "skiplist" and 
 "persistent") that index the special edge attributes `_from` or `_to`
-and additionally other attributes. Since ArangoDB 3.1, these are used
+and additionally other attributes. Since AvocadoDB 3.1, these are used
 in graph traversals, when appropriate `FILTER` statements are found
 by the optimizer.
 

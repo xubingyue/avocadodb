@@ -1,20 +1,20 @@
-Upgrading to ArangoDB 2.2
+Upgrading to AvocadoDB 2.2
 =========================
 
 Please read the following sections if you upgrade from a previous version to
-ArangoDB 2.2.
+AvocadoDB 2.2.
 
-Please note first that a database directory used with ArangoDB 2.2
-cannot be used with earlier versions (e.g. ArangoDB 2.1) any
+Please note first that a database directory used with AvocadoDB 2.2
+cannot be used with earlier versions (e.g. AvocadoDB 2.1) any
 more. Upgrading a database directory cannot be reverted. Therefore
-please make sure to create a full backup of your existing ArangoDB
+please make sure to create a full backup of your existing AvocadoDB
 installation before performing an upgrade.
 
 Database Directory Version Check and Upgrade
 --------------------------------------------
 
-ArangoDB will perform a database version check at startup. When ArangoDB 2.2
-encounters a database created with earlier versions of ArangoDB, it will refuse
+AvocadoDB will perform a database version check at startup. When AvocadoDB 2.2
+encounters a database created with earlier versions of AvocadoDB, it will refuse
 to start. This is intentional.
 
 The output will then look like this:
@@ -22,40 +22,40 @@ The output will then look like this:
 ```
 2014-07-07T22:04:53Z [18675] ERROR In database '_system': Database directory version (2.1) is lower than server version (2.2).
 2014-07-07T22:04:53Z [18675] ERROR In database '_system': ----------------------------------------------------------------------
-2014-07-07T22:04:53Z [18675] ERROR In database '_system': It seems like you have upgraded the ArangoDB binary.
+2014-07-07T22:04:53Z [18675] ERROR In database '_system': It seems like you have upgraded the AvocadoDB binary.
 2014-07-07T22:04:53Z [18675] ERROR In database '_system': If this is what you wanted to do, please restart with the
 2014-07-07T22:04:53Z [18675] ERROR In database '_system':   --upgrade
 2014-07-07T22:04:53Z [18675] ERROR In database '_system': option to upgrade the data in the database directory.
 2014-07-07T22:04:53Z [18675] ERROR In database '_system': Normally you can use the control script to upgrade your database
-2014-07-07T22:04:53Z [18675] ERROR In database '_system':   /etc/init.d/arangodb stop
-2014-07-07T22:04:53Z [18675] ERROR In database '_system':   /etc/init.d/arangodb upgrade
-2014-07-07T22:04:53Z [18675] ERROR In database '_system':   /etc/init.d/arangodb start
+2014-07-07T22:04:53Z [18675] ERROR In database '_system':   /etc/init.d/avocadodb stop
+2014-07-07T22:04:53Z [18675] ERROR In database '_system':   /etc/init.d/avocadodb upgrade
+2014-07-07T22:04:53Z [18675] ERROR In database '_system':   /etc/init.d/avocadodb start
 2014-07-07T22:04:53Z [18675] ERROR In database '_system': ----------------------------------------------------------------------
 2014-07-07T22:04:53Z [18675] FATAL Database version check failed for '_system'. Please start the server with the --upgrade option
 ```
 
-To make ArangoDB 2.2 start with a database directory created with an earlier
-ArangoDB version, you may need to invoke the upgrade procedure once.  This can
-be done by running ArangoDB from the command line and supplying the `--upgrade`
+To make AvocadoDB 2.2 start with a database directory created with an earlier
+AvocadoDB version, you may need to invoke the upgrade procedure once.  This can
+be done by running AvocadoDB from the command line and supplying the `--upgrade`
 option:
 
-    unix> arangod data --upgrade
+    unix> avocadod data --upgrade
 
-where `data` is ArangoDB's main data directory. 
+where `data` is AvocadoDB's main data directory. 
 
 Note: here the same database should be specified that is also specified when
-arangod is started regularly. Please do not run the `--upgrade` command on each
+avocadod is started regularly. Please do not run the `--upgrade` command on each
 individual database subfolder (named `database-<some number>`).
  
-For example, if you regularly start your ArangoDB server with
+For example, if you regularly start your AvocadoDB server with
 
-    unix> arangod mydatabasefolder
+    unix> avocadod mydatabasefolder
 
 then running
 
-    unix> arangod mydatabasefolder --upgrade
+    unix> avocadod mydatabasefolder --upgrade
 
-will perform the upgrade for the whole ArangoDB instance, including all of its
+will perform the upgrade for the whole AvocadoDB instance, including all of its
 databases.
 
 Starting with `--upgrade` will run a database version check and perform any
@@ -71,14 +71,14 @@ The output should look like this:
 ```
 
 Please check the output the `--upgrade` run. It may produce errors, which need
-to be fixed before ArangoDB can be used properly. If no errors are present or
-they have been resolved, you can start ArangoDB 2.2 regularly.
+to be fixed before AvocadoDB can be used properly. If no errors are present or
+they have been resolved, you can start AvocadoDB 2.2 regularly.
 
 Upgrading a cluster planned in the web interface
 ------------------------------------------------
 
-A cluster of ArangoDB instances has to be upgraded as well. This
-involves upgrading all ArangoDB instances in the cluster, as well as
+A cluster of AvocadoDB instances has to be upgraded as well. This
+involves upgrading all AvocadoDB instances in the cluster, as well as
 running the version check on the whole running cluster in the end.
 
 We have tried to make this procedure as painless and convenient for you.
@@ -102,14 +102,14 @@ follows:
      all is done for you behind the scenes. If all goes well, you will
      see the usual cluster dash board after a few seconds. If there is 
      an error, you have to inspect the log files of your cluster
-     ArangoDB instances. Please let us know if you run into problems.
+     AvocadoDB instances. Please let us know if you run into problems.
 
-There is an alternative way using the `ArangoDB` shell. Instead of
-steps 3. and 4. above you can launch `arangosh`, point it to the dispatcher
+There is an alternative way using the `AvocadoDB` shell. Instead of
+steps 3. and 4. above you can launch `avocadosh`, point it to the dispatcher
 that you have used to plan and launch the cluster using the option
 ``--server.endpoint``, and execute
 
-    arangosh> require("org/arangodb/cluster").Upgrade("root","");
+    avocadosh> require("org/avocadodb/cluster").Upgrade("root","");
 
 This upgrades the cluster and launches it, exactly as with the button 
 above in the graphical front end. You have to replace `"root"` with

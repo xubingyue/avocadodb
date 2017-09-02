@@ -4,15 +4,15 @@ Concepts
 Database Interaction
 --------------------
 
-ArangoDB is a database that serves documents to clients. These documents are
+AvocadoDB is a database that serves documents to clients. These documents are
 transported using [JSON](https://en.wikipedia.org/wiki/JSON) via a TCP connection,
 using the HTTP protocol. A [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer)
 is provided to interact with the database system.
 
 The [web interface](../Administration/WebInterface/README.md) that comes with
-ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
-An [interactive shell](../GettingStarted/Arangosh.md), called *Arangosh*, is also
-shipped. In addition, there are so called [drivers](https://arangodb.com/downloads/arangodb-drivers/)
+AvocadoDB, called *Aardvark*, provides graphical user interface that is easy to use.
+An [interactive shell](../GettingStarted/Avocadosh.md), called *Avocadosh*, is also
+shipped. In addition, there are so called [drivers](https://avocadodb.com/downloads/avocadodb-drivers/)
 that make it easy to use the database system in various environments and
 programming languages. All these tools use the HTTP interface of the server and
 remove the necessity to roll own low-level code for basic communication in most
@@ -21,8 +21,8 @@ cases.
 Data model
 ----------
 
-The documents you can store in ArangoDB closely follow the JSON format,
-although they are stored in a binary format called [VelocyPack](https://github.com/arangodb/velocypack#readme).
+The documents you can store in AvocadoDB closely follow the JSON format,
+although they are stored in a binary format called [VelocyPack](https://github.com/avocadodb/velocypack#readme).
 A **document** contains zero or more attributes, each of these attributes having
 a value. A value can either be an atomic type, i. e. number, string, boolean
 or null, or a compound type, i.e. an array or embedded document / object.
@@ -34,7 +34,7 @@ documents. If you are familiar with relational database management systems (RDBM
 then it is safe to compare collections to tables and documents to rows. The
 difference is that in a traditional RDBMS, you have to define columns before
 you can store records in a table. Such definitions are also known as schemas.
-ArangoDB is schema-less, which means that there is no need to define what
+AvocadoDB is schema-less, which means that there is no need to define what
 attributes a document can have. Every single document can have a completely
 different structure and still be stored together with other documents in a
 single collection. In practice, there will be common denominators among the
@@ -46,7 +46,7 @@ There are two types of collections: **document collection** (also refered to as
 Edge collections store documents as well, but they include two special attributes,
 *_from* and *_to*, which are used to create relations between documents.
 Usually, two documents (**vertices**) stored in document collections are linked
-by a document (**edge**) stored in an edge collection. This is ArangoDB's graph
+by a document (**edge**) stored in an edge collection. This is AvocadoDB's graph
 data model. It follows the mathematical concept of a directed, labeled graph,
 except that edges don't just have labels, but are full-blown documents.
 
@@ -64,7 +64,7 @@ Data Retrieval
 new data, as well as to manipulate or delete existing documents. Queries can be
 as simple as a "query by example" or as complex as ["joins"](../../AQL/Examples/Join.html)
 using many collections or traversing graph structures. They are written in
-the [ArangoDB Query Language](../../AQL/index.html) (AQL).
+the [AvocadoDB Query Language](../../AQL/index.html) (AQL).
 
 **Cursors** are used to iterate over the result of queries, so that you get
 easily processable batches instead of one big hunk.

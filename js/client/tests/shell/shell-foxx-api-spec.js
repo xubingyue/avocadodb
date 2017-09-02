@@ -1,16 +1,16 @@
-/* global arango, describe, beforeEach, afterEach, it*/
+/* global avocado, describe, beforeEach, afterEach, it*/
 'use strict';
 
 const expect = require('chai').expect;
-const FoxxManager = require('@arangodb/foxx/manager');
-const request = require('@arangodb/request');
+const FoxxManager = require('@avocadodb/foxx/manager');
+const request = require('@avocadodb/request');
 const fs = require('fs');
 const internal = require('internal');
 const basePath = fs.makeAbsolute(fs.join(internal.startupPath, 'common', 'test-data', 'apps', 'headers'));
-const arangodb = require('@arangodb');
-const db = arangodb.db;
-const aql = arangodb.aql;
-var origin = arango.getEndpoint().replace(/\+vpp/, '').replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:');
+const avocadodb = require('@avocadodb');
+const db = avocadodb.db;
+const aql = avocadodb.aql;
+var origin = avocado.getEndpoint().replace(/\+vpp/, '').replace(/^tcp:/, 'http:').replace(/^ssl:/, 'https:');
 
 describe('FoxxApi commit', function () {
   const mount = '/test';

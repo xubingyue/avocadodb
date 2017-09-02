@@ -1,14 +1,14 @@
-This is the Debian GNU/Linux prepackaged version of arangodb.
-It was packaged by Frank Celler <f.celler@arangodb.org>
-from sources obtained from http://github.com/triAGENS/ArangoDB.
+This is the Debian GNU/Linux prepackaged version of avocadodb.
+It was packaged by Frank Celler <f.celler@avocadodb.org>
+from sources obtained from http://github.com/triAGENS/AvocadoDB.
 
 Copyright:
 
 Copyright (C) 2012-2013 triAGENS GmbH
-              2014 ArangoDB GmbH
+              2014 AvocadoDB GmbH
 
 License:
 
-ArangoDB is distributed under the terms of the Apache2 licenses.
+AvocadoDB is distributed under the terms of the Apache2 licenses.
 On Debian GNU/Linux system you can find a copy of this
 license in `/usr/share/common-licenses/Apache-2.0'.

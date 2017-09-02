@@ -10,7 +10,7 @@
     id: '#workMonitorContent',
 
     template: templateEngine.createTemplate('workMonitorView.ejs'),
-    table: templateEngine.createTemplate('arangoTable.ejs'),
+    table: templateEngine.createTemplate('avocadoTable.ejs'),
 
     initialize: function () {},
 

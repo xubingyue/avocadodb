@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global describe, beforeEach, it, expect, exports, Backbone, window, $, arangoLog */
+/* global describe, beforeEach, it, expect, exports, Backbone, window, $, avocadoLog */
 /* global runs, waitsFor, spyOn, jasmine */
 (function () {
   'use strict';
@@ -64,7 +64,7 @@
           calledBack = false;
           info = {
             name: 'My App',
-            author: 'ArangoDB',
+            author: 'AvocadoDB',
             description: 'Description of the App',
             license: 'Apache 2',
             collectionNames: ['first', 'second']
@@ -94,7 +94,7 @@
         runs(function () {
           calledBack = false;
           info = {
-            url: 'arangodb/itzpapalotl',
+            url: 'avocadodb/itzpapalotl',
             version: '1.2.0'
           };
           mount = '/my/app';
@@ -181,7 +181,7 @@
           calledBack = false;
           info = {
             name: 'My App',
-            author: 'ArangoDB',
+            author: 'AvocadoDB',
             description: 'Description of the App',
             license: 'Apache 2',
             collectionNames: ['first', 'second']
@@ -211,7 +211,7 @@
         runs(function () {
           calledBack = false;
           info = {
-            url: 'arangodb/itzpapalotl',
+            url: 'avocadodb/itzpapalotl',
             version: '1.2.0'
           };
           mount = '/my/app';
@@ -298,7 +298,7 @@
           calledBack = false;
           info = {
             name: 'My App',
-            author: 'ArangoDB',
+            author: 'AvocadoDB',
             description: 'Description of the App',
             license: 'Apache 2',
             collectionNames: ['first', 'second']
@@ -328,7 +328,7 @@
         runs(function () {
           calledBack = false;
           info = {
-            url: 'arangodb/itzpapalotl',
+            url: 'avocadodb/itzpapalotl',
             version: '1.2.0'
           };
           mount = '/my/app';

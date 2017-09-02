@@ -2,13 +2,13 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 3.0. ArangoDB 3.0 also contains several bugfixes that are not listed
+AvocadoDB 3.0. AvocadoDB 3.0 also contains several bugfixes that are not listed
 here.
 
 Internal data format changes
 ----------------------------
 
-ArangoDB now uses [VelocyPack](https://github.com/arangodb/velocypack) for
+AvocadoDB now uses [VelocyPack](https://github.com/avocadodb/velocypack) for
 storing documents, query results and temporarily computed values. Using a single
 data format removed the need for some data conversions in the core that slowed
 operations down previously.
@@ -21,7 +21,7 @@ VelocyPack document entries stored on disk are also self-contained, in the sense
 that each stored document will contain all of its data type and attribute name
 descriptions. While this may require a bit more space for storing the documents,
 it removes the overhead of fetching attribute names and document layout from
-shared structures as in previous versions of ArangoDB. It also simplifies the
+shared structures as in previous versions of AvocadoDB. It also simplifies the
 code paths for storing and reading documents.
 
 AQL improvements
@@ -156,7 +156,7 @@ The following AQL functions have been added in 3.0:
   values (including value types). The order in which attributes appear inside objects
   is not important for hashing.
   The hash value returned by this function is a number. The hash algorithm is not guaranteed
-  to remain the same in future versions of ArangoDB. The hash values should therefore be
+  to remain the same in future versions of AvocadoDB. The hash values should therefore be
   used only for temporary calculations, e.g. to compare if two documents are the same, or
   for grouping values in queries.
 
@@ -272,10 +272,10 @@ conditions and removing SortNodes from execution plans.
 Cluster state management
 ------------------------
 
-The cluster's internal state information is now also managed by ArangoDB instances.
+The cluster's internal state information is now also managed by AvocadoDB instances.
 Earlier versions relied on third party software being installed for the storing the
 cluster state.
-The state is managed by dedicated ArangoDB instances, which can be started in a special
+The state is managed by dedicated AvocadoDB instances, which can be started in a special
 *agency* mode. These instances can operate in a distributed fashion. They will
 automatically elect one of them to become their leader, being responsibile for storing
 the state changes sent from servers in the cluster. The other instances will automatically
@@ -285,13 +285,13 @@ other and re-elect leaders. The communication between the agency instances use t
 consensus-based RAFT protocol.
 
 The operations for storing and retrieving cluster state information are now much less
-expensive from an ArangoDB cluster node perspective, which in turn allows for faster
+expensive from an AvocadoDB cluster node perspective, which in turn allows for faster
 cluster operations that need to fetch or update the overall cluster state.
 
 `_from` and `_to` attributes of edges are updatable and usable in indexes
 -------------------------------------------------------------------------
 
-In ArangoDB prior to 3.0 the attributes `_from` and `_to` of edges were treated
+In AvocadoDB prior to 3.0 the attributes `_from` and `_to` of edges were treated
 specially when loading or storing edges. That special handling led to these attributes
 being not as flexible as regular document attributes. For example, the `_from` and
 `_to` attribute values of an existing edge could not be updated once the edge was
@@ -304,7 +304,7 @@ and not by collection name, their meaning became unclear once a referenced colle
 was dropped. The collection id stored in edges then became unusable, and when
 accessing such edge the collection name part of it was always translated to `_undefined`.
 
-In ArangoDB 3.0, the `_from` and `_to` values of edges are saved as regular strings.
+In AvocadoDB 3.0, the `_from` and `_to` values of edges are saved as regular strings.
 This allows using `_from` and `_to` in user-defined indexes. Additionally, this allows
 to update the `_from` and `_to` values of existing edges. Furthermore, collections
 referenced by `_from` and `_to` values may be dropped and re-created later. Any
@@ -340,7 +340,7 @@ db.myedges.insert([
 ]);
 ```
 
-The batch variants are also available in ArangoDB's HTTP API. They can be used to
+The batch variants are also available in AvocadoDB's HTTP API. They can be used to
 more efficiently carry out operations with multiple documents than their single-document
 equivalents, which required one HTTP request per operation. With the batch operations,
 the HTTP request/response overhead can be amortized across multiple operations.
@@ -348,12 +348,12 @@ the HTTP request/response overhead can be amortized across multiple operations.
 Persistent indexes
 ------------------
 
-ArangoDB 3.0 provides an experimental persistent index feature. Persistent indexes store
+AvocadoDB 3.0 provides an experimental persistent index feature. Persistent indexes store
 the index values on disk instead of in-memory only. This means the indexes do not need
 to be rebuilt in-memory when a collection is loaded or reloaded, which should improve
 collection loading times.
 
-The persistent indexes in ArangoDB are based on the RocksDB engine.
+The persistent indexes in AvocadoDB are based on the RocksDB engine.
 To create a persistent index for a collection, create an index of type "rocksdb" as
 follows:
 
@@ -368,7 +368,7 @@ will be finalized until the release of the 3.0 stable version.
 Upgraded V8 version
 -------------------
 
-The V8 engine that is used inside ArangoDB to execute JavaScript code has been upgraded from
+The V8 engine that is used inside AvocadoDB to execute JavaScript code has been upgraded from
 version 4.3.61 to 5.0.71.39. The new version makes several more ES6 features available by
 default, including
 
@@ -381,7 +381,7 @@ default, including
 Web Admin Interface
 -------------------
 
-The ArangoDB 3.0 web interface is significantly improved. It now comes with a more
+The AvocadoDB 3.0 web interface is significantly improved. It now comes with a more
 responsive design, making it easier to use on different devices. Navigation and menus
 have been simplified, and related items have been regrouped to stay closer together
 and allow tighter workflows.
@@ -398,7 +398,7 @@ longer-running operations are ongoing. It also keeps more state about user's cho
 windows sizes, whether the tree or the code view was last used in the document editor).
 
 Cluster statistics are now integrated into the web interface as well. Additionally, a
-menu item "Help us" has been added to easily provide the ArangoDB team feedback about
+menu item "Help us" has been added to easily provide the AvocadoDB team feedback about
 the product.
 
 The frontend may now be mounted behind a reverse proxy on a different path. For this to work
@@ -407,10 +407,10 @@ the proxy should send a X-Script-Name header containing the path.
 A backend configuration for haproxy might look like this:
 
 ```
-reqadd X-Script-Name:\ /arangodb
+reqadd X-Script-Name:\ /avocadodb
 ```
 
-The frontend will recognize the subpath and produce appropriate links. ArangoDB will only
+The frontend will recognize the subpath and produce appropriate links. AvocadoDB will only
 accept paths from trusted frontend proxies. Trusted proxies may be added on startup:
 
 ```
@@ -431,7 +431,7 @@ more familiar API. The most notable changes are:
 * Legacy mode for 2.8 services
 
   Stuck with old code? You can continue using your 2.8-compatible Foxx services with 
-  3.0 by adding `"engines": {"arangodb": "^2.8.0"}` (or similar version ranges that 
+  3.0 by adding `"engines": {"avocadodb": "^2.8.0"}` (or similar version ranges that 
   exclude 3.0 and up) to the service manifest.
 
 * No more global variables and magical comments
@@ -441,13 +441,13 @@ more familiar API. The most notable changes are:
 
 * Repository and Model have been removed
 
-  Instead of repositories just use ArangoDB collections directly. For validation simply 
+  Instead of repositories just use AvocadoDB collections directly. For validation simply 
   use the joi schemas (but wrapped in `joi.object()`) that previously lived inside the 
   model. Collections and queries return plain JavaScript objects.
 
 * Controllers have been replaced with nestable routers
 
-  Create routers with `require('@arangodb/foxx/router')()`, attach them to your service 
+  Create routers with `require('@avocadodb/foxx/router')()`, attach them to your service 
   with `module.context.use(router)`. Because routers are no longer mounted automagically, 
   you can export and import them like any other object. Use `router.use('/path', subRouter)` 
   to nest routers as deeply as you want.
@@ -475,13 +475,13 @@ more familiar API. The most notable changes are:
 
   To make it easier to get started, the functionality previously provided by the 
   `simple-auth`, `oauth2`, `sessions-local` and `sessions-jwt` services have been moved 
-  into Foxx as the `@arangodb/foxx/auth`, `@arangodb/foxx/oauth2` and `@arangodb/foxx/sessions` 
+  into Foxx as the `@avocadodb/foxx/auth`, `@avocadodb/foxx/oauth2` and `@avocadodb/foxx/sessions` 
   modules.
 
 Logging
 -------
 
-ArangoDB's logging is now grouped into topics. The log verbosity and output files can
+AvocadoDB's logging is now grouped into topics. The log verbosity and output files can
 be adjusted per log topic. For example
 
 ```
@@ -520,7 +520,7 @@ To additionally log HTTP request to a file named "requests.log" add the options:
 Build system
 ------------
 
-ArangoDB now uses the cross-platform build system CMake for all its builds.
+AvocadoDB now uses the cross-platform build system CMake for all its builds.
 Previous versions used two different build systems, making development and
 contributions harder than necessary. Now the build system is unified, and
 all targets (Linux, Windows, MacOS) are built from the same set of build
@@ -531,7 +531,7 @@ Documentation
 
 The documentation has been enhanced and re-organized to be more intuitive.
 
-A new introduction for beginners should bring you up to speed with ArangoDB
+A new introduction for beginners should bring you up to speed with AvocadoDB
 in less than an hour. Additional topics have been introduced and will be
 extended with upcoming releases.
 

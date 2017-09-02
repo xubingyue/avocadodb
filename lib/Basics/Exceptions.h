@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Jan Steemann
@@ -33,35 +33,35 @@
 /// @brief diagnostic output
 #define DIAGNOSTIC_INFORMATION(e) e.what()
 
-/// @brief throws an arango exception with an error code
+/// @brief throws an avocado exception with an error code
 #define THROW_ARANGO_EXCEPTION(code) \
-  throw arangodb::basics::Exception(code, __FILE__, __LINE__)
+  throw avocadodb::basics::Exception(code, __FILE__, __LINE__)
 
-/// @brief throws an arango exception with an error code and arbitrary
+/// @brief throws an avocado exception with an error code and arbitrary
 /// arguments (to be inserted in printf-style manner)
 #define THROW_ARANGO_EXCEPTION_PARAMS(code, ...)                           \
-  throw arangodb::basics::Exception(                                       \
+  throw avocadodb::basics::Exception(                                       \
       code,                                                                \
-      arangodb::basics::Exception::FillExceptionString(code, __VA_ARGS__), \
+      avocadodb::basics::Exception::FillExceptionString(code, __VA_ARGS__), \
       __FILE__, __LINE__)
 
-/// @brief throws an arango exception with an error code and arbitrary
+/// @brief throws an avocado exception with an error code and arbitrary
 /// arguments (to be inserted in printf-style manner)
 #define THROW_ARANGO_EXCEPTION_FORMAT(code, format, ...)             \
-  throw arangodb::basics::Exception(                                 \
-      code, arangodb::basics::Exception::FillFormatExceptionString(  \
+  throw avocadodb::basics::Exception(                                 \
+      code, avocadodb::basics::Exception::FillFormatExceptionString(  \
                 "%s: " format, TRI_errno_string(code), __VA_ARGS__), \
       __FILE__, __LINE__)
 
-/// @brief throws an arango exception with an error code and an already-built
+/// @brief throws an avocado exception with an error code and an already-built
 /// error message
 #define THROW_ARANGO_EXCEPTION_MESSAGE(code, message) \
-  throw arangodb::basics::Exception(code, message, __FILE__, __LINE__)
+  throw avocadodb::basics::Exception(code, message, __FILE__, __LINE__)
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 
-/// @brief arango exception type
+/// @brief avocado exception type
 class Exception : public virtual std::exception {
  public:
   static std::string FillExceptionString(int, ...);

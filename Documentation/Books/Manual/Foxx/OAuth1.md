@@ -1,7 +1,7 @@
 OAuth 1.0a
 ==========
 
-`const createOAuth1Client = require('@arangodb/foxx/oauth1');`
+`const createOAuth1Client = require('@avocadodb/foxx/oauth1');`
 
 The OAuth1 module provides abstractions over OAuth 1.0a providers like Twitter, XING and Tumblr.
 
@@ -361,14 +361,14 @@ Returns an object with three properties:
 
 **Examples**
 
-Fetch a list of tweets mentioning `@arangodb`:
+Fetch a list of tweets mentioning `@avocadodb`:
 
 ```js
-const request = require('@arangodb/request');
+const request = require('@avocadodb/request');
 const req = oauth1.createSignedRequest(
   'GET',
   'https://api.twitter.com/1.1/search/tweets.json',
-  {q: '@arangodb'},
+  {q: '@avocadodb'},
   authData.oauth_token,
   authData.oauth_token_secret
 );

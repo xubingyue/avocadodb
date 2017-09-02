@@ -22,7 +22,7 @@ of the collections used in the query in the *collections* attribute.
 If a query can be parsed successfully, the *ast* attribute of the returned
 JSON will contain the abstract syntax tree representation of the query.
 The format of the *ast* is subject to change in future versions of
-ArangoDB, but it can be used to inspect how ArangoDB interprets a given
+AvocadoDB, but it can be used to inspect how AvocadoDB interprets a given
 query. Note that the abstract syntax tree will be returned without any
 optimizations applied to it.
 

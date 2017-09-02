@@ -35,7 +35,7 @@ Rename to Error Sources?
 Include article about parameter injection from cookbook?
 
 Quote marks around bind parameter placeholders
-https://github.com/arangodb/arangodb/issues/1634#issuecomment-167808660
+https://github.com/avocadodb/avocadodb/issues/1634#issuecomment-167808660
 
 FILTER HAS(doc, "attr") instead of FITLER doc.attr / FILTER doc.attr != null
 

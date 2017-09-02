@@ -29,11 +29,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var ArangoCollection = arangodb.ArangoCollection;
-var testHelper = require("@arangodb/test-helper").Helper;
-var db = arangodb.db;
-var ERRORS = arangodb.errors;
+var avocadodb = require("@avocadodb");
+var AvocadoCollection = avocadodb.AvocadoCollection;
+var testHelper = require("@avocadodb/test-helper").Helper;
+var db = avocadodb.db;
+var ERRORS = avocadodb.errors;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +127,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var id = c1._id;
@@ -137,7 +137,7 @@ function CollectionSuite () {
       assertEqual(id, c1._id);
       assertEqual(nn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var c2 = db._collection(cn);
@@ -165,7 +165,7 @@ function CollectionSuite () {
       assertTypeOf("string", c1._id);
       assertEqual(cn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var id = c1._id;
@@ -175,7 +175,7 @@ function CollectionSuite () {
       assertEqual(id, c1._id);
       assertEqual(nn, c1.name());
       assertTypeOf("number", c1.status());
-      assertEqual(ArangoCollection.TYPE_DOCUMENT, c1.type());
+      assertEqual(AvocadoCollection.TYPE_DOCUMENT, c1.type());
       assertTypeOf("number", c1.type());
 
       var c2 = db._collection(cn);

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global window, frontendConfig, exports, Backbone, _, $, templateEngine, arangoHelper, Joi */
+/* global window, frontendConfig, exports, Backbone, _, $, templateEngine, avocadoHelper, Joi */
 
 (function () {
   'use strict';
@@ -15,9 +15,9 @@
     },
 
     events: {
-      'click .iconSet.icon_arangodb_settings2': 'createEditPropertiesModal',
+      'click .iconSet.icon_avocadodb_settings2': 'createEditPropertiesModal',
       'click .pull-left': 'noop',
-      'click .icon_arangodb_settings2': 'editProperties',
+      'click .icon_avocadodb_settings2': 'editProperties',
       'click .spanInfo': 'showProperties',
       'click': 'selectCollection'
     },
@@ -87,7 +87,7 @@
     unloadCollection: function () {
       var unloadCollectionCallback = function (error) {
         if (error) {
-          arangoHelper.arangoError('Collection error', this.model.get('name') + ' could not be unloaded.');
+          avocadoHelper.avocadoError('Collection error', this.model.get('name') + ' could not be unloaded.');
         } else if (error === undefined) {
           this.model.set('status', 'unloading');
           this.render();
@@ -96,7 +96,7 @@
             this.model.set('status', 'unloaded');
             this.render();
           } else {
-            arangoHelper.arangoNotification('Collection ' + this.model.get('name') + ' unloaded.');
+            avocadoHelper.avocadoNotification('Collection ' + this.model.get('name') + ' unloaded.');
           }
         }
       }.bind(this);
@@ -108,7 +108,7 @@
     loadCollection: function () {
       var loadCollectionCallback = function (error) {
         if (error) {
-          arangoHelper.arangoError('Collection error', this.model.get('name') + ' could not be loaded.');
+          avocadoHelper.avocadoError('Collection error', this.model.get('name') + ' could not be loaded.');
         } else if (error === undefined) {
           this.model.set('status', 'loading');
           this.render();
@@ -117,7 +117,7 @@
             this.model.set('status', 'loaded');
             this.render();
           } else {
-            arangoHelper.arangoNotification('Collection ' + this.model.get('name') + ' loaded.');
+            avocadoHelper.avocadoNotification('Collection ' + this.model.get('name') + ' loaded.');
           }
         }
       }.bind(this);
@@ -140,7 +140,7 @@
       this.model.destroy(
         {
           error: function () {
-            arangoHelper.arangoError('Could not delete collection.');
+            avocadoHelper.avocadoError('Could not delete collection.');
           },
           success: function () {
             window.modalView.hide();
@@ -153,7 +153,7 @@
     saveModifiedCollection: function () {
       var callback = function (error, isCoordinator) {
         if (error) {
-          arangoHelper.arangoError('Error', 'Could not get coordinator info');
+          avocadoHelper.avocadoError('Error', 'Could not get coordinator info');
         } else {
           var newname;
           if (isCoordinator) {
@@ -168,7 +168,7 @@
             try {
               journalSize = JSON.parse($('#change-collection-size').val() * 1024 * 1024);
             } catch (e) {
-              arangoHelper.arangoError('Please enter a valid number');
+              avocadoHelper.avocadoError('Please enter a valid number');
               return 0;
             }
 
@@ -179,12 +179,12 @@
                 throw new Error('invalid indexBuckets value');
               }
             } catch (e) {
-              arangoHelper.arangoError('Please enter a valid number of index buckets');
+              avocadoHelper.avocadoError('Please enter a valid number of index buckets');
               return 0;
             }
             var callbackChange = function (error) {
               if (error) {
-                arangoHelper.arangoError('Collection error: ' + error.responseText);
+                avocadoHelper.avocadoError('Collection error: ' + error.responseText);
               } else {
                 this.collectionsView.render();
                 window.modalView.hide();
@@ -193,7 +193,7 @@
 
             var callbackRename = function (error) {
               if (error) {
-                arangoHelper.arangoError('Collection error: ' + error.responseText);
+                avocadoHelper.avocadoError('Collection error: ' + error.responseText);
               } else {
                 var wfs = $('#change-collection-sync').val();
                 this.model.changeCollection(wfs, journalSize, indexBuckets, callbackChange);
@@ -209,7 +209,7 @@
             if (this.model.get('name') !== newname) {
               var callbackRename2 = function (error, data) {
                 if (error) {
-                  arangoHelper.arangoError('Collection error: ' + data.responseText);
+                  avocadoHelper.avocadoError('Collection error: ' + data.responseText);
                 } else {
                   this.collectionsView.render();
                   window.modalView.hide();
@@ -234,7 +234,7 @@
     createEditPropertiesModal: function () {
       var callback = function (error, isCoordinator) {
         if (error) {
-          arangoHelper.arangoError('Error', 'Could not get coordinator info');
+          avocadoHelper.avocadoError('Error', 'Could not get coordinator info');
         } else {
           var collectionIsLoaded = false;
 
@@ -350,7 +350,7 @@
           if (collectionIsLoaded) {
             var callback2 = function (error, data) {
               if (error) {
-                arangoHelper.arangoError('Collection', 'Could not fetch properties');
+                avocadoHelper.avocadoError('Collection', 'Could not fetch properties');
               } else {
                 var journalSize = data.journalSize / (1024 * 1024);
                 var indexBuckets = data.indexBuckets;
@@ -479,7 +479,7 @@
     createInfoModal: function () {
       var callbackRev = function (error, revision, figures) {
         if (error) {
-          arangoHelper.arangoError('Figures', 'Could not get revision.');
+          avocadoHelper.avocadoError('Figures', 'Could not get revision.');
         } else {
           var buttons = [];
           var tableContent = {
@@ -498,7 +498,7 @@
 
       var callback = function (error, data) {
         if (error) {
-          arangoHelper.arangoError('Figures', 'Could not get figures.');
+          avocadoHelper.avocadoError('Figures', 'Could not get figures.');
         } else {
           var figures = data;
           this.model.getRevision(callbackRev, figures);
@@ -574,9 +574,9 @@
         if (error) {
           if (msg) {
             var message = JSON.parse(msg.responseText);
-            arangoHelper.arangoError('Document error', message.errorMessage);
+            avocadoHelper.avocadoError('Document error', message.errorMessage);
           } else {
-            arangoHelper.arangoError('Document error', 'Could not create index.');
+            avocadoHelper.avocadoError('Document error', 'Could not create index.');
           }
         }
         self.refreshCollectionsView();
@@ -617,7 +617,7 @@
     },
 
     refreshCollectionsView: function () {
-      window.App.arangoCollectionsStore.fetch({
+      window.App.avocadoCollectionsStore.fetch({
         success: function () {
           window.App.collectionsView.render();
         }
@@ -627,9 +627,9 @@
     deleteIndex: function () {
       var callback = function (error) {
         if (error) {
-          arangoHelper.arangoError('Could not delete index');
+          avocadoHelper.avocadoError('Could not delete index');
           $("tr th:contains('" + this.lastId + "')").parent().children().last().html(
-            '<span class="deleteIndex icon_arangodb_roundminus"' +
+            '<span class="deleteIndex icon_avocadodb_roundminus"' +
             ' data-original-title="Delete index" title="Delete index"></span>'
           );
           this.model.set('locked', false);
@@ -659,7 +659,7 @@
     getIndex: function () {
       var callback = function (error, data) {
         if (error) {
-          window.arangoHelper.arangoError('Index', data.errorMessage);
+          window.avocadoHelper.avocadoError('Index', data.errorMessage);
         } else {
           this.renderIndex(data);
         }
@@ -678,10 +678,10 @@
 
         _.each(this.index.indexes, function (v) {
           if (v.type === 'primary' || v.type === 'edge') {
-            actionString = '<span class="icon_arangodb_locked" ' +
+            actionString = '<span class="icon_avocadodb_locked" ' +
               'data-original-title="No action"></span>';
           } else {
-            actionString = '<span class="deleteIndex icon_arangodb_roundminus" ' +
+            actionString = '<span class="deleteIndex icon_avocadodb_roundminus" ' +
               'data-original-title="Delete index" title="Delete index"></span>';
           }
 
@@ -730,7 +730,7 @@
         $('#createIndex').detach().appendTo(elem);
       }
 
-      arangoHelper.fixTooltips('.icon_arangodb, .arangoicon', 'right');
+      avocadoHelper.fixTooltips('.icon_avocadodb, .avocadoicon', 'right');
       this.resetIndexForms();
     },
 

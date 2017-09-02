@@ -20,18 +20,18 @@ cancel has been initiated.
 
 @RESTRETURNCODE{400}
 is returned if no job-id was specified in the request. In this case,
-no x-arango-async-id HTTP header will be returned.
+no x-avocado-async-id HTTP header will be returned.
 
 @RESTRETURNCODE{404}
 is returned if the job was not found or already deleted or fetched from
-the job result list. In this case, no x-arango-async-id HTTP header will
+the job result list. In this case, no x-avocado-async-id HTTP header will
 be returned.
 
 @EXAMPLES
 
 @EXAMPLE_ARANGOSH_RUN{JSF_job_cancel}
   var url = "/_api/cursor";
-  var headers = {'x-arango-async' : 'store'};
+  var headers = {'x-avocado-async' : 'store'};
   var postData = {"query":
      "FOR i IN 1..10 FOR j IN 1..10 LET x = sleep(1.0) FILTER i == 5 && j == 5 RETURN 42"}
 
@@ -39,7 +39,7 @@ be returned.
   assert(response.code === 202);
   logRawResponse(response);
 
-  var queryId = response.headers['x-arango-async-id'];
+  var queryId = response.headers['x-avocado-async-id'];
   url = '/_api/job/pending';
   var response = logCurlRequest('GET', url);
   assert(response.code === 200);

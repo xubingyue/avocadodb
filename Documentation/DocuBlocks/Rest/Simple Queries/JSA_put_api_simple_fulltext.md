@@ -34,8 +34,8 @@ for the collection and the specified attribute.
 
 Returns a cursor containing the result, see [Http Cursor](../AqlQueryCursor/README.md) for details.
 
-Note: the *fulltext* simple query is **deprecated** as of ArangoDB 2.6. 
-This API may be removed in future versions of ArangoDB. The preferred
+Note: the *fulltext* simple query is **deprecated** as of AvocadoDB 2.6. 
+This API may be removed in future versions of AvocadoDB. The preferred
 way for retrieving documents from a collection using the near operator is
 to issue an AQL query using the *FULLTEXT* [AQL function](../../AQL/Functions/Fulltext.html) 
 as follows:

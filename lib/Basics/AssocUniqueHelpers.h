@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 /// @author Martin Schoenert
@@ -33,7 +33,7 @@
 #include "Basics/LocalTaskQueue.h"
 #include "Basics/MutexLocker.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 
 struct BucketPosition {
@@ -55,7 +55,7 @@ struct BucketPosition {
 template <class Element>
 class UniqueInserterTask : public LocalTask {
  private:
-  typedef arangodb::basics::IndexBucket<Element, uint64_t, SIZE_MAX> Bucket;
+  typedef avocadodb::basics::IndexBucket<Element, uint64_t, SIZE_MAX> Bucket;
   typedef std::vector<std::pair<Element, uint64_t>> DocumentsPerBucket;
 
   std::function<void(void*)> _contextDestroyer;
@@ -132,7 +132,7 @@ class UniquePartitionerTask : public LocalTask {
   void* _userData;
 
   std::shared_ptr<std::vector<std::atomic<size_t>>> _bucketFlags;
-  std::shared_ptr<std::vector<arangodb::Mutex>> _bucketMapLocker;
+  std::shared_ptr<std::vector<avocadodb::Mutex>> _bucketMapLocker;
   std::shared_ptr<std::vector<std::vector<DocumentsPerBucket>>> _allBuckets;
   std::shared_ptr<std::vector<std::shared_ptr<Inserter>>> _inserters;
 
@@ -146,7 +146,7 @@ class UniquePartitionerTask : public LocalTask {
       std::shared_ptr<std::vector<Element> const> data, size_t lower,
       size_t upper, void* userData,
       std::shared_ptr<std::vector<std::atomic<size_t>>> bucketFlags,
-      std::shared_ptr<std::vector<arangodb::Mutex>> bucketMapLocker,
+      std::shared_ptr<std::vector<avocadodb::Mutex>> bucketMapLocker,
       std::shared_ptr<std::vector<std::vector<DocumentsPerBucket>>> allBuckets,
       std::shared_ptr<std::vector<std::shared_ptr<Inserter>>> inserters)
       : LocalTask(queue),
@@ -196,6 +196,6 @@ class UniquePartitionerTask : public LocalTask {
 };
 
 }  // namespace basics
-}  // namespace arangodb
+}  // namespace avocadodb
 
 #endif

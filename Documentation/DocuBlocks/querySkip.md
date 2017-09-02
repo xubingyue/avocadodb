@@ -9,8 +9,8 @@ number of documents are skipped before returning the query results.
 In general the input to *skip* should be sorted. Otherwise it will be
 unclear which documents will be included in the result set.
 
-Note: using negative *skip* values is **deprecated** as of ArangoDB 2.6 and 
-will not be supported in future versions of ArangoDB.
+Note: using negative *skip* values is **deprecated** as of AvocadoDB 2.6 and 
+will not be supported in future versions of AvocadoDB.
 
 @EXAMPLES
 

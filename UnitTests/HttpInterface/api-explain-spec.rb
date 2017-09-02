@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   api = "/_api/explain"
   prefix = "api-explain"
 
@@ -16,7 +16,7 @@ describe ArangoDB do
     context "error handling:" do
       it "returns an error if body is missing" do
         cmd = api
-        doc = ArangoDB.log_post("#{prefix}-missing-body", cmd)
+        doc = AvocadoDB.log_post("#{prefix}-missing-body", cmd)
         
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -27,7 +27,7 @@ describe ArangoDB do
       it "returns an error for an invalid path" do
         cmd = api + "/foo"
         body = "{ \"query\" : \"RETURN 1\" }"
-        doc = ArangoDB.log_post("#{prefix}-invalid-path", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-invalid-path", cmd, :body => body)
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
         doc.parsed_response['error'].should eq(true)
@@ -37,7 +37,7 @@ describe ArangoDB do
       it "returns an error if collection is unknown" do
         cmd = api
         body = "{ \"query\" : \"FOR u IN unknowncollection LIMIT 2 RETURN u.n\" }"
-        doc = ArangoDB.log_post("#{prefix}-unknown-collection", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-unknown-collection", cmd, :body => body)
         
         doc.code.should eq(404)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -49,7 +49,7 @@ describe ArangoDB do
       it "returns an error if bind variables are missing completely" do
         cmd = api
         body = "{ \"query\" : \"FOR u IN [1,2] FILTER u.id == @id RETURN 1\" }"
-        doc = ArangoDB.log_post("#{prefix}-missing-bind-variables-completely", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-missing-bind-variables-completely", cmd, :body => body)
         
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -61,7 +61,7 @@ describe ArangoDB do
       it "returns an error if bind variables are required but empty" do
         cmd = api
         body = "{ \"query\" : \"FOR u IN [1,2] FILTER u.id == @id RETURN 1\", \"bindVars\" : { } }"
-        doc = ArangoDB.log_post("#{prefix}-missing-bind-variables-empty", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-missing-bind-variables-empty", cmd, :body => body)
         
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -73,7 +73,7 @@ describe ArangoDB do
       it "returns an error if bind variables are missing" do
         cmd = api
         body = "{ \"query\" : \"FOR u IN [1,2] FILTER u.id == @id RETURN 1\", \"bindVars\" : { \"id2\" : 1 } }"
-        doc = ArangoDB.log_post("#{prefix}-missing-bind-variables-wrong", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-missing-bind-variables-wrong", cmd, :body => body)
         
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -85,7 +85,7 @@ describe ArangoDB do
       it "returns an error if query contains a parse error" do
         cmd = api
         body = "{ \"query\" : \"FOR u IN \" }"
-        doc = ArangoDB.log_post("#{prefix}-parse-error", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-parse-error", cmd, :body => body)
         
         doc.code.should eq(400)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -104,7 +104,7 @@ describe ArangoDB do
       it "explains a simple query" do
         cmd = api
         body = "{ \"query\" : \"FOR u IN [1,2] RETURN u\" }"
-        doc = ArangoDB.log_post("#{prefix}-query-simple", cmd, :body => body)
+        doc = AvocadoDB.log_post("#{prefix}-query-simple", cmd, :body => body)
         
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")

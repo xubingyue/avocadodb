@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* jshint unused: false */
 /* global describe, beforeEach, afterEach, it, */
-/* global spyOn, runs, expect, waitsFor, arangoHelper*/
+/* global spyOn, runs, expect, waitsFor, avocadoHelper*/
 /* global GraphManagementView, _, jasmine, $*/
 
 (function () {
@@ -24,14 +24,14 @@
       modalDiv.id = 'modalPlaceholder';
       document.body.appendChild(modalDiv);
       window.modalView = new window.ModalView();
-      collections = new window.arangoCollections(cols);
+      collections = new window.avocadoCollections(cols);
       graphs = new window.GraphCollection();
       div = document.createElement('div');
       div.id = 'content';
       document.body.appendChild(div);
       view = new window.GraphManagementView({
         collection: graphs,
-        collectionCollection: new window.arangoCollections()
+        collectionCollection: new window.avocadoCollections()
       });
     });
 
@@ -331,14 +331,14 @@
         spyOn(graphs, 'get').andReturn(collReturn);
 
         spyOn(window, '$').andReturn(a);
-        spyOn(arangoHelper, 'arangoError');
+        spyOn(avocadoHelper, 'avocadoError');
 
         spyOn(window.modalView, 'hide').andReturn(a);
 
         view.deleteGraph(e);
 
         expect(graphs.get).toHaveBeenCalledWith('blabalblub');
-        expect(arangoHelper.arangoError).toHaveBeenCalledWith('errorMessage');
+        expect(avocadoHelper.avocadoError).toHaveBeenCalledWith('errorMessage');
         expect(window.modalView.hide).toHaveBeenCalled();
       });
 
@@ -950,11 +950,11 @@
           g
         );
 
-        spyOn(arangoHelper, 'arangoError');
+        spyOn(avocadoHelper, 'avocadoError');
 
         view.createNewGraph();
 
-        expect(arangoHelper.arangoError).toHaveBeenCalledWith(
+        expect(avocadoHelper.avocadoError).toHaveBeenCalledWith(
           "The graph '" + 'name' + "' already exists.");
       });
 
@@ -1160,11 +1160,11 @@
         });
         spyOn(window.modalView, 'hide');
 
-        spyOn(arangoHelper, 'arangoError');
+        spyOn(avocadoHelper, 'avocadoError');
 
         view.createNewGraph();
 
-        expect(arangoHelper.arangoError).toHaveBeenCalledWith(
+        expect(avocadoHelper.avocadoError).toHaveBeenCalledWith(
           'blub');
         expect(view.updateGraphManagementView).not.toHaveBeenCalled();
       });
@@ -1261,11 +1261,11 @@
           g
         );
 
-        spyOn(arangoHelper, 'arangoError');
+        spyOn(avocadoHelper, 'avocadoError');
 
         view.createNewGraph();
 
-        expect(arangoHelper.arangoError).toHaveBeenCalledWith(
+        expect(avocadoHelper.avocadoError).toHaveBeenCalledWith(
           'A name for the graph has to be provided.');
       });
       describe('creating a new graph', function () {

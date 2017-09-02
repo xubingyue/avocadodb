@@ -25,7 +25,7 @@ Some example that uses collections:
         read: [ "c1", "c2" ]
       },
       action: function (params) {
-        var db = require('@arangodb').db;
+        var db = require('@avocadodb').db;
         var doc = db.c1.document(params['c1Key']);
         db.users.save(doc);
         doc = db.c2.document(params['c2Key']);

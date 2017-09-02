@@ -29,7 +29,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ function ahuacatlQueryVariablesTestSuite () {
       ];
 
       users2 = [ 
-        { "id" : 1, "name" : "Max", "address" : { "home" : { "street" : "arango road", "zip" : "abcde", "phone" : [ { "type" : "mobile", "number" : "555-1234567" }, { "type" : "fax", "number" : "555-2345678" } ] }, "work": { "street" : "cantaloupe way", "zip" : "xyzab", "phone" : [ { "type" : "landline", "number" : "555-5555555" } ] } } }, 
+        { "id" : 1, "name" : "Max", "address" : { "home" : { "street" : "avocado road", "zip" : "abcde", "phone" : [ { "type" : "mobile", "number" : "555-1234567" }, { "type" : "fax", "number" : "555-2345678" } ] }, "work": { "street" : "cantaloupe way", "zip" : "xyzab", "phone" : [ { "type" : "landline", "number" : "555-5555555" } ] } } }, 
         { "id" : 2, "name" : "Vanessa", "address" : { "home" : { "street" : "one-way loop", "zip" : "4e2af", "phone" : [ { "type" : "landline", "number" : "555-4352367" } ] }, "work": { "street" : "workers ave", "zip" : "4e2af", "phone" : [ { "type" : "landline", "number" : "555-2214212" } ] } } }, 
         { "id" : 3, "name" : "Peter", "address" : { "home" : { "street" : "theather drive", "zip" : "99998", "phone" : [ { "type" : "mobile", "number" : "555-9624218" }, { "type" : "fax", "number" : "555-4425742" }, { "type" : "landline", "number" : "555-3485385" } ] } } }
       ];
@@ -189,7 +189,7 @@ function ahuacatlQueryVariablesTestSuite () {
     testNamedAccess1 : function () {
       var query = "FOR u IN " + JSON.stringify(users2) + " RETURN { \"name\" : u.name, \"addr\" : u.address }";
       var expected = [
-        { "addr" : { "home" : { "street" : "arango road", "zip" : "abcde", "phone" : [{ "type" : "mobile", "number" : "555-1234567" }, { "type" : "fax", "number" : "555-2345678" }] }, "work" : { "street" : "cantaloupe way", "zip" : "xyzab", "phone" : [{ "type" : "landline", "number" : "555-5555555" }] } }, "name" : "Max" }, 
+        { "addr" : { "home" : { "street" : "avocado road", "zip" : "abcde", "phone" : [{ "type" : "mobile", "number" : "555-1234567" }, { "type" : "fax", "number" : "555-2345678" }] }, "work" : { "street" : "cantaloupe way", "zip" : "xyzab", "phone" : [{ "type" : "landline", "number" : "555-5555555" }] } }, "name" : "Max" }, 
         { "addr" : { "home" : { "street" : "one-way loop", "zip" : "4e2af", "phone" : [{ "type" : "landline", "number" : "555-4352367" }] }, "work" : { "street" : "workers ave", "zip" : "4e2af", "phone" : [{ "type" : "landline", "number" : "555-2214212" }] } }, "name" : "Vanessa" }, 
         { "addr" : { "home" : { "street" : "theather drive", "zip" : "99998", "phone" : [{ "type" : "mobile", "number" : "555-9624218" }, { "type" : "fax", "number" : "555-4425742" }, { "type" : "landline", "number" : "555-3485385" }] } }, "name" : "Peter" }
       ];
@@ -205,7 +205,7 @@ function ahuacatlQueryVariablesTestSuite () {
     testNamedAccess2 : function () {
       var query = "FOR u IN " + JSON.stringify(users2) + " RETURN { \"name\" : u.name, \"home\" : u.address.home }";
       var expected = [
-        { "home" : { "street" : "arango road", "zip" : "abcde", "phone" : [{ "type" : "mobile", "number" : "555-1234567" }, { "type" : "fax", "number" : "555-2345678" }] }, "name" : "Max" }, 
+        { "home" : { "street" : "avocado road", "zip" : "abcde", "phone" : [{ "type" : "mobile", "number" : "555-1234567" }, { "type" : "fax", "number" : "555-2345678" }] }, "name" : "Max" }, 
         { "home" : { "street" : "one-way loop", "zip" : "4e2af", "phone" : [{ "type" : "landline", "number" : "555-4352367" }] }, "name" : "Vanessa" }, 
         { "home" : { "street" : "theather drive", "zip" : "99998", "phone" : [{ "type" : "mobile", "number" : "555-9624218" }, { "type" : "fax", "number" : "555-4425742" }, { "type" : "landline", "number" : "555-3485385" }] }, "name" : "Peter" }
       ];
@@ -220,7 +220,7 @@ function ahuacatlQueryVariablesTestSuite () {
 
     testNamedAccess3 : function () {
       var query = "FOR u IN " + JSON.stringify(users2) + " RETURN { \"name\" : u.name, \"str\" : u.address.home.street }";
-      var expected = [ { "name" : "Max", "str" : "arango road" }, { "name" : "Vanessa", "str" : "one-way loop" }, { "name" : "Peter", "str" : "theather drive" } ];
+      var expected = [ { "name" : "Max", "str" : "avocado road" }, { "name" : "Vanessa", "str" : "one-way loop" }, { "name" : "Peter", "str" : "theather drive" } ];
 
       var actual = getQueryResults(query);
       assertEqual(expected, actual);

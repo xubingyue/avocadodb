@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Steemann
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,8 +29,8 @@
 #include "Endpoint/Endpoint.h"
 #include "Logger/Logger.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 EndpointUnixDomain::EndpointUnixDomain(EndpointType type, int listenBacklog,
                                        std::string const& path)
@@ -49,14 +49,14 @@ TRI_socket_t EndpointUnixDomain::connect(double connectTimeout,
   TRI_socket_t listenSocket;
   TRI_invalidatesocket(&listenSocket);
 
-  LOG_TOPIC(DEBUG, arangodb::Logger::FIXME) << "connecting to unix endpoint '" << _specification << "'";
+  LOG_TOPIC(DEBUG, avocadodb::Logger::FIXME) << "connecting to unix endpoint '" << _specification << "'";
 
   TRI_ASSERT(!TRI_isvalidsocket(_socket));
   TRI_ASSERT(!_connected);
 
   listenSocket = TRI_socket(AF_UNIX, SOCK_STREAM, 0);
   if (!TRI_isvalidsocket(listenSocket)) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "socket() failed with " << errno << " (" << strerror(errno)
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "socket() failed with " << errno << " (" << strerror(errno)
              << ")";
     return listenSocket;
   }
@@ -72,7 +72,7 @@ TRI_socket_t EndpointUnixDomain::connect(double connectTimeout,
         TRI_bind(listenSocket, (struct sockaddr*)&address, (int) SUN_LEN(&address));
     if (result != 0) {
       // bind error
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "bind() failed with " << errno << " (" << strerror(errno)
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "bind() failed with " << errno << " (" << strerror(errno)
                << ")";
       TRI_CLOSE_SOCKET(listenSocket);
       TRI_invalidatesocket(&listenSocket);
@@ -80,11 +80,11 @@ TRI_socket_t EndpointUnixDomain::connect(double connectTimeout,
     }
 
     // listen for new connection, executed for server endpoints only
-    LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "using backlog size " << _listenBacklog;
+    LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "using backlog size " << _listenBacklog;
     result = TRI_listen(listenSocket, _listenBacklog);
 
     if (result < 0) {
-      LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "listen() failed with " << errno << " (" << strerror(errno)
+      LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "listen() failed with " << errno << " (" << strerror(errno)
                << ")";
       TRI_CLOSE_SOCKET(listenSocket);
       TRI_invalidatesocket(&listenSocket);
@@ -134,7 +134,7 @@ void EndpointUnixDomain::disconnect() {
     if (_type == EndpointType::SERVER) {
       int error = 0;
       if (!FileUtils::remove(_path, &error)) {
-        LOG_TOPIC(TRACE, arangodb::Logger::FIXME) << "unable to remove socket file '" << _path << "'";
+        LOG_TOPIC(TRACE, avocadodb::Logger::FIXME) << "unable to remove socket file '" << _path << "'";
       }
     }
   }

@@ -20,12 +20,12 @@ echo Database has its data in ${DBDIR}
 echo Logfile is in ${LOGFILE}
 
 if [ -z "${ARANGOSH}" ];  then
-  if [ -x build/bin/arangosh ];  then
-    ARANGOSH=build/bin/arangosh
-  elif [ -x bin/arangosh ];  then
-    ARANGOSH=bin/arangosh
+  if [ -x build/bin/avocadosh ];  then
+    ARANGOSH=build/bin/avocadosh
+  elif [ -x bin/avocadosh ];  then
+    ARANGOSH=bin/avocadosh
   else
-    echo "$0: cannot locate arangosh"
+    echo "$0: cannot locate avocadosh"
   fi
 fi
 
@@ -44,7 +44,7 @@ rc=$?
 
 if test $rc -eq 0; then
   echo "removing ${LOGFILE} ${DBDIR}"
-  rm -rf ${LOGFILE} ${DBDIR} arangosh.examples.js
+  rm -rf ${LOGFILE} ${DBDIR} avocadosh.examples.js
 else
   echo "failed - don't remove ${LOGFILE} ${DBDIR} - here's the logfile:"
   cat ${LOGFILE}

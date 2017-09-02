@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,8 +28,8 @@
 #include "V8/v8-utils.h"
 #include "V8/v8-vpack.h"
 
-using namespace arangodb;
-using namespace arangodb::basics;
+using namespace avocadodb;
+using namespace avocadodb::basics;
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief constructs a loader
@@ -54,7 +54,7 @@ v8::Handle<v8::Value> JSLoader::executeGlobalScript(
 
   if (i == _scripts.end()) {
     // correct the path/name
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "unknown script '" << StringUtils::correctPath(name) << "'";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "unknown script '" << StringUtils::correctPath(name) << "'";
     return v8::Undefined(isolate);
   }
 
@@ -94,7 +94,7 @@ JSLoader::eState JSLoader::loadScript(v8::Isolate* isolate,
 
   if (i == _scripts.end()) {
     // correct the path/name
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "unknown script '" << StringUtils::correctPath(name) << "'";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "unknown script '" << StringUtils::correctPath(name) << "'";
     return eFailLoad;
   }
 

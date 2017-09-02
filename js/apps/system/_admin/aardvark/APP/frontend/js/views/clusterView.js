@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, prettyBytes, Backbone, templateEngine, $, window, _, nv, d3 */
+/* global avocadoHelper, prettyBytes, Backbone, templateEngine, $, window, _, nv, d3 */
 (function () {
   'use strict';
 
@@ -248,7 +248,7 @@
       $.ajax({
         type: 'GET',
         cache: false,
-        url: arangoHelper.databaseUrl('/_admin/cluster/health'),
+        url: avocadoHelper.databaseUrl('/_admin/cluster/health'),
         contentType: 'application/json',
         processData: false,
         async: true,

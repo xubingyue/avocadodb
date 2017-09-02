@@ -2,7 +2,7 @@ Features and Improvements
 =========================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.3. ArangoDB 2.3 also contains several bugfixes that are not listed
+AvocadoDB 2.3. AvocadoDB 2.3 also contains several bugfixes that are not listed
 here.
 
 AQL improvements
@@ -22,14 +22,14 @@ After creating plans, the optimizer will estimate the costs for each plan and
 pick the plan with the lowest cost (termed the *optimal plan*) for the actual
 query execution.
 
-With the `explain()` method of `ArangoStatement` users can check which execution
+With the `explain()` method of `AvocadoStatement` users can check which execution
 plan the optimizer pick or retrieve a list of other plans that optimizer did not
 choose. The plan will reveal many details about which indexes are used etc.
 `explain()` will also return the of optimizer rules applied so users can validate
 whether or not a query allows using a specific optimization.
 
 Execution of AQL queries has been rewritten in C++, allowing many queries 
-to avoid the conversion of documents between ArangoDB's internal low-level data 
+to avoid the conversion of documents between AvocadoDB's internal low-level data 
 structure and the V8 object representation format. 
 
 The framework for optimizer rules is now also generally cluster-aware, allowing
@@ -42,7 +42,7 @@ in the future.
 
 #### Alternative operator syntax
 
-ArangoDB 2.3 allows to use the following alternative forms for the 
+AvocadoDB 2.3 allows to use the following alternative forms for the 
 logical operators:
 - `AND`: logical and
 - `OR`: logical or
@@ -62,7 +62,7 @@ Previously, a `NOT IN` was only achievable by writing a negated `IN` condition:
    
     FOR i IN ... FILTER ! (i IN [ 23, 42 ]) ...
 
-In ArangoDB 2.3, the same result can now alternatively be achieved by writing
+In AvocadoDB 2.3, the same result can now alternatively be achieved by writing
 the more intuitive variant:
 
     FOR i IN ... FILTER i NOT IN [ 23, 42 ] ...
@@ -104,7 +104,7 @@ array arguments, e.g.:
 
 #### AQL queries throw less exceptions
 
-In previous versions of ArangoDB, AQL queries aborted with an exception in many
+In previous versions of AvocadoDB, AQL queries aborted with an exception in many
 situations and threw a runtime exception. For example, exceptions were thrown when 
 trying to find a value using the `IN` operator in a non-array element, when trying 
 to use non-boolean values with the logical operands `&&` or `||` or `!`, when using 
@@ -126,15 +126,15 @@ This forced users to rewrite the query as follows:
       FILTER IS_LIST(doc.topics) && doc.topics IN [ "something", "whatever" ]
       RETURN doc
 
-In ArangoDB 2.3 this has been changed to make AQL easier to use. The change
+In AvocadoDB 2.3 this has been changed to make AQL easier to use. The change
 provides an extra benefit, and that is that non-throwing operators allow the
 query optimizer to perform much more transformations in the query without 
 changing its overall result.
 
 Here is a summary of changes:
 - when a non-array value is used on the right-hand side of the `IN` operator, the 
-  result will be `false` in ArangoDB 2.3, and no exception will be thrown.
-- the boolean operators `&&` and `||` do not throw in ArangoDB 2.3 if any of the
+  result will be `false` in AvocadoDB 2.3, and no exception will be thrown.
+- the boolean operators `&&` and `||` do not throw in AvocadoDB 2.3 if any of the
   operands is not a boolean value. Instead, they will perform an implicit cast of
   the values to booleans. Their result will be as follows:
   - `lhs && rhs` will return `lhs` if it is `false` or would be `false` when converted
@@ -147,7 +147,7 @@ Here is a summary of changes:
 - the arithmetic operators (`+`, `-`, `*`, `/`, `%`) can be applied to any value and 
   will not throw exceptions when applied to non-numeric values. Instead, any value used
   in these operators will be casted to a numeric value implicitly. If no numeric result
-  can be produced by an arithmetic operator, it will return `null` in ArangoDB 2.3. This
+  can be produced by an arithmetic operator, it will return `null` in AvocadoDB 2.3. This
   is also true for division by zero. 
 - passing arguments of invalid types into AQL functions does not throw a runtime
   exception in most cases, but may produce runtime warnings. Built-in AQL functions that 
@@ -172,7 +172,7 @@ of the cardinality of the indexed attribute.
 ### Reverse iteration over skiplist indexes
 
 AQL queries can now use a sorted skiplist index for reverse iteration. This
-allows several queries to run faster than in previous versions of ArangoDB.
+allows several queries to run faster than in previous versions of AvocadoDB.
 
 For example, the following AQL query can now use the index on `doc.value`:
 
@@ -181,12 +181,12 @@ For example, the following AQL query can now use the index on `doc.value`:
       SORT doc.values DESC
       RETURN doc
 
-Previous versions of ArangoDB did not use the index because of the descending
+Previous versions of AvocadoDB did not use the index because of the descending
 (`DESC`) sort. 
 
 Additionally, the new AQL optimizer can use an index for sorting now even
 if the AQL query does not contain a `FILTER` statement. This optimization was
-not available in previous versions of ArangoDB.
+not available in previous versions of AvocadoDB.
 
 
 ### Added basic support for handling binary data in Foxx
@@ -244,10 +244,10 @@ JSON import and export tools have been added.
 
 ### Command-line options added
 
-The command-line option `--javascript.v8-contexts` was added to arangod to 
-provide better control over the number of V8 contexts created in arangod.
+The command-line option `--javascript.v8-contexts` was added to avocadod to 
+provide better control over the number of V8 contexts created in avocadod.
   
-Previously, the number of V8 contexts arangod created at startup was equal 
+Previously, the number of V8 contexts avocadod created at startup was equal 
 to the number of server threads (as specified by option `--server.threads`). 
 
 In some situations it may be more sensible to create different amounts of threads 
@@ -258,15 +258,15 @@ threads do not have such high memory or CPU footprint.
 If the option `--javascript.v8-contexts` is not specified, the number of V8 
 contexts created at startup will remain equal to the number of server threads. 
 Thus no change in configuration is required to keep the same behavior as in 
-previous ArangoDB versions.
+previous AvocadoDB versions.
 
 
 The command-line option `--log.use-local-time` was added to print dates and 
-times in ArangoDB's log in the server-local timezone instead of UTC. If it
+times in AvocadoDB's log in the server-local timezone instead of UTC. If it
 is not set, the timezone will default to UTC.
 
     
-The option `--backslash-escape` has been added to arangoimp. Specifying this
+The option `--backslash-escape` has been added to avocadoimp. Specifying this
 option will use the backslash as the escape character for literal quotes when 
 parsing CSV files. The escape character for literal quotes is still the
 double quote character.
@@ -275,10 +275,10 @@ double quote character.
 Miscellaneous improvements
 --------------------------
 
-ArangoDB's built-in HTTP server now supports HTTP pipelining.
+AvocadoDB's built-in HTTP server now supports HTTP pipelining.
 
-The ArangoShell tutorial from the arangodb.com website is now integrated into
-the ArangoDB shell.
+The AvocadoShell tutorial from the avocadodb.com website is now integrated into
+the AvocadoDB shell.
 
 Powerful Foxx Enhancements
 --------------------------
@@ -287,13 +287,13 @@ With the new **job queue** feature you can run async jobs to communicate with ex
 
 ### Foxx Queries
 
-Writing long AQL queries in JavaScript can quickly become unwieldy. As of 2.3 ArangoDB bundles the [ArangoDB Query Builder](https://npmjs.org/package/aqb) module that provides a JavaScript API for writing complex AQL queries without string concatenation. All built-in functions that accept AQL strings now support query builder instances directly. Additionally Foxx provides a method `Foxx.createQuery` for creating parametrized queries that can return Foxx models or apply arbitrary transformations to the query results.
+Writing long AQL queries in JavaScript can quickly become unwieldy. As of 2.3 AvocadoDB bundles the [AvocadoDB Query Builder](https://npmjs.org/package/aqb) module that provides a JavaScript API for writing complex AQL queries without string concatenation. All built-in functions that accept AQL strings now support query builder instances directly. Additionally Foxx provides a method `Foxx.createQuery` for creating parametrized queries that can return Foxx models or apply arbitrary transformations to the query results.
 
 ### Foxx Sessions
 
 The session functionality in Foxx has been completely rewritten. The old `activateAuthentication` API is still supported but may be deprecated in the future. The new `activateSessions` API supports cookies or configurable headers, provides optional JSON Web Token and cryptographic signing support and uses the new sessions Foxx app.
 
-ArangoDB 2.3 provides Foxx apps for user management and salted hash-based authentication which can be replaced with or supplemented by alternative implementations. For an example app using both the built-in authentication and OAuth2 see the [Foxx Sessions Example app](https://github.com/arangodb/foxx-sessions-example).
+AvocadoDB 2.3 provides Foxx apps for user management and salted hash-based authentication which can be replaced with or supplemented by alternative implementations. For an example app using both the built-in authentication and OAuth2 see the [Foxx Sessions Example app](https://github.com/avocadodb/foxx-sessions-example).
 
 ### Foxx Queues
 
@@ -305,4 +305,4 @@ Jobs can be scheduled in advance or set to be executed immediately, the number o
 
 The request and response objects in Foxx controllers now provide methods for reading and writing raw cookies and signed cookies.
 
-Mounted Foxx apps will now be loaded when arangod starts rather than at the first database request. This may result in slightly slower start up times (but a faster response for the first request).
+Mounted Foxx apps will now be loaded when avocadod starts rather than at the first database request. This may result in slightly slower start up times (but a faster response for the first request).

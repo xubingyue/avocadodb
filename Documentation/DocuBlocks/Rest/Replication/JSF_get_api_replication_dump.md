@@ -53,7 +53,7 @@ the server will try to return more data if there's more data left to return.
 
 If *chunkSize* is not specified, some server-side default value will be used.
 
-The *Content-Type* of the result is *application/x-arango-dump*. This is an
+The *Content-Type* of the result is *application/x-avocado-dump*. This is an
 easy-to-process format, with all entries going onto separate lines in the
 response body.
 
@@ -82,11 +82,11 @@ Each line itself is a JSON object, with at least the following attributes:
 
 @RESTRETURNCODE{200}
 is returned if the request was executed successfully and data was returned. The header
-`x-arango-replication-lastincluded` is set to the tick of the last document returned.
+`x-avocado-replication-lastincluded` is set to the tick of the last document returned.
 
 @RESTRETURNCODE{204}
 is returned if the request was executed successfully, but there was no content available.
-The header `x-arango-replication-lastincluded` is `0` in this case.
+The header `x-avocado-replication-lastincluded` is `0` in this case.
 
 @RESTRETURNCODE{400}
 is returned if either the *from* or *to* values are invalid.

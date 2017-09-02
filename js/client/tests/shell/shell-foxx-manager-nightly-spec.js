@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -22,25 +22,25 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Michael Hackstein
-// / @author Copyright 2014, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2014, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
-const FoxxManager = require('@arangodb/foxx/manager');
-const ArangoCollection = require('@arangodb').ArangoCollection;
+const FoxxManager = require('@avocadodb/foxx/manager');
+const AvocadoCollection = require('@avocadodb').AvocadoCollection;
 const fs = require('fs');
 const db = require('internal').db;
 const basePath = fs.makeAbsolute(fs.join(require('internal').startupPath, 'common', 'test-data', 'apps'));
-const arango = require('@arangodb').arango;
-const originalEndpoint = arango.getEndpoint().replace(/localhost/, '127.0.0.1');
+const avocado = require('@avocadodb').avocado;
+const originalEndpoint = avocado.getEndpoint().replace(/localhost/, '127.0.0.1');
 const expect = require('chai').expect;
 
 describe('Foxx Manager', function () {
   describe('using different dbs', function () {
     beforeEach(function () {
-      arango.reconnect(originalEndpoint, '_system', 'root', '');
+      avocado.reconnect(originalEndpoint, '_system', 'root', '');
       try {
         db._dropDatabase('tmpFMDB');
       } catch (err) {
@@ -56,23 +56,23 @@ describe('Foxx Manager', function () {
     });
 
     afterEach(function () {
-      arango.reconnect(originalEndpoint, '_system', 'root', '');
+      avocado.reconnect(originalEndpoint, '_system', 'root', '');
       db._dropDatabase('tmpFMDB');
       db._dropDatabase('tmpFMDB2');
     });
 
     it('should allow to install apps on same mountpoint', function () {
       const download = require('internal').download;
-      arango.reconnect(originalEndpoint, 'tmpFMDB', 'root', '');
+      avocado.reconnect(originalEndpoint, 'tmpFMDB', 'root', '');
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'itzpapalotl'), '/unittest');
       }).not.to.throw();
-      arango.reconnect(originalEndpoint, 'tmpFMDB2', 'root', '');
+      avocado.reconnect(originalEndpoint, 'tmpFMDB2', 'root', '');
       expect(function () {
         FoxxManager.install(fs.join(basePath, 'minimal-working-manifest'), '/unittest');
       }).not.to.throw();
       db._useDatabase('_system');
-      const baseUrl = arango.getEndpoint().replace('tcp://', 'http://') + '/_db';
+      const baseUrl = avocado.getEndpoint().replace('tcp://', 'http://') + '/_db';
       const available = download(baseUrl + '/tmpFMDB/unittest/random');
       expect(available.code).to.equal(200);
       const unavailable = download(baseUrl + '/tmpFMDB2/unittest/random');
@@ -87,7 +87,7 @@ describe('Foxx Manager', function () {
     const mount = '/unittest/upgrade';
     const setupTeardownApp = fs.join(basePath, 'minimal-working-setup-teardown');
     const setupApp = fs.join(basePath, 'minimal-working-setup');
-    const url = arango.getEndpoint().replace('tcp://', 'http://') + '/_db/_system' + mount + '/test';
+    const url = avocado.getEndpoint().replace('tcp://', 'http://') + '/_db/_system' + mount + '/test';
     const brokenApp = fs.join(basePath, 'broken-controller-file');
 
     beforeEach(function () {
@@ -107,7 +107,7 @@ describe('Foxx Manager', function () {
         // noop
       }
       FoxxManager.install(setupTeardownApp, mount);
-      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(AvocadoCollection);
       expect(download(url).code).to.equal(200);
     });
 
@@ -132,13 +132,13 @@ describe('Foxx Manager', function () {
     it('should run the setup script', function () {
       expect(db._collection(colSetup)).to.equal(null);
       FoxxManager.upgrade(setupApp, mount);
-      expect(db._collection(colSetup)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetup)).to.be.an.instanceOf(AvocadoCollection);
     });
 
     it('should not run the teardown script', function () {
-      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(AvocadoCollection);
       FoxxManager.upgrade(setupApp, mount);
-      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(AvocadoCollection);
     });
 
     it('should keep the old app reachable', function () {
@@ -156,7 +156,7 @@ describe('Foxx Manager', function () {
       } catch (e) {
         // noop
       }
-      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(AvocadoCollection);
     });
   });
 
@@ -167,7 +167,7 @@ describe('Foxx Manager', function () {
     const mount = '/unittest/replace';
     const setupTeardownApp = fs.join(basePath, 'minimal-working-setup-teardown');
     const setupApp = fs.join(basePath, 'minimal-working-setup');
-    const url = arango.getEndpoint().replace('tcp://', 'http://') + '/_db/_system' + mount + '/test';
+    const url = avocado.getEndpoint().replace('tcp://', 'http://') + '/_db/_system' + mount + '/test';
     const brokenApp = fs.join(basePath, 'broken-controller-file');
 
     beforeEach(function () {
@@ -187,7 +187,7 @@ describe('Foxx Manager', function () {
         // noop
       }
       FoxxManager.install(setupTeardownApp, mount);
-      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(AvocadoCollection);
       expect(download(url).code).to.equal(200);
     });
 
@@ -212,11 +212,11 @@ describe('Foxx Manager', function () {
     it('should run the setup script', function () {
       expect(db._collection(colSetup)).to.equal(null);
       FoxxManager.replace(setupApp, mount);
-      expect(db._collection(colSetup)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetup)).to.be.an.instanceOf(AvocadoCollection);
     });
 
     it('should run the teardown script', function () {
-      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(AvocadoCollection);
       FoxxManager.replace(setupApp, mount);
       expect(db._collection(colSetupTeardown)).to.equal(null);
     });
@@ -241,7 +241,7 @@ describe('Foxx Manager', function () {
       } catch (e) {
         // noop
       }
-      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(ArangoCollection);
+      expect(db._collection(colSetupTeardown)).to.be.an.instanceOf(AvocadoCollection);
     });
   });
 });

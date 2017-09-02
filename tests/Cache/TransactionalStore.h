@@ -5,7 +5,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Daniel H. Larkin
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef UNITTESTS_CACHE_TRANSACTIONAL_STORE_H
@@ -40,7 +40,7 @@
 
 #include <chrono>
 
-namespace arangodb {
+namespace avocadodb {
 namespace cache {
 
 class TransactionalStore {
@@ -58,10 +58,10 @@ class TransactionalStore {
   };
 
   struct Transaction {
-    arangodb::cache::Transaction* cache;
+    avocadodb::cache::Transaction* cache;
     rocksdb::Transaction* rocks;
 
-    Transaction(arangodb::cache::Transaction* c, rocksdb::Transaction* r);
+    Transaction(avocadodb::cache::Transaction* c, rocksdb::Transaction* r);
   };
 
  public:
@@ -84,7 +84,7 @@ class TransactionalStore {
   Manager* _manager;
   std::shared_ptr<Cache> _cache;
 
-  arangodb::basics::StringBuffer _directory;
+  avocadodb::basics::StringBuffer _directory;
   uint32_t _id;
   rocksdb::TransactionDB* _db;
   rocksdb::ReadOptions _readOptions;
@@ -93,6 +93,6 @@ class TransactionalStore {
 };
 
 };  // end namespace cache
-};  // end namespace arangodb
+};  // end namespace avocadodb
 
 #endif

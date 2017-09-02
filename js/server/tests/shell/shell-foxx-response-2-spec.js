@@ -6,8 +6,8 @@ const statuses = require('statuses');
 const path = require('path');
 const fs = require('fs');
 const internal = require('internal');
-const crypto = require('@arangodb/crypto');
-const SyntheticResponse = require('@arangodb/foxx/router/response');
+const crypto = require('@avocadodb/crypto');
+const SyntheticResponse = require('@avocadodb/foxx/router/response');
 
 describe('SyntheticResponse', function () {
   describe('cookie', function () {

@@ -39,7 +39,7 @@ function SkipListCorrSuite() {
   'use strict';
   var cn = "UnitTestsCollectionSkiplistCorr";
   var coll = null;
-  var helper = require("@arangodb/aql-helper");
+  var helper = require("@avocadodb/aql-helper");
   var getQueryResults = helper.getQueryResults;
 
   return {

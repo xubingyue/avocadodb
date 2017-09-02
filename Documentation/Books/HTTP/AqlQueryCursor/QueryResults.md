@@ -214,7 +214,7 @@ effectively a memory limit per query per shard.
 { "query" : "FOR i IN 1..100000 SORT i RETURN i", "memoryLimit" : 100000 }
 
 HTTP/1.1 500 Internal Server Error
-Server: ArangoDB
+Server: AvocadoDB
 Connection: Keep-Alive
 Content-Type: application/json; charset=utf-8
 Content-Length: 115

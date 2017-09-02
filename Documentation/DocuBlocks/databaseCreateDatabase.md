@@ -26,7 +26,7 @@ object can contain the following attributes:
   active or not. The default value is *true*.
 * *extra*: an optional JSON object with extra user information. The data
   contained in *extra* will be stored for the user but not be interpreted
-  further by ArangoDB.
+  further by AvocadoDB.
 
 If no initial users are specified, a default user *root* will be created
 with an empty string password. This ensures that the new database will be
@@ -37,9 +37,9 @@ into the new database (username and password must be identical to the current
 session) and add or modify users with the following commands.
 
 ```js
-  require("@arangodb/users").save(username, password, true);
-  require("@arangodb/users").update(username, password, true);
-  require("@arangodb/users").remove(username);
+  require("@avocadodb/users").save(username, password, true);
+  require("@avocadodb/users").update(username, password, true);
+  require("@avocadodb/users").remove(username);
 ```
 Alternatively, you can specify user data directly. For example:
 

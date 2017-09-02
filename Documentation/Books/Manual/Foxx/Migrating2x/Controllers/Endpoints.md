@@ -3,7 +3,7 @@ The request context
 
 When defining a route on a controller the controller would return an object called *request context*. Routers return a similar object called *endpoint*. Routers also return endpoints when mounting child routers or middleware, as does the `use` method of the service context.
 
-The main differences between the new endpoints and the objects returned by controllers in previous versions of ArangoDB are:
+The main differences between the new endpoints and the objects returned by controllers in previous versions of AvocadoDB are:
 
 * `bodyParam` is now simply called `body`; it is no longer neccessary or possible to give the body a name and the request body will not show up in the request parameters. It's also possible to specify a MIME type
 
@@ -28,7 +28,7 @@ New:
 
 ```js
 router.use(function (req, res, next) {
-  if (!req.arangoUser) {
+  if (!req.avocadoUser) {
     res.throw(403, 'Not authenticated!');
   }
   next();

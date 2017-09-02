@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/html"><head><meta charset="utf-8"><title>ArangoDB Web Interface</title><meta name="description" content="ArangoDB Admin Web Interface"><meta name="author" content="Heiko Kernbach, Michael Hackstein"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="css/style.css" rel="stylesheet"><link href="css/sass.css" rel="stylesheet"><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"><script src="config.js"></script><script id="applicationDetailView.ejs" type="text/template"><div class="application-detail-view">
+<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/html"><head><meta charset="utf-8"><title>AvocadoDB Web Interface</title><meta name="description" content="AvocadoDB Admin Web Interface"><meta name="author" content="Heiko Kernbach, Michael Hackstein"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="css/style.css" rel="stylesheet"><link href="css/sass.css" rel="stylesheet"><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"><script src="config.js"></script><script id="applicationDetailView.ejs" type="text/template"><div class="application-detail-view">
     <div class="headerBar" style="width: 100%">
 
       <ul class="subMenuEntries subViewNavbar pull-left">
@@ -133,7 +133,7 @@
     <ul class="headerButtonList">
       <li>
         <a id="foxxToggle" class="headerButton">
-          <span class="icon_arangodb_settings2" title="Settings"></span>
+          <span class="icon_avocadodb_settings2" title="Settings"></span>
         </a>
       </li>
     </ul>
@@ -182,13 +182,13 @@
       </div>
     </div>
   </div>
-</div></script><script id="arangoTabbar.ejs" type="text/template"><div class="arango-tabbar" id="<%=content.id%>"> <% _.each(content.titles, function(k,v) { %> <% var name = content.titles[v][0];  %> <% var elid = content.titles[v][1];  %> <button class="arangodb-tabbar" id="<%=elid%>"><%=name%></button> <%});%> </div></script><script id="arangoTable.ejs" type="text/template"><div class="tableWrapper"> <% var type = type; %> <table class="arango-table" id="<%=content.id%>">
+</div></script><script id="avocadoTabbar.ejs" type="text/template"><div class="avocado-tabbar" id="<%=content.id%>"> <% _.each(content.titles, function(k,v) { %> <% var name = content.titles[v][0];  %> <% var elid = content.titles[v][1];  %> <button class="avocadodb-tabbar" id="<%=elid%>"><%=name%></button> <%});%> </div></script><script id="avocadoTable.ejs" type="text/template"><div class="tableWrapper"> <% var type = type; %> <table class="avocado-table" id="<%=content.id%>">
       <thead>
-        <tr> <% var hcounter = 0; %> <% _.each(content.titles, function(y) {%> <th class="arango-table-th table-cell<%=hcounter%>"><%=y%></th> <% hcounter++; });%> </tr>
+        <tr> <% var hcounter = 0; %> <% _.each(content.titles, function(y) {%> <th class="avocado-table-th table-cell<%=hcounter%>"><%=y%></th> <% hcounter++; });%> </tr>
       </thead>
-      <tbody> <% _.each(content.rows, function(k) { var counter=0;%> <tr> <% _.each(k, function(x) { %> <% if (type && type[counter] === 'pre') { %> <td class="arango-table-td table-cell<%=counter%>">
+      <tbody> <% _.each(content.rows, function(k) { var counter=0;%> <tr> <% _.each(k, function(x) { %> <% if (type && type[counter] === 'pre') { %> <td class="avocado-table-td table-cell<%=counter%>">
                   <pre class="tablePre"> <%=(content.unescaped && content.unescaped[counter] ? x : _.escape(x))%> </pre>
-                </td> <% } else { %> <td class="arango-table-td table-cell<%=counter%>"><%=(content.unescaped && content.unescaped[counter] ? x : _.escape(x))%></td> <% } %> <% counter++;});%> </tr> <%});%> <% if (content.rows.length === 0) { %> <tr> <% var xcounter = 0; %> <% _.each(content.titles, function(y) {%> <% if (xcounter === 0) { %> <td>No content.</td> <% } else { %> <td></td> <% } %> <% xcounter++; });%> </tr> <% }; %> </tbody>
+                </td> <% } else { %> <td class="avocado-table-td table-cell<%=counter%>"><%=(content.unescaped && content.unescaped[counter] ? x : _.escape(x))%></td> <% } %> <% counter++;});%> </tr> <%});%> <% if (content.rows.length === 0) { %> <tr> <% var xcounter = 0; %> <% _.each(content.titles, function(y) {%> <% if (xcounter === 0) { %> <td>No content.</td> <% } else { %> <td></td> <% } %> <% xcounter++; });%> </tr> <% }; %> </tbody>
     </table>
   </div></script><script id="clusterView.ejs" type="text/template"><div class="headerBar" style="margin-top: -60px">
     <div class="headerButtonBar">
@@ -273,7 +273,7 @@
       <ul class="headerButtonList">
         <li class="enabled">
           <a id="collectionsToggle" class="headerButton">
-            <span class="icon_arangodb_settings2" title="Settings"></span>
+            <span class="icon_avocadodb_settings2" title="Settings"></span>
           </a>
         </li>
       </ul>
@@ -366,7 +366,7 @@
 
   </div>
 
-  <div class="contentDiv" id="arangoCollectionsContainer">
+  <div class="contentDiv" id="avocadoCollectionsContainer">
       <div id="collectionsThumbnailsIn" class="tileList pure-g">
         <div class="tile pure-u-1-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6">
           <div class="fullBorderBox">
@@ -537,7 +537,7 @@
         <ul class="headerButtonList">
           <li class="enabled">
             <a id="databaseToggle" class="headerButton">
-              <span class="icon_arangodb_settings2" title="Settings"></span>
+              <span class="icon_avocadodb_settings2" title="Settings"></span>
             </a>
           </li>
         </ul>
@@ -579,7 +579,7 @@
           <div class="fullBorderBox" style="border: 0;">
             <div class="borderBox"></div>
             <div class="iconSet">
-              <span class="icon_arangodb_settings2 editDatabase" id="<%=name %>_edit-database" alt="Edit database" title="Edit database"></span>
+              <span class="icon_avocadodb_settings2 editDatabase" id="<%=name %>_edit-database" alt="Edit database" title="Edit database"></span>
             </div>
             <img src="img/databaseIcon.svg" class="tile-icon-svg svgToReplace"/>
             <div class="tileBadge">
@@ -616,12 +616,12 @@ if (list.length > 0) {
     <!-- Mark: removed prev/next collection button
     <li class="enabled">
       <a id="collectionNext" class="headerButton">
-        <span class="icon_arangodb_arrowright" title="Next collection"></span>
+        <span class="icon_avocadodb_arrowright" title="Next collection"></span>
       </a>
     </li>
     <li class="enabled">
       <a id="collectionPrev" class="headerButton collection-pagination">
-        <span class="icon_arangodb_arrowleft" title="Previous collection"></span>
+        <span class="icon_avocadodb_arrowleft" title="Previous collection"></span>
       </a>
     </li>
     -->
@@ -663,7 +663,7 @@ if (list.length > 0) {
   </div>
 </div>
 
-<div class="arangoDropdown documentsDropdown">
+<div class="avocadoDropdown documentsDropdown">
   <div id="filterHeader" class="headerDropdown">
      <div style="float: right;">
        <button id="resetView" class="button-warning btn-old-padding">Reset</button>
@@ -724,7 +724,7 @@ if (list.length > 0) {
 
 <!--
 <div id="documentsTableID_wrapper" class="dataTables_wrapper" role="grid">
-  <table class="display arangoDataTable dataTable" id="documentsTableID">
+  <table class="display avocadoDataTable dataTable" id="documentsTableID">
   </table>
 </div>
 -->
@@ -738,7 +738,7 @@ if (list.length > 0) {
 <div id="docDeleteModal" style="display:none" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <a class="arangoHeader">Delete Document?</a>
+    <a class="avocadoHeader">Delete Document?</a>
   </div>
   <div class="modal-body" id="deleteDoc">
     <p style="padding: 20px;">There is no way back…</p>
@@ -816,7 +816,7 @@ if (list.length > 0) {
       <input type="hidden" id="newEdgeDefinitions<%= number%>" value="" placeholder="Edge definitions" tabindex="-1" class="select2-offscreen">
       <button id="remove_newEdgeDefinitions<%= number%>" class="graphViewer-icon-button gv_internal_remove_line gv-icon-small delete"></button>
     </th><th>
-    <span class="modalTooltips arangoicon icon_arangodb_info" title="Some info for edge definitions">
+    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Some info for edge definitions">
     </span>
     </th>
   </tr>
@@ -825,7 +825,7 @@ if (list.length > 0) {
     <th class="collectionTh">
       <input type="hidden" id="fromCollections<%= number%>" value="" placeholder="fromCollections" tabindex="-1" class="select2-offscreen">
     </th><th>
-    <span class="modalTooltips arangoicon icon_arangodb_info" title="The collection that contain the start vertices of the relation.">
+    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The collection that contain the start vertices of the relation.">
     </span>
   </th>
   </tr>
@@ -834,7 +834,7 @@ if (list.length > 0) {
     <th class="collectionTh">
       <input type="hidden" id="toCollections<%= number%>" value="" placeholder="toCollections" tabindex="-1" class="select2-offscreen">
     </th><th>
-    <span class="modalTooltips arangoicon icon_arangodb_info" title="The collection that contain the end vertices of the relation.">
+    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The collection that contain the end vertices of the relation.">
     </span>
   </th>
   </tr></script><script id="editListEntryView.ejs" type="text/template"><td class="writable sorting_1"> <% if (isReadOnly) { %> <span class="key"><%=key%></span> <% } else { %> <input type="text" class="key" placeholder="attribute" <%=key?"value=" + key:""%>></input> <% } %> </td>
@@ -842,7 +842,7 @@ if (list.length > 0) {
 </td>
 <td class="leftCell">
   <a class="deleteAttribute">
-    <span class="icon_arangodb_roundminus" data-original-title="Delete attribute"></span>
+    <span class="icon_avocadodb_roundminus" data-original-title="Delete attribute"></span>
   </a>
 </td></script><script id="filterSelect.ejs" type="text/template"><div class="filterSelectBox">
   <div class="filterLabel"><%=name%><span><i class="fa fa-close" id="closeFilter"></i></span></div>
@@ -865,10 +865,10 @@ if (list.length > 0) {
 %> <div class="footer-left">
 <!--
   <div class="social-icons">
-    <p><a href="https://twitter.com/arangodb" target="_blank"><i class="fa fa-twitter"></i></a></p>
-    <p><a href="https://www.arangodb.com/community" target="_blank"></a><i class="fa fa-envelope"></i></a></p>
-    <p><a href="https://stackoverflow.com/questions/tagged/arangodb" target="_blank"></a><i class="fa fa-stack-overflow"></i></a></p>
-    <p><a href="https://groups.google.com/group/arangodb" target="_blank"></a><i class="fa fa-google"></i></a></p>
+    <p><a href="https://twitter.com/avocadodb" target="_blank"><i class="fa fa-twitter"></i></a></p>
+    <p><a href="https://www.avocadodb.com/community" target="_blank"></a><i class="fa fa-envelope"></i></a></p>
+    <p><a href="https://stackoverflow.com/questions/tagged/avocadodb" target="_blank"></a><i class="fa fa-stack-overflow"></i></a></p>
+    <p><a href="https://groups.google.com/group/avocadodb" target="_blank"></a><i class="fa fa-google"></i></a></p>
   </div>
 -->
 </div>
@@ -891,7 +891,7 @@ if (list.length > 0) {
   </div></script><script id="foxxEditView.ejs" type="text/template"> <%var appInfos = attributes.app.split(":"); %> <div id="change-foxx" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <a class="arangoHeader">Modify Service</a>
+    <a class="avocadoHeader">Modify Service</a>
   </div>
   <div class="modal-body">
     <table>
@@ -906,7 +906,7 @@ if (list.length > 0) {
       <tr>
         <th class="collectionTh">Mount:</th>
         <th class="collectionTh"><input type="text" id="change-mount-point" name="mountpoint" value="<%=attributes.mount%>"/></th>
-        <th><span class="modalTooltips arangoicon icon_arangodb_info" title="The path where the app can be reached."></span></th>
+        <th><span class="modalTooltips avocadoicon icon_avocadodb_info" title="The path where the app can be reached."></span></th>
       </tr>
       <tr>
         <th class="collectionTh">Version:</th>
@@ -936,7 +936,7 @@ if (list.length > 0) {
 </div></script><script id="foxxMountView.ejs" type="text/template"><div id="install-foxx" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <a class="arangoHeader">Install Service</a>
+    <a class="avocadoHeader">Install Service</a>
   </div>
   <div class="modal-body">
     <table>
@@ -953,7 +953,7 @@ if (list.length > 0) {
         <th class="collectionTh">
           <input type="text" id="mount-point" name="mountpoint" value="/<%=attributes.name%>" placeholder="mount-path" />
         </th>
-        <th><a class="modalTooltips" title="The path where the app can be reached."><i class="arangoicon icon_arangodb_info"></i></a></th>
+        <th><a class="modalTooltips" title="The path where the app can be reached."><i class="avocadoicon icon_avocadodb_info"></i></a></th>
       </tr>
       <tr>
         <th class="collectionTh">Version:</th>
@@ -979,7 +979,7 @@ if (list.length > 0) {
         <ul class="headerButtonList">
           <li class="enabled">
             <a id="graphManagementToggle" class="headerButton">
-              <span class="icon_arangodb_settings2" title="Settings"></span>
+              <span class="icon_avocadodb_settings2" title="Settings"></span>
             </a>
           </li>
         </ul>
@@ -1005,7 +1005,7 @@ if (list.length > 0) {
   </div>
 
 
-  <div class="contentDiv" id="arangoCollectionsContainer">
+  <div class="contentDiv" id="avocadoCollectionsContainer">
     <div id="graphManagementThumbnailsIn" class="tileList pure-u">
       <div class="tile pure-u-1-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6">
         <div class="fullBorderBox">
@@ -1021,10 +1021,10 @@ if (list.length > 0) {
         <div class="paddingBox">
           <div class="borderBox"></div>
           <div class="iconSet">
-            <span class="icon_arangodb_settings2 editGraph" id="<%=graphName %>_settings" alt="Edit graph" title="Edit graph"></span>
+            <span class="icon_avocadodb_settings2 editGraph" id="<%=graphName %>_settings" alt="Edit graph" title="Edit graph"></span>
           </div>
-          <span class="icon_arangodb_edge5 tile-icon"></span>
-          <span class="icon_arangodb_edge5 icon_arangodb_edge5-2 tile-icon"></span>
+          <span class="icon_avocadodb_edge5 tile-icon"></span>
+          <span class="icon_avocadodb_edge5 icon_avocadodb_edge5-2 tile-icon"></span>
           <div class="tileBadge"> <% if (isSmart === true) { %> <span><div class="corneredBadge inProgress">Smart</div></span> <% } %> </div>
           <h5 class="collectionName"><%=graphName %></h5>
         </div>
@@ -1112,7 +1112,7 @@ if (list.length > 0) {
   <iframe src="https://docs.google.com/forms/d/1vsIwy0mJSeToEnfo_jnBaQebewbcURL730IkZIrkyEE/viewform?embedded=true" scrolling="no" width="100%" height="1300px" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 </div></script><script id="indicesView.ejs" type="text/template"> <% if (typeof supported !== 'undefined') { %> <div class="contentIn" id="indexHeaderContent">
         <div id="indexEditView">
-          <table id="collectionEditIndexTable" class="edit-index-table arango-table">
+          <table id="collectionEditIndexTable" class="edit-index-table avocado-table">
             <thead>
               <tr class="figuresHeader">
                 <th class="collectionInfoTh">ID</th>
@@ -1160,7 +1160,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="A comma-separated list with one or two attribute paths. Example: latitude,longitude">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1173,7 +1173,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="Set geoJson to true if the coordinates stored in the specified attribute are arrays in the form [longitude,latitude].">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1188,7 +1188,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="A comma-separated list of attribute paths.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1201,7 +1201,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="If true, then create a unique index.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1214,7 +1214,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="If true, then create a sparse index.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1227,7 +1227,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="Duplicate index values from the same document into a unique array index will lead to an error or not.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1242,7 +1242,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="A comma-separated list of attribute paths.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1255,7 +1255,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="If true, then create a unique index.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1268,7 +1268,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="If true, then create a sparse index.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1281,7 +1281,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="Duplicate index values from the same document into a unique array index will lead to an error or not.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1296,7 +1296,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="A single attribute path. Example: message.text">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1307,7 +1307,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="Minimum character length of words to index. Will default to a server-defined value if unspecified. It is thus recommended to set this value explicitly when creating the index.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1323,7 +1323,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="A comma-separated list of attribute paths.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1336,7 +1336,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="If true, then create a unique index.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1349,7 +1349,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="If true, then create a sparse index.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1362,7 +1362,7 @@ if (list.length > 0) {
                   <th class="tooltipInfoTh">
                     <div>
                       <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="Duplicate index values from the same document into a unique array index will lead to an error or not.">
-                        <span rel="tooltip" class="arangoicon icon_arangodb_info"></span>
+                        <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
                   </th>
@@ -1382,7 +1382,7 @@ if (list.length > 0) {
       </div> <% } %> </script><script id="lineChartDetailView.ejs" type="text/template"><div id="lineChartDetail" class="modal hide fade modal-chart-detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<a class="arangoHeader"><%=figure%></a>
+			<a class="avocadoHeader"><%=figure%></a>
 		</div>
 		<div id="dashboardDetailedLineChart" class="dashboardDetailChart" style="position: absolute"></div>
 	</div></script><script id="loadingTableView.ejs" type="text/template"><thead>
@@ -1390,7 +1390,7 @@ if (list.length > 0) {
     <th class="sorting_disabled docsFirstCol">Content</th>
     <th class="sorting_disabled docsSecCol">_key</th>
     <th class="sorting_disabled docsThirdCol">
-      <a id="addDocumentButton" class="pull-right addButton"><span class="arangoicon icon_arangodb_roundplus" title="Add a document"></span></a>
+      <a id="addDocumentButton" class="pull-right addButton"><span class="avocadoicon icon_avocadodb_roundplus" title="Add a document"></span></a>
     </th>
   </tr>
 </thead>
@@ -1400,7 +1400,7 @@ if (list.length > 0) {
   </tr>
 </tbody></script><script id="loggerView.ejs" type="text/template"><div id="loggerContent" class="logger-content-id innerContent">
 
-    <div class="arangoToolbar arangoToolbarTop">
+    <div class="avocadoToolbar avocadoToolbarTop">
 
       <div class="pull-left">
       </div>
@@ -1428,7 +1428,7 @@ if (list.length > 0) {
 
   </div></script><script id="loggerViewEntries.ejs" type="text/template"> <% _.each(entries, function (entry) { %> <div class="pure-g" level="<%=entry.status.toLowerCase()%>" topic="<%=entry.topic.toLowerCase()%>">
       <div class="pure-u-1-24">
-        <p class="labels"> <% var lcolor = arangoHelper.statusColors[entry.status.toLowerCase()];%> <% var tcolor = arangoHelper.alphabetColors[entry.topic.charAt(0).toLowerCase()];%> <span class="tippy level" title="Level: <%=entry.status%>" style="background: <%=lcolor%>"></span>
+        <p class="labels"> <% var lcolor = avocadoHelper.statusColors[entry.status.toLowerCase()];%> <% var tcolor = avocadoHelper.alphabetColors[entry.topic.charAt(0).toLowerCase()];%> <span class="tippy level" title="Level: <%=entry.status%>" style="background: <%=lcolor%>"></span>
           <span class="tippy topic" title="Topic: <%=entry.topic%>" style="background: <%=tcolor%>"></span>
         </p>
       </div>
@@ -1445,8 +1445,8 @@ if (list.length > 0) {
 
   <div id="loginWindow" class="login-window">
     <div class="login-logo-round">
-      <object id="loginSVG" data="img/arangodb-edition-login-optimized.svg" type="image/svg+xml">
-        <img src="img/arangodb_logo_small.png" />
+      <object id="loginSVG" data="img/avocadodb-edition-login-optimized.svg" type="image/svg+xml">
+        <img src="img/avocadodb_logo_small.png" />
       </object>
     </div>
     <p class="wrong-credentials" style="display:none">Login failed!</p>
@@ -1486,14 +1486,14 @@ if (list.length > 0) {
           <input type="text" id="new-app-mount" value="" placeholder="/my/foxx"></input>
         </th>
         <th>
-          <span class="modalTooltips arangoicon icon_arangodb_info" title="The path the app will be mounted. Has to start with /. Is not allowed to start with /_">
+          <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The path the app will be mounted. Has to start with /. Is not allowed to start with /_">
           </span>
         </th> <% } %> </tr>
   </table>
 
   <ul id="infoTab" class="nav nav-tabs">
     <li><a href="#newApp" data-toggle="tab" id="tab-new">New Service</a></li>
-    <li class="active"><a href="#appstore" data-toggle="tab" id="tab-store"><img src="img/arangodb_logo_small.png" alt="ArangoDB" class="tab-icon" />Store</a></li>
+    <li class="active"><a href="#appstore" data-toggle="tab" id="tab-store"><img src="img/avocadodb_logo_small.png" alt="AvocadoDB" class="tab-icon" />Store</a></li>
     <li><a href="#github" data-toggle="tab" id="tab-git">Github</a></li>
     <li><a href="#zip" data-toggle="tab" id="tab-zip">Upload</a></li>
   </ul>
@@ -1552,7 +1552,7 @@ if (list.length > 0) {
             <input type="hidden" id="new-app-document-collections" value="" placeholder="Document Collections"></input>
           </th>
           <th>
-            <span class="modalTooltips arangoicon icon_arangodb_info" title="A list of document collections that will be created specifically for this Service. A CRUD API for these will be generated.">
+            <span class="modalTooltips avocadoicon icon_avocadodb_info" title="A list of document collections that will be created specifically for this Service. A CRUD API for these will be generated.">
             </span>
           </th>
         </tr>
@@ -1564,7 +1564,7 @@ if (list.length > 0) {
             <input type="hidden" id="new-app-edge-collections" value="" placeholder="Edge Collections"></input>
           </th>
           <th>
-            <span class="modalTooltips arangoicon icon_arangodb_info" title="A list of edge collections that will be created specifically for this Service. A CRUD API for these will be generated.">
+            <span class="modalTooltips avocadoicon icon_avocadodb_info" title="A list of edge collections that will be created specifically for this Service. A CRUD API for these will be generated.">
             </span>
           </th>
         </tr>
@@ -1609,7 +1609,7 @@ if (list.length > 0) {
               <input type="checkbox" id="github-app-islegacy" value="true">
             </th>
           <th>
-            <span class="modalTooltips arangoicon icon_arangodb_info" title="Legacy Compatibility Mode allows mounting some Foxx services written for ArangoDB 2.8 or older. This overrides the ArangoDB version specified in the service manifest. See the Foxx documentation for more information on running legacy services in ArangoDB 3.">
+            <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Legacy Compatibility Mode allows mounting some Foxx services written for AvocadoDB 2.8 or older. This overrides the AvocadoDB version specified in the service manifest. See the Foxx documentation for more information on running legacy services in AvocadoDB 3.">
             </span>
           </th>
           </tr>
@@ -1631,7 +1631,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <input type="checkbox" id="zip-app-islegacy" value="true">
             </th>
           <th>
-            <span class="modalTooltips arangoicon icon_arangodb_info" title="Legacy Compatibility Mode allows mounting some Foxx services written for ArangoDB 2.8 or older. This overrides the ArangoDB version specified in the service manifest. See the Foxx documentation for more information on running legacy services in ArangoDB 3.">
+            <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Legacy Compatibility Mode allows mounting some Foxx services written for AvocadoDB 2.8 or older. This overrides the AvocadoDB version specified in the service manifest. See the Foxx documentation for more information on running legacy services in AvocadoDB 3.">
             </span>
           </th>
           </tr>
@@ -1642,7 +1642,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
   </div></script><script id="modalBase.ejs" type="text/template"><div id="modal-dialog" class="modal hide fade createModalDialog" tabindex="-1" role="dialog"
        aria-labelledby="myModalLabel" aria-hidden="true"> <% if (title !== null) { %> <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <a class="arangoHeader"><%=title%></a>
+      <a class="avocadoHeader"><%=title%></a>
    </div> <%}%> <% if (tabBar) { %> <div class="modal-tabbar">
         <ul id="infoTab" class="nav nav-tabs"> <% var counter = 0; %> <% _.each(tabBar, function(value) { %> <% if (counter === 0) { %> <li class="active"><a href="#<%=value%>" data-toggle="tab"><%=value%></a></li> <%} else {%> <li><a href="#<%=value%>" data-toggle="tab"><%=value%></a></li> <% } %> <% counter++; %> <% }); %> </ul>
       </div> <%}%> <div class="modal-body"> <% if (tabBar) { %> <div class="tab-content"> <% var counter = 0; %> <% _.each(tabBar, function(value) { %> <% if (counter === 0) { %> <div class="tab-pane tab-pane-modal active" id="<%=value%>">
@@ -1663,14 +1663,14 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
   </div></script><script id="modalCollectionInfo.ejs" type="text/template"> <%
     var figuresData = content.figures;
     var revision    = content.revision;
-%> <table id="collectionInfoTable" class="arango-table"> <% if (figuresData.journalSize) { %> <tr id="collectionSizeBox">
+%> <table id="collectionInfoTable" class="avocado-table"> <% if (figuresData.journalSize) { %> <tr id="collectionSizeBox">
               <th class="collectionInfoTh2">Journal size:</th>
               <th class="collectionInfoTh">
                 <div id="show-collection-size" class="modal-text"> <%=prettyBytes(figuresData.journalSize)%> </div>
               </th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips arangoicon icon_arangodb_info" title="The maximal size of a journal or datafile (in MB). Must be at least 1.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The maximal size of a journal or datafile (in MB). Must be at least 1.">
                   </span>
                 </div>
               </th>
@@ -1681,7 +1681,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
             </th>
             <th class="tooltipInfoTh">
               <div>
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Synchronize to disk before returning from a create or update of a document.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Synchronize to disk before returning from a create or update of a document.">
                 </span>
               </div>
             </th>
@@ -1766,7 +1766,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
       </div> <% if (figuresData.figures.alive && figuresData.figures.dead) { %> <% if (window.frontendConfig.isCluster) { %> <div class="infoBox">
               <h4>Figures</h4>
               <p>The following information does not contain data stored in the write-ahead log. It can be inaccurate, until the write-ahead log has been completely flushed.</p>
-            </div> <% } %> <table class="figures1 arango-table">
+            </div> <% } %> <table class="figures1 avocado-table">
             <tr class="figuresHeader">
               <th>Type</th>
               <th>Count</th>
@@ -1778,7 +1778,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <th class="modal-text">Alive</th> <% if (figuresData.walMessage) { %> <th class="modal-text"><%=figuresData.walMessage%></th> <% } else { %> <th class="modal-text"><%=numeral(figuresData.figures.alive.count).format('0,0')%></th> <% } %> <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.alive.size)%> <% } %> </th>
               <th class="modal-text"> -</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number and size of all living documents.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number and size of all living documents.">
                 </span>
               </th>
             </tr>
@@ -1790,14 +1790,14 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
 
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number and size of all dead documents.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number and size of all dead documents.">
                   </span>
               </div>
               </th>
 
             </tr>
             <tr><th><div> </div></th></tr>
-          </table> <% } %> <% if (figuresData.figures.datafiles && figuresData.figures.journals && figuresData.figures.compactors) { %> <table class="figures2 arango-table">
+          </table> <% } %> <% if (figuresData.figures.datafiles && figuresData.figures.journals && figuresData.figures.compactors) { %> <table class="figures2 avocado-table">
             <tr class="figuresHeader">
               <th>Type</th>
               <th>Count</th>
@@ -1812,7 +1812,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips arangoicon icon_arangodb_info" data-toggle="tooltip" data-placement="left" title="Number and total size of active datafiles.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" data-toggle="tooltip" data-placement="left" title="Number and total size of active datafiles.">
                   </span>
                 </div>
               </th>
@@ -1823,7 +1823,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.journals.fileSize)%> <% } %> </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Number and total size of journal files.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of journal files.">
                 </span>
               </th>
             </tr>
@@ -1833,7 +1833,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.compactors.fileSize)%> <% } %> </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Number and total size of compactor files."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of compactor files."></span>
               </th>
             </tr>
             <tr>
@@ -1842,10 +1842,10 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <th class="modal-text"> <%=prettyBytes(figuresData.figures.indexes.size)%> </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Number and total memory usage of indexes."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total memory usage of indexes."></span>
               </th>
             </tr>
-          </table> <% } %> <% if (figuresData.figures.documentReferences && figuresData.figures.uncollectedLogfileEntries) { %> <table class="figures3 arango-table">
+          </table> <% } %> <% if (figuresData.figures.documentReferences && figuresData.figures.uncollectedLogfileEntries) { %> <table class="figures3 avocado-table">
             <tr class="figuresHeader">
               <th>Type</th>
               <th>Count</th>
@@ -1859,7 +1859,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <th class="modal-text">&nbsp;</th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number of uncollected WAL entries">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number of uncollected WAL entries">
                 </span>
               </th>
             </tr>
@@ -1869,13 +1869,13 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               <th class="modal-text">&nbsp;</th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips arangoicon icon_arangodb_info" title="Total number of objects pointing to documents in collection datafiles">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number of objects pointing to documents in collection datafiles">
                 </span>
               </th>
             </tr>
           </table> <% } %> </script><script id="modalDownloadFoxx.ejs" type="text/template"><div>
     Your new Foxx Service is ready for download.
-    You can edit it on your local system and repack it in a zip file to publish it on ArangoDB.
+    You can edit it on your local system and repack it in a zip file to publish it on AvocadoDB.
   </div></script><script id="modalGraph.ejs" type="text/template"><div class="detail-chart">
 		<div id="lineChartDetail" class="modal-inner-detail"></div>
 		<div class="modal-dashboard-legend">
@@ -1912,7 +1912,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
           </tr>
         </tbody>
       </table>
-     <p style="width: 100%; text-align: center;">Need help? Visit our <a style="font-weight: bold" href="https://docs.arangodb.com/latest/Manual/Graphs/index.html#example-graphs" target="_blank">Graph Documentation</a></p>
+     <p style="width: 100%; text-align: center;">Need help? Visit our <a style="font-weight: bold" href="https://docs.avocadodb.com/latest/Manual/Graphs/index.html#example-graphs" target="_blank">Graph Documentation</a></p>
 
     </div>
 
@@ -1965,7 +1965,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
 
               if (row.info) {
             %> <th>
-            <span class="modalTooltips arangoicon icon_arangodb_info" title="<%=row.info%>">
+            <span class="modalTooltips avocadoicon icon_avocadodb_info" title="<%=row.info%>">
             </span>
           </th> <%
           }
@@ -2044,7 +2044,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
         }
         %> <% if (row.info) { %> </th>
         <th>
-          <span class="modalTooltips arangoicon icon_arangodb_info" title="<%=row.info%>">
+          <span class="modalTooltips avocadoicon icon_avocadodb_info" title="<%=row.info%>">
           </span> <% } %> </th>
     </tr> <%
   };
@@ -2095,7 +2095,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
         %></span>/<span class="pending" title="pending"><%= info.stats.pending
         %></span>)
       </div>
-      <div class="tests-result-spec"> <% if (info.tests.length) { %> <ul class="tests-result-spec-tests"> <% _.each(info.tests, createTest) %> </ul> <% } %> <% if (info.suites.length) { %> <dl class="tests-result-spec-suites"> <% _.each(info.suites, createSuite) %> </dl> <% } %> <% if (!info.tests.length && !info.suites.length) { %> <div class="tests-result-spec-empty">No tests found.</div> <% } %> </div> <% } %> </div></script><script id="navigationView.ejs" type="text/template"><ul class="navlist arango-collection-ul" id="arangoCollectionUl"> <% if (isCluster) { %> <li class="cluster-menu"><a id="cluster" class="tab" href="#cluster"><i class="fa fa-circle-o"></i>Cluster</a></li>
+      <div class="tests-result-spec"> <% if (info.tests.length) { %> <ul class="tests-result-spec-tests"> <% _.each(info.tests, createTest) %> </ul> <% } %> <% if (info.suites.length) { %> <dl class="tests-result-spec-suites"> <% _.each(info.suites, createSuite) %> </dl> <% } %> <% if (!info.tests.length && !info.suites.length) { %> <div class="tests-result-spec-empty">No tests found.</div> <% } %> </div> <% } %> </div></script><script id="navigationView.ejs" type="text/template"><ul class="navlist avocado-collection-ul" id="avocadoCollectionUl"> <% if (isCluster) { %> <li class="cluster-menu"><a id="cluster" class="tab" href="#cluster"><i class="fa fa-circle-o"></i>Cluster</a></li>
       <li class="nodes-menu"><a id="nodes" class="tab" href="#nodes"><i class="fa fa-server"></i>Nodes</a></li> <% } else { %> <li class="dashboard-menu"><a id="dashboard" class="tab" href="#dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li> <% } %> <li class="navbar-spacer big"></li>
     <!-- <li id="dbSelect" class="dropdown databases-menu disabled"></li> -->
     <li class="collections-menu"><a id="collections" class="tab" href="#collections"><i class="fa fa-folder"></i>Collections</a></li>
@@ -2134,17 +2134,17 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
       <ul class="link-dropdown-menu" id="link_dropdown">
         <li class="dropdown-header">Documentation</li>
         <li class="dropdown-item"><a href="/_db/<%= currentDB.get('name') %>/_admin/aardvark/api/index.html" target="_blank">API Documentation</a></li>
-        <li class="dropdown-item"><a href="http://docs.arangodb.com/Arangosh/"
+        <li class="dropdown-item"><a href="http://docs.avocadodb.com/Avocadosh/"
                                      target="_blank">JS Shell Documentation</a></li>
-        <li class="dropdown-item"><a href="http://docs.arangodb.com/Aql/" target="_blank">AQL
+        <li class="dropdown-item"><a href="http://docs.avocadodb.com/Aql/" target="_blank">AQL
           Documentation</a></li>
-        <li class="dropdown-item"><a href="http://docs.arangodb.com/" target="_blank">General
+        <li class="dropdown-item"><a href="http://docs.avocadodb.com/" target="_blank">General
           Documentation</a></li>
         <li class="divider"></li>
-        <li class="dropdown-header">ArangoDB</li>
-        <li class="dropdown-item"><a href="https://github.com/arangodb/arangodb" target="_blank">GitHub
+        <li class="dropdown-header">AvocadoDB</li>
+        <li class="dropdown-item"><a href="https://github.com/avocadodb/avocadodb" target="_blank">GitHub
           Repository</a></li>
-        <li class="dropdown-item"><a href="https://www.arangodb.com" target="_blank">ArangoDB.com</a></li>
+        <li class="dropdown-item"><a href="https://www.avocadodb.com" target="_blank">AvocadoDB.com</a></li>
       </ul>
     </li>
   -->
@@ -2156,13 +2156,13 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
   </div>
 
   <div class="social-icons">
-    <p><a href="https://twitter.com/arangodb" target="_blank"><i class="fa fa-twitter"></i></a></p>
-    <p><a href="https://slack.arangodb.com" target="_blank"><i class="fa fa-slack"></i></a></p>
-    <p><a href="https://stackoverflow.com/questions/tagged/arangodb" target="_blank"><i class="fa fa-stack-overflow"></i></a></p>
-    <p><a href="https://groups.google.com/group/arangodb" target="_blank"><i class="fa fa-google"></i></a></p>
+    <p><a href="https://twitter.com/avocadodb" target="_blank"><i class="fa fa-twitter"></i></a></p>
+    <p><a href="https://slack.avocadodb.com" target="_blank"><i class="fa fa-slack"></i></a></p>
+    <p><a href="https://stackoverflow.com/questions/tagged/avocadodb" target="_blank"><i class="fa fa-stack-overflow"></i></a></p>
+    <p><a href="https://groups.google.com/group/avocadodb" target="_blank"><i class="fa fa-google"></i></a></p>
   </div></script><script id="nodeInfoView.ejs" type="text/template"><div class="nodeInfoView">
   <div class="modal-body">
-    <table id="serverInfoTable" class="arango-table">
+    <table id="serverInfoTable" class="avocado-table">
       <tbody> <% _.each(entries, function (entry, name) { %> <tr>
             <th class="collectionInfoTh2"><%=name%></th>
             <th class="collectionInfoTh">
@@ -2287,7 +2287,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
     <button id="deleteSlowQueryHistory" class="button-danger query-button">Delete History</button>
   </div></script><script id="queryView.ejs" type="text/template"><div id="queryContent" class="queryContent">
 
-    <div class="arangoToolbar arangoToolbarTop">
+    <div class="avocadoToolbar avocadoToolbarTop">
       <div class="pull-left">
         <button id="toggleQueries1" class="button-primary"><i class="fa fa-star-o"></i>Queries</button>
         <button id="toggleQueries2" class="button-primary" style="display: none"><i class="fa fa-star"></i>Queries</button>
@@ -2305,13 +2305,13 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
     </div>
 
     <div class="inputEditorWrapper">
-      <div class="aqlEditorWrapper" class="arangoEditor">
+      <div class="aqlEditorWrapper" class="avocadoEditor">
         <span id="clearQuery" class="aceAction"><i class="fa fa-times-circle"></i></span>
         <div id="aqlEditor"></div>
         <div id="queryTable" style="display: none"></div>
       </div>
 
-      <div class="bindParamEditorWrapper" class="arangoEditor">
+      <div class="bindParamEditorWrapper" class="avocadoEditor">
         <span id="switchTypes" class="aceAction type">JSON</span>
         <div id="bindParamEditor"></div>
         <div id="bindParamAceEditor" style="display: none"></div>
@@ -2326,7 +2326,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
       </div>
     </div>
 
-    <div class="arangoToolbar arangoToolbarBottom">
+    <div class="avocadoToolbar avocadoToolbarBottom">
       <div class="pull-right">
         <button id="exportQuery" class="button-success query-button" style="display:none">Export Queries</button>
         <button id="importQuery" class="button-success query-button" style="display:none">Import Queries</button>
@@ -2344,7 +2344,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
   <div id="queryImportDialog" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <a class="arangoHeader">Import custom queries</a>
+      <a class="avocadoHeader">Import custom queries</a>
     </div>
 
     <div class="modal-body">
@@ -2376,7 +2376,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
       <button id="confirmQueryImport" class="button-success disabled" style="float:right">Import</button>
       <button id="closeQueryModal" class="button-close">Cancel</button>
     </div></script><script id="queryViewOutput.ejs" type="text/template"><div id="outputEditorWrapper<%= counter %>" class="outputEditorWrapper">
-    <div class="arangoToolbar arangoToolbarTop">
+    <div class="avocadoToolbar avocadoToolbarTop">
       <div class="pull-left">
         <span class="toolbarType"><%=type%></span>
           <span id="spinner"><i class="fa fa-spinner fa-spin"></i><i>Query is operating ...</i></span>
@@ -2401,7 +2401,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
         <div id="sentBindParamEditor<%= counter %>"></div>
       </div>
     </div>
-    <div class="arangoToolbar arangoToolbarBottom">
+    <div class="avocadoToolbar avocadoToolbarBottom">
       <div class="pull-right"> <% if (type === 'Query') { %> <button id="copy2gV" counter="<%=counter%>" style="display: none; margin-right: 0;" class="button-success">Graph Viewer</button>
           <button id="downloadQueryResult" counter="<%=counter%>" style="display: none; margin-right: 0;" class="button-success">Download</button>
           <button id="downloadCsvResult" counter="<%=counter%>" style="display: none; margin-right: 0;" class="button-success">CSV</button>
@@ -2460,7 +2460,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
                 <div class="shardLeader <%= genClass1 %> positive left"><span><%= shard.leader %></span></div> <% var found = null;  %> <% _.each(shard.followers, function(db) {  %> <% if (db === shard.leader) { %> <% found = true; %> <% } %> <% }); %> <% if (found) { %> <div class="<%= genClass2 %> mid"><i class="fa fa-circle-o-notch fa-spin"></i></div> <% } else { %> <% if (shard.followers.length === 0) { %> <div class="<%= genClass2 %> left"> no followers </div> <% } else { %> <% var string = ''; %> <% var counter2 = 0; %> <% _.each(shard.followers, function(db) {  %> <% if (shard.followers.length === 1) { %> <% string += '<span>' + db + '</span> '; %> <% } else { %> <% if (counter2 === 0) { %> <% string += '<span>' + db + '</span>'; counter2++; %> <% } else { %> <% string += ", " + '<span>' + db + '</span>'; %> <% } %> <% } %> <% });  %> <div class="shardFollowers <%= genClass2 %> left"><%= string %></div> <% } %> <% if (shard.progress) { %> <% var percent; %> <% if (shard.progress.total === 0) { %> <% percent = numeral(0).format('0.00%'); %> <% } else { %> <% percent = numeral(shard.progress.current / shard.progress.total).format('0.00%'); %> <% } %> <div class="<%= genClass1 %> left"><%= percent %></div> <% } else { %> <div class="<%= genClass1 %> left"><i style="margin-left: 10px;" class="fa fa-check-circle"></i></div> <% } %> <% } %> </div>
             </div> <% counter++; %> <% }); %> <% } %> <% }); %> <button id="rebalanceShards" style="margin-top: 20px;" class="button-success pull-right">Rebalance Shards</button>
   </div></script><script id="shellView.ejs" type="text/template"><div class="headerBar">
-    <a class="arangoHeader">JS Shell</a>
+    <a class="avocadoHeader">JS Shell</a>
   </div>
   <div id="shell_workspace_header"/>
   <div id="shell_workspace" class="shell_workspace">
@@ -2525,28 +2525,28 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
 
           <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-3 center">
             Place for stars and reporting issues</br></br>
-            <a href="https://github.com/arangodb/arangodb" target="_blank"><img style="width: 60%;" src="img/comm_github.png"/></a>
+            <a href="https://github.com/avocadodb/avocadodb" target="_blank"><img style="width: 60%;" src="img/comm_github.png"/></a>
           </div>
 
           <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-3 center">
             Ask questions and get answers</br></br>
-            <a href="https://stackoverflow.com/questions/tagged/arangodb" target="_blank"><img style="width: 70%;" src="img/comm_stack.png"/></a>
+            <a href="https://stackoverflow.com/questions/tagged/avocadodb" target="_blank"><img style="width: 70%;" src="img/comm_stack.png"/></a>
           </div>
 
           <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-3 center">
-            Join a lively conversation about ArangoDB</br></br>
-            <a href="https://slack.arangodb.com/" target="_blank"><img style="width: 50%; margin-top: 5px;" src="img/comm_slack.png"/></a>
+            Join a lively conversation about AvocadoDB</br></br>
+            <a href="https://slack.avocadodb.com/" target="_blank"><img style="width: 50%; margin-top: 5px;" src="img/comm_slack.png"/></a>
           </div>
 
           <div class="pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-1 center" style="margin-top: 30px">
             Challenge ideas and discuss upgrades</br></br>
-            <a href="https://groups.google.com/forum/#!forum/arangodb" target="_blank"><img src="img/comm_google.png"/></a></br></br>
+            <a href="https://groups.google.com/forum/#!forum/avocadodb" target="_blank"><img src="img/comm_google.png"/></a></br></br>
           </div>
 
           <div class="pure-u-1-1" style="margin-top: 0px">
             <h4>Want to shorten your development cycle or securing your production system?</h4>
             Benefit from the deep understanding and decades of experience our core team has build up. Discuss architectures, data modeling, query optimization or anything you like. Get in contact for our individual development support, trainings or subscriptions.</br></br>
-            Contact <a href="mailto:support@arangodb.com?Subject=Support%20Request" target="_top">support@arangodb.com</a> to get detailed infos for enterprises and special offers for startups.
+            Contact <a href="mailto:support@avocadodb.com?Subject=Support%20Request" target="_top">support@avocadodb.com</a> to get detailed infos for enterprises and special offers for startups.
           </div>
 
         </div>
@@ -2561,7 +2561,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
         <div class="pure-g" style="width: 100%;">
 
           <div class="pure-u-1-1" style="margin-bottom: 30px">
-            <h4>Find manuals for ArangoDB, AQL, Foxx and many other useful resources</h4>
+            <h4>Find manuals for AvocadoDB, AQL, Foxx and many other useful resources</h4>
           </div>
 
           <div class="pure-u-1-1 pure-u-sm-1-2 pure-u-md-1-3">
@@ -2569,11 +2569,11 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               Manual
             </div>
             <ul class="menu">
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/GettingStarted/index.html">Getting started</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/Scalability/index.html">Scalability</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/DataModeling/index.html">Data models &amp; modeling</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/Graphs/index.html">Graphs</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/index.html">Go to Manual startpage</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/GettingStarted/index.html">Getting started</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/Scalability/index.html">Scalability</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/DataModeling/index.html">Data models &amp; modeling</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/Graphs/index.html">Graphs</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/index.html">Go to Manual startpage</a></li>
             </ul>
           </div>
 
@@ -2582,11 +2582,11 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               AQL Query Language
             </div>
             <ul class="menu">
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/AQL/Fundamentals/index.html">Fundamentals</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/AQL/DataQueries.html">Data Queries</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/AQL/Functions/index.html">Functions</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/AQL/Examples/index.html">Usual Query Patterns</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/AQL/index.html">Go to AQL startpage</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/AQL/Fundamentals/index.html">Fundamentals</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/AQL/DataQueries.html">Data Queries</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/AQL/Functions/index.html">Functions</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/AQL/Examples/index.html">Usual Query Patterns</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/AQL/index.html">Go to AQL startpage</a></li>
             </ul>
           </div>
 
@@ -2595,11 +2595,11 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               Foxx Framework
             </div>
             <ul class="menu">
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/Foxx/index.html">What is Foxx?</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/Foxx/AtAGlance.html">At a glance</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/Foxx/GettingStarted.html">Writing Your First Microservice</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/Foxx/Migrating2x/index.html">Migrating 2.x services</a></li>
-              <li><a target="_blank" href="https://docs.arangodb.com/latest/Manual/Foxx/index.html">Go to Foxx startpage</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/Foxx/index.html">What is Foxx?</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/Foxx/AtAGlance.html">At a glance</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/Foxx/GettingStarted.html">Writing Your First Microservice</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/Foxx/Migrating2x/index.html">Migrating 2.x services</a></li>
+              <li><a target="_blank" href="https://docs.avocadodb.com/latest/Manual/Foxx/index.html">Go to Foxx startpage</a></li>
             </ul>
           </div>
 
@@ -2712,7 +2712,7 @@ var cutByResolution = function (str) {
       <ul class="headerButtonList">
         <li class="enabled">
         <a id="userManagementToggle" class="headerButton">
-          <span class="icon_arangodb_settings2" title="Settings"></span>
+          <span class="icon_avocadodb_settings2" title="Settings"></span>
         </a>
         </li>
       </ul>
@@ -2753,7 +2753,7 @@ var cutByResolution = function (str) {
 </div>
 
 
-  <div class="contentDiv" id="arangoCollectionsContainer">
+  <div class="contentDiv" id="avocadoCollectionsContainer">
     <div id="userManagementThumbnailsIn" class="tileList pure-u">
       <div class="tile pure-u-1-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6">
         <div class="fullBorderBox">
@@ -2787,7 +2787,7 @@ var cutByResolution = function (str) {
         <div class="paddingBox">
           <div class="borderBox"></div>
           <div class="iconSet">
-            <!-- <span class="icon_arangodb_settings2 editUser" id="<%=_.escape(username) %>_edit-user" alt="Edit user" title="Edit user"></span> -->
+            <!-- <span class="icon_avocadodb_settings2 editUser" id="<%=_.escape(username) %>_edit-user" alt="Edit user" title="Edit user"></span> -->
           </div> <%=avatar %> <div class="tileBadge">
             <span> <%if (active) {%> <div class="corneredBadge loaded">
                 active
@@ -2904,8 +2904,8 @@ var cutByResolution = function (str) {
   </div></script><script id="warningList.ejs" type="text/template"> <% if (warnings.length > 0) { %> <div>
       <ul> <% console.log(warnings); _.each(warnings, function(w) { console.log(w);%> <li><b><%=w.code%></b>: <%=w.message%></li> <% }); %> </ul>
     </div> <% } %> </script><script id="workMonitorView.ejs" type="text/template"><div class="headerBar">
-    <a class="arangoHeader">Work Monitor</a>
+    <a class="avocadoHeader">Work Monitor</a>
   </div>
 
   <div id="workMonitorContent" class="innerContent">
-  </div></script></head><body><nav class="navbar" style="display: none"><div class="primary"><div class="navlogo"><a class="logo big" href="#"><img id="ArangoDBLogo" class="arangodbLogo" src="img/arangodb-edition-optimized.svg"></a><a class="logo small" href="#"><img class="arangodbLogo" src="img/arangodb_logo_small.png"></a><a class="version"><span id="currentVersion"></span></a></div><div class="statmenu" id="statisticBar"></div><div class="navmenu" id="navigationBar"></div></div></nav><div id="modalPlaceholder"></div><div class="bodyWrapper" style="display: none"><div class="centralRow"><div id="navbar2" class="navbarWrapper secondary"><div class="subnavmenu" id="subNavigationBar"></div></div><div class="resizecontainer contentWrapper"><div id="loadingScreen" class="loadingScreen" style="display: none"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i> <span class="sr-only">Loading...</span></div><div id="content" class="centralContent"></div><footer class="footer"><div id="footerBar"></div></footer></div></div></div><div id="progressPlaceholder" style="display:none"></div><div id="spotlightPlaceholder" style="display:none"></div><div id="graphSettingsContent" style="display: none"></div><div id="filterSelectDiv" style="display:none"></div><div id="offlinePlaceholder" style="display:none"><div class="offline-div"><div class="pure-u"><div class="pure-u-1-4"></div><div class="pure-u-1-2 offline-window"><div class="offline-header"><h3>You have been disconnected from the server</h3></div><div class="offline-body"><p>The connection to the server has been lost. The server may be under heavy load.</p><p>Trying to reconnect in <span id="offlineSeconds">10</span> seconds.</p><p class="animation_state"><span><button class="button-success">Reconnect now</button></span></p></div></div><div class="pure-u-1-4"></div></div></div></div><div class="arangoFrame" style=""><div class="outerDiv"><div class="innerDiv"></div></div></div><script src="libs.js?version=1503503572661"></script><script src="app.js?version=1503503572661"></script></body></html>
+  </div></script></head><body><nav class="navbar" style="display: none"><div class="primary"><div class="navlogo"><a class="logo big" href="#"><img id="AvocadoDBLogo" class="avocadodbLogo" src="img/avocadodb-edition-optimized.svg"></a><a class="logo small" href="#"><img class="avocadodbLogo" src="img/avocadodb_logo_small.png"></a><a class="version"><span id="currentVersion"></span></a></div><div class="statmenu" id="statisticBar"></div><div class="navmenu" id="navigationBar"></div></div></nav><div id="modalPlaceholder"></div><div class="bodyWrapper" style="display: none"><div class="centralRow"><div id="navbar2" class="navbarWrapper secondary"><div class="subnavmenu" id="subNavigationBar"></div></div><div class="resizecontainer contentWrapper"><div id="loadingScreen" class="loadingScreen" style="display: none"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i> <span class="sr-only">Loading...</span></div><div id="content" class="centralContent"></div><footer class="footer"><div id="footerBar"></div></footer></div></div></div><div id="progressPlaceholder" style="display:none"></div><div id="spotlightPlaceholder" style="display:none"></div><div id="graphSettingsContent" style="display: none"></div><div id="filterSelectDiv" style="display:none"></div><div id="offlinePlaceholder" style="display:none"><div class="offline-div"><div class="pure-u"><div class="pure-u-1-4"></div><div class="pure-u-1-2 offline-window"><div class="offline-header"><h3>You have been disconnected from the server</h3></div><div class="offline-body"><p>The connection to the server has been lost. The server may be under heavy load.</p><p>Trying to reconnect in <span id="offlineSeconds">10</span> seconds.</p><p class="animation_state"><span><button class="button-success">Reconnect now</button></span></p></div></div><div class="pure-u-1-4"></div></div></div></div><div class="avocadoFrame" style=""><div class="outerDiv"><div class="innerDiv"></div></div></div><script src="libs.js?version=1503503572661"></script><script src="app.js?version=1503503572661"></script></body></html>

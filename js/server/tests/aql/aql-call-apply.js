@@ -30,7 +30,7 @@
 var internal = require("internal");
 var errors = internal.errors;
 var jsunity = require("jsunity");
-var helper = require("@arangodb/aql-helper");
+var helper = require("@avocadodb/aql-helper");
 var getQueryResults = helper.getQueryResults;
 var assertQueryError = helper.assertQueryError;
 var assertQueryWarningAndNull = helper.assertQueryWarningAndNull;
@@ -199,7 +199,7 @@ function ahuacatlCallApplyTestSuite () {
 ////////////////////////////////////////////////////////////////////////////////
 
 function ahuacatlCallUserDefinedTestSuite () {
-  var aqlfunctions = require("@arangodb/aql/functions");
+  var aqlfunctions = require("@avocadodb/aql/functions");
 
   return {
 

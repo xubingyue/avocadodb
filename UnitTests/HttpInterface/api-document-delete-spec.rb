@@ -1,9 +1,9 @@
 # coding: utf-8
 
 require 'rspec'
-require 'arangodb.rb'
+require 'avocadodb.rb'
 
-describe ArangoDB do
+describe AvocadoDB do
   prefix = "rest-delete-document"
 
   context "delete a document:" do
@@ -15,16 +15,16 @@ describe ArangoDB do
     context "error handling:" do
       before do
         @cn = "UnitTestsCollectionBasics"
-        @cid = ArangoDB.create_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "returns an error if document handle is missing" do
         cmd = "/_api/document"
-        doc = ArangoDB.log_delete("#{prefix}-missing-handle", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-missing-handle", cmd)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -35,7 +35,7 @@ describe ArangoDB do
 
       it "returns an error if document handle is corrupted" do
         cmd = "/_api/document/123456"
-        doc = ArangoDB.log_delete("#{prefix}-bad-handle", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-bad-handle", cmd)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -46,7 +46,7 @@ describe ArangoDB do
 
       it "returns an error if document handle is corrupted" do
         cmd = "/_api/document//123456"
-        doc = ArangoDB.log_delete("#{prefix}-bad-handle2", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-bad-handle2", cmd)
 
         doc.code.should eq(400)
         doc.parsed_response['error'].should eq(true)
@@ -57,7 +57,7 @@ describe ArangoDB do
 
       it "returns an error if collection identifier is unknown" do
         cmd = "/_api/document/123456/234567"
-        doc = ArangoDB.log_delete("#{prefix}-unknown-cid", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-unknown-cid", cmd)
 
         doc.code.should eq(404)
         doc.parsed_response['error'].should eq(true)
@@ -68,7 +68,7 @@ describe ArangoDB do
 
       it "returns an error if document handle is unknown" do
         cmd = "/_api/document/#{@cid}/234567"
-        doc = ArangoDB.log_delete("#{prefix}-unknown-handle", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-unknown-handle", cmd)
 
         doc.code.should eq(404)
         doc.parsed_response['error'].should eq(true)
@@ -85,17 +85,17 @@ describe ArangoDB do
     context "deleting documents:" do
       before do
         @cn = "UnitTestsCollectionBasics"
-        @cid = ArangoDB.create_collection(@cn)
+        @cid = AvocadoDB.create_collection(@cn)
       end
 
       after do
-        ArangoDB.drop_collection(@cn)
+        AvocadoDB.drop_collection(@cn)
       end
 
       it "create a document and delete it" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -107,7 +107,7 @@ describe ArangoDB do
 
         # delete document
         cmd = "/_api/document/#{did}"
-        doc = ArangoDB.log_delete("#{prefix}", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -120,13 +120,13 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should eq(rev)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "create a document and delete it, using if-match" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -139,7 +139,7 @@ describe ArangoDB do
         # delete document, different revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "\"386897\"" }
-        doc = ArangoDB.log_delete("#{prefix}-if-match-other", cmd, :headers => hdr)
+        doc = AvocadoDB.log_delete("#{prefix}-if-match-other", cmd, :headers => hdr)
 
         doc.code.should eq(412)
         doc.parsed_response['error'].should eq(true)
@@ -156,7 +156,7 @@ describe ArangoDB do
         # delete document, same revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "\"#{rev}\"" }
-        doc = ArangoDB.log_delete("#{prefix}-if-match", cmd, :headers => hdr)
+        doc = AvocadoDB.log_delete("#{prefix}-if-match", cmd, :headers => hdr)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -169,13 +169,13 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should eq(rev)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
 
       it "create a document and delete it, using an invalid revision" do
         cmd = "/_api/document?collection=#{@cid}"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -188,7 +188,7 @@ describe ArangoDB do
         # delete document, invalid revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "\"*abcd\"" }
-        doc = ArangoDB.log_delete("#{prefix}-rev-invalid", cmd, :headers => hdr )
+        doc = AvocadoDB.log_delete("#{prefix}-rev-invalid", cmd, :headers => hdr )
 
         doc.code.should eq(412)
         doc.parsed_response['error'].should eq(true)
@@ -198,7 +198,7 @@ describe ArangoDB do
         # delete document, invalid revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "'*abcd'" }
-        doc = ArangoDB.log_delete("#{prefix}-rev-invalid", cmd, :headers => hdr)
+        doc = AvocadoDB.log_delete("#{prefix}-rev-invalid", cmd, :headers => hdr)
 
         doc.code.should eq(412)
         doc.parsed_response['error'].should eq(true)
@@ -208,17 +208,17 @@ describe ArangoDB do
         # delete document, correct revision
         cmd = "/_api/document/#{did}"
         hdr = { "if-match" => "'#{rev}'" }
-        doc = ArangoDB.log_delete("#{prefix}-rev-invalid", cmd, :headers => hdr)
+        doc = AvocadoDB.log_delete("#{prefix}-rev-invalid", cmd, :headers => hdr)
 
         doc.code.should eq(200)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
       
       it "create a document and delete it, waitForSync URL param = false" do
         cmd = "/_api/document?collection=#{@cid}&waitForSync=false"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -230,7 +230,7 @@ describe ArangoDB do
 
         # delete document
         cmd = "/_api/document/#{did}"
-        doc = ArangoDB.log_delete("#{prefix}-sync-false", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-sync-false", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -243,13 +243,13 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should eq(rev)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
       
       it "create a document and delete it, waitForSync URL param = true" do
         cmd = "/_api/document?collection=#{@cid}&waitForSync=true"
         body = "{ \"Hallo\" : \"World\" }"
-        doc = ArangoDB.post(cmd, :body => body)
+        doc = AvocadoDB.post(cmd, :body => body)
 
         doc.code.should eq(201)
 
@@ -261,7 +261,7 @@ describe ArangoDB do
 
         # delete document
         cmd = "/_api/document/#{did}"
-        doc = ArangoDB.log_delete("#{prefix}-sync-true", cmd)
+        doc = AvocadoDB.log_delete("#{prefix}-sync-true", cmd)
 
         doc.code.should eq(200)
         doc.headers['content-type'].should eq("application/json; charset=utf-8")
@@ -274,7 +274,7 @@ describe ArangoDB do
         rev2.should be_kind_of(String)
         rev2.should eq(rev)
 
-        ArangoDB.size_collection(@cid).should eq(0)
+        AvocadoDB.size_collection(@cid).should eq(0)
       end
     end
 

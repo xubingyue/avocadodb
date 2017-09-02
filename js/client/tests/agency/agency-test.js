@@ -57,11 +57,11 @@ function agencyTestSuite () {
   ////////////////////////////////////////////////////////////////////////////////
 
   var instanceInfo = JSON.parse(require('internal').env.INSTANCEINFO);
-  var agencyServers = instanceInfo.arangods.map(arangod => {
-    return arangod.url;
+  var agencyServers = instanceInfo.avocadods.map(avocadod => {
+    return avocadod.url;
   });
   var agencyLeader = agencyServers[0];
-  var request = require("@arangodb/request");
+  var request = require("@avocadodb/request");
 
   function findAgencyCompactionIntervals() {
     let res = request({url: agencyLeader + "/_api/agency/config",

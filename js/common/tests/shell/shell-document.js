@@ -29,12 +29,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
-var arangodb = require("@arangodb");
-var ERRORS = arangodb.errors;
-var db = arangodb.db;
+var avocadodb = require("@avocadodb");
+var ERRORS = avocadodb.errors;
+var db = avocadodb.db;
 var internal = require("internal");
 var wait = internal.wait;
-var testHelper = require("@arangodb/test-helper").Helper;
+var testHelper = require("@avocadodb/test-helper").Helper;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2342,9 +2342,9 @@ function DatabaseDocumentSuiteReturnStuff () {
 /// @brief test new features from 3.0
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Not Functional in arangosh connected to coordinator.
+/* Not Functional in avocadosh connected to coordinator.
     testNewFeatures : function () {
-      if (! require("@arangodb/cluster").isCluster()) {
+      if (! require("@avocadodb/cluster").isCluster()) {
         var x = collection.insert({Hallo: 12}, { silent: true });
         assertEqual(true, x);
         x = collection.insert([{Hallo: 13}], { silent: true });

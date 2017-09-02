@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ bool TRI_StartThread(TRI_thread_t* thread, TRI_tid_t* threadId,
   try {
     d.reset(new thread_data_t(starter, data, name));
   } catch (...) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "could not start thread: out of memory";
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "could not start thread: out of memory";
     return false;
   }
 
@@ -108,7 +108,7 @@ bool TRI_StartThread(TRI_thread_t* thread, TRI_tid_t* threadId,
   if (rc != 0) {
     errno = rc;
     TRI_set_errno(TRI_ERROR_SYS_ERROR);
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "could not start thread: " << strerror(errno);
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "could not start thread: " << strerror(errno);
 
     return false;
   }
@@ -162,7 +162,7 @@ void TRI_SetProcessorAffinity(TRI_thread_t* thread, size_t core) {
   int s = pthread_setaffinity_np(*thread, sizeof(cpu_set_t), &cpuset);
 
   if (s != 0) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot set affinity to core " << core << ": "
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot set affinity to core " << core << ": "
              << strerror(errno);
   }
 
@@ -176,7 +176,7 @@ void TRI_SetProcessorAffinity(TRI_thread_t* thread, size_t core) {
                                (thread_policy_t)&policy, 1);
 
   if (res != KERN_SUCCESS) {
-    LOG_TOPIC(ERR, arangodb::Logger::FIXME) << "cannot set affinity to core " << core << ": "
+    LOG_TOPIC(ERR, avocadodb::Logger::FIXME) << "cannot set affinity to core " << core << ": "
              << strerror(errno);
   }
 

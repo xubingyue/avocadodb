@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Daniel H. Larkin
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@
 #include "Basics/Mutex.h"
 #include "Basics/asio-helper.h"
 
-namespace arangodb {
+namespace avocadodb {
 namespace basics {
 
 class LocalTaskQueue;
@@ -166,7 +166,7 @@ class LocalTaskQueue {
   /// @brief condition variable
   //////////////////////////////////////////////////////////////////////////////
 
-  arangodb::basics::ConditionVariable _condition;
+  avocadodb::basics::ConditionVariable _condition;
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief internal mutex
@@ -193,7 +193,7 @@ class LocalTaskQueue {
   int _status;
 };
 
-}  // namespace arangodb::basics
-}  // namespace arangodb
+}  // namespace avocadodb::basics
+}  // namespace avocadodb
 
 #endif

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* jshint unused: false */
-/* global arangoHelper, frontendConfig, Backbone, templateEngine, $, window, _ */
+/* global avocadoHelper, frontendConfig, Backbone, templateEngine, $, window, _ */
 (function () {
   'use strict';
 
@@ -381,7 +381,7 @@
             }
           } else {
             if (!silent) {
-              arangoHelper.arangoNotification('Graph ' + this.name, 'Configuration saved.');
+              avocadoHelper.avocadoNotification('Graph ' + this.name, 'Configuration saved.');
             }
           }
           if (userCallback) {
@@ -535,7 +535,7 @@
         specific: this.specific
       }));
 
-      arangoHelper.fixTooltips('.gv-tooltips', 'top');
+      avocadoHelper.fixTooltips('.gv-tooltips', 'top');
 
       if (this.graphConfig) {
         _.each(this.graphConfig, function (val, key) {

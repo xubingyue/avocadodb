@@ -1,7 +1,7 @@
 HTTP Interface for Miscellaneous functions
 ==========================================
 
-This is an overview of ArangoDB's HTTP interface for miscellaneous functions.
+This is an overview of AvocadoDB's HTTP interface for miscellaneous functions.
 
 <!-- lib/Admin/RestVersionHandler.cpp -->
 @startDocuBlock JSF_get_api_return

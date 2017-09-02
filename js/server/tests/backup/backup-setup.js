@@ -1,5 +1,5 @@
 /*jshint globalstrict:false, strict:false, maxlen:4000, unused:false */
-/*global arango */
+/*global avocado */
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief setup collections for backup tests
@@ -8,7 +8,7 @@
 ///
 /// DISCLAIMER
 ///
-/// Copyright 2017 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -22,15 +22,15 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Michael Hackstein
-/// @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+/// @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
-const db = require("@arangodb").db;
+const db = require("@avocadodb").db;
 const colname = 'UnitTestBkpCollection';
 const user_rw_rw = 'UnitTestUserRWRW';
 const user_rw_ro = 'UnitTestUserRWRO';
@@ -43,7 +43,7 @@ const clearCollections = () => {
 };
 
 const generateUsers = () => {
-  const users = require("@arangodb/users");
+  const users = require("@avocadodb/users");
   users.save(user_rw_rw, user_rw_rw, true);
   users.grantDatabase(user_rw_rw, '_system', 'rw');
   users.grantCollection(user_rw_rw, '_system', colname, 'rw');
@@ -74,7 +74,7 @@ const fillCollections = () => {
 };
 
 const createGraph = () => {
-  const graphs = require("@arangodb/general-graph");
+  const graphs = require("@avocadodb/general-graph");
   graphs._create(
     'UnitTestGraph',
     [graphs._relation('UnitTestEdges', 'UnitTestVertices', 'UnitTestVertices')],

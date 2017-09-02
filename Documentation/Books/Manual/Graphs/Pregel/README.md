@@ -2,22 +2,22 @@ Distributed Iterative Graph Processing (Pregel)
 ======
 
 Distributed graph processing enables you to do online analytical processing
-directly on graphs stored into arangodb. This is intended to help you gain analytical insights
+directly on graphs stored into avocadodb. This is intended to help you gain analytical insights
 on your data, without having to use external processing sytems. Examples of algorithms
 to execute are PageRank, Vertex Centrality, Vertex Closeness, Connected Components, Community Detection.
 This system is not useful for typical online queries, where you just do work on a small set of vertices.
 These kind of tasks are better suited for AQL.
 
-The processing system inside ArangoDB is based on: [Pregel: A System for Large-Scale Graph Processing](http://www.dcs.bbk.ac.uk/~dell/teaching/cc/paper/sigmod10/p135-malewicz.pdf) – Malewicz et al. (Google) 2010
+The processing system inside AvocadoDB is based on: [Pregel: A System for Large-Scale Graph Processing](http://www.dcs.bbk.ac.uk/~dell/teaching/cc/paper/sigmod10/p135-malewicz.pdf) – Malewicz et al. (Google) 2010
 This concept enables us to perform distributed graph processing, without the need for distributed global locking.
 
 # Prerequisites
 
-If you are running a single ArangoDB instance in single-server mode, there are no requirements regarding the modeling 
+If you are running a single AvocadoDB instance in single-server mode, there are no requirements regarding the modeling 
 of your data. All you need is at least one vertex collection and one edge collection. Note that the performance may be
 better, if the number of your shards / collections matches the number of CPU cores.
 
-When you use ArangoDB Community edition in cluster mode, you might need to model your collections in a certain way to
+When you use AvocadoDB Community edition in cluster mode, you might need to model your collections in a certain way to
 ensure correct results. For more information see the next section.
 
 ## Requirements for Collections in a Cluster (Non Smart Graph)
@@ -32,7 +32,7 @@ will need to be sharded after an attribute which always contains the '_key' of t
 
 Our implementation currently requires every edge collection to be sharded after a "vertex" attributes,
 additionally you will need to specify the key `distributeShardsLike` and an **equal** number of shards on every collection.
-Only if these requirements are met can ArangoDB place the edges and vertices correctly.
+Only if these requirements are met can AvocadoDB place the edges and vertices correctly.
 
 For example you might create your collections like this:
 ```javascript
@@ -71,11 +71,11 @@ This will ensure that outgoing edge documents will be placed on the same DBServe
 Without the correct placement of the edges, the pregel graph processing system will not work correctly, because
 edges will not load correctly.
 
-### Arangosh API
+### Avocadosh API
 
 #### Starting an Algorithm Execution
 
-The pregel API is accessible through the `@arangodb/pregel` package.
+The pregel API is accessible through the `@avocadodb/pregel` package.
 To start an execution you need to specify the **algorithm** name and the vertex and edge collections.
 Alternatively you can specify a named graph. Additionally you can specify custom parameters which
 vary for each algorithm.
@@ -83,7 +83,7 @@ The `start` method will always a unique ID which can be used to interact with th
 
 The below version of the `start` method can be used for named graphs:
 ```javascript
-  var pregel = require("@arangodb/pregel");
+  var pregel = require("@avocadodb/pregel");
   var params = {};
   var execution = pregel.start("<algorithm>", "<yourgraph>", params);
 ```
@@ -93,7 +93,7 @@ Params needs to be an object, the valid keys are mentioned below in the section 
 Alternatively you might want to specify the vertex and edge collections directly. The call-syntax of the `start``
 method changes in this case. The second argument must be an object with the keys `vertexCollections`and `edgeCollections`.
 ```javascript
-  var pregel = require("@arangodb/pregel");
+  var pregel = require("@avocadodb/pregel");
   var params = {};
   var execution = pregel.start("<algorithm>", {vertexCollections:["vertices"], edgeCollections:["edges"]}, {});
 ```
@@ -158,7 +158,7 @@ pregel.cancel(execution);
 
 ## AQL integration
 
-ArangoDB supports retrieving temporary pregel results through the ArangoDB query language (AQL). 
+AvocadoDB supports retrieving temporary pregel results through the AvocadoDB query language (AQL). 
 When our graph processing subsystem finishes executing an algorithm, the result can either be written back into the 
 database or kept in memory. In both cases the result can be queried via AQL. If the data was not written to the database
 store it is only held temporarily, until the user calls the `cancel` methodFor example a user might want to query
@@ -187,7 +187,7 @@ the execution converges. Specify a custom threshold with the parameter `threshol
 number of iterations use the `maxGSS` parameter. 
 
 ```javascript
-var pregel = require("@arangodb/pregel");
+var pregel = require("@avocadodb/pregel");
 pregel.start("pagerank", "graphname", {maxGSS: 100, threshold:0.00000001})
 ```
 
@@ -197,7 +197,7 @@ Calculates the distance of each vertex to a certain shortest path. The algorithm
 the iterations are bound by the diameter (the longest shortest path) of your graph.
 
 ```javascript
-  var pregel = require("@arangodb/pregel");
+  var pregel = require("@avocadodb/pregel");
   pregel.start("sssp", "graphname", {source:"vertices/1337"})
 ```
 
@@ -215,7 +215,7 @@ In the case of SCC a component means every vertex is reachable from any other ve
 Consider using WCC if you think your data may be suitable for it.
 
 ```javascript
-  var pregel = require("@arangodb/pregel");
+  var pregel = require("@avocadodb/pregel");
   // weakly connected components
   pregel.start("connectedcomponents", "graphname")
   // strongly connected components
@@ -241,7 +241,7 @@ The algorithm can be executed like this:
 
 
 ```javascript
-    var pregel = require("@arangodb/pregel");
+    var pregel = require("@avocadodb/pregel");
     var handle = pregel.start("hits", "yourgraph", {threshold:0.00001, resultField: "score"});
 ```
 
@@ -270,13 +270,13 @@ of shortest paths passing through each vertex. The score will approximates the t
 it is not possible to actually count all shortest paths due to the horrendous O(n^2 * d) memory requirements. 
 The algorithm is from the paper *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*
 
-ArangoDBs implementation approximates the number of shortest path in each iteration by using a HyperLogLog counter with 64 buckets. 
+AvocadoDBs implementation approximates the number of shortest path in each iteration by using a HyperLogLog counter with 64 buckets. 
 This should work well on large graphs and on smaller ones as well. The memory requirements should be **O(n * d)** where 
 *n* is the number of vertices and *d* the diameter of your graph. Each vertex will store a counter for each iteration of the
 algorithm. The algorithm can be used like this
 
 ```javascript
-    var pregel = require("@arangodb/pregel");
+    var pregel = require("@avocadodb/pregel");
     var handle = pregel.start("effectivecloseness", "yourgraph", {resultField: "closeness"});
 ```
 
@@ -295,11 +295,11 @@ passing through it.
 **LineRank** approximates the random walk betweenness of every vertex in a graph. This is the probability that someone starting on
 an arbitary vertex, will visit this node when he randomly chooses edges to visit.
 The algoruthm essentially builds a line graph out of your graph (switches the vertices and edges), and then computes a score similar to PageRank.
-This can be considered a scalable equivalent to vertex betweeness, which can be executed distributedly in ArangoDB. 
+This can be considered a scalable equivalent to vertex betweeness, which can be executed distributedly in AvocadoDB. 
 The algorithm is from the paper *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*
 
 ```javascript
-    var pregel = require("@arangodb/pregel");
+    var pregel = require("@avocadodb/pregel");
     var handle = pregel.start("linerank", "yourgraph", {"resultField": "rank"});
 ```
 
@@ -323,7 +323,7 @@ The default bound is 500 iterations, which is likely too large for your applicat
 Should work best on undirected graphs, results on directed graphs might vary depending on the density of your graph.
 
 ```javascript
-    var pregel = require("@arangodb/pregel");
+    var pregel = require("@avocadodb/pregel");
     var handle = pregel.start("labelpropagation", "yourgraph", {maxGSS:100, resultField: "community"});
 ```
 

@@ -5,7 +5,7 @@ Version 3.2
 -----------
 
 - [**RocksDB Storage Engine**](Architecture/StorageEngines.md): You can now use
-  as much data in ArangoDB as you can fit on your disk. Plus, you can enjoy
+  as much data in AvocadoDB as you can fit on your disk. Plus, you can enjoy
   performance boosts on writes by having only document-level locks
 
 - [**Pregel**](Graphs/Pregel/README.md):
@@ -20,7 +20,7 @@ Version 3.2
   are unavailable.
 
 - **Enterprise**: Working with some of our largest customers, we’ve added
-  further security and scalability features to ArangoDB Enterprise like
+  further security and scalability features to AvocadoDB Enterprise like
   [LDAP integration](Administration/Configuration/Ldap.md),
   [Encryption at Rest](Administration/Encryption/README.md), and the brand new
   [Satellite Collections](Administration/Replication/Synchronous/Satellites.md).
@@ -38,7 +38,7 @@ Version 3.1
 - **Encryption Control**: Choose your level of [SSL encryption](Administration/Configuration/SSL.md)
 
 - [**Auditing**](Administration/Auditing/README.md): Keep a detailed log
-  of all the important things that happened in ArangoDB.
+  of all the important things that happened in AvocadoDB.
 
 Also see [What's New in 3.1](ReleaseNotes/NewFeatures31.md).
 
@@ -51,7 +51,7 @@ Version 3.0
 
 - Deeply integrated, native [**AQL graph traversal**](../AQL/Graphs/index.html)
 
-- [**VelocyPack**](https://github.com/arangodb/velocypack) as new internal
+- [**VelocyPack**](https://github.com/avocadodb/velocypack) as new internal
   binary storage format as well as for intermediate AQL values.
 
 - [**Persistent indexes**](Indexing/Persistent.md) via RocksDB suitable

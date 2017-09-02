@@ -8,7 +8,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2017 ArangoDB GmbH, Cologne, Germany
+// / Copyright 2017 AvocadoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License");
 // / you may not use this file except in compliance with the License.
@@ -22,24 +22,24 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is ArangoDB GmbH, Cologne, Germany
+// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
 // /
 // / @author Mark Vollmary
-// / @author Copyright 2017, ArangoDB GmbH, Cologne, Germany
+// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 'use strict';
 
 const expect = require('chai').expect;
-const foxxManager = require('@arangodb/foxx/manager');
+const foxxManager = require('@avocadodb/foxx/manager');
 const fs = require('fs');
 const internal = require('internal');
 const basePath = fs.makeAbsolute(fs.join(internal.startupPath, 'common', 'test-data', 'apps'));
 const download = internal.download;
 
-const arangodb = require('@arangodb');
-const arango = require('@arangodb').arango;
-const aql = arangodb.aql;
+const avocadodb = require('@avocadodb');
+const avocado = require('@avocadodb').avocado;
+const aql = avocadodb.aql;
 const db = internal.db;
 
 describe('Foxx service', () => {
@@ -51,7 +51,7 @@ describe('Foxx service', () => {
     foxxManager.uninstall(mount, {force: true});
   });
   afterEach(() => {
-    download(`${arango.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
+    download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
       method: 'delete'
     });
   });
@@ -60,7 +60,7 @@ describe('Foxx service', () => {
       FOR queue IN _queues
       RETURN queue
     `).toArray();
-    const res = download(`${arango.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
+    const res = download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
       method: 'post'
     });
     expect(res.code).to.equal(204);
@@ -75,11 +75,11 @@ describe('Foxx service', () => {
       FOR queue IN _queues
       RETURN queue
     `).toArray();
-    let res = download(`${arango.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
+    let res = download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
       method: 'post'
     });
     expect(res.code).to.equal(204);
-    res = download(`${arango.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
+    res = download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
       method: 'post'
     });
     expect(res.code).to.equal(204);
@@ -90,7 +90,7 @@ describe('Foxx service', () => {
     expect(queuesAfter.length - queuesBefore.length).to.equal(1);
   });
   it('should support jobs running in the queue', () => {
-    let res = download(`${arango.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
+    let res = download(`${avocado.getEndpoint().replace('tcp://', 'http://')}/${mount}`, '', {
       method: 'post'
     });
     expect(res.code).to.equal(204);

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
@@ -15,22 +15,22 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Frank Celler
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ApplicationFeatures/TempFeature.h"
 
-#include "Basics/ArangoGlobalContext.h"
+#include "Basics/AvocadoGlobalContext.h"
 #include "Basics/files.h"
 #include "Basics/FileUtils.h"
 #include "Logger/Logger.h"
 #include "ProgramOptions/ProgramOptions.h"
 #include "ProgramOptions/Section.h"
 
-using namespace arangodb;
-using namespace arangodb::options;
+using namespace avocadodb;
+using namespace avocadodb::options;
 
 TempFeature::TempFeature(application_features::ApplicationServer* server,
                          std::string const& appname)
@@ -70,7 +70,7 @@ void TempFeature::start() {
   TRI_GetTempPath();
 
   // signal that the temp path is available
-  auto context = ArangoGlobalContext::CONTEXT;
+  auto context = AvocadoGlobalContext::CONTEXT;
 
   if (context != nullptr) {
     context->createMiniDumpFilename();

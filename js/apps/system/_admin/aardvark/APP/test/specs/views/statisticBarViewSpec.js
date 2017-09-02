@@ -25,7 +25,7 @@
           }
         });
       expect(view.events).toEqual({
-        'change #arangoCollectionSelect': 'navigateBySelect',
+        'change #avocadoCollectionSelect': 'navigateBySelect',
         'click .tab': 'navigateByTab'
       });
     });
@@ -80,7 +80,7 @@
       spyOn(window, '$').andReturn(jquerDummy);
       spyOn(window.App, 'navigate');
       view.navigateBySelect();
-      expect(window.$).toHaveBeenCalledWith('#arangoCollectionSelect');
+      expect(window.$).toHaveBeenCalledWith('#avocadoCollectionSelect');
       expect(jquerDummy.find).toHaveBeenCalledWith('option:selected');
       expect(jquerDummy.val).toHaveBeenCalled();
       expect(window.App.navigate).toHaveBeenCalledWith('bla', {trigger: true});
@@ -140,7 +140,7 @@
         a();
       });
       view.handleSelectNavigation();
-      expect(window.$).toHaveBeenCalledWith('#arangoCollectionSelect');
+      expect(window.$).toHaveBeenCalledWith('#avocadoCollectionSelect');
       expect(jQueryDummy.find).toHaveBeenCalledWith('option:selected');
       expect(jQueryDummy.change).toHaveBeenCalled();
       expect(jQueryDummy.val).toHaveBeenCalled();

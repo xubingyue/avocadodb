@@ -1,14 +1,14 @@
 Fulltext indexes
 ================
 
-This is an introduction to ArangoDB's fulltext indexes.
+This is an introduction to AvocadoDB's fulltext indexes.
 
 ### Introduction to Fulltext Indexes
 
 A fulltext index can be used to find words, or prefixes of words inside documents.
 
 A fulltext index can be defined on one attribute only, and will include all words contained in
-documents that have a textual value in the index attribute. Since ArangoDB 2.6 the index
+documents that have a textual value in the index attribute. Since AvocadoDB 2.6 the index
 will also include words from the index attribute if the index attribute is an array of
 strings, or an object with string value members.
 
@@ -20,7 +20,7 @@ two documents, and searching for `prefix:Fox` would return all three documents:
 ```js
 { translations: { en: "fox", de: "Fuchs", fr: "renard", ru: "лиса" } }
 { translations: "Fox is the English translation of the German word Fuchs" }
-{ translations: [ "ArangoDB", "document", "database", "Foxx" ] }
+{ translations: [ "AvocadoDB", "document", "database", "Foxx" ] }
 ```
 
 Note that deeper nested objects are ignored. For example, a fulltext index on
@@ -47,7 +47,7 @@ Currently, fulltext indexes are not yet supported with the RocksDB storage engin
 Accessing Fulltext Indexes from the Shell
 -----------------------------------------
 
-<!-- js/server/modules/@arangodb/arango-collection.js -->
+<!-- js/server/modules/@avocadodb/avocado-collection.js -->
 
 Ensures that a fulltext index exists:
 
@@ -65,7 +65,7 @@ unsupported.
 The minimum length of words that are indexed can be specified via the
 *minLength* parameter. Words shorter than minLength characters will
 not be indexed. *minLength* has a default value of 2, but this value might
-be changed in future versions of ArangoDB. It is thus recommended to explicitly
+be changed in future versions of AvocadoDB. It is thus recommended to explicitly
 specify this value.
 
 In case that the index was successfully created, an object with the index

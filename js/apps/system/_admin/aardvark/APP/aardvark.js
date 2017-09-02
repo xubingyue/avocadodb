@@ -6,7 +6,7 @@
 // DISCLAIMER
 //
 // Copyright 2010-2013 triAGENS GmbH, Cologne, Germany
-// Copyright 2016 ArangoDB GmbH, Cologne, Germany
+// Copyright 2016 AvocadoDB GmbH, Cologne, Germany
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Copyright holder is ArangoDB GmbH, Cologne, Germany
+// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 //
 // @author Michael Hackstein
 // @author Heiko Kernbach
@@ -30,13 +30,13 @@
 const joi = require('joi');
 const dd = require('dedent');
 const internal = require('internal');
-const db = require('@arangodb').db;
-const errors = require('@arangodb').errors;
-const notifications = require('@arangodb/configuration').notifications;
-const examples = require('@arangodb/graph-examples/example-graph');
-const createRouter = require('@arangodb/foxx/router');
-const users = require('@arangodb/users');
-const cluster = require('@arangodb/cluster');
+const db = require('@avocadodb').db;
+const errors = require('@avocadodb').errors;
+const notifications = require('@avocadodb/configuration').notifications;
+const examples = require('@avocadodb/graph-examples/example-graph');
+const createRouter = require('@avocadodb/foxx/router');
+const users = require('@avocadodb/users');
+const cluster = require('@avocadodb/cluster');
 const isEnterprise = require('internal').isEnterprise();
 
 const ERROR_USER_NOT_FOUND = errors.ERROR_USER_NOT_FOUND.code;
@@ -79,7 +79,7 @@ router.get('/config.js', function (req, res) {
 .response(['text/javascript']);
 
 router.get('/whoAmI', function (req, res) {
-  res.json({user: req.arangoUser || null});
+  res.json({user: req.avocadoUser || null});
 })
 .summary('Return the current user')
 .description(dd`
@@ -136,14 +136,14 @@ authRouter.post('/query/explain', function (req, res) {
 
   try {
     if (bindVars) {
-      msg = require('@arangodb/aql/explainer').explain({
+      msg = require('@avocadodb/aql/explainer').explain({
         query: query,
         bindVars: bindVars,
         batchSize: batchSize,
         id: id
       }, {colors: false}, false, bindVars);
     } else {
-      msg = require('@arangodb/aql/explainer').explain(query, {colors: false}, false);
+      msg = require('@avocadodb/aql/explainer').explain(query, {colors: false}, false);
     }
   } catch (e) {
     res.throw('bad request', e.message, {cause: e});
@@ -168,7 +168,7 @@ authRouter.post('/query/upload/:user', function (req, res) {
   try {
     user = users.document(user);
   } catch (e) {
-    if (!e.isArangoError || e.errorNum !== ERROR_USER_NOT_FOUND) {
+    if (!e.isAvocadoError || e.errorNum !== ERROR_USER_NOT_FOUND) {
       throw e;
     }
     res.throw('not found');
@@ -209,7 +209,7 @@ authRouter.get('/query/download/:user', function (req, res) {
   try {
     user = users.document(user);
   } catch (e) {
-    if (!e.isArangoError || e.errorNum !== ERROR_USER_NOT_FOUND) {
+    if (!e.isAvocadoError || e.errorNum !== ERROR_USER_NOT_FOUND) {
       throw e;
     }
     res.throw('not found');
@@ -308,9 +308,9 @@ authRouter.get('/graph/:name', function (req, res) {
   var name = req.pathParams.name;
   var gm;
   if (isEnterprise) {
-    gm = require('@arangodb/smart-graph');
+    gm = require('@avocadodb/smart-graph');
   } else {
-    gm = require('@arangodb/general-graph');
+    gm = require('@avocadodb/general-graph');
   }
   var colors = {
     default: [

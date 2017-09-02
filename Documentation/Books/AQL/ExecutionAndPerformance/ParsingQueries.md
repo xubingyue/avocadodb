@@ -1,10 +1,10 @@
 Parsing queries
 ===============
     
-Clients can use ArangoDB to check if a given AQL query is syntactically valid. ArangoDB provides
+Clients can use AvocadoDB to check if a given AQL query is syntactically valid. AvocadoDB provides
 an [HTTP REST API](../../HTTP/AqlQuery/index.html) for this. 
 
-A query can also be parsed from the ArangoShell using `ArangoStatement`'s `parse` method. The
+A query can also be parsed from the AvocadoShell using `AvocadoStatement`'s `parse` method. The
 `parse` method will throw an exception if the query is syntactically invalid. Otherwise, it will
 return the some information about the query.
 

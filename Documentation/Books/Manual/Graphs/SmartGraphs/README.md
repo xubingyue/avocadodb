@@ -4,7 +4,7 @@ SmartGraphs
 __This feature is only available in the Enterprise Edition.__
 
 This chapter describes the [smart-graph](../README.md) module.
-It enables you to manage graphs at scale, it will give a vast performance benefit for all graphs sharded in an ArangoDB Cluster.
+It enables you to manage graphs at scale, it will give a vast performance benefit for all graphs sharded in an AvocadoDB Cluster.
 On a single server this feature is pointless, hence it is only available in a cluster mode.
 In terms of querying there is no difference between smart and General Graphs.
 The former are a transparent replacement for the latter.
@@ -50,8 +50,8 @@ However the overall performance is never worse than the same query on a General 
 #### Getting started
 
 First of all SmartGraphs *cannot use existing collections*, when switching to SmartGraph from an existing data set you have to import the data into a fresh SmartGraph.
-This switch can be easily achieved with [arangodump](../../Administration/Arangodump.md) and [arangorestore](../../Administration/Arangorestore.md).
-The only thing you have to change in this pipeline is that you create the new collections with the SmartGraph before starting `arangorestore`.
+This switch can be easily achieved with [avocadodump](../../Administration/Avocadodump.md) and [avocadorestore](../../Administration/Avocadorestore.md).
+The only thing you have to change in this pipeline is that you create the new collections with the SmartGraph before starting `avocadorestore`.
 
 * Create a graph
 
@@ -59,9 +59,9 @@ The only thing you have to change in this pipeline is that you create the new co
 
 
     @startDocuBlockInline smartGraphCreateGraphHowTo1
-      arangosh> var graph_module = require("@arangodb/smart-graph");
-      arangosh> var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      arangosh> graph;
+      avocadosh> var graph_module = require("@avocadodb/smart-graph");
+      avocadosh> var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      avocadosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ ] ]
     @endDocuBlock smartGraphCreateGraphHowTo1
 
@@ -72,10 +72,10 @@ The only thing you have to change in this pipeline is that you create the new co
 
 
     @startDocuBlockInline smartGraphCreateGraphHowTo2
-      arangosh> graph._addVertexCollection("shop");
-      arangosh> graph._addVertexCollection("customer");
-      arangosh> graph._addVertexCollection("pet");
-      arangosh> graph;
+      avocadosh> graph._addVertexCollection("shop");
+      avocadosh> graph._addVertexCollection("customer");
+      avocadosh> graph._addVertexCollection("pet");
+      avocadosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ "shop", "customer", "pet" ] ]
     @endDocuBlock smartGraphCreateGraphHowTo2
 
@@ -84,8 +84,8 @@ The only thing you have to change in this pipeline is that you create the new co
 
 
     @startDocuBlockInline smartGraphCreateGraphHowTo3
-      arangosh> var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
-      arangosh> graph._extendEdgeDefinitions(rel);
-      arangosh> graph;
+      avocadosh> var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
+      avocadosh> graph._extendEdgeDefinitions(rel);
+      avocadosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [   "isCustomer: [shop] -> [customer]" ] VertexCollections: [ "pet" ] ]
     @endDocuBlock smartGraphCreateGraphHowTo3

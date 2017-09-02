@@ -57,12 +57,12 @@
           callback([
             {
               name: 'MyApp',
-              author: 'ArangoDB',
+              author: 'AvocadoDB',
               description: 'Description of the app',
               latestVersion: '1.1.0'
             }, {
               name: storeApp,
-              author: 'ArangoDB',
+              author: 'AvocadoDB',
               description: 'Description of the other app',
               latestVersion: storeAppVersion
             }
@@ -106,7 +106,7 @@
             });
           });
           mount = '/my/application';
-          author = 'ArangoDB';
+          author = 'AvocadoDB';
           name = 'MyApp';
           desc = 'My new app';
           license = 'Apache 2';
@@ -183,7 +183,7 @@
               error: false
             });
           });
-          repository = 'arangodb/itzpapalotl';
+          repository = 'avocadodb/itzpapalotl';
           version = '1.2.0';
           mount = '/my/application';
           expectedInfo = {

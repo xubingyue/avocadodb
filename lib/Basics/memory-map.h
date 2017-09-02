@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// DISCLAIMER
 ///
-/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany
+/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany
 /// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is ArangoDB GmbH, Cologne, Germany
+/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
 ///
 /// @author Dr. Oreste Costa-Panaia
 ////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ int TRI_MMFileUnlock(void* memoryAddress, size_t numOfBytes);
 ////////////////////////////////////////////////////////////////////////////////
 
 static inline bool TRI_MSync(int fd, char const* begin, char const* end) {
-  size_t pageSize = arangodb::PageSizeFeature::getPageSize();
+  size_t pageSize = avocadodb::PageSizeFeature::getPageSize();
   uintptr_t p = (intptr_t)begin;
   uintptr_t q = (intptr_t)end;
   uintptr_t g = (intptr_t)pageSize;

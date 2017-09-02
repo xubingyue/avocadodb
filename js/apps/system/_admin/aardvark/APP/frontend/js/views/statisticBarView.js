@@ -7,7 +7,7 @@
     el: '#statisticBar',
 
     events: {
-      'change #arangoCollectionSelect': 'navigateBySelect',
+      'change #avocadoCollectionSelect': 'navigateBySelect',
       'click .tab': 'navigateByTab'
     },
 
@@ -56,7 +56,7 @@
     },
 
     navigateBySelect: function () {
-      var navigateTo = $('#arangoCollectionSelect').find('option:selected').val();
+      var navigateTo = $('#avocadoCollectionSelect').find('option:selected').val();
       window.App.navigate(navigateTo, {trigger: true});
     },
 
@@ -77,7 +77,7 @@
       e.preventDefault();
     },
     handleSelectNavigation: function () {
-      $('#arangoCollectionSelect').change(function () {
+      $('#avocadoCollectionSelect').change(function () {
         var navigateTo = $(this).find('option:selected').val();
         window.App.navigate(navigateTo, {trigger: true});
       });
