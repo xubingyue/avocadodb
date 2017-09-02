@@ -10,12 +10,12 @@
 ### Catch 1.8.1
 
 * Project Home: https://github.com/philsquared/Catch
-* License: [boost software license](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/catch/catch.hpp)
+* License: [boost software license](https://github.com/arangodb/arangodb/blob/devel/3rdParty/catch/catch.hpp)
 
 ### Curl 7.50.3
 
 * Project Home: https://curl.haxx.se/
-* License: [free as-is license](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/curl/curl-7.50.3/COPYING)
+* License: [free as-is license](https://github.com/arangodb/arangodb/blob/devel/3rdParty/curl/curl-7.50.3/COPYING)
 
 ### fasthash
 
@@ -25,7 +25,7 @@
 ### fakeit
 
 * Project Home: https://github.com/eranpeer/FakeIt
-* License: [MIT License](https://raw.githubusercontent.com/avocadodb/avocadodb/devel/3rdParty/fakeit/fakeit.hpp)
+* License: [MIT License](https://raw.githubusercontent.com/arangodb/arangodb/devel/3rdParty/fakeit/fakeit.hpp)
 
 ### fpconv_dtoa
 
@@ -35,20 +35,20 @@
 ### Google V8 5.7.0.0
 
 * Project Home: https://github.com/v8/v8
-* License: V8 [BSD-style 3-Clause License](https://raw.githubusercontent.com/avocadodb/avocadodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.v8)
-* License: strongtalk [BSD-style 3-Clause License](https://raw.githubusercontent.com/avocadodb/avocadodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.strongtalk)
-* License: valgrind [BSD-style 4-Clause license](https://raw.githubusercontent.com/avocadodb/avocadodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.valgrind)
-* License: fdlibm [free as-is license](https://raw.githubusercontent.com/avocadodb/avocadodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.fdlibm)
-* License: PCRE [BSD 3-Clause license](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/V8/v5.7.0.0/test/mjsunit/third_party/regexp-pcre/LICENSE)
-* License: object-keys [BSD-style 3-Clause license](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/V8/v5.7.0.0/test/mjsunit/third_party/object-keys/LICENSE)
-* License: vtune, Dual-License [BSD 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/V8/v5.7.0.0/src/third_party/vtune/LICENSE)
-* License: gtest [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/V8/v5.7.0.0/testing/gtest/include/gtest/gtest_prod.h)
-* License: gyp [BSD-style 3-Clause license](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/V8/v5.7.0.0/tools/gyp/LICENSE)
+* License: V8 [BSD-style 3-Clause License](https://raw.githubusercontent.com/arangodb/arangodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.v8)
+* License: strongtalk [BSD-style 3-Clause License](https://raw.githubusercontent.com/arangodb/arangodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.strongtalk)
+* License: valgrind [BSD-style 4-Clause license](https://raw.githubusercontent.com/arangodb/arangodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.valgrind)
+* License: fdlibm [free as-is license](https://raw.githubusercontent.com/arangodb/arangodb/devel/3rdParty/V8/v5.7.0.0/LICENSE.fdlibm)
+* License: PCRE [BSD 3-Clause license](https://github.com/arangodb/arangodb/blob/devel/3rdParty/V8/v5.7.0.0/test/mjsunit/third_party/regexp-pcre/LICENSE)
+* License: object-keys [BSD-style 3-Clause license](https://github.com/arangodb/arangodb/blob/devel/3rdParty/V8/v5.7.0.0/test/mjsunit/third_party/object-keys/LICENSE)
+* License: vtune, Dual-License [BSD 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/3rdParty/V8/v5.7.0.0/src/third_party/vtune/LICENSE)
+* License: gtest [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/3rdParty/V8/v5.7.0.0/testing/gtest/include/gtest/gtest_prod.h)
+* License: gyp [BSD-style 3-Clause license](https://github.com/arangodb/arangodb/blob/devel/3rdParty/V8/v5.7.0.0/tools/gyp/LICENSE)
 
 ### ICU 58.1
 
 * Project Home: http://site.icu-project.org/
-* License: [ICU License](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/V8/v5.7.0.0/third_party/icu/LICENSE)
+* License: [ICU License](https://github.com/arangodb/arangodb/blob/devel/3rdParty/V8/v5.7.0.0/third_party/icu/LICENSE)
 
 ### jemalloc 4.5.0
 
@@ -67,13 +67,13 @@ exception from the GPL license:
 
 ### linenoise-ng
 
-* GitHub: https://github.com/avocadodb/linenoise-ng
+* GitHub: https://github.com/arangodb/linenoise-ng
 * License: [BSD-style 2-Clause License](https://github.com/antirez/linenoise/blob/master/LICENSE)
 
 ### RocksDB 5.1.4
 
 * GitHub: https://github.com/facebook/rocksdb
-* License: [BSD License](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/rocksdb/v5.1.4/LICENSE)
+* License: [BSD License](https://github.com/arangodb/arangodb/blob/devel/3rdParty/rocksdb/v5.1.4/LICENSE)
 
 ### short_alloc
 
@@ -83,13 +83,13 @@ exception from the GPL license:
 ### snappy d53de18
 
 * Project Home: http://google.github.io/snappy/
-* License: [BSD-style 3-Clause license](https://github.com/avocadodb/avocadodb/blob/devel/3rdParty/snappy/google-snappy-d53de18/COPYING)
+* License: [BSD-style 3-Clause license](https://github.com/arangodb/arangodb/blob/devel/3rdParty/snappy/google-snappy-d53de18/COPYING)
 
 ### Valgrind
 
 * Project Home: http://valgrind.org/
 * uses valgrind.h header file only, none of the other files
-* License: [BSD-style 4-Clause license](https://raw.githubusercontent.com/avocadodb/avocadodb/devel/3rdParty/valgrind/valgrind.h)
+* License: [BSD-style 4-Clause license](https://raw.githubusercontent.com/arangodb/arangodb/devel/3rdParty/valgrind/valgrind.h)
 
 ### xxHash
 
@@ -112,7 +112,7 @@ exception from the GPL license:
 
 * Project Home: https://www.gnu.org/software/bison/
 * only used to generate code, not part of the distribution; for details about using Bison in this way see http://www.gnu.org/software/bison/manual/bison.html#Conditions
-* License: grammar.cpp [Special License](https://github.com/avocadodb/avocadodb/blob/devel/avocadod/Aql/grammar.cpp#L20)
+* License: grammar.cpp [Special License](https://github.com/arangodb/arangodb/blob/devel/avocadod/Aql/grammar.cpp#L20)
 
 ### Flex 2.5
 
@@ -134,202 +134,202 @@ exception from the GPL license:
 #### accepts
 
 * Project Home: https://github.com/jshttp/accepts#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/accepts/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/accepts/package.json)
 
 #### acorn-jsx
 
 * Project Home: https://github.com/RReverser/acorn-jsx
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/acorn-jsx/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/acorn-jsx/package.json)
 
 #### acorn
 
 * Project Home: https://github.com/ternjs/acorn
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/acorn/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/acorn/package.json)
 
 #### ansi-escapes
 
 * Project Home: https://github.com/sindresorhus/ansi-escapes#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/ansi-escapes/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/ansi-escapes/package.json)
 
 #### ansi-html
 
 * Project Home: https://github.com/Tjatse/ansi-html
-* License: [Apache 2 License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/ansi-html/package.json)
+* License: [Apache 2 License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/ansi-html/package.json)
 
 #### ansi-regex
 
 * Project Home: https://github.com/chalk/ansi-regex#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chalk/node_modules/ansi-regex/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chalk/node_modules/ansi-regex/package.json)
 
 #### ansi-regex
 
 * Project Home: https://github.com/sindresorhus/ansi-regex
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/ansi-regex/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/ansi-regex/package.json)
 
 #### ansi-styles
 
 * Project Home: https://github.com/chalk/ansi-styles#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chalk/node_modules/ansi-styles/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chalk/node_modules/ansi-styles/package.json)
 
 #### ansi-styles
 
 * Project Home: https://github.com/chalk/ansi-styles#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/ansi-styles/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/ansi-styles/package.json)
 
 #### aqb
 
-* Project Home: https://github.com/avocadodb/aqbjs
-* License: [Apache 2 License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/aqb/package.json)
+* Project Home: https://github.com/arangodb/aqbjs
+* License: [Apache 2 License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/aqb/package.json)
 
 #### argparse
 
 * Project Home: https://github.com/nodeca/argparse
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/js-yaml/node_modules/argparse/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/js-yaml/node_modules/argparse/package.json)
 
 #### array-union
 
 * Project Home: https://github.com/sindresorhus/array-union#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/array-union/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/array-union/package.json)
 
 #### array-uniq
 
 * Project Home: https://github.com/sindresorhus/array-uniq#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/array-uniq/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/array-uniq/package.json)
 
 #### arrify
 
 * Project Home: https://github.com/sindresorhus/arrify#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/arrify/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/arrify/package.json)
 
 #### assertion-error
 
 * Project Home: https://github.com/chaijs/assertion-error#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chai/node_modules/assertion-error/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chai/node_modules/assertion-error/package.json)
 
 #### babel-code-frame
 
 * Project Home: https://babeljs.io/
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/babel-code-frame/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/babel-code-frame/package.json)
 
 #### balanced-match
 
 * Project Home: https://github.com/juliangruber/balanced-match
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/balanced-match/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/balanced-match/package.json)
 
 #### balanced-match
 
 * Project Home: https://github.com/juliangruber/balanced-match
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/minimatch/node_modules/balanced-match/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/minimatch/node_modules/balanced-match/package.json)
 
 #### bluebird
 
 * Project Home: https://github.com/petkaantonov/bluebird
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/bluebird/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/bluebird/package.json)
 
 #### brace-expansion
 
 * Project Home: https://github.com/juliangruber/brace-expansion
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/brace-expansion/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/brace-expansion/package.json)
 
 #### brace-expansion
 
 * Project Home: https://github.com/juliangruber/brace-expansion
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/minimatch/node_modules/brace-expansion/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/minimatch/node_modules/brace-expansion/package.json)
 
 #### caller-path
 
 * Project Home: https://github.com/sindresorhus/caller-path
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/caller-path/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/caller-path/package.json)
 
 #### callsites
 
 * Project Home: https://github.com/sindresorhus/callsites
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/callsites/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/callsites/package.json)
 
 #### chai
 
 * Project Home: http://chaijs.com
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chai/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chai/package.json)
 
 #### chalk
 
 * Project Home: https://github.com/chalk/chalk#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chalk/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chalk/package.json)
 
 #### chalk
 
 * Project Home: https://github.com/chalk/chalk#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/chalk/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/chalk/package.json)
 
 #### cli-cursor
 
 * Project Home: https://github.com/sindresorhus/cli-cursor#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/cli-cursor/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/cli-cursor/package.json)
 
 #### cli-width
 
 * Project Home: https://github.com/knownasilya/cli-width
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/cli-width/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/cli-width/package.json)
 
 #### code-point-at
 
 * Project Home: https://github.com/sindresorhus/code-point-at
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/code-point-at/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/code-point-at/package.json)
 
 #### commander
 
 * Project Home: https://github.com/visionmedia/commander.js#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/jade/node_modules/commander/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/jade/node_modules/commander/package.json)
 
 #### commander
 
 * Project Home: https://github.com/visionmedia/commander.js
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/commander/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/commander/package.json)
 
 #### concat-map
 
 * Project Home: https://github.com/substack/node-concat-map
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/concat-map/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/concat-map/package.json)
 
 #### concat-map
 
 * Project Home: https://github.com/substack/node-concat-map
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/minimatch/node_modules/concat-map/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/minimatch/node_modules/concat-map/package.json)
 
 #### concat-stream
 
 * Project Home: https://github.com/maxogden/concat-stream#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/concat-stream/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/concat-stream/package.json)
 
 #### content-disposition
 
 * Project Home: https://github.com/jshttp/content-disposition
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/content-disposition/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/content-disposition/package.json)
 
 #### core-util-is
 
 * Project Home: https://github.com/isaacs/core-util-is#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/core-util-is/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/core-util-is/package.json)
 
 #### debug
 
 * Project Home: https://github.com/visionmedia/debug
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/debug/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/debug/package.json)
 
 #### debug
 
 * Project Home: https://github.com/visionmedia/debug
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/debug/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/debug/package.json)
 
 #### dedent
 
 * Project Home: https://github.com/dmnd/dedent
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/dedent/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/dedent/package.json)
 
 #### deep-eql
 
 * Project Home: https://github.com/chaijs/deep-eql#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chai/node_modules/deep-eql/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chai/node_modules/deep-eql/package.json)
 
 #### deep-is
 
@@ -339,129 +339,129 @@ exception from the GPL license:
 #### del
 
 * Project Home: https://github.com/sindresorhus/del#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/del/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/del/package.json)
 
 #### diff
 
 * Project Home: https://github.com/kpdecker/jsdiff
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/diff/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/diff/package.json)
 
 #### doctrine
 
 * Project Home: https://github.com/eslint/doctrine
-* License: [free-as-is License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/doctrine/LICENSE.BSD)
-* License: [free-as-is License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/doctrine/LICENSE.esprima)
-* License: [Apache 2 License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/doctrine/LICENSE.closure-compiler)
+* License: [free-as-is License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/doctrine/LICENSE.BSD)
+* License: [free-as-is License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/doctrine/LICENSE.esprima)
+* License: [Apache 2 License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/doctrine/LICENSE.closure-compiler)
 
 #### d
 
 * Project Home: https://github.com/medikoo/d
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/d/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/d/package.json)
 
 #### error-stack-parser
 
 * Project Home: https://www.stacktracejs.com
-* License: [Unlicense](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/error-stack-parser/package.json)
+* License: [Unlicense](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/error-stack-parser/package.json)
 
 #### es5-ext
 
 * Project Home: https://github.com/medikoo/es5-ext#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/es5-ext/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/es5-ext/package.json)
 
 #### es6-iterator
 
 * Project Home: https://github.com/medikoo/es6-iterator#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-iterator/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-iterator/package.json)
 
 #### es6-map
 
 * Project Home: https://github.com/medikoo/es6-map#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-map/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-map/package.json)
 
 #### es6-set
 
 * Project Home: https://github.com/medikoo/es6-set#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-set/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-set/package.json)
 
 #### es6-symbol
 
 * Project Home: https://github.com/medikoo/es6-symbol#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-symbol/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-symbol/package.json)
 
 #### es6-weak-map
 
 * Project Home: https://github.com/medikoo/es6-weak-map#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-weak-map/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/es6-weak-map/package.json)
 
 #### escape-string-regexp
 
 * Project Home: https://github.com/sindresorhus/escape-string-regexp
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chalk/node_modules/escape-string-regexp/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chalk/node_modules/escape-string-regexp/package.json)
 
 #### escape-string-regexp
 
 * Project Home: https://github.com/sindresorhus/escape-string-regexp
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/escape-string-regexp/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/escape-string-regexp/package.json)
 
 #### escape-string-regexp
 
 * Project Home: https://github.com/sindresorhus/escape-string-regexp
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/escape-string-regexp/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/escape-string-regexp/package.json)
 
 #### escope
 
 * Project Home: http://github.com/estools/escope
-* License: [BSD-style 2-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/escope/package.json)
+* License: [BSD-style 2-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/escope/package.json)
 
 #### eslint-config-semistandard
 
 * Project Home: https://github.com/Flet/eslint-config-semistandard
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint-config-semistandard/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint-config-semistandard/package.json)
 
 #### eslint-config-standard
 
 * Project Home: https://github.com/feross/eslint-config-standard
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint-config-standard/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint-config-standard/package.json)
 
 #### eslint-plugin-promise
 
 * Project Home: https://github.com/xjamundx/eslint-plugin-promise#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint-plugin-promise/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint-plugin-promise/package.json)
 
 #### eslint-plugin-standard
 
 * Project Home: https://github.com/xjamundx/eslint-plugin-standard#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint-plugin-standard/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint-plugin-standard/package.json)
 
 #### eslint
 
 * Project Home: http://eslint.org
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/package.json)
 
 #### espree
 
 * Project Home: https://github.com/eslint/espree
-* License: [BSD-style 2-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/espree/package.json)
+* License: [BSD-style 2-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/espree/package.json)
 
 #### esprima
 
 * Project Home: http://esprima.org
-* License: [BSD-style 2-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/js-yaml/node_modules/esprima/package.json)
+* License: [BSD-style 2-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/js-yaml/node_modules/esprima/package.json)
 
 #### esrecurse
 
 * Project Home: https://github.com/estools/esrecurse
-* License: [BSD-style 2-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/esrecurse/package.json)
+* License: [BSD-style 2-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/esrecurse/package.json)
 
 #### estraverse
 
 * Project Home: https://github.com/estools/estraverse
-* License: [BSD-style 2-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/esrecurse/node_modules/estraverse/package.json)
+* License: [BSD-style 2-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/esrecurse/node_modules/estraverse/package.json)
 
 #### estraverse
 
 * Project Home: https://github.com/estools/estraverse
-* License: [BSD-style 2-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/estraverse/package.json)
+* License: [BSD-style 2-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/estraverse/package.json)
 
 #### esutils
 
@@ -481,12 +481,12 @@ exception from the GPL license:
 #### event-emitter
 
 * Project Home: https://github.com/medikoo/event-emitter#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/event-emitter/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/event-emitter/package.json)
 
 #### exit-hook
 
 * Project Home: https://github.com/sindresorhus/exit-hook
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/exit-hook/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/exit-hook/package.json)
 
 #### expect.js
 
@@ -496,212 +496,212 @@ exception from the GPL license:
 #### extendible
 
 * Project Home: https://github.com/bigpipe/extendible
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/extendible/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/extendible/package.json)
 
 #### fast-levenshtein
 
 * Project Home: https://github.com/hiddentao/fast-levenshtein#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/fast-levenshtein/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/fast-levenshtein/package.json)
 
 #### figures
 
 * Project Home: https://github.com/sindresorhus/figures#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/figures/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/figures/package.json)
 
 #### file-entry-cache
 
 * Project Home: https://github.com/royriojas/file-entry-cache#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/file-entry-cache/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/file-entry-cache/package.json)
 
 #### flat-cache
 
 * Project Home: https://github.com/royriojas/flat-cache#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/flat-cache/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/flat-cache/package.json)
 
 #### formatio
 
 * Project Home: http://busterjs.org/docs/formatio/
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/sinon/node_modules/formatio/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/sinon/node_modules/formatio/package.json)
 
 #### fs.realpath
 
 * Project Home: https://github.com/isaacs/fs.realpath#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/fs.realpath/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/fs.realpath/package.json)
 
 #### generate-function
 
 * Project Home: https://github.com/mafintosh/generate-function
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/generate-function/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/generate-function/package.json)
 
 #### generate-object-property
 
 * Project Home: https://github.com/mafintosh/generate-object-property
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/generate-object-property/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/generate-object-property/package.json)
 
 #### globals
 
 * Project Home: https://github.com/sindresorhus/globals#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/globals/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/globals/package.json)
 
 #### globby
 
 * Project Home: https://github.com/sindresorhus/globby#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/globby/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/globby/package.json)
 
 #### glob
 
 * Project Home: https://github.com/isaacs/node-glob#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/glob/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/glob/package.json)
 
 #### graceful-fs
 
 * Project Home: https://github.com/isaacs/node-graceful-fs#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/graceful-fs/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/graceful-fs/package.json)
 
 #### graphql-sync
 
-* Project Home: https://github.com/avocadodb/graphql-sync#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/graphql-sync/package.json)
+* Project Home: https://github.com/arangodb/graphql-sync#readme
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/graphql-sync/package.json)
 
 #### graphql
 
 * Project Home: https://github.com/graphql/graphql-js
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/graphql-sync/node_modules/graphql/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/graphql-sync/node_modules/graphql/package.json)
 
 #### growl
 
 * Project Home: https://github.com/tj/node-growl
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/growl/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/growl/package.json)
 
 #### has-ansi
 
 * Project Home: https://github.com/sindresorhus/has-ansi
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chalk/node_modules/has-ansi/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chalk/node_modules/has-ansi/package.json)
 
 #### has-ansi
 
 * Project Home: https://github.com/sindresorhus/has-ansi
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/has-ansi/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/has-ansi/package.json)
 
 #### highlightjs
 
 * Project Home: https://highlightjs.org/
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/highlightjs/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/highlightjs/package.json)
 
 #### hoek
 
 * Project Home: https://github.com/hapijs/hoek#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/hoek/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/hoek/package.json)
 
 #### hoek
 
 * Project Home: https://github.com/hapijs/hoek#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi/node_modules/hoek/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi/node_modules/hoek/package.json)
 
 #### http-errors
 
 * Project Home: https://github.com/jshttp/http-errors#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/http-errors/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/http-errors/package.json)
 
 #### iconv-lite
 
 * Project Home: https://github.com/ashtuchkin/iconv-lite
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/iconv-lite/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/iconv-lite/package.json)
 
 #### ignore
 
 * Project Home: https://github.com/kaelzhang/node-ignore#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/ignore/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/ignore/package.json)
 
 #### imurmurhash
 
 * Project Home: https://github.com/jensyt/imurmurhash-js
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/imurmurhash/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/imurmurhash/package.json)
 
 #### inflight
 
 * Project Home: https://github.com/isaacs/inflight
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/inflight/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/inflight/package.json)
 
 #### inherits
 
 * Project Home: https://github.com/isaacs/inherits#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/inherits/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/inherits/package.json)
 
 #### inherits
 
 * Project Home: https://github.com/isaacs/inherits#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/sinon/node_modules/inherits/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/sinon/node_modules/inherits/package.json)
 
 #### inherits
 
 * Project Home: https://github.com/isaacs/inherits
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/http-errors/node_modules/inherits/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/http-errors/node_modules/inherits/package.json)
 
 #### inquirer
 
 * Project Home: https://github.com/sboudrias/Inquirer.js#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/inquirer/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/inquirer/package.json)
 
 #### is-fullwidth-code-point
 
 * Project Home: https://github.com/sindresorhus/is-fullwidth-code-point
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/is-fullwidth-code-point/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/is-fullwidth-code-point/package.json)
 
 #### is-my-json-valid
 
 * Project Home: https://github.com/mafintosh/is-my-json-valid
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/is-my-json-valid/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/is-my-json-valid/package.json)
 
 #### is-path-cwd
 
 * Project Home: https://github.com/sindresorhus/is-path-cwd
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/is-path-cwd/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/is-path-cwd/package.json)
 
 #### is-path-in-cwd
 
 * Project Home: https://github.com/sindresorhus/is-path-in-cwd
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/is-path-in-cwd/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/is-path-in-cwd/package.json)
 
 #### is-path-inside
 
 * Project Home: https://github.com/sindresorhus/is-path-inside
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/is-path-inside/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/is-path-inside/package.json)
 
 #### is-property
 
 * Project Home: https://github.com/mikolalysenko/is-property
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/is-property/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/is-property/package.json)
 
 #### is-resolvable
 
 * Project Home: https://github.com/shinnn/is-resolvable#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/is-resolvable/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/is-resolvable/package.json)
 
 #### isarray
 
 * Project Home: https://github.com/juliangruber/isarray
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/isarray/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/isarray/package.json)
 
 #### isemail
 
 * Project Home: https://github.com/hapijs/isemail#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi/node_modules/isemail/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi/node_modules/isemail/package.json)
 
 #### isemail
 
 * Project Home: https://github.com/hapijs/isemail
-* License: [BSD-style 2-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/isemail/package.json)
+* License: [BSD-style 2-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/isemail/package.json)
 
 #### items
 
 * Project Home: https://github.com/hapijs/items#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi/node_modules/items/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi/node_modules/items/package.json)
 
 #### iterall
 
 * Project Home: https://github.com/leebyron/iterall#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/graphql-sync/node_modules/iterall/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/graphql-sync/node_modules/iterall/package.json)
 
 #### i
 
@@ -711,327 +711,327 @@ exception from the GPL license:
 #### jade
 
 * Project Home: git://github.com/visionmedia/jade
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/jade/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/jade/package.json)
 
 #### joi-to-json-schema
 
 * Project Home: https://github.com/lightsofapollo/joi-to-json-schema
-* License: [Apache 2 License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi-to-json-schema/package.json)
+* License: [Apache 2 License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi-to-json-schema/package.json)
 
 #### joi
 
 * Project Home: https://github.com/hapijs/joi#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/joi/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/joi/package.json)
 
 #### joi
 
 * Project Home: https://github.com/hapijs/joi
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi/package.json)
 
 #### js-tokens
 
 * Project Home: https://github.com/lydell/js-tokens#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/babel-code-frame/node_modules/js-tokens/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/babel-code-frame/node_modules/js-tokens/package.json)
 
 #### js-yaml
 
 * Project Home: https://github.com/nodeca/js-yaml
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/js-yaml/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/js-yaml/package.json)
 
 #### json-stable-stringify
 
 * Project Home: https://github.com/substack/json-stable-stringify
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/json-stable-stringify/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/json-stable-stringify/package.json)
 
 #### jsonify
 
 * Project Home: https://github.com/substack/jsonify#readme
-* License: [free-as-is License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/jsonify/package.json)
+* License: [free-as-is License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/jsonify/package.json)
 
 #### jsonpointer
 
 * Project Home: https://github.com/janl/node-jsonpointer#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/jsonpointer/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/jsonpointer/package.json)
 
 #### levn
 
 * Project Home: https://github.com/gkz/levn
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/levn/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/levn/package.json)
 
 #### lodash
 
 * Project Home: https://lodash.com/
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/lodash/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/lodash/package.json)
 
 #### lodash
 
 * Project Home: https://lodash.com/
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/lodash/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/lodash/package.json)
 
 #### lolex
 
 * Project Home: http://github.com/sinonjs/lolex
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/sinon/node_modules/lolex/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/sinon/node_modules/lolex/package.json)
 
 #### marked
 
 * Project Home: https://github.com/chjj/marked
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/marked/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/marked/package.json)
 
 #### media-typer
 
 * Project Home: https://github.com/jshttp/media-typer
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/media-typer/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/media-typer/package.json)
 
 #### mime-db
 
 * Project Home: https://github.com/jshttp/mime-db#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mime-types/node_modules/mime-db/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mime-types/node_modules/mime-db/package.json)
 
 #### mime-types
 
 * Project Home: https://github.com/jshttp/mime-types#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mime-types/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mime-types/package.json)
 
 #### minimatch
 
 * Project Home: https://github.com/isaacs/minimatch#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/minimatch/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/minimatch/package.json)
 
 #### minimatch
 
 * Project Home: https://github.com/isaacs/minimatch#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/minimatch/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/minimatch/package.json)
 
 #### minimist
 
 * Project Home: https://github.com/substack/minimist
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/minimist/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/minimist/package.json)
 
 #### minimist
 
 * Project Home: https://github.com/substack/minimist
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/minimist/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/minimist/package.json)
 
 #### mkdirp
 
 * Project Home: https://github.com/substack/node-mkdirp#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/mkdirp/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/mkdirp/package.json)
 
 #### mkdirp
 
 * Project Home: https://github.com/substack/node-mkdirp#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/jade/node_modules/mkdirp/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/jade/node_modules/mkdirp/package.json)
 
 #### mkdirp
 
 * Project Home: https://github.com/substack/node-mkdirp#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/mkdirp/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/mkdirp/package.json)
 
 #### mocha
 
 * Project Home: https://github.com/mochajs/mocha#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/package.json)
 
 #### moment
 
 * Project Home: http://momentjs.com
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/moment/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/moment/package.json)
 
 #### moment
 
 * Project Home: http://momentjs.com
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi/node_modules/moment/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi/node_modules/moment/package.json)
 
 #### ms
 
 * Project Home: https://github.com/guille/ms.js
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/ms/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/ms/package.json)
 
 #### ms
 
 * Project Home: https://github.com/guille/ms.js
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/ms/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/ms/package.json)
 
 #### mute-stream
 
 * Project Home: https://github.com/isaacs/mute-stream#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/mute-stream/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/mute-stream/package.json)
 
 #### negotiator
 
 * Project Home: https://github.com/jshttp/negotiator#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/accepts/node_modules/negotiator/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/accepts/node_modules/negotiator/package.json)
 
 #### netmask
 
 * Project Home: https://github.com/rs/node-netmask
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/netmask/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/netmask/package.json)
 
 #### number-is-nan
 
 * Project Home: https://github.com/sindresorhus/number-is-nan#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/number-is-nan/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/number-is-nan/package.json)
 
 #### object-assign
 
 * Project Home: https://github.com/sindresorhus/object-assign#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/object-assign/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/object-assign/package.json)
 
 #### once
 
 * Project Home: https://github.com/isaacs/once#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/once/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/once/package.json)
 
 #### onetime
 
 * Project Home: https://github.com/sindresorhus/onetime
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/onetime/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/onetime/package.json)
 
 #### optionator
 
 * Project Home: https://github.com/gkz/optionator
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/optionator/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/optionator/package.json)
 
 #### os-homedir
 
 * Project Home: https://github.com/sindresorhus/os-homedir
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/os-homedir/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/os-homedir/package.json)
 
 #### path-is-absolute
 
 * Project Home: https://github.com/sindresorhus/path-is-absolute
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/path-is-absolute/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/path-is-absolute/package.json)
 
 #### path-is-inside
 
 * Project Home: https://github.com/domenic/path-is-inside
-* License: [WTFPL](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/path-is-inside/package.json)
+* License: [WTFPL](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/path-is-inside/package.json)
 
 #### pify
 
 * Project Home: https://github.com/sindresorhus/pify
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/pify/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/pify/package.json)
 
 #### pinkie-promise
 
 * Project Home: https://github.com/floatdrop/pinkie-promise
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/pinkie-promise/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/pinkie-promise/package.json)
 
 #### pinkie
 
 * Project Home: https://github.com/floatdrop/pinkie
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/pinkie/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/pinkie/package.json)
 
 #### pluralize
 
 * Project Home: https://github.com/blakeembrey/pluralize
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/pluralize/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/pluralize/package.json)
 
 #### prelude-ls
 
 * Project Home: http://preludels.com
-* License: [free-as-is License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/prelude-ls/package.json)
+* License: [free-as-is License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/prelude-ls/package.json)
 
 #### process-nextick-args
 
 * Project Home: https://github.com/calvinmetcalf/process-nextick-args
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/process-nextick-args/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/process-nextick-args/package.json)
 
 #### progress
 
 * Project Home: https://github.com/visionmedia/node-progress
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/progress/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/progress/package.json)
 
 #### qs
 
 * Project Home: https://github.com/ljharb/qs
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/qs/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/qs/package.json)
 
 #### range-parser
 
 * Project Home: https://github.com/jshttp/range-parser
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/range-parser/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/range-parser/package.json)
 
 #### read-json-sync
 
 * Project Home: https://github.com/shinnn/read-json-sync#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/read-json-sync/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/read-json-sync/package.json)
 
 #### readable-stream
 
 * Project Home: https://github.com/nodejs/readable-stream#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/readable-stream/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/readable-stream/package.json)
 
 #### readline2
 
 * Project Home: https://github.com/sboudrias/readline2#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/readline2/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/readline2/package.json)
 
 #### require-uncached
 
 * Project Home: https://github.com/sindresorhus/require-uncached
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/require-uncached/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/require-uncached/package.json)
 
 #### resolve-from
 
 * Project Home: https://github.com/sindresorhus/resolve-from
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/resolve-from/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/resolve-from/package.json)
 
 #### restore-cursor
 
 * Project Home: https://github.com/sindresorhus/restore-cursor#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/restore-cursor/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/restore-cursor/package.json)
 
 #### rimraf
 
 * Project Home: https://github.com/isaacs/rimraf#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/rimraf/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/rimraf/package.json)
 
 #### run-async
 
 * Project Home: https://github.com/SBoudrias/run-async
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/run-async/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/run-async/package.json)
 
 #### rx-lite
 
 * Project Home: https://github.com/Reactive-Extensions/RxJS
-* License: [Apache 2 License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/rx-lite/package.json)
+* License: [Apache 2 License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/rx-lite/package.json)
 
 #### samsam
 
 * Project Home: http://busterjs.org/docs/buster-assertions
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/sinon/node_modules/samsam/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/sinon/node_modules/samsam/package.json)
 
 #### semver
 
 * Project Home: https://github.com/npm/node-semver#readme
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/semver/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/semver/package.json)
 
 #### setprototypeof
 
 * Project Home: https://github.com/wesleytodd/setprototypeof
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/http-errors/node_modules/setprototypeof/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/http-errors/node_modules/setprototypeof/package.json)
 
 #### shelljs
 
 * Project Home: http://github.com/shelljs/shelljs
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/shelljs/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/shelljs/package.json)
 
 #### sinon
 
 * Project Home: http://sinonjs.org/
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/sinon/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/sinon/package.json)
 
 #### slice-ansi
 
 * Project Home: https://github.com/chalk/slice-ansi#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/slice-ansi/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/slice-ansi/package.json)
 
 #### sprintf-js
 
 * Project Home: https://github.com/alexei/sprintf.js#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/js-yaml/node_modules/sprintf-js/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/js-yaml/node_modules/sprintf-js/package.json)
 
 #### stackframe
 
@@ -1041,152 +1041,152 @@ exception from the GPL license:
 #### statuses
 
 * Project Home: https://github.com/jshttp/statuses
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/statuses/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/statuses/package.json)
 
 #### string-width
 
 * Project Home: https://github.com/sindresorhus/string-width
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/string-width/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/string-width/package.json)
 
 #### string_decoder
 
 * Project Home: https://github.com/rvagg/string_decoder
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/string_decoder/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/string_decoder/package.json)
 
 #### strip-ansi
 
 * Project Home: https://github.com/chalk/strip-ansi
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chalk/node_modules/strip-ansi/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chalk/node_modules/strip-ansi/package.json)
 
 #### strip-ansi
 
 * Project Home: https://github.com/chalk/strip-ansi
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/strip-ansi/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/strip-ansi/package.json)
 
 #### strip-json-comments
 
 * Project Home: https://github.com/sindresorhus/strip-json-comments
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/strip-json-comments/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/strip-json-comments/package.json)
 
 #### supports-color
 
 * Project Home: https://github.com/chalk/supports-color
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chalk/node_modules/supports-color/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chalk/node_modules/supports-color/package.json)
 
 #### supports-color
 
 * Project Home: https://github.com/chalk/supports-color
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/supports-color/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/supports-color/package.json)
 
 #### supports-color
 
 * Project Home: https://github.com/sindresorhus/supports-color
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/supports-color/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/supports-color/package.json)
 
 #### table
 
 * Project Home: https://github.com/gajus/table#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/table/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/table/package.json)
 
 #### text-table
 
 * Project Home: https://github.com/substack/text-table
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/text-table/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/text-table/package.json)
 
 #### through
 
 * Project Home: https://github.com/dominictarr/through
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/through/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/through/package.json)
 
 #### timezone
 
 * Project Home: http://bigeasy.github.io/timezone
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/timezone/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/timezone/package.json)
 
 #### to-iso-string
 
 * Project Home: https://github.com/segmentio/to-iso-string#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/mocha/node_modules/to-iso-string/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/mocha/node_modules/to-iso-string/package.json)
 
 #### topo
 
 * Project Home: https://github.com/hapijs/topo#readme
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi/node_modules/topo/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi/node_modules/topo/package.json)
 
 #### topo
 
 * Project Home: https://github.com/hapijs/topo
-* License: [BSD-style 3-Clause License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/topo/package.json)
+* License: [BSD-style 3-Clause License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/joi-to-json-schema/node_modules/topo/package.json)
 
 #### tryit
 
 * Project Home: https://github.com/HenrikJoreteg/tryit#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/tryit/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/tryit/package.json)
 
 #### tv4
 
 * Project Home: https://github.com/geraintluff/tv4#readme
-* License: [free-as-is License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/tv4/package.json)
+* License: [free-as-is License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/tv4/package.json)
 
 #### type-check
 
 * Project Home: https://github.com/gkz/type-check
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/type-check/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/type-check/package.json)
 
 #### type-detect
 
 * Project Home: https://github.com/chaijs/type-detect#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chai/node_modules/deep-eql/node_modules/type-detect/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chai/node_modules/deep-eql/node_modules/type-detect/package.json)
 
 #### type-detect
 
 * Project Home: https://github.com/chaijs/type-detect
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/chai/node_modules/type-detect/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/chai/node_modules/type-detect/package.json)
 
 #### type-is
 
 * Project Home: https://github.com/jshttp/type-is#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/type-is/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/type-is/package.json)
 
 #### underscore
 
 * Project Home: http://underscorejs.org
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/underscore/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/underscore/package.json)
 
 #### user-home
 
 * Project Home: https://github.com/sindresorhus/user-home
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/user-home/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/user-home/package.json)
 
 #### util-deprecate
 
 * Project Home: https://github.com/TooTallNate/util-deprecate
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/util-deprecate/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/util-deprecate/package.json)
 
 #### util
 
 * Project Home: https://github.com/defunctzombie/node-util
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/sinon/node_modules/util/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/sinon/node_modules/util/package.json)
 
 #### vary
 
 * Project Home: https://github.com/jshttp/vary
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/vary/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/vary/package.json)
 
 #### wordwrap
 
 * Project Home: https://github.com/substack/node-wordwrap#readme
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/wordwrap/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/wordwrap/package.json)
 
 #### wrappy
 
 * Project Home: https://github.com/npm/wrappy
-* License: [ISC](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/wrappy/package.json)
+* License: [ISC](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/wrappy/package.json)
 
 #### write
 
 * Project Home: https://github.com/jonschlinkert/write
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/write/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/write/package.json)
 
 #### xmldom
 
@@ -1196,12 +1196,12 @@ exception from the GPL license:
 #### xregexp
 
 * Project Home: http://xregexp.com/
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/xregexp/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/xregexp/package.json)
 
 #### xtend
 
 * Project Home: https://github.com/Raynos/xtend
-* License: [MIT License](https://github.com/avocadodb/avocadodb/blob/devel/js/node/node_modules/eslint/node_modules/xtend/package.json)
+* License: [MIT License](https://github.com/arangodb/arangodb/blob/devel/js/node/node_modules/eslint/node_modules/xtend/package.json)
 
 ### Backend libraries
 
