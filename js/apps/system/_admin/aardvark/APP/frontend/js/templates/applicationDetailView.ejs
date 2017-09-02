@@ -3,10 +3,10 @@
     <div class="headerBar" style="width: 100%">
 
       <ul class="subMenuEntries subViewNavbar pull-left">
-        <li id="service-info" class="subMenuEntry active"><a>Info</a></li>
+        <li id="service-info" class="subMenuEntry active"><a>信息</a></li>
         <li id="service-api" class="subMenuEntry "><a>API</a></li>
         <li id="service-readme" class="subMenuEntry "><a>Readme</a></li>
-        <li id="service-settings" class="subMenuEntry "><a>Settings</a></li>
+        <li id="service-settings" class="subMenuEntry "><a>设置</a></li>
       </ul>
 
       <div class="headerButtonBar" style="display: none">
@@ -47,8 +47,8 @@
           <img src="<%= app.thumbnailUrl %>" alt="Icon for Service" class="icon" />
         </div>
         <div id="hidden_buttons" style="display: none">
-          <button class="delete button-danger" <%=app.isSystem()?"disabled":""%> >Delete</button>
-          <button id="app-replace" class="app-replace upgrade button-warning" <%=app.isSystem()?"disabled":"" %>>Replace</button>
+          <button class="delete button-danger" <%=app.isSystem()?"disabled":""%> >删除</button>
+          <button id="app-replace" class="app-replace upgrade button-warning" <%=app.isSystem()?"disabled":"" %>>替换</button>
           <button id="app-switch-mode" class="app-switch-mode switch-mode button-warning"><%=app.get('development')?'Set Production':'Set Development'%></button>
         </div>
         <div class="header_left">
@@ -92,7 +92,7 @@
     <main>
       <div id="app-info" class="app-info" style="display: none;">
         <h4>Info</h4>
-        <p id="app-info-swagger">Documentation for this service is not yet configured.</p>
+        <p id="app-info-swagger">尚未配置此服务的文档。</p>
       </div>
       <div id="swagger" class="swagger" style="display: none;">
         <a id="jsonLink">Swagger</a>

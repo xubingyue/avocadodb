@@ -86,9 +86,9 @@
   <% } %>
 
   <ul class="subMenuEntries subViewNavbar">
-    <li id="requests-statistics" class="subMenuEntry active"><a>Request Statistics</a></li>
-    <li id="system-statistics" class="subMenuEntry "><a>System Resources</a></li>
-    <li id="replication-statistics" class="subMenuEntry "><a>Replication</a></li>
+    <li id="requests-statistics" class="subMenuEntry active"><a>请求统计</a></li>
+    <li id="system-statistics" class="subMenuEntry "><a>系统资源</a></li>
+    <li id="replication-statistics" class="subMenuEntry "><a>复制</a></li>
   </ul>
 
   <div id="requests">
@@ -103,12 +103,12 @@
           <% tendency("Request Types", "asyncRequests", false); %>
           <% tendency("Number of Client Connections", "clientConnections", false); %>
         </div>
-        
+
         <div class="dashboard-row pure-u small-label-padding">
           <% largeChart("dataTransferChart", "Transfer Size per Second") %>
           <% smallChart("dataTransferDistribution", "Transfer Size per Second (distribution)", false) %>
         </div>
-        
+
         <div class="dashboard-row pure-u small-label-padding">
           <% largeChart("totalTimeChart", "Average Request Time (seconds)") %>
           <% smallChart("totalTimeDistribution", "Average Request Time (distribution)", false) %>
@@ -159,15 +159,15 @@
                 <table>
                   <tbody>
                     <tr>
-                      <td>Events&nbsp;replicated</td>
+                      <td>事件复制</td>
                       <td></td>
                     </tr>
                     <tr>
-                      <td>Requests&nbsp;issued</td>
+                      <td>请求发布</td>
                       <td></td>
                     </tr>
                     <tr>
-                      <td>Failed&nbsp;connects</td>
+                      <td>连接失败</td>
                       <td></td>
                     </tr>
                   </tbody>
@@ -182,15 +182,15 @@
                 <table>
                   <tbody>
                     <tr>
-                      <td>Applied</td>
+                      <td>应用</td>
                       <td></td>
                     </tr>
                     <tr>
-                      <td>Processed</td>
+                      <td>处理</td>
                       <td></td>
                     </tr>
                     <tr>
-                      <td>Available</td>
+                      <td>可用</td>
                       <td></td>
                     </tr>
                   </tbody>
@@ -205,15 +205,15 @@
                 <table>
                   <tbody>
                     <tr>
-                      <td>Message</td>
+                      <td>消息</td>
                       <td></td>
                     </tr>
                     <tr>
-                      <td>Time</td>
+                      <td>时间</td>
                       <td></td>
                     </tr>
                     <tr>
-                      <td>Connect&nbsp;failures</td>
+                      <td>连接失败</td>
                       <td></td>
                     </tr>
                   </tbody>

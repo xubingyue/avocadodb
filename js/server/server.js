@@ -36,7 +36,7 @@
 // / has been executed.
 // //////////////////////////////////////////////////////////////////////////////
 
-(function () {
+(function() {
   var internal = require('internal');
 
   // in the cluster we run the startup scripts from elsewhere!
@@ -51,7 +51,7 @@
   var options = internal.options();
   var restServer = true;
   if (options.hasOwnProperty("server.rest-server")) {
-   restServer = options["server.rest-server"];
+    restServer = options["server.rest-server"];
   }
 
   // autoload all modules
@@ -64,7 +64,8 @@
 
   // This script is also used by agents. Coords use a different script.
   // Make sure we only run these commands in single-server mode.
-  if (internal.threadNumber === 0 && global.AvocadoServerState.role() === 'SINGLE') {
+  if (internal.threadNumber === 0 && global.AvocadoServerState.role() ===
+    'SINGLE') {
     if (restServer) {
       // startup the foxx manager once
       require('@avocadodb/foxx/manager')._startup();
@@ -75,9 +76,7 @@
   }
 
   // check available versions
-  if (internal.threadNumber === 0 && internal.quiet !== true) {
-    require('@avocadodb').checkAvailableVersions();
-  }
+  if (internal.threadNumber === 0 && internal.quiet !== true) {}
 
   return true;
 }());

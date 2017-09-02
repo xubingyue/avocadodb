@@ -62,7 +62,9 @@ exports.aql = function(strings, ...args) {
     }
     query += `@${name}${strings[i + 1]}`;
   }
-  return {query, bindVars};
+  return {
+    query, bindVars
+  };
 };
 
 exports.errors = internal.errors;
@@ -89,16 +91,26 @@ exports.defineModule = function(path, file) {
   mc = internal.db._collection('_modules');
 
   if (mc === null) {
-    mc = internal.db._create('_modules', {isSystem: true});
+    mc = internal.db._create('_modules', {
+      isSystem: true
+    });
   }
 
   path = module.normalize(path);
-  m = mc.firstExample({path: path});
+  m = mc.firstExample({
+    path: path
+  });
 
   if (m === null) {
-    mc.save({path: path, content: content});
+    mc.save({
+      path: path,
+      content: content
+    });
   } else {
-    mc.replace(m, {path: path, content: content});
+    mc.replace(m, {
+      path: path,
+      content: content
+    });
   }
 };
 
@@ -239,7 +251,9 @@ exports.printTable = function(list, columns, options) {
 
   j = 0;
   descriptions = [];
-  matrix = [[]];
+  matrix = [
+    []
+  ];
 
   for (col in what) {
     if (what.hasOwnProperty(col)) {
@@ -384,7 +398,7 @@ exports.stringPadding = function(str, len, pad, dir) {
         str = fill(len + 1 - str.length, pad) + str;
         break;
 
-      // BOTH
+        // BOTH
       case 'b':
         var padlen = len - str.length;
         var right = Math.ceil(padlen / 2);
@@ -408,8 +422,8 @@ exports.stringPadding = function(str, len, pad, dir) {
 exports.throwFileNotFound = function(msg) {
   throw new exports.AvocadoError({
     errorNum: exports.errors.ERROR_FILE_NOT_FOUND.code,
-    errorMessage:
-      exports.errors.ERROR_FILE_NOT_FOUND.message + ': ' + String(msg),
+    errorMessage: exports.errors.ERROR_FILE_NOT_FOUND.message + ': ' +
+      String(msg),
   });
 };
 
@@ -420,8 +434,8 @@ exports.throwFileNotFound = function(msg) {
 exports.throwBadParameter = function(msg) {
   throw new exports.AvocadoError({
     errorNum: exports.errors.ERROR_BAD_PARAMETER.code,
-    errorMessage:
-      exports.errors.ERROR_BAD_PARAMETER.message + ': ' + String(msg),
+    errorMessage: exports.errors.ERROR_BAD_PARAMETER.message + ': ' +
+      String(msg),
   });
 };
 
@@ -442,12 +456,12 @@ exports.checkParameter = function(usage, descs, vars) {
     if (typeof vars[i] !== desc[1]) {
       exports.throwBadParameter(
         desc[0] +
-          " should be a '" +
-          desc[1] +
-          "', " +
-          "not '" +
-          typeof vars[i] +
-          "'"
+        " should be a '" +
+        desc[1] +
+        "', " +
+        "not '" +
+        typeof vars[i] +
+        "'"
       );
     }
   }
@@ -458,63 +472,5 @@ exports.checkParameter = function(usage, descs, vars) {
 // //////////////////////////////////////////////////////////////////////////////
 
 exports.checkAvailableVersions = function(version) {
-  var console = require('console');
-  var log;
-
-  if (require('@avocadodb').isServer) {
-    log = console.info;
-  } else {
-    log = internal.print;
-  }
-
-  if (version === undefined) {
-    version = internal.version;
-  }
-
-  if (version.match(/beta|alpha|preview|milestone|devel/) !== null) {
-    log(
-      "You are using a milestone/alpha/beta/preview version ('" +
-        version +
-        "') of AvocadoDB"
-    );
-    return;
-  }
-
-  try {
-    var u =
-      'https://www.avocadodb.com/repositories/versions.php?version=' +
-      version +
-      '&os=' +
-      internal.platform;
-    var d = internal.download(u, '', {timeout: 5});
-    var v = JSON.parse(d.body);
-
-    if (v.hasOwnProperty('bugfix')) {
-      log(
-        "Please note that a new bugfix version '" +
-          v.bugfix.version +
-          "' is available"
-      );
-    }
-
-    if (v.hasOwnProperty('minor')) {
-      log(
-        "Please note that a new minor version '" +
-          v.minor.version +
-          "' is available"
-      );
-    }
-
-    if (v.hasOwnProperty('major')) {
-      log(
-        "Please note that a new major version '" +
-          v.major.version +
-          "' is available"
-      );
-    }
-  } catch (err) {
-    if (console && console.debug) {
-      console.debug('cannot check for newer version: ', err.stack);
-    }
-  }
+  return '0.0.1';
 };

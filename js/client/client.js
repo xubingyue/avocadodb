@@ -39,16 +39,16 @@ if (typeof global === 'undefined' && typeof window !== 'undefined') {
 
 global.Buffer = require('buffer').Buffer;
 global.process = require('process');
-global.setInterval = global.setInterval || function () {};
-global.clearInterval = global.clearInterval || function () {};
-global.setTimeout = global.setTimeout || function () {};
-global.clearTimeout = global.clearTimeout || function () {};
+global.setInterval = global.setInterval || function() {};
+global.clearInterval = global.clearInterval || function() {};
+global.setTimeout = global.setTimeout || function() {};
+global.clearTimeout = global.clearTimeout || function() {};
 
 // //////////////////////////////////////////////////////////////////////////////
 // / @brief start paging
 // //////////////////////////////////////////////////////////////////////////////
 
-global.start_pager = function start_pager () {
+global.start_pager = function start_pager() {
   var internal = require('internal');
   internal.startPager();
 };
@@ -57,7 +57,7 @@ global.start_pager = function start_pager () {
 // / @brief stop paging
 // //////////////////////////////////////////////////////////////////////////////
 
-global.stop_pager = function stop_pager () {
+global.stop_pager = function stop_pager() {
   var internal = require('internal');
   internal.stopPager();
 };
@@ -66,7 +66,7 @@ global.stop_pager = function stop_pager () {
 // / @brief print the overall help
 // //////////////////////////////////////////////////////////////////////////////
 
-global.help = function help () {
+global.help = function help() {
   var internal = require('internal');
   var avocadodb = require('@avocadodb');
   var avocadosh = require('@avocadodb/avocadosh');
@@ -83,7 +83,7 @@ global.help = function help () {
 // / @brief clear screen (poor man's way)
 // //////////////////////////////////////////////////////////////////////////////
 
-global.clear = function clear () {
+global.clear = function clear() {
   var internal = require('internal');
   var result = '';
 
@@ -139,7 +139,7 @@ global.tutorial = require('@avocadodb/tutorial');
 // / @brief prints help
 // //////////////////////////////////////////////////////////////////////////////
 
-var initHelp = function () {
+var initHelp = function() {
   var internal = require('internal');
 
   if (internal.db) {
@@ -149,10 +149,10 @@ var initHelp = function () {
   }
 
   if (internal.quiet !== true) {
-    require('@avocadodb').checkAvailableVersions();
 
     if (internal.avocado && internal.avocado.isConnected && internal.avocado.isConnected()) {
-      internal.print("Type 'tutorial' for a tutorial or 'help' to see common examples");
+      internal.print(
+        "Type 'tutorial' for a tutorial or 'help' to see common examples");
     }
   }
 };
@@ -166,11 +166,11 @@ if (typeof window === 'undefined') {
   initHelp();
   // these variables are not defined in the browser context
   if (!(
-    global.IS_EXECUTE_SCRIPT ||
-    global.IS_EXECUTE_STRING ||
-    global.IS_CHECK_SCRIPT ||
-    global.IS_UNIT_TESTS ||
-    global.IS_JS_LINT
+      global.IS_EXECUTE_SCRIPT ||
+      global.IS_EXECUTE_STRING ||
+      global.IS_CHECK_SCRIPT ||
+      global.IS_UNIT_TESTS ||
+      global.IS_JS_LINT
     )) {
     try {
       // this will not work from within a browser
