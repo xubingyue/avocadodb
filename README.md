@@ -27,6 +27,29 @@ AvocadoDB的主要特点
 ![](Documentation/2.png)
 
 
+#   编译方法
+
+```
+git clone  https://github.com/avocadodb/avocadodb
+
+mkdir -p build
+
+ cd build
+
+ cmake .. -DCMAKE_BUILD_TYPE=Release
+
+ make
+
+如果想生成安装包  就　　make package
+
+如果安装本机　　sudo make install
+或者生成安装包后本地安装
+
+```
+
+#  驱动
+
+完全兼容ａｒａｎｇｄｏｄｂ协议　　毕竟暂时只汉化了界面
 
 
 - 致谢[arangodb](https://github.com/arangodb/arangodb)
