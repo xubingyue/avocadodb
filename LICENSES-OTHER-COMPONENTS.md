@@ -1,3 +1,9 @@
+
+### arangodb v3.2.2
+
+* Project Home: http://www.arangodb.com/
+* License: [arangodb software license](https://github.com/arangodb/arangodb/blob/devel/LICENSE)
+
 # Other Licenses
 
 ## C/C++ Libraries
