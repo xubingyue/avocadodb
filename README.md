@@ -3,7 +3,9 @@ AvocadoDB
 ========
 v0.1
 
+
 avocadodb是具有灵活的数据模型
+原生支持ｒｅｓｔｆｕｌ
 文档、图表和k/v多结构的开源数据库。
 使用Aql构建高性能应用程序
 方便的sql查询语言或JavaScript扩展。
@@ -26,7 +28,9 @@ AvocadoDB的主要特点
 
 ![](Documentation/2.png)
 
-#　　　[驱动](https://www.arangodb.com/arangodb-drivers/)
+#   驱动　　　
+
+[驱动](https://www.arangodb.com/arangodb-drivers/)
 
 #   编译方法
 
