@@ -18,7 +18,7 @@ endif()
 
 # debug info directory:
 if (${CMAKE_INSTALL_LIBDIR} STREQUAL "usr/lib64")
-  # some systems have weird places for usr/lib: 
+  # some systems have weird places for usr/lib:
   set(CMAKE_INSTALL_DEBINFO_DIR "usr/lib/debug/")
 else ()
   set(CMAKE_INSTALL_DEBINFO_DIR "${CMAKE_INSTALL_LIBDIR}/debug/")
@@ -45,10 +45,6 @@ set(CMAKE_TEST_DIRECTORY "tests")
 
 include(InstallMacros)
 # install ----------------------------------------------------------------------
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/Documentation/man/
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/man)
-
-install_readme(README README.txt)
 install_readme(README.md README.md)
 install_readme(LICENSES-OTHER-COMPONENTS.md LICENSES-OTHER-COMPONENTS.md)
 
@@ -148,7 +144,7 @@ if (UNIX)
       OUTPUT_VARIABLE SYSTEMD_UNIT_DIR
       OUTPUT_STRIP_TRAILING_WHITESPACE)
     set(IS_SYSTEMD_INSTALL 1)
-    
+
     configure_file (
       ${AVOCADODB_SOURCE_DIR}/Installation/systemd/avocadodb3.service.in
       ${PROJECT_BINARY_DIR}/avocadodb3.service
@@ -159,7 +155,7 @@ if (UNIX)
     install(FILES ${PROJECT_BINARY_DIR}/avocadodb3.service
       DESTINATION ${SYSTEMD_UNIT_DIR}/
       RENAME ${SERVICE_NAME}.service)
-    
+
     configure_file (
       ${AVOCADODB_SOURCE_DIR}/Installation/logrotate.d/avocadod.systemd
       ${PROJECT_BINARY_DIR}/avocadod.systemd
@@ -222,8 +218,8 @@ if (MSVC AND NOT(SKIP_PACKAGING))
     message(FATAL_ERROR, "BUNDLE_OPENSSL set but couldn't locate SSL DLLs. Please set LIB_EAY_RELEASE_DLL and SSL_EAY_RELEASE_DLL")
   endif()
 
-  install (FILES "${LIB_EAY_RELEASE_DLL}" DESTINATION "${CMAKE_INSTALL_BINDIR}/" COMPONENT Libraries)  
-  install (FILES "${SSL_EAY_RELEASE_DLL}" DESTINATION "${CMAKE_INSTALL_BINDIR}/" COMPONENT Libraries)  
+  install (FILES "${LIB_EAY_RELEASE_DLL}" DESTINATION "${CMAKE_INSTALL_BINDIR}/" COMPONENT Libraries)
+  install (FILES "${SSL_EAY_RELEASE_DLL}" DESTINATION "${CMAKE_INSTALL_BINDIR}/" COMPONENT Libraries)
 endif()
 
 

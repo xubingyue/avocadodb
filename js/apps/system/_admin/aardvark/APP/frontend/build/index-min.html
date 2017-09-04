@@ -3,8 +3,8 @@
 
       <ul class="subMenuEntries subViewNavbar pull-left">
         <li id="service-info" class="subMenuEntry active"><a>信息</a></li>
-        <li id="service-api" class="subMenuEntry "><a>API</a></li>
-        <li id="service-readme" class="subMenuEntry "><a>Readme</a></li>
+        <li id="service-api" class="subMenuEntry "><a>接口</a></li>
+        <li id="service-readme" class="subMenuEntry "><a>文档</a></li>
         <li id="service-settings" class="subMenuEntry "><a>设置</a></li>
       </ul>
 
@@ -12,11 +12,11 @@
         <ul class="headerButtonList">
           <li>
             <a id="app-deps" class="headerButton <%= _.isEmpty(app.get('deps')) ? 'disabled' : '' %> <%= app.hasUnconfiguredDependencies() ? 'error' : '' %>">
-              <span class="fa fa-cubes" title="Dependencies"></span>
+              <span class="fa fa-cubes" title="依赖"></span>
             </a>
           </li>
           <li id="app-scripts" class="dropdown">
-            <a class="headerButton <%= _.isEmpty(app.get('scripts')) ? 'disabled' : '' %>" title="Scripts">
+            <a class="headerButton <%= _.isEmpty(app.get('scripts')) ? 'disabled' : '' %>" title="脚本">
               <i class="fa fa-code"></i>
             </a>
             <ul class="script-dropdown-menu dropdown-toolbar dropdown-menu" id="scripts_dropdown"> <% _.each(app.get('scripts'), function (title, name) { %> <li class="dropdown-item">
@@ -25,12 +25,12 @@
           </li>
           <li>
             <a id="app-tests" class="headerButton">
-              <span class="fa fa-flask" title="Tests"></span>
+              <span class="fa fa-flask" title="测试"></span>
             </a>
           </li>
           <li>
             <a id="download-app" class="headerButton <%= app.isSystem() ? 'disabled' : '' %>">
-              <span class="fa fa-download" title="Download"></span>
+              <span class="fa fa-download" title="下载"></span>
             </a>
           </li>
         </ul>
@@ -48,10 +48,10 @@
         </div>
         <div class="header_left">
           <div id="app-warning" class="app-warning" style="display:<%=app.needsAttention()?'block':'none' %>;">
-            <h4>Out of order</h4>
-            <p id="app-warning-broken" style="display:<%=app.isBroken()?'block':'none' %>;">This service has failed to mount due to an error.</p>
-            <p id="app-warning-config" style="display:<%=app.needsConfiguration()?'block':'none' %>;">This service has not yet been configured properly.</p>
-            <p id="app-warning-deps" style="display:<%=app.hasUnconfiguredDependencies()?'block':'block' %>;">Some dependencies have not yet been set up.</p>
+            <h4>不按顺序</h4>
+            <p id="app-warning-broken" style="display:<%=app.isBroken()?'block':'none' %>;">由于错误, 此服务无法装载.</p>
+            <p id="app-warning-config" style="display:<%=app.needsConfiguration()?'block':'none' %>;">此服务尚未正确配置.</p>
+            <p id="app-warning-deps" style="display:<%=app.hasUnconfiguredDependencies()?'block':'block' %>;">尚未设置某些依赖项.</p>
           </div>
           <div class="header_line">
             <h3> <%= app.attributes.name %> </h3>
@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="header_right">
-          <input type="button" class="open button-success" disabled="true" value="Show Interface" />
+          <input type="button" class="open button-success" disabled="true" value="显示界面" />
         </div>
         <div class="information">
         </div>
@@ -80,7 +80,7 @@
     </section>
     <main>
       <div id="app-info" class="app-info" style="display: none;">
-        <h4>Info</h4>
+        <h4>信息</h4>
         <p id="app-info-swagger">尚未配置此服务的文档。</p>
       </div>
       <div id="swagger" class="swagger" style="display: none;">
@@ -90,9 +90,9 @@
         </div>
         <iframe src="<%= baseUrl %>/_admin/aardvark/foxxes/docs/index.html?mount=<%= encodeURIComponent(app.get('mount')) %>" name="Documentation"></iframe>
       </div>
-      <div id="settings" class="readme" style="display: none;"> <% if (_.isEmpty(app.get('config'))) { %> <p>No configurable settings available.</p> <% } %> <div class="buttons"></div>
+      <div id="settings" class="readme" style="display: none;"> <% if (_.isEmpty(app.get('config'))) { %> <p>没有可用的可配置设置.</p> <% } %> <div class="buttons"></div>
       </div>
-      <div id="readme" class="readme" style="display: none;"> <% if (app.get('readme')) { %> <%= app.get('readme') %> <% } else { %> <p>No README data found.</p> <% } %> </div>
+      <div id="readme" class="readme" style="display: none;"> <% if (app.get('readme')) { %> <%= app.get('readme') %> <% } else { %> <p>没有找到readme数据.</p> <% } %> </div>
     </main>
     <!--<aside class="meta" id="sideinformation">
       <dl>
@@ -133,7 +133,7 @@
     <ul class="headerButtonList">
       <li>
         <a id="foxxToggle" class="headerButton">
-          <span class="icon_avocadodb_settings2" title="Settings"></span>
+          <span class="icon_avocadodb_settings2" title="设置"></span>
         </a>
       </li>
     </ul>
@@ -143,7 +143,7 @@
 <div id="foxxDropdownOut" class="headerDropdown">
   <div id="foxxDropdown" class="dropdownInner">
     <ul>
-      <li class="nav-header">Type</li>
+      <li class="nav-header">类型</li>
       <li><a href="#services">
         <label class="checkbox checkboxLabel">
           <input class="css-checkbox" type="checkbox" id="checkProduction"/>
@@ -204,14 +204,14 @@
       <div class="pure-u-1-2 pure-u-md-1-4">
         <div class="valueWrapper">
           <div id="clusterCoordinators" class="value"><i class="fa fa-spin fa-circle-o-notch" style="color: rgba(0, 0, 0, 0.64);"></i></div>
-          <div class="graphLabel">coordinators</div>
+          <div class="graphLabel">调度</div>
         </div>
       </div>
 
       <div class="pure-u-1-2 pure-u-md-1-4">
         <div class="valueWrapper">
           <div id="clusterDBServers" class="value"><i class="fa fa-spin fa-circle-o-notch" style="color: rgba(0, 0, 0, 0.64);"></i></div>
-          <div class="graphLabel">DB Servers</div>
+          <div class="graphLabel">DB服务</div>
         </div>
       </div>
 
@@ -265,7 +265,7 @@
   </div> <% if(model.get('lockType') === "index") { %> <!-- <progress max="100" value="80"></progress>-->
     <h5 class="collectionName"><%= model.get('name') %></h5> <% } else { %> <h5 class="collectionName"><%= model.get('name') %></h5> <% } %> </div></script><script id="collectionsView.ejs" type="text/template"><div class="headerBar">
     <div class="search-field">
-      <input type="text" id="searchInput" class="search-input" placeholder="Search..."/>
+      <input type="text" id="searchInput" class="search-input" placeholder="搜索..."/>
       <!-- <img id="searchSubmit" class="search-submit-icon"/> -->
       <i id="searchSubmit" class="fa fa-search"></i>
     </div>
@@ -273,7 +273,7 @@
       <ul class="headerButtonList">
         <li class="enabled">
           <a id="collectionsToggle" class="headerButton">
-            <span class="icon_avocadodb_settings2" title="Settings"></span>
+            <span class="icon_avocadodb_settings2" title="设置"></span>
           </a>
         </li>
       </ul>
@@ -405,9 +405,9 @@
             <div class="dashboard-figure">
               <span id="<%= name %>Current"></span> <% } %> </div>
         </div>
-        <div class="dashboard-tendency"> <% if (name === "asyncRequests") {%> <div class="dashboard-subtitle-bar">async</div>
+        <div class="dashboard-tendency"> <% if (name === "asyncRequests") {%> <div class="dashboard-subtitle-bar">异步</div>
             <div class="dashboard-figure">
-              <span id="asyncPerSecondCurrent"></span> <%} else {%> <div class="dashboard-subtitle-bar">15-min-avg</div>
+              <span id="asyncPerSecondCurrent"></span> <%} else {%> <div class="dashboard-subtitle-bar">每15秒</div>
             <div class="dashboard-figure">
               <span id="<%= name %>Average"></span> <% } %> </div>
         </div>
@@ -454,10 +454,10 @@
     <div class="dashboard-row">
       <div class="dashboard-full-width-chart" id="replication-chart">
         <div class="dashboard-full-width-chart-inner pure-u">
-    <div class="dashboard-sub-bar"">Replication <span class="state"> updating...</span></div>
+    <div class="dashboard-sub-bar"">Replication <span class="state"> 更新中...</span></div>
           <div id="repl-numbers" class="dashboard-interior-chart pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-3">
             <div class="inner">
-              <div class="top dashboard-subtitle-bar">Totals</div>
+              <div class="top dashboard-subtitle-bar">总计</div>
               <div class="bottom">
                 <table>
                   <tbody>
@@ -480,7 +480,7 @@
           </div>
           <div id="repl-ticks" class="dashboard-interior-chart pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-3">
             <div class="inner">
-              <div class="top dashboard-subtitle-bar">Ticks</div>
+              <div class="top dashboard-subtitle-bar">刻度</div>
               <div class="bottom">
                 <table>
                   <tbody>
@@ -503,7 +503,7 @@
           </div>
           <div id="repl-progress" class="dashboard-interior-chart pure-u-1-1 pure-u-sm-1-1 pure-u-md-1-3">
             <div class="inner">
-              <div class="top dashboard-subtitle-bar">Progress</div>
+              <div class="top dashboard-subtitle-bar">进度</div>
               <div class="bottom">
                 <table>
                   <tbody>
@@ -529,7 +529,7 @@
     </div>
   </div></script><script id="databaseView.ejs" type="text/template"><div class="headerBar">
     <div class="search-field">
-      <input type="text" value="<%=searchString%>" id="databaseSearchInput" class="search-input" placeholder="Search..."/>
+      <input type="text" value="<%=searchString%>" id="databaseSearchInput" class="search-input" placeholder="搜索..."/>
       <!-- <img id="databaseSearchSubmit" class="search-submit-icon">-->
       <i id="databaseSearchSubmit" class="fa fa-search"></i>
     </div>
@@ -537,7 +537,7 @@
         <ul class="headerButtonList">
           <li class="enabled">
             <a id="databaseToggle" class="headerButton">
-              <span class="icon_avocadodb_settings2" title="Settings"></span>
+              <span class="icon_avocadodb_settings2" title="设置"></span>
             </a>
           </li>
         </ul>
@@ -579,7 +579,7 @@
           <div class="fullBorderBox" style="border: 0;">
             <div class="borderBox"></div>
             <div class="iconSet">
-              <span class="icon_avocadodb_settings2 editDatabase" id="<%=name %>_edit-database" alt="Edit database" title="Edit database"></span>
+              <span class="icon_avocadodb_settings2 editDatabase" id="<%=name %>_edit-database" alt="编辑数据库" title="编辑数据库"></span>
             </div>
             <img src="img/databaseIcon.svg" class="tile-icon-svg svgToReplace"/>
             <div class="tileBadge">
@@ -587,7 +587,7 @@
             <h5 class="collectionName" style="margin-left: 0; margin-right: 0;"><%=name %></h5>
           </div>
         </div> <%};%> <%});%> </div>
-  </div></script><script id="dbSelectionView.ejs" type="text/template"><a href="#" class="tab disabled" id="dbselection"><div class="dbselection"><i class="fa fa-database"></i><span class="db-name">DB: </span> <%=current%> <!-- <i class="fa fa-caret-square-o-down"></i> -->
+  </div></script><script id="dbSelectionView.ejs" type="text/template"><a href="#" class="tab disabled" id="dbselection"><div class="dbselection"><i class="fa fa-database"></i><span class="db-name">数据: </span> <%=current%> <!-- <i class="fa fa-caret-square-o-down"></i> -->
 </div>
 <!-- <b class="caret"></b> -->
 </a>
@@ -595,7 +595,7 @@
 <!--
 <ul class="link-dropdown-menu" id="dbs_dropdown"> <%
 if (list.length > 0) {
-%> <li class="dropdown-header">Databases</li> <%
+%> <li class="dropdown-header">数据库</li> <%
     _.each(list, function(i) {
   %> <li class="dropdown-item">
         <a id=<%=i%> class="dbSelectionLink tab" href="#"><%=i%></a>
@@ -603,9 +603,9 @@ if (list.length > 0) {
     });
   %> <%
 }
-%> <% if (current === "_system") { %> <% if (list.length >= 2) { %> <li class="divider"></li> <% } %> <li class="dropdown-header">Manager</li>
+%> <% if (current === "_system") { %> <% if (list.length >= 2) { %> <li class="divider"></li> <% } %> <li class="dropdown-header">管理</li>
     <li id="databaseNavi" class="dropdown-item">
-      <a id="databases" class="tab" href="#databases">Manage Databases</a>
+      <a id="databases" class="tab" href="#databases">管理数据库</a>
     </li> <% } %> </ul>
 --></script><script id="documentsView.ejs" type="text/template"><div id="transparentHeader" class="headerBar marginTop5">
 
@@ -616,12 +616,12 @@ if (list.length > 0) {
     <!-- Mark: removed prev/next collection button
     <li class="enabled">
       <a id="collectionNext" class="headerButton">
-        <span class="icon_avocadodb_arrowright" title="Next collection"></span>
+        <span class="icon_avocadodb_arrowright" title="下一个数据表"></span>
       </a>
     </li>
     <li class="enabled">
       <a id="collectionPrev" class="headerButton collection-pagination">
-        <span class="icon_avocadodb_arrowleft" title="Previous collection"></span>
+        <span class="icon_avocadodb_arrowleft" title=" 上一个数据表"></span>
       </a>
     </li>
     -->
@@ -668,10 +668,10 @@ if (list.length > 0) {
      <div style="float: right;">
        <button id="resetView" class="button-warning btn-old-padding">重置</button>
        <button id="filterSend" class="button-success btn-old-padding">过滤</button>
-       <input type="text" id="docsSort" style="float: right" placeholder="Sort by attribute"></input>
+       <input type="text" id="docsSort" style="float: right" placeholder="按属性排序"></input>
     </div>
     <div class="queryline querylineAdd">
-       <input id="attribute_name0" type="text" placeholder="Attribute name"><select name="operator" id="operator0" class="filterSelect">
+       <input id="attribute_name0" type="text" placeholder="属性名称"><select name="operator" id="operator0" class="filterSelect">
            <option value="==">==</option>
            <option value="!=">!=</option>
            <option value="&lt;">&lt;</option>
@@ -682,7 +682,7 @@ if (list.length > 0) {
            <option value="IN">IN</option>
            <option value="NOT IN">NOT IN</option>
            <option value="=~">REGEX</option>
-       </select><input id="attribute_value0" type="text" placeholder="Attribute value" class="filterValue">
+       </select><input id="attribute_value0" type="text" placeholder="属性值" class="filterValue">
        <a id="addFilterItem" class="add-filter-item"><i class="fa fa-plus-circle"></i></a>
      </div>
   </div>
@@ -691,24 +691,25 @@ if (list.length > 0) {
     <div class="queryline">
       <input id="importDocuments" name="importDocuments" type="file" accept="application/json" />
       <button id="confirmDocImport" class="button-success btn-old-padding" style="float:right" disabled>
-        <span class="upload-indicator"><i id="uploadIndicator" class="fa fa-circle-o-notch fa-spin fa-fw"></i></span>Import JSON
+        <span class="upload-indicator"><i id="uploadIndicator" class="fa fa-circle-o-notch fa-spin fa-fw"></i></span>导入 JSON
       </button>
-      <div title='Example input data:<br /><br /> I. Line-wise: <br /> { "_key": "key1", ... } <br /> { "_key": "key2", ... } <br /><br /> or <br /><br /> II. JSON documents embedded into a list: <br /> [ <br /> &nbsp; { "_key": "key1", ... }, <br /> &nbsp; { "_key": "key2", ... }, <br /> &nbsp; ... <br /> ]' class="upload-info" style="float:left; margin-top:7px; margin-right: 10px;"><i style="font-size: 13pt;" class="fa fa-info-circle"></i></div>
+      <div title='示例输入数据:<br /><br /> I. Line-wise: <br /> { "_key": "key1", ... } <br /> { "_key": "key2", ... } <br /><br /> or <br /><br /> II. JSON documents embedded into a list: <br /> [ <br /> &nbsp; { "_key": "key1", ... }, <br /> &nbsp; { "_key": "key2", ... }, <br /> &nbsp; ... <br /> ]' class="upload-info" style="float:left; margin-top:7px; margin-right: 10px;"><i style="font-size: 13pt;" class="fa fa-info-circle"></i></div>
     </div>
   </div>
 
   <div id="exportHeader" class="headerDropdown">
     <div class="queryline">
-      <div style="float:left; margin-top:7px"><i class="fa fa-exclamation-circle"></i>Please be careful. If no filter is set, the whole collection will be downloaded.</div>
-      <button id="exportDocuments" class="button-success btn-old-padding" style="float:right">Download JSON</button>
+      <div style="float:left; margin-top:7px"><i class="fa fa-exclamation-circle"></i>请小心。如果未设置筛选器, 则将下载整个集合。
+ </div>
+      <button id="exportDocuments" class="button-success btn-old-padding" style="float:right">下载 JSON</button>
     </div>
   </div>
 
   <div id="editHeader" class="dropdownImport">
     <div class="queryline">
-      <div style="float:left; margin-top:5px"><div style="float:left" class="selectedCount">0</div> &nbsp; document(s) selected</div>
+      <div style="float:left; margin-top:5px"><div style="float:left" class="selectedCount">0</div> &nbsp; 选定的文档</div>
       <button id="deleteSelected" class="button-neutral btn-old-padding" style="float:right">删除</button>
-      <button id="moveSelected" class="button-neutral btn-old-padding" style="float:right">Move</button>
+      <button id="moveSelected" class="button-neutral btn-old-padding" style="float:right">剪切</button>
     </div>
   </div>
 
@@ -752,7 +753,7 @@ if (list.length > 0) {
       <ul class="headerButtonList">
         <li class="enabled">
           <a id="addDocument" class="headerButton">
-            <span title="Add new document">
+            <span title="添加新文档">
               <i class="fa fa-file fa-stack-1x"></i>
               <i class="fa fa-plus fa-stack-1x fa-top"></i>
             </span>
@@ -811,30 +812,30 @@ if (list.length > 0) {
     </div>
     <div class="pull-left shortcuts showHotkeyHelp"></div>
 	</div></script><script id="edgeDefinitionTable.ejs" type="text/template"><tr class="tableRow" id="row_newEdgeDefinitions<%= number%>">
-    <th class="collectionTh">Edge definitions*:</th>
+    <th class="collectionTh">Edge 定义*:</th>
     <th class="collectionTh">
-      <input type="hidden" id="newEdgeDefinitions<%= number%>" value="" placeholder="Edge definitions" tabindex="-1" class="select2-offscreen">
+      <input type="hidden" id="newEdgeDefinitions<%= number%>" value="" placeholder="Edge 定义" tabindex="-1" class="select2-offscreen">
       <button id="remove_newEdgeDefinitions<%= number%>" class="graphViewer-icon-button gv_internal_remove_line gv-icon-small delete"></button>
     </th><th>
-    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Some info for edge definitions">
+    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="一些edge定义的信息">
     </span>
     </th>
   </tr>
   <tr class="tableRow" id="row_fromCollections<%= number%>">
-    <th class="collectionTh">fromCollections*:</th>
+    <th class="collectionTh">顶点数据集*:</th>
     <th class="collectionTh">
-      <input type="hidden" id="fromCollections<%= number%>" value="" placeholder="fromCollections" tabindex="-1" class="select2-offscreen">
+      <input type="hidden" id="fromCollections<%= number%>" value="" placeholder="顶点数据集" tabindex="-1" class="select2-offscreen">
     </th><th>
-    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The collection that contain the start vertices of the relation.">
+    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="包含关系的起始顶点的数据集.">
     </span>
   </th>
   </tr>
   <tr class="tableRow" id="row_toCollections<%= number%>">
-    <th class="collectionTh">toCollections*:</th>
+    <th class="collectionTh">结束点数据集*:</th>
     <th class="collectionTh">
-      <input type="hidden" id="toCollections<%= number%>" value="" placeholder="toCollections" tabindex="-1" class="select2-offscreen">
+      <input type="hidden" id="toCollections<%= number%>" value="" placeholder="结束点数据集" tabindex="-1" class="select2-offscreen">
     </th><th>
-    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The collection that contain the end vertices of the relation.">
+    <span class="modalTooltips avocadoicon icon_avocadodb_info" title="包含关系结束顶点的数据集.">
     </span>
   </th>
   </tr></script><script id="editListEntryView.ejs" type="text/template"><td class="writable sorting_1"> <% if (isReadOnly) { %> <span class="key"><%=key%></span> <% } else { %> <input type="text" class="key" placeholder="attribute" <%=key?"value=" + key:""%>></input> <% } %> </td>
@@ -863,14 +864,6 @@ if (list.length > 0) {
     v = version || "";
   }
 %> <div class="footer-left">
-<!--
-  <div class="social-icons">
-    <p><a href="https://twitter.com/avocadodb" target="_blank"><i class="fa fa-twitter"></i></a></p>
-    <p><a href="https://www.avocadodb.com/community" target="_blank"></a><i class="fa fa-envelope"></i></a></p>
-    <p><a href="https://stackoverflow.com/questions/tagged/avocadodb" target="_blank"></a><i class="fa fa-stack-overflow"></i></a></p>
-    <p><a href="https://groups.google.com/group/avocadodb" target="_blank"></a><i class="fa fa-google"></i></a></p>
-  </div>
--->
 </div>
 
 <div class="footer-center">
@@ -900,7 +893,7 @@ if (list.length > 0) {
         <th class="collectionTh"><strong><%=appInfos[1] %></strong></th>
       </tr>
       <tr>
-        <th class="collectionTh">Documentation:</th>
+        <th class="collectionTh">数据集:</th>
         <th class="collectionTh"><%=documentationJsonUrl</th>
       </tr>
       <tr>
@@ -917,22 +910,22 @@ if (list.length > 0) {
         <th>
       </tr>
       <tr>
-        <th class="collectionTh">System:</th>
+        <th class="collectionTh">系统:</th>
         <th class="collectionTh"> <%=attributes.isSystem ? "Yes" : "No" %> <th>
       </tr>
       <tr>
-        <th class="collectionTh">Status:</th>
+        <th class="collectionTh">状态:</th>
         <th class="collectionTh"> <%if (attributes.active) {%> <div class="modal-text active">
               Active
             </div> <%} else {%> <div class="modal-text inactive">
-              Inactive
+              活动
             </div> <%}%> </th>
       </tr>
     </table>
   </div>
   <div id="colFooter" class="modal-footer">
-    <button id="uninstall" class="button-danger"<%=(attributes.isSystem || attributes.development) ? " disabled" : ""%>>Uninstall</button>
-    <button id="change" class="button-success pull-right">Save</button> <%if (false && attributes.active) {%> <button id="deactivate" class="button-warning pull-right" style="margin-right:8px" disabled>Deactivate</button> <%} else if (false) {%> <button id="activate" class="button-success pull-right" style="margin-right:8px" disabled>Activate</button> <%}%> </div>
+    <button id="uninstall" class="button-danger"<%=(attributes.isSystem || attributes.development) ? " disabled" : ""%>>卸载</button>
+    <button id="change" class="button-success pull-right">保存</button> <%if (false && attributes.active) {%> <button id="deactivate" class="button-warning pull-right" style="margin-right:8px" disabled>停</button> <%} else if (false) {%> <button id="activate" class="button-success pull-right" style="margin-right:8px" disabled>激活</button> <%}%> </div>
 </div></script><script id="foxxMountView.ejs" type="text/template"><div id="install-foxx" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -953,7 +946,7 @@ if (list.length > 0) {
         <th class="collectionTh">
           <input type="text" id="mount-point" name="mountpoint" value="/<%=attributes.name%>" placeholder="路径" />
         </th>
-        <th><a class="modalTooltips" title="The path where the app can be reached."><i class="avocadoicon icon_avocadodb_info"></i></a></th>
+        <th><a class="modalTooltips" title="可以到达应用程序的路径."><i class="avocadoicon icon_avocadodb_info"></i></a></th>
       </tr>
       <tr>
         <th class="collectionTh">版本:</th>
@@ -979,7 +972,7 @@ if (list.length > 0) {
         <ul class="headerButtonList">
           <li class="enabled">
             <a id="graphManagementToggle" class="headerButton">
-              <span class="icon_avocadodb_settings2" title="Settings"></span>
+              <span class="icon_avocadodb_settings2" title="设置"></span>
             </a>
           </li>
         </ul>
@@ -1021,11 +1014,11 @@ if (list.length > 0) {
         <div class="paddingBox">
           <div class="borderBox"></div>
           <div class="iconSet">
-            <span class="icon_avocadodb_settings2 editGraph" id="<%=graphName %>_settings" alt="Edit graph" title="Edit graph"></span>
+            <span class="icon_avocadodb_settings2 editGraph" id="<%=graphName %>_settings" alt="Edit graph" title="修改图形数据库"></span>
           </div>
           <span class="icon_avocadodb_edge5 tile-icon"></span>
           <span class="icon_avocadodb_edge5 icon_avocadodb_edge5-2 tile-icon"></span>
-          <div class="tileBadge"> <% if (isSmart === true) { %> <span><div class="corneredBadge inProgress">Smart</div></span> <% } %> </div>
+          <div class="tileBadge"> <% if (isSmart === true) { %> <span><div class="corneredBadge inProgress">自动</div></span> <% } %> </div>
           <h5 class="collectionName"><%=graphName %></h5>
         </div>
       </div> <%});%> </div>
@@ -1061,28 +1054,28 @@ if (list.length > 0) {
         <ul class="headerButtonList">
           <li class="enabled">
             <a id="settingsMenu" class="headerButton">
-              <span title="Configure graph settings">
+              <span title="配置图形设置">
                 <i class="fa fa-bars fa-stack-1x"></i>
               </span>
             </a>
           </li>
           <li class="enabled">
             <a id="graph-fullscreen-btn" class="headerButton">
-              <span title="Switch to fullscreen mode">
+              <span title="切换到全屏模式">
                 <i class="fa fa-television"></i>
               </span>
             </a>
           </li>
           <li class="enabled">
             <a id="downloadPNG" class="headerButton">
-              <span title="Download visible graph as png image">
+              <span title="下载可视图形为 png 图像">
                 <i class="fa fa-camera fa-stack-1x"></i>
               </span>
             </a>
           </li>
           <li class="enabled">
             <a id="loadFullGraph" class="headerButton">
-              <span title="Download full graph - use with caution">
+              <span title="下载全图-慎用">
                 <i class="fa fa-share-alt"></i>
               </span>
             </a>
@@ -1145,9 +1138,9 @@ if (list.length > 0) {
           <div id="newIndexView" class="new-index-view" style="display:none">
             <table>
               <tr>
-                <th class="collectionTh">Type:</th>
+                <th class="collectionTh">类型:</th>
                 <th class="">
-                  <select id="newIndexType"> <% if (supported.indexOf('geo') > -1) { %> <option value="Geo">Geo Index</option> <% } %> <% if (supported.indexOf('hash') > -1) { %> <option value="Hash">Hash Index</option> <% } %> <% if (supported.indexOf('persistent') > -1) { %> <option value="Persistent">Persistent Index</option> <% } %> <% if (supported.indexOf('fulltext') > -1) { %> <option value="Fulltext">Fulltext Index</option> <% } %> <% if (supported.indexOf('skiplist') > -1) { %> <option value="Skiplist">Skip-List Index</option> <% } %> </select>
+                  <select id="newIndexType"> <% if (supported.indexOf('geo') > -1) { %> <option value="Geo">geo索引</option> <% } %> <% if (supported.indexOf('hash') > -1) { %> <option value="Hash">哈希索引</option> <% } %> <% if (supported.indexOf('persistent') > -1) { %> <option value="Persistent">持久 索引</option> <% } %> <% if (supported.indexOf('fulltext') > -1) { %> <option value="Fulltext">全文索引</option> <% } %> <% if (supported.indexOf('skiplist') > -1) { %> <option value="Skiplist">跳过列表 索引</option> <% } %> </select>
                 </th>
                 <th class="" style="width: 18px"/>
               </tr>
@@ -1159,7 +1152,7 @@ if (list.length > 0) {
                   <th><input type="text" id="newGeoFields" value=""/></th>
                   <th class="tooltipInfoTh">
                     <div>
-                      <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="A comma-separated list with one or two attribute paths. Example: latitude,longitude">
+                      <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="具有一个或两个属性路径的逗号分隔列表. Example: latitude,longitude">
                         <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
@@ -1387,16 +1380,16 @@ if (list.length > 0) {
 		<div id="dashboardDetailedLineChart" class="dashboardDetailChart" style="position: absolute"></div>
 	</div></script><script id="loadingTableView.ejs" type="text/template"><thead>
   <tr role="row">
-    <th class="sorting_disabled docsFirstCol">Content</th>
+    <th class="sorting_disabled docsFirstCol">内容</th>
     <th class="sorting_disabled docsSecCol">_key</th>
     <th class="sorting_disabled docsThirdCol">
-      <a id="addDocumentButton" class="pull-right addButton"><span class="avocadoicon icon_avocadodb_roundplus" title="Add a document"></span></a>
+      <a id="addDocumentButton" class="pull-right addButton"><span class="avocadoicon icon_avocadodb_roundplus" title="新建数据库"></span></a>
     </th>
   </tr>
 </thead>
 <tbody>
   <tr class="odd">
-    <td valign="top" class="dataTables_empty">Loading...</td>
+    <td valign="top" class="dataTables_empty">载入中...</td>
   </tr>
 </tbody></script><script id="loggerView.ejs" type="text/template"><div id="loggerContent" class="logger-content-id innerContent">
 
@@ -1406,24 +1399,25 @@ if (list.length > 0) {
       </div>
 
       <div class="pull-right">
-        <button id="logTopicSelection" class="button-default filterSelect">Topic <i class="fa fa-caret-down"></i></button>
-        <button id="logLevelSelection" class="button-default filterSelect">Level <i class="fa fa-caret-down"></i></button>
+        <button id="logTopicSelection" class="button-default filterSelect">专题 <i class="fa fa-caret-down"></i></button>
+        <button id="logLevelSelection" class="button-default filterSelect">等级 <i class="fa fa-caret-down"></i></button>
         <button style="display: none" class="button-default filterSelect" id="logFilters">
-          <i class="fa fa-close"></i>Clear current <a id="filterDesc"></a> filter
+          <i class="fa fa-close"></i>Clear current <a id="filterDesc"></a> 筛选
         </button>
       </div>
 
     </div>
 
     <div id="noLogEntries" style="display: none">
-      <span>No suitable log entries found </span>
+      <span>找不到合适的日志条目
+  </span>
     </div>
 
     <div id="logEntries">
     </div>
 
     <div class="actions">
-      <button id="loadMoreEntries" class="button-success">Load older entries</button>
+      <button id="loadMoreEntries" class="button-success">加载更多的条目</button>
     </div>
 
   </div></script><script id="loggerViewEntries.ejs" type="text/template"> <% _.each(entries, function (entry) { %> <div class="pure-g" level="<%=entry.status.toLowerCase()%>" topic="<%=entry.topic.toLowerCase()%>">
@@ -1467,8 +1461,8 @@ if (list.length > 0) {
       <h1>简单多用的中文数据库</h1>
     </div>
     <form id="loginForm">
-      <input class="login-input" placeholder="username" id="loginUsername" type="text" name="username"><i class="fa fa-user"></i>
-      <input class="login-input" placeholder="password" id="loginPassword" type="password" name="password" autocomplete="off"><i class="fa fa-lock"></i>
+      <input class="login-input" placeholder="用户名" id="loginUsername" type="text" name="username"><i class="fa fa-user"></i>
+      <input class="login-input" placeholder="密码" id="loginPassword" type="password" name="password" autocomplete="off"><i class="fa fa-lock"></i>
 
 
       <button id="submitLogin" class="button-success pull-right">登录</button>
@@ -1498,16 +1492,16 @@ if (list.length > 0) {
           <input type="text" id="new-app-mount" value="" placeholder="/my/foxx"></input>
         </th>
         <th>
-          <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The path the app will be mounted. Has to start with /. Is not allowed to start with /_">
+          <span class="modalTooltips avocadoicon icon_avocadodb_info" title="应用程序将被安装的路径。必须从/。不允许以/_ 开头">
           </span>
         </th> <% } %> </tr>
   </table>
 
   <ul id="infoTab" class="nav nav-tabs">
-    <li><a href="#newApp" data-toggle="tab" id="tab-new">New Service</a></li>
-    <li class="active"><a href="#appstore" data-toggle="tab" id="tab-store"><img src="img/avocadodb_logo_small.png" alt="AvocadoDB" class="tab-icon" />Store</a></li>
-    <li><a href="#github" data-toggle="tab" id="tab-git">Github</a></li>
-    <li><a href="#zip" data-toggle="tab" id="tab-zip">Upload</a></li>
+    <li><a href="#newApp" data-toggle="tab" id="tab-new">新服务</a></li>
+    <li class="active"><a href="#appstore" data-toggle="tab" id="tab-store"><img src="img/avocadodb_logo_small.png" alt="AvocadoDB" class="tab-icon" />商店</a></li>
+    <li><a href="#github" data-toggle="tab" id="tab-git">第三方导入</a></li>
+    <li><a href="#zip" data-toggle="tab" id="tab-zip">上传</a></li>
   </ul>
 
   <div class="tab-content" id="tab-content-application-info">
@@ -1516,7 +1510,7 @@ if (list.length > 0) {
       <table id="new-app-information">
         <tr class="tableRow">
           <th class="collectionInfoTh">
-            Author*:
+            作者*:
           </th>
           <th class="collectionInfoTh">
             <input type="text" id="new-app-author" value="" placeholder="Your Name">
@@ -1532,7 +1526,7 @@ if (list.length > 0) {
         </tr>
         <tr class="tableRow">
           <th class="collectionInfoTh">
-            Description*:
+            描述*:
           </th>
           <th class="collectionInfoTh">
             <input type="text" id="new-app-description" value="" placeholder="Please describe your Service here">
@@ -1540,7 +1534,7 @@ if (list.length > 0) {
         </tr>
         <tr class="tableRow">
           <th class="collectionInfoTh">
-            License*:
+            许可证*:
           </th>
           <th class="collectionInfoTh">
             <input type="text" id="new-app-license" value="" placeholder="Apache 2"></input>
@@ -1586,7 +1580,7 @@ if (list.length > 0) {
     <div class="tab-pane active" id="appstore">
       <table id="appstore-content">
         <tr>
-          <td>Fetching data...</td>
+          <td>抓取数据中...</td>
         </tr>
       </table>
     </div>
@@ -1676,13 +1670,13 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
     var figuresData = content.figures;
     var revision    = content.revision;
 %> <table id="collectionInfoTable" class="avocado-table"> <% if (figuresData.journalSize) { %> <tr id="collectionSizeBox">
-              <th class="collectionInfoTh2">Journal size:</th>
+              <th class="collectionInfoTh2">日志大小:</th>
               <th class="collectionInfoTh">
                 <div id="show-collection-size" class="modal-text"> <%=prettyBytes(figuresData.journalSize)%> </div>
               </th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The maximal size of a journal or datafile (in MB). Must be at least 1.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="日志或记录的最大大小 (以 MB 为单位)。必须至少1。">
                   </span>
                 </div>
               </th>
@@ -1693,7 +1687,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
             </th>
             <th class="tooltipInfoTh">
               <div>
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Synchronize to disk before returning from a create or update of a document.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="从数据库的创建或更新返回之前同步到磁盘.">
                 </span>
               </div>
             </th>
@@ -1707,7 +1701,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
           </tr>
 
           <tr id="collectionRevBox">
-            <th class="collectionInfoTh2">Revision:</th>
+            <th class="collectionInfoTh2">修订:</th>
             <th class="collectionInfoTh">
               <div id="show-collection-rev" class="modal-text"> <%=revision.revision%> </div>
             </th>
@@ -1716,7 +1710,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
           </tr>
 
           <tr>
-            <th class="collectionInfoTh2">Type:</th>
+            <th class="collectionInfoTh2">类型:</th>
             <th class="collectionInfoTh">
               <div class="modal-text"><%=content.model.get("type")%></div>
             </th>
@@ -1725,49 +1719,49 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
           </tr>
 
           <tr>
-            <th class="collectionInfoTh2">Status:</th>
+            <th class="collectionInfoTh2">状态:</th>
             <th class="collectionInfoTh">
               <div class="modal-text"><%=content.model.get("status")%></div>
             </th>
             <th class="collectionInfoTh">
             </th>
           </tr> <% if (figuresData.numberOfShards) { %> <tr>
-              <th class="collectionInfoTh2">Shards:</th>
+              <th class="collectionInfoTh2">切片:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.numberOfShards%></div>
               </th>
               <th class="collectionInfoTh">
               </th>
             </tr> <% } %> <% if (figuresData.shardKeys) { %> <tr>
-              <th class="collectionInfoTh2">Shard Keys:</th>
+              <th class="collectionInfoTh2">切片 Keys:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=JSON.stringify(figuresData.shardKeys)%></div>
               </th>
               <th class="collectionInfoTh">
               </th>
             </tr> <% } %> <% if (figuresData.replicationFactor) { %> <tr>
-              <th class="collectionInfoTh2">Replication factor:</th>
+              <th class="collectionInfoTh2">复制索引:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.replicationFactor%></div>
               </th>
               <th class="collectionInfoTh">
               </th>
             </tr> <% } %> <% if (figuresData.indexBuckets) { %> <tr>
-              <th class="collectionInfoTh2">Index buckets:</th>
+              <th class="collectionInfoTh2">索引容器:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.indexBuckets%></div>
               </th>
               <th class="collectionInfoTh">
               </th>
             </tr> <% } %> <% if (!frontendConfig.isCluster) { %> <% if (figuresData.figures.compactionStatus) { %> <tr>
-                <th class="collectionInfoTh2">Compaction status:</th>
+                <th class="collectionInfoTh2">压缩状态:</th>
                 <th class="collectionInfoTh">
                   <div class="modal-text"><%=figuresData.figures.compactionStatus.message + " (" + figuresData.figures.compactionStatus.time + ")" %></div>
                 </th>
                 <th class="collectionInfoTh">
                 </th>
               </tr> <% } %> <% } %> <% if (figuresData.figures.waitingFor) { %> <tr>
-              <th class="collectionInfoTh2">Waiting for:</th>
+              <th class="collectionInfoTh2">等待:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.figures.waitingFor%></div>
               </th>
@@ -1776,18 +1770,18 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
             </tr> <% } %> </table>
 
       </div> <% if (figuresData.figures.alive && figuresData.figures.dead) { %> <% if (window.frontendConfig.isCluster) { %> <div class="infoBox">
-              <h4>Figures</h4>
-              <p>The following information does not contain data stored in the write-ahead log. It can be inaccurate, until the write-ahead log has been completely flushed.</p>
+              <h4>信息</h4>
+              <p>以下信息不包含存储在预写日志中的数据。这可能是不准确的, 直到写前日志已完全刷新。</p>
             </div> <% } %> <table class="figures1 avocado-table">
             <tr class="figuresHeader">
-              <th>Type</th>
-              <th>Count</th>
-              <th>Size</th>
-              <th>Deletion</th>
-              <th>Info</th>
+              <th>类型</th>
+              <th>长度</th>
+              <th>大小</th>
+              <th>剔除中</th>
+              <th>信息</th>
             </tr>
             <tr>
-              <th class="modal-text">Alive</th> <% if (figuresData.walMessage) { %> <th class="modal-text"><%=figuresData.walMessage%></th> <% } else { %> <th class="modal-text"><%=numeral(figuresData.figures.alive.count).format('0,0')%></th> <% } %> <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.alive.size)%> <% } %> </th>
+              <th class="modal-text">激活</th> <% if (figuresData.walMessage) { %> <th class="modal-text"><%=figuresData.walMessage%></th> <% } else { %> <th class="modal-text"><%=numeral(figuresData.figures.alive.count).format('0,0')%></th> <% } %> <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.alive.size)%> <% } %> </th>
               <th class="modal-text"> -</th>
               <th class="tooltipInfoTh">
                 <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number and size of all living documents.">
@@ -1795,14 +1789,14 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Dead</th>
+              <th class="modal-text">挂死</th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=numeral(figuresData.figures.dead.count).format('0,0')%> <% } %> </th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.dead.size)%> <% } %> </th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=figuresData.figures.dead.deletion%> <% } %> </th>
 
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number and size of all dead documents.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="所有挂死文件的总数和大小.">
                   </span>
               </div>
               </th>
@@ -1811,59 +1805,59 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
             <tr><th><div> </div></th></tr>
           </table> <% } %> <% if (figuresData.figures.datafiles && figuresData.figures.journals && figuresData.figures.compactors) { %> <table class="figures2 avocado-table">
             <tr class="figuresHeader">
-              <th>Type</th>
-              <th>Count</th>
-              <th>Size</th>
+              <th>类型</th>
+              <th>长度</th>
+              <th>大小</th>
               <th></th>
-              <th>Info</th>
+              <th>信息</th>
             </tr>
             <tr>
-              <th class="modal-text">Datafiles</th>
+              <th class="modal-text">数据文件</th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=numeral(figuresData.figures.datafiles.count).format('0,0')%> <% } %> </th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%= prettyBytes(figuresData.figures.datafiles.fileSize) %> <% } %> </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips avocadoicon icon_avocadodb_info" data-toggle="tooltip" data-placement="left" title="Number and total size of active datafiles.">
+                    <span class="modalTooltips avocadoicon icon_avocadodb_info" data-toggle="tooltip" data-placement="left" title="活动数据文件的数量和总大小.">
                   </span>
                 </div>
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Journals</th>
+              <th class="modal-text">日子</th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=numeral(figuresData.figures.journals.count).format('0,0')%> <% } %> </th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.journals.fileSize)%> <% } %> </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of journal files.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="日志文件的数量和总大小.">
                 </span>
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Compactors</th>
+              <th class="modal-text">压缩</th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=numeral(figuresData.figures.compactors.count).format('0,0')%> <% } %> </th>
               <th class="modal-text"> <% if (figuresData.walMessage) { %> <%=figuresData.walMessage%> <% } else { %> <%=prettyBytes(figuresData.figures.compactors.fileSize)%> <% } %> </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of compactor files."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="压实文件的数量和总大小."></span>
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Indexes</th>
+              <th class="modal-text">索引</th>
               <th class="modal-text"> <%=numeral(figuresData.figures.indexes.count).format('0,0')%> </th>
               <th class="modal-text"> <%=prettyBytes(figuresData.figures.indexes.size)%> </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total memory usage of indexes."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="索引的数量和总内存使用情况。"></span>
               </th>
             </tr>
           </table> <% } %> <% if (figuresData.figures.documentReferences && figuresData.figures.uncollectedLogfileEntries) { %> <table class="figures3 avocado-table">
             <tr class="figuresHeader">
-              <th>Type</th>
-              <th>Count</th>
+              <th>类型</th>
+              <th>长度</th>
               <th></th>
               <th></th>
-              <th>Info</th>
+              <th>信息</th>
             </tr>
             <tr>
               <th class="modal-text">Uncollected</th>
@@ -1894,7 +1888,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
 			<div class="dashboard-legend-inner" id="detailLegend"></div>
 		</div>
 	</div></script><script id="modalGraphTable.ejs" type="text/template"><ul id="graphTab" class="nav nav-tabs">
-    <li class="active"><a href="#createGraph" data-toggle="tab" id="tab-createGraph">Graph</a></li>
+    <li class="active"><a href="#createGraph" data-toggle="tab" id="tab-createGraph">图形数据库</a></li>
     <li><a href="#smartGraph" data-toggle="tab" id="tab-smartGraph">Smart Graph</a></li>
     <li><a href="#exampleGraphs" data-toggle="tab" id="tab-exampleGraphs">Examples</a></li>
   </ul>
@@ -2181,7 +2175,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
     <div class="sectionHeader pure-g">
       <div class="pure-u-1-5">
         <div class="title">
-          Coordinators
+          调度
         </div>
       </div>
 
@@ -2194,16 +2188,16 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
             </div>
           </div> <% } %> <div class="information" id="infoCoords">
           <span class="positive"><span> <%= scaleProperties.coordsOk %> </span><i class="fa fa-check-circle"></i></span> <% if (scaleProperties.coordsError) { %> <span class="negative"><span> <%= scaleProperties.coordsError %> </span><i class="fa fa-exclamation-circle"></i></span> <% } %> <% if (scaleProperties.coordsPending && scaling === true) { %> <span class="warning"><span> <%= scaleProperties.coordsPending %> </span><i class="fa fa-circle-o-notch fa-spin"></i></span>
-            <button class="abortClusterPlan button-navbar button-default">Abort</button> <% } %> </div>
+            <button class="abortClusterPlan button-navbar button-default">中止</button> <% } %> </div>
       </div>
 
     </div>
 
     <div class="pure-g cluster-nodes-title pure-table pure-table-header pure-title" style="clear: both">
       <div class="pure-table-row">
-        <div class="pure-u-10-24 left">Name</div>
-        <div class="pure-u-10-24 left">Endpoint</div>
-        <div class="pure-u-3-24 mid hide-small">Since</div>
+        <div class="pure-u-10-24 left">名字</div>
+        <div class="pure-u-10-24 left">终点</div>
+        <div class="pure-u-3-24 mid hide-small">来自</div>
         <div class="pure-u-1-24 mid"></div>
       </div>
     </div>
@@ -2265,7 +2259,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
 
   <li class="dropdown no-left-margin" style="border: 0">
     <ul class="user-dropdown-menu fixedDropdown" id="notification_menu">
-      <li class="dropdown-header"><a>Notifications</a></li>
+      <li class="dropdown-header"><a>通知</a></li>
       <ul class="innerDropdownInnerUL"></ul>
       <button id="removeAllNotifications" class="button-close">清楚</button>
     </ul>
@@ -2467,7 +2461,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
     <div id="replShell" class="replShell"/>
   </div></script><script id="spotlightView.ejs" type="text/template"><div class="spotlightWrapper">
     <div id="spotlight">
-      <input class="typeahead" type="text" placeholder="Search... ">
+      <input class="typeahead" type="text" placeholder="搜索... ">
     </div>
   </div></script><script id="statisticBarView.ejs" type="text/template"><div class="navlogo display-none">
     <a href="#dashboard" style="padding-left: 15px;">
@@ -2488,8 +2482,8 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
       <div class="breadcrumb"></div>
     </li>
     <li id="healthStatus" class="infoEntry subMenuEntry pull-right positive">
-      <a class="info health-info">HEALTH: </a>
-      <a class="state health-state">GOOD</a>
+      <a class="info health-info">健康状态: </a>
+      <a class="state health-state">好！</a>
       <a class="icon health-icon">
         <i class="fa fa-check-circle"></i>
       </a>
@@ -2498,7 +2492,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
       <a class="info">DB:</a>
       <a class="state"><span><%= currentDB.name %></span></a>
       <a class="icon db-icon default-icon">
-        <i class="fa fa-refresh"></i>      
+        <i class="fa fa-refresh"></i>
       </a>
     </li>
     <li id="userBar" class="infoEntry subMenuEntry pull-right" style="margin-right: 10px;">
@@ -2508,8 +2502,8 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
   <ul class="subMenuEntries bottom">
   </ul></script><script id="supportView.ejs" type="text/template"><div class="supportView">
     <ul class="subMenuEntries subViewNavbar">
-      <li id="documentation-support" class="subMenuEntry active"><a>Documentation</a></li>
-      <li id="community-support" class="subMenuEntry"><a>Community</a></li>
+      <li id="documentation-support" class="subMenuEntry active"><a>文档</a></li>
+      <li id="community-support" class="subMenuEntry"><a>社区</a></li>
       <li id="swagger-support" class="subMenuEntry "><a>Rest API</a></li>
     </ul>
 
@@ -2536,7 +2530,7 @@ Upload a Foxx service bundle. The Foxx service bundle should be a zip archive co
               height: 80vh;
             }
           </style>
-          <iframe class="ssaa" src="http://freeidea.win"></iframe>
+          <iframe class="ssaa" src="http://freeidea.win/wen/nosql/arngodb-aql.html"></iframe>
 
         </div>
       </div>
@@ -2556,21 +2550,21 @@ var cutByResolution = function (str) {
 %> <div class="pure-g pure-table pure-table-header pure-title no-padding">
   <div class="pure-table-row">
     <div class="pure-u-19-24">
-      <div class="title">Content</div>
+      <div class="title">内容</div>
     </div>
     <div class="pure-u-3-24">
       <div class="">_key</div>
     </div>
     <div class="pure-u-2-24">
       <div class="actions">
-        <a id="addDocumentButton" class="pull-right addButton"><span title="Add a document"><i class="fa fa-plus-circle"></i></span></a>
+        <a id="addDocumentButton" class="pull-right addButton"><span title="新建一个数据库"><i class="fa fa-plus-circle"></i></span></a>
       </div>
     </div>
   </div>
 </div>
 
 <div class="pure-g pure-table pure-table-body no-padding"> <% if (docs.length === 0) { %> <div class="pure-table-row pure-u-1-1">
-      <span class="dataTables_empty">No documents</span>
+      <span class="dataTables_empty">没有数据库</span>
     </div> <%
   }
   var odd = true;
@@ -2594,14 +2588,14 @@ var cutByResolution = function (str) {
     <div class="pure-u-2-24">
       <div class="actions">
         <a class="deleteButton">
-        <span data-original-title="Delete document" title="Delete document"><i class="fa fa-minus-circle"></i></i></span></a>
+        <span data-original-title="Delete document" title="删除数据库"><i class="fa fa-minus-circle"></i></i></span></a>
       </div>
     </div>
 
-  </div> <% 
+  </div> <%
     odd = !odd;
     });
-  %> </div></script><script id="userBarView.ejs" type="text/template"><a class="info default-icon">User: 
+  %> </div></script><script id="userBarView.ejs" type="text/template"><a class="info default-icon">User:
     <span class="toggle"> <%=_.escape(username)%> </span>
     <i id="userLogoutIcon" class="fa fa-power-off" aria-hidden="true"></i>
   </a>
@@ -2613,7 +2607,7 @@ var cutByResolution = function (str) {
         <p><% if (name) {%><%=_.escape(username)%><small> <%=_.escape(name)%> </small> <% } else {%> <%=_.escape(username)%> <% } %> </p>
     </li>
     <li class="dropdown-footer">
-      <button id="userLogout" class="button-primary btn-small pull-right">Logout</button>
+      <button id="userLogout" class="button-primary btn-small pull-right">退出登录</button>
     </li>
   </ul>
 
@@ -2639,7 +2633,7 @@ var cutByResolution = function (str) {
 
 --></script><script id="userManagementView.ejs" type="text/template"><div class="headerBar">
     <div class="search-field">
-      <input type="text" value="<%=searchString%>" id="userManagementSearchInput" class="search-input" placeholder="Search..."/>
+      <input type="text" value="<%=searchString%>" id="userManagementSearchInput" class="search-input" placeholder="搜索..."/>
       <!-- <img id="userManagementSearchSubmit" class="search-submit-icon"> -->
       <i id="userManagementSearchSubmit" class="fa fa-search"></i>
     </div>
@@ -2647,7 +2641,7 @@ var cutByResolution = function (str) {
       <ul class="headerButtonList">
         <li class="enabled">
         <a id="userManagementToggle" class="headerButton">
-          <span class="icon_avocadodb_settings2" title="Settings"></span>
+          <span class="icon_avocadodb_settings2" title="设置"></span>
         </a>
         </li>
       </ul>
@@ -2659,7 +2653,7 @@ var cutByResolution = function (str) {
 
   <div id="userManagementDropdown" class="dropdownInner">
     <ul>
-      <li class="nav-header">Sorting</li>
+      <li class="nav-header">排序</li>
 
       <!--<li><a href="#">
         <label class="checkbox checkboxLabel">
@@ -2679,7 +2673,7 @@ var cutByResolution = function (str) {
         <label class="checkbox checkboxLabel">
           <input class="css-checkbox" type="checkbox" id="userSortDesc">
           <i class="fa"></i>
-          Sort descending
+          降序排序
         </label>
       </a></li>
     </ul>
@@ -2725,9 +2719,9 @@ var cutByResolution = function (str) {
             <!-- <span class="icon_avocadodb_settings2 editUser" id="<%=_.escape(username) %>_edit-user" alt="Edit user" title="Edit user"></span> -->
           </div> <%=avatar %> <div class="tileBadge">
             <span> <%if (active) {%> <div class="corneredBadge loaded">
-                active
+                激活
               </div> <%} else {%> <div class="corneredBadge unloaded">
-                inactive
+                挂起
               </div> <%}%> </span>
           </div>
 
@@ -2738,16 +2732,16 @@ var cutByResolution = function (str) {
     <div class="pure-g pure-table pure-table-header pure-title" style="clear: both">
       <div class="pure-table-row">
         <div class="<%= genClass %> left">数据库</div>
-        <div class="<%= genClass %> mid">管理 <i class="fa fa-info-circle tippy" title="Allows creating/dropping of collections and setting user permissions in the database."></i></div>
-        <div class="<%= genClass %> mid">访问 <i class="fa fa-info-circle tippy" title="Allows access to the database. User cannot create or drop collections."></i></div>
-        <div class="<%= genClass %> mid">禁止访问 <i class="fa fa-info-circle tippy" title="User has no access to the database."></i></div>
-        <div class="<%= genClass %> mid">设置默认 <i class="fa fa-info-circle tippy" title="Access level is unspecified. Database default (*) will be used."></i></div>
+        <div class="<%= genClass %> mid">管理 <i class="fa fa-info-circle tippy" title="允许创建/删除集合并在数据库中设置用户权限。"></i></div>
+        <div class="<%= genClass %> mid">访问 <i class="fa fa-info-circle tippy" title="允许访问数据库。用户不能创建或删除集合。"></i></div>
+        <div class="<%= genClass %> mid">禁止访问 <i class="fa fa-info-circle tippy" title="用户无法访问数据库。"></i></div>
+        <div class="<%= genClass %> mid">设置默认 <i class="fa fa-info-circle tippy" title="未指定访问级别。将使用数据库默认值 (*)."></i></div>
       </div>
     </div>
 
     <div class="pure-g pure-table pure-table-body"> <% _.each(permissions, function(content, db) { %> <% var extraClass = ''; %> <% if (db.charAt(0) === '*') { %> <% extraClass = 'noAction'; %> <% } %> <div class="pure-table-row db-row noHover <%= extraClass %>" id="<%= db %>-db">
           <div class="<%= genClass2 %> left db-label"> <% if (db.charAt(0) !== '*') { %> <i class="fa fa-caret-right" style="width: 10px;"></i>
-              <i class="fa fa-caret-down" style="display: none; width: 10px;"></i> <% } %> <% if (db.charAt(0) === '*') { %> <b style="margin-right: 5px;">*</b> <i class="fa fa-info-circle tippy" title="Default access level for databases, if authentication level is not specified."></i> <% } else { %> <%= db %> <% } %> </div> <% var permissionsDB = content.permission; %> <% if (permissionsDB === 'rw') { %> <div class="<%= genClass2 %> mid">
+              <i class="fa fa-caret-down" style="display: none; width: 10px;"></i> <% } %> <% if (db.charAt(0) === '*') { %> <b style="margin-right: 5px;">*</b> <i class="fa fa-info-circle tippy" title="如果未指定身份验证级别, 则为数据库的默认访问级别。"></i> <% } else { %> <%= db %> <% } %> </div> <% var permissionsDB = content.permission; %> <% if (permissionsDB === 'rw') { %> <div class="<%= genClass2 %> mid">
               <input class="dbCheckbox readWrite" type="radio" name="<%= db %>" permission="rw" checked>
             </div>
             <div class="<%= genClass2 %> mid">
@@ -2792,7 +2786,7 @@ var cutByResolution = function (str) {
             <div class="<%= genClass %> mid inner collection-label">读/写</div>
             <div class="<%= genClass %> mid inner collection-label">只读</div>
             <div class="<%= genClass %> mid inner collection-label collection-label-last">禁止访问</div>
-            <div class="<%= genClass %> mid inner collection-label collection-label-last">设置默认</div> <% _.each(content.collections, function(permissionCollection, collectionName) { %> <% if (db.charAt(0) !== '*') { %> <% if (collectionName.charAt(0) !== '_') { %> <% if (collectionName !== '*') { %> <div class="pure-table-row noHover" id="<%=collectionName%>-collection"> <% } else { %> <div class="pure-table-row noHover" id="___-collection"> <% } %> <% if (collectionName === '*') { %> <div class="<%= genClass %> left inner"><span class="collName"><b style="margin-right: 7px"> <%= collectionName %></b></span><i class="fa fa-info-circle tippy" title="Default access level for collections in <%=db%>, if authentication level is not specified."></i></div> <% } else { %> <div class="<%= genClass %> left inner"><span class="collName"><%= collectionName %></span></div> <% } %> <% if (permissionCollection === 'rw') { %> <div class="<%= genClass %> mid inner">
+            <div class="<%= genClass %> mid inner collection-label collection-label-last">设置默认</div> <% _.each(content.collections, function(permissionCollection, collectionName) { %> <% if (db.charAt(0) !== '*') { %> <% if (collectionName.charAt(0) !== '_') { %> <% if (collectionName !== '*') { %> <div class="pure-table-row noHover" id="<%=collectionName%>-collection"> <% } else { %> <div class="pure-table-row noHover" id="___-collection"> <% } %> <% if (collectionName === '*') { %> <div class="<%= genClass %> left inner"><span class="collName"><b style="margin-right: 7px"> <%= collectionName %></b></span><i class="fa fa-info-circle tippy" title="<%=db%> 中的集合的默认访问级别 (如果未指定身份验证级别)。"></i></div> <% } else { %> <div class="<%= genClass %> left inner"><span class="collName"><%= collectionName %></span></div> <% } %> <% if (permissionCollection === 'rw') { %> <div class="<%= genClass %> mid inner">
                         <input class="collCheckbox readWrite" type="radio" db="<%= db %>" name="<%=db%>-<%=collectionName%>" collection="<%= collectionName %>" permission="<%= collectionName %>" checked>
                       </div>
                       <div class="<%= genClass %> mid inner">
@@ -2843,4 +2837,4 @@ var cutByResolution = function (str) {
   </div>
 
   <div id="workMonitorContent" class="innerContent">
-  </div></script></head><body><nav class="navbar" style="display: none"><div class="primary"><div class="navlogo"><h2>AvocadoDB</h2></div><div class="statmenu" id="statisticBar"></div><div class="navmenu" id="navigationBar"></div></div></nav><div id="modalPlaceholder"></div><div class="bodyWrapper" style="display: none"><div class="centralRow"><div id="navbar2" class="navbarWrapper secondary"><div class="subnavmenu" id="subNavigationBar"></div></div><div class="resizecontainer contentWrapper"><div id="loadingScreen" class="loadingScreen" style="display: none"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i> <span class="sr-only">Loading...</span></div><div id="content" class="centralContent"></div><footer class="footer"><div id="footerBar"></div></footer></div></div></div><div id="progressPlaceholder" style="display:none"></div><div id="spotlightPlaceholder" style="display:none"></div><div id="graphSettingsContent" style="display: none"></div><div id="filterSelectDiv" style="display:none"></div><div id="offlinePlaceholder" style="display:none"><div class="offline-div"><div class="pure-u"><div class="pure-u-1-4"></div><div class="pure-u-1-2 offline-window"><div class="offline-header"><h3>You have been disconnected from the server</h3></div><div class="offline-body"><p>The connection to the server has been lost. The server may be under heavy load.</p><p>Trying to reconnect in <span id="offlineSeconds">10</span> seconds.</p><p class="animation_state"><span><button class="button-success">Reconnect now</button></span></p></div></div><div class="pure-u-1-4"></div></div></div></div><div class="avocadoFrame" style=""><div class="outerDiv"><div class="innerDiv"></div></div></div><script src="libs.js?version=1504386121704"></script><script src="app.js?version=1504386121704"></script></body></html>
+  </div></script></head><body><nav class="navbar" style="display: none"><div class="primary"><div class="navlogo"><h2>AvocadoDB</h2></div><div class="statmenu" id="statisticBar"></div><div class="navmenu" id="navigationBar"></div></div></nav><div id="modalPlaceholder"></div><div class="bodyWrapper" style="display: none"><div class="centralRow"><div id="navbar2" class="navbarWrapper secondary"><div class="subnavmenu" id="subNavigationBar"></div></div><div class="resizecontainer contentWrapper"><div id="loadingScreen" class="loadingScreen" style="display: none"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i> <span class="sr-only">Loading...</span></div><div id="content" class="centralContent"></div><footer class="footer"><div id="footerBar"></div></footer></div></div></div><div id="progressPlaceholder" style="display:none"></div><div id="spotlightPlaceholder" style="display:none"></div><div id="graphSettingsContent" style="display: none"></div><div id="filterSelectDiv" style="display:none"></div><div id="offlinePlaceholder" style="display:none"><div class="offline-div"><div class="pure-u"><div class="pure-u-1-4"></div><div class="pure-u-1-2 offline-window"><div class="offline-header"><h3>You have been disconnected from the server</h3></div><div class="offline-body"><p>The connection to the server has been lost. The server may be under heavy load.</p><p>Trying to reconnect in <span id="offlineSeconds">10</span> seconds.</p><p class="animation_state"><span><button class="button-success">Reconnect now</button></span></p></div></div><div class="pure-u-1-4"></div></div></div></div><div class="avocadoFrame" style=""><div class="outerDiv"><div class="innerDiv"></div></div></div><script src="libs.js?version=1504531585246"></script><script src="app.js?version=1504531585246"></script></body></html>
