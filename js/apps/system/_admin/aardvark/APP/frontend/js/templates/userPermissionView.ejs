@@ -7,10 +7,10 @@
     <div class="pure-g pure-table pure-table-header pure-title" style="clear: both">
       <div class="pure-table-row">
         <div class="<%= genClass %> left">数据库</div>
-        <div class="<%= genClass %> mid">管理 <i class="fa fa-info-circle tippy" title="Allows creating/dropping of collections and setting user permissions in the database."></i></div>
-        <div class="<%= genClass %> mid">访问 <i class="fa fa-info-circle tippy" title="Allows access to the database. User cannot create or drop collections."></i></div>
-        <div class="<%= genClass %> mid">禁止访问 <i class="fa fa-info-circle tippy" title="User has no access to the database."></i></div>
-        <div class="<%= genClass %> mid">设置默认 <i class="fa fa-info-circle tippy" title="Access level is unspecified. Database default (*) will be used."></i></div>
+        <div class="<%= genClass %> mid">管理 <i class="fa fa-info-circle tippy" title="允许创建/删除集合并在数据库中设置用户权限。"></i></div>
+        <div class="<%= genClass %> mid">访问 <i class="fa fa-info-circle tippy" title="允许访问数据库。用户不能创建或删除集合。"></i></div>
+        <div class="<%= genClass %> mid">禁止访问 <i class="fa fa-info-circle tippy" title="用户无法访问数据库。"></i></div>
+        <div class="<%= genClass %> mid">设置默认 <i class="fa fa-info-circle tippy" title="未指定访问级别。将使用数据库默认值 (*)."></i></div>
       </div>
     </div>
 
@@ -29,7 +29,7 @@
               <i class="fa fa-caret-down" style="display: none; width: 10px;"></i>
             <% } %>
             <% if (db.charAt(0) === '*') { %>
-              <b style="margin-right: 5px;">*</b> <i class="fa fa-info-circle tippy" title="Default access level for databases, if authentication level is not specified."></i>
+              <b style="margin-right: 5px;">*</b> <i class="fa fa-info-circle tippy" title="如果未指定身份验证级别, 则为数据库的默认访问级别。"></i>
             <% } else { %>
               <%= db %>
             <% } %>
@@ -124,7 +124,7 @@
                   <% } %>
 
                     <% if (collectionName === '*') { %>
-                      <div class="<%= genClass %> left inner"><span class="collName"><b style="margin-right: 7px"> <%= collectionName %></b></span><i class="fa fa-info-circle tippy" title="Default access level for collections in <%=db%>, if authentication level is not specified."></i></div>
+                      <div class="<%= genClass %> left inner"><span class="collName"><b style="margin-right: 7px"> <%= collectionName %></b></span><i class="fa fa-info-circle tippy" title="<%=db%> 中的集合的默认访问级别 (如果未指定身份验证级别)。"></i></div>
                     <% } else { %>
                       <div class="<%= genClass %> left inner"><span class="collName"><%= collectionName %></span></div>
                     <% } %>

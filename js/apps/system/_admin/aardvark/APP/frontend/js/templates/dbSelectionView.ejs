@@ -1,5 +1,5 @@
 <script id="dbSelectionView.ejs" type="text/template">
-<a href="#" class="tab disabled" id="dbselection"><div class="dbselection"><i class="fa fa-database"></i><span class="db-name">DB: </span> <%=current%>
+<a href="#" class="tab disabled" id="dbselection"><div class="dbselection"><i class="fa fa-database"></i><span class="db-name">数据: </span> <%=current%>
 <!-- <i class="fa fa-caret-square-o-down"></i> -->
 </div>
 <!-- <b class="caret"></b> -->
@@ -10,7 +10,7 @@
 <%
 if (list.length > 0) {
 %>
-    <li class="dropdown-header">Databases</li>
+    <li class="dropdown-header">数据库</li>
   <%
     _.each(list, function(i) {
   %>
@@ -27,9 +27,9 @@ if (list.length > 0) {
     <% if (list.length >= 2) { %>
       <li class="divider"></li>
     <% } %>
-    <li class="dropdown-header">Manager</li>
+    <li class="dropdown-header">管理</li>
     <li id="databaseNavi" class="dropdown-item">
-      <a id="databases" class="tab" href="#databases">Manage Databases</a>
+      <a id="databases" class="tab" href="#databases">管理数据库</a>
     </li>
     <% } %>
 </ul>

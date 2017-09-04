@@ -1,7 +1,7 @@
 <script id="userManagementView.ejs" type="text/template">
   <div class="headerBar">
     <div class="search-field">
-      <input type="text" value="<%=searchString%>" id="userManagementSearchInput" class="search-input" placeholder="Search..."/>
+      <input type="text" value="<%=searchString%>" id="userManagementSearchInput" class="search-input" placeholder="搜索..."/>
       <!-- <img id="userManagementSearchSubmit" class="search-submit-icon"> -->
       <i id="userManagementSearchSubmit" class="fa fa-search"></i>
     </div>
@@ -9,7 +9,7 @@
       <ul class="headerButtonList">
         <li class="enabled">
         <a id="userManagementToggle" class="headerButton">
-          <span class="icon_avocadodb_settings2" title="Settings"></span>
+          <span class="icon_avocadodb_settings2" title="设置"></span>
         </a>
         </li>
       </ul>
@@ -21,7 +21,7 @@
 
   <div id="userManagementDropdown" class="dropdownInner">
     <ul>
-      <li class="nav-header">Sorting</li>
+      <li class="nav-header">排序</li>
 
       <!--<li><a href="#">
         <label class="checkbox checkboxLabel">
@@ -41,7 +41,7 @@
         <label class="checkbox checkboxLabel">
           <input class="css-checkbox" type="checkbox" id="userSortDesc">
           <i class="fa"></i>
-          Sort descending
+          降序排序
         </label>
       </a></li>
     </ul>
@@ -96,11 +96,11 @@
             <span>
               <%if (active) {%>
               <div class="corneredBadge loaded">
-                active
+                激活
               </div>
               <%} else {%>
               <div class="corneredBadge unloaded">
-                inactive
+                挂起
               </div>
               <%}%>
             </span>

@@ -12,7 +12,7 @@
         <th class="collectionTh"><strong><%=appInfos[1] %></strong></th>
       </tr>
       <tr>
-        <th class="collectionTh">Documentation:</th>
+        <th class="collectionTh">数据集:</th>
         <th class="collectionTh"><%=documentationJsonUrl</th>
       </tr>
       <tr>
@@ -29,13 +29,13 @@
         <th>
       </tr>
       <tr>
-        <th class="collectionTh">System:</th>
+        <th class="collectionTh">系统:</th>
         <th class="collectionTh">
           <%=attributes.isSystem ? "Yes" : "No" %>
         <th>
       </tr>
       <tr>
-        <th class="collectionTh">Status:</th>
+        <th class="collectionTh">状态:</th>
         <th class="collectionTh">
           <%if (attributes.active) {%>
             <div class="modal-text active">
@@ -43,7 +43,7 @@
             </div>
           <%} else {%>
             <div class="modal-text inactive">
-              Inactive
+              活动
             </div>
           <%}%>
         </th>
@@ -51,12 +51,12 @@
     </table>
   </div>
   <div id="colFooter" class="modal-footer">
-    <button id="uninstall" class="button-danger"<%=(attributes.isSystem || attributes.development) ? " disabled" : ""%>>Uninstall</button>
-    <button id="change" class="button-success pull-right">Save</button>
+    <button id="uninstall" class="button-danger"<%=(attributes.isSystem || attributes.development) ? " disabled" : ""%>>卸载</button>
+    <button id="change" class="button-success pull-right">保存</button>
     <%if (false && attributes.active) {%>
-      <button id="deactivate" class="button-warning pull-right" style="margin-right:8px" disabled>Deactivate</button>
+      <button id="deactivate" class="button-warning pull-right" style="margin-right:8px" disabled>停</button>
     <%} else if (false) {%>
-      <button id="activate" class="button-success pull-right" style="margin-right:8px" disabled>Activate</button>
+      <button id="activate" class="button-success pull-right" style="margin-right:8px" disabled>激活</button>
     <%}%>
 
   </div>

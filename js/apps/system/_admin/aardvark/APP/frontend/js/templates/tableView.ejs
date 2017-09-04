@@ -15,14 +15,14 @@ var cutByResolution = function (str) {
 <div class="pure-g pure-table pure-table-header pure-title no-padding">
   <div class="pure-table-row">
     <div class="pure-u-19-24">
-      <div class="title">Content</div>
+      <div class="title">内容</div>
     </div>
     <div class="pure-u-3-24">
       <div class="">_key</div>
     </div>
     <div class="pure-u-2-24">
       <div class="actions">
-        <a id="addDocumentButton" class="pull-right addButton"><span title="Add a document"><i class="fa fa-plus-circle"></i></span></a>
+        <a id="addDocumentButton" class="pull-right addButton"><span title="新建一个数据库"><i class="fa fa-plus-circle"></i></span></a>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@ var cutByResolution = function (str) {
 <div class="pure-g pure-table pure-table-body no-padding">
   <% if (docs.length === 0) { %>
     <div class="pure-table-row pure-u-1-1">
-      <span class="dataTables_empty">No documents</span>
+      <span class="dataTables_empty">没有数据库</span>
     </div>
   <%
   }
@@ -58,14 +58,14 @@ var cutByResolution = function (str) {
     <div class="pure-u-2-24">
       <div class="actions">
         <a class="deleteButton">
-        <span data-original-title="Delete document" title="Delete document"><i class="fa fa-minus-circle"></i></i></span></a>
+        <span data-original-title="Delete document" title="删除数据库"><i class="fa fa-minus-circle"></i></i></span></a>
       </div>
     </div>
 
   </div>
 
 
-  <% 
+  <%
     odd = !odd;
     });
   %>

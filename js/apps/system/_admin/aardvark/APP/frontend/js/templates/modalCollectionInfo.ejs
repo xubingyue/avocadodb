@@ -7,7 +7,7 @@
         <table id="collectionInfoTable" class="avocado-table">
           <% if (figuresData.journalSize) { %>
             <tr id="collectionSizeBox">
-              <th class="collectionInfoTh2">Journal size:</th>
+              <th class="collectionInfoTh2">日志大小:</th>
               <th class="collectionInfoTh">
                 <div id="show-collection-size" class="modal-text">
                   <%=prettyBytes(figuresData.journalSize)%>
@@ -15,7 +15,7 @@
               </th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The maximal size of a journal or datafile (in MB). Must be at least 1.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="日志或记录的最大大小 (以 MB 为单位)。必须至少1。">
                   </span>
                 </div>
               </th>
@@ -30,7 +30,7 @@
             </th>
             <th class="tooltipInfoTh">
               <div>
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Synchronize to disk before returning from a create or update of a document.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="从数据库的创建或更新返回之前同步到磁盘.">
                 </span>
               </div>
             </th>
@@ -46,7 +46,7 @@
           </tr>
 
           <tr id="collectionRevBox">
-            <th class="collectionInfoTh2">Revision:</th>
+            <th class="collectionInfoTh2">修订:</th>
             <th class="collectionInfoTh">
               <div id="show-collection-rev" class="modal-text">
                 <%=revision.revision%>
@@ -57,7 +57,7 @@
           </tr>
 
           <tr>
-            <th class="collectionInfoTh2">Type:</th>
+            <th class="collectionInfoTh2">类型:</th>
             <th class="collectionInfoTh">
               <div class="modal-text"><%=content.model.get("type")%></div>
             </th>
@@ -66,7 +66,7 @@
           </tr>
 
           <tr>
-            <th class="collectionInfoTh2">Status:</th>
+            <th class="collectionInfoTh2">状态:</th>
             <th class="collectionInfoTh">
               <div class="modal-text"><%=content.model.get("status")%></div>
             </th>
@@ -76,7 +76,7 @@
 
           <% if (figuresData.numberOfShards) { %>
             <tr>
-              <th class="collectionInfoTh2">Shards:</th>
+              <th class="collectionInfoTh2">切片:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.numberOfShards%></div>
               </th>
@@ -87,7 +87,7 @@
 
           <% if (figuresData.shardKeys) { %>
             <tr>
-              <th class="collectionInfoTh2">Shard Keys:</th>
+              <th class="collectionInfoTh2">切片 Keys:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=JSON.stringify(figuresData.shardKeys)%></div>
               </th>
@@ -98,7 +98,7 @@
 
           <% if (figuresData.replicationFactor) { %>
             <tr>
-              <th class="collectionInfoTh2">Replication factor:</th>
+              <th class="collectionInfoTh2">复制索引:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.replicationFactor%></div>
               </th>
@@ -109,7 +109,7 @@
 
           <% if (figuresData.indexBuckets) { %>
             <tr>
-              <th class="collectionInfoTh2">Index buckets:</th>
+              <th class="collectionInfoTh2">索引容器:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.indexBuckets%></div>
               </th>
@@ -120,7 +120,7 @@
           <% if (!frontendConfig.isCluster) { %>
             <% if (figuresData.figures.compactionStatus) { %>
               <tr>
-                <th class="collectionInfoTh2">Compaction status:</th>
+                <th class="collectionInfoTh2">压缩状态:</th>
                 <th class="collectionInfoTh">
                   <div class="modal-text"><%=figuresData.figures.compactionStatus.message + " (" + figuresData.figures.compactionStatus.time + ")" %></div>
                 </th>
@@ -132,7 +132,7 @@
 
           <% if (figuresData.figures.waitingFor) { %>
             <tr>
-              <th class="collectionInfoTh2">Waiting for:</th>
+              <th class="collectionInfoTh2">等待:</th>
               <th class="collectionInfoTh">
                 <div class="modal-text"><%=figuresData.figures.waitingFor%></div>
               </th>
@@ -147,20 +147,20 @@
         <% if (figuresData.figures.alive && figuresData.figures.dead) { %>
           <% if (window.frontendConfig.isCluster) { %>
             <div class="infoBox">
-              <h4>Figures</h4>
-              <p>The following information does not contain data stored in the write-ahead log. It can be inaccurate, until the write-ahead log has been completely flushed.</p>
+              <h4>信息</h4>
+              <p>以下信息不包含存储在预写日志中的数据。这可能是不准确的, 直到写前日志已完全刷新。</p>
             </div>
           <% } %>
           <table class="figures1 avocado-table">
             <tr class="figuresHeader">
-              <th>Type</th>
-              <th>Count</th>
-              <th>Size</th>
-              <th>Deletion</th>
-              <th>Info</th>
+              <th>类型</th>
+              <th>长度</th>
+              <th>大小</th>
+              <th>剔除中</th>
+              <th>信息</th>
             </tr>
             <tr>
-              <th class="modal-text">Alive</th>
+              <th class="modal-text">激活</th>
               <% if (figuresData.walMessage) { %>
                 <th class="modal-text"><%=figuresData.walMessage%></th>
               <% } else { %>
@@ -180,7 +180,7 @@
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Dead</th>
+              <th class="modal-text">挂死</th>
               <th class="modal-text">
                 <% if (figuresData.walMessage) { %>
                   <%=figuresData.walMessage%>
@@ -205,7 +205,7 @@
 
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Total number and size of all dead documents.">
+                  <span class="modalTooltips avocadoicon icon_avocadodb_info" title="所有挂死文件的总数和大小.">
                   </span>
               </div>
               </th>
@@ -218,14 +218,14 @@
         <% if (figuresData.figures.datafiles && figuresData.figures.journals && figuresData.figures.compactors) { %>
           <table class="figures2 avocado-table">
             <tr class="figuresHeader">
-              <th>Type</th>
-              <th>Count</th>
-              <th>Size</th>
+              <th>类型</th>
+              <th>长度</th>
+              <th>大小</th>
               <th></th>
-              <th>Info</th>
+              <th>信息</th>
             </tr>
             <tr>
-              <th class="modal-text">Datafiles</th>
+              <th class="modal-text">数据文件</th>
               <th class="modal-text">
                 <% if (figuresData.walMessage) { %>
                   <%=figuresData.walMessage%>
@@ -243,13 +243,13 @@
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
                 <div>
-                  <span class="modalTooltips avocadoicon icon_avocadodb_info" data-toggle="tooltip" data-placement="left" title="Number and total size of active datafiles.">
+                    <span class="modalTooltips avocadoicon icon_avocadodb_info" data-toggle="tooltip" data-placement="left" title="活动数据文件的数量和总大小.">
                   </span>
                 </div>
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Journals</th>
+              <th class="modal-text">日子</th>
               <th class="modal-text">
                 <% if (figuresData.walMessage) { %>
                   <%=figuresData.walMessage%>
@@ -266,12 +266,12 @@
               </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of journal files.">
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="日志文件的数量和总大小.">
                 </span>
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Compactors</th>
+              <th class="modal-text">压缩</th>
               <th class="modal-text">
                 <% if (figuresData.walMessage) { %>
                   <%=figuresData.walMessage%>
@@ -288,11 +288,11 @@
               </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total size of compactor files."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="压实文件的数量和总大小."></span>
               </th>
             </tr>
             <tr>
-              <th class="modal-text">Indexes</th>
+              <th class="modal-text">索引</th>
               <th class="modal-text">
                 <%=numeral(figuresData.figures.indexes.count).format('0,0')%>
               </th>
@@ -301,7 +301,7 @@
               </th>
               <th class="modal-text">&nbsp;</th>
               <th class="tooltipInfoTh">
-                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="Number and total memory usage of indexes."></span>
+                <span class="modalTooltips avocadoicon icon_avocadodb_info" title="索引的数量和总内存使用情况。"></span>
               </th>
             </tr>
           </table>
@@ -310,11 +310,11 @@
         <% if (figuresData.figures.documentReferences && figuresData.figures.uncollectedLogfileEntries) { %>
           <table class="figures3 avocado-table">
             <tr class="figuresHeader">
-              <th>Type</th>
-              <th>Count</th>
+              <th>类型</th>
+              <th>长度</th>
               <th></th>
               <th></th>
-              <th>Info</th>
+              <th>信息</th>
             </tr>
             <tr>
               <th class="modal-text">Uncollected</th>

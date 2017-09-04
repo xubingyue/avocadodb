@@ -13,7 +13,7 @@
     <div class="sectionHeader pure-g">
       <div class="pure-u-1-5">
         <div class="title">
-          Coordinators
+          调度
         </div>
       </div>
 
@@ -37,7 +37,7 @@
           <% } %>
           <% if (scaleProperties.coordsPending && scaling === true) { %>
             <span class="warning"><span> <%= scaleProperties.coordsPending %> </span><i class="fa fa-circle-o-notch fa-spin"></i></span>
-            <button class="abortClusterPlan button-navbar button-default">Abort</button>
+            <button class="abortClusterPlan button-navbar button-default">中止</button>
           <% } %>
         </div>
       </div>
@@ -46,9 +46,9 @@
 
     <div class="pure-g cluster-nodes-title pure-table pure-table-header pure-title" style="clear: both">
       <div class="pure-table-row">
-        <div class="pure-u-10-24 left">Name</div>
-        <div class="pure-u-10-24 left">Endpoint</div>
-        <div class="pure-u-3-24 mid hide-small">Since</div>
+        <div class="pure-u-10-24 left">名字</div>
+        <div class="pure-u-10-24 left">终点</div>
+        <div class="pure-u-3-24 mid hide-small">来自</div>
         <div class="pure-u-1-24 mid"></div>
       </div>
     </div>
@@ -70,7 +70,7 @@
 
           <% var formatted = (node.LastHeartbeatAcked).substr(11, 18).slice(0, -1); %>
           <div class="pure-u-3-24 hide-small mid"><%= formatted %></div>
-          
+
           <% if(node.Status === 'GOOD') { %>
             <div class="pure-u-1-24 mid state"><i class="fa fa-check-circle tippy" title="<%= node.LastHeartbeatStatus %>"></i></div>
           <% } else { %>

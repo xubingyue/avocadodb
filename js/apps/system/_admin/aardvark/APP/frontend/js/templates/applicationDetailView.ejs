@@ -4,8 +4,8 @@
 
       <ul class="subMenuEntries subViewNavbar pull-left">
         <li id="service-info" class="subMenuEntry active"><a>信息</a></li>
-        <li id="service-api" class="subMenuEntry "><a>API</a></li>
-        <li id="service-readme" class="subMenuEntry "><a>Readme</a></li>
+        <li id="service-api" class="subMenuEntry "><a>接口</a></li>
+        <li id="service-readme" class="subMenuEntry "><a>文档</a></li>
         <li id="service-settings" class="subMenuEntry "><a>设置</a></li>
       </ul>
 
@@ -13,11 +13,11 @@
         <ul class="headerButtonList">
           <li>
             <a id="app-deps" class="headerButton <%= _.isEmpty(app.get('deps')) ? 'disabled' : '' %> <%= app.hasUnconfiguredDependencies() ? 'error' : '' %>">
-              <span class="fa fa-cubes" title="Dependencies"></span>
+              <span class="fa fa-cubes" title="依赖"></span>
             </a>
           </li>
           <li id="app-scripts" class="dropdown">
-            <a class="headerButton <%= _.isEmpty(app.get('scripts')) ? 'disabled' : '' %>" title="Scripts">
+            <a class="headerButton <%= _.isEmpty(app.get('scripts')) ? 'disabled' : '' %>" title="脚本">
               <i class="fa fa-code"></i>
             </a>
             <ul class="script-dropdown-menu dropdown-toolbar dropdown-menu" id="scripts_dropdown">
@@ -30,7 +30,7 @@
           </li>
           <li>
             <a id="app-tests" class="headerButton">
-              <span class="fa fa-flask" title="Tests"></span>
+              <span class="fa fa-flask" title="测试"></span>
             </a>
           </li>
           <li>
@@ -53,10 +53,10 @@
         </div>
         <div class="header_left">
           <div id="app-warning" class="app-warning" style="display:<%=app.needsAttention()?'block':'none' %>;">
-            <h4>Out of order</h4>
-            <p id="app-warning-broken" style="display:<%=app.isBroken()?'block':'none' %>;">This service has failed to mount due to an error.</p>
-            <p id="app-warning-config" style="display:<%=app.needsConfiguration()?'block':'none' %>;">This service has not yet been configured properly.</p>
-            <p id="app-warning-deps" style="display:<%=app.hasUnconfiguredDependencies()?'block':'block' %>;">Some dependencies have not yet been set up.</p>
+            <h4>不按顺序</h4>
+            <p id="app-warning-broken" style="display:<%=app.isBroken()?'block':'none' %>;">由于错误, 此服务无法装载.</p>
+            <p id="app-warning-config" style="display:<%=app.needsConfiguration()?'block':'none' %>;">此服务尚未正确配置.</p>
+            <p id="app-warning-deps" style="display:<%=app.hasUnconfiguredDependencies()?'block':'block' %>;">尚未设置某些依赖项.</p>
           </div>
           <div class="header_line">
             <h3>
@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="header_right">
-          <input type="button" class="open button-success" disabled="true" value="Show Interface" />
+          <input type="button" class="open button-success" disabled="true" value="显示界面" />
         </div>
         <div class="information">
         </div>
@@ -91,7 +91,7 @@
     </section>
     <main>
       <div id="app-info" class="app-info" style="display: none;">
-        <h4>Info</h4>
+        <h4>信息</h4>
         <p id="app-info-swagger">尚未配置此服务的文档。</p>
       </div>
       <div id="swagger" class="swagger" style="display: none;">
@@ -103,7 +103,7 @@
       </div>
       <div id="settings" class="readme" style="display: none;">
         <% if (_.isEmpty(app.get('config'))) { %>
-          <p>No configurable settings available.</p>
+          <p>没有可用的可配置设置.</p>
         <% } %>
         <div class="buttons"></div>
       </div>
@@ -111,7 +111,7 @@
         <% if (app.get('readme')) { %>
         <%= app.get('readme') %>
         <% } else { %>
-        <p>No README data found.</p>
+        <p>没有找到readme数据.</p>
         <% } %>
       </div>
     </main>

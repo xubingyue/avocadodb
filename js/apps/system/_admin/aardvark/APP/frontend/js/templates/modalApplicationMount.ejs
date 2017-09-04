@@ -16,7 +16,7 @@
           <input type="text" id="new-app-mount" value="" placeholder="/my/foxx"></input>
         </th>
         <th>
-          <span class="modalTooltips avocadoicon icon_avocadodb_info" title="The path the app will be mounted. Has to start with /. Is not allowed to start with /_">
+          <span class="modalTooltips avocadoicon icon_avocadodb_info" title="应用程序将被安装的路径。必须从/。不允许以/_ 开头">
           </span>
         </th>
       <% } %>
@@ -24,10 +24,10 @@
   </table>
 
   <ul id="infoTab" class="nav nav-tabs">
-    <li><a href="#newApp" data-toggle="tab" id="tab-new">New Service</a></li>
-    <li class="active"><a href="#appstore" data-toggle="tab" id="tab-store"><img src="img/avocadodb_logo_small.png" alt="AvocadoDB" class="tab-icon" />Store</a></li>
-    <li><a href="#github" data-toggle="tab" id="tab-git">Github</a></li>
-    <li><a href="#zip" data-toggle="tab" id="tab-zip">Upload</a></li>
+    <li><a href="#newApp" data-toggle="tab" id="tab-new">新服务</a></li>
+    <li class="active"><a href="#appstore" data-toggle="tab" id="tab-store"><img src="img/avocadodb_logo_small.png" alt="AvocadoDB" class="tab-icon" />商店</a></li>
+    <li><a href="#github" data-toggle="tab" id="tab-git">第三方导入</a></li>
+    <li><a href="#zip" data-toggle="tab" id="tab-zip">上传</a></li>
   </ul>
 
   <div class="tab-content" id="tab-content-application-info">
@@ -36,7 +36,7 @@
       <table id="new-app-information">
         <tr class="tableRow">
           <th class="collectionInfoTh">
-            Author*:
+            作者*:
           </th>
           <th class="collectionInfoTh">
             <input type="text" id="new-app-author" value="" placeholder="Your Name">
@@ -52,7 +52,7 @@
         </tr>
         <tr class="tableRow">
           <th class="collectionInfoTh">
-            Description*:
+            描述*:
           </th>
           <th class="collectionInfoTh">
             <input type="text" id="new-app-description" value="" placeholder="Please describe your Service here">
@@ -60,7 +60,7 @@
         </tr>
         <tr class="tableRow">
           <th class="collectionInfoTh">
-            License*:
+            许可证*:
           </th>
           <th class="collectionInfoTh">
             <input type="text" id="new-app-license" value="" placeholder="Apache 2"></input>
@@ -106,7 +106,7 @@
     <div class="tab-pane active" id="appstore">
       <table id="appstore-content">
         <tr>
-          <td>Fetching data...</td>
+          <td>抓取数据中...</td>
         </tr>
       </table>
     </div>

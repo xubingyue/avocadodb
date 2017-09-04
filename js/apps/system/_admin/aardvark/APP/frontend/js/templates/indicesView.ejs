@@ -35,23 +35,23 @@
           <div id="newIndexView" class="new-index-view" style="display:none">
             <table>
               <tr>
-                <th class="collectionTh">Type:</th>
+                <th class="collectionTh">类型:</th>
                 <th class="">
                   <select id="newIndexType">
                     <% if (supported.indexOf('geo') > -1) { %>
-                      <option value="Geo">Geo Index</option>
+                      <option value="Geo">geo索引</option>
                     <% } %>
                     <% if (supported.indexOf('hash') > -1) { %>
-                      <option value="Hash">Hash Index</option>
+                      <option value="Hash">哈希索引</option>
                     <% } %>
                     <% if (supported.indexOf('persistent') > -1) { %>
-                      <option value="Persistent">Persistent Index</option>
+                      <option value="Persistent">持久 索引</option>
                     <% } %>
                     <% if (supported.indexOf('fulltext') > -1) { %>
-                      <option value="Fulltext">Fulltext Index</option>
+                      <option value="Fulltext">全文索引</option>
                     <% } %>
                     <% if (supported.indexOf('skiplist') > -1) { %>
-                      <option value="Skiplist">Skip-List Index</option>
+                      <option value="Skiplist">跳过列表 索引</option>
                     <% } %>
                   </select>
                 </th>
@@ -65,7 +65,7 @@
                   <th><input type="text" id="newGeoFields" value=""/></th>
                   <th class="tooltipInfoTh">
                     <div>
-                      <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="A comma-separated list with one or two attribute paths. Example: latitude,longitude">
+                      <a class="index-tooltip" data-toggle="tooltip" data-placement="left" title="具有一个或两个属性路径的逗号分隔列表. Example: latitude,longitude">
                         <span rel="tooltip" class="avocadoicon icon_avocadodb_info"></span>
                       </a>
                     </div>
