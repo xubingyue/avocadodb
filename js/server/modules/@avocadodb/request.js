@@ -26,7 +26,7 @@
 // / Copyright holder is triAGENS GmbH, Cologne, Germany
 // /
 // / @author Andreas Streichardt <andreas@avocadodb.com>
-// / @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
+// / @author Copyright 2016, ArangoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 const internal = require('internal');

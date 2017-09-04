@@ -13,7 +13,7 @@ configure_file("${PROJECT_SOURCE_DIR}/Installation/MacOSX/Bundle/Info.plist.in" 
 set(CPACK_BUNDLE_PLIST           "${CMAKE_CURRENT_BINARY_DIR}/Info.plist")
 
 set(CPACK_BUNDLE_PREFIX          "Contents/MacOS")
-set(CPACK_BUNDLE_APPLE_CERT_APP  "Developer ID Application: AvocadoDB GmbH (W7UC4UQXPV)")
+set(CPACK_BUNDLE_APPLE_CERT_APP  "Developer ID Application: ArangoDB GmbH (W7UC4UQXPV)")
 set(CPACK_INSTALL_PREFIX         "${CPACK_PACKAGE_NAME}.app/${CPACK_BUNDLE_PREFIX}${CMAKE_INSTALL_PREFIX}")
 
 set(INST_USR_LIBDIR "/Library/AvocadoDB")

@@ -5,7 +5,7 @@
 // //////////////////////////////////////////////////////////////////////////////
 // / DISCLAIMER
 // /
-// / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
+// / Copyright 2016 ArangoDB GmbH, Cologne, Germany
 // / Copyright 2014 triagens GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
@@ -20,7 +20,7 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
+// / Copyright holder is ArangoDB GmbH, Cologne, Germany
 // /
 // / @author Manuel Baesler
 // //////////////////////////////////////////////////////////////////////////////

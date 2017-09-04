@@ -108,7 +108,7 @@ else ()
   set(CPACK_SET_DESTDIR ON)
 endif ()
 
-set(CPACK_PACKAGE_VENDOR  "AvocadoDB GmbH")
+set(CPACK_PACKAGE_VENDOR  "ArangoDB GmbH")
 set(CPACK_PACKAGE_CONTACT "info@avocadodb.com")
 set(CPACK_PACKAGE_VERSION "${LINENOISE_VERSION}")
 

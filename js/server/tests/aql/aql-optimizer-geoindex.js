@@ -25,10 +25,10 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 ///
-/// Copyright holder is AvocadoDB GmbH, Cologne, Germany
+/// Copyright holder isArangoDB GmbH, Cologne, Germany
 ///
 /// @author Jan Christoph Uhde
-/// @author Copyright 2016, AvocadoDB GmbH, Cologne, Germany
+/// @author Copyright 2016,ArangoDB GmbH, Cologne, Germany
 ////////////////////////////////////////////////////////////////////////////////
 
 const expect = require('chai').expect;

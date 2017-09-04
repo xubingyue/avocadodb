@@ -21,7 +21,7 @@ md cluster\js\app
 
 :: Find AvocadoDB installation
 ::SETLOCAL ENABLEEXTENSIONS
-SET KEY_NAME="HKEY_LOCAL_MACHINE\SOFTWARE\AvocadoDB GmbH"
+SET KEY_NAME="HKEY_LOCAL_MACHINE\SOFTWARE\ArangoDB GmbH"
 FOR /F "usebackq tokens=4,* skip=2" %%L IN (
     `REG QUERY %KEY_NAME% /s`
 ) DO SET tmp=%%M

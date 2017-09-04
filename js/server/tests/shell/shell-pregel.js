@@ -9,7 +9,7 @@
 // /
 // / DISCLAIMER
 // /
-// / Copyright 2014 AvocadoDB GmbH, Cologne, Germany
+// / Copyright 2014ArangoDB GmbH, Cologne, Germany
 // /
 // / Licensed under the Apache License, Version 2.0 (the "License")
 // / you may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@
 // / See the License for the specific language governing permissions and
 // / limitations under the License.
 // /
-// / Copyright holder is AvocadoDB GmbH, Cologne, Germany
+// / Copyright holder isArangoDB GmbH, Cologne, Germany
 // /
 // / @author Simon Grätzer
-// / @author Copyright 2017, AvocadoDB GmbH, Cologne, Germany
+// / @author Copyright 2017,ArangoDB GmbH, Cologne, Germany
 // //////////////////////////////////////////////////////////////////////////////
 
 var jsunity = require("jsunity");
@@ -70,13 +70,13 @@ function testAlgo(a, p) {
 function basicTestSuite () {
   'use strict';
   return {
-    
+
     ////////////////////////////////////////////////////////////////////////////////
     /// @brief set up
     ////////////////////////////////////////////////////////////////////////////////
-    
+
     setUp : function () {
-      
+
       var exists = graph_module._list().indexOf("demo") !== -1;
       if (exists || db.demo_v) {
         return;
@@ -89,14 +89,14 @@ function basicTestSuite () {
                                replicationFactor: 1,
                                shardKeys:["vertex"],
                                distributeShardsLike:vColl});
-      
+
       var rel = graph_module._relation(eColl, [vColl], [vColl]);
       graph._extendEdgeDefinitions(rel);
-      
+
       var vertices = db[vColl];
       var edges = db[eColl];
-    
-    
+
+
       var A = vertices.insert({_key:'A', sssp:3, pagerank:0.027645934})._id;
       var B = vertices.insert({_key:'B', sssp:2, pagerank:0.3241496})._id;
       var C = vertices.insert({_key:'C', sssp:3, pagerank:0.289220})._id;
@@ -127,23 +127,23 @@ function basicTestSuite () {
       edges.insert({_from:J, _to:E, vertex:'J'});
       edges.insert({_from:K, _to:E, vertex:'K'});
     },
-    
+
     ////////////////////////////////////////////////////////////////////////////////
     /// @brief tear down
     ////////////////////////////////////////////////////////////////////////////////
-    
+
     tearDown : function () {
       graph_module._drop(graphName, true);
     },
-    
+
     testSSSPNormal: function () {
       testAlgo("sssp", {async:false, source:vColl + "/K"});
     },
-    
+
     testSSSPAsync: function () {
       testAlgo("sssp", {async:true, source:vColl + "/K"});
     },
-    
+
     testPageRank: function () {
       // should test correct convergence behaviour, might fail if EPS is too low
       testAlgo("pagerank", {threshold:EPS / 10});
@@ -155,27 +155,27 @@ function basicTestSuite () {
 function exampleTestSuite () {
   'use strict';
   return {
-    
+
     ////////////////////////////////////////////////////////////////////////////////
     /// @brief set up
     ////////////////////////////////////////////////////////////////////////////////
-    
+
     setUp : function () {
-      var examples = require("@avocadodb/graph-examples/example-graph.js"); 
+      var examples = require("@avocadodb/graph-examples/example-graph.js");
       var graph = examples.loadGraph("social");
     },
-    
+
     ////////////////////////////////////////////////////////////////////////////////
     /// @brief tear down
     ////////////////////////////////////////////////////////////////////////////////
-    
+
     tearDown : function () {
       graph_module._drop("social", true);
     },
-    
+
     testSocial: function () {
-      var key = db._pregelStart("effectivecloseness", 
-                                ['female', 'male'], ['relation'], 
+      var key = db._pregelStart("effectivecloseness",
+                                ['female', 'male'], ['relation'],
                                 {resultField: "closeness"});
       var i = 10000;
       do {

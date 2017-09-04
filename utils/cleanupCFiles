@@ -2,7 +2,7 @@
 ################################################################################
 ### DISCLAIMER
 ###
-### Copyright holder is AvocadoDB GmbH, Cologne, Germany
+### Copyright holder is ArangoDB GmbH, Cologne, Germany
 ###
 ### @author Dr. Frank Celler
 ################################################################################
@@ -246,7 +246,7 @@ sub formatFile ($$$) {
         my $y1 = "$1";  
 
         if ($y1 != $year) {
-          $line = "/// Copyright $y1-$year AvocadoDB GmbH, Cologne, Germany"
+          $line = "/// Copyright $y1-$year ArangoDB GmbH, Cologne, Germany"
         }
         
         $copyrightLines = $copyrightLines . $line . "\n";
@@ -258,7 +258,7 @@ sub formatFile ($$$) {
         my $y2 = "$2";  
 
         if ($y2 != $year) {
-          $line = "/// Copyright $y1-$year AvocadoDB GmbH, Cologne, Germany"
+          $line = "/// Copyright $y1-$year ArangoDB GmbH, Cologne, Germany"
         }
 
         $copyrightLines = $copyrightLines . $line . "\n";
@@ -325,7 +325,7 @@ sub formatFile ($$$) {
 	print $out "///\n";
 	print $out "$disclaimerText";
 	print $out "///\n";
-	print $out "/// Copyright holder is AvocadoDB GmbH, Cologne, Germany\n";
+	print $out "/// Copyright holder is ArangoDB GmbH, Cologne, Germany\n";
 	print $out "///\n";
 
 	$disclaimerDone = 1;

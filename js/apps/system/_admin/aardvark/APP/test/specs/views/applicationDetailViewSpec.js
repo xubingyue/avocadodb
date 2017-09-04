@@ -27,7 +27,7 @@
       div.id = 'content';
       document.body.appendChild(div);
       appDummy = new window.Foxx({
-        'author': 'AvocadoDB GmbH',
+        'author': 'ArangoDB GmbH',
         'name': 'MyApp',
         'mount': '/my/app',
         'version': '1.0.0',

@@ -32,7 +32,7 @@ def genJsFile(types):
   out = jslint \
       + prologue\
       + "exports.mimeTypes = {\n"
-  
+
   extensions = { }
   # print individual mimetypes
   i = 0
@@ -45,7 +45,7 @@ def genJsFile(types):
       extensions[mimetype] = [ ]
 
     extensions[mimetype].append(extension)
-    i = i + 1 
+    i = i + 1
 
     if i < len(types):
       out = out + ", \n"
@@ -60,13 +60,13 @@ def genJsFile(types):
   for e in extensions:
 
     out = out + "  \"" + e + "\": [ \"" + "\", \"".join(extensions[e]) + "\" ]"
-    i = i + 1 
+    i = i + 1
 
     if i < len(extensions):
       out = out + ", \n"
     else:
       out = out + "\n"
-      
+
   out = out + "};\n\n"
 
   return out
@@ -115,7 +115,7 @@ def genCFile(types, filename):
   return impl
 
 
-# define some globals 
+# define some globals
 prologue = "////////////////////////////////////////////////////////////////////////////////\n"\
          + "/// AUTO-GENERATED FILE GENERATED FROM mimetypes.dat\n"\
          + "////////////////////////////////////////////////////////////////////////////////\n"\
@@ -123,7 +123,7 @@ prologue = "////////////////////////////////////////////////////////////////////
          + "////////////////////////////////////////////////////////////////////////////////\n"\
          + "/// DISCLAIMER\n"\
          + "///\n"\
-         + "/// Copyright 2014-2016 AvocadoDB GmbH, Cologne, Germany\n"\
+         + "/// Copyright 2014-2016 ArangoDB GmbH, Cologne, Germany\n"\
          + "/// Copyright 2004-2014 triAGENS GmbH, Cologne, Germany\n"\
          + "///\n"\
          + "/// Licensed under the Apache License, Version 2.0 (the \"License\");\n"\
@@ -138,9 +138,9 @@ prologue = "////////////////////////////////////////////////////////////////////
          + "/// See the License for the specific language governing permissions and\n"\
          + "/// limitations under the License.\n"\
          + "///\n"\
-         + "/// Copyright holder is AvocadoDB GmbH, Cologne, Germany\n"\
+         + "/// Copyright holder is ArangoDB GmbH, Cologne, Germany\n"\
          + "////////////////////////////////////////////////////////////////////////////////\n"\
- 
+
 if len(sys.argv) < 3:
   print >> sys.stderr, "usage: %s <sourcefile> <outfile>" % sys.argv[0]
   sys.exit()
@@ -188,4 +188,3 @@ else:
 outFile = open(outfile, "wb")
 outFile.write(out);
 outFile.close()
-

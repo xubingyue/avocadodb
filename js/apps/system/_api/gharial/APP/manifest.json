@@ -1,7 +1,7 @@
 {
   "name": "gharial",
   "description": "AvocadoDB Graph Module",
-  "author": "AvocadoDB GmbH",
+  "author": "ArangoDB GmbH",
   "version": "3.0.0",
   "license": "Apache-2.0",
 

@@ -8,7 +8,7 @@
   // //////////////////////////////////////////////////////////////////////////////
   // / DISCLAIMER
   // /
-  // / Copyright 2016 AvocadoDB GmbH, Cologne, Germany
+  // / Copyright 2016 ArangoDB GmbH, Cologne, Germany
   // /
   // / Licensed under the Apache License, Version 2.0 (the "License")
   // / you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
   // / Copyright holder is triAGENS GmbH, Cologne, Germany
   // /
   // / @author Alan Plum
-  // / @author Copyright 2015-2016, AvocadoDB GmbH, Cologne, Germany
+  // / @author Copyright 2015-2016, ArangoDB GmbH, Cologne, Germany
   // /
   // / Based on Node.js 4.1.0 /lib/module.js:
   // /

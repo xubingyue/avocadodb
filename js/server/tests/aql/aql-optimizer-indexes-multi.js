@@ -11,7 +11,7 @@
 /// DISCLAIMER
 ///
 /// Copyright 2010-2015 triagens GmbH, Cologne, Germany
-/// Copyright 2010-2015 AvocadoDB GmbH, Cologne, Germany
+/// Copyright 2010-2015ArangoDB GmbH, Cologne, Germany
 ///
 /// Licensed under the Apache License, Version 2.0 (the "License");
 /// you may not use this file except in compliance with the License.
