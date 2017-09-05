@@ -34,6 +34,10 @@ AvocadoDB的主要特点
 
 ![](Documentation/2.png)
 
+#   下载最新的编译包
+
+[点击下载](https://github.com/avocadodb/avocadodb/releases)
+
 #   驱动　　　
 
 [驱动](https://www.arangodb.com/arangodb-drivers/)
