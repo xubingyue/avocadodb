@@ -42,9 +42,10 @@ AvocadoDB的主要特点
 
 [驱动](https://www.arangodb.com/arangodb-drivers/)
 
-#    AQL用法
+#    文档
 
 [AQL中文文档](Documentation/AQL.md)
+[配置集群](http://freeidea.win/wen/nosql/avocadoc.html)
 
 #   编译方法
 
