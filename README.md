@@ -1,14 +1,20 @@
 
 AvocadoDB
 ========
-v0.1
 
 
-avocadodb是具有灵活的数据模型
-原生支持restful-api
-文档、图表和k/v多结构的开源数据库。
-使用Aql构建高性能应用程序
-方便的sql查询语言或JavaScript扩展。
+
+avocadodb是具有灵活的数据模型的开源本地化数据库
+
+原生支持restful-api。
+
+支持 文档、图表和k/v多结构。
+
+使用Aql构建高性能应用程序。
+
+sql查询语言简单方便。
+
+可使用JavaScript扩展。
 
 
 AvocadoDB的主要特点
@@ -58,7 +64,7 @@ mkdir -p build
 
 #  驱动
 
-完全兼容ａｒａｎｇｄｏｄｂ协议　　毕竟暂时只汉化了界面
+完全兼容arangodb
 
 
 - 致谢[arangodb](https://github.com/arangodb/arangodb)
