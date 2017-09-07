@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* jshint unused: false */
 /* global Backbone, templateEngine, $, window, avocadoHelper, _ */
-(function () {
+(function() {
   'use strict';
   window.NavigationView = Backbone.View.extend({
     el: '#navigationBar',
@@ -20,11 +20,11 @@
     renderFirst: true,
     activeSubMenu: undefined,
 
-    changeDB: function () {
+    changeDB: function() {
       window.location.hash = '#login';
     },
 
-    initialize: function (options) {
+    initialize: function(options) {
       var self = this;
 
       this.userCollection = options.userCollection;
@@ -47,23 +47,23 @@
 
       this.handleKeyboardHotkeys();
 
-      Backbone.history.on('all', function () {
+      Backbone.history.on('all', function() {
         self.selectMenuItem();
       });
     },
 
-    showShortcutModal: function () {
+    showShortcutModal: function() {
       avocadoHelper.hotkeysFunctions.showHotkeysModal();
     },
 
-    handleSelectDatabase: function () {
+    handleSelectDatabase: function() {
       this.dbSelectionView.render($('#dbSelect'));
     },
 
     template: templateEngine.createTemplate('navigationView.ejs'),
     templateSub: templateEngine.createTemplate('subNavigationView.ejs'),
 
-    render: function () {
+    render: function() {
       var self = this;
 
       $(this.el).html(this.template.render({
@@ -82,7 +82,7 @@
       this.dbSelectionView.render($('#dbSelect'));
       // this.notificationView.render($("#notificationBar"))
 
-      var callback = function (error) {
+      var callback = function(error) {
         if (!error) {
           this.userBarView.render();
         }
@@ -96,11 +96,11 @@
 
         this.selectMenuItem();
 
-        $('.avocadodbLogo').on('click', function () {
+        $('.avocadodbLogo').on('click', function() {
           self.selectMenuItem();
         });
 
-        $('#dbStatus').on('click', function () {
+        $('#dbStatus').on('click', function() {
           self.changeDB();
         });
       }
@@ -108,10 +108,14 @@
       self.resize();
 
       if (window.frontendConfig.isEnterprise === true) {
-        $('#AvocadoDBLogo').after('<span id="enterpriseLabel" style="display: none">Enterprise Edition</span>');
+        $('#AvocadoDBLogo').after(
+          '<span id="enterpriseLabel" style="display: none">Enterprise Edition</span>'
+        );
         $('#enterpriseLabel').fadeIn('slow');
       } else {
-        $('#AvocadoDBLogo').after('<span id="communityLabel" style="display: none">Community Edition</span>');
+        $('#AvocadoDBLogo').after(
+          '<span id="communityLabel" style="display: none">Community Edition</span>'
+        );
         $('#communityLabel').fadeIn('slow');
         $('.enterprise-menu').show();
       }
@@ -119,23 +123,26 @@
       return this;
     },
 
-    resize: function () {
+    resize: function() {
       // set menu sizes - responsive
       var height = $(window).height() - $('.subMenuEntries').first().height();
       $('#navigationBar').css('min-height', height);
       $('#navigationBar').css('height', height);
     },
 
-    navigateBySelect: function () {
-      var navigateTo = $('#avocadoCollectionSelect').find('option:selected').val();
-      window.App.navigate(navigateTo, {trigger: true});
+    navigateBySelect: function() {
+      var navigateTo = $('#avocadoCollectionSelect').find(
+        'option:selected').val();
+      window.App.navigate(navigateTo, {
+        trigger: true
+      });
     },
 
-    handleKeyboardHotkeys: function () {
+    handleKeyboardHotkeys: function() {
       avocadoHelper.enableKeyboardHotkeys(true);
     },
 
-    navigateByTab: function (e) {
+    navigateByTab: function(e) {
       var tab = e.target || e.srcElement;
       var navigateTo = tab.id;
       var dropdown = false;
@@ -167,14 +174,16 @@
       }
 
       if (!dropdown) {
-        window.App.navigate(navigateTo, {trigger: true});
+        window.App.navigate(navigateTo, {
+          trigger: true
+        });
         e.preventDefault();
       }
     },
 
-    handleSelectNavigation: function () {
+    handleSelectNavigation: function() {
       var self = this;
-      $('#avocadoCollectionSelect').change(function () {
+      $('#avocadoCollectionSelect').change(function() {
         self.navigateBySelect();
       });
     },
@@ -185,51 +194,42 @@
     },
 
     subMenuConfig: {
-      cluster: [
-        {
-          name: 'Dashboard',
-          view: undefined,
+      cluster: [{
+        name: '仪表盘',
+        view: undefined,
+        active: true
+      }, {
+        name: '日志',
+        view: undefined,
+        disabled: true
+      }],
+      collections: [{
+        name: '',
+        view: undefined,
+        active: false
+      }],
+      queries: [{
+        name: '编辑',
+        route: 'query',
+        active: true
+      }, {
+        name: '正在查询中',
+        route: 'queryManagement',
+        params: {
           active: true
         },
-        {
-          name: 'Logs',
-          view: undefined,
-          disabled: true
-        }
-      ],
-      collections: [
-        {
-          name: '',
-          view: undefined,
+        active: undefined
+      }, {
+        name: '查询历史',
+        route: 'queryManagement',
+        params: {
           active: false
-        }
-      ],
-      queries: [
-        {
-          name: 'Editor',
-          route: 'query',
-          active: true
         },
-        {
-          name: 'Running Queries',
-          route: 'queryManagement',
-          params: {
-            active: true
-          },
-          active: undefined
-        },
-        {
-          name: 'Slow Query History',
-          route: 'queryManagement',
-          params: {
-            active: false
-          },
-          active: undefined
-        }
-      ]
+        active: undefined
+      }]
     },
 
-    renderSubMenu: function (id) {
+    renderSubMenu: function(id) {
       var self = this;
 
       if (id === undefined) {
@@ -244,7 +244,7 @@
         $(this.subEl + ' .bottom').html('');
         var cssclass = '';
 
-        _.each(this.subMenuConfig[id], function (menu) {
+        _.each(this.subMenuConfig[id], function(menu) {
           if (menu.active) {
             cssclass = 'active';
           } else {
@@ -255,14 +255,17 @@
           }
 
           $(self.subEl + ' .bottom').append(
-            '<li class="subMenuEntry ' + cssclass + '"><a>' + menu.name + '</a></li>'
+            '<li class="subMenuEntry ' + cssclass + '"><a>' +
+            menu.name + '</a></li>'
           );
           if (!menu.disabled) {
-            $(self.subEl + ' .bottom').children().last().bind('click', function (elem) {
-              $('#subNavigationBar .breadcrumb').html('');
-              self.activeSubMenu = menu;
-              self.renderSubView(menu, elem);
-            });
+            $(self.subEl + ' .bottom').children().last().bind(
+              'click',
+              function(elem) {
+                $('#subNavigationBar .breadcrumb').html('');
+                self.activeSubMenu = menu;
+                self.renderSubView(menu, elem);
+              });
           }
         });
       } else {
@@ -272,7 +275,7 @@
       }
     },
 
-    renderSubView: function (menu, element) {
+    renderSubView: function(menu, element) {
       // trigger routers route
       if (window.App[menu.route]) {
         if (window.App[menu.route].resetState) {
@@ -286,11 +289,13 @@
       $(element.currentTarget).addClass('active');
     },
 
-    switchTab: function (e) {
+    switchTab: function(e) {
       var id = $(e.currentTarget).children().first().attr('id');
 
       if (id === 'enterprise') {
-        window.open('https://www.avocadodb.com/download-avocadodb-enterprise/', '_blank');
+        window.open(
+          'https://www.avocadodb.com/download-avocadodb-enterprise/',
+          '_blank');
         return;
       }
 
@@ -311,7 +316,7 @@
     },
     */
 
-    selectMenuItem: function (menuItem, noMenuEntry) {
+    selectMenuItem: function(menuItem, noMenuEntry) {
       if (menuItem === undefined) {
         menuItem = window.location.hash.split('/')[0];
         menuItem = menuItem.substr(1, menuItem.length - 1);
@@ -338,7 +343,8 @@
       $('.navlist li').removeClass('active');
       if (typeof menuItem === 'string') {
         if (noMenuEntry) {
-          $('.' + this.subViewConfig[menuItem] + '-menu').addClass('active');
+          $('.' + this.subViewConfig[menuItem] + '-menu').addClass(
+            'active');
         } else if (menuItem) {
           $('.' + menuItem).addClass('active');
           $('.' + menuItem + '-menu').addClass('active');
@@ -347,23 +353,26 @@
       avocadoHelper.hideAvocadoNotifications();
     },
 
-    showSubDropdown: function (e) {
+    showSubDropdown: function(e) {
       $(e.currentTarget).find('.subBarDropdown').toggle();
     },
 
-    showDropdown: function (e) {
+    showDropdown: function(e) {
       var tab = e.target || e.srcElement;
       var navigateTo = tab.id;
-      if (navigateTo === 'links' || navigateTo === 'link_dropdown' || e.currentTarget.id === 'links') {
+      if (navigateTo === 'links' || navigateTo === 'link_dropdown' || e
+        .currentTarget.id === 'links') {
         $('#link_dropdown').fadeIn(1);
-      } else if (navigateTo === 'tools' || navigateTo === 'tools_dropdown' || e.currentTarget.id === 'tools') {
+      } else if (navigateTo === 'tools' || navigateTo ===
+        'tools_dropdown' || e.currentTarget.id === 'tools') {
         $('#tools_dropdown').fadeIn(1);
-      } else if (navigateTo === 'dbselection' || navigateTo === 'dbs_dropdown' || e.currentTarget.id === 'dbselection') {
+      } else if (navigateTo === 'dbselection' || navigateTo ===
+        'dbs_dropdown' || e.currentTarget.id === 'dbselection') {
         $('#dbs_dropdown').fadeIn(1);
       }
     },
 
-    hideDropdown: function (e) {
+    hideDropdown: function(e) {
       // var tab = e.target || e.srcElement;
       // tab = $(tab).parent();
       $('#link_dropdown').fadeOut(1);

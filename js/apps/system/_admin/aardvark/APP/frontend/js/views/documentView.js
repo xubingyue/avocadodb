@@ -3,10 +3,10 @@
 /* global Backbone, $, localStorage, window, avocadoHelper, templateEngine, JSONEditor */
 /* global document, _ */
 
-(function () {
+(function() {
   'use strict';
 
-  var createDocumentLink = function (id) {
+  var createDocumentLink = function(id) {
     var split = id.split('/');
     return 'collection/' +
       encodeURIComponent(split[0]) + '/' +
@@ -36,7 +36,7 @@
       'click #addDocument': 'addDocument'
     },
 
-    remove: function () {
+    remove: function() {
       this.$el.empty().off(); /* off to unbind the events */
       this.stopListening();
       this.unbind();
@@ -44,36 +44,36 @@
       return this;
     },
 
-    checkSearchBox: function (e) {
+    checkSearchBox: function(e) {
       if ($(e.currentTarget).val() === '') {
         this.editor.expandAll();
       }
     },
 
-    initialize: function () {
+    initialize: function() {
       var mode = localStorage.getItem('JSONEditorMode');
       if (mode) {
         this.defaultMode = mode;
       }
     },
 
-    addDocument: function (e) {
+    addDocument: function(e) {
       if (!this.readOnly) {
         window.App.documentsView.addDocumentModal(e);
       }
     },
 
-    storeMode: function () {
+    storeMode: function() {
       var self = this;
 
-      $('.type-modes').on('click', function (elem) {
+      $('.type-modes').on('click', function(elem) {
         var mode = $(elem.currentTarget).text().toLowerCase();
         localStorage.setItem('JSONEditorMode', mode);
         self.defaultMode = mode;
       });
     },
 
-    keyPress: function (e) {
+    keyPress: function(e) {
       if (e.ctrlKey && e.keyCode === 13) {
         e.preventDefault();
         this.saveDocument();
@@ -85,8 +85,8 @@
 
     editor: 0,
 
-    setType: function () {
-      var callback = function (error, data, type) {
+    setType: function() {
+      var callback = function(error, data, type) {
         if (error) {
           avocadoHelper.avocadoError('Error', 'Could not fetch data.');
         } else {
@@ -94,16 +94,18 @@
           this.breadcrumb();
           this.fillInfo();
           this.fillEditor();
-          avocadoHelper.checkCollectionPermissions(this.colid, this.changeViewToReadOnly.bind(this));
+          avocadoHelper.checkCollectionPermissions(this.colid, this.changeViewToReadOnly
+            .bind(this));
         }
       }.bind(this);
 
       this.collection.getDocument(this.colid, this.docid, callback);
     },
 
-    deleteDocumentModal: function () {
+    deleteDocumentModal: function() {
       if (!this.readOnly) {
-        var buttons = []; var tableContent = [];
+        var buttons = [];
+        var tableContent = [];
         tableContent.push(
           window.modalView.createReadOnlyEntry(
             'doc-delete-button',
@@ -116,45 +118,53 @@
           )
         );
         buttons.push(
-          window.modalView.createDeleteButton('Delete', this.deleteDocument.bind(this))
+          window.modalView.createDeleteButton('删除', this.deleteDocument
+            .bind(this))
         );
-        window.modalView.show('modalTable.ejs', 'Delete Document', buttons, tableContent);
+        window.modalView.show('modalTable.ejs', 'Delete Document',
+          buttons, tableContent);
       }
     },
 
-    deleteDocument: function () {
-      var successFunction = function () {
+    deleteDocument: function() {
+      var successFunction = function() {
         if (this.customView) {
           this.customDeleteFunction();
         } else {
-          var navigateTo = 'collection/' + encodeURIComponent(this.colid) + '/documents/1';
+          var navigateTo = 'collection/' + encodeURIComponent(this.colid) +
+            '/documents/1';
           window.modalView.hide();
-          window.App.navigate(navigateTo, {trigger: true});
+          window.App.navigate(navigateTo, {
+            trigger: true
+          });
         }
       }.bind(this);
 
       if (this.type._from && this.type._to) {
-        var callbackEdge = function (error) {
+        var callbackEdge = function(error) {
           if (error) {
-            avocadoHelper.avocadoError('Edge error', 'Could not delete edge');
+            avocadoHelper.avocadoError('Edge error',
+              'Could not delete edge');
           } else {
             successFunction();
           }
         };
         this.collection.deleteEdge(this.colid, this.docid, callbackEdge);
       } else {
-        var callbackDoc = function (error) {
+        var callbackDoc = function(error) {
           if (error) {
-            avocadoHelper.avocadoError('Error', 'Could not delete document');
+            avocadoHelper.avocadoError('Error',
+              'Could not delete document');
           } else {
             successFunction();
           }
         };
-        this.collection.deleteDocument(this.colid, this.docid, callbackDoc);
+        this.collection.deleteDocument(this.colid, this.docid,
+          callbackDoc);
       }
     },
 
-    navigateToDocument: function (e) {
+    navigateToDocument: function(e) {
       var navigateTo = $(e.target).attr('documentLink');
       var test = (navigateTo.split('%').length - 1) % 3;
 
@@ -163,11 +173,13 @@
       }
 
       if (navigateTo) {
-        window.App.navigate(navigateTo, {trigger: true});
+        window.App.navigate(navigateTo, {
+          trigger: true
+        });
       }
     },
 
-    fillInfo: function () {
+    fillInfo: function() {
       var mod = this.collection.first();
       var _id = mod.get('_id');
       var _key = mod.get('_key');
@@ -194,22 +206,23 @@
       }
     },
 
-    fillEditor: function () {
+    fillEditor: function() {
       var toFill = this.removeReadonlyKeys(this.collection.first().attributes);
-      $('.disabledBread').last().text(this.collection.first().get('_key'));
+      $('.disabledBread').last().text(this.collection.first().get(
+        '_key'));
       this.editor.set(toFill);
       $('.ace_content').attr('font-size', '11pt');
     },
 
-    jsonContentChanged: function () {
+    jsonContentChanged: function() {
       this.enableSaveButton();
     },
 
-    resize: function () {
+    resize: function() {
       $('#documentEditor').height($('.centralRow').height() - 300);
     },
 
-    render: function () {
+    render: function() {
       $(this.el).html(this.template.render({}));
 
       $('#documentEditor').height($('.centralRow').height() - 300);
@@ -219,14 +232,14 @@
 
       var container = document.getElementById('documentEditor');
       var options = {
-        onChange: function () {
+        onChange: function() {
           self.jsonContentChanged();
         },
         search: true,
         mode: 'tree',
         modes: ['tree', 'code'],
         ace: window.ace
-        // iconlib: 'fontawesome4'
+          // iconlib: 'fontawesome4'
       };
 
       this.editor = new JSONEditor(container, options);
@@ -237,10 +250,11 @@
       return this;
     },
 
-    changeViewToReadOnly: function () {
+    changeViewToReadOnly: function() {
       this.readOnly = true;
       // breadcrumb
-      $('.breadcrumb').find('a').html($('.breadcrumb').find('a').html() + ' (read-only)');
+      $('.breadcrumb').find('a').html($('.breadcrumb').find('a').html() +
+        ' (read-only)');
       // editor read only mode
       this.editor.setMode('view');
       $('.jsoneditor-modes').hide();
@@ -251,20 +265,21 @@
       $('#addDocument').addClass('disabled');
     },
 
-    cleanupEditor: function () {
+    cleanupEditor: function() {
       if (this.editor) {
         this.editor.destroy();
       }
     },
 
-    removeReadonlyKeys: function (object) {
+    removeReadonlyKeys: function(object) {
       return _.omit(object, ['_key', '_id', '_from', '_to', '_rev']);
     },
 
-    saveDocument: function () {
+    saveDocument: function() {
       if ($('#saveDocumentButton').attr('disabled') === undefined) {
         if (this.collection.first().attributes._id.substr(0, 1) === '_') {
-          var buttons = []; var tableContent = [];
+          var buttons = [];
+          var tableContent = [];
           tableContent.push(
             window.modalView.createReadOnlyEntry(
               'doc-save-system-button',
@@ -277,16 +292,18 @@
             )
           );
           buttons.push(
-            window.modalView.createSuccessButton('Save', this.confirmSaveDocument.bind(this))
+            window.modalView.createSuccessButton('Save', this.confirmSaveDocument
+              .bind(this))
           );
-          window.modalView.show('modalTable.ejs', 'Modify System Collection', buttons, tableContent);
+          window.modalView.show('modalTable.ejs',
+            'Modify System Collection', buttons, tableContent);
         } else {
           this.confirmSaveDocument();
         }
       }
     },
 
-    confirmSaveDocument: function () {
+    confirmSaveDocument: function() {
       window.modalView.hide();
 
       var model;
@@ -302,7 +319,7 @@
       model = JSON.stringify(model);
 
       if (this.type === 'edge' || this.type._from) {
-        var callbackE = function (error, data) {
+        var callbackE = function(error, data) {
           if (error) {
             avocadoHelper.avocadoError('Error', data.responseJSON.errorMessage);
           } else {
@@ -311,9 +328,11 @@
           }
         }.bind(this);
 
-        this.collection.saveEdge(this.colid, this.docid, $('#document-from').html(), $('#document-to').html(), model, callbackE);
+        this.collection.saveEdge(this.colid, this.docid, $(
+            '#document-from').html(), $('#document-to').html(), model,
+          callbackE);
       } else {
-        var callback = function (error, data) {
+        var callback = function(error, data) {
           if (error) {
             avocadoHelper.avocadoError('Error', data.responseJSON.errorMessage);
           } else {
@@ -322,41 +341,45 @@
           }
         }.bind(this);
 
-        this.collection.saveDocument(this.colid, this.docid, model, callback);
+        this.collection.saveDocument(this.colid, this.docid, model,
+          callback);
       }
     },
 
-    successConfirmation: function () {
+    successConfirmation: function() {
       avocadoHelper.avocadoNotification('Document saved.');
     },
 
-    errorConfirmation: function (e) {
+    errorConfirmation: function(e) {
       avocadoHelper.avocadoError('Document editor: ', e);
     },
 
-    enableSaveButton: function () {
+    enableSaveButton: function() {
       $('#saveDocumentButton').prop('disabled', false);
       $('#saveDocumentButton').addClass('button-success');
       $('#saveDocumentButton').removeClass('button-close');
     },
 
-    disableSaveButton: function () {
+    disableSaveButton: function() {
       $('#saveDocumentButton').prop('disabled', true);
       $('#saveDocumentButton').addClass('button-close');
       $('#saveDocumentButton').removeClass('button-success');
     },
 
-    breadcrumb: function () {
+    breadcrumb: function() {
       var name = window.location.hash.split('/');
       $('#subNavigationBar .breadcrumb').html(
-        '<a href="#collection/' + name[1] + '/documents/1">Collection: ' + name[1] + '</a>' +
+        '<a href="#collection/' + name[1] +
+        '/documents/1">Collection: ' + name[1] + '</a>' +
         '<i class="fa fa-chevron-right"></i>' +
-        this.type.charAt(0).toUpperCase() + this.type.slice(1) + ': ' + name[2]
+        this.type.charAt(0).toUpperCase() + this.type.slice(1) + ': ' +
+        name[2]
       );
     },
 
-    escaped: function (value) {
-      return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    escaped: function(value) {
+      return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
+          />/g, '&gt;')
         .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
   });

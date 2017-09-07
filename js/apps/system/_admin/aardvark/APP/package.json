@@ -64,6 +64,7 @@
     "karma-coverage": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.0",
-    "matchdep": "^1.0.1"
+    "matchdep": "^1.0.1",
+    "node-sass": "^4.5.3"
   }
 }

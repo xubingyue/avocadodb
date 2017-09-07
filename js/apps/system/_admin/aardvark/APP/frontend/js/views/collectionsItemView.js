@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* global window, frontendConfig, exports, Backbone, _, $, templateEngine, avocadoHelper, Joi */
 
-(function () {
+(function() {
   'use strict';
 
   window.CollectionListItemView = Backbone.View.extend({
@@ -10,7 +10,7 @@
     className: 'tile pure-u-1-1 pure-u-sm-1-2 pure-u-md-1-3 pure-u-lg-1-4 pure-u-xl-1-6',
     template: templateEngine.createTemplate('collectionsItemView.ejs'),
 
-    initialize: function (options) {
+    initialize: function(options) {
       this.collectionsView = options.collectionsView;
     },
 
@@ -22,14 +22,16 @@
       'click': 'selectCollection'
     },
 
-    render: function () {
-      if (this.model.get('locked') || this.model.get('status') === 'corrupted') {
+    render: function() {
+      if (this.model.get('locked') || this.model.get('status') ===
+        'corrupted') {
         $(this.el).addClass('locked');
         $(this.el).addClass(this.model.get('lockType'));
       } else {
         $(this.el).removeClass('locked');
       }
-      if (this.model.get('status') === 'loading' || this.model.get('status') === 'unloading') {
+      if (this.model.get('status') === 'loading' || this.model.get(
+          'status') === 'unloading') {
         $(this.el).addClass('locked');
       }
       $(this.el).html(this.template.render({
@@ -40,7 +42,7 @@
       return this;
     },
 
-    editProperties: function (event) {
+    editProperties: function(event) {
       if (this.model.get('locked')) {
         return 0;
       }
@@ -48,7 +50,7 @@
       this.createEditPropertiesModal();
     },
 
-    showProperties: function (event) {
+    showProperties: function(event) {
       if (this.model.get('locked')) {
         return 0;
       }
@@ -56,7 +58,7 @@
       this.createInfoModal();
     },
 
-    selectCollection: function (event) {
+    selectCollection: function(event) {
       // check if event was fired from disabled button
       if ($(event.target).hasClass('disabled')) {
         return 0;
@@ -75,19 +77,23 @@
         this.loadCollection();
       } else {
         window.App.navigate(
-          'collection/' + encodeURIComponent(this.model.get('name')) + '/documents/1', {trigger: true}
+          'collection/' + encodeURIComponent(this.model.get('name')) +
+          '/documents/1', {
+            trigger: true
+          }
         );
       }
     },
 
-    noop: function (event) {
+    noop: function(event) {
       event.stopPropagation();
     },
 
-    unloadCollection: function () {
-      var unloadCollectionCallback = function (error) {
+    unloadCollection: function() {
+      var unloadCollectionCallback = function(error) {
         if (error) {
-          avocadoHelper.avocadoError('Collection error', this.model.get('name') + ' could not be unloaded.');
+          avocadoHelper.avocadoError('数据集 出错', this.model.get('name') +
+            ' 链接错误.');
         } else if (error === undefined) {
           this.model.set('status', 'unloading');
           this.render();
@@ -96,7 +102,8 @@
             this.model.set('status', 'unloaded');
             this.render();
           } else {
-            avocadoHelper.avocadoNotification('Collection ' + this.model.get('name') + ' unloaded.');
+            avocadoHelper.avocadoNotification('Collection ' + this.model
+              .get('name') + ' unloaded.');
           }
         }
       }.bind(this);
@@ -105,10 +112,11 @@
       window.modalView.hide();
     },
 
-    loadCollection: function () {
-      var loadCollectionCallback = function (error) {
+    loadCollection: function() {
+      var loadCollectionCallback = function(error) {
         if (error) {
-          avocadoHelper.avocadoError('Collection error', this.model.get('name') + ' could not be loaded.');
+          avocadoHelper.avocadoError('Collection error', this.model.get(
+            'name') + ' could not be loaded.');
         } else if (error === undefined) {
           this.model.set('status', 'loading');
           this.render();
@@ -117,7 +125,8 @@
             this.model.set('status', 'loaded');
             this.render();
           } else {
-            avocadoHelper.avocadoNotification('Collection ' + this.model.get('name') + ' loaded.');
+            avocadoHelper.avocadoNotification('Collection ' + this.model
+              .get('name') + ' loaded.');
           }
         }
       }.bind(this);
@@ -126,34 +135,34 @@
       window.modalView.hide();
     },
 
-    truncateCollection: function () {
+    truncateCollection: function() {
       this.model.truncateCollection();
       window.modalView.hide();
     },
 
-    warumupCollection: function () {
+    warumupCollection: function() {
       this.model.warumupCollection();
       window.modalView.hide();
     },
 
-    deleteCollection: function () {
-      this.model.destroy(
-        {
-          error: function () {
-            avocadoHelper.avocadoError('Could not delete collection.');
-          },
-          success: function () {
-            window.modalView.hide();
-          }
+    deleteCollection: function() {
+      this.model.destroy({
+        error: function() {
+          avocadoHelper.avocadoError(
+            '无法删除集合.');
+        },
+        success: function() {
+          window.modalView.hide();
         }
-      );
+      });
       this.collectionsView.render();
     },
 
-    saveModifiedCollection: function () {
-      var callback = function (error, isCoordinator) {
+    saveModifiedCollection: function() {
+      var callback = function(error, isCoordinator) {
         if (error) {
-          avocadoHelper.avocadoError('Error', 'Could not get coordinator info');
+          avocadoHelper.avocadoError('Error',
+            '无法获得协调信息');
         } else {
           var newname;
           if (isCoordinator) {
@@ -166,37 +175,44 @@
           if (status === 'loaded') {
             var journalSize;
             try {
-              journalSize = JSON.parse($('#change-collection-size').val() * 1024 * 1024);
+              journalSize = JSON.parse($('#change-collection-size').val() *
+                1024 * 1024);
             } catch (e) {
-              avocadoHelper.avocadoError('Please enter a valid number');
+              avocadoHelper.avocadoError(
+                '请输入有效数字');
               return 0;
             }
 
             var indexBuckets;
             try {
               indexBuckets = JSON.parse($('#change-index-buckets').val());
-              if (indexBuckets < 1 || parseInt(indexBuckets, 10) !== Math.pow(2, Math.log2(indexBuckets))) {
+              if (indexBuckets < 1 || parseInt(indexBuckets, 10) !==
+                Math.pow(2, Math.log2(indexBuckets))) {
                 throw new Error('invalid indexBuckets value');
               }
             } catch (e) {
-              avocadoHelper.avocadoError('Please enter a valid number of index buckets');
+              avocadoHelper.avocadoError(
+                '请输入有效数量的索引桶');
               return 0;
             }
-            var callbackChange = function (error) {
+            var callbackChange = function(error) {
               if (error) {
-                avocadoHelper.avocadoError('Collection error: ' + error.responseText);
+                avocadoHelper.avocadoError('数据集 错误: ' +
+                  error.responseText);
               } else {
                 this.collectionsView.render();
                 window.modalView.hide();
               }
             }.bind(this);
 
-            var callbackRename = function (error) {
+            var callbackRename = function(error) {
               if (error) {
-                avocadoHelper.avocadoError('Collection error: ' + error.responseText);
+                avocadoHelper.avocadoError('数据集 错误: ' +
+                  error.responseText);
               } else {
                 var wfs = $('#change-collection-sync').val();
-                this.model.changeCollection(wfs, journalSize, indexBuckets, callbackChange);
+                this.model.changeCollection(wfs, journalSize,
+                  indexBuckets, callbackChange);
               }
             }.bind(this);
 
@@ -207,9 +223,10 @@
             }
           } else if (status === 'unloaded') {
             if (this.model.get('name') !== newname) {
-              var callbackRename2 = function (error, data) {
+              var callbackRename2 = function(error, data) {
                 if (error) {
-                  avocadoHelper.avocadoError('Collection error: ' + data.responseText);
+                  avocadoHelper.avocadoError('数据集 错误: ' +
+                    data.responseText);
                 } else {
                   this.collectionsView.render();
                   window.modalView.hide();
@@ -217,7 +234,8 @@
               }.bind(this);
 
               if (frontendConfig.isCluster === false) {
-                this.model.renameCollection(newname, callbackRename2);
+                this.model.renameCollection(newname,
+                  callbackRename2);
               } else {
                 callbackRename2();
               }
@@ -231,10 +249,11 @@
       window.isCoordinator(callback);
     },
 
-    createEditPropertiesModal: function () {
-      var callback = function (error, isCoordinator) {
+    createEditPropertiesModal: function() {
+      var callback = function(error, isCoordinator) {
         if (error) {
-          avocadoHelper.avocadoError('Error', 'Could not get coordinator info');
+          avocadoHelper.avocadoError('Error',
+            '无法获得协调信息');
         } else {
           var collectionIsLoaded = false;
 
@@ -253,70 +272,71 @@
                 this.model.get('name'),
                 false,
                 '',
-                true,
-                [
-                  {
-                    rule: Joi.string().regex(/^[a-zA-Z]/),
-                    msg: 'Collection name must always start with a letter.'
-                  },
-                  {
-                    rule: Joi.string().regex(/^[a-zA-Z0-9\-_]*$/),
-                    msg: 'Only Symbols "_" and "-" are allowed.'
-                  },
-                  {
-                    rule: Joi.string().required(),
-                    msg: 'No collection name given.'
-                  }
-                ]
+                true, [{
+                  rule: Joi.string().regex(/^[a-zA-Z]/),
+                  msg: '集合名必须始终以字母开头'
+                }, {
+                  rule: Joi.string().regex(
+                    /^[a-zA-Z0-9\-_]*$/),
+                  msg: '只有符号”_”和“-”是允许的.'
+                }, {
+                  rule: Joi.string().required(),
+                  msg: '没有指定数据集 名字.'
+                }]
               )
             );
           }
 
-          var after = function () {
+          var after = function() {
             tableContent.push(
               window.modalView.createReadOnlyEntry(
-                'change-collection-id', 'ID', this.model.get('id'), ''
+                'change-collection-id', 'ID', this.model.get(
+                  'id'),
+                ''
               )
             );
             tableContent.push(
               window.modalView.createReadOnlyEntry(
-                'change-collection-type', 'Type', this.model.get('type'), ''
+                'change-collection-type', 'Type', this.model.get(
+                  'type'), ''
               )
             );
             tableContent.push(
               window.modalView.createReadOnlyEntry(
-                'change-collection-status', 'Status', this.model.get('status'), ''
+                'change-collection-status', 'Status', this.model
+                .get(
+                  'status'), ''
               )
             );
             buttons.push(
               window.modalView.createDeleteButton(
-                'Delete',
+                '删除',
                 this.deleteCollection.bind(this)
               )
             );
             buttons.push(
               window.modalView.createDeleteButton(
-                'Truncate',
+                '清空',
                 this.truncateCollection.bind(this)
               )
             );
             buttons.push(
               window.modalView.createDeleteButton(
-                'Load Indexes in Memory',
+                '载入索引到内存',
                 this.warumupCollection.bind(this)
               )
             );
             if (collectionIsLoaded) {
               buttons.push(
                 window.modalView.createNotificationButton(
-                  'Unload',
+                  '卸载',
                   this.unloadCollection.bind(this)
                 )
               );
             } else {
               buttons.push(
                 window.modalView.createNotificationButton(
-                  'Load',
+                  '载入',
                   this.loadCollection.bind(this)
                 )
               );
@@ -324,13 +344,15 @@
 
             buttons.push(
               window.modalView.createSuccessButton(
-                'Save',
+                '保存',
                 this.saveModifiedCollection.bind(this)
               )
             );
 
             var tabBar = ['General', 'Indexes'];
-            var templates = ['modalTable.ejs', 'indicesView.ejs'];
+            var templates = ['modalTable.ejs',
+              'indicesView.ejs'
+            ];
 
             window.modalView.show(
               templates,
@@ -348,11 +370,13 @@
           }.bind(this);
 
           if (collectionIsLoaded) {
-            var callback2 = function (error, data) {
+            var callback2 = function(error, data) {
               if (error) {
-                avocadoHelper.avocadoError('Collection', 'Could not fetch properties');
+                avocadoHelper.avocadoError('Collection',
+                  '无法获取属性');
               } else {
-                var journalSize = data.journalSize / (1024 * 1024);
+                var journalSize = data.journalSize / (1024 *
+                  1024);
                 var indexBuckets = data.indexBuckets;
                 var wfs = data.waitForSync;
 
@@ -361,15 +385,14 @@
                     'change-collection-size',
                     'Journal size',
                     journalSize,
-                    'The maximal size of a journal or datafile (in MB). Must be at least 1.',
+                    '一个日志或数据文件的最大大小（MB）。必须至少1.',
                     '',
-                    true,
-                    [
-                      {
-                        rule: Joi.string().allow('').optional().regex(/^[0-9]*$/),
-                        msg: 'Must be a number.'
-                      }
-                    ]
+                    true, [{
+                      rule: Joi.string().allow('').optional()
+                        .regex(
+                          /^[0-9]*$/),
+                      msg: '必须是数字.'
+                    }]
                   )
                 );
 
@@ -378,15 +401,14 @@
                     'change-index-buckets',
                     'Index buckets',
                     indexBuckets,
-                    'The number of index buckets for this collection. Must be at least 1 and a power of 2.',
+                    '此集合的索引数。必须至少为1，通常为2。',
                     '',
-                    true,
-                    [
-                      {
-                        rule: Joi.string().allow('').optional().regex(/^[1-9][0-9]*$/),
-                        msg: 'Must be a number greater than 1 and a power of 2.'
-                      }
-                    ]
+                    true, [{
+                      rule: Joi.string().allow('').optional()
+                        .regex(
+                          /^[1-9][0-9]*$/),
+                      msg: '必须是大于1的数字和2的幂。.'
+                    }]
                   )
                 );
 
@@ -396,8 +418,13 @@
                     'change-collection-sync',
                     'Wait for sync',
                     wfs,
-                    'Synchronize to disk before returning from a create or update of a document.',
-                    [{value: false, label: 'No'}, {value: true, label: 'Yes'}])
+                    '在从文档的创建或更新返回之前同步到磁盘。', [{
+                      value: false,
+                      label: 'No'
+                    }, {
+                      value: true,
+                      label: 'Yes'
+                    }])
                 );
               }
               after();
@@ -412,47 +439,51 @@
       window.isCoordinator(callback);
     },
 
-    bindIndexEvents: function () {
+    bindIndexEvents: function() {
       this.unbindIndexEvents();
       var self = this;
 
-      $('#indexEditView #addIndex').bind('click', function () {
+      $('#indexEditView #addIndex').bind('click', function() {
         self.toggleNewIndexView();
 
         $('#cancelIndex').unbind('click');
-        $('#cancelIndex').bind('click', function () {
+        $('#cancelIndex').bind('click', function() {
           self.toggleNewIndexView();
         });
 
         $('#createIndex').unbind('click');
-        $('#createIndex').bind('click', function () {
+        $('#createIndex').bind('click', function() {
           self.createIndex();
         });
       });
 
-      $('#newIndexType').bind('change', function () {
+      $('#newIndexType').bind('change', function() {
         self.selectIndexType();
       });
 
-      $('.deleteIndex').bind('click', function (e) {
+      $('.deleteIndex').bind('click', function(e) {
         self.prepDeleteIndex(e);
       });
 
-      $('#infoTab a').bind('click', function (e) {
+      $('#infoTab a').bind('click', function(e) {
         $('#indexDeleteModal').remove();
-        if ($(e.currentTarget).html() === 'Indexes' && !$(e.currentTarget).parent().hasClass('active')) {
+        if ($(e.currentTarget).html() === 'Indexes' && !$(e.currentTarget)
+          .parent().hasClass('active')) {
           $('#newIndexView').hide();
           $('#indexEditView').show();
 
           $('#modal-dialog .modal-footer .button-danger').hide();
           $('#modal-dialog .modal-footer .button-success').hide();
-          $('#modal-dialog .modal-footer .button-notification').hide();
-        // $('#addIndex').detach().appendTo('#modal-dialog .modal-footer')
+          $('#modal-dialog .modal-footer .button-notification')
+            .hide();
+          // $('#addIndex').detach().appendTo('#modal-dialog .modal-footer')
         }
-        if ($(e.currentTarget).html() === 'General' && !$(e.currentTarget).parent().hasClass('active')) {
+        if ($(e.currentTarget).html() === 'General' && !$(e.currentTarget)
+          .parent().hasClass('active')) {
           $('#modal-dialog .modal-footer .button-danger').show();
           $('#modal-dialog .modal-footer .button-success').show();
-          $('#modal-dialog .modal-footer .button-notification').show();
+          $('#modal-dialog .modal-footer .button-notification')
+            .show();
           var elem2 = $('.index-button-bar2')[0];
           // $('#addIndex').detach().appendTo(elem)
           if ($('#cancelIndex').is(':visible')) {
@@ -463,23 +494,24 @@
       });
     },
 
-    unbindIndexEvents: function () {
+    unbindIndexEvents: function() {
       $('#indexEditView #addIndex').unbind('click');
       $('#newIndexType').unbind('change');
       $('#infoTab a').unbind('click');
       $('.deleteIndex').unbind('click');
-    /*
-    //$('#documentsToolbar ul').unbind('click')
-    this.markFilterToggle()
-    this.changeEditMode(false)
-    "click #documentsToolbar ul"    : "resetIndexForms"
-    */
+      /*
+      //$('#documentsToolbar ul').unbind('click')
+      this.markFilterToggle()
+      this.changeEditMode(false)
+      "click #documentsToolbar ul"    : "resetIndexForms"
+      */
     },
 
-    createInfoModal: function () {
-      var callbackRev = function (error, revision, figures) {
+    createInfoModal: function() {
+      var callbackRev = function(error, revision, figures) {
         if (error) {
-          avocadoHelper.avocadoError('Figures', 'Could not get revision.');
+          avocadoHelper.avocadoError('Figures',
+            'Could not get revision.');
         } else {
           var buttons = [];
           var tableContent = {
@@ -496,9 +528,10 @@
         }
       }.bind(this);
 
-      var callback = function (error, data) {
+      var callback = function(error, data) {
         if (error) {
-          avocadoHelper.avocadoError('Figures', 'Could not get figures.');
+          avocadoHelper.avocadoError('Figures',
+            'Could not get figures.');
         } else {
           var figures = data;
           this.model.getRevision(callbackRev, figures);
@@ -508,13 +541,13 @@
       this.model.getFigures(callback);
     },
     // index functions
-    resetIndexForms: function () {
+    resetIndexForms: function() {
       $('#indexHeader input').val('').prop('checked', false);
       $('#newIndexType').val('Geo').prop('selected', true);
       this.selectIndexType();
     },
 
-    createIndex: function () {
+    createIndex: function() {
       // e.preventDefault()
       var self = this;
       var indexType = $('#newIndexType').val();
@@ -551,7 +584,9 @@
           break;
         case 'Fulltext':
           fields = ($('#newFulltextFields').val());
-          var minLength = parseInt($('#newFulltextMinLength').val(), 10) || 0;
+          var minLength = parseInt($('#newFulltextMinLength').val(),
+              10) ||
+            0;
           postParameter = {
             type: 'fulltext',
             fields: self.stringToArray(fields),
@@ -570,13 +605,14 @@
           };
           break;
       }
-      var callback = function (error, msg) {
+      var callback = function(error, msg) {
         if (error) {
           if (msg) {
             var message = JSON.parse(msg.responseText);
             avocadoHelper.avocadoError('Document error', message.errorMessage);
           } else {
-            avocadoHelper.avocadoError('Document error', 'Could not create index.');
+            avocadoHelper.avocadoError('Document error',
+              'Could not create index.');
           }
         }
         self.refreshCollectionsView();
@@ -589,49 +625,52 @@
 
     lastTarget: null,
 
-    prepDeleteIndex: function (e) {
+    prepDeleteIndex: function(e) {
       var self = this;
       this.lastTarget = e;
 
-      this.lastId = $(this.lastTarget.currentTarget).parent().parent().first().children().first().text();
+      this.lastId = $(this.lastTarget.currentTarget).parent().parent()
+        .first()
+        .children().first().text();
       // window.modalView.hide()
 
       // delete modal
       $('#modal-dialog .modal-footer').after(
         '<div id="indexDeleteModal" style="display:block;" class="alert alert-error modal-delete-confirmation">' +
-        '<strong>Really delete?</strong>' +
-        '<button id="indexConfirmDelete" class="button-danger pull-right modal-confirm-delete">Yes</button>' +
-        '<button id="indexAbortDelete" class="button-neutral pull-right">No</button>' +
+        '<strong>真的要删除么？？？?</strong>' +
+        '<button id="indexConfirmDelete" class="button-danger pull-right modal-confirm-delete">是的没错</button>' +
+        '<button id="indexAbortDelete" class="button-neutral pull-right">算了还是</button>' +
         '</div>'
       );
       $('#indexConfirmDelete').unbind('click');
-      $('#indexConfirmDelete').bind('click', function () {
+      $('#indexConfirmDelete').bind('click', function() {
         $('#indexDeleteModal').remove();
         self.deleteIndex();
       });
 
       $('#indexAbortDelete').unbind('click');
-      $('#indexAbortDelete').bind('click', function () {
+      $('#indexAbortDelete').bind('click', function() {
         $('#indexDeleteModal').remove();
       });
     },
 
-    refreshCollectionsView: function () {
+    refreshCollectionsView: function() {
       window.App.avocadoCollectionsStore.fetch({
-        success: function () {
+        success: function() {
           window.App.collectionsView.render();
         }
       });
     },
 
-    deleteIndex: function () {
-      var callback = function (error) {
+    deleteIndex: function() {
+      var callback = function(error) {
         if (error) {
           avocadoHelper.avocadoError('Could not delete index');
-          $("tr th:contains('" + this.lastId + "')").parent().children().last().html(
-            '<span class="deleteIndex icon_avocadodb_roundminus"' +
-            ' data-original-title="Delete index" title="Delete index"></span>'
-          );
+          $("tr th:contains('" + this.lastId + "')").parent().children()
+            .last().html(
+              '<span class="deleteIndex icon_avocadodb_roundminus"' +
+              ' data-original-title="Delete index" title="删除索引"></span>'
+            );
           this.model.set('locked', false);
           this.refreshCollectionsView();
         } else if (!error && error !== undefined) {
@@ -645,19 +684,21 @@
       this.model.set('locked', true);
       this.model.deleteIndex(this.lastId, callback);
 
-      $("tr th:contains('" + this.lastId + "')").parent().children().last().html(
-        '<i class="fa fa-circle-o-notch fa-spin"></i>'
-      );
+      $("tr th:contains('" + this.lastId + "')").parent().children()
+        .last()
+        .html(
+          '<i class="fa fa-circle-o-notch fa-spin"></i>'
+        );
     },
 
-    selectIndexType: function () {
+    selectIndexType: function() {
       $('.newIndexClass').hide();
       var type = $('#newIndexType').val();
       $('#newIndexType' + type).show();
     },
 
-    getIndex: function () {
-      var callback = function (error, data) {
+    getIndex: function() {
+      var callback = function(error, data) {
         if (error) {
           window.avocadoHelper.avocadoError('Index', data.errorMessage);
         } else {
@@ -668,7 +709,7 @@
       this.model.getIndex(callback);
     },
 
-    renderIndex: function (data) {
+    renderIndex: function(data) {
       this.index = data;
 
       var cssClass = 'collectionInfoTh modal-text';
@@ -676,12 +717,14 @@
         var fieldString = '';
         var actionString = '';
 
-        _.each(this.index.indexes, function (v) {
+        _.each(this.index.indexes, function(v) {
           if (v.type === 'primary' || v.type === 'edge') {
-            actionString = '<span class="icon_avocadodb_locked" ' +
+            actionString =
+              '<span class="icon_avocadodb_locked" ' +
               'data-original-title="No action"></span>';
           } else {
-            actionString = '<span class="deleteIndex icon_avocadodb_roundminus" ' +
+            actionString =
+              '<span class="deleteIndex icon_avocadodb_roundminus" ' +
               'data-original-title="Delete index" title="Delete index"></span>';
           }
 
@@ -693,21 +736,30 @@
           var position = v.id.indexOf('/');
           var indexId = v.id.substr(position + 1, v.id.length);
           var selectivity = (
-          v.hasOwnProperty('selectivityEstimate')
-            ? (v.selectivityEstimate * 100).toFixed(2) + '%'
-            : 'n/a'
+            v.hasOwnProperty('selectivityEstimate') ? (v.selectivityEstimate *
+              100).toFixed(2) + '%' : 'n/a'
           );
-          var sparse = (v.hasOwnProperty('sparse') ? v.sparse : 'n/a');
+          var sparse = (v.hasOwnProperty('sparse') ? v.sparse :
+            'n/a');
 
           $('#collectionEditIndexTable').append(
             '<tr>' +
-            '<th class=' + JSON.stringify(cssClass) + '>' + indexId + '</th>' +
-            '<th class=' + JSON.stringify(cssClass) + '>' + v.type + '</th>' +
-            '<th class=' + JSON.stringify(cssClass) + '>' + v.unique + '</th>' +
-            '<th class=' + JSON.stringify(cssClass) + '>' + sparse + '</th>' +
-            '<th class=' + JSON.stringify(cssClass) + '>' + selectivity + '</th>' +
-            '<th class=' + JSON.stringify(cssClass) + '>' + fieldString + '</th>' +
-            '<th class=' + JSON.stringify(cssClass) + '>' + actionString + '</th>' +
+            '<th class=' + JSON.stringify(cssClass) + '>' +
+            indexId + '</th>' +
+            '<th class=' + JSON.stringify(cssClass) + '>' + v
+            .type +
+            '</th>' +
+            '<th class=' + JSON.stringify(cssClass) + '>' + v
+            .unique +
+            '</th>' +
+            '<th class=' + JSON.stringify(cssClass) + '>' +
+            sparse + '</th>' +
+            '<th class=' + JSON.stringify(cssClass) + '>' +
+            selectivity + '</th>' +
+            '<th class=' + JSON.stringify(cssClass) + '>' +
+            fieldString + '</th>' +
+            '<th class=' + JSON.stringify(cssClass) + '>' +
+            actionString + '</th>' +
             '</tr>'
           );
         });
@@ -715,14 +767,16 @@
       this.bindIndexEvents();
     },
 
-    toggleNewIndexView: function () {
+    toggleNewIndexView: function() {
       var elem = $('.index-button-bar2')[0];
 
       if ($('#indexEditView').is(':visible')) {
         $('#indexEditView').hide();
         $('#newIndexView').show();
-        $('#cancelIndex').detach().appendTo('#modal-dialog .modal-footer');
-        $('#createIndex').detach().appendTo('#modal-dialog .modal-footer');
+        $('#cancelIndex').detach().appendTo(
+          '#modal-dialog .modal-footer');
+        $('#createIndex').detach().appendTo(
+          '#modal-dialog .modal-footer');
       } else {
         $('#indexEditView').show();
         $('#newIndexView').hide();
@@ -730,13 +784,14 @@
         $('#createIndex').detach().appendTo(elem);
       }
 
-      avocadoHelper.fixTooltips('.icon_avocadodb, .avocadoicon', 'right');
+      avocadoHelper.fixTooltips('.icon_avocadodb, .avocadoicon',
+        'right');
       this.resetIndexForms();
     },
 
-    stringToArray: function (fieldString) {
+    stringToArray: function(fieldString) {
       var fields = [];
-      fieldString.split(',').forEach(function (field) {
+      fieldString.split(',').forEach(function(field) {
         field = field.replace(/(^\s+|\s+$)/g, '');
         if (field !== '') {
           fields.push(field);
@@ -745,7 +800,7 @@
       return fields;
     },
 
-    checkboxToValue: function (id) {
+    checkboxToValue: function(id) {
       return $(id).prop('checked');
     }
 

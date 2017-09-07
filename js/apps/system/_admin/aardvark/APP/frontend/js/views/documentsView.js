@@ -3,10 +3,12 @@
 /* global avocadoHelper, _, $, window, avocadoHelper, templateEngine, Joi, btoa */
 /* global numeral */
 
-(function () {
+(function() {
   'use strict';
   window.DocumentsView = window.PaginationView.extend({
-    filters: { '0': true },
+    filters: {
+      '0': true
+    },
     filterId: 0,
     paginationDiv: '#documentsToolbarF',
     idPrefix: 'documents',
@@ -30,7 +32,7 @@
       next: null
     },
 
-    unbindEvents: function () {
+    unbindEvents: function() {
       this.$el.empty().off(); /* off to unbind the events */
       this.stopListening();
       this.unbind();
@@ -38,7 +40,7 @@
 
     editButtons: ['#deleteSelected', '#moveSelected'],
 
-    initialize: function (options) {
+    initialize: function(options) {
       this.documentStore = options.documentStore;
       this.collectionsStore = options.collectionsStore;
       this.tableView = new window.TableView({
@@ -49,30 +51,32 @@
       this.tableView.setRemoveClick(this.remove.bind(this));
     },
 
-    resize: function () {
+    resize: function() {
       var dropdownVisible = false;
-      _.each($('.documentsDropdown').first().children(), function (elem) {
+      _.each($('.documentsDropdown').first().children(), function(elem) {
         if ($(elem).is(':visible')) {
           dropdownVisible = true;
         }
       });
       if (dropdownVisible) {
         $('#docPureTable').height($('.centralRow').height() - 210 - 57);
-        $('#docPureTable .pure-table-body').css('max-height', $('#docPureTable').height() - 47);
+        $('#docPureTable .pure-table-body').css('max-height', $(
+          '#docPureTable').height() - 47);
       } else {
         $('#docPureTable').height($('.centralRow').height() - 210);
-        $('#docPureTable .pure-table-body').css('max-height', $('#docPureTable').height() - 47);
+        $('#docPureTable .pure-table-body').css('max-height', $(
+          '#docPureTable').height() - 47);
       }
     },
 
-    setCollectionId: function (colid, page) {
+    setCollectionId: function(colid, page) {
       this.collection.setCollection(colid);
       this.collection.setPage(page);
       this.page = page;
 
-      var callback = function (error, type) {
+      var callback = function(error, type) {
         if (error) {
-          avocadoHelper.avocadoError('Error', 'Could not get collection properties.');
+          avocadoHelper.avocadoError('Error', '无法获取数据集的属性');
         } else {
           this.type = type;
           this.collection.getDocuments(this.getDocsCallback.bind(this));
@@ -83,20 +87,22 @@
       avocadoHelper.collectionApiType(colid, null, callback);
     },
 
-    getDocsCallback: function (error) {
+    getDocsCallback: function(error) {
       // Hide first/last pagination
       $('#documents_last').css('visibility', 'hidden');
       $('#documents_first').css('visibility', 'hidden');
 
       if (error) {
         window.progressView.hide();
-        avocadoHelper.avocadoError('Document error', 'Could not fetch requested documents.');
+        avocadoHelper.avocadoError('Document error',
+          'Could not fetch requested documents.');
       } else if (!error || error !== undefined) {
         window.progressView.hide();
         this.drawTable();
         this.renderPaginationElements();
         // check permissions and adjust views
-        avocadoHelper.checkCollectionPermissions(this.collection.collectionID, this.changeViewToReadOnly);
+        avocadoHelper.checkCollectionPermissions(this.collection.collectionID,
+          this.changeViewToReadOnly);
       }
     },
 
@@ -129,39 +135,40 @@
       'change #docsSort': 'setSorting'
     },
 
-    showSpinner: function () {
+    showSpinner: function() {
       $('.upload-indicator').show();
     },
 
-    hideSpinner: function () {
+    hideSpinner: function() {
       $('.upload-indicator').hide();
     },
 
-    showImportModal: function () {
+    showImportModal: function() {
       $('#docImportModal').modal('show');
     },
 
-    hideImportModal: function () {
+    hideImportModal: function() {
       $('#docImportModal').modal('hide');
     },
 
-    setPagesize: function () {
+    setPagesize: function() {
       var size = $('#documentSize').find(':selected').val();
       this.collection.setPagesize(size);
       this.collection.getDocuments(this.getDocsCallback.bind(this));
     },
 
-    setSorting: function () {
+    setSorting: function() {
       var sortAttribute = $('#docsSort').val();
 
-      if (sortAttribute === '' || sortAttribute === undefined || sortAttribute === null) {
+      if (sortAttribute === '' || sortAttribute === undefined ||
+        sortAttribute === null) {
         sortAttribute = '_key';
       }
 
       this.collection.setSort(sortAttribute);
     },
 
-    returnPressedHandler: function (event) {
+    returnPressedHandler: function(event) {
       if (event.keyCode === 13 && $(event.target).is($('#docsSort'))) {
         this.collection.getDocuments(this.getDocsCallback.bind(this));
       }
@@ -172,14 +179,15 @@
       }
     },
 
-    nop: function (event) {
+    nop: function(event) {
       event.stopPropagation();
     },
 
-    resetView: function () {
-      var callback = function (error) {
+    resetView: function() {
+      var callback = function(error) {
         if (error) {
-          avocadoHelper.avocadoError('Document', 'Could not fetch documents count');
+          avocadoHelper.avocadoError('Document',
+            'Could not fetch documents count');
         }
       };
 
@@ -206,19 +214,20 @@
       this.collection.getDocuments(this.getDocsCallback.bind(this));
     },
 
-    startDownload: function () {
+    startDownload: function() {
       var query = this.collection.buildDownloadDocumentQuery();
 
       if (query !== '' || query !== undefined || query !== null) {
         var url = 'query/result/download/' + btoa(JSON.stringify(query));
         avocadoHelper.download(url);
       } else {
-        avocadoHelper.avocadoError('Document error', 'could not download documents');
+        avocadoHelper.avocadoError('Document error',
+          'could not download documents');
       }
     },
 
-    startUpload: function () {
-      var callback = function (error, msg) {
+    startUpload: function() {
+      var callback = function(error, msg) {
         if (error) {
           avocadoHelper.avocadoError('Upload', msg);
         } else {
@@ -234,9 +243,9 @@
       }
     },
 
-    uploadSetup: function () {
+    uploadSetup: function() {
       var self = this;
-      $('#importDocuments').change(function (e) {
+      $('#importDocuments').change(function(e) {
         self.files = e.target.files || e.dataTransfer.files;
         self.file = self.files[0];
         $('#confirmDocImport').attr('disabled', false);
@@ -245,11 +254,12 @@
       });
     },
 
-    buildCollectionLink: function (collection) {
-      return 'collection/' + encodeURIComponent(collection.get('name')) + '/documents/1';
+    buildCollectionLink: function(collection) {
+      return 'collection/' + encodeURIComponent(collection.get('name')) +
+        '/documents/1';
     },
 
-    markFilterToggle: function () {
+    markFilterToggle: function() {
       if (this.restoredFilters.length > 0) {
         $('#filterCollection').addClass('activated');
       } else {
@@ -259,7 +269,7 @@
 
     // need to make following functions automatically!
 
-    editDocuments: function (e) {
+    editDocuments: function(e) {
       if (!$(e.currentTarget).hasClass('disabled')) {
         $('#importCollection').removeClass('activated');
         $('#exportCollection').removeClass('activated');
@@ -272,13 +282,13 @@
         $('#exportHeader').hide();
 
         var self = this;
-        window.setTimeout(function () {
+        window.setTimeout(function() {
           self.resize();
         }, 50);
       }
     },
 
-    filterCollection: function () {
+    filterCollection: function() {
       $('#importCollection').removeClass('activated');
       $('#exportCollection').removeClass('activated');
       $('#markDocuments').removeClass('activated');
@@ -291,7 +301,7 @@
       $('#filterHeader').slideToggle(1);
 
       var self = this;
-      window.setTimeout(function () {
+      window.setTimeout(function() {
         self.resize();
       }, 50);
 
@@ -304,7 +314,7 @@
       }
     },
 
-    exportCollection: function () {
+    exportCollection: function() {
       $('#importCollection').removeClass('activated');
       $('#filterHeader').removeClass('activated');
       $('#markDocuments').removeClass('activated');
@@ -316,12 +326,12 @@
       $('#filterHeader').hide();
       $('#editHeader').hide();
       var self = this;
-      window.setTimeout(function () {
+      window.setTimeout(function() {
         self.resize();
       }, 50);
     },
 
-    importCollection: function (e) {
+    importCollection: function(e) {
       if (!$(e.currentTarget).hasClass('disabled')) {
         this.markFilterToggle();
         $('#markDocuments').removeClass('activated');
@@ -333,22 +343,24 @@
         $('#editHeader').hide();
         $('#exportHeader').hide();
         var self = this;
-        window.setTimeout(function () {
+        window.setTimeout(function() {
           self.resize();
         }, 50);
       }
     },
 
-    changeEditMode: function (enable) {
+    changeEditMode: function(enable) {
       if (enable === false || this.editMode === true) {
-        $('#docPureTable .pure-table-body .pure-table-row').css('cursor', 'default');
+        $('#docPureTable .pure-table-body .pure-table-row').css(
+          'cursor', 'default');
         $('.deleteButton').fadeIn();
         $('.addButton').fadeIn();
         $('.selected-row').removeClass('selected-row');
         this.editMode = false;
         this.tableView.setRowClick(this.clicked.bind(this));
       } else {
-        $('#docPureTable .pure-table-body .pure-table-row').css('cursor', 'copy');
+        $('#docPureTable .pure-table-body .pure-table-row').css(
+          'cursor', 'copy');
         $('.deleteButton').fadeOut();
         $('.addButton').fadeOut();
         $('.selectedCount').text(0);
@@ -357,7 +369,7 @@
       }
     },
 
-    getFilterContent: function () {
+    getFilterContent: function() {
       var filters = [];
       var i, value;
 
@@ -383,12 +395,12 @@
       return filters;
     },
 
-    sendFilter: function () {
+    sendFilter: function() {
       this.restoredFilters = this.getFilterContent();
       var self = this;
       this.collection.resetFilter();
       this.addDocumentSwitch = false;
-      _.each(this.restoredFilters, function (f) {
+      _.each(this.restoredFilters, function(f) {
         if (f.operator !== undefined) {
           self.collection.addFilter(f.attribute, f.operator, f.value);
         }
@@ -399,13 +411,13 @@
       this.markFilterToggle();
     },
 
-    restoreFilter: function () {
+    restoreFilter: function() {
       var self = this;
       var counter = 0;
 
       this.filterId = 0;
       $('#docsSort').val(this.collection.getSort());
-      _.each(this.restoredFilters, function (f) {
+      _.each(this.restoredFilters, function(f) {
         // change html here and restore filters
         if (counter !== 0) {
           self.addFilterItem();
@@ -424,7 +436,7 @@
       self.rerender();
     },
 
-    addFilterItem: function () {
+    addFilterItem: function() {
       // adds a line to the filter widget
 
       var num = ++this.filterId;
@@ -454,36 +466,41 @@
       this.checkFilterState();
     },
 
-    filterValueKeydown: function (e) {
+    filterValueKeydown: function(e) {
       if (e.keyCode === 13) {
         this.sendFilter();
       }
     },
 
-    checkFilterState: function () {
+    checkFilterState: function() {
       var length = $('#filterHeader .queryline').length;
 
       if (length === 1) {
         $('#filterHeader .removeFilterItem').remove();
       } else {
-        if ($('#filterHeader .queryline').first().find('.removeFilterItem').length === 0) {
-          var id = $('#filterHeader .queryline').first().children().first().attr('id');
+        if ($('#filterHeader .queryline').first().find(
+            '.removeFilterItem').length === 0) {
+          var id = $('#filterHeader .queryline').first().children().first()
+            .attr('id');
           var num = id.substr(14, id.length);
 
-          $('#filterHeader .queryline').first().find('.add-filter-item').after(
-            ' <a class="removeFilterItem" id="removeFilter' + num + '">' +
-            '<i class="fa fa-minus-circle"></i></a>');
+          $('#filterHeader .queryline').first().find('.add-filter-item')
+            .after(
+              ' <a class="removeFilterItem" id="removeFilter' + num +
+              '">' +
+              '<i class="fa fa-minus-circle"></i></a>');
         }
       }
 
-      if ($('#filterHeader .queryline').first().find('.add-filter-item').length === 0) {
+      if ($('#filterHeader .queryline').first().find('.add-filter-item')
+        .length === 0) {
         $('#filterHeader .queryline').first().find('.filterValue').after(
           '<a id="addFilterItem" class="add-filter-item"><i style="margin-left: 4px;" class="fa fa-plus-circle"></i></a>'
         );
       }
     },
 
-    removeFilterItem: function (e) {
+    removeFilterItem: function(e) {
       // removes line from the filter widget
       var button = e.currentTarget;
 
@@ -497,25 +514,29 @@
       this.checkFilterState();
     },
 
-    removeAllFilterItems: function () {
+    removeAllFilterItems: function() {
       var childrenLength = $('#filterHeader').children().length;
       var i;
       for (i = 1; i <= childrenLength; i++) {
         $('#removeFilter' + i).parent().remove();
       }
-      this.filters = { '0': true };
+      this.filters = {
+        '0': true
+      };
       this.filterId = 0;
     },
 
-    addDocumentModal: function (e) {
+    addDocumentModal: function(e) {
       if (!$(e.currentTarget).hasClass('disabled')) {
         var collid = window.location.hash.split('/')[1];
-        var buttons = []; var tableContent = [];
+        var buttons = [];
+        var tableContent = [];
         // second parameter is "true" to disable caching of collection type
 
-        var callback = function (error, type) {
+        var callback = function(error, type) {
           if (error) {
-            avocadoHelper.avocadoError('Error', 'Could not fetch collection type');
+            avocadoHelper.avocadoError('Error',
+              'Could not fetch collection type');
           } else {
             if (type === 'edge') {
               tableContent.push(
@@ -525,13 +546,10 @@
                   '',
                   'document _id: document handle of the linked vertex (incoming relation)',
                   undefined,
-                  false,
-                  [
-                    {
-                      rule: Joi.string().required(),
-                      msg: 'No _from attribute given.'
-                    }
-                  ]
+                  false, [{
+                    rule: Joi.string().required(),
+                    msg: 'No _from attribute given.'
+                  }]
                 )
               );
 
@@ -542,13 +560,10 @@
                   '',
                   'document _id: document handle of the linked vertex (outgoing relation)',
                   undefined,
-                  false,
-                  [
-                    {
-                      rule: Joi.string().required(),
-                      msg: 'No _to attribute given.'
-                    }
-                  ]
+                  false, [{
+                    rule: Joi.string().required(),
+                    msg: 'No _to attribute given.'
+                  }]
                 )
               );
 
@@ -559,17 +574,15 @@
                   undefined,
                   'the edges unique key(optional attribute, leave empty for autogenerated key',
                   'is optional: leave empty for autogenerated key',
-                  false,
-                  [
-                    {
-                      rule: Joi.string().allow('').optional(),
-                      msg: ''
-                    }
-                  ]
+                  false, [{
+                    rule: Joi.string().allow('').optional(),
+                    msg: ''
+                  }]
                 )
               );
               buttons.push(
-                window.modalView.createSuccessButton('Create', this.addEdge.bind(this))
+                window.modalView.createSuccessButton('Create', this
+                  .addEdge.bind(this))
               );
 
               window.modalView.show(
@@ -586,18 +599,16 @@
                   undefined,
                   'the documents unique key(optional attribute, leave empty for autogenerated key',
                   'is optional: leave empty for autogenerated key',
-                  false,
-                  [
-                    {
-                      rule: Joi.string().allow('').optional(),
-                      msg: ''
-                    }
-                  ]
+                  false, [{
+                    rule: Joi.string().allow('').optional(),
+                    msg: ''
+                  }]
                 )
               );
 
               buttons.push(
-                window.modalView.createSuccessButton('Create', this.addDocument.bind(this))
+                window.modalView.createSuccessButton('Create', this
+                  .addDocument.bind(this))
               );
 
               window.modalView.show(
@@ -613,14 +624,14 @@
       }
     },
 
-    addEdge: function () {
+    addEdge: function() {
       var collid = window.location.hash.split('/')[1];
       var from = $('.modal-body #new-edge-from-attr').last().val();
       var to = $('.modal-body #new-edge-to').last().val();
       var key = $('.modal-body #new-edge-key-attr').last().val();
       var url;
 
-      var callback = function (error, data, msg) {
+      var callback = function(error, data, msg) {
         if (error) {
           avocadoHelper.avocadoError('Error', msg.errorMessage);
         } else {
@@ -631,25 +642,28 @@
             url = 'collection/' + data[0] + '/' + data[1];
             decodeURI(url);
           } catch (ex) {
-            url = 'collection/' + data[0] + '/' + encodeURIComponent(data[1]);
+            url = 'collection/' + data[0] + '/' + encodeURIComponent(
+              data[1]);
           }
           window.location.hash = url;
         }
       };
 
       if (key !== '' || key !== undefined) {
-        this.documentStore.createTypeEdge(collid, from, to, key, callback);
+        this.documentStore.createTypeEdge(collid, from, to, key,
+          callback);
       } else {
-        this.documentStore.createTypeEdge(collid, from, to, null, callback);
+        this.documentStore.createTypeEdge(collid, from, to, null,
+          callback);
       }
     },
 
-    addDocument: function () {
+    addDocument: function() {
       var collid = window.location.hash.split('/')[1];
       var key = $('.modal-body #new-document-key-attr').last().val();
       var url;
 
-      var callback = function (error, data, msg) {
+      var callback = function(error, data, msg) {
         if (error) {
           avocadoHelper.avocadoError('Error', msg.errorMessage);
         } else {
@@ -660,7 +674,8 @@
             url = 'collection/' + data[0] + '/' + data[1];
             decodeURI(url);
           } catch (ex) {
-            url = 'collection/' + data[0] + '/' + encodeURIComponent(data[1]);
+            url = 'collection/' + data[0] + '/' + encodeURIComponent(
+              data[1]);
           }
 
           window.location.hash = url;
@@ -674,8 +689,9 @@
       }
     },
 
-    moveSelectedDocs: function () {
-      var buttons = []; var tableContent = [];
+    moveSelectedDocs: function() {
+      var buttons = [];
+      var tableContent = [];
       var toDelete = this.getSelectedDocs();
 
       if (toDelete.length === 0) {
@@ -689,26 +705,22 @@
           '',
           false,
           'collection-name',
-          true,
-          [
-            {
-              rule: Joi.string().regex(/^[a-zA-Z]/),
-              msg: 'Collection name must always start with a letter.'
-            },
-            {
-              rule: Joi.string().regex(/^[a-zA-Z0-9\-_]*$/),
-              msg: 'Only Symbols "_" and "-" are allowed.'
-            },
-            {
-              rule: Joi.string().required(),
-              msg: 'No collection name given.'
-            }
-          ]
+          true, [{
+            rule: Joi.string().regex(/^[a-zA-Z]/),
+            msg: 'Collection name must always start with a letter.'
+          }, {
+            rule: Joi.string().regex(/^[a-zA-Z0-9\-_]*$/),
+            msg: 'Only Symbols "_" and "-" are allowed.'
+          }, {
+            rule: Joi.string().required(),
+            msg: 'No collection name given.'
+          }]
         )
       );
 
       buttons.push(
-        window.modalView.createSuccessButton('Move', this.confirmMoveSelectedDocs.bind(this))
+        window.modalView.createSuccessButton('Move', this.confirmMoveSelectedDocs
+          .bind(this))
       );
 
       window.modalView.show(
@@ -719,24 +731,26 @@
       );
     },
 
-    confirmMoveSelectedDocs: function () {
+    confirmMoveSelectedDocs: function() {
       var toMove = this.getSelectedDocs();
       var self = this;
       var toCollection = $('#move-documents-to').val();
 
-      var callback = function () {
+      var callback = function() {
         this.collection.getDocuments(this.getDocsCallback.bind(this));
         $('#markDocuments').click();
         window.modalView.hide();
       }.bind(this);
 
-      _.each(toMove, function (key) {
-        self.collection.moveDocument(key, self.collection.collectionID, toCollection, callback);
+      _.each(toMove, function(key) {
+        self.collection.moveDocument(key, self.collection.collectionID,
+          toCollection, callback);
       });
     },
 
-    deleteSelectedDocs: function () {
-      var buttons = []; var tableContent = [];
+    deleteSelectedDocs: function() {
+      var buttons = [];
+      var tableContent = [];
       var toDelete = this.getSelectedDocs();
 
       if (toDelete.length === 0) {
@@ -756,7 +770,8 @@
       );
 
       buttons.push(
-        window.modalView.createDeleteButton('Delete', this.confirmDeleteSelectedDocs.bind(this))
+        window.modalView.createDeleteButton('Delete', this.confirmDeleteSelectedDocs
+          .bind(this))
       );
 
       window.modalView.show(
@@ -767,63 +782,72 @@
       );
     },
 
-    confirmDeleteSelectedDocs: function () {
+    confirmDeleteSelectedDocs: function() {
       var toDelete = this.getSelectedDocs();
-      var deleted = []; var self = this;
+      var deleted = [];
+      var self = this;
 
-      _.each(toDelete, function (key) {
+      _.each(toDelete, function(key) {
         if (self.type === 'document') {
-          var callback = function (error) {
+          var callback = function(error) {
             if (error) {
               deleted.push(false);
-              avocadoHelper.avocadoError('Document error', 'Could not delete document.');
+              avocadoHelper.avocadoError('Document error',
+                'Could not delete document.');
             } else {
               deleted.push(true);
               self.collection.setTotalMinusOne();
-              self.collection.getDocuments(this.getDocsCallback.bind(this));
+              self.collection.getDocuments(this.getDocsCallback.bind(
+                this));
               $('#markDocuments').click();
               window.modalView.hide();
             }
           }.bind(self);
-          self.documentStore.deleteDocument(self.collection.collectionID, key, callback);
+          self.documentStore.deleteDocument(self.collection.collectionID,
+            key, callback);
         } else if (self.type === 'edge') {
-          var callback2 = function (error) {
+          var callback2 = function(error) {
             if (error) {
               deleted.push(false);
-              avocadoHelper.avocadoError('Edge error', 'Could not delete edge');
+              avocadoHelper.avocadoError('Edge error',
+                'Could not delete edge');
             } else {
               self.collection.setTotalMinusOne();
               deleted.push(true);
-              self.collection.getDocuments(this.getDocsCallback.bind(this));
+              self.collection.getDocuments(this.getDocsCallback.bind(
+                this));
               $('#markDocuments').click();
               window.modalView.hide();
             }
           }.bind(self);
 
-          self.documentStore.deleteEdge(self.collection.collectionID, key, callback2);
+          self.documentStore.deleteEdge(self.collection.collectionID,
+            key, callback2);
         }
       });
     },
 
-    getSelectedDocs: function () {
+    getSelectedDocs: function() {
       var toDelete = [];
-      _.each($('#docPureTable .pure-table-body .pure-table-row'), function (element) {
-        if ($(element).hasClass('selected-row')) {
-          toDelete.push($($(element).children()[1]).find('.key').text());
-        }
-      });
+      _.each($('#docPureTable .pure-table-body .pure-table-row'),
+        function(element) {
+          if ($(element).hasClass('selected-row')) {
+            toDelete.push($($(element).children()[1]).find('.key').text());
+          }
+        });
       return toDelete;
     },
 
-    remove: function (a) {
+    remove: function(a) {
       if (!$(a.currentTarget).hasClass('disabled')) {
-        this.docid = $(a.currentTarget).parent().parent().prev().find('.key').text();
+        this.docid = $(a.currentTarget).parent().parent().prev().find(
+          '.key').text();
         $('#confirmDeleteBtn').attr('disabled', false);
         $('#docDeleteModal').modal('show');
       }
     },
 
-    confirmDelete: function () {
+    confirmDelete: function() {
       $('#confirmDeleteBtn').attr('disabled', true);
       var hash = window.location.hash.split('/');
       var check = hash[3];
@@ -833,35 +857,41 @@
       }
     },
 
-    reallyDelete: function () {
+    reallyDelete: function() {
       if (this.type === 'document') {
-        var callback = function (error) {
+        var callback = function(error) {
           if (error) {
-            avocadoHelper.avocadoError('Error', 'Could not delete document');
+            avocadoHelper.avocadoError('Error',
+              'Could not delete document');
           } else {
             this.collection.setTotalMinusOne();
-            this.collection.getDocuments(this.getDocsCallback.bind(this));
+            this.collection.getDocuments(this.getDocsCallback.bind(
+              this));
             $('#docDeleteModal').modal('hide');
           }
         }.bind(this);
 
-        this.documentStore.deleteDocument(this.collection.collectionID, this.docid, callback);
+        this.documentStore.deleteDocument(this.collection.collectionID,
+          this.docid, callback);
       } else if (this.type === 'edge') {
-        var callback2 = function (error) {
+        var callback2 = function(error) {
           if (error) {
-            avocadoHelper.avocadoError('Edge error', 'Could not delete edge');
+            avocadoHelper.avocadoError('Edge error',
+              'Could not delete edge');
           } else {
             this.collection.setTotalMinusOne();
-            this.collection.getDocuments(this.getDocsCallback.bind(this));
+            this.collection.getDocuments(this.getDocsCallback.bind(
+              this));
             $('#docDeleteModal').modal('hide');
           }
         }.bind(this);
 
-        this.documentStore.deleteEdge(this.collection.collectionID, this.docid, callback2);
+        this.documentStore.deleteEdge(this.collection.collectionID,
+          this.docid, callback2);
       }
     },
 
-    editModeClick: function (event) {
+    editModeClick: function(event) {
       var target = $(event.currentTarget);
 
       if (target.hasClass('selected-row')) {
@@ -873,7 +903,7 @@
       var selected = this.getSelectedDocs();
       $('.selectedCount').text(selected.length);
 
-      _.each(this.editButtons, function (button) {
+      _.each(this.editButtons, function(button) {
         if (selected.length > 0) {
           $(button).prop('disabled', false);
           $(button).removeClass('button-neutral');
@@ -896,22 +926,24 @@
       });
     },
 
-    clicked: function (event) {
+    clicked: function(event) {
       var self = event.currentTarget;
 
-      var url; var doc = $(self).attr('id').substr(4);
+      var url;
+      var doc = $(self).attr('id').substr(4);
 
       try {
         url = 'collection/' + this.collection.collectionID + '/' + doc;
         decodeURI(doc);
       } catch (ex) {
-        url = 'collection/' + this.collection.collectionID + '/' + encodeURIComponent(doc);
+        url = 'collection/' + this.collection.collectionID + '/' +
+          encodeURIComponent(doc);
       }
 
       window.location.hash = url;
     },
 
-    drawTable: function () {
+    drawTable: function() {
       this.tableView.setElement($('#docPureTable')).render();
       // we added some icons, so we need to fix their tooltips
       avocadoHelper.fixTooltips('.icon_avocadodb, .avocadoicon', 'top');
@@ -926,7 +958,7 @@
       this.resize();
     },
 
-    checkCollectionState: function () {
+    checkCollectionState: function() {
       if (this.lastCollectionName === this.collectionName) {
         if (this.activeFilter) {
           this.filterCollection();
@@ -942,7 +974,7 @@
       }
     },
 
-    render: function () {
+    render: function() {
       $(this.el).html(this.template.render({}));
       if (this.type === 2) {
         this.type = 'document';
@@ -974,7 +1006,9 @@
 
       this.uploadSetup();
 
-      avocadoHelper.fixTooltips(['.icon_avocadodb', '.avocadoicon', 'top', '[data-toggle=tooltip]', '.upload-info']);
+      avocadoHelper.fixTooltips(['.icon_avocadodb', '.avocadoicon',
+        'top', '[data-toggle=tooltip]', '.upload-info'
+      ]);
       this.renderPaginationElements();
       this.selectActivePagesize();
       this.markFilterToggle();
@@ -986,7 +1020,7 @@
       return this;
     },
 
-    changeViewToReadOnly: function () {
+    changeViewToReadOnly: function() {
       // this method disables all write-based functions
       $('.breadcrumb').html($('.breadcrumb').html() + ' (read-only)');
       $('#importCollection').addClass('disabled');
@@ -994,23 +1028,24 @@
       // create new document
       $('#addDocumentButton').addClass('disabled');
       $('#addDocumentButton .fa-plus-circle').css('color', '#d3d3d3');
-      $('#addDocumentButton .fa-plus-circle').css('cursor', 'not-allowed');
+      $('#addDocumentButton .fa-plus-circle').css('cursor',
+        'not-allowed');
       // delete a document
       $('.deleteButton').addClass('disabled');
       $('.deleteButton .fa-minus-circle').css('color', '#d3d3d3');
       $('.deleteButton .fa-minus-circle').css('cursor', 'not-allowed');
     },
 
-    rerender: function () {
+    rerender: function() {
       this.collection.getDocuments(this.getDocsCallback.bind(this));
       this.resize();
     },
 
-    selectActivePagesize: function () {
+    selectActivePagesize: function() {
       $('#documentSize').val(this.collection.getPageSize());
     },
 
-    renderPaginationElements: function () {
+    renderPaginationElements: function() {
       this.renderPagination();
       var total = $('#totalDocuments');
       if (total.length === 0) {
@@ -1020,30 +1055,34 @@
         total = $('#totalDocuments');
       }
       if (this.type === 'document') {
-        total.html(numeral(this.collection.getTotal()).format('0,0') + ' doc(s)');
+        total.html(numeral(this.collection.getTotal()).format('0,0') +
+          ' doc(s)');
       }
       if (this.type === 'edge') {
-        total.html(numeral(this.collection.getTotal()).format('0,0') + ' edge(s)');
+        total.html(numeral(this.collection.getTotal()).format('0,0') +
+          ' edge(s)');
       }
       if (this.collection.getTotal() > this.collection.MAX_SORT) {
         $('#docsSort').attr('disabled', true);
-        $('#docsSort').attr('placeholder', 'Sort limit reached (docs count)');
+        $('#docsSort').attr('placeholder',
+          'Sort limit reached (docs count)');
       } else {
         $('#docsSort').attr('disabled', false);
         $('#docsSort').attr('placeholder', 'Sort by attribute');
       }
     },
 
-    breadcrumb: function () {
+    breadcrumb: function() {
       var self = this;
 
       if (window.App.naviView) {
         $('#subNavigationBar .breadcrumb').html(
           'Collection: ' + this.collectionName
         );
-        window.avocadoHelper.buildCollectionSubNav(this.collectionName, 'Content');
+        window.avocadoHelper.buildCollectionSubNav(this.collectionName,
+          'Content');
       } else {
-        window.setTimeout(function () {
+        window.setTimeout(function() {
           self.breadcrumb();
         }, 100);
       }
