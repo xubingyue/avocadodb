@@ -32,7 +32,7 @@
       }
       switch (res.errorNum) {
         case errors.ERROR_SERVICE_DOWNLOAD_FAILED.code:
-          avocadoHelper.avocadoError('Services', 'Unable to download application from the given repository.');
+          avocadoHelper.avocadoError('Services', '无法从给定的存储库下载应用程序.');
           break;
         default:
           avocadoHelper.avocadoError('Services', res.errorNum + '. ' + res.errorMessage);
@@ -81,7 +81,7 @@
         return [
           {
             rule: Joi.string().required().regex(/^[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+$/),
-            msg: 'No valid Github account and repository.'
+            msg: '链接异常的Github帐号和库.'
           }
         ];
       }
@@ -95,7 +95,7 @@
         return [
           {
             rule: Joi.string().required().min(1),
-            msg: 'Has to be non empty.'
+            msg: '必须是非空的.'
           }
         ];
       }
@@ -118,7 +118,7 @@
         return [
           {
             rule: Joi.string().required().min(1),
-            msg: 'Has to be non empty.'
+            msg: '必须是非空的.'
           }
         ];
       }

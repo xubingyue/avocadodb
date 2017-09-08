@@ -150,7 +150,7 @@
             var message = JSON.parse(msg.responseText);
             avocadoHelper.avocadoError('Document error', message.errorMessage);
           } else {
-            avocadoHelper.avocadoError('Document error', 'Could not create index.');
+            avocadoHelper.avocadoError('Document error', '服务器无法获取索引.');
           }
         }
         // toggle back
@@ -224,9 +224,9 @@
       // delete modal
       $('#content #modal-dialog .modal-footer').after(
         '<div id="indexDeleteModal" style="display:block;" class="alert alert-error modal-delete-confirmation">' +
-        '<strong>Really delete?</strong>' +
-        '<button id="indexConfirmDelete" class="button-danger pull-right modal-confirm-delete">Yes</button>' +
-        '<button id="indexAbortDelete" class="button-neutral pull-right">No</button>' +
+        '<strong>真的要删除？？？?</strong>' +
+        '<button id="indexConfirmDelete" class="button-danger pull-right modal-confirm-delete">是的！</button>' +
+        '<button id="indexAbortDelete" class="button-neutral pull-right">算了！</button>' +
         '</div>'
       );
       $('#indexHeaderContent #indexConfirmDelete').unbind('click');
@@ -254,7 +254,7 @@
           avocadoHelper.avocadoError('Could not delete index');
           $("tr th:contains('" + this.lastId + "')").parent().children().last().html(
             '<span class="deleteIndex icon_avocadodb_roundminus"' +
-            ' data-original-title="Delete index" title="Delete index"></span>'
+            ' data-original-title="Delete index" title="删除索引"></span>'
           );
           this.model.set('locked', false);
         } else if (!error && error !== undefined) {
@@ -290,7 +290,7 @@
                 avocadoHelper.deleteAardvarkJob(job);
               } else if (data.responseJSON.code === 204) {
                 // job is still in quere or pending
-                avocadoHelper.avocadoMessage('Index', 'There is at least one new index in the queue or in the process of being created.');
+                avocadoHelper.avocadoMessage('Index', '队列中或创建过程中至少有一个新索引。.');
               }
             } else {
               avocadoHelper.deleteAardvarkJob(job);
@@ -329,7 +329,7 @@
               'data-original-title="No action"></span>';
           } else {
             actionString = '<span class="deleteIndex icon_avocadodb_roundminus" ' +
-              'data-original-title="Delete index" title="Delete index"></span>';
+              'data-original-title="Delete index" title="删除索引"></span>';
           }
 
           if (v.fields !== undefined) {

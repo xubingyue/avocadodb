@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* global Backbone, $, window, ace, avocadoHelper, templateEngine, Joi, _ */
-(function() {
+(function () {
   'use strict';
 
   window.ApplicationDetailView = Backbone.View.extend({
@@ -15,7 +15,7 @@
 
     template: templateEngine.createTemplate('applicationDetailView.ejs'),
 
-    remove: function() {
+    remove: function () {
       this.$el.empty().off(); /* off to unbind the events */
       this.stopListening();
       this.unbind();
@@ -38,7 +38,7 @@
       'mouseleave #app-scripts': 'hideDropdown'
     },
 
-    resize: function(auto) {
+    resize: function (auto) {
       if (auto) {
         $('.innerContent').css('height', 'auto');
       } else {
@@ -49,8 +49,8 @@
       }
     },
 
-    toggleSwagger: function() {
-      var callbackFunction = function(json) {
+    toggleSwagger: function () {
+      var callbackFunction = function (json) {
         $('#jsonLink').html('JSON');
         this.jsonEditor.setValue(JSON.stringify(json, null, '\t'), 1);
         $('#swaggerJsonContent').show();
@@ -117,10 +117,8 @@
 
     updateConfig: function() {
       this.model.getConfiguration(function() {
-        $('#app-warning')[this.model.needsAttention() ? 'show' :
-          'hide']();
-        $('#app-warning-config')[this.model.needsConfiguration() ?
-          'show' : 'hide']();
+        $('#app-warning')[this.model.needsAttention() ? 'show' : 'hide']();
+        $('#app-warning-config')[this.model.needsConfiguration() ?'show' : 'hide']();
 
         if (this.model.needsConfiguration()) {
           $('#app-config').addClass('error');
@@ -132,10 +130,8 @@
 
     updateDeps: function() {
       this.model.getDependencies(function() {
-        $('#app-warning')[this.model.needsAttention() ? 'show' :
-          'hide']();
-        $('#app-warning-deps')[this.model.hasUnconfiguredDependencies() ?
-          'show' : 'hide']();
+        $('#app-warning')[this.model.needsAttention() ? 'show' :  'hide']();
+        $('#app-warning-deps')[this.model.hasUnconfiguredDependencies() ? 'show' : 'hide']();
         if (this.model.hasUnconfiguredDependencies()) {
           $('#app-deps').addClass('error');
         } else {
@@ -454,19 +450,19 @@
           return;
         }
       });
-      this.model.setConfiguration(cfg, function() {
+      this.model.setConfiguration(cfg, function () {
         this.updateConfig();
         avocadoHelper.avocadoNotification(this.model.get('name'),
           '设置应用.');
       }.bind(this));
     },
 
-    showConfigDialog: function() {
+    showConfigDialog: function () {
       if (_.isEmpty(this.model.get('config'))) {
         $('#settings .buttons').html($('#hidden_buttons').html());
         return;
       }
-      var tableContent = _.map(this.model.get('config'), function(obj,
+      var tableContent = _.map(this.model.get('config'), function (obj,
         name) {
         var defaultValue = obj.default === undefined ? '' : String(
           obj.default);
@@ -486,7 +482,7 @@
             obj.default);
           currentValue = obj.current === undefined ? '' : obj.current;
           checks.push({
-            rule: function(v) {
+            rule: function (v) {
               return v && JSON.parse(v);
             },
             msg: '必须是格式良好的JSON或空的.'
@@ -540,13 +536,13 @@
       $('.modal-footer').prepend($('#hidden_buttons').html());
     },
 
-    applyDeps: function() {
+    applyDeps: function () {
       var deps = {};
-      _.each(this.model.get('deps'), function(title, name) {
+      _.each(this.model.get('deps'), function (title, name) {
         var $el = $('#app_deps_' + name);
         deps[name] = window.avocadoHelper.escapeHtml($el.val());
       });
-      this.model.setDependencies(deps, function() {
+      this.model.setDependencies(deps, function () {
         window.modalView.hide();
         this.updateDeps();
       }.bind(this));
@@ -600,7 +596,7 @@
       }
     },
 
-    hideDropdown: function() {
+    hideDropdown: function () {
       $('#scripts_dropdown').hide();
     }
   });

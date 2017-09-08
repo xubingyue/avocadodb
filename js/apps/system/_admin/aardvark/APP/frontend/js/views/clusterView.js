@@ -340,13 +340,11 @@
         // DATA
         self.chartsOptions[0].options[0].values.push({
           x: data.times[data.times.length - 1],
-          y: data.bytesSentPerSecond[data.bytesSentPerSecond.length -
-            1]
+          y: data.bytesSentPerSecond[data.bytesSentPerSecond.length -1]
         });
         self.chartsOptions[0].options[1].values.push({
           x: data.times[data.times.length - 1],
-          y: data.bytesReceivedPerSecond[data.bytesReceivedPerSecond
-            .length - 1]
+          y: data.bytesReceivedPerSecond[data.bytesReceivedPerSecond.length - 1]
         });
         // HTTP
         self.chartsOptions[1].options[0].values.push({

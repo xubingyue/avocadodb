@@ -122,7 +122,7 @@
           window.modalView.createReadOnlyEntry(
             'db-system-revoke-button',
             'Caution',
-            'You are changing the _system database permission. Really continue?',
+            '你改变_system数据库权限。真的继续?',
             undefined,
             undefined,
             false
@@ -251,7 +251,7 @@
           self.finishRender(data.result, open, error);
         },
         error: function (data) {
-          avocadoHelper.avocadoError('User', 'Could not fetch user permissions');
+          avocadoHelper.avocadoError('User', '无法获取用户权限');
         }
       });
     },
@@ -321,7 +321,7 @@
             someFunction(data.result);
           },
           error: function (data) {
-            avocadoHelper.avocadoError('User', 'Could not fetch user permissions');
+            avocadoHelper.avocadoError('User', '无法获取用户权限');
           }
         });
       } else {

@@ -63,12 +63,12 @@
             if (collsAvailable) {
               self.continueRender(data.results);
             } else {
-              avocadoHelper.renderEmpty('No collections and no shards available');
+              avocadoHelper.renderEmpty('没有数据集和分片可用的收藏');
             }
           },
           error: function (data) {
             if (data.readyState !== 0) {
-              avocadoHelper.avocadoError('Cluster', 'Could not fetch sharding information.');
+              avocadoHelper.avocadoError('Cluster', '不能提取分片信息.');
             }
           }
         });
@@ -132,7 +132,7 @@
           array = array.reverse();
 
           if (array.length === 0) {
-            avocadoHelper.avocadoMessage('Shards', 'No database server for moving the shard is available.');
+            avocadoHelper.avocadoMessage('Shards', '移动分片没有数据库服务器可用.');
             return;
           }
 
@@ -142,8 +142,8 @@
               'Destination',
               undefined,
               // this.users !== null ? this.users.whoAmI() : 'root',
-              'Please select the target database server. The selected database ' +
-                'server will be the new leader of the shard.',
+              '请选择目标数据库服务器。选定的数据库 ' +
+                '服务器将新分片.',
                 array
             )
           );
@@ -157,7 +157,7 @@
 
           window.modalView.show(
             'modalTable.ejs',
-            'Move shard: ' + shardName,
+            '删除分片: ' + shardName,
             buttons,
             tableContent
           );

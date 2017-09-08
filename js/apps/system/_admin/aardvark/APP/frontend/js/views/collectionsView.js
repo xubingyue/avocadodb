@@ -582,7 +582,7 @@
                 false, [{
                   rule: Joi.string().allow('').optional().regex(
                     /^[0-9]*$/),
-                  msg: 'Must be a number.'
+                  msg: '必须是数字.'
                 }]
               )
             );
@@ -605,7 +605,7 @@
           advanced.content = advancedTableContent;
           window.modalView.show(
             'modalTable.ejs',
-            'New Collection',
+            '新数据集',
             buttons,
             tableContent,
             advanced

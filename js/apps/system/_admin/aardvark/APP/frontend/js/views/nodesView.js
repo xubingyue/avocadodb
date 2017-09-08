@@ -45,10 +45,10 @@
                 window.modalView.hide();
                 self.setCoordSize(number);
               } else {
-                avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
+                avocadoHelper.avocadoError('Error', '无效的值。必须是个数字.');
               }
             } catch (e) {
-              avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
+              avocadoHelper.avocadoError('Error', '无效的值。必须是个数字.');
             }
           } else if (e.target.id === 'plannedDBs') {
             try {
@@ -57,10 +57,10 @@
                 window.modalView.hide();
                 self.setDBsSize(number);
               } else {
-                avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
+                avocadoHelper.avocadoError('Error', '无效的值。一定是个数字.');
               }
             } catch (e) {
-              avocadoHelper.avocadoError('Error', 'Invalid value. Must be a number.');
+              avocadoHelper.avocadoError('Error', '无效的值。一定是个数字ss.');
             }
           }
         };
@@ -75,7 +75,7 @@
         window.modalView.createReadOnlyEntry(
           'plan-confirm-button',
           'Caution',
-          'You are changing the cluster plan. Continue?',
+          '您正在更改群集计划。继续吗？',
           undefined,
           undefined,
           false,
@@ -110,7 +110,7 @@
       }
       var self = this;
       var name = $(elem.currentTarget.parentNode.parentNode).attr('node').slice(0, -5);
-      if (window.confirm('Do you want to delete this node?')) {
+      if (window.confirm('要删除此节点吗？')) {
         $.ajax({
           type: 'POST',
           url: avocadoHelper.databaseUrl('/_admin/cluster/removeServer'),
@@ -122,7 +122,7 @@
           },
           error: function () {
             if (window.location.hash === '#nodes') {
-              avocadoHelper.avocadoError('Cluster', 'Could not fetch cluster information');
+              avocadoHelper.avocadoError('Cluster', '无法获取群集信息');
             }
           }
         });
@@ -145,7 +145,7 @@
         var self = this;
 
         if ($('#content').is(':empty')) {
-          avocadoHelper.renderEmpty('Please wait. Requesting cluster information...', 'fa fa-spin fa-circle-o-notch');
+          avocadoHelper.renderEmpty('请等待。请求集群信息...', 'fa fa-spin fa-circle-o-notch');
         }
 
         if (navi !== false) {
@@ -179,7 +179,7 @@
           },
           error: function () {
             if (window.location.hash === '#nodes') {
-              avocadoHelper.avocadoError('Cluster', 'Could not fetch cluster information');
+              avocadoHelper.avocadoError('Cluster', '无法获取群集信息');
             }
           }
         });
@@ -249,7 +249,7 @@
           self.updatePlanned(data);
         },
         error: function () {
-          avocadoHelper.avocadoError('Scale', 'Could not set coordinator size.');
+          avocadoHelper.avocadoError('Scale', '无法设置控制器大小.');
         }
       });
     },
@@ -269,7 +269,7 @@
           self.updatePlanned(data);
         },
         error: function () {
-          avocadoHelper.avocadoError('Scale', 'Could not set coordinator size.');
+          avocadoHelper.avocadoError('Scale', '无法设置控制器大小.');
         }
       });
     },
@@ -280,7 +280,7 @@
         window.modalView.createReadOnlyEntry(
           'plan-abort-button',
           'Caution',
-          'You are aborting the planned cluster plan. All pending servers are going to be removed. Continue?',
+          '你是中止计划集群方案。所有挂起的服务器都将被删除。继续?',
           undefined,
           undefined,
           false,
@@ -416,7 +416,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', '计划状态尚未完成.');
         $('.noty_buttons .button-danger').remove();
       }
     },
@@ -430,7 +430,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', '计划状态尚未完成.');
         $('.noty_buttons .button-danger').remove();
       }
     },
@@ -444,7 +444,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', '计划状态尚未完成.');
         $('.noty_buttons .button-danger').remove();
       }
     },
@@ -458,7 +458,7 @@
       if (this.isPlanFinished()) {
         this.changePlanModal(func.bind(this));
       } else {
-        avocadoHelper.avocadoNotification('Cluster Plan', 'Planned state not yet finished.');
+        avocadoHelper.avocadoNotification('Cluster Plan', '计划状态尚未完成.');
         $('.noty_buttons .button-danger').remove();
       }
     },

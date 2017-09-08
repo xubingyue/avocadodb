@@ -180,7 +180,7 @@
 
     validateUserInfo: function (name, username, pw, status) {
       if (username === '') {
-        avocadoHelper.avocadoError('You have to define an username');
+        avocadoHelper.avocadoError('你必须定义一个用户名');
         $('#newUsername').closest('th').css('backgroundColor', 'red');
         return false;
       }
@@ -240,11 +240,11 @@
           [
             {
               rule: Joi.string().regex(/^[a-zA-Z0-9\-_]*$/),
-              msg: 'Only symbols, "_" and "-" are allowed.'
+              msg: '只有符号，“_”和“-”是允许的.'
             },
             {
               rule: Joi.string().required(),
-              msg: 'No username given.'
+              msg: '没有用户名了.'
             }
           ]
         )

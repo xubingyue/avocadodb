@@ -210,7 +210,7 @@
       if ($('#loginDatabase').children().length === 0) {
         $('#dbForm').remove();
         $('.login-window #databases').prepend(
-          '<div class="no-database">You do not have permission to a database.</div>'
+          '<div class="no-database">您没有数据库的权限.</div>'
         );
       } else {
         var db = $('#loginDatabase').val();
@@ -233,7 +233,7 @@
 
       var callback2 = function (error) {
         if (error) {
-          avocadoHelper.avocadoError('User', 'Could not fetch user settings');
+          avocadoHelper.avocadoError('User', '无法获取用户数据');
         }
       };
 

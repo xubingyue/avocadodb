@@ -109,7 +109,7 @@
         tableContent.push(
           window.modalView.createReadOnlyEntry(
             'doc-delete-button',
-            'Confirm delete, document id is',
+            '确认删除，文档ID是',
             this.type._id,
             undefined,
             undefined,
@@ -121,7 +121,7 @@
           window.modalView.createDeleteButton('删除', this.deleteDocument
             .bind(this))
         );
-        window.modalView.show('modalTable.ejs', 'Delete Document',
+        window.modalView.show('modalTable.ejs', '删除数据',
           buttons, tableContent);
       }
     },
@@ -144,7 +144,7 @@
         var callbackEdge = function(error) {
           if (error) {
             avocadoHelper.avocadoError('Edge error',
-              'Could not delete edge');
+              '无法删除 edge');
           } else {
             successFunction();
           }
@@ -154,7 +154,7 @@
         var callbackDoc = function(error) {
           if (error) {
             avocadoHelper.avocadoError('Error',
-              'Could not delete document');
+              '无法删除数据');
           } else {
             successFunction();
           }
@@ -284,7 +284,7 @@
             window.modalView.createReadOnlyEntry(
               'doc-save-system-button',
               'Caution',
-              'You are modifying a system collection. Really continue?',
+              '您正在修改系统集合。真的继续吗？',
               undefined,
               undefined,
               false,
@@ -296,7 +296,7 @@
               .bind(this))
           );
           window.modalView.show('modalTable.ejs',
-            'Modify System Collection', buttons, tableContent);
+            '系统数据集', buttons, tableContent);
         } else {
           this.confirmSaveDocument();
         }
@@ -347,11 +347,11 @@
     },
 
     successConfirmation: function() {
-      avocadoHelper.avocadoNotification('Document saved.');
+      avocadoHelper.avocadoNotification('数据已保存.');
     },
 
     errorConfirmation: function(e) {
-      avocadoHelper.avocadoError('Document editor: ', e);
+      avocadoHelper.avocadoError('修改数据: ', e);
     },
 
     enableSaveButton: function() {

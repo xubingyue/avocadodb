@@ -41,7 +41,7 @@
       }
       var callbackRev = function (error, revision, figures) {
         if (error) {
-          avocadoHelper.avocadoError('Figures', 'Could not get revision.');
+          avocadoHelper.avocadoError('Figures', '无法得到reversion.');
         } else {
           var buttons = [];
           // analyse figures in cluster
@@ -66,7 +66,7 @@
           };
           window.modalView.show(
             'modalCollectionInfo.ejs',
-            'Collection: ' + this.model.get('name'),
+            '数据集: ' + this.model.get('name'),
             buttons,
             tableContent, null, null,
             null, null,
@@ -77,7 +77,7 @@
 
       var callback = function (error, data) {
         if (error) {
-          avocadoHelper.avocadoError('Figures', 'Could not get figures.');
+          avocadoHelper.avocadoError('Figures', '找不到数字.');
         } else {
           var figures = data;
           this.model.getRevision(callbackRev, figures);

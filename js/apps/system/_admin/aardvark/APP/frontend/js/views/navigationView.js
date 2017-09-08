@@ -107,19 +107,6 @@
 
       self.resize();
 
-      if (window.frontendConfig.isEnterprise === true) {
-        $('#AvocadoDBLogo').after(
-          '<span id="enterpriseLabel" style="display: none">Enterprise Edition</span>'
-        );
-        $('#enterpriseLabel').fadeIn('slow');
-      } else {
-        $('#AvocadoDBLogo').after(
-          '<span id="communityLabel" style="display: none">Community Edition</span>'
-        );
-        $('#communityLabel').fadeIn('slow');
-        $('.enterprise-menu').show();
-      }
-
       return this;
     },
 

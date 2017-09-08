@@ -23,7 +23,7 @@
     render: function (el) {
       var callback = function (error, list) {
         if (error) {
-          avocadoHelper.avocadoError('DB', 'Could not fetch databases');
+          avocadoHelper.avocadoError('DB', '无法链接数据库');
         } else {
           this.$el = el;
           this.$el.html(this.template.render({

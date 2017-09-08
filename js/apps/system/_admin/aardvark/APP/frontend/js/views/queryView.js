@@ -381,7 +381,7 @@
 
       if (lastQueryName !== name) {
         $('#queryContent .avocadoToolbarTop .pull-left')
-          .append('<span id="lastQuery" class="clickable">Previous Query</span>');
+          .append('<span id="lastQuery" class="clickable">先前的查询</span>');
 
         this.breadcrumb(name);
       }
@@ -413,7 +413,7 @@
     deleteAQL: function (name) {
       var callbackRemove = function (error) {
         if (error) {
-          avocadoHelper.avocadoError('Query', 'Could not delete query.');
+          avocadoHelper.avocadoError('Query', '无法删除查询.');
         } else {
           this.updateLocalQueries();
           this.updateQueryTable();
@@ -483,7 +483,7 @@
         }
         avocadoHelper.download(url);
       } else {
-        avocadoHelper.avocadoError('Query error', 'Could not download the result.');
+        avocadoHelper.avocadoError('Query error', '无法下载结果.');
       }
     },
 
@@ -1086,7 +1086,7 @@
       if (counter === 0) {
         $('#avocadoBindParamTable tbody').append(
           '<tr class="noBgColor">' +
-          '<td>No bind parameters defined.</td>' +
+          '<td>未定义绑定参数.</td>' +
           '<td></td>' +
           '</tr>'
         );
@@ -1432,7 +1432,7 @@
           [
             {
               rule: Joi.string().required(),
-              msg: 'No query name given.'
+              msg: '没有给出查询名称.'
             }
           ]
         )
@@ -1511,7 +1511,7 @@
           try {
             bindVars = JSON.parse(bindVars);
           } catch (err) {
-            avocadoHelper.avocadoError('Query', 'Could not parse bind parameter');
+            avocadoHelper.avocadoError('Query', '无法解析绑定参数');
           }
         }
         this.collection.add({
@@ -1523,7 +1523,7 @@
 
       var callback = function (error) {
         if (error) {
-          avocadoHelper.avocadoError('Query', 'Could not save query');
+          avocadoHelper.avocadoError('Query', '无法保存查询');
         } else {
           var self = this;
           this.collection.fetch({
@@ -1556,7 +1556,7 @@
       var quit = false;
 
       if (this.aqlEditor.getValue().length === 0) {
-        avocadoHelper.avocadoError('Query', 'Your query is empty');
+        avocadoHelper.avocadoError('Query', '您的查询是空的');
         quit = true;
       }
 
@@ -1630,9 +1630,9 @@
       }
       if (data.query.length === 0) {
         if (selected) {
-          avocadoHelper.avocadoError('Query', 'Your query selection is empty!');
+          avocadoHelper.avocadoError('Query', '查询选择为空。!');
         } else {
-          avocadoHelper.avocadoError('Query', 'Your query is empty!');
+          avocadoHelper.avocadoError('Query', '您的查询是空的!');
         }
         data = false;
       } else {
@@ -1921,7 +1921,7 @@
         self.cachedQueries[counter] = data;
         self.cachedQueries[counter].sentQuery = self.lastSentQueryString;
 
-        avocadoHelper.avocadoNotification('Query finished', 'Return to queries view to see the result.');
+        avocadoHelper.avocadoNotification('Query finished', '返回到查询视图以查看结果.');
       }
     },
 
@@ -1983,7 +1983,7 @@
       try {
         userLimit = parseInt($('#querySize').val());
       } catch (e) {
-        avocadoHelper.avocadoError('Parse Error', 'Could not parse defined user limit.');
+        avocadoHelper.avocadoError('Parse Error', '无法解析定义的用户限制。');
       }
       if (isNaN(userLimit)) {
         userLimit = true;
@@ -2063,7 +2063,7 @@
 
             try {
               if (resp.statusText === 'Gone') {
-                avocadoHelper.avocadoNotification('Query', 'Query execution aborted.');
+                avocadoHelper.avocadoNotification('Query', '查询执行中止.');
                 self.removeOutputEditor(counter);
                 return;
               }
@@ -2089,7 +2089,7 @@
                 return;
               }
               if (error.code !== 400 && error.code !== 404 && error.code !== 500 && error.code !== 403) {
-                avocadoHelper.avocadoNotification('Query', 'Successfully aborted.');
+                avocadoHelper.avocadoNotification('Query', '成功中止.');
               }
             }
 
@@ -2135,19 +2135,19 @@
           ];
 
           var descs = [
-            'startup time for query engine',
-            'query parsing',
-            'abstract syntax tree optimizations',
-            'loading collections',
-            'instanciation of initial execution plan',
-            'execution plan optimization and permutation',
-            'query execution',
-            'query finalization'
+            '查询引擎的启动时间',
+            '查询解析',
+            '抽象语法树优化',
+            '加载的集合',
+            '初始执行计划instanciation',
+            '执行计划优化与排列',
+            '查询执行',
+            '查询结束'
           ];
 
           queryProfile.append(
             '<i class="fa fa-close closeProfile"></i>' +
-            '<span class="profileHeader">Profiling information</span>' +
+            '<span class="profileHeader">分析信息</span>' +
             '<div class="pure-g pure-table pure-table-body"></div>' +
             '<div class="prof-progress"></div>' +
             '<div class="prof-progress-label"></div>' +
@@ -2384,7 +2384,7 @@
 
       var callback = function (error) {
         if (error) {
-          avocadoHelper.avocadoError('Query', 'Could not reload queries');
+          avocadoHelper.avocadoError('Query', '无法重新加载查询');
         } else {
           self.updateLocalQueries();
           self.updateQueryTable();
@@ -2417,7 +2417,7 @@
           if (callback) {
             callback(true);
           }
-          avocadoHelper.avocadoNotification('Query', 'Error while loading system templates');
+          avocadoHelper.avocadoNotification('Query', '加载系统模板时出错');
         }
       });
     },
@@ -2532,7 +2532,7 @@
               if (error) {
                 avocadoHelper.avocadoError(
                   'Custom Queries',
-                  'Could not import old local storage queries'
+                  '无法导入旧的本地存储查询'
                 );
               } else {
                 localStorage.removeItem('customQueries');
@@ -2605,7 +2605,7 @@
       if (csv.length > 0) {
         avocadoHelper.downloadLocalBlob(csv, 'csv');
       } else {
-        avocadoHelper.avocadoError('Query error', 'Could not download the result.');
+        avocadoHelper.avocadoError('Query error', '无法下载结果.');
       }
     }
 

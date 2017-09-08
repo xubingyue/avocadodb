@@ -232,15 +232,15 @@
                 [
                   {
                     rule: Joi.string().regex(/^[a-zA-Z]/),
-                    msg: 'Collection name must always start with a letter.'
+                    msg: '集合名必须始终以字母开头.'
                   },
                   {
                     rule: Joi.string().regex(/^[a-zA-Z0-9\-_]*$/),
-                    msg: 'Only Symbols "_" and "-" are allowed.'
+                    msg: '只有符号”_”和“-”是允许的.'
                   },
                   {
                     rule: Joi.string().required(),
-                    msg: 'No collection name given.'
+                    msg: '没有指定数据集名字.'
                   }
                 ]
               )
@@ -352,13 +352,13 @@
                       'change-index-buckets',
                       'Index buckets',
                       indexBuckets,
-                      'The number of index buckets for this collection. Must be at least 1 and a power of 2.',
+                      '此集合的索引桶数。必须至少为1，功率为2.',
                       '',
                       true,
                       [
                         {
                           rule: Joi.string().allow('').optional().regex(/^[1-9][0-9]*$/),
-                          msg: 'Must be a number greater than 1 and a power of 2.'
+                          msg: '必须是大于1的数字和2的幂.'
                         }
                       ]
                     )
@@ -371,7 +371,7 @@
                     'change-collection-sync',
                     'Wait for sync',
                     wfs,
-                    'Synchronize to disk before returning from a create or update of a document.',
+                    '在从文档的创建或更新返回之前同步到磁盘.',
                     [{value: false, label: 'No'}, {value: true, label: 'Yes'}])
                 );
               }

@@ -64,7 +64,7 @@
 
       var callback = function (error, username) {
         if (error) {
-          avocadoHelper.avocadoErro('User', 'Could not fetch user.');
+          avocadoHelper.avocadoErro('User', '无法获取用户.');
         } else {
           var img = null;
           var name = null;

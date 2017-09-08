@@ -48,7 +48,7 @@
       $('.progress-text').text(msg);
 
       if (!buttonText) {
-        $('.progress-action').html('<button class="button-danger">Cancel</button>');
+        $('.progress-action').html('<button class="button-danger">返回</button>');
       } else {
         $('.progress-action').html('<button class="button-danger">' + buttonText + '</button>');
       }

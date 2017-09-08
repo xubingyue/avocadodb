@@ -19,7 +19,7 @@
       window.setTimeout(function () {
         if (frontendConfig.authenticationEnabled === false && frontendConfig.isCluster === false && avocadoHelper.showAuthDialog() === true) {
           window.avocadoHelper.avocadoWarning(
-            'Warning', 'Authentication is disabled. Do not use this setup in production mode.'
+            'Warning', '身份验证已禁用。不要在生产模式中使用此设置。.'
           );
         }
       }, 2000);

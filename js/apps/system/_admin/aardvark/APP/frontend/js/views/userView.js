@@ -106,13 +106,13 @@
 
       buttons.push(
         window.modalView.createNotificationButton(
-          'Change Password',
+          '修改密码',
           this.editUserPassword.bind(this)
         )
       );
       buttons.push(
         window.modalView.createSuccessButton(
-          'Save',
+          '保存',
           this.submitEditCurrentUserProfile.bind(this)
         )
       );
@@ -121,7 +121,7 @@
 
       window.modalView.show(
         'modalTable.ejs',
-        'Edit User Profile',
+        '修改用户信息',
         buttons,
         tableContent, null, null,
         this.events, null,
@@ -181,7 +181,7 @@
 
       window.modalView.show(
         'modalTable.ejs',
-        'Edit User',
+        '修改用户',
         buttons,
         tableContent, null, null,
         this.events, null,
@@ -210,7 +210,7 @@
 
       var callback = function (error) {
         if (error) {
-          avocadoHelper.avocadoError('User', 'Could not edit user settings');
+          avocadoHelper.avocadoError('User', '无法修改用户设置');
         } else {
           avocadoHelper.avocadoNotification('User', 'Changes confirmed.');
           this.updateUserProfile();

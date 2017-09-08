@@ -95,7 +95,7 @@
       if (error) {
         window.progressView.hide();
         avocadoHelper.avocadoError('Document error',
-          'Could not fetch requested documents.');
+          '无法获取数据.');
       } else if (!error || error !== undefined) {
         window.progressView.hide();
         this.drawTable();
@@ -187,7 +187,7 @@
       var callback = function(error) {
         if (error) {
           avocadoHelper.avocadoError('Document',
-            'Could not fetch documents count');
+            '无法获取数据总量');
         }
       };
 
@@ -222,7 +222,7 @@
         avocadoHelper.download(url);
       } else {
         avocadoHelper.avocadoError('Document error',
-          'could not download documents');
+          '无法下载数据');
       }
     },
 
@@ -442,7 +442,7 @@
       var num = ++this.filterId;
       $('#filterHeader').append(' <div class="queryline querylineAdd">' +
         '<input id="attribute_name' + num +
-        '" type="text" placeholder="Attribute name">' +
+        '" type="text" placeholder="属性名">' +
         '<select name="operator" id="operator' +
         num + '" class="filterSelect">' +
         '    <option value="==">==</option>' +
@@ -457,7 +457,7 @@
         '    <option value="REGEX">REGEX</option>' +
         '</select>' +
         '<input id="attribute_value' + num +
-        '" type="text" placeholder="Attribute value" ' +
+        '" type="text" placeholder="属性名" ' +
         'class="filterValue">' +
         ' <a class="removeFilterItem" id="removeFilter' + num + '">' +
         '<i class="fa fa-minus-circle"></i></a></div>');
@@ -536,7 +536,7 @@
         var callback = function(error, type) {
           if (error) {
             avocadoHelper.avocadoError('Error',
-              'Could not fetch collection type');
+              '无法获取数据集的类型');
           } else {
             if (type === 'edge') {
               tableContent.push(
@@ -587,7 +587,7 @@
 
               window.modalView.show(
                 'modalTable.ejs',
-                'Create edge',
+                '创建 edge',
                 buttons,
                 tableContent
               );
@@ -707,13 +707,13 @@
           'collection-name',
           true, [{
             rule: Joi.string().regex(/^[a-zA-Z]/),
-            msg: 'Collection name must always start with a letter.'
+            msg: '集合名必须始终以字母开头。'
           }, {
             rule: Joi.string().regex(/^[a-zA-Z0-9\-_]*$/),
             msg: 'Only Symbols "_" and "-" are allowed.'
           }, {
             rule: Joi.string().required(),
-            msg: 'No collection name given.'
+            msg: '数据集名不能重复.'
           }]
         )
       );
@@ -725,7 +725,7 @@
 
       window.modalView.show(
         'modalTable.ejs',
-        'Move documents',
+        '删除数据集',
         buttons,
         tableContent
       );
@@ -761,7 +761,7 @@
         window.modalView.createReadOnlyEntry(
           undefined,
           toDelete.length + ' documents selected',
-          'Do you want to delete all selected documents?',
+          '你想删除所有数据么？',
           undefined,
           undefined,
           false,
@@ -776,7 +776,7 @@
 
       window.modalView.show(
         'modalTable.ejs',
-        'Delete documents',
+        '删除数据',
         buttons,
         tableContent
       );
@@ -793,7 +793,7 @@
             if (error) {
               deleted.push(false);
               avocadoHelper.avocadoError('Document error',
-                'Could not delete document.');
+                '服务器无法删除数据.');
             } else {
               deleted.push(true);
               self.collection.setTotalMinusOne();
@@ -810,7 +810,7 @@
             if (error) {
               deleted.push(false);
               avocadoHelper.avocadoError('Edge error',
-                'Could not delete edge');
+                '服务器无法删除 edge');
             } else {
               self.collection.setTotalMinusOne();
               deleted.push(true);
@@ -862,7 +862,7 @@
         var callback = function(error) {
           if (error) {
             avocadoHelper.avocadoError('Error',
-              'Could not delete document');
+              '服务器无法删除数据');
           } else {
             this.collection.setTotalMinusOne();
             this.collection.getDocuments(this.getDocsCallback.bind(
@@ -877,7 +877,7 @@
         var callback2 = function(error) {
           if (error) {
             avocadoHelper.avocadoError('Edge error',
-              'Could not delete edge');
+              '无法删除edge');
           } else {
             this.collection.setTotalMinusOne();
             this.collection.getDocuments(this.getDocsCallback.bind(

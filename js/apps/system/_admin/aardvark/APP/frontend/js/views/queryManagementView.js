@@ -60,7 +60,7 @@
         window.modalView.createReadOnlyEntry(
           undefined,
           'Running Query',
-          'Do you want to kill the running query?',
+          '你真的要杀死正在查询的进程么？?',
           undefined,
           undefined,
           false,
@@ -100,7 +100,7 @@
         window.modalView.createReadOnlyEntry(
           undefined,
           'Slow Query Log',
-          'Do you want to delete the slow query log entries?',
+          '要删除慢速查询日志条目吗？?',
           undefined,
           undefined,
           false,
@@ -114,7 +114,7 @@
 
       window.modalView.show(
         'modalTable.ejs',
-        'Delete Slow Query Log',
+        '删除慢速查询日志',
         buttons,
         tableContent
       );
@@ -207,9 +207,9 @@
             ]);
           });
 
-          var message = 'No running queries.';
+          var message = '没有运行查询.';
           if (!active) {
-            message = 'No slow queries.';
+            message = '没有慢查询.';
           }
 
           if (rowsArray.length === 0) {

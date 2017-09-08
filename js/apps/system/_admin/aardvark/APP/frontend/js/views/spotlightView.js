@@ -126,7 +126,7 @@
           if (callback) {
             callback();
           }
-          avocadoHelper.avocadoError('AQL', 'Could not fetch AQL function definition.');
+          avocadoHelper.avocadoError('AQL', '不能提取AQL函数定义。');
         }
       });
     },

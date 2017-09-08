@@ -52,7 +52,7 @@
           self.updateTable(data);
         },
         error: function () {
-          avocadoHelper.avocadoError('Scale', 'Could not set coordinator size.');
+          avocadoHelper.avocadoError('Scale', '无法设置控制器大小.');
         }
       });
     },
@@ -167,8 +167,8 @@
     },
 
     updateTable: function (data) {
-      var scalingActive = '<span class="warning">scaling in progress <i class="fa fa-circle-o-notch fa-spin"></i></span>';
-      var scalingDone = '<span class="positive">no scaling process active</span>';
+      var scalingActive = '<span class="warning">缩放在进步 <i class="fa fa-circle-o-notch fa-spin"></i></span>';
+      var scalingDone = '<span class="positive">无缩放过程活跃</span>';
 
       if (data.numberOfCoordinators) {
         $('#plannedCoords').html(data.numberOfCoordinators);
